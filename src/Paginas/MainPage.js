@@ -3,6 +3,7 @@ import SideBar from "../Componentes/SideBar";
 import Footer from "../Componentes/Footer";
 import TopBar from "../Componentes/TopBar";
 import Logout from "../Componentes/Logout";
+import Dashboard from "./Dashboard";
 
 const MainPage = () => {
   return (
@@ -12,8 +13,8 @@ const MainPage = () => {
         <div id="content-wrapper" className="d-flex flex-column">
           <div id="content">
             <TopBar />
+            <Dashboard />
           </div>
-
           <Footer />
         </div>
       </div>
