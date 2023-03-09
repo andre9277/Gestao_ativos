@@ -1,22 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const MenuItem = ({ Name, MenuId }) => {
+export const MenuItem = ({ name, menuId }) => {
   return (
     <li className="nav-item">
       <a
         className="nav-link collapsed"
         href="#"
         data-toggle="collapse"
-        data-target={`#${MenuId}`}
+        data-target={`#${menuId}`}
         aria-expanded="true"
-        aria-controls={MenuId}
+        aria-controls={menuId}
       >
         <i className="fas fa-fw fa-cog"></i>
-        <span>{Name}</span>
+        <span>{name}</span>
       </a>
       <div
-        id={MenuId}
+        id={menuId}
         className="collapse"
         aria-labelledby="headingTwo"
         data-parent="#accordionSidebar"
@@ -24,7 +24,7 @@ export const MenuItem = ({ Name, MenuId }) => {
         <div className="bg-white py-2 collapse-inner rounded">
           {/* <h6 className="collapse-header">{Name}</h6> */}
           <Link to="/pesquisativos">
-            <a className="collapse-item">Pesquisar Ativos</a>
+            <button className="collapse-item">Pesquisar Ativos</button>
           </Link>
           <a className="collapse-item" href="cards.html">
             Alterar Ativos

@@ -6,7 +6,6 @@ import PieChart from "../Componentes/PieChart";
 import ProjectCard from "../Componentes/ProjectCard";
 import Illustration from "../Componentes/Illustration";
 import Approach from "../Componentes/Approach";
-import MainPage from "./MainPage";
 
 function Dashboard() {
   return (

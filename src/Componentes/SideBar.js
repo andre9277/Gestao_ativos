@@ -73,7 +73,7 @@ const SideBar = () => {
         <div className="sidebar-heading">Interface</div>
 
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
-        <MenuItem Name="Gestão de ativos" MenuId="collapseTwo" />
+        <MenuItem name="Gestão de ativos" menuId="collapseTwo" />
 
         {/* <!-- Nav Item - Utilities Collapse Menu --> */}
         {/* <MenuItem Name="Utilities-teste" MenuId="collapseUtilities" /> */}
@@ -82,7 +82,7 @@ const SideBar = () => {
         {/* <MenuItem Name="Pages" MenuId="collapsePages" /> */}
 
         {/* <!-- Nav Item - Relatorios --> */}
-        <MenuItemSimple Titulo={"Relatórios"} Icon={"fa-chart-area"} />
+        <MenuItemSimple titulo={"Relatórios"} icon={"fa-chart-area"} />
 
         {/*  <!-- Nav Item - Utilizadores --> */}
         {/*  <!-- Divider --> */}
@@ -91,8 +91,8 @@ const SideBar = () => {
         {/* <!-- Heading --> */}
         <div className="sidebar-heading"> Área do Administrador</div>
 
-        <MenuItemSimple Titulo={"Utilizadores"} Icon={"fa-table"} />
-        <MenuItemSimple Titulo={"Inserir Ativos"} Icon={"fa-plus"} />
+        <MenuItemSimple titulo={"Utilizadores"} icon={"fa-table"} />
+        <MenuItemSimple titulo={"Inserir Ativos"} icon={"fa-plus"} />
 
         {/* <!-- Divider --> */}
         <hr className="sidebar-divider d-none d-md-block" />

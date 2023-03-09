@@ -1,11 +1,11 @@
 import React from "react";
 
-const MenuItemSimple = ({ Titulo, Icon }) => {
+const MenuItemSimple = ({ titulo, icon }) => {
   return (
     <li className="nav-item">
       <a className="nav-link" href="charts.html">
-        <i className={`fas fa-fw ${Icon}`}></i>
-        <span>{Titulo}</span>
+        <i className={`fas fa-fw ${icon}`}></i>
+        <span>{titulo}</span>
       </a>
     </li>
   );
