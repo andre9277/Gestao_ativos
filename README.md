@@ -14,4 +14,4 @@
 
 
 - Link do documento com toda a documentação do projeto desenvolvida até ao momento:
-  > https://snspt-my.sharepoint.com/:b:/g/personal/andre_ferreira_hb_min-saude_pt/EbUSwRRV8cpCgRQeO2Wu16QBL6GQ4o8TzuecZud7pSEGnQ?e=RIZfa2 
+  > https://snspt-my.sharepoint.com/:w:/g/personal/andre_ferreira_hb_min-saude_pt/EaPPFEDaia1Eqkbc_J05rZ8BWTfoXG6505iV5Qu2XWF4qQ?e=hgIZ96
