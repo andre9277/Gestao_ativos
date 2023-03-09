@@ -16,6 +16,7 @@ const SideBar = () => {
         "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"
       );
     } else {
+      setStyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
     }
   };
   const changeStyle1 = () => {
