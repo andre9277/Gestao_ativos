@@ -41,30 +41,21 @@ import Footer from "../Components/Footer";
 import Logout from "../Components/Logout";
 import Dashboard from "./Dashboard";
 import "../Styles/styles.css";
+import Layout from "../Components/Layout";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <body>
-        <div id="wrapper">
-          <SideBar />
-          <div id="content-wrapper" className="d-flex flex-column">
-            <div id="content">
-              <TopBar />
-              <Routes>
-                <Route exact path="/dashboard" element={<Dashboard />} />
-                <Route path="/" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/resetpass" element={<ForgotPass />} />
-                <Route path="/pesquisativos" element={<Table />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </div>
-            <Footer />
-          </div>
-        </div>
-        <Logout />
-      </body>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route path="/pesquisativos" element={<Table />} />
+        </Route>
+        <Route path="/" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/resetpass" element={<ForgotPass />} />
+      </Routes>
     </BrowserRouter>
   );
 };

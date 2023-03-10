@@ -46,7 +46,7 @@ const NotFound = () => {
                   <p class="lead">
                     This requested URL was not found on this server.
                   </p>
-                  <Link to="/main">
+                  <Link to="/dashboard">
                     <i class="fas fa-arrow-left me-1"></i>
                     Return to Dashboard
                   </Link>

@@ -121,7 +121,7 @@ const Register = () => {
                   </div>
                   <div class="card-footer text-center py-3">
                     <div class="small">
-                      <Link to="/login">Have an account? Go to login</Link>
+                      <Link to="/">Have an account? Go to login</Link>
                     </div>
                   </div>
                 </div>
@@ -130,7 +130,6 @@ const Register = () => {
           </div>
         </main>
       </div>
-      <Footer />
     </div>
   );
 };

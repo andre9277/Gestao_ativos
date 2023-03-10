@@ -62,7 +62,7 @@ const ForgotPass = () => {
                         <label for="inputEmail">Email address</label>
                       </div>
                       <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                        <Link to="/login">
+                        <Link to="/">
                           <a class="small">Return to login</a>
                         </Link>
                         <a class="btn btn-primary" href="login.html">
@@ -84,7 +84,6 @@ const ForgotPass = () => {
           </div>
         </main>
       </div>
-      <Footer />
     </div>
   );
 };

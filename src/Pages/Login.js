@@ -82,7 +82,7 @@ const Login = () => {
                             Forgot Password?
                           </a>
                         </Link>
-                        <Link to="/main">
+                        <Link to="/dashboard">
                           <a class="btn btn-primary">Login</a>
                         </Link>
                       </div>
