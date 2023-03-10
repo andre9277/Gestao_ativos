@@ -5,14 +5,14 @@ import TopBar from "../Componentes/TopBar";
 import ForgotPass from "./ForgotPass";
 import Login from "./Login";
 import NotFound from "./NotFound";
-import Register from "./Register";
-import Table from "./Table";
-import Footer from "../Componentes/Footer";
-import Logout from "../Componentes/Logout";
+import Register from "../Paginas/Register";
+import Table from "../Paginas/Table";
+import Footer from "./Footer";
+import Logout from "./Logout";
 import Dashboard from "./Dashboard";
 import "./styles.css";
 
-const App = () => {
+const Navbar = () => {
   return (
     <BrowserRouter>
       <body>
@@ -39,4 +39,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Navbar;

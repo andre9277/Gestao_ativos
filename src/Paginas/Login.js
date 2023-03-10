@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Footer from "../Componentes/Footer";
 
 const Login = () => {
   return (
@@ -54,7 +53,7 @@ const Login = () => {
                             Forgot Password?
                           </a>
                         </Link>
-                        <Link to="/dashboard">
+                        <Link to="/main">
                           <a class="btn btn-primary">Login</a>
                         </Link>
                       </div>
@@ -62,7 +61,7 @@ const Login = () => {
                   </div>
                   <div class="card-footer text-center py-3">
                     <div class="small">
-                      <a href="register.html">Need an account? Sign up!</a>
+                      <Link to="/register">Need an account? Sign up!</Link>
                     </div>
                   </div>
                 </div>
@@ -71,7 +70,6 @@ const Login = () => {
           </div>
         </main>
       </div>
-      <Footer />
     </div>
   );
 };

@@ -40,7 +40,7 @@ const UserInfo = () => {
         <div className="dropdown-divider"></div>
         <a
           className="dropdown-item"
-          href="#"
+          href="/"
           data-toggle="modal"
           data-target="#logoutModal"
         >
