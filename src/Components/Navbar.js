@@ -1,16 +1,16 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SideBar from "../Componentes/SideBar";
-import TopBar from "../Componentes/TopBar";
+import SideBar from "../Components/SideBar";
+import TopBar from "../Components/TopBar";
 import ForgotPass from "./ForgotPass";
 import Login from "./Login";
 import NotFound from "./NotFound";
-import Register from "../Paginas/Register";
-import Table from "../Paginas/Table";
+import Register from "../Pages/Register";
+import Table from "../Pages/Table";
 import Footer from "./Footer";
 import Logout from "./Logout";
 import Dashboard from "./Dashboard";
-import "./styles.css";
+import "../Styles/styles.css";
 
 const Navbar = () => {
   return (

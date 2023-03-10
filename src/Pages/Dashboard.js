@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Card from "../Componentes/Card";
-import "../Estilos/Dashboard.css";
-import AreaChart from "../Componentes/AreaChart";
-import PieChart from "../Componentes/PieChart";
-import ProjectCard from "../Componentes/ProjectCard";
-import Illustration from "../Componentes/Illustration";
-import Approach from "../Componentes/Approach";
+import Card from "../Components/Card";
+import "../Styles/Dashboard.css";
+import AreaChart from "../Components/AreaChart";
+import PieChart from "../Components/PieChart";
+import ProjectCard from "../Components/ProjectCard";
+import Illustration from "../Components/Illustration";
+import Approach from "../Components/Approach";
 
 function Dashboard() {
   return (

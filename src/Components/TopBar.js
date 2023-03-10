@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Alert from "../Componentes/Alert";
-import Message from "../Componentes/Message";
-import Search from "../Componentes/Search";
-import UserInfo from "../Componentes/UserInfo";
+import Alert from "../Components/Alert";
+import Message from "../Components/Message";
+import Search from "../Components/Search";
+import UserInfo from "../Components/UserInfo";
 
 const TopBar = () => {
   const [style, setStyle] = useState(

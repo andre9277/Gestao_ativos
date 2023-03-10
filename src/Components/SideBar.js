@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import MenuItem from "../Componentes/MenuItem";
+import MenuItem from "../Components/MenuItem";
 
 const SideBar = () => {
   const [style, setStyle] = useState(
