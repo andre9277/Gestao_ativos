@@ -178,7 +178,7 @@ const SideBar = () => {
       {/*  <!-- End of Sidebar --> */}
 
       {/*  <!-- Scroll to Top Button-->  */}
-      <a className="scroll-to-top rounded" href="/main">
+      <a className="scroll-to-top rounded" href="#top">
         <i className="fas fa-angle-up"></i>
       </a>
     </>

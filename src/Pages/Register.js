@@ -30,7 +30,6 @@ All the changes made to enable the implementation of the desired development too
 import React from "react";
 import "../Styles/styles.css";
 import { Link } from "react-router-dom";
-import Footer from "../Components/Footer";
 
 const Register = () => {
   return (

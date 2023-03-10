@@ -71,7 +71,6 @@ const TopBar = () => {
       >
         <i className="fa fa-bars"></i>
       </button>
-
       {/*  <!-- Topbar Search --> */}
       <Search />
       {/*  <!-- Topbar Navbar --> */}

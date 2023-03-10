@@ -30,15 +30,11 @@ All the changes made to enable the implementation of the desired development too
 
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SideBar from "../Components/SideBar";
-import TopBar from "../Components/TopBar";
 import ForgotPass from "./ForgotPass";
 import Login from "./Login";
 import NotFound from "./NotFound";
 import Register from "./Register";
 import Table from "./Table";
-import Footer from "../Components/Footer";
-import Logout from "../Components/Logout";
 import Dashboard from "./Dashboard";
 import "../Styles/styles.css";
 import Layout from "../Components/Layout";
