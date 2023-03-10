@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import MenuItem from "../Componentes/MenuItem";
-import MenuItemSimple from "../Componentes/MenuItemSimple";
 
 const SideBar = () => {
   const [style, setStyle] = useState(
@@ -32,7 +31,7 @@ const SideBar = () => {
   };
 
   return (
-    <div>
+    <>
       {/*  <!-- Sidebar --> */}
       <ul className={style} id="accordionSidebar">
         {/*  <!-- Sidebar - Brand --> */}
@@ -73,7 +72,11 @@ const SideBar = () => {
         <div className="sidebar-heading">Interface</div>
 
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
-        <MenuItem name="Gestão de ativos" menuId="collapseTwo" />
+        <MenuItem
+          titulo={"Gestão de ativos"}
+          icon={"fa-cog"}
+          origem={"pesquisativos"}
+        />
 
         {/* <!-- Nav Item - Utilities Collapse Menu --> */}
         {/* <MenuItem Name="Utilities-teste" MenuId="collapseUtilities" /> */}
@@ -82,7 +85,7 @@ const SideBar = () => {
         {/* <MenuItem Name="Pages" MenuId="collapsePages" /> */}
 
         {/* <!-- Nav Item - Relatorios --> */}
-        <MenuItemSimple titulo={"Relatórios"} icon={"fa-chart-area"} />
+        <MenuItem titulo={"Relatórios"} icon={"fa-chart-area"} />
 
         {/*  <!-- Nav Item - Utilizadores --> */}
         {/*  <!-- Divider --> */}
@@ -91,8 +94,8 @@ const SideBar = () => {
         {/* <!-- Heading --> */}
         <div className="sidebar-heading"> Área do Administrador</div>
 
-        <MenuItemSimple titulo={"Utilizadores"} icon={"fa-table"} />
-        <MenuItemSimple titulo={"Inserir Ativos"} icon={"fa-plus"} />
+        <MenuItem titulo={"Utilizadores"} icon={"fa-table"} />
+        <MenuItem titulo={"Inserir Ativos"} icon={"fa-plus"} />
 
         {/* <!-- Divider --> */}
         <hr className="sidebar-divider d-none d-md-block" />
@@ -146,10 +149,10 @@ const SideBar = () => {
       {/*  <!-- End of Sidebar --> */}
 
       {/*  <!-- Scroll to Top Button-->  */}
-      <a className="scroll-to-top rounded" href="#page-top">
+      <a className="scroll-to-top rounded" href="/main">
         <i className="fas fa-angle-up"></i>
       </a>
-    </div>
+    </>
   );
 };
 

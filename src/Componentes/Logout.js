@@ -36,7 +36,7 @@ const Logout = () => {
             >
               Cancel
             </button>
-            <a className="btn btn-primary" href="/login">
+            <a className="btn btn-primary" href="/">
               Logout
             </a>
           </div>
