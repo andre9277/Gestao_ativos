@@ -80,7 +80,6 @@ const TopBar = () => {
         <li className="nav-item dropdown no-arrow d-sm-none">
           <a
             className="nav-link dropdown-toggle"
-            href="#"
             id="searchDropdown"
             role="button"
             data-toggle="dropdown"
