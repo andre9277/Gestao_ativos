@@ -1,6 +1,6 @@
 # Gestao_ativos
 
-- Antes de iniciar o projeto é necessário instalar alguns pacotes/livrarias:
+- Antes de iniciar o projeto é necessário instalar alguns pacotes/librarias:
 
   - **Instalar o node:**
 
