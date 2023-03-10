@@ -1,17 +1,17 @@
-# Gestao_ativos
+# Asset Management
 
-- Antes de iniciar o projeto é necessário instalar alguns pacotes/librarias:
+- Before starting the project, it is necessary to install some packages/libraries:
 
-  - **Instalar o node:**
+  - **Install node:**
 
     > npm i
 
-  - **Instalar biblioteca React-Router-Dom:**
+  - **Install React-Router-Dom library:**
 
     > npm install react-router-dom
 
-  - **Para iniciar o projeto(em linha de comandos):**
+  - **To start the project (in command line):**
     > npm start
 
-- Link do documento com toda a documentação do projeto desenvolvida até ao momento:
+- Link to the document with all the documentation developed for the project so far:
   > https://snspt-my.sharepoint.com/:w:/g/personal/andre_ferreira_hb_min-saude_pt/EaPPFEDaia1Eqkbc_J05rZ8BWTfoXG6505iV5Qu2XWF4qQ?e=hgIZ96
