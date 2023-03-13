@@ -10,6 +10,10 @@
 
     > npm install react-router-dom
 
+  - **Install Axios library:**
+
+    > npm install -S axios
+
   - **To start the project (in command line):**
     > npm start
 
