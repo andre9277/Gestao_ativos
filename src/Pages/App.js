@@ -34,7 +34,7 @@ import ForgotPass from "./ForgotPass";
 import Login from "./Login";
 import NotFound from "./NotFound";
 import Register from "./Register";
-import Table from "./Table";
+import Ativos from "./Ativos";
 import Dashboard from "./Dashboard";
 import "../Styles/styles.css";
 import Layout from "../Components/Layout";
@@ -45,7 +45,7 @@ const App = () => {
       <Routes>
         <Route element={<Layout />}>
           <Route exact path="/dashboard" element={<Dashboard />} />
-          <Route path="/pesquisativos" element={<Table />} />
+          <Route path="/ativos" element={<Ativos />} />
         </Route>
         <Route path="/" element={<Login />} />
         <Route path="*" element={<NotFound />} />

@@ -104,7 +104,7 @@ const SideBar = () => {
         <MenuItem
           titulo={"Gestão de ativos"}
           icon={"fa-cog"}
-          origem={"pesquisativos"}
+          origem={"ativos"}
         />
 
         {/* <!-- Nav Item - Utilities Collapse Menu --> */}
