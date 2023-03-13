@@ -33,7 +33,7 @@ import Message from "../Components/Message";
 import Search from "../Components/Search";
 import UserInfo from "../Components/UserInfo";
 
-const TopBar = () => {
+const TopBar = ({ user }) => {
   const [style, setStyle] = useState(
     "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
   );
@@ -121,7 +121,7 @@ const TopBar = () => {
         <div className="topbar-divider d-none d-sm-block"></div>
 
         {/* <!-- Nav Item - User Information --> */}
-        <UserInfo />
+        <UserInfo user={user} />
       </ul>
     </nav>
   );

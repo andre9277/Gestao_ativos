@@ -29,18 +29,25 @@ All the changes made to enable the implementation of the desired development too
 */
 import React from "react";
 import Footer from "./Footer";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import SideBar from "./SideBar";
 import TopBar from "./TopBar";
 import Logout from "./Logout";
+import { useStateContext } from "../Contexts/ContextProvider";
 
 const Layout = () => {
+  const { user, token } = useStateContext();
+
+  if (!token) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <div id="wrapper">
       <SideBar />
       <div id="content-wrapper" className="d-flex flex-column">
         <div id="content">
-          <TopBar />
+          <TopBar user={user} />
           <Outlet />
         </div>
         <Footer />

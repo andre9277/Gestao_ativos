@@ -27,36 +27,49 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
+import React, { createContext, useContext, useState } from "react";
 
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ForgotPass from "./ForgotPass";
-import Login from "./Login";
-import NotFound from "./NotFound";
-import Register from "./Register";
-import Ativos from "./Ativos";
-import Dashboard from "./Dashboard";
-import "../Styles/styles.css";
-import Layout from "../Components/Layout";
-import ContextProvider from "../Contexts/ContextProvider";
+const StateContext = createContext({
+  currentUser: null,
+  token: null,
+  setUser: () => {},
+  setToken: () => {},
+});
 
-const App = () => {
+const ContextProvider = ({ children }) => {
+  //definir alguns states:
+  const [user, setUser] = useState({
+    name: "André Ferreira",
+  });
+  //const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN"));
+  const [token, _setToken] = useState(123);
+
+  //função que permite realizar o set token(poe o token na localStorage)
+  const setToken = (token) => {
+    _setToken(token);
+    //guardar o token na local storage
+    if (token) {
+      localStorage.setItem("ACCESS_TOKEN", token);
+    } else {
+      localStorage.removeItem("ACCESS_TOKEN");
+    }
+  };
+
   return (
-    <ContextProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route exact path="/dashboard" element={<Dashboard />} />
-            <Route path="/ativos" element={<Ativos />} />
-          </Route>
-          <Route path="/" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/resetpass" element={<ForgotPass />} />
-        </Routes>
-      </BrowserRouter>
-    </ContextProvider>
+    <StateContext.Provider
+      value={{
+        user,
+        token,
+        setUser,
+        setToken,
+      }}
+    >
+      {children}
+    </StateContext.Provider>
   );
 };
 
-export default App;
+export default ContextProvider;
+
+//Função que retorna o useContext state context
+export const useStateContext = () => useContext(StateContext);
