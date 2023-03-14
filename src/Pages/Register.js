@@ -27,19 +27,20 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import React, { useRef } from "react";
+import React, { createRef } from "react";
 import "../Styles/styles.css";
 import { Link } from "react-router-dom";
 
 const Register = () => {
-  const nameFirstRef = useRef();
-  const nameLastRef = useRef();
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const passwordConfirmationRef = useRef();
+  const nameFirstRef = createRef();
+  const nameLastRef = createRef();
+  const emailRef = createRef();
+  const passwordRef = createRef();
+  const passwordConfirmationRef = createRef();
 
   const onSubmit = (ev) => {
     ev.preventDefault();
+
     const payload = {
       name_fisrt: nameFirstRef.current.value,
       name_last: nameLastRef.current.value,
@@ -131,10 +132,7 @@ const Register = () => {
                       </div>
                       <div className="mt-4 mb-0">
                         <div className="d-grid">
-                          <a
-                            className="btn btn-primary btn-block"
-                            href="login.html"
-                          >
+                          <a className="btn btn-primary btn-block" href="/">
                             Create Account
                           </a>
                         </div>

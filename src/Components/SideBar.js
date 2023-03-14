@@ -86,11 +86,9 @@ const SideBar = () => {
 
         {/*  <!-- Nav Item - Dashboard --> */}
         <li className="nav-item active">
-          <Link to="/dashboard">
-            <a className="nav-link">
-              <i className="fas fa-fw fa-tachometer-alt"></i>
-              <span>Dashboard</span>
-            </a>
+          <Link to="/dashboard" className="nav-link">
+            <i className="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
           </Link>
         </li>
 

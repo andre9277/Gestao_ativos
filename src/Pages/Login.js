@@ -53,7 +53,7 @@ const Login = () => {
                           type="email"
                           placeholder="name@example.com"
                         />
-                        <label for="inputEmail">Email address</label>
+                        <label htmlFor="inputEmail">Email address</label>
                       </div>
                       <div className="form-floating mb-3">
                         <input
@@ -62,7 +62,7 @@ const Login = () => {
                           type="password"
                           placeholder="Password"
                         />
-                        <label for="inputPassword">Password</label>
+                        <label htmlFor="inputPassword">Password</label>
                       </div>
                       <div className="form-check mb-3">
                         <input
@@ -73,19 +73,17 @@ const Login = () => {
                         />
                         <label
                           className="form-check-label"
-                          for="inputRememberPassword"
+                          htmlFor="inputRememberPassword"
                         >
                           Remember Password
                         </label>
                       </div>
                       <div className="d-flex align-items-center justify-content-between mt-4 mb-0">
-                        <Link to="/resetpass">
-                          <a className="small" href="password.html">
-                            Forgot Password?
-                          </a>
+                        <Link to="/resetpass" className="small">
+                          Forgot Password?
                         </Link>
-                        <Link to="/dashboard">
-                          <a className="btn btn-primary">Login</a>
+                        <Link to="/dashboard" className="btn btn-primary">
+                          Login
                         </Link>
                       </div>
                     </form>

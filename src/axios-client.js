@@ -54,6 +54,7 @@ axios.interceptors.response.use(
   (error) => {
     //quando é rejeitada executa esta função
     const { response } = error; //destructuring do erro, ficando só com a reposta
+
     if (response.status == 401) {
       //erro 401: reuest foi feito, mas o utiizador não tem autorização ou token foi inválido
       localStorage.removeItem("ACCESS_TOKEN"); //removemos o token

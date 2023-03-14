@@ -58,11 +58,11 @@ const ForgotPass = () => {
                           type="email"
                           placeholder="name@example.com"
                         />
-                        <label for="inputEmail">Email address</label>
+                        <label htmlFor="inputEmail">Email address</label>
                       </div>
                       <div className="d-flex align-items-center justify-content-between mt-4 mb-0">
-                        <Link to="/">
-                          <a className="small">Return to login</a>
+                        <Link to="/" className="small">
+                          Return to login
                         </Link>
                         <a className="btn btn-primary" href="login.html">
                           Reset Password
@@ -72,9 +72,7 @@ const ForgotPass = () => {
                   </div>
                   <div className="card-footer text-center py-3">
                     <div className="small">
-                      <Link to="/register">
-                        <a>Need an account? Sign up!</a>
-                      </Link>
+                      <Link to="/register">Need an account? Sign up!</Link>
                     </div>
                   </div>
                 </div>

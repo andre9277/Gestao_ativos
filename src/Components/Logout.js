@@ -34,7 +34,7 @@ const Logout = () => {
     <div
       className="modal fade"
       id="logoutModal"
-      tabindex="-1"
+      tabIndex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
