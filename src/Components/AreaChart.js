@@ -69,10 +69,8 @@ const AreaChart = () => {
           </div>
         </div>
         {/*  <!-- Card Body --> */}
-        <div className="card-body">
-          <div className="chart-area">
-            <canvas id="myAreaChart"></canvas>
-          </div>
+        <div>
+          <canvas id="myChart"></canvas>
         </div>
       </div>
     </div>

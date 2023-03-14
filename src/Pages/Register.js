@@ -27,16 +27,21 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import React, { createRef } from "react";
+import React, { useRef } from "react";
 import "../Styles/styles.css";
 import { Link } from "react-router-dom";
+import axiosClient from "../axios-client.js";
+import { useStateContext } from "../Contexts/ContextProvider.js";
 
 const Register = () => {
-  const nameFirstRef = createRef();
-  const nameLastRef = createRef();
-  const emailRef = createRef();
-  const passwordRef = createRef();
-  const passwordConfirmationRef = createRef();
+  const nameFirstRef = useRef();
+  const nameLastRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfirmationRef = useRef();
+
+  //Guardar informação do utilizador e o token associado
+  const { setUser, setToken } = useStateContext();
 
   const onSubmit = (ev) => {
     ev.preventDefault();
@@ -48,7 +53,22 @@ const Register = () => {
       password: passwordRef.current.value,
       password_confirmation: passwordConfirmationRef.current.value,
     };
-    console.log(payload);
+    //console.log(payload);
+
+    //Fazer requests to the server:
+    //...faz um post ao register e enviamos o payload também
+    axiosClient
+      .post("/register", payload)
+      .then(({ data }) => {
+        setUser(data.user);
+        setToken(data.token);
+      })
+      .catch((err) => {
+        const response = err.response;
+        if (response && response.status == 422) {
+          //console.log(response.data.errors);
+        }
+      });
   };
 
   return (
@@ -132,16 +152,16 @@ const Register = () => {
                       </div>
                       <div className="mt-4 mb-0">
                         <div className="d-grid">
-                          <a className="btn btn-primary btn-block" href="/">
+                          <Link to="/" className="btn btn-primary btn-block">
                             Create Account
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </form>
                   </div>
                   <div className="card-footer text-center py-3">
                     <div className="small">
-                      <Link to="/">Have an account? Go to login</Link>
+                      <Link to="/register">Have an account? Go to login</Link>
                     </div>
                   </div>
                 </div>
