@@ -29,6 +29,9 @@ All the changes made to enable the implementation of the desired development too
 */
 import React, { createContext, useContext, useState } from "react";
 
+//Context Provider permite a transferencia de dados pelos componentes sem passar manualmente todos os níveis da árvore de componentes
+//Dados podem ser considerados "global"
+
 const StateContext = createContext({
   currentUser: null,
   token: null,
