@@ -30,7 +30,7 @@ const AddAtivo = () => {
             </div>
           </fieldset>
 
-          <div class="personal-details">
+          <div className="personal-details">
             <div>
               <div>
                 <label className="lbAdd">Localização*</label>
@@ -83,10 +83,10 @@ const AddAtivo = () => {
                   <option value="Inativo">Inativo</option>
                 </select>
               </div>
-              <div class="birthdate">
+              <div className="birthdate">
                 <label className="lbAdd">Data de aquisição*</label>
                 <div class="bdate-block">
-                  <select class="day" required>
+                  <select className="day" required>
                     <option value=""></option>
                     <option value="01">01</option>
                     <option value="02">02</option>
@@ -120,7 +120,7 @@ const AddAtivo = () => {
                     <option value="30">30</option>
                     <option value="31">31</option>
                   </select>
-                  <select class="mounth" required>
+                  <select className="mounth" required>
                     <option value=""></option>
                     <option value="January">Janeiro</option>
                     <option value="February">Fevereiro</option>
