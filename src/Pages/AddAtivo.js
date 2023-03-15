@@ -12,20 +12,20 @@ const AddAtivo = () => {
             </legend>
             <div class="account-details">
               <div>
-                <label>Modelo*</label>
+                <label className="lbAdd">Modelo*</label>
                 <input type="text" name="name" required />
               </div>
               <div>
-                <label>Marca*</label>
-                <input type="password" name="name" required />
-              </div>
-              <div>
-                <label>Número de série*</label>
+                <label className="lbAdd">Marca*</label>
                 <input type="text" name="name" required />
               </div>
               <div>
-                <label>Número de inventário</label>
-                <input type="password" name="name" />
+                <label className="lbAdd">Número de série*</label>
+                <input type="text" name="name" required />
+              </div>
+              <div>
+                <label className="lbAdd">Número de inventário</label>
+                <input type="text" name="name" />
               </div>
             </div>
           </fieldset>
@@ -33,25 +33,29 @@ const AddAtivo = () => {
           <div class="personal-details">
             <div>
               <div>
-                <label>Localização*</label>
+                <label className="lbAdd">Localização*</label>
                 <input type="text" name="name" required />
               </div>
               <div>
-                <label>CI*</label>
+                <label className="lbAdd">CI*</label>
                 <input type="text" name="name" required />
               </div>
               <div>
-                <label>Sala</label>
+                <label className="lbAdd">Piso*</label>
                 <input type="text" name="name" />
               </div>
               <div>
-                <label>Ala*</label>
+                <label className="lbAdd">Ala*</label>
+                <input type="text" name="name" required />
+              </div>
+              <div>
+                <label className="lbAdd">Sala*</label>
                 <input type="text" name="name" required />
               </div>
             </div>
             <div>
               <div>
-                <label>Categoria*</label>
+                <label className="lbAdd">Categoria*</label>
                 <select>
                   <option value=""></option>
                   <option value="Computador">Computador</option>
@@ -62,7 +66,7 @@ const AddAtivo = () => {
                 </select>
               </div>
               <div>
-                <label>Condição*</label>
+                <label className="lbAdd">Condição*</label>
                 <select>
                   <option value=""></option>
                   <option value="Computador">Novo</option>
@@ -72,7 +76,7 @@ const AddAtivo = () => {
                 </select>
               </div>
               <div>
-                <label>Estado</label>
+                <label className="lbAdd">Estado</label>
                 <select>
                   <option value=""></option>
                   <option value="Ativo">Ativo</option>
@@ -80,7 +84,7 @@ const AddAtivo = () => {
                 </select>
               </div>
               <div class="birthdate">
-                <label>Data de aquisição*</label>
+                <label className="lbAdd">Data de aquisição*</label>
                 <div class="bdate-block">
                   <select class="day" required>
                     <option value=""></option>
@@ -135,7 +139,7 @@ const AddAtivo = () => {
                 </div>
               </div>
             </div>
-            <button type="submit" href="/">
+            <button className="sub" type="submit" href="/">
               Submit
             </button>
           </div>

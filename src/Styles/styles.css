@@ -12348,7 +12348,7 @@ input,
 label {
   width: 100%;
 }
-label {
+.lbAdd {
   padding: 0 5px;
   text-align: right;
   vertical-align: middle;
@@ -12357,9 +12357,7 @@ input {
   padding: 5px;
   vertical-align: middle;
 }
-.checkbox {
-  margin-bottom: 10px;
-}
+
 select,
 .children,
 .gender,
@@ -12401,8 +12399,8 @@ select {
 .checkbox a:hover {
   color: #4e73df;
 }
-button {
-  width: 100%;
+.sub {
+  width: 20%;
   padding: 10px 0;
   margin: 10px auto;
   border-radius: 5px;
