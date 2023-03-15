@@ -41,7 +41,7 @@ const Ativos = () => {
         }}
       >
         <h1>Ativos</h1>
-        <Link className="btn-add" to="/users/new">
+        <Link className="btn-add" to="/addAtivo">
           Adicionar Ativo
         </Link>
       </div>

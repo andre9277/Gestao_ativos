@@ -39,6 +39,7 @@ import Dashboard from "./Dashboard";
 import "../Styles/styles.css";
 import Layout from "../Components/Layout";
 import ContextProvider from "../Contexts/ContextProvider";
+import AddAtivo from "./AddAtivo";
 
 const App = () => {
   return (
@@ -48,6 +49,7 @@ const App = () => {
           <Route element={<Layout />}>
             <Route exact path="/dashboard" element={<Dashboard />} />
             <Route path="/ativos" element={<Ativos />} />
+            <Route path="/addAtivo" element={<AddAtivo />} />
           </Route>
           <Route path="/" element={<Login />} />
           <Route path="*" element={<NotFound />} />
