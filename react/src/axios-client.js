@@ -31,35 +31,35 @@ import axios from "axios";
 
 //Criar acesso ao client:
 const axiosClient = axios.create({
-  //baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
+    baseURL: `${import.meta.env.REACT_APP_BASE_URL}/api`,
 });
 
 export default axiosClient;
 
 //axios utiliza o seguinte interceptor antes de fazer qualquer REQUEST (como parametro da função passamos o objeto config)
 axiosClient.interceptors.request.use((config) => {
-  const token = localStorage.get("ACCESS_TOKEN"); // acesso ao token que está na localStorage
+    const token = localStorage.get("ACCESS_TOKEN"); // acesso ao token que está na localStorage
 
-  //alteramos os headers do config
-  config.headers.Authorization = `Bearer ${token}`; //autenticação Bearer(autenticação token)
+    //alteramos os headers do config
+    config.headers.Authorization = `Bearer ${token}`; //autenticação Bearer(autenticação token)
 
-  return config; //tambem retornamos o config object
+    return config; //tambem retornamos o config object
 });
 
 //RESPONSE
 axios.interceptors.response.use(
-  (response) => {
-    return response; //retorna a resposta bem sucedida
-  },
-  (error) => {
-    //quando é rejeitada executa esta função
-    const { response } = error; //destructuring do erro, ficando só com a reposta
+    (response) => {
+        return response; //retorna a resposta bem sucedida
+    },
+    (error) => {
+        //quando é rejeitada executa esta função
+        const { response } = error; //destructuring do erro, ficando só com a reposta
 
-    if (response.status == 401) {
-      //erro 401: reuest foi feito, mas o utiizador não tem autorização ou token foi inválido
-      localStorage.removeItem("ACCESS_TOKEN"); //removemos o token
+        if (response.status === 401) {
+            //erro 401: reuest foi feito, mas o utiizador não tem autorização ou token foi inválido
+            localStorage.removeItem("ACCESS_TOKEN"); //removemos o token
+        }
+
+        throw error;
     }
-
-    throw error;
-  }
 );
