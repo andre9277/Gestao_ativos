@@ -2709,7 +2709,7 @@ textarea.form-control-lg {
   text-decoration: none;
   padding: 15px;
   color: #ffffff;
-  font-size: 16px;
+  font-size: 14px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
@@ -12431,4 +12431,32 @@ button:hover {
   .bdate-block {
     width: calc(60% + 16px);
   }
+}
+
+.btndw {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 6px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 10px;
+  align-items: flex-end;
+  float: right;
+}
+
+/* Darker background on mouse-over */
+.btndw:hover {
+  background-color: RoyalBlue;
+}
+
+.headerAtivo {
+  display: "flex";
+  justify-content: "space-between";
+  align-items: "center";
+  margin: 20px;
+}
+
+.tth {
+  text-align: center;
 }

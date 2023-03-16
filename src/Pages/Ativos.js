@@ -33,17 +33,16 @@ import { Link } from "react-router-dom";
 const Ativos = () => {
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <h1>Ativos</h1>
-        <Link className="btn-add" to="/addAtivo">
+      <div className="headerAtivo">
+        <h1 className="tth">Lista de Ativos HB</h1>
+        <button className="btn-add h" to="/addAtivo">
+          <i className="fa fa-plus" />
           Adicionar Ativo
-        </Link>
+        </button>
+
+        <button className="btndw">
+          <i className="fa fa-download"></i> Download
+        </button>
       </div>
       <div className="card animated fadeInDown">
         <table>
@@ -80,7 +79,7 @@ const Ativos = () => {
                 <th>Ativo</th>
                 <th>Usado</th>
                 <td>
-                  <Link className="btn-edit">Editar</Link>
+                  <button className="btn-edit">Editar</button>
                   &nbsp;
                   <button className="btn-delete">Eliminar</button>
                 </td>
@@ -100,7 +99,7 @@ const Ativos = () => {
                 <th>Ativo</th>
                 <th>Usado</th>
                 <td>
-                  <Link className="btn-edit">Editar</Link>
+                  <button className="btn-edit">Editar</button>
                   &nbsp;
                   <button className="btn-delete">Eliminar</button>
                 </td>
