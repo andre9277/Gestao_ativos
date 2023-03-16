@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\SignupRequest;
+
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -26,7 +29,7 @@ class AuthController extends Controller
         return response(compact('user','token'));
     }
 
-    public function register(RegisterRequest $request){
+    public function register(SignupRequest $request){
         //dados do pedido
         $data = $request->validated();
         
@@ -49,9 +52,9 @@ class AuthController extends Controller
         /** @var User $user */
         $user = $request->user();
         //Apagar o token do utilizador
-        $user->currentAccessToken()->delete();
+        $user->currentAccessToken()->delete;//delete();!?
 
         //Retorna nada por não precisar e com o código 204: resposta realizada com sucesso
-        return response('',204)
+        return response('',204);
     }
 }
