@@ -33,7 +33,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ForgotPass from "./ForgotPass";
 import Login from "./Login";
 import NotFound from "./NotFound";
-import Register from "./Register";
+import Signup from "./Signup";
 import Ativos from "./Ativos";
 import Dashboard from "./Dashboard";
 import "../Styles/styles.css";
@@ -58,7 +58,7 @@ const App = () => {
                     </Route>
                     <Route path="/" element={<Login />} />
                     <Route path="*" element={<NotFound />} />
-                    <Route path="/register" element={<Register />} />
+                    <Route path="/signup" element={<Signup />} />
                     <Route path="/resetpass" element={<ForgotPass />} />
                 </Routes>
             </BrowserRouter>

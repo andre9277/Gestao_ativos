@@ -58,7 +58,7 @@ const Register = () => {
         //Fazer requests to the server:
         //...faz um post ao register e enviamos o payload também
         axiosClient
-            .post("/register", payload)
+            .post("/signup", payload)
             .then(({ data }) => {
                 setUser(data.user);
                 setToken(data.token);
