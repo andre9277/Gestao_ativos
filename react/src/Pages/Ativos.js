@@ -28,88 +28,91 @@ You may obtain a copy of the license at:
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React from "react";
-import { Link } from "react-router-dom";
 
 const Ativos = () => {
-  return (
-    <div>
-      <div className="headerAtivo">
-        <h1 className="tth">Lista de Ativos HB</h1>
-        <button className="btn-add h" to="/addAtivo">
-          <i className="fa fa-plus" />
-          Adicionar Ativo
-        </button>
+    return (
+        <div>
+            <div className="headerAtivo">
+                <h1 className="tth">Lista de Ativos HB</h1>
+                <button className="btn-add h" to="/addAtivo">
+                    <i className="fa fa-plus" />
+                    Adicionar Ativo
+                </button>
 
-        <button className="btndw">
-          <i className="fa fa-download"></i> Download
-        </button>
-      </div>
-      <div className="card animated fadeInDown">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Marca</th>
-              <th>Modelo</th>
-              <th>NºInventário</th>
-              <th>NºSérie</th>
-              <th>Localização</th>
-              <th>Piso</th>
-              <th>Ala</th>
-              <th>CI</th>
-              <th>Data de aquisição</th>
-              <th>Estado</th>
-              <th>Condição</th>
-            </tr>
-          </thead>
+                <button className="btndw">
+                    <i className="fa fa-download"></i> Download
+                </button>
+            </div>
+            <div className="card animated fadeInDown">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>NºInventário</th>
+                            <th>NºSérie</th>
+                            <th>Localização</th>
+                            <th>Piso</th>
+                            <th>Ala</th>
+                            <th>CI</th>
+                            <th>Data de aquisição</th>
+                            <th>Estado</th>
+                            <th>Condição</th>
+                        </tr>
+                    </thead>
 
-          {true && (
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Hp</td>
-                <td>HN70-N</td>
-                <td>1540</td>
-                <td>S/N:812L102L10</td>
-                <td>Hospital de Braga</td>
-                <td>2º</td>
-                <td>C</td>
-                <td>CI92381</td>
-                <td>10-01-2018</td>
-                <th>Ativo</th>
-                <th>Usado</th>
-                <td>
-                  <button className="btn-edit">Editar</button>
-                  &nbsp;
-                  <button className="btn-delete">Eliminar</button>
-                </td>
-              </tr>
+                    {true && (
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Hp</td>
+                                <td>HN70-N</td>
+                                <td>1540</td>
+                                <td>S/N:812L102L10</td>
+                                <td>Hospital de Braga</td>
+                                <td>2º</td>
+                                <td>C</td>
+                                <td>CI92381</td>
+                                <td>10-01-2018</td>
+                                <th>Ativo</th>
+                                <th>Usado</th>
+                                <td>
+                                    <button className="btn-edit">Editar</button>
+                                    &nbsp;
+                                    <button className="btn-delete">
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
 
-              <tr>
-                <td>2</td>
-                <td>Brother</td>
-                <td>LK1N-2</td>
-                <td>1600</td>
-                <td>S/N:126K743I3N</td>
-                <td>Hospital de Braga</td>
-                <td>3º</td>
-                <td>A</td>
-                <td>CI38451</td>
-                <td>08-03-2023</td>
-                <th>Ativo</th>
-                <th>Usado</th>
-                <td>
-                  <button className="btn-edit">Editar</button>
-                  &nbsp;
-                  <button className="btn-delete">Eliminar</button>
-                </td>
-              </tr>
-            </tbody>
-          )}
-        </table>
-      </div>
-    </div>
-  );
+                            <tr>
+                                <td>2</td>
+                                <td>Brother</td>
+                                <td>LK1N-2</td>
+                                <td>1600</td>
+                                <td>S/N:126K743I3N</td>
+                                <td>Hospital de Braga</td>
+                                <td>3º</td>
+                                <td>A</td>
+                                <td>CI38451</td>
+                                <td>08-03-2023</td>
+                                <th>Ativo</th>
+                                <th>Usado</th>
+                                <td>
+                                    <button className="btn-edit">Editar</button>
+                                    &nbsp;
+                                    <button className="btn-delete">
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    )}
+                </table>
+            </div>
+        </div>
+    );
 };
 
 export default Ativos;

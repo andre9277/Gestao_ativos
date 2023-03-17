@@ -12,7 +12,7 @@ class SignupRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return true;//utilizador pode realizar o request (=true)
     }
 
     /**
@@ -23,12 +23,14 @@ class SignupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:55',
-            'email' => 'required|email',
+            'name' => 'required|string|max:55', //nome com strings no máximo 55 carateres
+            'email' => 'required|email|unique:users,email', //email válido
             'password' => [
                 'required',
                 'confirmed',
                 Password::min(8)
+                    ->letters()
+                    ->symbols()
             ]
         ];
     }

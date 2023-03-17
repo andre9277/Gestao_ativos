@@ -29,14 +29,14 @@ All the changes made to enable the implementation of the desired development too
 */
 import axios from "axios";
 
-//Criar acesso ao client:
+//Criar acesso ao axios client:
 const axiosClient = axios.create({
-    baseURL: `${import.meta.env.REACT_APP_BASE_URL}/api`,
+    baseURL: `${import.meta.env.REACT_APP_API_KEY}/api`,
 });
 
-export default axiosClient;
+//Interceptors são funções especiais que são executadas antes do request ser efetuado ou depois de a resposta ser recebida
 
-//axios utiliza o seguinte interceptor antes de fazer qualquer REQUEST (como parametro da função passamos o objeto config)
+//REQUEST: axios utiliza o seguinte interceptor antes de fazer qualquer REQUEST (como parametro da função passamos o objeto config)
 axiosClient.interceptors.request.use((config) => {
     const token = localStorage.get("ACCESS_TOKEN"); // acesso ao token que está na localStorage
 
@@ -46,8 +46,8 @@ axiosClient.interceptors.request.use((config) => {
     return config; //tambem retornamos o config object
 });
 
-//RESPONSE
-axios.interceptors.response.use(
+//RESPONSE:
+axiosClient.interceptors.response.use(
     (response) => {
         return response; //retorna a resposta bem sucedida
     },
@@ -63,3 +63,5 @@ axios.interceptors.response.use(
         throw error;
     }
 );
+
+export default axiosClient;

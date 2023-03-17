@@ -42,23 +42,28 @@ import ContextProvider from "../Contexts/ContextProvider";
 import AddAtivo from "./AddAtivo";
 
 const App = () => {
-  return (
-    <ContextProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route exact path="/dashboard" element={<Dashboard />} />
-            <Route path="/ativos" element={<Ativos />} />
-            <Route path="/addAtivo" element={<AddAtivo />} />
-          </Route>
-          <Route path="/" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/resetpass" element={<ForgotPass />} />
-        </Routes>
-      </BrowserRouter>
-    </ContextProvider>
-  );
+    console.log(process.env.REACT_APP_API_KEY);
+    return (
+        <ContextProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route element={<Layout />}>
+                        <Route
+                            exact
+                            path="/dashboard"
+                            element={<Dashboard />}
+                        />
+                        <Route path="/ativos" element={<Ativos />} />
+                        <Route path="/addAtivo" element={<AddAtivo />} />
+                    </Route>
+                    <Route path="/" element={<Login />} />
+                    <Route path="*" element={<NotFound />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/resetpass" element={<ForgotPass />} />
+                </Routes>
+            </BrowserRouter>
+        </ContextProvider>
+    );
 };
 
 export default App;
