@@ -85,7 +85,7 @@ const Register = () => {
                                         </h3>
                                     </div>
                                     <div className="card-body">
-                                        <form onSubmit={onSubmit}>
+                                        <form>
                                             <div className="row mb-3">
                                                 <div className="col-md-6">
                                                     <div className="form-floating mb-3 mb-md-0">
@@ -137,6 +137,7 @@ const Register = () => {
                                                             id="inputPassword"
                                                             type="password"
                                                             placeholder="Create a password"
+                                                            autoComplete="false"
                                                         />
                                                         <label htmlFor="inputPassword">
                                                             Password
@@ -153,6 +154,7 @@ const Register = () => {
                                                             id="inputPasswordConfirm"
                                                             type="password"
                                                             placeholder="Confirm password"
+                                                            autoComplete="false"
                                                         />
                                                         <label htmlFor="inputPasswordConfirm">
                                                             Confirm Password
@@ -165,6 +167,7 @@ const Register = () => {
                                                     <Link
                                                         to="/"
                                                         className="btn btn-primary btn-block"
+                                                        onSubmit={onSubmit}
                                                     >
                                                         Create Account
                                                     </Link>

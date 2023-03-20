@@ -63,6 +63,7 @@ const Login = () => {
                                                     id="inputPassword"
                                                     type="password"
                                                     placeholder="Password"
+                                                    autoComplete="false"
                                                 />
                                                 <label htmlFor="inputPassword">
                                                     Password

@@ -42,7 +42,7 @@ import ContextProvider from "../Contexts/ContextProvider";
 import AddAsset from "./AddAsset";
 
 const App = () => {
-    console.log(process.env.REACT_APP_BASE_URL);
+    /* console.log(process.env.REACT_APP_BASE_URL); */
     return (
         <ContextProvider>
             <BrowserRouter>
