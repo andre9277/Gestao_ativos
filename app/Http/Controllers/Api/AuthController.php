@@ -29,7 +29,7 @@ class AuthController extends Controller
         return response(compact('user','token'));
     }
 
-    public function register(SignupRequest $request){
+    public function signup(SignupRequest $request){
         //dados do pedido
         $data = $request->validated();
         
@@ -38,6 +38,7 @@ class AuthController extends Controller
         //Cria um user:
         $user = User::create([
             'name' => $data['name'],
+            'lname' => $data['lname'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']), //Por razões de segurança a pass é encriptada
         ]);
