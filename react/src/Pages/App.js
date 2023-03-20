@@ -34,12 +34,12 @@ import ForgotPass from "./ForgotPass";
 import Login from "./Login";
 import NotFound from "./NotFound";
 import Signup from "./Signup";
-import Ativos from "./Ativos";
+import Assets from "./Assets";
 import Dashboard from "./Dashboard";
 import "../Styles/styles.css";
 import Layout from "../Components/Layout";
 import ContextProvider from "../Contexts/ContextProvider";
-import AddAtivo from "./AddAtivo";
+import AddAsset from "./AddAsset";
 
 const App = () => {
     console.log(process.env.REACT_APP_API_KEY);
@@ -53,8 +53,8 @@ const App = () => {
                             path="/dashboard"
                             element={<Dashboard />}
                         />
-                        <Route path="/ativos" element={<Ativos />} />
-                        <Route path="/addAtivo" element={<AddAtivo />} />
+                        <Route path="/assets" element={<Assets />} />
+                        <Route path="/addAssets" element={<AddAsset />} />
                     </Route>
                     <Route path="/" element={<Login />} />
                     <Route path="*" element={<NotFound />} />
