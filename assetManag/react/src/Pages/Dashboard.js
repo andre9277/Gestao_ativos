@@ -29,7 +29,7 @@ All the changes made to enable the implementation of the desired development too
 */
 import React from "react";
 import Card from "../Components/Card";
-import "../Styles/Dashboard.css";
+import "../Styles/dashboard.css";
 import AreaChart from "../Components/AreaChart";
 import PieChart from "../Components/PieChart";
 import ProjectCard from "../Components/ProjectCard";

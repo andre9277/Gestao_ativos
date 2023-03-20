@@ -64,6 +64,7 @@ const Register = () => {
                 setToken(data.token);
             })
             .catch((err) => {
+                console.log(err);
                 const response = err.response;
                 if (response && response.status === 422) {
                     console.log(response.data.errors);
@@ -85,7 +86,7 @@ const Register = () => {
                                         </h3>
                                     </div>
                                     <div className="card-body">
-                                        <form>
+                                        <form onSubmit={onSubmit}>
                                             <div className="row mb-3">
                                                 <div className="col-md-6">
                                                     <div className="form-floating mb-3 mb-md-0">
@@ -167,7 +168,6 @@ const Register = () => {
                                                     <Link
                                                         to="/"
                                                         className="btn btn-primary btn-block"
-                                                        onSubmit={onSubmit}
                                                     >
                                                         Create Account
                                                     </Link>

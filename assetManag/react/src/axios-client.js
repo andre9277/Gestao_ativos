@@ -31,7 +31,7 @@ import axios from "axios";
 
 //Criar acesso ao axios client:
 const axiosClient = axios.create({
-    //baseURL: `${import.meta.env.REACT_APP_API_KEY}/api`,
+    baseURL: `${process.env.REACT_APP_API_KEY}/api`,
 });
 
 //Interceptors são funções especiais que são executadas antes doy request ser efetuado ou depois de a resposta ser recebida
