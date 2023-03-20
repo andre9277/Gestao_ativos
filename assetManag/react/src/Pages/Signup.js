@@ -47,13 +47,13 @@ const Register = () => {
         ev.preventDefault();
 
         const payload = {
-            name_fisrt: nameFirstRef.current.value,
+            name_first: nameFirstRef.current.value,
             name_last: nameLastRef.current.value,
             email: emailRef.current.value,
             password: passwordRef.current.value,
             password_confirmation: passwordConfirmationRef.current.value,
         };
-        //console.log(payload);
+        console.log(payload);
 
         //Fazer requests to the server:
         //...faz um post ao register e enviamos o payload também
@@ -66,7 +66,7 @@ const Register = () => {
             .catch((err) => {
                 const response = err.response;
                 if (response && response.status === 422) {
-                    //console.log(response.data.errors);
+                    console.log(response.data.errors);
                 }
             });
     };
