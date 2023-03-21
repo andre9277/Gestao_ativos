@@ -27,27 +27,27 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import axios from "axios";
+//import axios from "axios";
 
 //Criar acesso ao axios client:
-const axiosClient = axios.create({
+/* const axiosClient = axios.create({
     baseURL: `${process.env.REACT_APP_API_KEY}/api`,
-});
+}); */
 
 //Interceptors são funções especiais que são executadas antes doy request ser efetuado ou depois de a resposta ser recebida
 
 //REQUEST: axios utiliza o seguinte interceptor antes de fazer qualquer REQUEST (como parametro da função passamos o objeto config)
-axiosClient.interceptors.request.use((config) => {
+/* axiosClient.interceptors.request.use((config) => {
     const token = localStorage.get("ACCESS_TOKEN"); // acesso ao token que está na localStorage
 
     //alteramos os headers do config
     config.headers.Authorization = `Bearer ${token}`; //autenticação Bearer(autenticação token)
 
     return config; //tambem retornamos o config object
-});
+}); */
 
 //RESPONSE:
-axiosClient.interceptors.response.use(
+/* axiosClient.interceptors.response.use(
     (response) => {
         return response; //retorna a resposta bem sucedida
     },
@@ -62,6 +62,6 @@ axiosClient.interceptors.response.use(
 
         throw error;
     }
-);
+); */
 
-export default axiosClient;
+//export default axiosClient;
