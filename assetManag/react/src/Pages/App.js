@@ -38,31 +38,26 @@ import Assets from "./Assets";
 import Dashboard from "./Dashboard";
 import "../Styles/styles.css";
 import Layout from "../Components/Layout";
-import ContextProvider from "../Contexts/ContextProvider";
+/* import ContextProvider from "../Contexts/ContextProvider"; */
 import AddAsset from "./AddAsset";
 
 const App = () => {
     /* console.log(process.env.REACT_APP_BASE_URL); */
     return (
-        <ContextProvider>
-            <BrowserRouter>
-                <Routes>
-                    <Route element={<Layout />}>
-                        <Route
-                            exact
-                            path="/dashboard"
-                            element={<Dashboard />}
-                        />
-                        <Route path="/assets" element={<Assets />} />
-                        <Route path="/addAssets" element={<AddAsset />} />
-                    </Route>
-                    <Route path="/" element={<Login />} />
-                    <Route path="*" element={<NotFound />} />
-                    <Route path="/signup" element={<Signup />} />
-                    <Route path="/resetpass" element={<ForgotPass />} />
-                </Routes>
-            </BrowserRouter>
-        </ContextProvider>
+        <BrowserRouter>
+            <Routes>
+                <Route element={<Layout />}>
+                    <Route exact path="/dashboard" element={<Dashboard />} />
+                    <Route path="/assets" element={<Assets />} />
+                    <Route path="/addAssets" element={<AddAsset />} />
+                </Route>
+                <Route path="/" element={<Login />} />
+                <Route path="*" element={<NotFound />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/resetpass" element={<ForgotPass />} />
+            </Routes>
+        </BrowserRouter>
+        /* </ContextProvider> */
     );
 };
 

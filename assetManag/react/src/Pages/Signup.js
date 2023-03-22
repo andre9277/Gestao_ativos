@@ -27,33 +27,14 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import React, { useRef } from "react";
+import React from "react";
 import "../Styles/styles.css";
 import { Link } from "react-router-dom";
-import axiosClient from "../axios-client.js";
-import { useStateContext } from "../Contexts/ContextProvider.js";
+/* import axiosClient from "../axios-client.js"; */
 
 const Register = () => {
-    const nameFirstRef = useRef();
-    const nameLastRef = useRef();
-    const emailRef = useRef();
-    const passwordRef = useRef();
-    const passwordConfirmationRef = useRef();
-
-    //Guardar informação do utilizador e o token associado
-    const { setUser, setToken } = useStateContext();
-
     const onSubmit = (ev) => {
         ev.preventDefault();
-
-        const payload = {
-            name_first: nameFirstRef.current.value,
-            name_last: nameLastRef.current.value,
-            email: emailRef.current.value,
-            password: passwordRef.current.value,
-            password_confirmation: passwordConfirmationRef.current.value,
-        };
-        console.log(payload);
 
         //Fazer requests to the server:
         //...faz um post ao register e enviamos o payload também
