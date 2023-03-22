@@ -34,97 +34,106 @@ import Search from "../Components/Search";
 import UserInfo from "../Components/UserInfo";
 
 const TopBar = ({ user }) => {
-  const [style, setStyle] = useState(
-    "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-  );
+    const [style, setStyle] = useState(
+        "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+    );
 
-  const changeStyle = () => {
-    if (
-      style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-    ) {
-      setStyle(
-        "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"
-      );
-    } else {
-      setStyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
-    }
-  };
-  const changeStyle1 = () => {
-    if (
-      style == "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-    ) {
-      setStyle(
-        "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1"
-      );
-    } else {
-      setStyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
-    }
-  };
+    const changeStyle = () => {
+        if (
+            style ===
+            "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+        ) {
+            setStyle(
+                "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"
+            );
+        } else {
+            setStyle(
+                "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+            );
+        }
+    };
+    const changeStyle1 = () => {
+        if (
+            style ==
+            "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+        ) {
+            setStyle(
+                "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1"
+            );
+        } else {
+            setStyle(
+                "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+            );
+        }
+    };
 
-  return (
-    <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-      {/*  <!-- Sidebar Toggle (Topbar) --> */}
-      <button
-        id="sidebarToggleTop"
-        className="btn btn-link d-md-none rounded-circle mr-3"
-        onClick={changeStyle1}
-      >
-        <i className="fa fa-bars"></i>
-      </button>
-      {/*  <!-- Topbar Search --> */}
-      <Search />
-      {/*  <!-- Topbar Navbar --> */}
-      <ul className="navbar-nav ml-auto">
-        {/*  <!-- Nav Item - Search Dropdown (Visible Only XS) --> */}
+    return (
+        <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            {/*  <!-- Sidebar Toggle (Topbar) --> */}
+            <button
+                id="sidebarToggleTop"
+                className="btn btn-link d-md-none rounded-circle mr-3"
+                onClick={changeStyle1}
+            >
+                <i className="fa fa-bars"></i>
+            </button>
+            {/*  <!-- Topbar Search --> */}
+            <Search />
+            {/*  <!-- Topbar Navbar --> */}
+            <ul className="navbar-nav ml-auto">
+                {/*  <!-- Nav Item - Search Dropdown (Visible Only XS) --> */}
 
-        <li className="nav-item dropdown no-arrow d-sm-none">
-          <a
-            className="nav-link dropdown-toggle"
-            id="searchDropdown"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            <i className="fas fa-search fa-fw"></i>
-          </a>
+                <li className="nav-item dropdown no-arrow d-sm-none">
+                    <a
+                        className="nav-link dropdown-toggle"
+                        id="searchDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        <i className="fas fa-search fa-fw"></i>
+                    </a>
 
-          {/*   <!-- Dropdown - Messages --> */}
-          <div
-            className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-            aria-labelledby="searchDropdown"
-          >
-            <form className="form-inline mr-auto w-100 navbar-search">
-              <div className="input-group">
-                <input
-                  type="text"
-                  className="form-control bg-light border-0 small"
-                  placeholder="Procure o ativo..."
-                  aria-label="Search"
-                  aria-describedby="basic-addon2"
-                />
-                <div className="input-group-append">
-                  <button className="btn btn-primary" type="button">
-                    <i className="fas fa-search fa-sm"></i>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </li>
+                    {/*   <!-- Dropdown - Messages --> */}
+                    <div
+                        className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                        aria-labelledby="searchDropdown"
+                    >
+                        <form className="form-inline mr-auto w-100 navbar-search">
+                            <div className="input-group">
+                                <input
+                                    type="text"
+                                    className="form-control bg-light border-0 small"
+                                    placeholder="Procure o ativo..."
+                                    aria-label="Search"
+                                    aria-describedby="basic-addon2"
+                                />
+                                <div className="input-group-append">
+                                    <button
+                                        className="btn btn-primary"
+                                        type="button"
+                                    >
+                                        <i className="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </li>
 
-        {/*  <!-- Nav Item - Alerts --> */}
-        <Alert />
-        {/*  <!-- Nav Item - Messages --> */}
-        <Message />
+                {/*  <!-- Nav Item - Alerts --> */}
+                <Alert />
+                {/*  <!-- Nav Item - Messages --> */}
+                <Message />
 
-        <div className="topbar-divider d-none d-sm-block"></div>
+                <div className="topbar-divider d-none d-sm-block"></div>
 
-        {/* <!-- Nav Item - User Information --> */}
-        <UserInfo user={user} />
-      </ul>
-    </nav>
-  );
+                {/* <!-- Nav Item - User Information --> */}
+                <UserInfo />
+            </ul>
+        </nav>
+    );
 };
 
 export default TopBar;

@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\SignupRequest;
+use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
+
+class AuthController extends Controller
+{
+
+    /** 
+     * Create user
+     *@param Request $request
+     *@return User 
+     */
+    public function signup(SignupRequest $request)
+    {
+        //dados do pedido
+        $data = $request->validated();
+
+        /** @var \App\Models\User $user */
+        $user = User::create([     //Cria um user:
+            'name' => $data['name'],
+            //'lname' => $data['lname'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']), //Por razões de segurança a pass é encriptada
+        ]);
+
+        //Dá um nome ao token(main) e é plainText
+        $token = $user->createToken('main')->plainTextToken;
+
+        return response(compact('user', 'token'));
+    }
+
+
+
+    public function login(LoginRequest $request)
+    {
+        $credentials = $request->validated(); //credentials é um array que possui email e password
+
+        //se as credenciais que o utilizador introduz para o login não forem bem sucedidas
+        if (!Auth::attempt($credentials)) {
+            return response([
+                'message' => 'O email e a password estão incorretos!'
+
+            ]);
+        }
+        /** @var User $user */
+        //se ocorrer com sucesso, queremos aceder as informaçoes do utilizador
+        $user = Auth::user();
+        $user->createToken('main')->plainTextToken;
+        return response(compact('user', 'token'));
+    }
+
+
+    public function logout(Request $request)
+    {
+        /** @var User $user */
+        $user = $request->user();
+        //Apagar o token do utilizador
+        $user->currentAccessToken()->delete; //delete();!?
+        //Retorna nada por não precisar e com o código 204: resposta realizada com sucesso
+        return response('', 204);
+    }
+}

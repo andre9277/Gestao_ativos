@@ -27,30 +27,36 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import React from "react";
+import React, { useState } from "react";
 import "../Styles/styles.css";
 import { Link } from "react-router-dom";
-/* import axiosClient from "../axios-client.js"; */
 
 const Register = () => {
-    const onSubmit = (ev) => {
-        ev.preventDefault();
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-        //Fazer requests to the server:
-        //...faz um post ao register e enviamos o payload também
-        axiosClient
-            .post("/signup", payload)
-            .then(({ data }) => {
-                setUser(data.user);
-                setToken(data.token);
-            })
-            .catch((err) => {
-                console.log(err);
-                const response = err.response;
-                if (response && response.status === 422) {
-                    console.log(response.data.errors);
-                }
+    //Enviar um request ao servidor utilizando o fetch - Através de uma função assincrona
+    const submit = async (e) => {
+        e.preventDefault();
+
+        try {
+            //obter resposta do servidor
+            const response = await fetch("http://localhost:8000/api/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password,
+                }),
             });
+
+            const content = await response.json();
+            console.log(content);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
@@ -63,30 +69,28 @@ const Register = () => {
                                 <div className="card shadow-lg border-0 rounded-lg mt-5">
                                     <div className="card-header">
                                         <h3 className="text-center font-weight-light my-4">
-                                            Create Account
+                                            Criar Conta
                                         </h3>
                                     </div>
                                     <div className="card-body">
-                                        <form onSubmit={onSubmit}>
-                                            <div className="row mb-3">
-                                                <div className="col-md-6">
-                                                    <div className="form-floating mb-3 mb-md-0">
-                                                        <input
-                                                            ref={nameFirstRef}
-                                                            className="form-control"
-                                                            id="inputFirstName"
-                                                            type="text"
-                                                            placeholder="Enter your first name"
-                                                        />
-                                                        <label htmlFor="inputFirstName">
-                                                            First name
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-6">
+                                        <form onSubmit={submit} action="/">
+                                            <div className="form-floating mb-3">
+                                                <input
+                                                    className="form-control"
+                                                    id="inputFirstName"
+                                                    type="text"
+                                                    placeholder="Enter your first name"
+                                                    onChange={(e) =>
+                                                        setName(e.target.value)
+                                                    }
+                                                />
+                                                <label htmlFor="inputFirstName">
+                                                    Nome Completo
+                                                </label>
+                                                {/* <div className="col-md-6">
                                                     <div className="form-floating">
                                                         <input
-                                                            ref={nameLastRef}
+                                                        
                                                             className="form-control"
                                                             id="inputLastName"
                                                             type="text"
@@ -96,42 +100,46 @@ const Register = () => {
                                                             Last name
                                                         </label>
                                                     </div>
-                                                </div>
+                                                </div> */}
                                             </div>
                                             <div className="form-floating mb-3">
                                                 <input
-                                                    ref={emailRef}
                                                     className="form-control"
                                                     id="inputEmail"
                                                     type="email"
                                                     placeholder="name@example.com"
+                                                    onChange={(e) =>
+                                                        setEmail(e.target.value)
+                                                    }
                                                 />
                                                 <label htmlFor="inputEmail">
-                                                    Email address
+                                                    Endereço de email
                                                 </label>
                                             </div>
                                             <div className="row mb-3">
                                                 <div className="col-md-6">
                                                     <div className="form-floating mb-3 mb-md-0">
                                                         <input
-                                                            ref={passwordRef}
                                                             className="form-control"
                                                             id="inputPassword"
                                                             type="password"
                                                             placeholder="Create a password"
                                                             autoComplete="false"
+                                                            onChange={(e) =>
+                                                                setPassword(
+                                                                    e.target
+                                                                        .value
+                                                                )
+                                                            }
                                                         />
                                                         <label htmlFor="inputPassword">
                                                             Password
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <div className="col-md-6">
+                                                {/* <div className="col-md-6">
                                                     <div className="form-floating mb-3 mb-md-0">
                                                         <input
-                                                            ref={
-                                                                passwordConfirmationRef
-                                                            }
                                                             className="form-control"
                                                             id="inputPasswordConfirm"
                                                             type="password"
@@ -139,19 +147,20 @@ const Register = () => {
                                                             autoComplete="false"
                                                         />
                                                         <label htmlFor="inputPasswordConfirm">
-                                                            Confirm Password
+                                                            Confirme a Password
                                                         </label>
                                                     </div>
-                                                </div>
+                                                </div> */}
                                             </div>
+
                                             <div className="mt-4 mb-0">
                                                 <div className="d-grid">
-                                                    <Link
-                                                        to="/"
+                                                    <button
+                                                        type="submit"
                                                         className="btn btn-primary btn-block"
                                                     >
-                                                        Create Account
-                                                    </Link>
+                                                        Criar conta
+                                                    </button>
                                                 </div>
                                             </div>
                                         </form>
@@ -159,7 +168,8 @@ const Register = () => {
                                     <div className="card-footer text-center py-3">
                                         <div className="small">
                                             <Link to="/">
-                                                Have an account? Go to login
+                                                Tem uma conta? Realize login
+                                                aqui!
                                             </Link>
                                         </div>
                                     </div>

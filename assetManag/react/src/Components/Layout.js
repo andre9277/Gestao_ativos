@@ -44,7 +44,7 @@ const Layout = () => {
             <SideBar />
             <div id="content-wrapper" className="d-flex flex-column">
                 <div id="content">
-                    <TopBar user={user} />
+                    <TopBar />
                     <Outlet />
                 </div>
                 <Footer />

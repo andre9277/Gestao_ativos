@@ -54,7 +54,7 @@ const Login = () => {
                                                     placeholder="name@example.com"
                                                 />
                                                 <label htmlFor="inputEmail">
-                                                    Email address
+                                                    Endereço email
                                                 </label>
                                             </div>
                                             <div className="form-floating mb-3">
@@ -80,7 +80,7 @@ const Login = () => {
                                                     className="form-check-label"
                                                     htmlFor="inputRememberPassword"
                                                 >
-                                                    Remember Password
+                                                    Relembrar Password
                                                 </label>
                                             </div>
                                             <div className="d-flex align-items-center justify-content-between mt-4 mb-0">
@@ -88,7 +88,7 @@ const Login = () => {
                                                     to="/resetpass"
                                                     className="small"
                                                 >
-                                                    Forgot Password?
+                                                    Esqueceu-se da Password?
                                                 </Link>
                                                 <Link
                                                     to="/dashboard"
@@ -102,7 +102,8 @@ const Login = () => {
                                     <div className="card-footer text-center py-3">
                                         <div className="small">
                                             <Link to="/signup">
-                                                Need an account? Sign up!
+                                                Necessita de uma conta?
+                                                Registe-se aqui!
                                             </Link>
                                         </div>
                                     </div>
