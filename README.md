@@ -2,12 +2,13 @@
 
 -   Before starting the project, it is necessary to install some packages/libraries:
 
-    In the root Directory:
+    ### In the root Directory:
     
        **1- Run in backend:**
 
         > composer install
-      **2- Configure database credentials**
+        
+      **2- Copy .env.example into .env and configure database credentials**
 
       **3- Set the encryption key by executing:**
 
@@ -20,14 +21,18 @@
      **5- Start local server by executing:**
 
         > php artisan serve
+        
+        
 
-    Open new Terminal and go to **react** folder directory:
+    ### Open new Terminal and go to **react** folder directory:
+    
+     **6- Copy react/.env.example into .env and adjust the VITE_API_BASE_URL parameter**
 
-       **6- Run:**
+     **7- Run:**
 
         > npm install
     
-       **7- Run:**
+     **8- Run:**
 
         >npm run dev
 
