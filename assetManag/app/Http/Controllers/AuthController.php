@@ -2,59 +2,73 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
-use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
+    // register a new user method
+    public function register(RegisterRequest $request)
+    {
 
-    public function register(Request $request){
-        return User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password'))
+        $data = $request->validated();
+
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
         ]);
-       /*  return $user; */
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        $cookie = cookie('token', $token, 60 * 24); // 1 day
+
+        return response()->json([
+            'user' => new UserResource($user),
+        ])->withCookie($cookie);
     }
 
-    public function login(Request $request){
-        //se login ocorrer sem sucesso, vai retornar a resposta
-        if(!Auth::attempt($request->only('email','password'))){
-            return response([
-                'message' => 'Invalid credentials!'
-            ], Response::HTTP_UNAUTHORIZED);
+    // login a user method
+    public function login(LoginRequest $request)
+    {
+        $data = $request->validated();
+
+        $user = User::where('email', $data['email'])->first();
+
+        if (!$user || !Hash::check($data['password'], $user->password)) {
+            return response()->json([
+                'message' => 'Email or password is incorrect!'
+            ], 401);
         }
-        
-        //Quanto tem autorização, retornamos o utilizador
-        $user = Auth::user();
 
-        //Token vai criar um token obj e transformar em string
-        $token = $user->createToken('token')->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-        //criar cookies para armazenar os tokens: (jwt:JSON Web Token)
-        $cookie = cookie('jwt', $token, 60*24); //1 day
+        $cookie = cookie('token', $token, 60 * 24); // 1 day
 
-        return response([
-            'message' => 'success'
-        ])->withCookie($cookie); //return a cookie para o frontend que não consegue fazer nada com o cookie e visualizamos só a mensagem com Sucesso!
+        return response()->json([
+            'user' => new UserResource($user),
+        ])->withCookie($cookie);
     }
 
-    //Autenticação do utilizador:
-    public function user(){
-        return Auth::user();;
+    // logout a user method
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        $cookie = cookie()->forget('token');
+
+        return response()->json([
+            'message' => 'Logged out successfully!'
+        ])->withCookie($cookie);
     }
 
-    public function logout(){
-        $cookie = Cookie::forget('jwt');
-
-        return response([
-            'message' => 'Success'
-        ])->withCookie($cookie); //só o backend consegue eliminar o cookie 
-
-        
+    // get the authenticated user method
+    public function user(Request $request)
+    {
+        return new UserResource($request->user());
     }
 }
