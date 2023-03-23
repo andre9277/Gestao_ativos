@@ -3,31 +3,31 @@
 -   Before starting the project, it is necessary to install some packages/libraries:
 
     In the root Directory:
-    -   1**Run in backend:**
+    -   **1.Run in backend:**
 
         > composer install
 
-    -   2**Configure database credentials**
+    -   **2.Configure database credentials**
 
-    -   3**Set the encryption key by executing:**
+    -   **3.Set the encryption key by executing:**
 
         > php artisan key:generate --ansi
 
-    -   4**Run migrations:**
+    -   **4.Run migrations:**
 
         > php artisan migrate --seed
 
-    -   5**Start local server by executing:**
+    -   **5.Start local server by executing:**
 
         > php artisan serve
 
     Open new Terminal and go to **react** folder directory:
 
-    -   6**Run:**
+    -   **6.Run:**
 
         > npm install
     
-    -   7**Run:**
+    -   **7.Run:**
 
         >npm run dev
 
