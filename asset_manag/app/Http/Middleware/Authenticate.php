@@ -16,13 +16,17 @@ class Authenticate extends Middleware
         return $request->expectsJson() ? null : route('login');
     }
 
+
+    //Responsável por autenticar users
     public function handle($request, Closure $next, ...$guards)
     {
-
+        //Verifica se o token existe no request cookie
         if ($token = $request->cookie('token')) {
+            //Se token é encpntrado, é adicionado ao request header
             $request->headers->set('Authorization', 'Bearer ' . $token);
         }
 
+        //Realiza a autenticação do request (permite que prossiga para o middleware ou para o método Controller)
         $this->authenticate($request, $guards);
 
         return $next($request);

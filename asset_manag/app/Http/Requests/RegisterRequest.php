@@ -2,6 +2,10 @@
 
 namespace App\Http\Requests;
 
+//Requests permitem validar a entrada de HTTP requests.
+//-Definem as regras de validação dos dados submetidos com um request.
+//Assegura que os dados tenham certas especificações antes de seguir a aplicação.
+
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 

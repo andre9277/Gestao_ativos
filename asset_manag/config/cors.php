@@ -29,6 +29,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => true,
+    'supports_credentials' => true, //Indica que cookies e outros dados devem ser incluidos em cross-site requests
 
 ];
