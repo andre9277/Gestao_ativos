@@ -44,7 +44,7 @@ export default function Users() {
           alignItems: "center",
         }}
       >
-        <h1>Users</h1>
+        <h1>Utilizadores</h1>
         <Link className="btn-add" to="/users/new">
           Add new
         </Link>

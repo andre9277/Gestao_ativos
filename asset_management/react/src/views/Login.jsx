@@ -88,7 +88,7 @@ export default function Login() {
                         </label>
                       </div>
                       <div className="d-flex align-items-center justify-content-between mt-4 mb-0">
-                        <Link to="/resetpass" className="small">
+                        <Link to="/forgotpass" className="small">
                           Forgot Password?
                         </Link>
                         <button className="btn btn-block">Login</button>

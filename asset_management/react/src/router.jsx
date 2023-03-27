@@ -7,6 +7,9 @@ import NotFound from "./views/NotFound";
 import Signup from "./views/Signup";
 import Users from "./views/Users";
 import UserForm from "./views/UserForm";
+import ForgotPass from "./views/ForgotPass.jsx";
+
+//O objeto router define os caminhos(routes) e os componentes que devem ser renderizados quando um utilizador navega para um caminho específico.
 
 const router = createBrowserRouter([
   {
@@ -52,6 +55,10 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <NotFound />,
+  },
+  {
+    path: "/forgotpass",
+    element: <ForgotPass />,
   },
 ]);
 
