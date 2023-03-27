@@ -6,21 +6,21 @@
     
        **1- Run in backend:**
 
-        > composer install
+         composer install
         
       **2- Copy .env.example into .env and configure database credentials**
 
       **3- Set the encryption key by executing:**
 
-        > php artisan key:generate --ansi
+         php artisan key:generate --ansi
 
        **4- Run migrations:**
 
-        > php artisan migrate --seed
+         php artisan migrate --seed
 
      **5- Start local server by executing:**
 
-        > php artisan serve
+         php artisan serve
         
         
 
@@ -30,11 +30,11 @@
 
      **7- Run:**
 
-        > npm install
+        npm install
     
      **8- Run:**
 
-        >npm run dev
+        npm run dev
 
 -   Link to the document with all the documentation developed for the project so far:
     > https://snspt-my.sharepoint.com/:w:/g/personal/andre_ferreira_hb_min-saude_pt/EaPPFEDaia1Eqkbc_J05rZ8BWTfoXG6505iV5Qu2XWF4qQ?e=hgIZ96
