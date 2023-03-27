@@ -1,81 +1,58 @@
-/* The MIT License (MIT)
-
-Copyright (c) 2013-2023 Start Bootstrap LLC
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. 
-
-You may obtain a copy of the license at:
-
-      https://github.com/StartBootstrap/startbootstrap-sb-admin-2
-
-
-All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
-*/
-import { Link, Navigate, Outlet } from "react-router-dom";
-import { useStateContext } from "../context/ContextProvider";
+import {Link, Navigate, Outlet} from "react-router-dom";
+import {useStateContext} from "../context/ContextProvider";
 import axiosClient from "../axios-client.js";
-import { useEffect } from "react";
-import SideBar from "./SideBar";
-import TopBar from "./TopBar";
-import Footer from "./Footer";
+import {useEffect} from "react";
 
 export default function DefaultLayout() {
-  //Utilizamos o StateContext
-  const { token, setUser, setToken, notification } = useStateContext();
+  const {user, token, setUser, setToken, notification} = useStateContext();
 
-  //Se token não existir o utilizador volta a página do login (impede que aceda a páginas/dados protegidas)
   if (!token) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login"/>
   }
 
-  //Logout do utilizador (aceita um evento:ev)
-  const onLogout = (ev) => {
-    ev.preventDefault();
+  const onLogout = ev => {
+    ev.preventDefault()
 
-    axiosClient.post("/logout").then(() => {
-      setUser({});
-      setToken(null);
-    });
-  };
+    axiosClient.post('/logout')
+      .then(() => {
+        setUser({})
+        setToken(null)
+      })
+  }
 
   useEffect(() => {
-    axiosClient.get("/user").then(({ data }) => {
-      setUser(data);
-    });
-  }, []);
+    axiosClient.get('/user')
+      .then(({data}) => {
+         setUser(data)
+      })
+  }, [])
 
   return (
-    <div id="wrapper">
-      <div id="defaultLayout">
-        <SideBar />
-
-        <div id="content-wrapper" className="d-flex flex-column">
-          <div className="content">
-            <TopBar onLogout={onLogout} />
-            <main>
-              <Outlet />
-            </main>
-            {notification && <div className="notification">{notification}</div>}
+    <div id="defaultLayout">
+      <aside>
+        <Link to="/dashboard">Dashboard</Link>
+        <Link to="/users">Users</Link>
+      </aside>
+      <div className="content">
+        <header>
+          <div>
+            Header
           </div>
-          <Footer />
-        </div>
+
+          <div>
+            {user.name} &nbsp; &nbsp;
+            <a onClick={onLogout} className="btn-logout" href="#">Logout</a>
+          </div>
+        </header>
+        <main>
+          <Outlet/>
+        </main>
+        {notification &&
+          <div className="notification">
+            {notification}
+          </div>
+        }
       </div>
     </div>
-  );
+  )
 }

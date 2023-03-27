@@ -14,16 +14,14 @@ class AuthController extends Controller
 {
     public function signup(SignupRequest $request)
     {
-        //data do servidor:
         $data = $request->validated();
         /** @var \App\Models\User $user */
-        $user = User::create([ //Cria um user
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']), //função decrypt para a password
+            'password' => bcrypt($data['password']),
         ]);
 
-        //Guarda o token 
         $token = $user->createToken('main')->plainTextToken;
         return response(compact('user', 'token'));
     }
