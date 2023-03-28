@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
+    //ApiResource no endpoint users
     Route::apiResource('/users', UserController::class);
 });
 

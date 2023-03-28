@@ -14,6 +14,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
+        //dá permissão
         return true;
     }
 
@@ -24,9 +25,10 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules()
     {
+        //transferimos o id
         return [
             'name' => 'required|string|max:55',
-            'email' => 'required|email|unique:users,email,'.$this->id,
+            'email' => 'required|email|unique:users,email,' . $this->id,
             'password' => [
                 'confirmed',
                 Password::min(8)

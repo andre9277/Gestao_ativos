@@ -31,10 +31,12 @@ import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import { Link } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
+import PaginationLinks from "../components/PaginationLinks.jsx";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [meta, setMeta] = useState({});
   const { setNotification } = useStateContext();
 
   //retorna todos os utilizadores
@@ -52,16 +54,23 @@ export default function Users() {
     });
   };
 
+  const onPageClick = (link) => {
+    getUsers(link.url);
+  };
+
   //Realiza um request access client
-  const getUsers = () => {
+  const getUsers = (url) => {
+    url = url || "/users";
+
     //enquanto não acaba o request, aplicamos o loading = true
     setLoading(true);
     axiosClient
-      .get("/users")
+      .get(url)
       .then(({ data }) => {
         //quando obtemos um request, loading=false
         setLoading(false);
         setUsers(data.data);
+        setMeta(data.meta);
       })
       .catch(() => {
         setLoading(false);
@@ -127,6 +136,7 @@ export default function Users() {
             </tbody>
           )}
         </table>
+        <PaginationLinks meta={meta} onPageClick={onPageClick} />
       </div>
     </div>
   );
