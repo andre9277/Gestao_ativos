@@ -77,7 +77,7 @@ const TopBar = ({ user, onLogout }) => {
 
       {/*Icon bar code para utilizadores realizam scan */}
       <Link to="/scan">
-        <i class="fa fa-barcode fa-3x" aria-hidden="true" href></i>
+        <i className="fa fa-barcode fa-3x" aria-hidden="true"></i>
       </Link>
 
       {/*  <!-- Topbar Navbar --> */}
