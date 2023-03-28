@@ -35,6 +35,15 @@
      **8- Run:**
 
         npm run dev
+      
+      **For pagination style install the follow commands in react folder:**
+
+      npm install -D tailwindcss postcss autoprefixer
+
+      npx tailwindcss init -p
+
+      npm install flowbite flowbite-react
+
 
 -   Link to the document with all the documentation developed for the project so far:
     > https://snspt-my.sharepoint.com/:w:/g/personal/andre_ferreira_hb_min-saude_pt/EaPPFEDaia1Eqkbc_J05rZ8BWTfoXG6505iV5Qu2XWF4qQ?e=hgIZ96

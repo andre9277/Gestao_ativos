@@ -17,6 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        //retorna uma query de modo a ordenar os users de forma descendente por ID, e 11 utilizadores por página
         return UserResource::collection(User::query()->orderBy('id', 'desc')->paginate(10));
     }
 
@@ -28,11 +29,17 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        //Dados validados através do request
         $data = $request->validated();
+
+        //Update a password encriptada
         $data['password'] = bcrypt($data['password']);
+
+        //Criamos o User
         $user = User::create($data);
 
-        return response(new UserResource($user) , 201);
+        //retonna o utilizador 
+        return response(new UserResource($user), 201);
     }
 
     /**
@@ -43,6 +50,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        //retornamos o UserResource
         return new UserResource($user);
     }
 
@@ -55,12 +63,18 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
+
         $data = $request->validated();
+
+        //verifica se existe uma password disponível
         if (isset($data['password'])) {
-            $data['password'] = bcrypt($data['password']);
+            $data['password'] = bcrypt($data['password']); //e encrypt a password
         }
+
+        //realiza o update do atual user
         $user->update($data);
 
+        //Novo user resource 
         return new UserResource($user);
     }
 
@@ -72,6 +86,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        //Função que elimina o utilizador
         $user->delete();
 
         return response("", 204);

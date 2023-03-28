@@ -28,6 +28,7 @@ You may obtain a copy of the license at:
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Alert from "./Alert";
 import Message from "./Message";
 import Search from "./Search";
@@ -73,6 +74,12 @@ const TopBar = ({ user, onLogout }) => {
       </button>
       {/*  <!-- Topbar Search --> */}
       <Search />
+
+      {/*Icon bar code para utilizadores realizam scan */}
+      <Link to="/scan">
+        <i className="fa fa-barcode fa-3x" aria-hidden="true"></i>
+      </Link>
+
       {/*  <!-- Topbar Navbar --> */}
       <ul className="navbar-nav ml-auto">
         {/*  <!-- Nav Item - Search Dropdown (Visible Only XS) --> */}

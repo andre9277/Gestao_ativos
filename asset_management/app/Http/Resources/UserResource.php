@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+//Resource é uma classe utilizada para converter os modelos database em Json serializable data (enviada do servidor(API) para o browser)
 class UserResource extends JsonResource
 {
     public static $wrap = false;
@@ -16,6 +17,7 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+        //o que queremos expor sobre o user
         return [
             'id' => $this->id,
             'name' => $this->name,

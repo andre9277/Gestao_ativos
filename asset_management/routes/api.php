@@ -16,12 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//endpoints que têm acesso
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 
+    //ApiResource no endpoint users
     Route::apiResource('/users', UserController::class);
 });
 
