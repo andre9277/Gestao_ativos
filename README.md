@@ -36,13 +36,15 @@
 
         npm run dev
       
-      **For pagination style install the follow commands in react folder:**
+     ### **For pagination style install the follow commands in react folder:**
 
-      npm install -D tailwindcss postcss autoprefixer
+        npm install -D tailwindcss postcss autoprefixer
+     ______________________________________________________
 
-      npx tailwindcss init -p
+        npx tailwindcss init -p
+     ______________________________________________________
 
-      npm install flowbite flowbite-react
+        npm install flowbite flowbite-react
 
 
 -   Link to the document with all the documentation developed for the project so far:
