@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //retorna uma query de modo a ordenar os users de forma descendente por ID, e 11 utilizadores por página
+        //retorna uma query de modo a ordenar os users de forma descendente por ID, e 10 utilizadores por página
         return UserResource::collection(User::query()->orderBy('id', 'desc')->paginate(10));
     }
 

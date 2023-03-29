@@ -69,6 +69,7 @@ export const ContextProvider = ({ children }) => {
 
   //
   return (
+    //expoe todos estes valores para qualquer componente/página que utilizar o ContextProvider
     <StateContext.Provider
       value={{
         user,

@@ -33,8 +33,13 @@ import axiosClient from "../axios-client.js";
 import { useStateContext } from "../context/ContextProvider.jsx";
 
 export default function UserForm() {
+  //permite a navegação de users para outra página
   const navigate = useNavigate();
+
+  //Ficamos com o ID
   let { id } = useParams();
+
+  //Lista de utilizadores:
   const [user, setUser] = useState({
     id: null,
     name: "",
@@ -43,10 +48,12 @@ export default function UserForm() {
     password_confirmation: "",
   });
   const [errors, setErrors] = useState(null);
+
   //Loading para informar aos users de quando a tabela acaba de dar load
   const [loading, setLoading] = useState(false);
   const { setNotification } = useStateContext();
 
+  //Sempre que o ID do utilizador existir:
   if (id) {
     useEffect(() => {
       setLoading(true);
@@ -62,13 +69,18 @@ export default function UserForm() {
     }, []);
   }
 
+  //Ao submeter o update:
   const onSubmit = (ev) => {
     ev.preventDefault();
+
+    //se existir um user id: faz a atualização
     if (user.id) {
       axiosClient
         .put(`/users/${user.id}`, user)
         .then(() => {
+          //mensagem de update realizado com sucesso
           setNotification("User was successfully updated");
+          //Redireciona para a página dos utilizadores
           navigate("/users");
         })
         .catch((err) => {
@@ -77,7 +89,9 @@ export default function UserForm() {
             setErrors(response.data.errors);
           }
         });
-    } else {
+    }
+    //senão vai criar um utilizador
+    else {
       axiosClient
         .post("/users", user)
         .then(() => {
@@ -114,6 +128,7 @@ export default function UserForm() {
               placeholder="Name"
             />
             <input
+              type="email"
               value={user.email}
               onChange={(ev) => setUser({ ...user, email: ev.target.value })}
               placeholder="Email"

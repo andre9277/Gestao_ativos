@@ -25,7 +25,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules()
     {
-        //transferimos o id
+        //exceato o id
         return [
             'name' => 'required|string|max:55',
             'email' => 'required|email|unique:users,email,' . $this->id,

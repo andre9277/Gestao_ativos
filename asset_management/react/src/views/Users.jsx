@@ -39,17 +39,23 @@ export default function Users() {
   const [meta, setMeta] = useState({});
   const { setNotification } = useStateContext();
 
-  //retorna todos os utilizadores
+  //retorna todos os utilizadores (mount hook é chamado 2x)
   useEffect(() => {
     getUsers();
   }, []);
 
+  //Handel click para apagar um utilizador
   const onDeleteClick = (user) => {
+    //Confirmação da eliminação de um utilizador
     if (!window.confirm("Are you sure you want to delete this user?")) {
       return;
     }
+
+    //Requests para apagar o utilizador
     axiosClient.delete(`/users/${user.id}`).then(() => {
       setNotification("User was successfully deleted");
+
+      //após utilizador ser eliminado, faz fetch de todos os utilziadores para mostrar a eliminação realizada com sucesso
       getUsers();
     });
   };
@@ -113,6 +119,7 @@ export default function Users() {
           )}
           {!loading && (
             <tbody>
+              {/* Iteração pelos utilizadores todos */}
               {users.map((u) => (
                 <tr key={u.id}>
                   <td>{u.id}</td>
