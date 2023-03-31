@@ -106,6 +106,7 @@ export default function Users() {
               <th>Email</th>
               <th>Create Date</th>
               <th>Actions</th>
+              <th>Role</th>
             </tr>
           </thead>
           {loading && (
@@ -137,6 +138,13 @@ export default function Users() {
                     >
                       Delete
                     </button>
+                  </td>
+                  <td>
+                    {u.role_id === 1
+                      ? "Admin"
+                      : u.role_id === 2
+                      ? "SI"
+                      : "Manutenção"}
                   </td>
                 </tr>
               ))}

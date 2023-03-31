@@ -46,6 +46,7 @@ export default function UserForm() {
     email: "",
     password: "",
     password_confirmation: "",
+    role_id: "",
   });
   const [errors, setErrors] = useState(null);
 
@@ -144,6 +145,11 @@ export default function UserForm() {
                 setUser({ ...user, password_confirmation: ev.target.value })
               }
               placeholder="Password Confirmation"
+            />
+            <input
+              value={user.role_id}
+              onChange={(ev) => setUser({ ...user, role_id: ev.target.value })}
+              placeholder="Role"
             />
             <button className="btn">Save</button>
           </form>

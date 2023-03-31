@@ -84,11 +84,24 @@ class UserController extends Controller
      * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    /*    public function destroy(User $user)
     {
         //Função que elimina o utilizador
         $user->delete();
 
         return response("", 204);
+    } */
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \App\Models\User $user
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $this->authorize('create-delete-users');
+        $user = User::find($id);
+        $user->delete();
     }
 }

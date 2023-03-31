@@ -25,7 +25,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //ApiResource no endpoint users
     Route::apiResource('/users', UserController::class);
+
+    Route::resource('/usere', UserController::class);
 });
 
-Route::post('/signup', [AuthController::class, 'signup']);
+//Route::post('/signup', [AuthController::class, 'signup']);
+Route::post('/signup', [AuthController::class, 'signup'])->middleware('auth:sanctum');
+
+
 Route::post('/login', [AuthController::class, 'login']);
