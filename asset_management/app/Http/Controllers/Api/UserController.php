@@ -29,6 +29,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        $this->authorize('create-delete-users');
         //Dados validados através do request
         $data = $request->validated();
 
