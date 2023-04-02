@@ -38,6 +38,8 @@ import Users from "./views/Users";
 import UserForm from "./views/UserForm";
 import ForgotPass from "./views/ForgotPass.jsx";
 import ScanAsset from "./views/ScanAsset.jsx";
+import Assets from "./views/Assets.jsx";
+import AssetForm from "./views/AssetForm.jsx";
 
 //O objeto router define os caminhos(routes) e os componentes que devem ser renderizados quando um utilizador navega para um caminho específico.
 
@@ -69,6 +71,18 @@ const router = createBrowserRouter([
       {
         path: "/scan",
         element: <ScanAsset />,
+      },
+      {
+        path: "/assets",
+        element: <Assets />,
+      },
+      {
+        path: "/assets/:id",
+        element: <AssetForm key="assetUpdate" />,
+      },
+      {
+        path: "/assets/:id",
+        element: <AssetForm key="assetCreate" />,
       },
     ],
   },
