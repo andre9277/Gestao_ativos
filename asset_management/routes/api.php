@@ -50,7 +50,7 @@ Route::post('/signup', [AuthController::class, 'signup'])->middleware('auth:sanc
 
 Route::post('/login', [AuthController::class, 'login']);
 
-/* Route::post('assets', function () {
+Route::post('assets', function () {
     return Asset::create([
         'inv' => '456234',
         'brand' => 'TMN',
@@ -60,6 +60,7 @@ Route::post('/login', [AuthController::class, 'login']);
         'ala' => 'C',
         'ci' => 'CI7396',
         'status' => 'Ativo',
-        'local' => 'Hospital de Braga'
+        'local' => 'Hospital de Braga',
+        'category_id' => '1'
     ]);
-}); */
+});

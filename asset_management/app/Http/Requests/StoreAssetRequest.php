@@ -33,7 +33,8 @@ class StoreAssetRequest extends FormRequest
             'ala' => 'required',
             'ci' => 'required',
             'status' => 'required',
-            'local' => 'required'
+            'local' => 'required',
+            'category_id' => 'required'
         ];
     }
 }

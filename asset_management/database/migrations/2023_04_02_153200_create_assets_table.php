@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('status');
             $table->string('local');
             $table->timestamps();
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 
@@ -36,5 +38,10 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('assets');
+
+        Schema::table('assets', function (Blueprint $table) {
+            $table->dropForeign(['category_id']);
+            $table->dropColumn('category_id');
+        });
     }
 };
