@@ -76,6 +76,7 @@ export default function Users() {
         //quando obtemos um request, loading=false
         setLoading(false);
         setUsers(data.data);
+        //console.log(data);
         setMeta(data.meta);
       })
       .catch(() => {

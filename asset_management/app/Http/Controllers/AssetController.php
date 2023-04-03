@@ -16,7 +16,8 @@ class AssetController extends Controller
      */
     public function index()
     {
-        return Asset::all();
+        return AssetResource::collection(Asset::query()->orderBy('id', 'desc')->paginate(10));
+        //return Asset::all();
     }
 
     /**
@@ -37,7 +38,7 @@ class AssetController extends Controller
      */
     public function store(StoreAssetRequest $request)
     {
-
+        $this->authorize('create');
         return Asset::create($request->all());
     }
 

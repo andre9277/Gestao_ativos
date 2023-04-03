@@ -51,6 +51,7 @@ export default function AssetForm() {
     ci: "",
     status: "",
     local: "",
+    category_id: 0,
   });
   const [errors, setErrors] = useState(null);
 
@@ -171,6 +172,13 @@ export default function AssetForm() {
               value={asset.local}
               onChange={(ev) => setAsset({ ...asset, local: ev.target.value })}
               placeholder="Localização"
+            />
+            <input
+              value={asset.category_id}
+              onChange={(ev) =>
+                setAsset({ ...asset, category_id: ev.target.value })
+              }
+              placeholder="Categoria"
             />
             <button className="btn">Save</button>
           </form>

@@ -50,17 +50,17 @@ Route::post('/signup', [AuthController::class, 'signup'])->middleware('auth:sanc
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::post('assets', function () {
+/* Route::post('assets', function () {
     return Asset::create([
-        'inv' => '456234',
-        'brand' => 'TMN',
-        'model' => 'LAS91',
-        'serial' => 'ASF9018H43',
-        'cond' => 'Reparação',
-        'ala' => 'C',
-        'ci' => 'CI7396',
+        'inv' => '32146',
+        'brand' => 'Dell',
+        'model' => 'JN123',
+        'serial' => 'JS92ND03DX',
+        'cond' => 'Avariado',
+        'ala' => 'D',
+        'ci' => 'CI1023',
         'status' => 'Ativo',
         'local' => 'Hospital de Braga',
-        'category_id' => '1'
+        'category_id' => '2'
     ]);
-});
+}); */

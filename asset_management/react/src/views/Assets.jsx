@@ -60,9 +60,9 @@ export default function Assets() {
     });
   };
 
-  /* const onPageClick = (link) => {
+  const onPageClick = (link) => {
     getAssets(link.url);
-  }; */
+  };
 
   //Realiza um request access client
   const getAssets = (url) => {
@@ -76,8 +76,8 @@ export default function Assets() {
         //quando obtemos um request, loading=false
         setLoading(false);
         console.log(data);
-        setAssets(data);
-        //setMeta(data.meta);
+        setAssets(data.data);
+        setMeta(data.meta);
       })
       .catch(() => {
         setLoading(false);
@@ -112,7 +112,9 @@ export default function Assets() {
               <th>CI</th>
               <th>Estado</th>
               <th>Localização</th>
-              <th>Data de Adição</th>
+              <th>Adicionado em </th>
+              <th>Categoria</th>
+              <th>Actions</th>
             </tr>
           </thead>
           {loading && (
@@ -140,6 +142,8 @@ export default function Assets() {
                   <td>{a.status}</td>
                   <td>{a.local}</td>
                   <td>{a.created_at}</td>
+                  <td>{a.category_id}</td>
+
                   <td>
                     <Link className="btn-edit" to={"/assets/" + a.id}>
                       Edit
@@ -157,7 +161,7 @@ export default function Assets() {
             </tbody>
           )}
         </table>
-        {/* <PaginationLinks meta={meta} onPageClick={onPageClick} /> */}
+        <PaginationLinks meta={meta} onPageClick={onPageClick} />
       </div>
     </div>
   );
