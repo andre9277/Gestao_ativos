@@ -4,6 +4,7 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 
+use App\Models\Allocation;
 use App\Models\Asset;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
@@ -41,13 +42,11 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
-        //Só o admin e o SI podem editar ativos. Os da manutenção podem editar os ativos que criarem
-        /*  Gate::define('edit', function (User $user, Asset $asset) {
-            if ($asset->role_id === 1 || $user->role_id === 2) {
+        //Só o Admin pode apagar um ativo
+        Gate::define('delete', function (User $user) {
+            if ($user->role_id === 1) {
                 return true;
-            } else {
-                return $user->id === $asset->user_id;
             }
-        }); */
+        });
     }
 }

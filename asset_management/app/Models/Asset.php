@@ -15,4 +15,10 @@ class Asset extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    //Asset e Supplier tem uma ligação one:many
+    public function suppliers()
+    {
+        return $this->belongsTo(Supplier::class);
+    }
 }

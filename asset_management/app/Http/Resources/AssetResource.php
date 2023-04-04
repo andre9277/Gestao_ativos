@@ -32,6 +32,7 @@ class AssetResource extends JsonResource
             'status' => $this->status,
             'local' => $this->local,
             'category_id' => $this->category_id,
+            'supplier_id' => $this->supplier_id,
         ];
     }
 }

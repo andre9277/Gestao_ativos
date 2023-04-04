@@ -116,6 +116,7 @@ export default function Assets() {
               <th>Adicionado em </th>
               <th>Categoria</th>
               <th>Actions</th>
+              <th>Fornecedor</th>
             </tr>
           </thead>
           {loading && (
@@ -158,6 +159,7 @@ export default function Assets() {
                       Delete
                     </button>
                   </td>
+                  <td>{a.supplier_id}</td>
                 </tr>
               ))}
             </tbody>

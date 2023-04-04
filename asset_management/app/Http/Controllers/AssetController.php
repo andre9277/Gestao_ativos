@@ -7,7 +7,6 @@ use App\Http\Requests\StoreAssetRequest;
 use App\Http\Requests\UpdateAssetRequest;
 use App\Http\Resources\AssetResource;
 use App\Models\Allocation;
-use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AssetController extends Controller
@@ -101,6 +100,8 @@ class AssetController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete');
+
         $asset = Asset::find($id);
         $asset->delete();
     }
