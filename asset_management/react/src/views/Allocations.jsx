@@ -38,14 +38,19 @@ export default function Allocations() {
   const [meta, setMeta] = useState({});
   const [users, setUsers] = useState([]);
 
+  //retorna todos os utilizadores (mount hook é chamado 2x)
+  useEffect(() => {
+    getUsers();
+  }, []);
+
   //retorna todos os assets (mount hook é chamado 2x)
   useEffect(() => {
     getAllocations();
   }, []);
 
-  /*   const onPageClick = (link) => {
+  const onPageClick = (link) => {
     getAllocations(link.url);
-  }; */
+  };
 
   //Realiza um request access client
   const getAllocations = (url) => {
@@ -58,9 +63,9 @@ export default function Allocations() {
       .then(({ data }) => {
         //quando obtemos um request, loading=false
         setLoading(false);
-        //console.log(data);
-        setAllocations(data);
-        //setMeta(data.meta);
+        console.log(data.data);
+        setAllocations(data.data);
+        setMeta(data.meta);
       })
       .catch(() => {
         setLoading(false);
@@ -86,11 +91,6 @@ export default function Allocations() {
       });
   };
 
-  //retorna todos os utilizadores (mount hook é chamado 2x)
-  useEffect(() => {
-    getUsers();
-  }, []);
-
   return (
     <div>
       <div
@@ -108,9 +108,10 @@ export default function Allocations() {
             <tr>
               <th>Utilizador</th>
               <th>Ativo</th>
-              <th>Data de Movimentação</th>
+              <th>Data de Alteração</th>
             </tr>
           </thead>
+
           {loading && (
             <tbody>
               <tr>
@@ -120,25 +121,22 @@ export default function Allocations() {
               </tr>
             </tbody>
           )}
+
           {!loading && (
             <tbody>
-              {/* Iteração pelos assets todos */}
-              {allocations.map((a) => {
-                <React.Fragment>
-                  {users.map((u) => (
-                    <tr key={a.id}>
-                      <td>{a.user_id === u.id ? u.name : "NotFound"}</td>
-                      <td>{a.asset_id}</td>
-                      <td>{a.allocation_date}</td>
-                    </tr>
-                  ))}
-                </React.Fragment>;
-              })}
+              {allocations.map((allocation, index) => (
+                <tr key={`${allocation.user_id}-${index}`}>
+                  <td>
+                    {users.find((user) => user.id === allocation.user_id).name}
+                  </td>
+                  <td>{allocation.asset_id}</td>
+                  <td>{allocation.allocation_date}</td>
+                </tr>
+              ))}
             </tbody>
           )}
         </table>
-        {/* <PaginationLinks meta={meta} onPageClick={onPageClick} /> */}
-        {/* <td>{a.user_id === u.id ? u.name : "NotFound"}</td> */}
+        <PaginationLinks meta={meta} onPageClick={onPageClick} />
       </div>
     </div>
   );
