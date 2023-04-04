@@ -27,10 +27,65 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import React from "react";
 
-const ScanAsset = () => {
-  return <div>ScanAsset</div>;
+import React, { useRef, useEffect } from "react";
+import Quagga from "quagga";
+
+const BarcodeScanner = ({ onDetected }) => {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const constraints = {
+      audio: false,
+      video: {
+        facingMode: "environment",
+      },
+    };
+
+    navigator.mediaDevices
+      .getUserMedia(constraints)
+      .then((stream) => {
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      })
+      .catch((error) => {
+        console.error("Error accessing media devices.", error);
+      });
+
+    Quagga.init(
+      {
+        inputStream: {
+          name: "Live",
+          type: "LiveStream",
+          target: videoRef.current,
+          constraints: constraints,
+        },
+        decoder: {
+          readers: ["ean_reader"],
+        },
+      },
+      (err) => {
+        if (err) {
+          console.error("Error initializing Quagga:", err);
+          return;
+        }
+        Quagga.start();
+      }
+    );
+
+    Quagga.onDetected((result) => {
+      onDetected(result.codeResult.code);
+      Quagga.stop();
+    });
+
+    return () => {
+      Quagga.offDetected();
+      Quagga.stop();
+    };
+  }, [onDetected, videoRef]);
+
+  return <video ref={videoRef} />;
 };
 
-export default ScanAsset;
+export default BarcodeScanner;

@@ -37,7 +37,7 @@ import Signup from "./views/Signup";
 import Users from "./views/Users";
 import UserForm from "./views/UserForm";
 import ForgotPass from "./views/ForgotPass.jsx";
-import ScanAsset from "./views/ScanAsset.jsx";
+import Scan from "./views/Scan.jsx";
 import Assets from "./views/Assets.jsx";
 import AssetForm from "./views/AssetForm.jsx";
 import Allocations from "./views/Allocations.jsx";
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/scan",
-        element: <ScanAsset />,
+        element: <Scan />,
       },
       {
         path: "/assets",
