@@ -75,7 +75,7 @@ export default function Assets() {
       .then(({ data }) => {
         //quando obtemos um request, loading=false
         setLoading(false);
-        console.log(data);
+        //console.log(data);
         setAssets(data.data);
         setMeta(data.meta);
       })

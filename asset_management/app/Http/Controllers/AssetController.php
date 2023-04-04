@@ -6,6 +6,9 @@ use App\Models\Asset;
 use App\Http\Requests\StoreAssetRequest;
 use App\Http\Requests\UpdateAssetRequest;
 use App\Http\Resources\AssetResource;
+use App\Models\Allocation;
+use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AssetController extends Controller
 {
@@ -75,8 +78,18 @@ class AssetController extends Controller
     public function update(UpdateAssetRequest $request, Asset $asset)
     {
         //
+
         //$asset = Asset::find($id);
         $asset->update($request->all());
+
+        // create a new asset update record
+        $update = new Allocation([
+            'asset_id' => $asset->id,
+            'user_id' => Auth::id(),
+            'allocation_date' => now(),
+
+        ]);
+        $update->save();
         return $asset;
     }
 

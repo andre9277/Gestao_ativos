@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\AllocationsController;
 use App\Http\Controllers\AssetController;
 use App\Models\Asset;
 use Illuminate\Http\Request;
@@ -43,6 +44,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/asset', function (Request $request) {
         return $request->asset();
     });
+
+    //Route para os Movimentos dos ativos
+    //Route::resource('allocations', AllocationsController::class);
+    Route::get('/allocations', [AllocationsController::class, 'index']);
+    Route::apiResource('/allocations', AllocationsController::class);
 });
 
 //Route::post('/signup', [AuthController::class, 'signup']);

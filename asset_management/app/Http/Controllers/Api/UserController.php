@@ -65,6 +65,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
 
+        $this->authorize('create-delete-users');
         $data = $request->validated();
 
         //verifica se existe uma password disponível
