@@ -15,14 +15,11 @@ return new class extends Migration
     {
         Schema::create('allocations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('asset_id');
-            $table->unsignedBigInteger('user_id');
-
             $table->dateTime('allocation_date');
             $table->timestamps();
 
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('asset_id')->constrained('assets');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('asset_id')->constrained('assets')->onDelete('cascade');
         });
     }
 
