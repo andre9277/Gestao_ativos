@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Password;
 
-class StoreUserRequest extends FormRequest
+class StoreAssetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,15 +24,17 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:55',
-            'email' => 'required|email|unique:users,email',
-            'role_id' => 'required',
-            'password' => [
-                'required',
-                Password::min(8)
-                    ->letters()
-                    ->symbols(),
-            ]
+            'inv' => 'required',
+            'brand' => 'required',
+            'brand' => 'required',
+            'model' => 'required',
+            'serial' => 'required',
+            'cond' => 'required',
+            'ala' => 'required',
+            'ci' => 'required',
+            'status' => 'required',
+            'local' => 'required',
+            'category_id' => 'required'
         ];
     }
 }

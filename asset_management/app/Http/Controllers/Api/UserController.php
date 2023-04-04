@@ -29,6 +29,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        $this->authorize('create-delete-users');
         //Dados validados através do request
         $data = $request->validated();
 
@@ -64,6 +65,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
 
+        $this->authorize('create-delete-users');
         $data = $request->validated();
 
         //verifica se existe uma password disponível
@@ -84,11 +86,24 @@ class UserController extends Controller
      * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    /*    public function destroy(User $user)
     {
         //Função que elimina o utilizador
         $user->delete();
 
         return response("", 204);
+    } */
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \App\Models\User $user
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $this->authorize('create-delete-users');
+        $user = User::find($id);
+        $user->delete();
     }
 }

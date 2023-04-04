@@ -32,37 +32,42 @@ import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import { useStateContext } from "../context/ContextProvider.jsx";
 
-export default function UserForm() {
-  //permite a navegação de users para outra página
+export default function AssetForm() {
+  //permite a navegação de assets para outra página
   const navigate = useNavigate();
 
   //Ficamos com o ID
   let { id } = useParams();
 
   //Lista de utilizadores:
-  const [user, setUser] = useState({
+  const [asset, setAsset] = useState({
     id: null,
-    name: "",
-    email: "",
-    password: "",
-    password_confirmation: "",
-    role_id: "",
+    inv: "",
+    brand: "",
+    model: "",
+    serial: "",
+    cond: "",
+    ala: "",
+    ci: "",
+    status: "",
+    local: "",
+    category_id: null,
   });
   const [errors, setErrors] = useState(null);
 
-  //Loading para informar aos users de quando a tabela acaba de dar load
+  //Loading para informar aos assets de quando a tabela acaba de dar load
   const [loading, setLoading] = useState(false);
   const { setNotification } = useStateContext();
 
-  //Sempre que o ID do utilizador existir:
+  //Sempre que o ID do asset existir:
   if (id) {
     useEffect(() => {
       setLoading(true);
       axiosClient
-        .get(`/users/${id}`)
+        .get(`/assets/${id}`)
         .then(({ data }) => {
           setLoading(false);
-          setUser(data);
+          setAsset(data);
         })
         .catch(() => {
           setLoading(false);
@@ -74,15 +79,15 @@ export default function UserForm() {
   const onSubmit = (ev) => {
     ev.preventDefault();
 
-    //se existir um user id: faz a atualização
-    if (user.id) {
+    //se existir um asset id: faz a atualização
+    if (asset.id) {
       axiosClient
-        .put(`/users/${user.id}`, user)
+        .put(`/assets/${asset.id}`, asset)
         .then(() => {
           //mensagem de update realizado com sucesso
-          setNotification("User was successfully updated");
-          //Redireciona para a página dos utilizadores
-          navigate("/users");
+          setNotification("Asset was successfully updated");
+          //Redireciona para a página dos assets
+          navigate("/assets");
         })
         .catch((err) => {
           const response = err.response;
@@ -94,10 +99,10 @@ export default function UserForm() {
     //senão vai criar um utilizador
     else {
       axiosClient
-        .post("/users", user)
+        .post("/assets", asset)
         .then(() => {
-          setNotification("User was successfully created");
-          navigate("/users");
+          setNotification("Asset was successfully created");
+          navigate("/assets");
         })
         .catch((err) => {
           const response = err.response;
@@ -110,8 +115,8 @@ export default function UserForm() {
 
   return (
     <>
-      {user.id && <h1>Update User: {user.name}</h1>}
-      {!user.id && <h1>New User</h1>}
+      {asset.id && <h1>Update Asset: {asset.brand}</h1>}
+      {!asset.id && <h1>New Asset</h1>}
       <div className="card animated fadeInDown">
         {loading && <div className="text-center">Loading...</div>}
         {errors && (
@@ -124,32 +129,61 @@ export default function UserForm() {
         {!loading && (
           <form onSubmit={onSubmit}>
             <input
-              value={user.name}
-              onChange={(ev) => setUser({ ...user, name: ev.target.value })}
-              placeholder="Name"
+              value={asset.inv}
+              onChange={(ev) => setAsset({ ...asset, inv: ev.target.value })}
+              placeholder="NºInventário"
             />
             <input
-              type="email"
-              value={user.email}
-              onChange={(ev) => setUser({ ...user, email: ev.target.value })}
-              placeholder="Email"
+              value={asset.brand}
+              onChange={(ev) => setAsset({ ...asset, brand: ev.target.value })}
+              placeholder="Marca"
             />
             <input
-              type="password"
-              onChange={(ev) => setUser({ ...user, password: ev.target.value })}
-              placeholder="Password"
+              value={asset.model}
+              onChange={(ev) => setAsset({ ...asset, model: ev.target.value })}
+              placeholder="Modelo"
             />
             <input
-              type="password"
+              value={asset.serial}
+              onChange={(ev) => setAsset({ ...asset, serial: ev.target.value })}
+              placeholder="Numero de série"
+            />
+            <input
+              value={asset.cond}
+              onChange={(ev) => setAsset({ ...asset, cond: ev.target.value })}
+              placeholder="Condição"
+            />
+            <input
+              value={asset.floor}
+              onChange={(ev) => setAsset({ ...asset, floor: ev.target.value })}
+              placeholder="Piso"
+            />
+            <input
+              value={asset.ala}
+              onChange={(ev) => setAsset({ ...asset, ala: ev.target.value })}
+              placeholder="Ala"
+            />
+            <input
+              value={asset.ci}
+              onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
+              placeholder="CI"
+            />
+            <input
+              value={asset.status}
+              onChange={(ev) => setAsset({ ...asset, status: ev.target.value })}
+              placeholder="Estado"
+            />
+            <input
+              value={asset.local}
+              onChange={(ev) => setAsset({ ...asset, local: ev.target.value })}
+              placeholder="Localização"
+            />
+            <input
+              value={asset.category_id}
               onChange={(ev) =>
-                setUser({ ...user, password_confirmation: ev.target.value })
+                setAsset({ ...asset, category_id: ev.target.value })
               }
-              placeholder="Password Confirmation"
-            />
-            <input
-              value={user.role_id}
-              onChange={(ev) => setUser({ ...user, role_id: ev.target.value })}
-              placeholder="Role"
+              placeholder="Categoria"
             />
             <button className="btn">Save</button>
           </form>

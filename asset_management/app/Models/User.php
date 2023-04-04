@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role_id',
         'password',
     ];
 
@@ -41,4 +42,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //Relação entre as tabelas Role e User. Cada user tem uma role e várias roles podem ter vários users
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }

@@ -112,7 +112,11 @@ const SideBar = () => {
         {/* <MenuItem Name="Pages" MenuId="collapsePages" /> */}
 
         {/* <!-- Nav Item - Relatorios --> */}
-        <MenuItem titulo={"Relatórios"} icon={"fa-chart-area"} />
+        <MenuItem
+          titulo={"Relatórios"}
+          icon={"fa-chart-area"}
+          origem={"allocations"}
+        />
 
         {/*  <!-- Nav Item - Utilizadores --> */}
         {/*  <!-- Divider --> */}

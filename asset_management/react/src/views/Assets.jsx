@@ -33,40 +33,40 @@ import { Link } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 
-export default function Users() {
-  const [users, setUsers] = useState([]);
+export default function Assets() {
+  const [assets, setAssets] = useState([]);
   const [loading, setLoading] = useState(false);
   const [meta, setMeta] = useState({});
   const { setNotification } = useStateContext();
 
-  //retorna todos os utilizadores (mount hook é chamado 2x)
+  //retorna todos os assets (mount hook é chamado 2x)
   useEffect(() => {
-    getUsers();
+    getAssets();
   }, []);
 
-  //Handel click para apagar um utilizador
-  const onDeleteClick = (user) => {
-    //Confirmação da eliminação de um utilizador
-    if (!window.confirm("Are you sure you want to delete this user?")) {
+  //Handel click para apagar um asset
+  const onDeleteClick = (asset) => {
+    //Confirmação da eliminação de um asset
+    if (!window.confirm("Are you sure you want to delete this asset?")) {
       return;
     }
 
-    //Requests para apagar o utilizador
-    axiosClient.delete(`/users/${user.id}`).then(() => {
-      setNotification("User was successfully deleted");
+    //Requests para apagar o asset
+    axiosClient.delete(`/assets/${asset.id}`).then(() => {
+      setNotification("Asset was successfully deleted");
 
-      //após utilizador ser eliminado, faz fetch de todos os utilziadores para mostrar a eliminação realizada com sucesso
-      getUsers();
+      //após asset ser eliminado, faz fetch de todos os assets para mostrar a eliminação realizada com sucesso
+      getAssets();
     });
   };
 
   const onPageClick = (link) => {
-    getUsers(link.url);
+    getAssets(link.url);
   };
 
   //Realiza um request access client
-  const getUsers = (url) => {
-    url = url || "/users";
+  const getAssets = (url) => {
+    url = url || "/assets";
 
     //enquanto não acaba o request, aplicamos o loading = true
     setLoading(true);
@@ -75,8 +75,8 @@ export default function Users() {
       .then(({ data }) => {
         //quando obtemos um request, loading=false
         setLoading(false);
-        setUsers(data.data);
         //console.log(data);
+        setAssets(data.data);
         setMeta(data.meta);
       })
       .catch(() => {
@@ -93,8 +93,8 @@ export default function Users() {
           alignItems: "center",
         }}
       >
-        <h1>Utilizadores</h1>
-        <Link className="btn-add" to="/users/new">
+        <h1>Ativos</h1>
+        <Link className="btn-add" to="/assets/new">
           Add new
         </Link>
       </div>
@@ -103,11 +103,18 @@ export default function Users() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Create Date</th>
-
-              <th>Role</th>
+              <th>NºInventário</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>NºSerial</th>
+              <th>Condição</th>
+              <th>Piso</th>
+              <th>Ala</th>
+              <th>CI</th>
+              <th>Estado</th>
+              <th>Localização</th>
+              <th>Adicionado em </th>
+              <th>Categoria</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -122,28 +129,31 @@ export default function Users() {
           )}
           {!loading && (
             <tbody>
-              {/* Iteração pelos utilizadores todos */}
-              {users.map((u) => (
-                <tr key={u.id}>
-                  <td>{u.id}</td>
-                  <td>{u.name}</td>
-                  <td>{u.email}</td>
-                  <td>{u.created_at}</td>
+              {/* Iteração pelos assets todos */}
+              {assets.map((a) => (
+                <tr key={a.id}>
+                  <td>{a.id}</td>
+                  <td>{a.inv}</td>
+                  <td>{a.brand}</td>
+                  <td>{a.model}</td>
+                  <td>{a.serial}</td>
+                  <td>{a.cond}</td>
+                  <td>{a.floor}</td>
+                  <td>{a.ala}</td>
+                  <td>{a.ci}</td>
+                  <td>{a.status}</td>
+                  <td>{a.local}</td>
+                  <td>{a.created_at}</td>
+                  <td>{a.category_id}</td>
+
                   <td>
-                    {u.role_id === 1
-                      ? "Admin"
-                      : u.role_id === 2
-                      ? "SI"
-                      : "Manutenção"}
-                  </td>
-                  <td>
-                    <Link className="btn-edit" to={"/users/" + u.id}>
+                    <Link className="btn-edit" to={"/assets/" + a.id}>
                       Edit
                     </Link>
                     &nbsp;
                     <button
                       className="btn-delete"
-                      onClick={(ev) => onDeleteClick(u)}
+                      onClick={(ev) => onDeleteClick(a)}
                     >
                       Delete
                     </button>

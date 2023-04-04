@@ -14,11 +14,15 @@ class AuthController extends Controller
 {
     public function signup(SignupRequest $request)
     {
+
+        $this->authorize('create-delete-users');
+
         $data = $request->validated();
         /** @var \App\Models\User $user */
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'role_id' => $data['role_id'],
             'password' => bcrypt($data['password']),
         ]);
 
