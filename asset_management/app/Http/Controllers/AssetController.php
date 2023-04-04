@@ -41,7 +41,7 @@ class AssetController extends Controller
      */
     public function store(StoreAssetRequest $request)
     {
-        $this->authorize('create');
+        $this->authorize('create-edit');
         return Asset::create($request->all());
     }
 
@@ -77,7 +77,7 @@ class AssetController extends Controller
      */
     public function update(UpdateAssetRequest $request, Asset $asset)
     {
-        //
+        $this->authorize('create-edit');
 
         //$asset = Asset::find($id);
         $asset->update($request->all());

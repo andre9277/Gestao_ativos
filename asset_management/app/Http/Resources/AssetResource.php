@@ -26,6 +26,7 @@ class AssetResource extends JsonResource
             'model' => $this->model,
             'serial' => $this->serial,
             'cond' => $this->cond,
+            'floor' => $this->floor,
             'ala' => $this->ala,
             'ci' => $this->ci,
             'status' => $this->status,

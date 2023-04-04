@@ -108,6 +108,7 @@ export default function Assets() {
               <th>Modelo</th>
               <th>NºSerial</th>
               <th>Condição</th>
+              <th>Piso</th>
               <th>Ala</th>
               <th>CI</th>
               <th>Estado</th>
@@ -137,6 +138,7 @@ export default function Assets() {
                   <td>{a.model}</td>
                   <td>{a.serial}</td>
                   <td>{a.cond}</td>
+                  <td>{a.floor}</td>
                   <td>{a.ala}</td>
                   <td>{a.ci}</td>
                   <td>{a.status}</td>

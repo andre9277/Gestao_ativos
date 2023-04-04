@@ -66,6 +66,7 @@ Route::post('/login', [AuthController::class, 'login']);
         'model' => 'JN123',
         'serial' => 'JS92ND03DX',
         'cond' => 'Avariado',
+        'piso' => '2',
         'ala' => 'D',
         'ci' => 'CI1023',
         'status' => 'Ativo',

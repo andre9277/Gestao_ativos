@@ -51,7 +51,7 @@ export default function AssetForm() {
     ci: "",
     status: "",
     local: "",
-    category_id: 0,
+    category_id: null,
   });
   const [errors, setErrors] = useState(null);
 
@@ -152,6 +152,11 @@ export default function AssetForm() {
               value={asset.cond}
               onChange={(ev) => setAsset({ ...asset, cond: ev.target.value })}
               placeholder="Condição"
+            />
+            <input
+              value={asset.floor}
+              onChange={(ev) => setAsset({ ...asset, floor: ev.target.value })}
+              placeholder="Piso"
             />
             <input
               value={asset.ala}

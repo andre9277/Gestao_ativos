@@ -35,7 +35,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         //Só o Admin e o SI pode criar um novo ativo
-        Gate::define('create', function (User $user) {
+        Gate::define('create-edit', function (User $user) {
             if ($user->role_id === 1 || $user->role_id === 2) {
                 return true;
             }
