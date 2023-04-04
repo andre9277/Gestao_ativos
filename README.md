@@ -12,13 +12,25 @@
 
       **3- Set the encryption key by executing:**
 
-         php artisan key:generate --ansi
+         php artisan key:generate
 
        **4- Run migrations:**
 
-         php artisan migrate --seed
+         php artisan migrate
+         
+      **5- Add Categories to local Database:**
+      
+        php artisan db:seed --class=CategoriesTableSeeder
+        
+      **6- Add Roles to local Database:**
+      
+        php artisan db:seed --class=RoleSeeder
+         
+       **7- Add Admin user to local Database:**
+       
+        php artisan db:seed --class=DatabaseSeeder
 
-     **5- Start local server by executing:**
+       **8- Start local server by executing:**
 
          php artisan serve
         
@@ -26,15 +38,20 @@
 
     ### Open new Terminal and go to **react** folder directory:
     
-     **6- Copy react/.env.example into .env and adjust the VITE_API_BASE_URL parameter**
+     **9- Copy react/.env.example into .env and adjust the VITE_API_BASE_URL parameter**
 
-     **7- Run:**
+     **10- Run:**
 
         npm install
     
-     **8- Run:**
+     **11- Run:**
 
         npm run dev
+        
+     **12- Login information:**
+     
+        email: admin@gmail.com
+        password: Admin@277
       
      ### **For pagination style install the follow commands in react folder:**
 
