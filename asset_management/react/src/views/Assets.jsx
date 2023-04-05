@@ -108,7 +108,7 @@ export default function Assets() {
               <th>NºInventário</th>
               <th>Marca</th>
               <th>Modelo</th>
-              <th>NºSerial</th>
+              <th>Nº Série</th>
               <th>Condição</th>
               <th>Piso</th>
               <th>Ala</th>

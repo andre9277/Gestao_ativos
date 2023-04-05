@@ -36,6 +36,16 @@ export default function AssetForm() {
   //permite a navegação de assets para outra página
   const navigate = useNavigate();
 
+  const optionsCond = [
+    {
+      value: "Novo",
+      label: "Novo",
+    },
+    {
+      value: "Usado",
+      label: "Usado",
+    },
+  ];
   //Ficamos com o ID
   let { id } = useParams();
 

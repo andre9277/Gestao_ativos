@@ -46,6 +46,7 @@ class User extends Authenticatable
     //Relação entre as tabelas Role e User. Cada user tem uma role e várias roles podem ter vários users
     public function role()
     {
+
         return $this->belongsTo(Role::class);
     }
 }
