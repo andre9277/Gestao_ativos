@@ -20,19 +20,21 @@ class AssetResource extends JsonResource
         //o que queremos expor sobre o asset
         return [
             'id' => $this->id,
-            'inv' => $this->inv,
-            'brand' => $this->brand,
+            'numb_inv' => $this->numb_inv,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-            'model' => $this->model,
-            'serial' => $this->serial,
+            'date_purch' => $this->date_purch,
+            'numb_ser' => $this->numb_ser,
             'cond' => $this->cond,
             'floor' => $this->floor,
             'ala' => $this->ala,
             'ci' => $this->ci,
-            'status' => $this->status,
-            'local' => $this->local,
-            'category_id' => $this->category_id,
+            'state' => $this->status,
+            'cat_id' => $this->category_id,
             'supplier_id' => $this->supplier_id,
+            'brand_id' => $this->brand_id,
+            'model_id' => $this->model_id,
+            'ent_id' => $this->ent_id
+
         ];
     }
 }

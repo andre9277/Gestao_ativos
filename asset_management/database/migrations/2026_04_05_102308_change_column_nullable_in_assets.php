@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('assets', function (Blueprint $table) {
-            $table->string('floor');
+            $table->string('numb_inv', 100)->nullable()->change();
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('assets', function (Blueprint $table) {
-            //
+            $table->string('numb_inv', 100)->change();
         });
     }
 };

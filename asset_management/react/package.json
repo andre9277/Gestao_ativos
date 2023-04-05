@@ -20,6 +20,7 @@
     "react-router-dom": "^6.4.4",
     "react-webcam": "^7.0.1",
     "react-webcam-barcode-scanner": "^0.0.2-rc2",
+    "react-zxing": "^1.1.4",
     "startbootstrap-sb-admin-2": "^4.1.4"
   },
   "devDependencies": {

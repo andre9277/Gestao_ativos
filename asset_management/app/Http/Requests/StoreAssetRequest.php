@@ -24,16 +24,10 @@ class StoreAssetRequest extends FormRequest
     public function rules()
     {
         return [
-            'brand' => 'required',
-            'brand' => 'required',
-            'model' => 'required',
-            'serial' => 'required',
+            'numb_ser' => 'required',
             'cond' => 'required',
             'ala' => 'required',
-            'ci' => 'required',
-            'status' => 'required',
-            'local' => 'required',
-            'category_id' => 'required'
+            'state' => 'required'
         ];
     }
 }

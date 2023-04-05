@@ -20,12 +20,12 @@ class Allocation extends Model
     //User e Allocation tem uma ligação many:many; pode realizar várias movimentações
     public function user()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class);
     }
 
     //Asset e Allocation tem uma ligação many:many
     public function asset()
     {
-        return $this->belongsToMany(Asset::class);
+        return $this->belongsTo(Asset::class);
     }
 }

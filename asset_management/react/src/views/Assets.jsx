@@ -106,15 +106,12 @@ export default function Assets() {
             <tr>
               <th>ID</th>
               <th>NºInventário</th>
-              <th>Marca</th>
-              <th>Modelo</th>
               <th>Nº Série</th>
               <th>Condição</th>
               <th>Piso</th>
               <th>Ala</th>
               <th>CI</th>
               <th>Estado</th>
-              <th>Localização</th>
               <th>Adicionado em </th>
               <th>Categoria</th>
               {user.role_id === 3 ? null : <th>Actions</th>}
@@ -137,16 +134,13 @@ export default function Assets() {
               {assets.map((a) => (
                 <tr key={a.id}>
                   <td>{a.id}</td>
-                  <td>{a.inv}</td>
-                  <td>{a.brand}</td>
-                  <td>{a.model}</td>
-                  <td>{a.serial}</td>
+                  <td>{a.numb_inv}</td>
+                  <td>{a.numb_ser}</td>
                   <td>{a.cond}</td>
                   <td>{a.floor}</td>
                   <td>{a.ala}</td>
                   <td>{a.ci}</td>
-                  <td>{a.status}</td>
-                  <td>{a.local}</td>
+                  <td>{a.state}</td>
                   <td>{a.created_at}</td>
                   <td>{a.category_id}</td>
                   {user.role_id === 3 ? null : (

@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('assets', function (Blueprint $table) {
-            $table->unsignedBigInteger('entity_id')->nullable();
-            $table->foreign('entity_id')->references('id')->on('entity');
+        Schema::create('entity', function (Blueprint $table) {
+            $table->id();
+            $table->string('ent_name');
+            $table->string('ent_type');
+            $table->timestamps();
         });
     }
 
@@ -26,9 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('assets', function (Blueprint $table) {
-            $table->dropForeign(['entity_id']);
-            $table->dropColumn('entity_id');
-        });
+        Schema::dropIfExists('entity');
     }
 };

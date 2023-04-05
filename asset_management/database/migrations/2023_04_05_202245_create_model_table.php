@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('assets', function (Blueprint $table) {
-            $table->string('inv', 100)->nullable()->change();
+        Schema::create('model', function (Blueprint $table) {
+            $table->id();
+            $table->string('model_name');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('assets', function (Blueprint $table) {
-            $table->string('inv', 100)->change();
-        });
+        Schema::dropIfExists('model');
     }
 };

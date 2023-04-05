@@ -18,4 +18,9 @@ class Supplier extends Model
         'phone',
         'address',
     ];
+
+    public function ativos()
+    {
+        return $this->hasMany(Asset::class);
+    }
 }

@@ -52,17 +52,17 @@ export default function AssetForm() {
   //Lista de utilizadores:
   const [asset, setAsset] = useState({
     id: null,
-    inv: "",
-    brand: "",
-    model: "",
-    serial: "",
+    numb_inv: "",
+    numb_ser: "",
     cond: "",
     ala: "",
     ci: "",
-    status: "",
-    local: "",
-    category_id: "",
+    state: "",
+    cat_id: "",
     supplier_id: null,
+    brand_id: "",
+    model_id: "",
+    ent_id: "",
   });
   const [errors, setErrors] = useState(null);
 
@@ -140,23 +140,18 @@ export default function AssetForm() {
         {!loading && (
           <form onSubmit={onSubmit}>
             <input
-              value={asset.inv}
-              onChange={(ev) => setAsset({ ...asset, inv: ev.target.value })}
+              value={asset.numb_inv}
+              onChange={(ev) =>
+                setAsset({ ...asset, numb_inv: ev.target.value })
+              }
               placeholder="NºInventário"
             />
+
             <input
-              value={asset.brand}
-              onChange={(ev) => setAsset({ ...asset, brand: ev.target.value })}
-              placeholder="Marca"
-            />
-            <input
-              value={asset.model}
-              onChange={(ev) => setAsset({ ...asset, model: ev.target.value })}
-              placeholder="Modelo"
-            />
-            <input
-              value={asset.serial}
-              onChange={(ev) => setAsset({ ...asset, serial: ev.target.value })}
+              value={asset.numb_ser}
+              onChange={(ev) =>
+                setAsset({ ...asset, numb_ser: ev.target.value })
+              }
               placeholder="Numero de série"
             />
             <input
@@ -180,20 +175,13 @@ export default function AssetForm() {
               placeholder="CI"
             />
             <input
-              value={asset.status}
-              onChange={(ev) => setAsset({ ...asset, status: ev.target.value })}
+              value={asset.state}
+              onChange={(ev) => setAsset({ ...asset, state: ev.target.value })}
               placeholder="Estado"
             />
             <input
-              value={asset.local}
-              onChange={(ev) => setAsset({ ...asset, local: ev.target.value })}
-              placeholder="Localização"
-            />
-            <input
-              value={asset.category_id}
-              onChange={(ev) =>
-                setAsset({ ...asset, category_id: ev.target.value })
-              }
+              value={asset.cat_id}
+              onChange={(ev) => setAsset({ ...asset, cat_id: ev.target.value })}
               placeholder="Categoria"
             />
             <input

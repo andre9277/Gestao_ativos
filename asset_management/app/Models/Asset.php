@@ -11,14 +11,33 @@ class Asset extends Model
 
     protected $guarded = [];
 
-    public function categories()
+    public function brand()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsTo(Brand::class);
     }
 
-    //Asset e Supplier tem uma ligação one:many
-    public function suppliers()
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function entity()
+    {
+        return $this->belongsTo(Entity::class);
+    }
+
+    public function supplier()
     {
         return $this->belongsTo(Supplier::class);
+    }
+
+    public function model()
+    {
+        return $this->belongsTo(Model::class);
+    }
+
+    public function allocation()
+    {
+        return $this->hasMany(Allocation::class);
     }
 }
