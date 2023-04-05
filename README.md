@@ -30,7 +30,11 @@
        
         php artisan db:seed --class=DatabaseSeeder
 
-       **8- Start local server by executing:**
+      **8- Add Supplier to local Database:**
+
+         php artisan db:seed --class=SuppliersTableSeeder
+
+       **9- Start local server by executing:**
 
          php artisan serve
         
@@ -38,17 +42,17 @@
 
     ### Open new Terminal and go to **react** folder directory:
     
-     **9- Copy react/.env.example into .env and adjust the VITE_API_BASE_URL parameter**
+     **10- Copy react/.env.example into .env and adjust the VITE_API_BASE_URL parameter**
 
-     **10- Run:**
+     **11- Run:**
 
         npm install
     
-     **11- Run:**
+     **12- Run:**
 
         npm run dev
         
-     **12- Login information:**
+     **13- Login information:**
      
         email: admin@gmail.com
         password: Admin@277
