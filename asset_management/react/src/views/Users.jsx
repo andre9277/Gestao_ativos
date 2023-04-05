@@ -29,7 +29,7 @@ All the changes made to enable the implementation of the desired development too
 */
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 
@@ -37,7 +37,11 @@ export default function Users() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [meta, setMeta] = useState({});
-  const { setNotification } = useStateContext();
+  const { setNotification, user } = useStateContext();
+
+  if (user.role_id === 3) {
+    return <Navigate to="/notfound" />;
+  }
 
   //retorna todos os utilizadores (mount hook é chamado 2x)
   useEffect(() => {
@@ -94,9 +98,11 @@ export default function Users() {
         }}
       >
         <h1>Utilizadores</h1>
-        <Link className="btn-add" to="/users/new">
-          Add new
-        </Link>
+        {user.role_id === 1 ? (
+          <Link className="btn-add" to="/users/new">
+            Add new
+          </Link>
+        ) : null}
       </div>
       <div className="card animated fadeInDown">
         <table>
@@ -108,7 +114,7 @@ export default function Users() {
               <th>Create Date</th>
 
               <th>Role</th>
-              <th>Actions</th>
+              {user.role_id === 1 ? <th>Actions</th> : null}
             </tr>
           </thead>
           {loading && (
@@ -137,16 +143,20 @@ export default function Users() {
                       : "Manutenção"}
                   </td>
                   <td>
-                    <Link className="btn-edit" to={"/users/" + u.id}>
-                      Edit
-                    </Link>
-                    &nbsp;
-                    <button
-                      className="btn-delete"
-                      onClick={(ev) => onDeleteClick(u)}
-                    >
-                      Delete
-                    </button>
+                    {user.role_id === 1 ? (
+                      <>
+                        <Link className="btn-edit" to={"/users/" + u.id}>
+                          Edit
+                        </Link>
+                        &nbsp;
+                        <button
+                          className="btn-delete"
+                          onClick={(ev) => onDeleteClick(u)}
+                        >
+                          Delete
+                        </button>{" "}
+                      </>
+                    ) : null}
                   </td>
                 </tr>
               ))}

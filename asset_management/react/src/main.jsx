@@ -29,7 +29,6 @@ All the changes made to enable the implementation of the desired development too
 */
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Dashboard from "./Dashboard.jsx";
 import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import router from "./router.jsx";

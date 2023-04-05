@@ -37,7 +37,7 @@ export default function Assets() {
   const [assets, setAssets] = useState([]);
   const [loading, setLoading] = useState(false);
   const [meta, setMeta] = useState({});
-  const { setNotification } = useStateContext();
+  const { setNotification, user } = useStateContext();
 
   //retorna todos os assets (mount hook é chamado 2x)
   useEffect(() => {
@@ -94,9 +94,11 @@ export default function Assets() {
         }}
       >
         <h1>Ativos</h1>
-        <Link className="btn-add" to="/assets/new">
-          Add new
-        </Link>
+        {user.role_id === 3 ? null : (
+          <Link className="btn-add" to="/assets/new">
+            Add new
+          </Link>
+        )}
       </div>
       <div className="card animated fadeInDown">
         <table>
@@ -115,7 +117,8 @@ export default function Assets() {
               <th>Localização</th>
               <th>Adicionado em </th>
               <th>Categoria</th>
-              <th>Actions</th>
+              {user.role_id === 3 ? null : <th>Actions</th>}
+
               <th>Fornecedor</th>
             </tr>
           </thead>
@@ -146,19 +149,21 @@ export default function Assets() {
                   <td>{a.local}</td>
                   <td>{a.created_at}</td>
                   <td>{a.category_id}</td>
+                  {user.role_id === 3 ? null : (
+                    <td>
+                      <Link className="btn-edit" to={"/assets/" + a.id}>
+                        Edit
+                      </Link>
+                      &nbsp;
+                      <button
+                        className="btn-delete"
+                        onClick={(ev) => onDeleteClick(a)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  )}
 
-                  <td>
-                    <Link className="btn-edit" to={"/assets/" + a.id}>
-                      Edit
-                    </Link>
-                    &nbsp;
-                    <button
-                      className="btn-delete"
-                      onClick={(ev) => onDeleteClick(a)}
-                    >
-                      Delete
-                    </button>
-                  </td>
                   <td>{a.supplier_id}</td>
                 </tr>
               ))}

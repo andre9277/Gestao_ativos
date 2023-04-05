@@ -31,21 +31,15 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
 import axiosClient from "../axios-client.js";
 import { useEffect } from "react";
-import SideBar from "./SideBar";
 import TopBar from "./TopBar";
 import Footer from "./Footer";
 import SideBarGuest from "./SideBarGuest";
-import ManutLayout from "./ManutLayout";
 
 export default function DefaultLayout() {
   const { user, token, setUser, setToken, notification } = useStateContext();
 
   if (!token) {
     return <Navigate to="/login" />;
-  }
-
-  if (user.role_id === 3) {
-    return <ManutLayout />;
   }
 
   const onLogout = (ev) => {
@@ -65,7 +59,7 @@ export default function DefaultLayout() {
 
   return (
     <div id="defaultLayout">
-      {user.role_id === 3 ? <SideBarGuest /> : <SideBar />}
+      <SideBarGuest />
       <div className="content">
         <TopBar user={user} onLogout={onLogout} />
         <main>
