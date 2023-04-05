@@ -24,7 +24,6 @@ class StoreAssetRequest extends FormRequest
     public function rules()
     {
         return [
-            'inv' => 'required',
             'brand' => 'required',
             'brand' => 'required',
             'model' => 'required',
