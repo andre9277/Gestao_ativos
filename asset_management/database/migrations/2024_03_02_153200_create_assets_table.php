@@ -33,11 +33,11 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('brand_id')->references('id')->on('brand')->onDelete('cascade');
-            $table->foreign('cat_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('ent_id')->references('id')->on('entity')->onDelete('cascade');
-            $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
-            $table->foreign('model_id')->references('id')->on('model')->onDelete('cascade');
+            $table->foreign('brand_id')->nullable()->references('id')->on('brand')->onDelete('cascade');
+            $table->foreign('cat_id')->nullable()->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('ent_id')->nullable()->references('id')->on('entity')->onDelete('cascade');
+            $table->foreign('supplier_id')->nullable()->references('id')->on('suppliers')->onDelete('cascade');
+            $table->foreign('model_id')->nullable()->references('id')->on('modelo')->onDelete('cascade');
         });
     }
 

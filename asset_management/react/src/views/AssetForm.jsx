@@ -59,10 +59,11 @@ export default function AssetForm() {
     ci: "",
     state: "",
     cat_id: "",
-    supplier_id: null,
+    supplier_id: "",
     brand_id: "",
     model_id: "",
     ent_id: "",
+    date_purch: "",
   });
   const [errors, setErrors] = useState(null);
 
@@ -148,11 +149,37 @@ export default function AssetForm() {
             />
 
             <input
+              value={asset.date_purch}
+              onChange={(ev) =>
+                setAsset({ ...asset, date_purch: ev.target.value })
+              }
+              placeholder="Data de compra"
+            />
+            <input
               value={asset.numb_ser}
               onChange={(ev) =>
                 setAsset({ ...asset, numb_ser: ev.target.value })
               }
               placeholder="Numero de série"
+            />
+            <input
+              value={asset.brand_id}
+              onChange={(ev) =>
+                setAsset({ ...asset, brand_id: ev.target.value })
+              }
+              placeholder="Marca"
+            />
+            <input
+              value={asset.model_id}
+              onChange={(ev) =>
+                setAsset({ ...asset, model_id: ev.target.value })
+              }
+              placeholder="Modelo"
+            />
+            <input
+              value={asset.ent_id}
+              onChange={(ev) => setAsset({ ...asset, ent_id: ev.target.value })}
+              placeholder="Entidade"
             />
             <input
               value={asset.cond}

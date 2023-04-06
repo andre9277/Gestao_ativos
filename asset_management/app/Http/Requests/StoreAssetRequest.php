@@ -26,8 +26,11 @@ class StoreAssetRequest extends FormRequest
         return [
             'numb_ser' => 'required',
             'cond' => 'required',
-            'ala' => 'required',
-            'state' => 'required'
+            'state' => 'required',
+            'cat_id' => 'required',
+            'brand_id' => 'required',
+            'model_id' => 'required',
+            'ent_id' => 'required'
         ];
     }
 }

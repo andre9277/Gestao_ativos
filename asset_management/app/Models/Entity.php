@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Asset;
+use App\Models\Unit;
 
 class Entity extends Model
 {
     use HasFactory;
+
+    protected $table = 'entity';
 
     public function assets()
     {

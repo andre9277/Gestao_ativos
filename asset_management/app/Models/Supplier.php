@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Asset;
 
 class Supplier extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    protected $table = 'suppliers';
 
     protected $fillable = [
         'supplier_id',
@@ -19,7 +22,7 @@ class Supplier extends Model
         'address',
     ];
 
-    public function ativos()
+    public function assets()
     {
         return $this->hasMany(Asset::class);
     }

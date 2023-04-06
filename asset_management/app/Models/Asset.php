@@ -4,12 +4,35 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Entity;
+use App\Models\Supplier;
+use App\Models\Modelo;
+use App\Models\Allocation;
 
 class Asset extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $table = 'assets';
+
+    protected $fillable = [
+        'id',
+        'numb_inv',
+        'date_purch',
+        'state',
+        'numb_ser',
+        'cond',
+        'floor',
+        'ala',
+        'ci',
+        'brand_id',
+        'cat_id',
+        'supplier_id',
+        'model_id',
+        'ent_id',
+    ];
 
     public function brand()
     {
@@ -26,17 +49,17 @@ class Asset extends Model
         return $this->belongsTo(Entity::class);
     }
 
-    public function supplier()
+    public function suppliers()
     {
         return $this->belongsTo(Supplier::class);
     }
 
-    public function model()
+    public function modelo()
     {
-        return $this->belongsTo(Model::class);
+        return $this->belongsTo(Modelo::class);
     }
 
-    public function allocation()
+    public function allocations()
     {
         return $this->hasMany(Allocation::class);
     }

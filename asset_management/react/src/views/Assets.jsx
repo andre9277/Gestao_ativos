@@ -100,19 +100,28 @@ export default function Assets() {
           </Link>
         )}
       </div>
-      <div className="card animated fadeInDown">
+      <div
+        className="card animated fadeInDown"
+        style={{
+          alignItems: "center",
+        }}
+      >
         <table>
           <thead>
             <tr>
               <th>ID</th>
+              <th>Modelo</th>
+              <th>Marca</th>
               <th>NºInventário</th>
               <th>Nº Série</th>
               <th>Condição</th>
+              <th>Localização</th>
               <th>Piso</th>
               <th>Ala</th>
               <th>CI</th>
               <th>Estado</th>
               <th>Adicionado em </th>
+              <th>Data de Compra</th>
               <th>Categoria</th>
               {user.role_id === 3 ? null : <th>Actions</th>}
 
@@ -134,15 +143,19 @@ export default function Assets() {
               {assets.map((a) => (
                 <tr key={a.id}>
                   <td>{a.id}</td>
+                  <td>{a.model_id}</td>
+                  <td>{a.brand_id}</td>
                   <td>{a.numb_inv}</td>
                   <td>{a.numb_ser}</td>
                   <td>{a.cond}</td>
+                  <td>{a.ent_id}</td>
                   <td>{a.floor}</td>
                   <td>{a.ala}</td>
                   <td>{a.ci}</td>
                   <td>{a.state}</td>
                   <td>{a.created_at}</td>
-                  <td>{a.category_id}</td>
+                  <td>{a.date_purch}</td>
+                  <td>{a.cat_id}</td>
                   {user.role_id === 3 ? null : (
                     <td>
                       <Link className="btn-edit" to={"/assets/" + a.id}>
