@@ -109,19 +109,19 @@ export default function Users() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Name</th>
+              <th>Nome</th>
               <th>Email</th>
-              <th>Create Date</th>
+              <th>Criado em</th>
 
-              <th>Role</th>
-              {user.role_id === 1 ? <th>Actions</th> : null}
+              <th>Função</th>
+              {user.role_id === 1 ? <th>Ações</th> : null}
             </tr>
           </thead>
           {loading && (
             <tbody>
               <tr>
                 <td colSpan="5" className="text-center">
-                  Loading...
+                  Carregando...
                 </td>
               </tr>
             </tbody>
@@ -146,14 +146,14 @@ export default function Users() {
                     {user.role_id === 1 ? (
                       <>
                         <Link className="btn-edit" to={"/users/" + u.id}>
-                          Edit
+                          Editar
                         </Link>
                         &nbsp;
                         <button
                           className="btn-delete"
                           onClick={(ev) => onDeleteClick(u)}
                         >
-                          Delete
+                          Apagar
                         </button>{" "}
                       </>
                     ) : null}

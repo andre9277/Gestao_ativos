@@ -93,10 +93,10 @@ export default function Assets() {
           alignItems: "center",
         }}
       >
-        <h1>Ativos</h1>
+        <h1>Listagem de Ativos</h1>
         {user.role_id === 3 ? null : (
           <Link className="btn-add" to="/assets/new">
-            Add new
+            + Adicionar Ativo
           </Link>
         )}
       </div>
@@ -109,30 +109,26 @@ export default function Assets() {
         <table>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Modelo</th>
+              <th>Categoria</th>
               <th>Marca</th>
+              <th>Modelo</th>
               <th>NºInventário</th>
               <th>Nº Série</th>
-              <th>Condição</th>
               <th>Localização</th>
               <th>Piso</th>
               <th>Ala</th>
               <th>CI</th>
               <th>Estado</th>
               <th>Adicionado em </th>
-              <th>Data de Compra</th>
-              <th>Categoria</th>
-              {user.role_id === 3 ? null : <th>Actions</th>}
 
-              <th>Fornecedor</th>
+              {user.role_id === 3 ? null : <th>Ações</th>}
             </tr>
           </thead>
           {loading && (
             <tbody>
               <tr>
                 <td colSpan="5" className="text-center">
-                  Loading...
+                  Carregando...
                 </td>
               </tr>
             </tbody>
@@ -142,36 +138,32 @@ export default function Assets() {
               {/* Iteração pelos assets todos */}
               {assets.map((a) => (
                 <tr key={a.id}>
-                  <td>{a.id}</td>
-                  <td>{a.model_id}</td>
+                  <td>{a.cat_id}</td>
                   <td>{a.brand_id}</td>
+                  <td>{a.model_id}</td>
                   <td>{a.numb_inv}</td>
                   <td>{a.numb_ser}</td>
-                  <td>{a.cond}</td>
                   <td>{a.ent_id}</td>
                   <td>{a.floor}</td>
                   <td>{a.ala}</td>
                   <td>{a.ci}</td>
                   <td>{a.state}</td>
                   <td>{a.created_at}</td>
-                  <td>{a.date_purch}</td>
-                  <td>{a.cat_id}</td>
+
                   {user.role_id === 3 ? null : (
                     <td>
                       <Link className="btn-edit" to={"/assets/" + a.id}>
-                        Edit
+                        Editar
                       </Link>
                       &nbsp;
                       <button
                         className="btn-delete"
                         onClick={(ev) => onDeleteClick(a)}
                       >
-                        Delete
+                        Apagar
                       </button>
                     </td>
                   )}
-
-                  <td>{a.supplier_id}</td>
                 </tr>
               ))}
             </tbody>

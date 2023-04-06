@@ -35,11 +35,13 @@ const Footer = () => {
       <footer className="py-4 bg-light mt-auto">
         <div className="container-fluid px-4">
           <div className="d-flex align-items-center justify-content-between small">
-            <div className="text-muted">Copyright &copy; Your Website 2022</div>
+            <div className="text-muted">
+              Copyright &copy; Hospital de Braga 2023
+            </div>
             <div>
-              <a href="#">Privacy Policy</a>
+              <a href="#">Política de Privacidade</a>
               &middot;
-              <a href="#">Terms &amp; Conditions</a>
+              <a href="#">Termos &amp; Condições</a>
             </div>
           </div>
         </div>
