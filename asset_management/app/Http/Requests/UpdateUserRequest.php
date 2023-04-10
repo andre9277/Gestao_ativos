@@ -28,6 +28,7 @@ class UpdateUserRequest extends FormRequest
         //exceato o id
         return [
             'name' => 'required|string|max:55',
+            'mec' => 'required',
             'email' => 'required|email|unique:users,email,' . $this->id,
             'role_id' => 'required',
             'password' => [

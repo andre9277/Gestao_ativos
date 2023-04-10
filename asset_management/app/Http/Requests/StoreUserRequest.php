@@ -26,6 +26,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:55',
+            'mec' => 'required',
             'email' => 'required|email|unique:users,email',
             'role_id' => 'required',
             'password' => [

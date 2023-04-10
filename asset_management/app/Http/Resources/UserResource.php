@@ -20,6 +20,7 @@ class UserResource extends JsonResource
         //o que queremos expor sobre o user
         return [
             'id' => $this->id,
+            'mec' => $this->mec,
             'name' => $this->name,
             'email' => $this->email,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),

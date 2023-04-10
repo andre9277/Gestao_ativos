@@ -21,6 +21,7 @@ class AuthController extends Controller
         /** @var \App\Models\User $user */
         $user = User::create([
             'name' => $data['name'],
+            'mec' => $data['mec'],
             'email' => $data['email'],
             'role_id' => $data['role_id'],
             'password' => bcrypt($data['password']),

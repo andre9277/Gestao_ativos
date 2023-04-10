@@ -30,7 +30,6 @@ All the changes made to enable the implementation of the desired development too
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Alert from "./Alert";
-import Message from "./Message";
 import Search from "./Search";
 import UserInfo from "./UserInfo";
 
@@ -122,8 +121,6 @@ const TopBar = ({ user, onLogout }) => {
 
         {/*  <!-- Nav Item - Alerts --> */}
         <Alert />
-        {/*  <!-- Nav Item - Messages --> */}
-        <Message />
 
         <div className="topbar-divider d-none d-sm-block"></div>
 

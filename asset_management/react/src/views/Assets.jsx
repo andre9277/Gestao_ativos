@@ -95,7 +95,7 @@ export default function Assets() {
       >
         <h1>Listagem de Ativos</h1>
         {user.role_id === 3 ? null : (
-          <Link className="btn-add" to="/assets/new">
+          <Link className="btn-add text-link" to="/assets/new">
             + Adicionar Ativo
           </Link>
         )}
@@ -152,16 +152,19 @@ export default function Assets() {
 
                   {user.role_id === 3 ? null : (
                     <td>
-                      <Link className="btn-edit" to={"/assets/" + a.id}>
+                      <Link
+                        className="btn-edit text-link"
+                        to={"/assets/" + a.id}
+                      >
                         Editar
                       </Link>
                       &nbsp;
-                      <button
-                        className="btn-delete"
+                      <Link
+                        className="btn-delete text-link"
                         onClick={(ev) => onDeleteClick(a)}
                       >
                         Apagar
-                      </button>
+                      </Link>
                     </td>
                   )}
                 </tr>

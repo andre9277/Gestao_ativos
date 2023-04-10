@@ -394,13 +394,13 @@ label {
     display: inline-block;
 }
 
-button {
+/* button {
     border-radius: 0;
-}
+} */
 
-button:focus:not(:focus-visible) {
+/* button:focus:not(:focus-visible) {
     outline: 0;
-}
+} */
 
 input,
 button,
@@ -2691,13 +2691,6 @@ textarea.form-control-lg {
     pointer-events: none;
 }
 
-.btn-add {
-    background-color: #00a762;
-}
-
-.btn-delete {
-    background-color: #b72424;
-}
 
 .btn,
 .btn-add,
@@ -2705,23 +2698,24 @@ textarea.form-control-lg {
 .btn-delete {
     font-family: "Roboto", sans-serif;
     outline: 0;
-    background: #5b08a7;
     border: 0;
     text-decoration: none;
-    padding: 15px;
-    color: #ffffff;
+    /* padding: 15px; */
+  color: #ffffff; 
+    
     font-size: 14px;
-    -webkit-transition: all 0.3 ease;
-    transition: all 0.3 ease;
+   -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease; 
     cursor: pointer;
-}
-
-.btn-add,
-.btn-edit,
-.btn-delete {
     padding: 0.5rem 0.75rem;
     font-size: 14px;
     border-radius: 4px;
+}
+
+
+.btn-edit{
+    background: #5b08a7;
+    color: white;
 }
 
 .btn-add {
@@ -2737,6 +2731,11 @@ textarea.form-control-lg {
     pointer-events: none;
     filter: none;
     opacity: 0.65;
+}
+
+.text-link {
+    color: white;
+    text-decoration: none;
 }
 
 .form-range {
@@ -3917,14 +3916,14 @@ fieldset:disabled .btn {
     background-color: transparent;
 }
 
-.btn-link {
+/* .btn-link {
     font-weight: 400;
     color: #0d6efd;
     text-decoration: underline;
 }
 .btn-link:hover {
     color: #0a58ca;
-}
+} */
 .btn-link:disabled,
 .btn-link.disabled {
     color: #6c757d;
@@ -12424,9 +12423,9 @@ select {
     font-weight: 600;
     color: #fff;
 }
-button:hover {
+/* button:hover {
     background: #4e73df;
-}
+} */
 @media (min-width: 568px) {
     .account-details > div,
     .personal-details > div {
