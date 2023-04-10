@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Role;
+use App\Models\Allocation;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -19,6 +24,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'mec',
         'email',
         'role_id',
         'password',
@@ -44,9 +50,14 @@ class User extends Authenticatable
     ];
 
     //Relação entre as tabelas Role e User. Cada user tem uma role e várias roles podem ter vários users
-    public function role()
+    public function roles()
     {
 
         return $this->belongsTo(Role::class);
+    }
+
+    public function allocations()
+    {
+        return $this->hasMany(Allocation::class);
     }
 }

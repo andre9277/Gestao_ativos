@@ -61,21 +61,11 @@ function Dashboard() {
 
             {/*  <!-- Ativos Alterados --> */}
             <Card
-              Titulo="Ativos Alterados (Mensalmente)"
+              Titulo="Ativos Alterados - Média Mensal"
               Descricao="83"
               Icon="fa-arrows-alt"
               Cor="text-success"
               Tipo="success"
-            />
-
-            {/*  <!-- Ativos em Estado Inativo --> */}
-
-            <Card
-              Titulo="Ativos em Estado Inativo"
-              Descricao="10%"
-              Icon="fa-lock"
-              Cor="text-info"
-              Tipo="info"
             />
 
             {/*  <!-- Ativos em Reparação --> */}

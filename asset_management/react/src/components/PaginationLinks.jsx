@@ -61,9 +61,9 @@ const PaginationLinks = ({ meta, onPageClick }) => {
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-gray-700">
-            Showing <span className="font-medium">{meta.from}</span> to{" "}
-            <span className="font-medium">{meta.to}</span> of &nbsp;
-            <span className="font-medium">{meta.total}</span> results
+            Exibindo <span className="font-medium">{meta.from}</span> a{" "}
+            <span className="font-medium">{meta.to}</span> de &nbsp;
+            <span className="font-medium">{meta.total}</span> resultados
           </p>
         </div>
         <div>

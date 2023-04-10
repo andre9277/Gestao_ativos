@@ -30,7 +30,6 @@ All the changes made to enable the implementation of the desired development too
 import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import PaginationLinks from "../components/PaginationLinks.jsx";
-import { useStateContext } from "../context/ContextProvider.jsx";
 
 export default function Allocations() {
   const [allocations, setAllocations] = useState([]);
@@ -63,7 +62,6 @@ export default function Allocations() {
       .then(({ data }) => {
         //quando obtemos um request, loading=false
         setLoading(false);
-        console.log(data.data);
         setAllocations(data.data);
         setMeta(data.meta);
       })

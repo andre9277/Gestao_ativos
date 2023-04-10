@@ -84,7 +84,7 @@ const router = createBrowserRouter([
         element: <AssetForm key="assetUpdate" />,
       },
       {
-        path: "/assets/:id",
+        path: "/assets/new",
         element: <AssetForm key="assetCreate" />,
       },
       {

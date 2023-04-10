@@ -47,6 +47,7 @@ export default function UserForm() {
     password: "",
     password_confirmation: "",
     role_id: "",
+    mec: "",
   });
   const [errors, setErrors] = useState(null);
 
@@ -80,7 +81,7 @@ export default function UserForm() {
         .put(`/users/${user.id}`, user)
         .then(() => {
           //mensagem de update realizado com sucesso
-          setNotification("User was successfully updated");
+          setNotification("Utilizador atualizado com sucesso!");
           //Redireciona para a página dos utilizadores
           navigate("/users");
         })
@@ -96,7 +97,7 @@ export default function UserForm() {
       axiosClient
         .post("/users", user)
         .then(() => {
-          setNotification("User was successfully created");
+          setNotification("Utilizador Criado com sucesso!");
           navigate("/users");
         })
         .catch((err) => {
@@ -110,10 +111,10 @@ export default function UserForm() {
 
   return (
     <>
-      {user.id && <h1>Update User: {user.name}</h1>}
-      {!user.id && <h1>New User</h1>}
+      {user.id && <h1>Atualizar Utilziador: {user.name}</h1>}
+      {!user.id && <h1>Novo Utilizador</h1>}
       <div className="card animated fadeInDown">
-        {loading && <div className="text-center">Loading...</div>}
+        {loading && <div className="text-center">Carregando...</div>}
         {errors && (
           <div className="alert">
             {Object.keys(errors).map((key) => (
@@ -123,35 +124,64 @@ export default function UserForm() {
         )}
         {!loading && (
           <form onSubmit={onSubmit}>
-            <input
-              value={user.name}
-              onChange={(ev) => setUser({ ...user, name: ev.target.value })}
-              placeholder="Name"
-            />
-            <input
-              type="email"
-              value={user.email}
-              onChange={(ev) => setUser({ ...user, email: ev.target.value })}
-              placeholder="Email"
-            />
-            <input
-              type="password"
-              onChange={(ev) => setUser({ ...user, password: ev.target.value })}
-              placeholder="Password"
-            />
-            <input
-              type="password"
-              onChange={(ev) =>
-                setUser({ ...user, password_confirmation: ev.target.value })
-              }
-              placeholder="Password Confirmation"
-            />
-            <input
-              value={user.role_id}
-              onChange={(ev) => setUser({ ...user, role_id: ev.target.value })}
-              placeholder="Role"
-            />
-            <button className="btn">Save</button>
+            <label>
+              {" "}
+              Nome:
+              <input
+                value={user.name}
+                onChange={(ev) => setUser({ ...user, name: ev.target.value })}
+                placeholder="Nome"
+              />
+            </label>
+            <label>
+              Email:
+              <input
+                type="email"
+                value={user.email}
+                onChange={(ev) => setUser({ ...user, email: ev.target.value })}
+                placeholder="Email"
+              />
+            </label>
+
+            <label>
+              Número Mecanográfico:
+              <input
+                onChange={(ev) => setUser({ ...user, mec: ev.target.value })}
+                placeholder="Número Mecanográfico"
+              />
+            </label>
+
+            <label>
+              Password:
+              <input
+                type="password"
+                onChange={(ev) =>
+                  setUser({ ...user, password: ev.target.value })
+                }
+                placeholder="Password"
+              />
+            </label>
+            <label>
+              Confirmação da Password:
+              <input
+                type="password"
+                onChange={(ev) =>
+                  setUser({ ...user, password_confirmation: ev.target.value })
+                }
+                placeholder="Confirmação da Password"
+              />
+            </label>
+            <label>
+              Função:
+              <input
+                value={user.role_id}
+                onChange={(ev) =>
+                  setUser({ ...user, role_id: ev.target.value })
+                }
+                placeholder="Função"
+              />
+            </label>
+            <button className="btn">Guardar</button>
           </form>
         )}
       </div>

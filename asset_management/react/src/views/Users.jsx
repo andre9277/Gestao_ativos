@@ -51,13 +51,13 @@ export default function Users() {
   //Handel click para apagar um utilizador
   const onDeleteClick = (user) => {
     //Confirmação da eliminação de um utilizador
-    if (!window.confirm("Are you sure you want to delete this user?")) {
+    if (!window.confirm("Tem a certeza que deseja eliminar o utilizador?")) {
       return;
     }
 
     //Requests para apagar o utilizador
     axiosClient.delete(`/users/${user.id}`).then(() => {
-      setNotification("User was successfully deleted");
+      setNotification("Utilizador foi apagado com sucesso!");
 
       //após utilizador ser eliminado, faz fetch de todos os utilziadores para mostrar a eliminação realizada com sucesso
       getUsers();
@@ -99,8 +99,8 @@ export default function Users() {
       >
         <h1>Utilizadores</h1>
         {user.role_id === 1 ? (
-          <Link className="btn-add" to="/users/new">
-            Add new
+          <Link className="btn-add text-link" to="/users/new">
+            + Adicionar Novo
           </Link>
         ) : null}
       </div>
@@ -108,33 +108,34 @@ export default function Users() {
         <table>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Name</th>
+              <th>Nº Mecanográfico</th>
+              <th>Nome</th>
               <th>Email</th>
-              <th>Create Date</th>
 
-              <th>Role</th>
-              {user.role_id === 1 ? <th>Actions</th> : null}
+              <th>Função</th>
+              {user.role_id === 1 ? <th>Ações</th> : null}
+              <th>Criado em</th>
             </tr>
           </thead>
           {loading && (
             <tbody>
               <tr>
                 <td colSpan="5" className="text-center">
-                  Loading...
+                  Carregando...
                 </td>
               </tr>
             </tbody>
           )}
+
           {!loading && (
             <tbody>
               {/* Iteração pelos utilizadores todos */}
               {users.map((u) => (
                 <tr key={u.id}>
-                  <td>{u.id}</td>
+                  <td>{u.mec}</td>
                   <td>{u.name}</td>
                   <td>{u.email}</td>
-                  <td>{u.created_at}</td>
+
                   <td>
                     {u.role_id === 1
                       ? "Admin"
@@ -145,19 +146,23 @@ export default function Users() {
                   <td>
                     {user.role_id === 1 ? (
                       <>
-                        <Link className="btn-edit" to={"/users/" + u.id}>
-                          Edit
+                        <Link
+                          className=" btn-edit text-link"
+                          to={"/users/" + u.id}
+                        >
+                          Editar
                         </Link>
                         &nbsp;
-                        <button
-                          className="btn-delete"
+                        <Link
+                          className="btn-delete text-link"
                           onClick={(ev) => onDeleteClick(u)}
                         >
-                          Delete
-                        </button>{" "}
+                          Apagar
+                        </Link>{" "}
                       </>
                     ) : null}
                   </td>
+                  <td>{u.created_at}</td>
                 </tr>
               ))}
             </tbody>

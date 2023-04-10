@@ -14,7 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('assets', function (Blueprint $table) {
-            $table->string('inv', 100)->nullable()->change();
+            //
+            $table->string('ala', 100)->nullable()->change();
+            $table->string('floor', 100)->nullable()->change();
+            $table->string('ci', 100)->nullable()->change();
         });
     }
 
@@ -26,7 +29,10 @@ return new class extends Migration
     public function down()
     {
         Schema::table('assets', function (Blueprint $table) {
-            $table->string('inv', 100)->change();
+            //
+            $table->string('ala', 100)->change();
+            $table->string('piso', 100)->change();
+            $table->string('ci', 100)->change();
         });
     }
 };

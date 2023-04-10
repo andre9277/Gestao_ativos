@@ -96,11 +96,17 @@ const SideBar = () => {
         <hr className="sidebar-divider" />
 
         {/*   <!-- Heading --> */}
-        <div className="sidebar-heading">Interface</div>
+        <div className="sidebar-heading">Gestão de ativos</div>
 
+        {/* <!-- Nav Item - Relatorios --> */}
+        <MenuItem
+          titulo={"Movimento de Ativos"}
+          icon={"fa-chart-area"}
+          origem={"allocations"}
+        />
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
         <MenuItem
-          titulo={"Gestão de ativos"}
+          titulo={"Listagem de Ativos"}
           icon={"fa-cog"}
           origem={"assets"}
         />
@@ -111,13 +117,6 @@ const SideBar = () => {
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
         {/* <MenuItem Name="Pages" MenuId="collapsePages" /> */}
 
-        {/* <!-- Nav Item - Relatorios --> */}
-        <MenuItem
-          titulo={"Relatórios"}
-          icon={"fa-chart-area"}
-          origem={"allocations"}
-        />
-
         {/*  <!-- Nav Item - Utilizadores --> */}
         {/*  <!-- Divider --> */}
         <hr className="sidebar-divider" />
@@ -126,19 +125,10 @@ const SideBar = () => {
         <div className="sidebar-heading"> Área do Administrador</div>
 
         <MenuItem titulo={"Utilizadores"} icon={"fa-table"} origem={"users"} />
-        <MenuItem titulo={"Inserir Ativos"} icon={"fa-plus"} />
+        <MenuItem titulo={"Relatório"} icon={"fa-plus"} />
 
         {/* <!-- Divider --> */}
         <hr className="sidebar-divider d-none d-md-block" />
-
-        {/*   <!-- Sidebar Toggler (Sidebar) --> */}
-        <div className="text-center d-none d-md-inline">
-          <button
-            className="rounded-circle border-0"
-            id="sidebarToggle"
-            onClick={changeStyle}
-          ></button>
-        </div>
 
         <li className="nav-item dropdown no-arrow d-sm-none">
           <a

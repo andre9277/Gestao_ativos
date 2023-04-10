@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAssetRequest;
 use App\Http\Requests\UpdateAssetRequest;
 use App\Http\Resources\AssetResource;
 use App\Models\Allocation;
+use App\Models\Brand;
 use Illuminate\Support\Facades\Auth;
 
 class AssetController extends Controller
@@ -29,7 +30,7 @@ class AssetController extends Controller
      */
     public function create()
     {
-        //
+        $brands = Brand::all();
     }
 
     /**
