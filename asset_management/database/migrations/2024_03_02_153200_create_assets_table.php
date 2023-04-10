@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
-            $table->string('numb_inv', 100)->nullable()->change();
+            $table->string('numb_inv', 100)->nullable();
             $table->date('date_purch');
             $table->string('state');
             $table->string('numb_ser');

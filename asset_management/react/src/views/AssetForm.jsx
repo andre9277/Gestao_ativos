@@ -36,16 +36,6 @@ export default function AssetForm() {
   //permite a navegação de assets para outra página
   const navigate = useNavigate();
 
-  const optionsCond = [
-    {
-      value: "Novo",
-      label: "Novo",
-    },
-    {
-      value: "Usado",
-      label: "Usado",
-    },
-  ];
   //Ficamos com o ID
   let { id } = useParams();
 
@@ -96,7 +86,7 @@ export default function AssetForm() {
         .put(`/assets/${asset.id}`, asset)
         .then(() => {
           //mensagem de update realizado com sucesso
-          setNotification("Asset was successfully updated");
+          setNotification("Ativo atualizado com sucesso!");
           //Redireciona para a página dos assets
           navigate("/assets");
         })
@@ -112,7 +102,7 @@ export default function AssetForm() {
       axiosClient
         .post("/assets", asset)
         .then(() => {
-          setNotification("Asset was successfully created");
+          setNotification("Ativo criado com sucesso!");
           navigate("/assets");
         })
         .catch((err) => {

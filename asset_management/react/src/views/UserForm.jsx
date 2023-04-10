@@ -124,6 +124,7 @@ export default function UserForm() {
         )}
         {!loading && (
           <form onSubmit={onSubmit}>
+            <button className="btn-adicionar">Guardar</button>
             <label>
               {" "}
               Nome:
@@ -181,7 +182,6 @@ export default function UserForm() {
                 placeholder="Função"
               />
             </label>
-            <button className="btn">Guardar</button>
           </form>
         )}
       </div>
