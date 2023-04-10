@@ -13,6 +13,12 @@ class Entity extends Model
 
     protected $table = 'entity';
 
+    protected $fillable = [
+        'id',
+        'ent_name',
+        'ent_type'
+    ];
+
     public function assets()
     {
         return $this->hasMany(Asset::class);
