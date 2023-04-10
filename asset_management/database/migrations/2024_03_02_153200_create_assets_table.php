@@ -15,20 +15,19 @@ return new class extends Migration
     {
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
-            $table->string('numb_inv');
+            $table->string('numb_inv', 100)->nullable()->change();
             $table->date('date_purch');
             $table->string('state');
             $table->string('numb_ser');
             $table->string('cond');
-            $table->string('floor');
-            $table->string('ala');
-            $table->string('ci');
+            $table->string('ala', 100)->nullable();
+            $table->string('floor', 100)->nullable();
+            $table->string('ci', 100)->nullable();
 
 
             $table->unsignedBigInteger('brand_id');
             $table->unsignedBigInteger('cat_id');
             $table->unsignedBigInteger('supplier_id');
-            $table->unsignedBigInteger('model_id');
             $table->unsignedBigInteger('ent_id');
 
             $table->timestamps();
@@ -37,7 +36,6 @@ return new class extends Migration
             $table->foreign('cat_id')->nullable()->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('ent_id')->nullable()->references('id')->on('entity')->onDelete('cascade');
             $table->foreign('supplier_id')->nullable()->references('id')->on('suppliers')->onDelete('cascade');
-            $table->foreign('model_id')->nullable()->references('id')->on('modelo')->onDelete('cascade');
         });
     }
 

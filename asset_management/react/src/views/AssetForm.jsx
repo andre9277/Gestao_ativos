@@ -61,7 +61,6 @@ export default function AssetForm() {
     cat_id: "",
     supplier_id: "",
     brand_id: "",
-    model_id: "",
     ent_id: "",
     date_purch: "",
   });
@@ -140,9 +139,11 @@ export default function AssetForm() {
         )}
         {!loading && (
           <form onSubmit={onSubmit}>
-            <button className="btn">Adicionar</button>
-            <p>
-              <label> Nº Inventário:</label>
+            <button className="btn-adicionar">Adicionar</button>
+
+            <label>
+              {" "}
+              Nº Inventário:
               <input
                 value={asset.numb_inv}
                 onChange={(ev) =>
@@ -150,90 +151,124 @@ export default function AssetForm() {
                 }
                 placeholder="NºInventário"
               />
-            </p>
+            </label>
 
-            <label> Data de Compra:</label>
-            <input
-              value={asset.date_purch}
-              onChange={(ev) =>
-                setAsset({ ...asset, date_purch: ev.target.value })
-              }
-              placeholder="Data de compra"
-            />
-            <label> Número de série:</label>
-            <input
-              value={asset.numb_ser}
-              onChange={(ev) =>
-                setAsset({ ...asset, numb_ser: ev.target.value })
-              }
-              placeholder="Numero de série"
-            />
-            <label> Marca*:</label>
-            <input
-              value={asset.brand_id}
-              onChange={(ev) =>
-                setAsset({ ...asset, brand_id: ev.target.value })
-              }
-              placeholder="Marca"
-            />
-            <label> Modelo*:</label>
-            <input
-              value={asset.model_id}
-              onChange={(ev) =>
-                setAsset({ ...asset, model_id: ev.target.value })
-              }
-              placeholder="Modelo"
-            />
-            <label> Entidade*:</label>
-            <input
-              value={asset.ent_id}
-              onChange={(ev) => setAsset({ ...asset, ent_id: ev.target.value })}
-              placeholder="Entidade"
-            />
-            <label> Condição:</label>
-            <input
-              value={asset.cond}
-              onChange={(ev) => setAsset({ ...asset, cond: ev.target.value })}
-              placeholder="Condição"
-            />
-            <label> Piso:</label>
-            <input
-              value={asset.floor}
-              onChange={(ev) => setAsset({ ...asset, floor: ev.target.value })}
-              placeholder="Piso"
-            />
-            <label> Ala:</label>
-            <input
-              value={asset.ala}
-              onChange={(ev) => setAsset({ ...asset, ala: ev.target.value })}
-              placeholder="Ala"
-            />
-            <label> CI:</label>
-            <input
-              value={asset.ci}
-              onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
-              placeholder="CI"
-            />
-            <label> Estado*:</label>
-            <input
-              value={asset.state}
-              onChange={(ev) => setAsset({ ...asset, state: ev.target.value })}
-              placeholder="Estado"
-            />
-            <label> Categoria*:</label>
-            <input
-              value={asset.cat_id}
-              onChange={(ev) => setAsset({ ...asset, cat_id: ev.target.value })}
-              placeholder="Categoria"
-            />
-            <label> Fornecedor:</label>
-            <input
-              value={asset.supplier_id}
-              onChange={(ev) =>
-                setAsset({ ...asset, supplier_id: ev.target.value })
-              }
-              placeholder="Fornecedor"
-            />
+            <label>
+              {" "}
+              Data de Compra:
+              <input
+                value={asset.date_purch}
+                onChange={(ev) =>
+                  setAsset({ ...asset, date_purch: ev.target.value })
+                }
+                placeholder="Data de compra"
+              />
+            </label>
+            <label>
+              {" "}
+              Número de série:
+              <input
+                value={asset.numb_ser}
+                onChange={(ev) =>
+                  setAsset({ ...asset, numb_ser: ev.target.value })
+                }
+                placeholder="Numero de série"
+              />
+            </label>
+            <label>
+              {" "}
+              Marca*:
+              <input
+                value={asset.brand_id}
+                onChange={(ev) =>
+                  setAsset({ ...asset, brand_id: ev.target.value })
+                }
+                placeholder="Marca"
+              />
+            </label>
+
+            <label>
+              {" "}
+              Entidade*:
+              <input
+                value={asset.ent_id}
+                onChange={(ev) =>
+                  setAsset({ ...asset, ent_id: ev.target.value })
+                }
+                placeholder="Entidade"
+              />
+            </label>
+            <label>
+              {" "}
+              Condição:
+              <input
+                value={asset.cond}
+                onChange={(ev) => setAsset({ ...asset, cond: ev.target.value })}
+                placeholder="Condição"
+              />
+            </label>
+            <label>
+              {" "}
+              Piso:
+              <input
+                value={asset.floor}
+                onChange={(ev) =>
+                  setAsset({ ...asset, floor: ev.target.value })
+                }
+                placeholder="Piso"
+              />
+            </label>
+            <label>
+              {" "}
+              Ala:
+              <input
+                value={asset.ala}
+                onChange={(ev) => setAsset({ ...asset, ala: ev.target.value })}
+                placeholder="Ala"
+              />
+            </label>
+            <label>
+              {" "}
+              CI:
+              <input
+                value={asset.ci}
+                onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
+                placeholder="CI"
+              />
+            </label>
+            <label>
+              {" "}
+              Estado*:
+              <input
+                value={asset.state}
+                onChange={(ev) =>
+                  setAsset({ ...asset, state: ev.target.value })
+                }
+                placeholder="Estado"
+              />
+            </label>
+            <label>
+              {" "}
+              Categoria*:
+              <input
+                value={asset.cat_id}
+                onChange={(ev) =>
+                  setAsset({ ...asset, cat_id: ev.target.value })
+                }
+                placeholder="Categoria"
+              />
+            </label>
+            <label>
+              {" "}
+              Fornecedor:
+              <input
+                value={asset.supplier_id}
+                onChange={(ev) =>
+                  setAsset({ ...asset, supplier_id: ev.target.value })
+                }
+                placeholder="Fornecedor"
+              />
+            </label>
           </form>
         )}
       </div>

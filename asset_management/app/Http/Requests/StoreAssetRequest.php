@@ -29,7 +29,7 @@ class StoreAssetRequest extends FormRequest
             'state' => 'required',
             'cat_id' => 'required',
             'brand_id' => 'required',
-            'model_id' => 'required',
+            //'model_id' => 'required',
             'ent_id' => 'required'
         ];
     }

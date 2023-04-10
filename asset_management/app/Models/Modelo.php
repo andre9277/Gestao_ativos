@@ -13,8 +13,10 @@ class Modelo extends Model
 
     protected $table = 'modelo';
 
-    public function ativos()
+
+
+    public function brand()
     {
-        return $this->hasMany(Asset::class);
+        return $this->belongsTo(Brand::class);
     }
 }

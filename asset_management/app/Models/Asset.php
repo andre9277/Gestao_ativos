@@ -30,7 +30,6 @@ class Asset extends Model
         'brand_id',
         'cat_id',
         'supplier_id',
-        'model_id',
         'ent_id',
     ];
 
@@ -54,10 +53,6 @@ class Asset extends Model
         return $this->belongsTo(Supplier::class);
     }
 
-    public function modelo()
-    {
-        return $this->belongsTo(Modelo::class);
-    }
 
     public function allocations()
     {

@@ -34,13 +34,14 @@
 
          php artisan db:seed --class=SuppliersTableSeeder
 
-      **9- Add Models to local Database:**
-
-          php artisan db:seed --class=ModelSeeder
       
-      **10- Add Brands to local Database:**
+      **9- Add Brands to local Database:**
 
          php artisan db:seed --class=BrandSeeder
+
+       **10- Add Models to local Database:**
+
+          php artisan db:seed --class=ModelSeeder
 
       **11- Add Entity to local Database:**
 

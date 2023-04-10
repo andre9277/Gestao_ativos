@@ -81,8 +81,8 @@ export default function Login() {
                           <p>{message}</p>
                         </div>
                       )}
-                      <div className="form-floating mb-3">
-                        <label htmlFor="inputEmail">Email address</label>
+                      <label htmlFor="inputEmail">Endereço de email</label>
+                      <div className="form-floating mb-1">
                         <input
                           ref={emailRef}
                           className="form-control"
@@ -91,8 +91,8 @@ export default function Login() {
                           placeholder="name@example.com"
                         />
                       </div>
-                      <div className="form-floating mb-3">
-                        <label htmlFor="inputPassword">Password</label>
+                      <label htmlFor="inputPassword">Password</label>
+                      <div className="form-floating mb-1">
                         <input
                           ref={passwordRef}
                           className="form-control"

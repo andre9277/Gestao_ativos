@@ -16,4 +16,9 @@ class Brand extends Model
     {
         return $this->hasMany(Asset::class);
     }
+
+    public function modelo()
+    {
+        return $this->hasMany(Modelo::class);
+    }
 }

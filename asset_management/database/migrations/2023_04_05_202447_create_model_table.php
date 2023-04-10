@@ -13,8 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('mec');
+        Schema::create('modelo', function (Blueprint $table) {
+            $table->id();
+            $table->string('model_name');
+            $table->timestamps();
+            $table->unsignedBigInteger('brand_id');
+
+
+            $table->foreign('brand_id')->nullable()->references('id')->on('brand')->onDelete('cascade');
         });
     }
 
@@ -25,8 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('mec');
-        });
+        Schema::dropIfExists('model');
     }
 };
