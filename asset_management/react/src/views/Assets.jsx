@@ -32,6 +32,7 @@ import axiosClient from "../axios-client.js";
 import { Link } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import PaginationLinks from "../components/PaginationLinks.jsx";
+import axios from "axios";
 
 export default function Assets() {
   const [assets, setAssets] = useState([]);
@@ -47,13 +48,13 @@ export default function Assets() {
   //Handel click para apagar um asset
   const onDeleteClick = (asset) => {
     //Confirmação da eliminação de um asset
-    if (!window.confirm("Are you sure you want to delete this asset?")) {
+    if (!window.confirm("Tem a certeza que pretende apagar o ativo?")) {
       return;
     }
 
     //Requests para apagar o asset
     axiosClient.delete(`/assets/${asset.id}`).then(() => {
-      setNotification("Asset was successfully deleted");
+      setNotification("Ativo apagado com sucesso!");
 
       //após asset ser eliminado, faz fetch de todos os assets para mostrar a eliminação realizada com sucesso
       getAssets();
@@ -111,7 +112,6 @@ export default function Assets() {
             <tr>
               <th>Categoria</th>
               <th>Marca</th>
-              <th>Modelo</th>
               <th>NºInventário</th>
               <th>Nº Série</th>
               <th>Localização</th>
@@ -138,9 +138,14 @@ export default function Assets() {
               {/* Iteração pelos assets todos */}
               {assets.map((a) => (
                 <tr key={a.id}>
-                  <td>{a.cat_id}</td>
+                  <td>
+                    {a.cat_id === 1
+                      ? "Computador"
+                      : a.cat_id === 2
+                      ? "Telefone"
+                      : "Impressora"}
+                  </td>
                   <td>{a.brand_id}</td>
-                  <td>{a.model_id}</td>
                   <td>{a.numb_inv}</td>
                   <td>{a.numb_ser}</td>
                   <td>{a.ent_id}</td>

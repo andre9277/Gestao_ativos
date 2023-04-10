@@ -4,6 +4,8 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AllocationsController;
 use App\Http\Controllers\AssetController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Resources\CategoryResource;
 use App\Models\Asset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +31,10 @@ Route::middleware('auth:sanctum')->group(function () {
     //ApiResource no endpoint users
     Route::apiResource('/users', UserController::class);
 
-    //Route::resource('/usere', UserController::class);
+    //Endpoint Categorias
+    //Route::get('/categories', [CategoryController::class, 'index']);
+
+    Route::get('/categories', [CategoryController::class, 'index']);
 
 
 

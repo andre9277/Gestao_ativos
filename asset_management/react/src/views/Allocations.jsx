@@ -63,7 +63,6 @@ export default function Allocations() {
         //quando obtemos um request, loading=false
         setLoading(false);
         setAllocations(data.data);
-        setMeta(data.meta);
       })
       .catch(() => {
         setLoading(false);
@@ -114,7 +113,7 @@ export default function Allocations() {
             <tbody>
               <tr>
                 <td colSpan="5" className="text-center">
-                  Loading...
+                  Carregando...
                 </td>
               </tr>
             </tbody>

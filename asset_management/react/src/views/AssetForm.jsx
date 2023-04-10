@@ -36,6 +36,11 @@ export default function AssetForm() {
   //permite a navegação de assets para outra página
   const navigate = useNavigate();
 
+  //retorna todos os assets (mount hook é chamado 2x)
+  useEffect(() => {
+    getCats();
+  }, []);
+
   //Ficamos com o ID
   let { id } = useParams();
 
@@ -59,6 +64,8 @@ export default function AssetForm() {
   //Loading para informar aos assets de quando a tabela acaba de dar load
   const [loading, setLoading] = useState(false);
   const { setNotification } = useStateContext();
+
+  const [cats, setCats] = useState([]);
 
   //Sempre que o ID do asset existir:
   if (id) {
@@ -114,6 +121,14 @@ export default function AssetForm() {
     }
   };
 
+  const getCats = (url) => {
+    url = url || "/categories";
+
+    axiosClient.get(url).then(({ data }) => {
+      setCats(data);
+    });
+  };
+
   return (
     <>
       {asset.id && <h1>Atualizar Ativo: {asset.brand}</h1>}
@@ -129,8 +144,7 @@ export default function AssetForm() {
         )}
         {!loading && (
           <form onSubmit={onSubmit}>
-            <button className="btn-adicionar">Adicionar</button>
-
+            <button className="btn-adicionar">Gravar</button>
             <label>
               {" "}
               Nº Inventário:
@@ -142,7 +156,6 @@ export default function AssetForm() {
                 placeholder="NºInventário"
               />
             </label>
-
             <label>
               {" "}
               Data de Compra:
@@ -176,7 +189,6 @@ export default function AssetForm() {
                 placeholder="Marca"
               />
             </label>
-
             <label>
               {" "}
               Entidade*:
@@ -188,35 +200,55 @@ export default function AssetForm() {
                 placeholder="Entidade"
               />
             </label>
-            <label>
-              {" "}
-              Condição:
-              <input
-                value={asset.cond}
-                onChange={(ev) => setAsset({ ...asset, cond: ev.target.value })}
-                placeholder="Condição"
-              />
-            </label>
-            <label>
-              {" "}
-              Piso:
-              <input
-                value={asset.floor}
-                onChange={(ev) =>
-                  setAsset({ ...asset, floor: ev.target.value })
-                }
-                placeholder="Piso"
-              />
-            </label>
-            <label>
-              {" "}
-              Ala:
-              <input
-                value={asset.ala}
-                onChange={(ev) => setAsset({ ...asset, ala: ev.target.value })}
-                placeholder="Ala"
-              />
-            </label>
+
+            <label htmlFor="condicao">Condição:</label>
+            <select
+              name="condicao"
+              id="condicao"
+              value={asset.cond}
+              onChange={(event) =>
+                setAsset({ ...asset, cond: event.target.value })
+              }
+            >
+              <option value="">Selecione a condição...</option>
+              <option value="Novo">Novo</option>
+              <option value="Usado">Usado</option>
+              <option value="Reparação">Reparação</option>
+              <option value="Obsoleto">Obsoleto</option>
+            </select>
+
+            <label htmlFor="floor">Piso:</label>
+            <select
+              name="floor"
+              id="floor"
+              value={asset.floor}
+              onChange={(event) =>
+                setAsset({ ...asset, floor: event.target.value })
+              }
+            >
+              <option value="">Selecione o piso...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+
+            <label htmlFor="ala">Ala:</label>
+            <select
+              name="ala"
+              id="ala"
+              value={asset.ala}
+              onChange={(event) =>
+                setAsset({ ...asset, ala: event.target.value })
+              }
+            >
+              <option value="">Selecione a ala...</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+            </select>
             <label>
               {" "}
               CI:
@@ -226,28 +258,45 @@ export default function AssetForm() {
                 placeholder="CI"
               />
             </label>
-            <label>
-              {" "}
-              Estado*:
-              <input
-                value={asset.state}
-                onChange={(ev) =>
-                  setAsset({ ...asset, state: ev.target.value })
-                }
-                placeholder="Estado"
-              />
-            </label>
-            <label>
-              {" "}
-              Categoria*:
-              <input
-                value={asset.cat_id}
-                onChange={(ev) =>
-                  setAsset({ ...asset, cat_id: ev.target.value })
-                }
-                placeholder="Categoria"
-              />
-            </label>
+            <label htmlFor="estado">Estado:</label>
+            <select
+              name="estado"
+              id="estado"
+              value={asset.state}
+              onChange={(event) =>
+                setAsset({ ...asset, state: event.target.value })
+              }
+            >
+              <option value="">Selecione o estado...</option>
+              <option value="Ativo">Ativo</option>
+              <option value="Inativo">Inativo</option>
+            </select>
+
+            {/*   {asset.map((aset, index) => (
+              <tr key={`${aset.id}-${index}`}>
+                <td>{cats.find((cat) => cat.id === aset.cat_id).name}</td>
+                <td>{allocation.asset_id}</td>
+                <td>{allocation.allocation_date}</td>
+              </tr>
+            ))} */}
+
+            <label htmlFor="category">Categoria:</label>
+            <select
+              name="category"
+              id="category"
+              value={asset.cat_id}
+              onChange={(event) =>
+                setAsset({ ...asset, cat_id: event.target.value })
+              }
+            >
+              <option value="">Selecione a Categoria ...</option>
+              {cats.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+
             <label>
               {" "}
               Fornecedor:
