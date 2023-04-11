@@ -29,7 +29,7 @@ All the changes made to enable the implementation of the desired development too
 */
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 
@@ -48,7 +48,20 @@ export default function Users() {
     getUsers();
   }, []);
 
-  const onEditClick = () => {};
+  const navigate = useNavigate();
+  const onEditClick = () => {
+    // Get the IDs of all the checked users
+    const checkedUserIds = users.filter((u) => u.checked).map((u) => u.id);
+    const url = `/users/${checkedUserIds}`;
+
+    if (checkedUserIds.length === 0) {
+      return;
+    } else {
+      navigate(url);
+    }
+
+    //console.log(checkedUserIds);
+  };
 
   const onDeleteClick = () => {
     // Get the IDs of all the checked users
@@ -113,30 +126,36 @@ export default function Users() {
 
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
+      <div className="tb-user">
         <h1>Utilizadores</h1>
-
-        {user.role_id === 1 ? (
-          <Link className="btn-add text-link" to="/users/new">
-            + Adicionar Novo
-          </Link>
-        ) : null}
-        <>
-          <button className=" btn-edit text-link">Editar</button>
-          &nbsp;
-          <button
-            className="btn-delete text-link"
-            onClick={(ev) => onDeleteClick()}
-          >
-            Apagar
-          </button>{" "}
-        </>
+        <div className="tb-btn-user">
+          {user.role_id === 1 ? (
+            <button className="btn-add">
+              <Link
+                className=" text-link"
+                to="/users/new"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                + Adicionar Novo
+              </Link>
+            </button>
+          ) : null}
+          <>
+            <button
+              className=" btn-edit text-link"
+              onClick={(ev) => onEditClick()}
+            >
+              Editar
+            </button>
+            &nbsp;
+            <button
+              className="btn-delete text-link"
+              onClick={(ev) => onDeleteClick()}
+            >
+              Apagar
+            </button>{" "}
+          </>
+        </div>
       </div>
       <div className="card animated fadeInDown">
         <table>
@@ -145,9 +164,9 @@ export default function Users() {
               <th>Nº Mecanográfico</th>
               <th>Nome</th>
               <th>Email</th>
-
               <th>Função</th>
               <th>Criado em</th>
+              <th></th>
             </tr>
           </thead>
           {loading && (

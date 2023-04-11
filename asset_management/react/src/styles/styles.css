@@ -2691,25 +2691,36 @@ textarea.form-control-lg {
     pointer-events: none;
 }
 
+.tb-user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tb-btn-user {
+    align-items: right;
+   /*  padding: 4px;
+    margin: 4px; */
+}
 
 .btn,
 .btn-add,
 .btn-edit,
 .btn-delete {
     font-family: "Roboto", sans-serif;
-    outline: 0;
-    border: 0;
+   /*  outline: 0;
+    border: 0; */
     text-decoration: none;
     /* padding: 15px; */
-  color: #ffffff; 
+    color: #ffffff; 
     
     font-size: 14px;
    -webkit-transition: all 0.3 ease;
     transition: all 0.3 ease; 
     cursor: pointer;
-    padding: 0.5rem 0.75rem;
+/*     padding: 0.5rem 0.75rem;
     font-size: 14px;
-    border-radius: 4px;
+    border-radius: 4px; */
 }
 
 .btn-adicionar{
@@ -2744,6 +2755,7 @@ textarea.form-control-lg {
 .text-link {
     color: white;
     text-decoration: none;
+    margin:10px;
 }
 
 .form-range {
