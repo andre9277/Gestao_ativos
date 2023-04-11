@@ -153,7 +153,7 @@ export default function Users() {
               onClick={(ev) => onDeleteClick()}
             >
               Apagar
-            </button>{" "}
+            </button>
           </>
         </div>
       </div>
@@ -197,15 +197,17 @@ export default function Users() {
                   </td>
 
                   <td>{u.created_at}</td>
-                  <td>
-                    <input
-                      type="checkbox"
-                      name=""
-                      id=""
-                      onChange={() => toggleCheck(u.id)}
-                      value={u.checked}
-                    />
-                  </td>
+                  {user.role_id === 3 ? null : (
+                    <td>
+                      <input
+                        type="checkbox"
+                        name=""
+                        id=""
+                        onChange={() => toggleCheck(u.id)}
+                        value={u.checked}
+                      />
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>

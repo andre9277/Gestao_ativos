@@ -29,7 +29,7 @@ return new class extends Migration
             $table->unsignedBigInteger('cat_id');
             $table->unsignedBigInteger('supplier_id');
             $table->unsignedBigInteger('ent_id');
-            $table->unsignedBigInteger('unit_id');
+            $table->unsignedBigInteger('unit_id')->nullable();
             $table->unsignedBigInteger('model_id');
 
             $table->timestamps();

@@ -115,7 +115,7 @@ const SideBarGuest = () => {
         <MenuItem
           titulo={"Relatórios"}
           icon={"fa-chart-area"}
-          origem={"allocations"}
+          origem={"notfound"}
         />
 
         {/*  <!-- Nav Item - Utilizadores --> */}

@@ -29,10 +29,9 @@ All the changes made to enable the implementation of the desired development too
 */
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import PaginationLinks from "../components/PaginationLinks.jsx";
-import axios from "axios";
 
 export default function Assets() {
   const [assets, setAssets] = useState([]);
@@ -45,20 +44,44 @@ export default function Assets() {
     getAssets();
   }, []);
 
+  const navigate = useNavigate();
+
   //Handel click para apagar um asset
-  const onDeleteClick = (asset) => {
+  const onDeleteClick = () => {
+    // Get the IDs of all the checked users
+    const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
+
+    // If no users are checked, return
+    if (checkedAssetIds.length === 0) {
+      return;
+    }
+
     //Confirmação da eliminação de um asset
     if (!window.confirm("Tem a certeza que pretende apagar o ativo?")) {
       return;
     }
 
     //Requests para apagar o asset
-    axiosClient.delete(`/assets/${asset.id}`).then(() => {
+    axiosClient.delete(`/assets/${checkedAssetIds.join(",")}`).then(() => {
       setNotification("Ativo apagado com sucesso!");
 
       //após asset ser eliminado, faz fetch de todos os assets para mostrar a eliminação realizada com sucesso
       getAssets();
     });
+  };
+
+  const onEditClick = () => {
+    // Get the IDs of all the checked assets
+    const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
+    const url = `/assets/${checkedAssetIds}`;
+
+    if (checkedAssetIds.length === 0) {
+      return;
+    } else {
+      navigate(url);
+    }
+
+    //console.log(checkedAssetIds);
   };
 
   const onPageClick = (link) => {
@@ -85,6 +108,14 @@ export default function Assets() {
       });
   };
 
+  const toggleCheck = (id) => {
+    const checkedIdx = assets.findIndex((a) => a.id === id);
+    if (checkedIdx === -1) return;
+    const updatedAssets = [...assets];
+    updatedAssets[checkedIdx].checked = !updatedAssets[checkedIdx].checked;
+    setAssets(updatedAssets);
+  };
+
   return (
     <div>
       <div
@@ -95,11 +126,32 @@ export default function Assets() {
         }}
       >
         <h1>Listagem de Ativos</h1>
-        {user.role_id === 3 ? null : (
-          <Link className="btn-add text-link" to="/assets/new">
-            + Adicionar Ativo
-          </Link>
-        )}
+        <div className="tb-btn-user">
+          {user.role_id === 3 ? null : (
+            <Link
+              className="btn-add text-link"
+              to="/assets/new"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              + Adicionar Ativo
+            </Link>
+          )}
+          <>
+            <button
+              className=" btn-edit text-link"
+              onClick={(ev) => onEditClick()}
+            >
+              Editar
+            </button>
+            &nbsp;
+            <button
+              className="btn-delete text-link"
+              onClick={(ev) => onDeleteClick()}
+            >
+              Apagar
+            </button>
+          </>
+        </div>
       </div>
       <div
         className="card animated fadeInDown"
@@ -120,8 +172,7 @@ export default function Assets() {
               <th>CI</th>
               <th>Estado</th>
               <th>Adicionado em </th>
-
-              {user.role_id === 3 ? null : <th>Ações</th>}
+              <th></th>
             </tr>
           </thead>
           {loading && (
@@ -157,19 +208,13 @@ export default function Assets() {
 
                   {user.role_id === 3 ? null : (
                     <td>
-                      <Link
-                        className="btn-edit text-link"
-                        to={"/assets/" + a.id}
-                      >
-                        Editar
-                      </Link>
-                      &nbsp;
-                      <Link
-                        className="btn-delete text-link"
-                        onClick={(ev) => onDeleteClick(a)}
-                      >
-                        Apagar
-                      </Link>
+                      <input
+                        type="checkbox"
+                        name=""
+                        id=""
+                        onChange={() => toggleCheck(a.id)}
+                        value={a.checked}
+                      />
                     </td>
                   )}
                 </tr>
