@@ -48,18 +48,33 @@ export default function Users() {
     getUsers();
   }, []);
 
-  //Handel click para apagar um utilizador
-  const onDeleteClick = (user) => {
-    //Confirmação da eliminação de um utilizador
-    if (!window.confirm("Tem a certeza que deseja eliminar o utilizador?")) {
+  const onEditClick = () => {};
+
+  const onDeleteClick = () => {
+    // Get the IDs of all the checked users
+    const checkedUserIds = users.filter((u) => u.checked).map((u) => u.id);
+
+    // If no users are checked, return
+    if (checkedUserIds.length === 0) {
       return;
     }
 
-    //Requests para apagar o utilizador
-    axiosClient.delete(`/users/${user.id}`).then(() => {
-      setNotification("Utilizador foi apagado com sucesso!");
+    // Confirm that the user wants to delete the checked users
+    if (
+      !window.confirm(
+        `Tem a certeza que deseja eliminar os ${checkedUserIds.length} utilizadores selecionados?`
+      )
+    ) {
+      return;
+    }
 
-      //após utilizador ser eliminado, faz fetch de todos os utilziadores para mostrar a eliminação realizada com sucesso
+    // Delete the checked users
+    axiosClient.delete(`/users/${checkedUserIds.join(",")}`).then(() => {
+      setNotification(
+        `Os ${checkedUserIds.length} utilizadores selecionados foram apagados com sucesso!`
+      );
+
+      // After the users are deleted, fetch all the users again to update the table
       getUsers();
     });
   };
@@ -88,6 +103,14 @@ export default function Users() {
       });
   };
 
+  const toggleCheck = (id) => {
+    const checkedIdx = users.findIndex((u) => u.id === id);
+    if (checkedIdx === -1) return;
+    const updatedUsers = [...users];
+    updatedUsers[checkedIdx].checked = !updatedUsers[checkedIdx].checked;
+    setUsers(updatedUsers);
+  };
+
   return (
     <div>
       <div
@@ -98,11 +121,22 @@ export default function Users() {
         }}
       >
         <h1>Utilizadores</h1>
+
         {user.role_id === 1 ? (
           <Link className="btn-add text-link" to="/users/new">
             + Adicionar Novo
           </Link>
         ) : null}
+        <>
+          <button className=" btn-edit text-link">Editar</button>
+          &nbsp;
+          <button
+            className="btn-delete text-link"
+            onClick={(ev) => onDeleteClick()}
+          >
+            Apagar
+          </button>{" "}
+        </>
       </div>
       <div className="card animated fadeInDown">
         <table>
@@ -113,7 +147,6 @@ export default function Users() {
               <th>Email</th>
 
               <th>Função</th>
-              {user.role_id === 1 ? <th>Ações</th> : null}
               <th>Criado em</th>
             </tr>
           </thead>
@@ -143,26 +176,17 @@ export default function Users() {
                       ? "SI"
                       : "Manutenção"}
                   </td>
-                  <td>
-                    {user.role_id === 1 ? (
-                      <>
-                        <Link
-                          className=" btn-edit text-link"
-                          to={"/users/" + u.id}
-                        >
-                          Editar
-                        </Link>
-                        &nbsp;
-                        <Link
-                          className="btn-delete text-link"
-                          onClick={(ev) => onDeleteClick(u)}
-                        >
-                          Apagar
-                        </Link>{" "}
-                      </>
-                    ) : null}
-                  </td>
+
                   <td>{u.created_at}</td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      name=""
+                      id=""
+                      onChange={() => toggleCheck(u.id)}
+                      value={u.checked}
+                    />
+                  </td>
                 </tr>
               ))}
             </tbody>
