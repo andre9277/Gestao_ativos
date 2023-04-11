@@ -31,6 +31,8 @@ class Asset extends Model
         'cat_id',
         'supplier_id',
         'ent_id',
+        'unit_id',
+        'model_id',
     ];
 
     public function brand()
@@ -57,5 +59,15 @@ class Asset extends Model
     public function allocations()
     {
         return $this->hasMany(Allocation::class);
+    }
+
+    public function units()
+    {
+        return $this->belongsTo(Unit::class);
+    }
+
+    public function modelo()
+    {
+        return $this->belongsTo(Modelo::class);
     }
 }

@@ -40,6 +40,7 @@ export default function AssetForm() {
   useEffect(() => {
     getCats();
     getEnts();
+    getUnits();
   }, []);
 
   //Ficamos com o ID
@@ -59,6 +60,8 @@ export default function AssetForm() {
     brand_id: "",
     ent_id: "",
     date_purch: "",
+    model_id: "",
+    unit_id: "",
   });
   const [errors, setErrors] = useState(null);
 
@@ -68,6 +71,7 @@ export default function AssetForm() {
 
   const [cats, setCats] = useState([]);
   const [ents, setEnts] = useState([]);
+  const [units, setUnits] = useState([]);
 
   //Sempre que o ID do asset existir:
   if (id) {
@@ -139,6 +143,14 @@ export default function AssetForm() {
     });
   };
 
+  const getUnits = (url) => {
+    url = url || "/units";
+
+    axiosClient.get(url).then(({ data }) => {
+      setUnits(data);
+    });
+  };
+
   return (
     <>
       {asset.id && <h1>Atualizar Ativo: {asset.brand}</h1>}
@@ -199,13 +211,24 @@ export default function AssetForm() {
                 placeholder="Marca"
               />
             </label>
+            <label>
+              {" "}
+              Modelo*:
+              <input
+                value={asset.model_id}
+                onChange={(ev) =>
+                  setAsset({ ...asset, model_id: ev.target.value })
+                }
+                placeholder="Modelo"
+              />
+            </label>
 
             <label htmlFor="entity">
               Entidades:
               <select
                 name="entity"
                 id="entity"
-                value={asset.ent_id.id}
+                value={asset.ent_id}
                 onChange={(event) =>
                   setAsset({ ...asset, ent_id: event.target.value })
                 }
@@ -214,6 +237,24 @@ export default function AssetForm() {
                 {ents.map((ent) => (
                   <option key={ent.id} value={ent.id}>
                     {ent.ent_name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label htmlFor="unit">
+              Unidade:
+              <select
+                name="unit"
+                id="unit"
+                value={asset.unit_id}
+                onChange={(event) =>
+                  setAsset({ ...asset, unit_id: event.target.value })
+                }
+              >
+                <option value="">Selecione a Unidade ...</option>
+                {units.map((unit) => (
+                  <option key={unit.id} value={unit.id}>
+                    {unit.name}
                   </option>
                 ))}
               </select>

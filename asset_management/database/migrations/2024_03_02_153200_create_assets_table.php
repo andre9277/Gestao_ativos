@@ -29,6 +29,8 @@ return new class extends Migration
             $table->unsignedBigInteger('cat_id');
             $table->unsignedBigInteger('supplier_id');
             $table->unsignedBigInteger('ent_id');
+            $table->unsignedBigInteger('unit_id');
+            $table->unsignedBigInteger('model_id');
 
             $table->timestamps();
 
@@ -36,6 +38,8 @@ return new class extends Migration
             $table->foreign('cat_id')->nullable()->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('ent_id')->nullable()->references('id')->on('entity')->onDelete('cascade');
             $table->foreign('supplier_id')->nullable()->references('id')->on('suppliers')->onDelete('cascade');
+            $table->foreign('unit_id')->nullable()->references('id')->on('units')->onDelete('cascade');
+            $table->foreign('model_id')->nullable()->references('id')->on('modelo')->onDelete('cascade');
         });
     }
 

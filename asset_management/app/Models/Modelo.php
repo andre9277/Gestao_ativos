@@ -19,4 +19,9 @@ class Modelo extends Model
     {
         return $this->belongsTo(Brand::class);
     }
+
+    public function assets()
+    {
+        return $this->belongsTo(Asset::class);
+    }
 }

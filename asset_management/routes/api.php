@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AllocationsController;
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EntityController;
+use App\Http\Controllers\UnitController;
 use App\Http\Resources\CategoryResource;
 use App\Models\Asset;
 use Illuminate\Http\Request;
@@ -38,6 +39,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Endpoint Entities
     Route::get('/entities', [EntityController::class, 'index']);
+
+    //Endpoint Units
+    Route::get('/units', [UnitController::class, 'index']);
 
     //routes para os assets
     Route::post('/assets', [AssetController::class, 'store']);

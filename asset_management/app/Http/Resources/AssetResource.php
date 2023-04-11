@@ -32,8 +32,9 @@ class AssetResource extends JsonResource
             'cat_id' => $this->cat_id,
             'supplier_id' => $this->supplier_id,
             'brand_id' => $this->brand_id,
-            'ent_id' => $this->ent_id
-
+            'ent_id' => $this->ent_id,
+            'model_id' => $this->model_id,
+            'unit_id' => $this->unit_id
         ];
     }
 }
