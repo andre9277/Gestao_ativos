@@ -69,7 +69,7 @@ const SideBar = () => {
           className="sidebar-brand d-flex align-items-center justify-content-center"
           href="#"
         >
-          <div className="sidebar-brand-icon rotate-n-15">
+          <div className="sidebar-brand-icon ">
             <img src={logo_hb} alt="HB logo" />
           </div>
           <div className="text-center d-none d-md-inline">

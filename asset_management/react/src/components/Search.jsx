@@ -27,9 +27,12 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 const Search = () => {
+  const [value, setValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+
   return (
     <div>
       <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">

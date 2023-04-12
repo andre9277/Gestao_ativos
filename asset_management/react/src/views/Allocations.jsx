@@ -35,10 +35,6 @@ export default function Allocations() {
   //retorna todos os utilizadores (mount hook é chamado 2x)
   useEffect(() => {
     getUsers();
-  }, []);
-
-  //retorna todos os assets (mount hook é chamado 2x)
-  useEffect(() => {
     getAllocations();
   }, []);
 
