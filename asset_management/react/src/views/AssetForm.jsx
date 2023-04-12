@@ -73,6 +73,8 @@ export default function AssetForm() {
   const [ents, setEnts] = useState([]);
   const [units, setUnits] = useState([]);
 
+  const [selectedEntity, setSelectedEntity] = useState("");
+
   //Sempre que o ID do asset existir:
   if (id) {
     useEffect(() => {
@@ -89,6 +91,15 @@ export default function AssetForm() {
     }, []);
   }
 
+  useEffect(() => {
+    if (selectedEntity) {
+      axiosClient.get(`/unitss?ent_id=${selectedEntity}`).then((response) => {
+        setUnits(response.data);
+      });
+    } else {
+      setUnits([]);
+    }
+  }, [selectedEntity]);
   //Ao submeter o update:
   const onSubmit = (ev) => {
     ev.preventDefault();
@@ -125,6 +136,16 @@ export default function AssetForm() {
           }
         });
     }
+  };
+
+  const handleEntityChange = (event) => {
+    const selectedEntity = event.target.value;
+    setAsset((prevState) => ({
+      ...prevState,
+      ent_id: selectedEntity,
+      unit_id: "",
+    }));
+    setSelectedEntity(selectedEntity);
   };
 
   const getCats = (url) => {
@@ -223,15 +244,14 @@ export default function AssetForm() {
               />
             </label>
 
+            {/* ---------- Entidades ----------*/}
             <label htmlFor="entity">
               Entidades:
               <select
                 name="entity"
                 id="entity"
                 value={asset.ent_id}
-                onChange={(event) =>
-                  setAsset({ ...asset, ent_id: event.target.value })
-                }
+                onChange={handleEntityChange}
               >
                 <option value="">Selecione a Entidade ...</option>
                 {ents.map((ent) => (
@@ -241,6 +261,8 @@ export default function AssetForm() {
                 ))}
               </select>
             </label>
+
+            {/* ---------- Unidades ----------*/}
             <label htmlFor="unit">
               Unidade:
               <select

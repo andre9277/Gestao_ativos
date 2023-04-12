@@ -42,6 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Endpoint Units
     Route::get('/units', [UnitController::class, 'index']);
+    Route::get('/unitss', [UnitController::class, 'getUnitsByEntity']);
 
     //routes para os assets
     Route::post('/assets', [AssetController::class, 'store']);
