@@ -27,7 +27,7 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -36,16 +36,26 @@ All the changes made to enable the implementation of the desired development too
 * {
     box-sizing: border-box;
 }
-html, body, #root, #defaultLayout, #guestLayout {
+html,
+body,
+#root,
+#defaultLayout,
+#guestLayout {
     min-height: 100vh;
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
     margin: 0;
 }
 
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     margin: 0;
     padding: 0;
     font-size: 14px;
@@ -79,7 +89,7 @@ input:focus {
     border: 0;
     text-decoration: none;
     padding: 15px;
-    color: #FFFFFF;
+    color: #ffffff;
     font-size: 16px;
     -webkit-transition: all 0.3 ease;
     transition: all 0.3 ease;
@@ -92,7 +102,7 @@ input:focus {
 
 .btn-add,
 .btn-edit,
-.btn-delete{
+.btn-delete {
     padding: 0.5rem 0.75rem;
     font-size: 14px;
     border-radius: 4px;
@@ -132,19 +142,21 @@ table {
 }
 
 table > thead > tr > th {
-    text-align: left;
+    text-align: center;
     padding: 0.5rem 0.5rem;
-    background-color: #efefef;
+    background-color: #007840;
+    color: white;
 }
 
 table > tbody > tr > td {
     padding: 0.5rem 0.5rem;
     border-bottom: 1px solid #efefef;
     white-space: nowrap;
+    text-align: center;
 }
 
 .card {
-    background-color: #FFF;
+    background-color: #fff;
     border-radius: 0.5rem;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     padding: 1.25rem 1.5rem;
@@ -184,7 +196,7 @@ table > tbody > tr > td {
     width: 360px;
     position: relative;
     z-index: 1;
-    background: #FFFFFF;
+    background: #ffffff;
     max-width: 360px;
     padding: 34px;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1);
@@ -210,7 +222,6 @@ table > tbody > tr > td {
 
 /* Login/Signup form */
 
-
 #defaultLayout {
     display: flex;
 }
@@ -218,7 +229,7 @@ table > tbody > tr > td {
 #defaultLayout aside {
     width: 240px;
     background-color: #5b08a7;
-    padding: 1rem
+    padding: 1rem;
 }
 
 #defaultLayout aside > a {

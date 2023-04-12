@@ -30,6 +30,7 @@ All the changes made to enable the implementation of the desired development too
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import MenuItem from "./MenuItem";
+import logo_hb from "../assets/logo_hb.png";
 
 const SideBar = () => {
   const [style, setStyle] = useState(
@@ -69,9 +70,8 @@ const SideBar = () => {
           href="#"
         >
           <div className="sidebar-brand-icon rotate-n-15">
-            <i className="fas fa-laugh-wink"></i>
+            <img src={logo_hb} alt="HB logo" />
           </div>
-          <div className="sidebar-brand-text mx-3">GAHB</div>
           <div className="text-center d-none d-md-inline">
             <button
               className="rounded-circle border-0"
@@ -82,7 +82,7 @@ const SideBar = () => {
         </a>
 
         {/*   <!-- Divider --> */}
-        <hr className="sidebar-divider my-0" />
+        {/*         <hr className="sidebar-divider my-0" /> */}
 
         {/*  <!-- Nav Item - Dashboard --> */}
         <li className="nav-item active">

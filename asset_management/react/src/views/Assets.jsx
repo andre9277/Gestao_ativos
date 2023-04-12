@@ -32,6 +32,7 @@ import axiosClient from "../axios-client.js";
 import { Link, useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import PaginationLinks from "../components/PaginationLinks.jsx";
+import "../styles/Dashboard.css";
 
 export default function Assets() {
   const [assets, setAssets] = useState([]);
@@ -203,7 +204,14 @@ export default function Assets() {
                   <td>{a.floor}</td>
                   <td>{a.ala}</td>
                   <td>{a.ci}</td>
-                  <td>{a.state}</td>
+
+                  <td>
+                    {a.state === "Ativo" ? (
+                      <div className="circle active"></div>
+                    ) : (
+                      <div className="circle inactive"></div>
+                    )}
+                  </td>
                   <td>{a.created_at}</td>
 
                   {user.role_id === 3 ? null : (
