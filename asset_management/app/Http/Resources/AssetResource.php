@@ -53,6 +53,12 @@ class AssetResource extends JsonResource
                 'id' => $this->category->id,
                 'name' => $this->category->name,
             ] : null,
+            'units' => $this->units ? [
+                'id' => $this->units->id,
+                'unit_contact' => $this->units->unit_contact,
+                'unit_address' => $this->units->unit_address,
+                'name' => $this->units->name,
+            ] : null,
         ];
     }
 }

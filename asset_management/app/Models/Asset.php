@@ -33,6 +33,7 @@ class Asset extends Model
         'ent_id',
         'unit_id',
         'model_id',
+
     ];
 
     public function brand()

@@ -41,6 +41,8 @@ export default function AssetForm() {
     getCats();
     getEnts();
     getUnits();
+    getBrands();
+    getModelos();
   }, []);
 
   //Ficamos com o ID
@@ -55,13 +57,33 @@ export default function AssetForm() {
     ala: "",
     ci: "",
     state: "",
+    floor: "",
+    category: {
+      id: "",
+      name: "",
+    },
     cat_id: "",
     supplier_id: "",
+    brand: {
+      id: "",
+      name: "",
+      sig: "",
+    },
     brand_id: "",
     ent_id: "",
     date_purch: "",
     model_id: "",
+    modelo: {
+      id: "",
+      model_name: "",
+    },
     unit_id: "",
+    entity: {
+      id: "",
+      ent_name: "",
+      ent_type: "",
+    },
+    units: "",
   });
   const [errors, setErrors] = useState(null);
 
@@ -72,6 +94,8 @@ export default function AssetForm() {
   const [cats, setCats] = useState([]);
   const [ents, setEnts] = useState([]);
   const [units, setUnits] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [modelos, setModelos] = useState([]);
 
   const [selectedEntity, setSelectedEntity] = useState("");
 
@@ -121,7 +145,7 @@ export default function AssetForm() {
           }
         });
     }
-    //senão vai criar um utilizador
+    //senão vai criar um asset
     else {
       axiosClient
         .post("/assets", asset)
@@ -172,12 +196,28 @@ export default function AssetForm() {
     });
   };
 
+  const getBrands = (url) => {
+    url = url || "/brands";
+
+    axiosClient.get(url).then(({ data }) => {
+      setBrands(data);
+    });
+  };
+
+  const getModelos = (url) => {
+    url = url || "/modelos";
+
+    axiosClient.get(url).then(({ data }) => {
+      setModelos(data);
+    });
+  };
+
   return (
     <>
-      {asset.id && <h1>Atualizar Ativo: {asset.brand}</h1>}
+      {asset.id && <h1>Atualizar Ativo: {asset.brand.id}</h1>}
       {!asset.id && <h1>Novo Ativo</h1>}
       <div className="card animated fadeInDown">
-        {loading && <div className="text-center">Loading...</div>}
+        {loading && <div className="text-center">Carregando...</div>}
         {errors && (
           <div className="alert">
             {Object.keys(errors).map((key) => (
@@ -188,6 +228,7 @@ export default function AssetForm() {
         {!loading && (
           <form onSubmit={onSubmit}>
             <button className="btn-adicionar">Gravar</button>
+            {/* ---------- Nº Inv ----------*/}
             <label>
               {" "}
               Nº Inventário:
@@ -199,6 +240,7 @@ export default function AssetForm() {
                 placeholder="NºInventário"
               />
             </label>
+            {/* ---------- Date of purchase ----------*/}
             <label>
               {" "}
               Data de Compra:
@@ -210,6 +252,8 @@ export default function AssetForm() {
                 placeholder="YYYY-MM-DD"
               />
             </label>
+
+            {/* ---------- Serial Number ----------*/}
             <label>
               {" "}
               Número de série:
@@ -221,27 +265,54 @@ export default function AssetForm() {
                 placeholder="Numero de série"
               />
             </label>
+            {/* ---------- Brands ----------*/}
             <label>
               {" "}
               Marca*:
-              <input
-                value={asset.brand_id}
+              <select
+                value={asset.brand.id}
                 onChange={(ev) =>
-                  setAsset({ ...asset, brand_id: ev.target.value })
+                  setAsset({
+                    ...asset,
+                    brand: {
+                      ...asset.brand,
+                      id: ev.target.value,
+                    },
+                  })
                 }
-                placeholder="Marca"
-              />
+              >
+                <option value="">Selecione uma Marca</option>
+                {brands.map((brand) => (
+                  <option key={brand.id} value={brand.id}>
+                    {brand.sig}
+                  </option>
+                ))}
+              </select>
             </label>
+
+            {/* ---------- Models ----------*/}
             <label>
               {" "}
               Modelo*:
-              <input
-                value={asset.model_id}
+              <select
+                value={asset.modelo.id}
                 onChange={(ev) =>
-                  setAsset({ ...asset, model_id: ev.target.value })
+                  setAsset({
+                    ...asset,
+                    modelo: {
+                      ...asset.modelo,
+                      id: ev.target.value,
+                    },
+                  })
                 }
-                placeholder="Modelo"
-              />
+              >
+                <option value="">Selecione um Modelo</option>
+                {modelos.map((modelo) => (
+                  <option key={modelo.id} value={modelo.id}>
+                    {modelo.model_name}
+                  </option>
+                ))}
+              </select>
             </label>
 
             {/* ---------- Entidades ----------*/}
@@ -281,6 +352,8 @@ export default function AssetForm() {
                 ))}
               </select>
             </label>
+
+            {/* ---------- Condition ----------*/}
             <label htmlFor="condicao">
               Condição:
               <select
@@ -298,7 +371,7 @@ export default function AssetForm() {
                 <option value="Obsoleto">Obsoleto</option>
               </select>
             </label>
-
+            {/* ---------- Floor ----------*/}
             <label htmlFor="floor">
               Piso:
               <select
@@ -317,6 +390,7 @@ export default function AssetForm() {
                 <option value="5">5</option>
               </select>
             </label>
+            {/* ---------- Ala ----------*/}
             <label htmlFor="ala">
               Ala:
               <select
@@ -334,6 +408,7 @@ export default function AssetForm() {
                 <option value="E">E</option>
               </select>
             </label>
+            {/* ---------- CI ----------*/}
             <label>
               {" "}
               CI:
@@ -343,6 +418,7 @@ export default function AssetForm() {
                 placeholder="CI"
               />
             </label>
+            {/* ---------- Status ----------*/}
             <label htmlFor="estado">
               Estado:
               <select
@@ -358,7 +434,7 @@ export default function AssetForm() {
                 <option value="Inativo">Inativo</option>
               </select>
             </label>
-
+            {/* ---------- Category ----------*/}
             <label htmlFor="category">
               Categoria:
               <select
@@ -377,6 +453,7 @@ export default function AssetForm() {
                 ))}
               </select>
             </label>
+            {/* ---------- Supplier ----------*/}
             <label>
               {" "}
               Fornecedor:

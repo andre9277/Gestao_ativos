@@ -43,7 +43,6 @@ export default function Assets() {
   //retorna todos os assets (mount hook é chamado 2x)
   useEffect(() => {
     getAssets();
-    /* getAssetsLocal(); */
   }, []);
 
   const navigate = useNavigate();
@@ -110,24 +109,6 @@ export default function Assets() {
       });
   };
 
-  /*   const getAssetsLocal = (url) => {
-    url = url || "/assetsLocal";
-
-    //enquanto não acaba o request, aplicamos o loading = true
-    setLoading(true);
-    axiosClient
-      .get(url)
-      .then(({ data }) => {
-        //quando obtemos um request, loading=false
-        setLoading(false);
-        setAssets(data.data);
-        //setMeta(data.meta);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  }; */
-
   const toggleCheck = (id) => {
     const checkedIdx = assets.findIndex((a) => a.id === id);
     if (checkedIdx === -1) return;
@@ -188,6 +169,7 @@ export default function Assets() {
               <th>NºInventário</th>
               <th>Nº Série</th>
               <th>Localização</th>
+              <th>Unidade</th>
               <th>Piso</th>
               <th>Ala</th>
               <th>CI</th>
@@ -216,10 +198,10 @@ export default function Assets() {
                   <td>{a.numb_inv}</td>
                   <td>{a.numb_ser}</td>
                   <td>{a.entity.ent_name}</td>
+                  <td>{a.units === null ? "" : a.units.name}</td>
                   <td>{a.floor}</td>
                   <td>{a.ala}</td>
                   <td>{a.ci}</td>
-
                   <td>
                     {a.state === "Ativo" ? (
                       <div className="circle active"></div>

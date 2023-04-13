@@ -4,8 +4,10 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AllocationsController;
 use App\Http\Controllers\AssetController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EntityController;
+use App\Http\Controllers\ModeloController;
 use App\Http\Controllers\UnitController;
 use App\Http\Resources\CategoryResource;
 use App\Models\Asset;
@@ -37,7 +39,6 @@ Route::middleware('auth:sanctum')->group(function () {
     //Endpoint Categorias
     Route::get('/categories', [CategoryController::class, 'index']);
 
-
     //Endpoint Entities
     Route::get('/entities', [EntityController::class, 'index']);
 
@@ -48,11 +49,8 @@ Route::middleware('auth:sanctum')->group(function () {
     //routes para os assets
     Route::post('/assets', [AssetController::class, 'store']);
     Route::get('/assets', [AssetController::class, 'index']);
-
     Route::resource('assets', AssetController::class);
-
     Route::apiResource('/assets', AssetController::class);
-
     Route::get('/asset', function (Request $request) {
         return $request->asset();
     });
@@ -64,25 +62,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/allocation', function (Request $request) {
         return $request->allocation();
     });
+
+    //Endpoint Brands
+    Route::get('/brands', [BrandController::class, 'index']);
+
+    //Endpoint Models
+    Route::get('/modelos', [ModeloController::class, 'index']);
 });
 
 //Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/signup', [AuthController::class, 'signup'])->middleware('auth:sanctum');
 
 Route::post('/login', [AuthController::class, 'login']);
-
-/* Route::post('assets', function () {
-    return Asset::create([
-        'inv' => '32146',
-        'brand' => 'Dell',
-        'model' => 'JN123',
-        'serial' => 'JS92ND03DX',
-        'cond' => 'Avariado',
-        'piso' => '2',
-        'ala' => 'D',
-        'ci' => 'CI1023',
-        'status' => 'Ativo',
-        'local' => 'Hospital de Braga',
-        'category_id' => '2'
-    ]);
-}); */
