@@ -125,7 +125,7 @@ const SideBar = () => {
         <div className="sidebar-heading"> Área do Administrador</div>
 
         <MenuItem titulo={"Utilizadores"} icon={"fa-table"} origem={"users"} />
-        <MenuItem titulo={"Relatório"} icon={"fa-plus"} />
+        <MenuItem titulo={"Relatório"} icon={"fa-plus"} origem={"report"} />
 
         {/* <!-- Divider --> */}
         <hr className="sidebar-divider d-none d-md-block" />

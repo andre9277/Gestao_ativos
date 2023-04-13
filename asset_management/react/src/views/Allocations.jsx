@@ -81,6 +81,7 @@ export default function Allocations() {
             <tr>
               <th>Utilizador</th>
               <th>Ativo</th>
+              <th>Nº Série</th>
               <th>Data de Alteração</th>
             </tr>
           </thead>
@@ -102,6 +103,7 @@ export default function Allocations() {
                   <tr key={`${allocation.user_id}-${index}`}>
                     <td>{allocation.users.name}</td>
                     <td>{allocation.asset_id}</td>
+                    <td>{allocation.assets.numb_ser}</td>
                     <td>{allocation.allocation_date}</td>
                   </tr>
                 );
