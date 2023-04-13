@@ -22,14 +22,14 @@ class Allocation extends Model
     protected $table = 'allocations';
 
     //User e Allocation tem uma ligação many:many; pode realizar várias movimentações
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     //Asset e Allocation tem uma ligação many:many
-    public function asset()
+    public function assets()
     {
-        return $this->belongsTo(Asset::class);
+        return $this->belongsTo(Asset::class, 'asset_id');
     }
 }

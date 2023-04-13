@@ -43,6 +43,7 @@ export default function Assets() {
   //retorna todos os assets (mount hook é chamado 2x)
   useEffect(() => {
     getAssets();
+    /* getAssetsLocal(); */
   }, []);
 
   const navigate = useNavigate();
@@ -109,6 +110,24 @@ export default function Assets() {
       });
   };
 
+  /*   const getAssetsLocal = (url) => {
+    url = url || "/assetsLocal";
+
+    //enquanto não acaba o request, aplicamos o loading = true
+    setLoading(true);
+    axiosClient
+      .get(url)
+      .then(({ data }) => {
+        //quando obtemos um request, loading=false
+        setLoading(false);
+        setAssets(data.data);
+        //setMeta(data.meta);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  }; */
+
   const toggleCheck = (id) => {
     const checkedIdx = assets.findIndex((a) => a.id === id);
     if (checkedIdx === -1) return;
@@ -165,6 +184,7 @@ export default function Assets() {
             <tr>
               <th>Categoria</th>
               <th>Marca</th>
+              <th>Modelo</th>
               <th>NºInventário</th>
               <th>Nº Série</th>
               <th>Localização</th>
@@ -190,17 +210,12 @@ export default function Assets() {
               {/* Iteração pelos assets todos */}
               {assets.map((a) => (
                 <tr key={a.id}>
-                  <td>
-                    {a.cat_id === 1
-                      ? "Computador"
-                      : a.cat_id === 2
-                      ? "Telefone"
-                      : "Impressora"}
-                  </td>
-                  <td>{a.brand_id}</td>
+                  <td>{a.category.name}</td>
+                  <td>{a.brand.sig}</td>
+                  <td>{a.modelo.model_name}</td>
                   <td>{a.numb_inv}</td>
                   <td>{a.numb_ser}</td>
-                  <td>{a.ent_id}</td>
+                  <td>{a.entity.ent_name}</td>
                   <td>{a.floor}</td>
                   <td>{a.ala}</td>
                   <td>{a.ci}</td>

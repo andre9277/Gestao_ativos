@@ -37,22 +37,22 @@ class Asset extends Model
 
     public function brand()
     {
-        return $this->belongsTo(Brand::class);
+        return $this->belongsTo(Brand::class, 'brand_id');
     }
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'cat_id');
     }
 
     public function entity()
     {
-        return $this->belongsTo(Entity::class);
+        return $this->belongsTo(Entity::class, 'ent_id');
     }
 
     public function suppliers()
     {
-        return $this->belongsTo(Supplier::class);
+        return $this->belongsTo(Supplier::class, 'supplier_id');
     }
 
 
@@ -63,11 +63,11 @@ class Asset extends Model
 
     public function units()
     {
-        return $this->belongsTo(Unit::class);
+        return $this->belongsTo(Unit::class, 'unit_id');
     }
 
     public function modelo()
     {
-        return $this->belongsTo(Modelo::class);
+        return $this->belongsTo(Modelo::class, 'model_id');
     }
 }

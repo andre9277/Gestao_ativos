@@ -750,14 +750,15 @@ progress {
     margin-right: calc(-0.5 * var(--bs-gutter-x));
     margin-left: calc(-0.5 * var(--bs-gutter-x));
 }
-.row > * {
+*
+/* .row > * {
     flex-shrink: 0;
     width: 100%;
     max-width: 100%;
     padding-right: calc(var(--bs-gutter-x) * 0.5);
     padding-left: calc(var(--bs-gutter-x) * 0.5);
     margin-top: var(--bs-gutter-y);
-}
+} */
 
 .col {
     flex: 1 0 0%;
@@ -11938,6 +11939,7 @@ body {
 #layoutAuthentication #layoutAuthentication_content {
     min-width: 0;
     flex-grow: 1;
+    background-image: linear-gradient(to right, #007840, #61a60e);
 }
 #layoutAuthentication #layoutAuthentication_footer {
     min-width: 0;
@@ -12345,7 +12347,7 @@ h1 {
 }
 h3 {
     margin: 12px 0;
-    color: #4e73df;
+    color: #007840;
 }
 .main-block {
     display: flex;
@@ -12489,4 +12491,17 @@ select {
 
 .tth {
     text-align: center;
+}
+
+.login-p {
+    background-image: linear-gradient(to right, #007840, #61a60e);
+}
+
+.ig-login {
+    width: 200px;
+    height: 170px;
+}
+
+.mn-lg {
+    background-image: linear-gradient(to right, #007840, #61a60e);
 }

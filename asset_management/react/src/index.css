@@ -76,7 +76,7 @@ input {
 }
 
 input:focus {
-    border-color: #5b08a7;
+    border-color: #00a762;
 }
 
 .btn,
@@ -85,7 +85,7 @@ input:focus {
 .btn-delete {
     font-family: "Roboto", sans-serif;
     outline: 0;
-    background: #5b08a7;
+    background: #00a762;
     border: 0;
     text-decoration: none;
     padding: 15px;
@@ -128,7 +128,7 @@ input:focus {
 .btn:hover,
 .btn:active,
 .btn:focus {
-    background: #5b08a7;
+    background: #00a762;
 }
 
 .text-center {

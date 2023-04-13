@@ -9,6 +9,7 @@ use App\Http\Controllers\EntityController;
 use App\Http\Controllers\UnitController;
 use App\Http\Resources\CategoryResource;
 use App\Models\Asset;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

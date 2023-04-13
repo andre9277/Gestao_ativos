@@ -187,14 +187,7 @@ export default function Users() {
                   <td>{u.mec}</td>
                   <td>{u.name}</td>
                   <td>{u.email}</td>
-
-                  <td>
-                    {u.role_id === 1
-                      ? "Admin"
-                      : u.role_id === 2
-                      ? "SI"
-                      : "Manutenção"}
-                  </td>
+                  <td>{u.roles.name}</td>
 
                   <td>{u.created_at}</td>
                   {user.role_id === 3 ? null : (

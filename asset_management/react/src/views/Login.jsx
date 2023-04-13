@@ -32,6 +32,7 @@ import axiosClient from "../axios-client.js";
 import { createRef } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { useState } from "react";
+import logo_hb from "../assets/logo_hb.png";
 
 export default function Login() {
   const emailRef = createRef();
@@ -63,15 +64,14 @@ export default function Login() {
   return (
     <div id="layoutAuthentication">
       <div id="layoutAuthentication_content">
-        <main>
+        <main className="mn-lg">
           <div className="container">
-            <div className="row justify-content-center">
+            <div className="row justify-content-center login-p">
+              <img src={logo_hb} alt="HB logo" className="ig-login" />
               <div className="col-lg-5">
-                <div className="card shadow-lg border-0 rounded-lg mt-5">
+                <div className="card shadow-lg border-0 rounded-lg mt-5 login-pp">
                   <div className="card-header">
-                    <h3 className="text-center font-weight-light my-4">
-                      Login
-                    </h3>
+                    <h3 className="text-center my-4">Login</h3>
                   </div>
 
                   <div className="form">

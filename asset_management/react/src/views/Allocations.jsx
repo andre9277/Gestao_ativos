@@ -34,14 +34,12 @@ import PaginationLinks from "../components/PaginationLinks.jsx";
 export default function Allocations() {
   //retorna todos os utilizadores (mount hook é chamado 2x)
   useEffect(() => {
-    getUsers();
     getAllocations();
   }, []);
 
   const [allocations, setAllocations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [meta, setMeta] = useState({});
-  const [users, setUsers] = useState([]);
 
   const onPageClick = (link) => {
     getAllocations(link.url);
@@ -60,31 +58,6 @@ export default function Allocations() {
         setLoading(false);
         setAllocations(data.data);
         setMeta(data.meta);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  };
-
-  const getUsers = (url, page = 1, allUsers = []) => {
-    url = url || "/users";
-
-    //enquanto não acaba o request, aplicamos o loading = true
-    setLoading(true);
-    axiosClient
-      .get(url, { params: { page } })
-      .then(({ data }) => {
-        //quando obtemos um request, loading=false
-        setLoading(false);
-        const newUsers = data.data;
-        const updatedUsers = [...allUsers, ...newUsers];
-        // check if there are more pages to fetch
-        if (data.meta.current_page < data.meta.last_page) {
-          getUsers(url, page + 1, updatedUsers); // recursively fetch next page
-        } else {
-          // all pages have been fetched, update state with all users
-          setUsers(updatedUsers);
-        }
       })
       .catch(() => {
         setLoading(false);
@@ -125,12 +98,9 @@ export default function Allocations() {
           {!loading && (
             <tbody>
               {allocations.map((allocation, index) => {
-                const user = users.find(
-                  (user) => user.id === allocation.user_id
-                );
                 return (
                   <tr key={`${allocation.user_id}-${index}`}>
-                    <td>{user ? user.name : ""}</td>
+                    <td>{allocation.users.name}</td>
                     <td>{allocation.asset_id}</td>
                     <td>{allocation.allocation_date}</td>
                   </tr>
