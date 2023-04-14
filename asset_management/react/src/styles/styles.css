@@ -12516,3 +12516,10 @@ select {
     width: 170px;
     height: 180px;
 }
+
+.search-bar-container {
+    width: 40%;
+    margin: auto;
+    float:left;
+    flex-direction: column;
+}

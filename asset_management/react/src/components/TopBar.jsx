@@ -30,10 +30,12 @@ All the changes made to enable the implementation of the desired development too
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Alert from "./Alert";
-import Search from "./Search";
+import SearchBar from "./SearchBar";
+import SearchResultsList from "./SearchResultsList";
 import UserInfo from "./UserInfo";
 
 const TopBar = ({ user, onLogout }) => {
+  const [results, setResults] = useState([]);
   const [style, setStyle] = useState(
     "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
   );
@@ -72,8 +74,12 @@ const TopBar = ({ user, onLogout }) => {
         <i className="fa fa-bars"></i>
       </button>
       {/*  <!-- Topbar Search --> */}
-      <Search />
-
+      <div className="search-bar-container">
+        <SearchBar setResults={setResults} />
+        {results && results.length > 0 && (
+          <SearchResultsList results={results} />
+        )}
+      </div>
       {/*Icon bar code para utilizadores realizam scan */}
       <Link to="/scan">
         <i className="fa fa-barcode fa-3x" aria-hidden="true"></i>

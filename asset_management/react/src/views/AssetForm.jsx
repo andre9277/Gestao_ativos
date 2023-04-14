@@ -42,7 +42,7 @@ export default function AssetForm() {
     getEnts();
     getUnits();
     getBrands();
-    getModelos();
+    getModels_HB();
     getSuppliers();
   }, []);
 
@@ -207,7 +207,7 @@ export default function AssetForm() {
     });
   };
 
-  const getModelos = (url) => {
+  const getModels_HB = (url) => {
     url = url || "/modelos";
 
     axiosClient.get(url).then(({ data }) => {
