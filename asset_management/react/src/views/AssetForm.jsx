@@ -43,6 +43,7 @@ export default function AssetForm() {
     getUnits();
     getBrands();
     getModelos();
+    getSuppliers();
   }, []);
 
   //Ficamos com o ID
@@ -85,6 +86,7 @@ export default function AssetForm() {
     },
     units: "",
   });
+
   const [errors, setErrors] = useState(null);
 
   //Loading para informar aos assets de quando a tabela acaba de dar load
@@ -96,6 +98,7 @@ export default function AssetForm() {
   const [units, setUnits] = useState([]);
   const [brands, setBrands] = useState([]);
   const [modelos, setModelos] = useState([]);
+  const [supplier, setSupplier] = useState([]);
 
   const [selectedEntity, setSelectedEntity] = useState("");
 
@@ -212,9 +215,51 @@ export default function AssetForm() {
     });
   };
 
+  const getSuppliers = (url) => {
+    url = url || "supplier";
+
+    axiosClient.get(url).then(({ data }) => {
+      setSupplier(data);
+    });
+  };
+
+  //Saves the id when changed:
+  const [brandId, setBrandId] = useState("");
+
+  function handleBrandChange(event) {
+    setBrandId(event.target.value);
+    const newAsset = {
+      ...asset,
+      brand_id: event.target.value,
+    };
+    setAsset(newAsset);
+  }
+
+  const [modelId, setModelId] = useState("");
+
+  function handleModelChange(event) {
+    setModelId(event.target.value);
+    const newAsset = {
+      ...asset,
+      model_id: event.target.value,
+    };
+    setAsset(newAsset);
+  }
+
+  const [supplierId, setSupplierId] = useState("");
+
+  function handleSupplierChange(event) {
+    setSupplierId(event.target.value);
+    const newAsset = {
+      ...asset,
+      supplier_id: event.target.value,
+    };
+    setAsset(newAsset);
+  }
+
   return (
     <>
-      {asset.id && <h1>Atualizar Ativo: {asset.brand.id}</h1>}
+      {asset.id && <h1>Atualizar Ativo: {asset.brand_id}</h1>}
       {!asset.id && <h1>Novo Ativo</h1>}
       <div className="card animated fadeInDown">
         {loading && <div className="text-center">Carregando...</div>}
@@ -269,18 +314,7 @@ export default function AssetForm() {
             <label>
               {" "}
               Marca*:
-              <select
-                value={asset.brand.id}
-                onChange={(ev) =>
-                  setAsset({
-                    ...asset,
-                    brand: {
-                      ...asset.brand,
-                      id: ev.target.value,
-                    },
-                  })
-                }
-              >
+              <select value={brandId} onChange={handleBrandChange}>
                 <option value="">Selecione uma Marca</option>
                 {brands.map((brand) => (
                   <option key={brand.id} value={brand.id}>
@@ -294,18 +328,7 @@ export default function AssetForm() {
             <label>
               {" "}
               Modelo*:
-              <select
-                value={asset.modelo.id}
-                onChange={(ev) =>
-                  setAsset({
-                    ...asset,
-                    modelo: {
-                      ...asset.modelo,
-                      id: ev.target.value,
-                    },
-                  })
-                }
-              >
+              <select value={modelId} onChange={handleModelChange}>
                 <option value="">Selecione um Modelo</option>
                 {modelos.map((modelo) => (
                   <option key={modelo.id} value={modelo.id}>
@@ -456,14 +479,15 @@ export default function AssetForm() {
             {/* ---------- Supplier ----------*/}
             <label>
               {" "}
-              Fornecedor:
-              <input
-                value={asset.supplier_id}
-                onChange={(ev) =>
-                  setAsset({ ...asset, supplier_id: ev.target.value })
-                }
-                placeholder="Fornecedor"
-              />
+              Fornecedor*:
+              <select value={supplierId} onChange={handleSupplierChange}>
+                <option value="">Selecione um Fornecedor</option>
+                {supplier.map((sup) => (
+                  <option key={sup.id} value={sup.id}>
+                    {sup.name}
+                  </option>
+                ))}
+              </select>
             </label>
           </form>
         )}

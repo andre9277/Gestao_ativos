@@ -59,6 +59,13 @@ class AssetResource extends JsonResource
                 'unit_address' => $this->units->unit_address,
                 'name' => $this->units->name,
             ] : null,
+            'suppliers' => $this->suppliers ? [
+                'id' => $this->suppliers->id,
+                'name' => $this->suppliers->name,
+                'email' => $this->suppliers->email,
+                'phone' => $this->suppliers->phone,
+                'address' => $this->suppliers->address,
+            ] : null,
         ];
     }
 }

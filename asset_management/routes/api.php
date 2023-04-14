@@ -8,10 +8,9 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EntityController;
 use App\Http\Controllers\ModeloController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
-use App\Http\Resources\CategoryResource;
-use App\Models\Asset;
-use App\Models\Role;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -68,6 +67,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Endpoint Models
     Route::get('/modelos', [ModeloController::class, 'index']);
+
+    //Endpoint Supplier
+    Route::get('/supplier', [SupplierController::class, 'index']);
 });
 
 //Route::post('/signup', [AuthController::class, 'signup']);
