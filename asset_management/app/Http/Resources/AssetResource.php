@@ -32,8 +32,40 @@ class AssetResource extends JsonResource
             'cat_id' => $this->cat_id,
             'supplier_id' => $this->supplier_id,
             'brand_id' => $this->brand_id,
-            'ent_id' => $this->ent_id
-
+            'ent_id' => $this->ent_id,
+            'model_id' => $this->model_id,
+            'unit_id' => $this->unit_id,
+            'entity' => $this->entity ? [
+                'id' => $this->entity->id,
+                'ent_name' => $this->entity->ent_name,
+                'ent_type' => $this->entity->ent_type,
+            ] : null,
+            'brand' => $this->brand ? [
+                'id' => $this->brand->id,
+                'name' => $this->brand->name,
+                'sig' => $this->brand->sig,
+            ] : null,
+            'modelo' => $this->modelo ? [
+                'id' => $this->modelo->id,
+                'model_name' => $this->modelo->model_name,
+            ] : null,
+            'category' => $this->category ? [
+                'id' => $this->category->id,
+                'name' => $this->category->name,
+            ] : null,
+            'units' => $this->units ? [
+                'id' => $this->units->id,
+                'unit_contact' => $this->units->unit_contact,
+                'unit_address' => $this->units->unit_address,
+                'name' => $this->units->name,
+            ] : null,
+            'suppliers' => $this->suppliers ? [
+                'id' => $this->suppliers->id,
+                'name' => $this->suppliers->name,
+                'email' => $this->suppliers->email,
+                'phone' => $this->suppliers->phone,
+                'address' => $this->suppliers->address,
+            ] : null,
         ];
     }
 }

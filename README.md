@@ -47,7 +47,11 @@
 
          php artisan db:seed --class=EntitySeeder
 
-       **12- Start local server by executing:**
+      **12- Add Units to local Database:**
+
+         php artisan db:seed --class=UnitSeeder
+
+       **13- Start local server by executing:**
 
          php artisan serve
         
@@ -55,17 +59,17 @@
 
     ### Open new Terminal and go to **react** folder directory:
     
-     **13- Copy react/.env.example into .env and adjust the VITE_API_BASE_URL parameter**
+     **14- Copy react/.env.example into .env and adjust the VITE_API_BASE_URL parameter**
 
-     **14- Run:**
+     **15- Run:**
 
         npm install
     
-     **15- Run:**
+     **16- Run:**
 
         npm run dev
         
-     **16- Login information:**
+     **17- Login information:**
      
         email: admin@gmail.com
         password: Admin@277

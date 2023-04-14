@@ -16,9 +16,9 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         Category::insert([
-            ['name' => 'Comp'],
-            ['name' => 'Phone'],
-            ['name' => 'Print']
+            ['name' => 'Computador'],
+            ['name' => 'Telefone'],
+            ['name' => 'Impressora']
         ]);
     }
 }

@@ -13,10 +13,13 @@ class Modelo extends Model
 
     protected $table = 'modelo';
 
-
-
     public function brand()
     {
         return $this->belongsTo(Brand::class);
+    }
+
+    public function assets()
+    {
+        return $this->belongsTo(Asset::class);
     }
 }

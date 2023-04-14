@@ -31,31 +31,44 @@ class Asset extends Model
         'cat_id',
         'supplier_id',
         'ent_id',
+        'unit_id',
+        'model_id',
+
     ];
 
     public function brand()
     {
-        return $this->belongsTo(Brand::class);
+        return $this->belongsTo(Brand::class, 'brand_id');
     }
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'cat_id');
     }
 
     public function entity()
     {
-        return $this->belongsTo(Entity::class);
+        return $this->belongsTo(Entity::class, 'ent_id');
     }
 
     public function suppliers()
     {
-        return $this->belongsTo(Supplier::class);
+        return $this->belongsTo(Supplier::class, 'supplier_id');
     }
 
 
     public function allocations()
     {
         return $this->hasMany(Allocation::class);
+    }
+
+    public function units()
+    {
+        return $this->belongsTo(Unit::class, 'unit_id');
+    }
+
+    public function modelo()
+    {
+        return $this->belongsTo(Modelo::class, 'model_id');
     }
 }

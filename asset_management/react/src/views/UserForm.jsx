@@ -111,7 +111,7 @@ export default function UserForm() {
 
   return (
     <>
-      {user.id && <h1>Atualizar Utilziador: {user.name}</h1>}
+      {user.id && <h1>Atualizar Utilizador: {user.name}</h1>}
       {!user.id && <h1>Novo Utilizador</h1>}
       <div className="card animated fadeInDown">
         {loading && <div className="text-center">Carregando...</div>}
@@ -172,15 +172,22 @@ export default function UserForm() {
                 placeholder="Confirmação da Password"
               />
             </label>
-            <label>
+
+            <label htmlFor="role">
               Função:
-              <input
+              <select
+                name="role"
+                id="role"
                 value={user.role_id}
                 onChange={(ev) =>
                   setUser({ ...user, role_id: ev.target.value })
                 }
-                placeholder="Função"
-              />
+              >
+                <option value="">Selecione a Função do Utilizador...</option>
+                <option value="1">Administrador</option>
+                <option value="2">Sistemas de Informação</option>
+                <option value="3">Manutenção</option>
+              </select>
             </label>
           </form>
         )}

@@ -295,11 +295,11 @@ sup {
 }
 
 a {
-    color: #0d6efd;
+    color: #61a60e;
     text-decoration: underline;
 }
 a:hover {
-    color: #0a58ca;
+    color: #61a60e;
 }
 
 a:not([href]):not([class]),
@@ -653,7 +653,7 @@ progress {
     margin-top: -1rem;
     margin-bottom: 1rem;
     font-size: 0.875em;
-    color: #6c757d;
+    color: #61a60e;
 }
 .blockquote-footer::before {
     content: "— ";
@@ -750,14 +750,15 @@ progress {
     margin-right: calc(-0.5 * var(--bs-gutter-x));
     margin-left: calc(-0.5 * var(--bs-gutter-x));
 }
-.row > * {
+*
+/* .row > * {
     flex-shrink: 0;
     width: 100%;
     max-width: 100%;
     padding-right: calc(var(--bs-gutter-x) * 0.5);
     padding-left: calc(var(--bs-gutter-x) * 0.5);
     margin-top: var(--bs-gutter-y);
-}
+} */
 
 .col {
     flex: 1 0 0%;
@@ -2691,28 +2692,39 @@ textarea.form-control-lg {
     pointer-events: none;
 }
 
+.tb-user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tb-btn-user {
+    align-items: right;
+    /*  padding: 4px;
+    margin: 4px; */
+}
 
 .btn,
 .btn-add,
 .btn-edit,
 .btn-delete {
     font-family: "Roboto", sans-serif;
-    outline: 0;
-    border: 0;
+    /*  outline: 0;
+    border: 0; */
     text-decoration: none;
     /* padding: 15px; */
-  color: #ffffff; 
-    
+    color: #ffffff;
+
     font-size: 14px;
-   -webkit-transition: all 0.3 ease;
-    transition: all 0.3 ease; 
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
     cursor: pointer;
-    padding: 0.5rem 0.75rem;
+    /*     padding: 0.5rem 0.75rem;
     font-size: 14px;
-    border-radius: 4px;
+    border-radius: 4px; */
 }
 
-.btn-adicionar{
+.btn-adicionar {
     float: right;
     background-color: #00a762;
     padding: 0.5rem 0.75rem;
@@ -2721,7 +2733,7 @@ textarea.form-control-lg {
     color: white;
 }
 
-.btn-edit{
+.btn-edit {
     background: #5b08a7;
     color: white;
 }
@@ -2729,7 +2741,13 @@ textarea.form-control-lg {
 .btn-add {
     background-color: #00a762;
 }
-
+.btn-dwl {
+    background-color: #0a58ca;
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    border-radius: 4px;
+    color: white;
+}
 .btn-delete {
     background-color: #b72424;
 }
@@ -2744,6 +2762,7 @@ textarea.form-control-lg {
 .text-link {
     color: white;
     text-decoration: none;
+    margin: 10px;
 }
 
 .form-range {
@@ -3326,13 +3345,13 @@ fieldset:disabled .btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+    background-color: #007840;
+    border-color: #61a60e;
 }
 .btn-primary:hover {
     color: #fff;
-    background-color: #0b5ed7;
-    border-color: #0a58ca;
+    background-color: #007840;
+    border-color: #61a60e;
 }
 .btn-check:focus + .btn-primary,
 .btn-primary:focus {
@@ -8319,7 +8338,7 @@ fieldset:disabled .btn {
 /* rtl:end:remove */
 .text-primary {
     --bs-text-opacity: 1;
-    color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
+    color: #007840;
 }
 
 .text-secondary {
@@ -8374,7 +8393,7 @@ fieldset:disabled .btn {
 
 .text-muted {
     --bs-text-opacity: 1;
-    color: #6c757d !important;
+    color: #61a60e !important;
 }
 
 .text-black-50 {
@@ -8455,10 +8474,7 @@ fieldset:disabled .btn {
 
 .bg-light {
     --bs-bg-opacity: 1;
-    background-color: rgba(
-        var(--bs-light-rgb),
-        var(--bs-bg-opacity)
-    ) !important;
+    color: #00a762;
 }
 
 .bg-dark {
@@ -11929,6 +11945,7 @@ body {
 #layoutAuthentication #layoutAuthentication_content {
     min-width: 0;
     flex-grow: 1;
+    background-color: #469c2c;
 }
 #layoutAuthentication #layoutAuthentication_footer {
     min-width: 0;
@@ -12021,6 +12038,7 @@ body {
 }
 #layoutError #layoutError_footer {
     min-width: 0;
+    color: #00a762;
 }
 
 .img-error {
@@ -12335,7 +12353,7 @@ h1 {
 }
 h3 {
     margin: 12px 0;
-    color: #4e73df;
+    color: #007840;
 }
 .main-block {
     display: flex;
@@ -12479,4 +12497,29 @@ select {
 
 .tth {
     text-align: center;
+}
+
+.login-p {
+    background-color: #469c2c;
+}
+
+.ig-login {
+    width: 170px;
+    height: 170px;
+}
+
+.mn-lg {
+    background-color: #469c2c;
+}
+
+.img-sb {
+    width: 170px;
+    height: 180px;
+}
+
+.search-bar-container {
+    width: 40%;
+    margin: auto;
+    float:left;
+    flex-direction: column;
 }

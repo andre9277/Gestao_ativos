@@ -8,10 +8,13 @@ use App\Http\Requests\UpdateAssetRequest;
 use App\Http\Resources\AssetResource;
 use App\Models\Allocation;
 use App\Models\Brand;
+use App\Models\Entity;
 use Illuminate\Support\Facades\Auth;
 
 class AssetController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -19,8 +22,11 @@ class AssetController extends Controller
      */
     public function index()
     {
-        return AssetResource::collection(Asset::query()->orderBy('id', 'desc')->paginate(10));
-        //return Asset::all();
+        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name,sig', 'modelo:id,model_name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
+        return AssetResource::collection($assets);
     }
 
     /**
@@ -92,6 +98,12 @@ class AssetController extends Controller
         $update->save();
         return $asset;
     }
+
+
+
+
+
+
 
     /**
      * Remove the specified resource from storage.

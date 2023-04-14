@@ -32,20 +32,14 @@ import axiosClient from "../axios-client.js";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 
 export default function Allocations() {
-  const [allocations, setAllocations] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [meta, setMeta] = useState({});
-  const [users, setUsers] = useState([]);
-
   //retorna todos os utilizadores (mount hook é chamado 2x)
-  useEffect(() => {
-    getUsers();
-  }, []);
-
-  //retorna todos os assets (mount hook é chamado 2x)
   useEffect(() => {
     getAllocations();
   }, []);
+
+  const [allocations, setAllocations] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [meta, setMeta] = useState({});
 
   const onPageClick = (link) => {
     getAllocations(link.url);
@@ -70,25 +64,6 @@ export default function Allocations() {
       });
   };
 
-  const getUsers = (url) => {
-    url = url || "/users";
-
-    //enquanto não acaba o request, aplicamos o loading = true
-    setLoading(true);
-    axiosClient
-      .get(url)
-      .then(({ data }) => {
-        //quando obtemos um request, loading=false
-        setLoading(false);
-        setUsers(data.data);
-        //console.log(data);
-        setMeta(data.meta);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  };
-
   return (
     <div>
       <div
@@ -106,6 +81,7 @@ export default function Allocations() {
             <tr>
               <th>Utilizador</th>
               <th>Ativo</th>
+              <th>Nº Série</th>
               <th>Data de Alteração</th>
             </tr>
           </thead>
@@ -114,7 +90,7 @@ export default function Allocations() {
             <tbody>
               <tr>
                 <td colSpan="5" className="text-center">
-                  Loading...
+                  Carregando...
                 </td>
               </tr>
             </tbody>
@@ -122,15 +98,16 @@ export default function Allocations() {
 
           {!loading && (
             <tbody>
-              {allocations.map((allocation, index) => (
-                <tr key={`${allocation.user_id}-${index}`}>
-                  <td>
-                    {users.find((user) => user.id === allocation.user_id).name}
-                  </td>
-                  <td>{allocation.asset_id}</td>
-                  <td>{allocation.allocation_date}</td>
-                </tr>
-              ))}
+              {allocations.map((allocation, index) => {
+                return (
+                  <tr key={`${allocation.user_id}-${index}`}>
+                    <td>{allocation.users.name}</td>
+                    <td>{allocation.asset_id}</td>
+                    <td>{allocation.assets.numb_ser}</td>
+                    <td>{allocation.allocation_date}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           )}
         </table>

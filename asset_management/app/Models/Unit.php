@@ -16,4 +16,9 @@ class Unit extends Model
     {
         return $this->belongsTo(Entity::class);
     }
+
+    public function assets()
+    {
+        return $this->belongsTo(Asset::class);
+    }
 }
