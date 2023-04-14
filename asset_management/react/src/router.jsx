@@ -44,6 +44,7 @@ import Allocations from "./views/Allocations.jsx";
 import { useStateContext } from "./context/ContextProvider";
 import ManutLayout from "./components/ManutLayout.jsx";
 import ReportPage from "./views/ReportPage.jsx";
+import AssetInfo from "./views/AssetInfo.jsx";
 
 //O objeto router define os caminhos(routes) e os componentes que devem ser renderizados quando um utilizador navega para um caminho específico.
 
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
       {
         path: "/report",
         element: <ReportPage />,
+      },
+      {
+        path: "/infoasset",
+        element: <AssetInfo />,
       },
     ],
   },

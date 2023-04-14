@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../styles/SearchResult.css";
 
 export const SearchResult = ({ result }) => {
@@ -6,7 +7,7 @@ export const SearchResult = ({ result }) => {
       className="search-result"
       onClick={(e) => alert(`You selected ${result}!`)}
     >
-      {result}
+      <Link to="/infoasset">{result}</Link>
     </div>
   );
 };
