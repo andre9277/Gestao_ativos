@@ -11945,7 +11945,7 @@ body {
 #layoutAuthentication #layoutAuthentication_content {
     min-width: 0;
     flex-grow: 1;
-    background-image: linear-gradient(to right, #007840, #61a60e);
+    background-color: #469c2c;
 }
 #layoutAuthentication #layoutAuthentication_footer {
     min-width: 0;
@@ -12500,14 +12500,19 @@ select {
 }
 
 .login-p {
-    background-image: linear-gradient(to right, #007840, #61a60e);
+    background-color: #469c2c;
 }
 
 .ig-login {
-    width: 200px;
+    width: 170px;
     height: 170px;
 }
 
 .mn-lg {
-    background-image: linear-gradient(to right, #007840, #61a60e);
+    background-color: #469c2c;
+}
+
+.img-sb {
+    width: 170px;
+    height: 180px;
 }

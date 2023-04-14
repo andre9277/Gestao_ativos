@@ -32,7 +32,7 @@ import axiosClient from "../axios-client.js";
 import { createRef } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { useState } from "react";
-import logo_hb from "../assets/logo_hb.png";
+import logo_hb from "../assets/logo_hb.jpg";
 
 export default function Login() {
   const emailRef = createRef();

@@ -30,7 +30,7 @@ All the changes made to enable the implementation of the desired development too
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import MenuItem from "./MenuItem";
-import logo_hb from "../assets/logo_hb.png";
+import logo_hb from "../assets/logo_hb.jpg";
 
 const SideBarGuest = () => {
   const [style, setStyle] = useState(
@@ -64,25 +64,24 @@ const SideBarGuest = () => {
     <>
       {/*  <!-- Sidebar --> */}
       <ul className={style} id="accordionSidebar">
+        <br></br>
+        <br></br>
+
         {/*  <!-- Sidebar - Brand --> */}
         <a
           className="sidebar-brand d-flex align-items-center justify-content-center"
           href="#"
         >
           <div className="sidebar-brand-icon ">
-            <img src={logo_hb} alt="HB logo" />
-          </div>
-          <div className="text-center d-none d-md-inline">
-            <button
-              className="rounded-circle border-0"
-              id="sidebarToggle"
-              onClick={changeStyle}
-            ></button>
+            <img src={logo_hb} alt="HB logo" className="img-sb" />
           </div>
         </a>
 
         {/*   <!-- Divider --> */}
         {/*  <hr className="sidebar-divider my-0" /> */}
+        <br></br>
+        <br></br>
+        <br></br>
 
         {/*  <!-- Nav Item - Dashboard --> */}
         <li className="nav-item active">
@@ -93,8 +92,8 @@ const SideBarGuest = () => {
         </li>
 
         {/*  <!-- Divider --> */}
-        <hr className="sidebar-divider" />
-
+        {/*   <hr className="sidebar-divider" /> */}
+        <br></br>
         {/*   <!-- Heading --> */}
         <div className="sidebar-heading">Interface</div>
 
@@ -115,8 +114,16 @@ const SideBarGuest = () => {
         <MenuItem
           titulo={"Relatórios"}
           icon={"fa-chart-area"}
-          origem={"notfound"}
+          origem={"report"}
         />
+
+        <div className="text-center d-none d-md-inline">
+          <button
+            className="border-0"
+            id="sidebarToggle"
+            onClick={changeStyle}
+          ></button>
+        </div>
 
         {/*  <!-- Nav Item - Utilizadores --> */}
         {/*  <!-- Divider --> */}
