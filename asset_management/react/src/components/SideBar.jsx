@@ -31,6 +31,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import MenuItem from "./MenuItem";
 import logo_hb from "../assets/logo_hb.png";
+import hb_logon from "../assets/logo_hb.png";
 
 const SideBar = () => {
   const [style, setStyle] = useState(
@@ -70,7 +71,7 @@ const SideBar = () => {
           href="#"
         >
           <div className="sidebar-brand-icon ">
-            <img src={logo_hb} alt="HB logo" />
+            <img src={hb_logon} alt="HB logo" />
           </div>
           <div className="text-center d-none d-md-inline">
             <button

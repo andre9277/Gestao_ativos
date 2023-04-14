@@ -2741,7 +2741,13 @@ textarea.form-control-lg {
 .btn-add {
     background-color: #00a762;
 }
-
+.btn-dwl {
+    background-color: #0a58ca;
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    border-radius: 4px;
+    color: white;
+}
 .btn-delete {
     background-color: #b72424;
 }

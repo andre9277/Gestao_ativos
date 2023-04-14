@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
+import Papa from "papaparse";
 
 const ReportPage = () => {
   useEffect(() => {
@@ -57,12 +58,45 @@ const ReportPage = () => {
     };
   };
 
+  const downloadCSV = () => {
+    const csvData = Papa.unparse({
+      fields: [
+        "Ativo",
+        "Local Anterior",
+        "Local Atual",
+        "Utilizador",
+        "Movido em",
+      ],
+      data: assets.map((asset) => {
+        const allocationData = getAllocationData(asset.id);
+        return [
+          asset.id,
+          "", // deixar vazio para o local anterior
+          asset.units === null ? asset.entity.ent_name : asset.units.name,
+          allocationData.user,
+          allocationData.date,
+        ];
+      }),
+    });
+    const blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", "relatorio.csv");
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div>
       <div className="tb-user">
         <h1>Relatórios</h1>
         <div className="tb-btn-user">
-          <button className="btn-add">Download</button>
+          <button onClick={downloadCSV} className="btn-dwl">
+            Download CSV
+          </button>
         </div>
       </div>
       <div className="card animated fadeInDown">
