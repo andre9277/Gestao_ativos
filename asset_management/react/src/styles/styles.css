@@ -12519,7 +12519,7 @@ select {
 
 .search-bar-container {
     width: 40%;
-    margin: auto;
-    float:left;
+    position: relative;
+    float: left;
     flex-direction: column;
 }

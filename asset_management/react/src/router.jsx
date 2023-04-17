@@ -98,7 +98,7 @@ const router = createBrowserRouter([
         element: <ReportPage />,
       },
       {
-        path: "/infoasset",
+        path: "/infoasset/:id",
         element: <AssetInfo />,
       },
     ],

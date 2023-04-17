@@ -1,11 +1,18 @@
 import { SearchResult } from "./SearchResult";
 import "../styles/SearchResultsList.css";
 
-const SearchResultsList = ({ results }) => {
+const SearchResultsList = ({ results, setResults }) => {
   return (
     <div className="results-list">
       {results.map((result, id) => {
-        return <SearchResult result={result.numb_ser} key={id} />;
+        return (
+          <SearchResult
+            result={result.numb_ser}
+            key={id}
+            idAsset={result.id}
+            setResults={setResults}
+          />
+        );
       })}
     </div>
   );

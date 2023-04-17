@@ -77,7 +77,7 @@ const TopBar = ({ user, onLogout }) => {
       <div className="search-bar-container">
         <SearchBar setResults={setResults} />
         {results && results.length > 0 && (
-          <SearchResultsList results={results} />
+          <SearchResultsList results={results} setResults={setResults} />
         )}
       </div>
       {/*Icon bar code para utilizadores realizam scan */}
