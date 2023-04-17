@@ -3,7 +3,6 @@ import "../styles/SearchResult.css";
 
 export const SearchResult = ({ result, idAsset, setResults }) => {
   const handleSelectResult = (e) => {
-    alert(`You selected ${result} and id: ${idAsset}!`);
     setResults([]); //clean the results searched
   };
 
