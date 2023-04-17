@@ -101,6 +101,7 @@ export default function AssetForm() {
   const [supplier, setSupplier] = useState([]);
 
   const [selectedEntity, setSelectedEntity] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState("");
 
   //Sempre que o ID do asset existir:
   if (id) {
@@ -118,6 +119,7 @@ export default function AssetForm() {
     }, []);
   }
 
+  //Apresenta opções de acordo com a relação Entidade/Unidade
   useEffect(() => {
     if (selectedEntity) {
       axiosClient.get(`/unitss?ent_id=${selectedEntity}`).then((response) => {
@@ -127,6 +129,19 @@ export default function AssetForm() {
       setUnits([]);
     }
   }, [selectedEntity]);
+
+  useEffect(() => {
+    if (selectedBrand) {
+      axiosClient
+        .get(`/modelsHb?brand_id=${selectedBrand}`)
+        .then((response) => {
+          setModelos(response.data);
+        });
+    } else {
+      setModelos([]);
+    }
+  }, [selectedBrand]);
+
   //Ao submeter o update:
   const onSubmit = (ev) => {
     ev.preventDefault();
@@ -227,15 +242,17 @@ export default function AssetForm() {
   const [brandId, setBrandId] = useState("");
 
   function handleBrandChange(event) {
-    setBrandId(event.target.value);
-    const newAsset = {
-      ...asset,
-      brand_id: event.target.value,
-    };
-    setAsset(newAsset);
+    const selectedBrand = event.target.value;
+    setAsset((prevState) => ({
+      ...prevState,
+      brand_id: selectedBrand,
+      model_id: "",
+    }));
+
+    setSelectedBrand(selectedBrand);
   }
 
-  const [modelId, setModelId] = useState("");
+  /*  const [modelId, setModelId] = useState("");
 
   function handleModelChange(event) {
     setModelId(event.target.value);
@@ -245,7 +262,7 @@ export default function AssetForm() {
     };
     setAsset(newAsset);
   }
-
+ */
   const [supplierId, setSupplierId] = useState("");
 
   function handleSupplierChange(event) {
@@ -314,7 +331,7 @@ export default function AssetForm() {
             <label>
               {" "}
               Marca*:
-              <select value={brandId} onChange={handleBrandChange}>
+              <select value={asset.brand_id} onChange={handleBrandChange}>
                 <option value="">Selecione uma Marca</option>
                 {brands.map((brand) => (
                   <option key={brand.id} value={brand.id}>
@@ -328,7 +345,12 @@ export default function AssetForm() {
             <label>
               {" "}
               Modelo*:
-              <select value={modelId} onChange={handleModelChange}>
+              <select
+                value={asset.model_id}
+                onChange={(event) =>
+                  setAsset({ ...asset, model_id: event.target.value })
+                }
+              >
                 <option value="">Selecione um Modelo</option>
                 {modelos.map((modelo) => (
                   <option key={modelo.id} value={modelo.id}>

@@ -67,6 +67,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Endpoint Models
     Route::get('/modelos', [ModeloController::class, 'index']);
+    Route::get('/modelsHb', [ModeloController::class, 'getModelsByEntity']);
 
     //Endpoint Supplier
     Route::get('/supplier', [SupplierController::class, 'index']);
