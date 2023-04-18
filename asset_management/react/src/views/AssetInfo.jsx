@@ -54,34 +54,72 @@ const AssetInfo = () => {
 
   return (
     <div>
-      <div>Informação do Ativo:</div>
+      <h1>Informação do Ativo</h1>
       <div>
         {asset.id ? (
-          <div>
-            <li>Moldelo: {asset.modelo.model_name}</li>
-            <li>Marca: {asset.brand.sig}</li>
-            <li>Categoria: {asset.category.name}</li>
-            <li>Número de Inventário: {asset.numb_inv}</li>
-            <li>Número de Série: {asset.numb_ser}</li>
-            <li>Entidade: {asset.entity.ent_name}</li>
-            <li>Unidade: {asset.units === null ? "" : asset.units.name}</li>
+          <div className="container">
             <li>
-              Unidade contato:{" "}
-              {asset.units.unit_contact === null
-                ? ""
-                : asset.units.unit_contact}
+              <label>Marca:</label> {asset.brand.sig}
             </li>
-            <li>Unidade Morada: {asset.units.unit_address}</li>
-            <li>Andar: {asset.floor}</li>
-            <li>Ala: {asset.ala}</li>
-            <li>CI: {asset.ci}</li>
-            <li>Data de Compra: {asset.date_purch}</li>
-            <li>Condição: {asset.cond}</li>
-            <li>Estado: {asset.state}</li>
-            <li>Fornecedor: {asset.suppliers.name}</li>
-            <li>Fornecedor email: {asset.suppliers.email}</li>
-            <li>Fornecedor phone: {asset.suppliers.phone}</li>
-            <li>Fornecedor Morada: {asset.suppliers.address}</li>
+            <li>
+              <label>Modelo:</label> {asset.modelo.model_name}
+            </li>
+            <li>
+              <label>Categoria:</label> {asset.category.name}
+            </li>
+            <li>
+              <label>Nº de Inventário:</label> {asset.numb_inv}
+            </li>
+            <li>
+              <label>Nº de Série:</label> {asset.numb_ser}
+            </li>
+            <li>
+              <label>Entidade:</label> {asset.entity.ent_name}
+            </li>
+            <li>
+              <label>Unidade:</label>{" "}
+              {asset.units === null ? "" : asset.units.name}
+            </li>
+            <li>
+              <label>Unidade-contato:</label>
+
+              {asset.units === null ? "" : asset.units.unit_contact}
+            </li>
+            <li>
+              <label>Unidade-Morada:</label>
+
+              {asset.units === null ? "" : asset.units.unit_address}
+            </li>
+            <li>
+              <label>Andar:</label> {asset.floor}
+            </li>
+            <li>
+              <label>Ala:</label> {asset.ala}
+            </li>
+            <li>
+              <label>CI:</label> {asset.ci}
+            </li>
+            <li>
+              <label>Data de Compra:</label> {asset.date_purch}
+            </li>
+            <li>
+              <label>Condição:</label> {asset.cond}
+            </li>
+            <li>
+              <label>Estado:</label> {asset.state}
+            </li>
+            <li>
+              <label>Fornecedor:</label> {asset.suppliers.name}
+            </li>
+            <li>
+              <label>Fornecedor-email:</label> {asset.suppliers.email}
+            </li>
+            <li>
+              <label>Fornecedor-phone:</label> {asset.suppliers.phone}
+            </li>
+            <li>
+              <label>Fornecedor-Morada:</label> {asset.suppliers.address}
+            </li>
           </div>
         ) : (
           <div>Carregando...</div>

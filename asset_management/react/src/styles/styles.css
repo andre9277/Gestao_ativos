@@ -12381,12 +12381,12 @@ fieldset {
     align-items: center;
     margin-bottom: 10px;
 }
-.account-details > div,
+/* .account-details > div,
 .personal-details > div,
 input,
 label {
     width: 100%;
-}
+} */
 .lbAdd {
     padding: 0 5px;
     text-align: right;
@@ -12458,7 +12458,7 @@ select {
         width: 50%;
     }
     label {
-        width: 40%;
+        width: 8%;
     }
     input {
         width: 60%;

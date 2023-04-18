@@ -4,6 +4,7 @@ import "../styles/SearchBar.css";
 
 const Search = ({ setResults }) => {
   const [inputText, setInputText] = useState("");
+
   const getAssets = (url, value) => {
     url = url || "/assets";
 
@@ -17,7 +18,7 @@ const Search = ({ setResults }) => {
           asset.numb_ser.toUpperCase().includes(value)
         );
       });
-      console.log(results);
+      //console.log(results);
       setResults(results);
     });
   };
