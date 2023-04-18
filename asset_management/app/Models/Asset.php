@@ -33,8 +33,11 @@ class Asset extends Model
         'ent_id',
         'unit_id',
         'model_id',
+        'previous_unit_id',
+        'previous_ent_id',
 
     ];
+
 
     public function brand()
     {
@@ -70,5 +73,42 @@ class Asset extends Model
     public function modelo()
     {
         return $this->belongsTo(Modelo::class, 'model_id');
+    }
+
+
+
+
+    //mutator functions:
+    /*   public function setUnitIdAttribute($value)
+    {
+        if ($this->attributes['unit_id'] !== $value) {
+            $this->attributes['previous_unit_id'] = $this->attributes['unit_id'];
+        }
+
+        $this->attributes['unit_id'] = $value;
+    }
+
+
+    public function setEntityIdAttribute($value)
+    {
+        if ($this->attributes['ent_id'] !== $value) {
+            $this->attributes['previous_ent_id'] = $this->attributes['ent_id'];
+        }
+
+        $this->attributes['ent_id'] = $value;
+    } */
+
+    public static function boot()
+    {
+        parent::boot();
+
+        // Listen for the 'updating' event
+        static::updating(function ($unit) {
+            // Check if unit_id attribute is being updated
+            if ($unit->isDirty('unit_id')) {
+                // Store the current unit_id value in previous_unit_id
+                $unit->previous_unit_id = $unit->getOriginal('unit_id');
+            }
+        });
     }
 }

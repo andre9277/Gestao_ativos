@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('ala', 100)->nullable();
             $table->string('floor', 100)->nullable();
             $table->string('ci', 100)->nullable();
+            $table->string('previous_unit_id')->nullable();;
+            $table->string('previous_ent_id')->nullable();;
 
 
             $table->unsignedBigInteger('brand_id');

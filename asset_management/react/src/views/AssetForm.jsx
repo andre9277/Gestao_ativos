@@ -252,17 +252,6 @@ export default function AssetForm() {
     setSelectedBrand(selectedBrand);
   }
 
-  /*  const [modelId, setModelId] = useState("");
-
-  function handleModelChange(event) {
-    setModelId(event.target.value);
-    const newAsset = {
-      ...asset,
-      model_id: event.target.value,
-    };
-    setAsset(newAsset);
-  }
- */
   const [supplierId, setSupplierId] = useState("");
 
   function handleSupplierChange(event) {

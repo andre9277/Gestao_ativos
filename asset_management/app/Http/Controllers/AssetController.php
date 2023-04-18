@@ -85,6 +85,7 @@ class AssetController extends Controller
     {
         $this->authorize('create-edit');
 
+
         //$asset = Asset::find($id);
         $asset->update($request->all());
 
@@ -98,10 +99,6 @@ class AssetController extends Controller
         $update->save();
         return $asset;
     }
-
-
-
-
 
 
 

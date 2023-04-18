@@ -108,7 +108,6 @@ const ReportPage = () => {
               <th>Local Atual</th>
               <th>Utilizador</th>
               <th>Movido em</th>
-              <th></th>
             </tr>
           </thead>
           {loading && (
@@ -127,7 +126,11 @@ const ReportPage = () => {
                 return (
                   <tr key={`${asset.id}-${index}`}>
                     <td>{asset.id}</td>
-                    <td>{}</td>
+                    <td>
+                      {asset.previous_unit_id === null
+                        ? asset.previous_ent_id
+                        : asset.previous_unit_id}
+                    </td>
                     <td>
                       {asset.units === null
                         ? asset.entity.ent_name
@@ -135,7 +138,6 @@ const ReportPage = () => {
                     </td>
                     <td>{allocationData.user}</td>
                     <td>{allocationData.date}</td>
-                    <td></td>
                   </tr>
                 );
               })}
