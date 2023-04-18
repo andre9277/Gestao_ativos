@@ -75,29 +75,6 @@ class Asset extends Model
         return $this->belongsTo(Modelo::class, 'model_id');
     }
 
-
-
-
-    //mutator functions:
-    /*   public function setUnitIdAttribute($value)
-    {
-        if ($this->attributes['unit_id'] !== $value) {
-            $this->attributes['previous_unit_id'] = $this->attributes['unit_id'];
-        }
-
-        $this->attributes['unit_id'] = $value;
-    }
-
-
-    public function setEntityIdAttribute($value)
-    {
-        if ($this->attributes['ent_id'] !== $value) {
-            $this->attributes['previous_ent_id'] = $this->attributes['ent_id'];
-        }
-
-        $this->attributes['ent_id'] = $value;
-    } */
-
     public static function boot()
     {
         parent::boot();
@@ -108,6 +85,12 @@ class Asset extends Model
             if ($unit->isDirty('unit_id')) {
                 // Store the current unit_id value in previous_unit_id
                 $unit->previous_unit_id = $unit->getOriginal('unit_id');
+            }
+
+            // Check if ent_id attribute is being updated
+            if ($unit->isDirty('ent_id')) {
+                // Store the current ent_id value in previous_ent_id
+                $unit->previous_ent_id = $unit->getOriginal('ent_id');
             }
         });
     }

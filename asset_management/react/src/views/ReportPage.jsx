@@ -104,7 +104,8 @@ const ReportPage = () => {
           <thead>
             <tr>
               <th>Ativo</th>
-              <th>Local Anterior</th>
+              <th>Local Anterior - Unidade</th>
+              <th>Local Anterior - Entidade</th>
               <th>Local Atual</th>
               <th>Utilizador</th>
               <th>Movido em</th>
@@ -128,8 +129,13 @@ const ReportPage = () => {
                     <td>{asset.id}</td>
                     <td>
                       {asset.previous_unit_id === null
-                        ? asset.previous_ent_id
+                        ? " "
                         : asset.previous_unit_id}
+                    </td>
+                    <td>
+                      {asset.previous_ent_id === null
+                        ? ""
+                        : asset.previous_ent_id}
                     </td>
                     <td>
                       {asset.units === null

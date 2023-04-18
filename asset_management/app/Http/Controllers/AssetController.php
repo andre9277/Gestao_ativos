@@ -100,8 +100,6 @@ class AssetController extends Controller
         return $asset;
     }
 
-
-
     /**
      * Remove the specified resource from storage.
      *
