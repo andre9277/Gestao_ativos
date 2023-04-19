@@ -18,7 +18,7 @@ class AllocationsController extends Controller
     {
         $alloc = Allocation::with('users:id,name', 'assets:id,numb_ser,unit_id')
             ->orderBy('id', 'desc')
-            ->paginate(10);
+            ->paginate(20);
 
         return AllocationResource::collection($alloc);
     }

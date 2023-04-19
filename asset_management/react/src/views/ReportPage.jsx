@@ -62,7 +62,8 @@ const ReportPage = () => {
     const csvData = Papa.unparse({
       fields: [
         "Ativo",
-        "Local Anterior",
+        "Local Anterior-Unidade",
+        "Local Anterior-Entidade",
         "Local Atual",
         "Utilizador",
         "Movido em",
@@ -71,7 +72,8 @@ const ReportPage = () => {
         const allocationData = getAllocationData(asset.id);
         return [
           asset.id,
-          "", // deixar vazio para o local anterior
+          asset.previous_unit_id,
+          asset.previous_ent_id,
           asset.units === null ? asset.entity.ent_name : asset.units.name,
           allocationData.user,
           allocationData.date,
