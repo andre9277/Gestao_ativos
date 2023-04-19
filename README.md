@@ -67,8 +67,15 @@
     
      **16- Run:**
 
-        npm run dev
-        
+       npm run dev
+      ______________________________________________________
+
+      npm i react-router-dom
+
+      ______________________________________________________
+
+      npm i axios
+
      **17- Login information:**
      
         email: admin@gmail.com
