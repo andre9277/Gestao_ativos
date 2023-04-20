@@ -1,8 +1,27 @@
 import React, { useState, useEffect } from "react";
 import Quagga from "quagga";
+import { useNavigate } from "react-router-dom";
+import axiosClient from "../axios-client.js";
 
 const Scan = () => {
   const [barcode, setBarcode] = useState("");
+  const [assets, setAssets] = useState([]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    initializeBarcodeScanner();
+    getAssets();
+  }, []);
+
+  const getAssets = (url) => {
+    url = url || "/assets";
+
+    axiosClient.get(url).then(({ data }) => {
+      console.log(data.data);
+      setAssets(data.data);
+    });
+  };
 
   function initializeBarcodeScanner() {
     Quagga.init(
@@ -30,13 +49,22 @@ const Scan = () => {
       console.log("Barcode detected:", result.codeResult.code);
       setBarcode(result.codeResult.code);
       drawLine(result.codeResult);
-      Quagga.stop();
+
+      // Look up the asset by inventory number
+      const inventoryNumber = result.codeResult.code;
+      const foundAsset = assets.find((asset) => {
+        return asset.numb_inv === inventoryNumber;
+      });
+
+      console.log("Found Asset:", foundAsset);
+      // Redirect to corresponding asset page
+      if (assets) {
+        navigate(`/infoasset/${foundAsset.id}`);
+
+        Quagga.stop();
+      }
     });
   }
-
-  useEffect(() => {
-    initializeBarcodeScanner();
-  }, []);
 
   function drawLine(code) {
     const canvas = document.querySelector("canvas");
