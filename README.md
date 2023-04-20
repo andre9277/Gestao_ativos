@@ -61,25 +61,32 @@
     
      **14- Copy react/.env.example into .env and adjust the VITE_API_BASE_URL parameter**
 
-     **15- Install library for Scan feature:**
+     **15- Run:**
+
+        npm install
+
+     **16- Install library for Scan feature:**
 
          npm i quagga
 
-     **16- Run:**
 
-        npm install
-    
-     **17- Run:**
+      **17- Install Chart for graphics on Dashboard**
 
-        npm run dev
-      ______________________________________________________
+         npm install --save chart.js react-chartjs-2
+
+         npm install chart.js
+
+     **18- Run:**
 
         npm i react-router-dom
       ______________________________________________________
 
         npm i axios
+      ______________________________________________________
 
-     **18- Login information:**
+         npm run dev
+
+     **19- Login information:**
      
         email: admin@gmail.com
         password: Admin@277

@@ -129,6 +129,7 @@ const ReportPage = () => {
                 return (
                   <tr key={`${asset.id}-${index}`}>
                     <td>{asset.id}</td>
+
                     <td>
                       {asset.previous_unit_id === null
                         ? " "
