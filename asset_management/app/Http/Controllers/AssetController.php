@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Auth;
 class AssetController extends Controller
 {
 
-
     /**
      * Display a listing of the resource.
      *
@@ -49,6 +48,19 @@ class AssetController extends Controller
     {
         $this->authorize('create-edit');
         return Asset::create($request->all());
+    }
+
+
+    public function count(Asset $asset)
+    {
+
+        return $asset::count();
+    }
+
+    public function countRepair(Asset $asset)
+    {
+
+        return $asset::where('cond', 'Reparação')->count();
     }
 
     /**

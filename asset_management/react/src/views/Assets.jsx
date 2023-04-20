@@ -127,7 +127,7 @@ export default function Assets() {
         }}
       >
         <h1>Listagem de Ativos</h1>
-        <div className="tb-btn-user">
+        <div>
           {user.role_id === 3 ? null : (
             <Link
               className="btn-add text-link"

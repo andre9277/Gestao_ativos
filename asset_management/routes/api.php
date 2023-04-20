@@ -54,6 +54,9 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->asset();
     });
 
+    Route::get('/assetsC', [AssetController::class, 'count']);
+    Route::get('/countRepair', [AssetController::class, 'countRepair']);
+
     //Route para os Movimentos dos ativos
     //Route::resource('allocations', AllocationsController::class);
     Route::get('/allocations', [AllocationsController::class, 'index']);

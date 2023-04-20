@@ -126,7 +126,8 @@ const TopBar = ({ user, onLogout }) => {
         </li>
 
         {/*  <!-- Nav Item - Alerts --> */}
-        <Alert />
+
+        {/*  <Alert /> */}
 
         <div className="topbar-divider d-none d-sm-block"></div>
 

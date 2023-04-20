@@ -35,8 +35,32 @@ import PieChart from "./components/PieChart";
 import ProjectCard from "./components/ProjectCard";
 import Illustration from "./components/Illustration";
 import Approach from "./components/Approach";
+import { useEffect, useState, useLayoutEffect } from "react";
+import axiosClient from "./axios-client.js";
 
 function Dashboard() {
+  useLayoutEffect(() => {
+    getTotalAssets();
+    getRepairs();
+  }, []);
+
+  const [assetTotal, setAssetTotal] = useState("");
+  const [repairAsset, setRepairAsset] = useState([]);
+
+  //Realiza um request access client
+  const getTotalAssets = (url) => {
+    url = url || "/assetsC";
+    axiosClient.get(url).then(({ data }) => {
+      setAssetTotal(data);
+    });
+  };
+
+  const getRepairs = (url) => {
+    url = url || "/countRepair";
+    axiosClient.get(url).then(({ data }) => {
+      setRepairAsset(data);
+    });
+  };
   return (
     <div>
       {/*  <!-- Main Content --> */}
@@ -53,7 +77,7 @@ function Dashboard() {
             {/*  <!-- Total de Ativos --> */}
             <Card
               Titulo="Total de ativos"
-              Descricao="1295"
+              Descricao={assetTotal}
               Icon="fa-laptop"
               Cor="text-primary"
               Tipo="primary"
@@ -62,7 +86,7 @@ function Dashboard() {
             {/*  <!-- Ativos Alterados --> */}
             <Card
               Titulo="Ativos Alterados - Média Mensal"
-              Descricao="83"
+              Descricao=""
               Icon="fa-arrows-alt"
               Cor="text-success"
               Tipo="success"
@@ -72,7 +96,7 @@ function Dashboard() {
 
             <Card
               Titulo="Ativos em Reparação"
-              Descricao="27"
+              Descricao={repairAsset}
               Icon="fa-wrench"
               Cor="text-warning"
               Tipo="warning"
@@ -102,7 +126,7 @@ function Dashboard() {
               <Illustration />
 
               {/* <!-- Approach --> */}
-              <Approach />
+              {/*  <Approach /> */}
             </div>
           </div>
         </div>
