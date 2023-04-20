@@ -142,7 +142,7 @@ const AssetInfo = () => {
               <h6 className="attrAsset">{asset.suppliers.email}</h6>
             </ol>
             <ol className="lb-infoAsset">
-              <label className="lb-infoAsset2">Fornecedor-Contacto:</label>{" "}
+              <label className="lb-infoAsset2">Fornecedor-Contato:</label>{" "}
               <h6 className="attrAsset">{asset.suppliers.phone}</h6>
             </ol>
             <ol className="lb-infoAsset">
