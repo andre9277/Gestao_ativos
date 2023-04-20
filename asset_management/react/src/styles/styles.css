@@ -12564,3 +12564,7 @@ select {
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
+.rowGraph {
+    display: inline-block;
+}

@@ -33,8 +33,8 @@ import "./styles/Dashboard.css";
 import AreaChart from "./components/AreaChart";
 import PieChart from "./components/PieChart";
 import ProjectCard from "./components/ProjectCard";
-import Illustration from "./components/Illustration";
-import Approach from "./components/Approach";
+/* import Illustration from "./components/Illustration";
+import Approach from "./components/Approach"; */
 import { useEffect, useState, useLayoutEffect } from "react";
 import axiosClient from "./axios-client.js";
 
@@ -110,6 +110,7 @@ function Dashboard() {
             <AreaChart />
 
             {/*  <!-- Pie Chart --> */}
+
             <PieChart />
           </div>
 
@@ -118,7 +119,7 @@ function Dashboard() {
             {/*   <!-- Content Column --> */}
             <div className="col-lg-6 mb-4">
               {/* <!-- Project Card Example --> */}
-              <ProjectCard />
+              {/*  <ProjectCard /> */}
             </div>
 
             <div className="col-lg-6 mb-4">
