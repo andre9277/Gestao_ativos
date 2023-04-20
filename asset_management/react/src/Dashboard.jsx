@@ -123,7 +123,7 @@ function Dashboard() {
 
             <div className="col-lg-6 mb-4">
               {/* <!-- Illustrations --> */}
-              <Illustration />
+              {/*  <Illustration /> */}
 
               {/* <!-- Approach --> */}
               {/*  <Approach /> */}

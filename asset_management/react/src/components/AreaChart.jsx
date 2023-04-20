@@ -72,7 +72,7 @@ const AreaChart = () => {
     labels: charts.map((x) => x.ent_name),
     datasets: [
       {
-        label: `${charts.length} Ativos Registados`,
+        label: "",
         data: charts.map((x) => {
           let count = 0;
           assets.forEach((y) => {
@@ -111,9 +111,6 @@ const AreaChart = () => {
           precision: 0,
         },
       },
-    },
-    legend: {
-      fontSize: 26,
     },
   };
   return (
