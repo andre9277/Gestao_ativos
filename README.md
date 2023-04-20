@@ -61,11 +61,15 @@
     
      **14- Copy react/.env.example into .env and adjust the VITE_API_BASE_URL parameter**
 
-     **15- Run:**
+     **15- Install library for Scan feature:**
+
+         npm i quagga
+
+     **16- Run:**
 
         npm install
     
-     **16- Run:**
+     **17- Run:**
 
         npm run dev
       ______________________________________________________
@@ -75,7 +79,7 @@
 
         npm i axios
 
-     **17- Login information:**
+     **18- Login information:**
      
         email: admin@gmail.com
         password: Admin@277
