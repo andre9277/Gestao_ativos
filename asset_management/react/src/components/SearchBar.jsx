@@ -8,14 +8,14 @@ const Search = ({ setResults }) => {
   const getAssets = (url, value) => {
     url = url || "/assets";
 
-    axiosClient.get(url, { params: { numb_ser: value } }).then(({ data }) => {
+    axiosClient.get(url, { params: { numb_inv: value } }).then(({ data }) => {
       const assets = data.data;
       const results = assets.filter((asset) => {
         return (
           value &&
           asset &&
-          asset.numb_ser &&
-          asset.numb_ser.toUpperCase().includes(value)
+          asset.numb_inv &&
+          asset.numb_inv.toUpperCase().includes(value)
         );
       });
       //console.log(results);

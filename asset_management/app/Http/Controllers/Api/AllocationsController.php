@@ -16,7 +16,7 @@ class AllocationsController extends Controller
      */
     public function index()
     {
-        $alloc = Allocation::with('users:id,name', 'assets:id,numb_ser,unit_id')
+        $alloc = Allocation::with('users:id,name', 'assets:id,numb_ser,unit_id,numb_inv')
             ->orderBy('id', 'desc')
             ->paginate(20);
 

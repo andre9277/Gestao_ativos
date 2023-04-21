@@ -53,7 +53,7 @@ const AssetInfo = () => {
 
   return (
     <div className="card animated fadeInDown">
-      <h1>Informação do Ativo: {asset.numb_ser}</h1>
+      <h1>Informação do Ativo: {asset.numb_inv}</h1>
       <p></p>
       <p></p>
       <div>

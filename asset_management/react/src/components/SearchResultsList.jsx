@@ -7,7 +7,7 @@ const SearchResultsList = ({ results, setResults }) => {
       {results.map((result, id) => {
         return (
           <SearchResult
-            result={result.numb_ser}
+            result={result.numb_inv}
             key={id}
             idAsset={result.id}
             setResults={setResults}

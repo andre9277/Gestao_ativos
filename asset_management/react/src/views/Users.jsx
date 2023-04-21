@@ -75,7 +75,7 @@ export default function Users() {
     // Confirm that the user wants to delete the checked users
     if (
       !window.confirm(
-        `Tem a certeza que deseja eliminar os ${checkedUserIds.length} utilizadores selecionados?`
+        `Tem a certeza que deseja eliminar ${checkedUserIds.length} utilizador(s) selecionado(s)?`
       )
     ) {
       return;
@@ -84,7 +84,7 @@ export default function Users() {
     // Delete the checked users
     axiosClient.delete(`/users/${checkedUserIds.join(",")}`).then(() => {
       setNotification(
-        `Os ${checkedUserIds.length} utilizadores selecionados foram apagados com sucesso!`
+        ` ${checkedUserIds.length} utilizador(s) apagado(s) com sucesso!`
       );
 
       // After the users are deleted, fetch all the users again to update the table

@@ -6,12 +6,13 @@ const ReportPage = () => {
   useEffect(() => {
     getAssets();
     getAllocations();
-    getAllocationData();
+    //getAllocationData();
   }, []);
 
   const [assets, setAssets] = useState([]);
   const [allocations, setAllocations] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [prevName, setPrevName] = useState([]);
 
   const getAssets = (url) => {
     url = url || "/assets";
@@ -45,39 +46,45 @@ const ReportPage = () => {
       });
   };
 
-  const getAllocationData = async (assetId) => {
-    const allocation = allocations.find((a) => a.assets.id === assetId);
+  /*   const getAllocationData = async (assetId) => {
+    const allocation = allocations.find((a) => a.asset.id === assetId);
     if (!allocation) {
       return {
         user: "",
         date: "",
         previousUnitName: "",
       };
-    }
-    /*  try {
+    } else {
       const { data } = await axiosClient.get(
         `/assets/${assetId}/previous-unit-name`
       );
-      console.log("call", data);
       return {
-        user: allocation.users.name,
+        user: allocation.user.name,
         date: allocation.allocation_date,
         previousUnitName: data.unit_name,
       };
-    } catch (error) {
-      console.log(error);
+    }
+  }; */
+  const getAllocationData = (assetId) => {
+    const allocation = allocations.find((a) => a.assets.id === assetId);
+
+    if (!allocation) {
       return {
-        user: allocation.users.name,
-        date: allocation.allocation_date,
-        previousUnitName: "",
+        user: "",
+        date: "",
       };
-    } */
+    }
+    return {
+      user: allocation.users.name,
+      date: allocation.allocation_date,
+      previousUnitName: "data.unit_name",
+    };
   };
 
   const downloadCSV = () => {
     const csvData = Papa.unparse({
       fields: [
-        "Ativo",
+        "Nº Inventário",
         "Local Anterior-Unidade",
         "Local Anterior-Entidade",
         "Local Atual",
@@ -87,7 +94,7 @@ const ReportPage = () => {
       data: assets.map((asset) => {
         const allocationData = getAllocationData(asset.id);
         return [
-          asset.id,
+          asset.numb_inv,
           allocationData.previousUnitName,
           asset.previous_ent_id,
           asset.units === null ? asset.entity.ent_name : asset.units.name,
@@ -121,7 +128,7 @@ const ReportPage = () => {
         <table>
           <thead>
             <tr>
-              <th>Ativo</th>
+              <th>Nº Inventário</th>
               <th>Local Anterior - Unidade</th>
               <th>Local Anterior - Entidade</th>
               <th>Local Atual</th>
@@ -145,7 +152,7 @@ const ReportPage = () => {
                 const allocationData = getAllocationData(asset.id);
                 return (
                   <tr key={`${asset.id}-${index}`}>
-                    <td>{asset.id}</td>
+                    <td>{asset.numb_inv}</td>
 
                     <td>
                       {/* {console.log("here:", allocationData.previousUnitName)}
@@ -167,6 +174,7 @@ const ReportPage = () => {
                         ? asset.entity.ent_name
                         : asset.units.name}
                     </td>
+
                     <td>{allocationData.user}</td>
                     <td>{allocationData.date}</td>
                   </tr>
