@@ -32,10 +32,10 @@ import Card from "./components/Card";
 import "./styles/Dashboard.css";
 import AreaChart from "./components/AreaChart";
 import PieChart from "./components/PieChart";
-import ProjectCard from "./components/ProjectCard";
-/* import Illustration from "./components/Illustration";
+/*import ProjectCard from "./components/ProjectCard";
+ import Illustration from "./components/Illustration";
 import Approach from "./components/Approach"; */
-import { useEffect, useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import axiosClient from "./axios-client.js";
 
 function Dashboard() {
@@ -62,7 +62,7 @@ function Dashboard() {
     });
   };
   return (
-    <div>
+    <div id="content-wrapper" className="d-flex flex-column">
       {/*  <!-- Main Content --> */}
       <div id="content">
         {/* <!-- Begin Page Content --> */}

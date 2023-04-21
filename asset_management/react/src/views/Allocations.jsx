@@ -65,13 +65,14 @@ export default function Allocations() {
   };
 
   return (
-    <div>
+    <div id="content">
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
         }}
+        className="container-fluid"
       >
         <h1>Movimentação de Ativos</h1>
       </div>

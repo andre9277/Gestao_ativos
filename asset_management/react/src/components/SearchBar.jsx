@@ -42,7 +42,11 @@ const Search = ({ setResults }) => {
             value={inputText}
           />
           <div className="input-group-append">
-            <button className="btn btn-primary" type="button">
+            <button
+              className="btn btn-primary"
+              type="button"
+              /* onClick= {`http://localhost:3000/infoasset/${}`} */
+            >
               <i className="fas fa-search fa-sm"></i>
             </button>
           </div>

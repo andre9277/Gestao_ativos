@@ -12546,12 +12546,14 @@ select {
 }
 
 .lb-infoAsset2 {
-    width: 40%;
+    width: 150%;
     color: #61a60e;
     font-size: 18px;
     font-weight: bold;
 }
-
+.locInfo {
+    display: flex;
+}
 .sub_asset {
     font-size: 20px;
 }
@@ -12567,4 +12569,8 @@ select {
 
 .rowGraph {
     display: inline-block;
+}
+
+.assetGeneralInfo {
+    display: inline-flex;
 }
