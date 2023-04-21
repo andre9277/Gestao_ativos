@@ -6,6 +6,7 @@ const ReportPage = () => {
   useEffect(() => {
     getAssets();
     getAllocations();
+    getAllocationData();
   }, []);
 
   const [assets, setAssets] = useState([]);
@@ -44,18 +45,33 @@ const ReportPage = () => {
       });
   };
 
-  const getAllocationData = (assetId) => {
+  const getAllocationData = async (assetId) => {
     const allocation = allocations.find((a) => a.assets.id === assetId);
     if (!allocation) {
       return {
         user: "",
         date: "",
+        previousUnitName: "",
       };
     }
-    return {
-      user: allocation.users.name,
-      date: allocation.allocation_date,
-    };
+    /*  try {
+      const { data } = await axiosClient.get(
+        `/assets/${assetId}/previous-unit-name`
+      );
+      console.log("call", data);
+      return {
+        user: allocation.users.name,
+        date: allocation.allocation_date,
+        previousUnitName: data.unit_name,
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        user: allocation.users.name,
+        date: allocation.allocation_date,
+        previousUnitName: "",
+      };
+    } */
   };
 
   const downloadCSV = () => {
@@ -72,7 +88,7 @@ const ReportPage = () => {
         const allocationData = getAllocationData(asset.id);
         return [
           asset.id,
-          asset.previous_unit_id,
+          allocationData.previousUnitName,
           asset.previous_ent_id,
           asset.units === null ? asset.entity.ent_name : asset.units.name,
           allocationData.user,
@@ -122,6 +138,7 @@ const ReportPage = () => {
               </tr>
             </tbody>
           )}
+
           {!loading && (
             <tbody>
               {assets.map((asset, index) => {
@@ -131,6 +148,11 @@ const ReportPage = () => {
                     <td>{asset.id}</td>
 
                     <td>
+                      {/* {console.log("here:", allocationData.previousUnitName)}
+                      {allocationData.previousUnitName === null
+                        ? " "
+                        : allocationData.previousUnitName} */}
+
                       {asset.previous_unit_id === null
                         ? " "
                         : asset.previous_unit_id}
