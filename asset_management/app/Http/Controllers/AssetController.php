@@ -9,6 +9,7 @@ use App\Http\Resources\AssetResource;
 use App\Models\Allocation;
 use App\Models\Brand;
 use App\Models\Entity;
+use App\Models\Unit;
 use Illuminate\Support\Facades\Auth;
 
 class AssetController extends Controller
@@ -124,5 +125,18 @@ class AssetController extends Controller
 
         $asset = Asset::find($id);
         $asset->delete();
+    }
+
+
+    public function showPrevious($id)
+    {
+        $asset = Asset::with('previousUnit')->find($id);
+        if (!$asset) {
+            return response()->json(['error' => 'Asset not found'], 404);
+        }
+
+        $unitName = $asset->previousUnit->name;
+
+        return response()->json(['unit_name' => $unitName]);
     }
 }

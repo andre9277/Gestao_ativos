@@ -70,6 +70,11 @@ class Asset extends Model
         return $this->belongsTo(Unit::class, 'unit_id');
     }
 
+    public function previousUnit()
+    {
+        return $this->belongsTo(Unit::class, 'previous_unit_id');
+    }
+
     public function modelo()
     {
         return $this->belongsTo(Modelo::class, 'model_id');
