@@ -71,7 +71,7 @@ export default function DefaultLayout() {
 
         <Outlet />
 
-        {/* Notificação quando um utilizador é criado/atualizado ou eliminado */}
+        {/* Notification when a user is created/updated or deleted */}
         {notification && <div className="notification">{notification}</div>}
         <Footer />
       </div>

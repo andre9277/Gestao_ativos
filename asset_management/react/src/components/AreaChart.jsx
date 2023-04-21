@@ -41,7 +41,7 @@ import axiosClient from "../axios-client.js";
 ChartJS.register(CategoryScale, BarElement, LinearScale);
 
 const AreaChart = () => {
-  //retorna todos os assets (mount hook é chamado 2x)
+  //initialize all assets and entities (mount hook is called 2x)
   useEffect(() => {
     getEntities();
     getAssets();
@@ -50,7 +50,7 @@ const AreaChart = () => {
   const [charts, setCharts] = useState([]);
   const [assets, setAssets] = useState([]);
 
-  //Realiza um request access client
+  //Performs a client access request to entities
   const getEntities = (url) => {
     url = url || "/entities";
 
@@ -59,7 +59,7 @@ const AreaChart = () => {
     });
   };
 
-  //Realiza um request access client
+  //Performs a client access request to assets
   const getAssets = (url) => {
     url = url || "/assets";
 
@@ -68,6 +68,7 @@ const AreaChart = () => {
     });
   };
 
+  //Chart (bar):
   var data = {
     labels: charts.map((x) => x.ent_name),
     datasets: [

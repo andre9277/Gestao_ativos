@@ -94,6 +94,7 @@ const AssetInfo = () => {
                   <h6 className="attrAsset"> {asset.state}</h6>
                 </ul>
               </div>
+              <p></p>
               <div className="locInfo">
                 <h2 className="sub_asset">Localização: </h2>
                 <ul>

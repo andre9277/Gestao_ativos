@@ -29,7 +29,7 @@ All the changes made to enable the implementation of the desired development too
 */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Alert from "./Alert";
+/* import Alert from "./Alert"; */
 import SearchBar from "./SearchBar";
 import SearchResultsList from "./SearchResultsList";
 import UserInfo from "./UserInfo";
@@ -46,7 +46,7 @@ const TopBar = ({ user, onLogout }) => {
           <SearchResultsList results={results} setResults={setResults} />
         )}
       </div>
-      {/*Icon bar code para utilizadores realizam scan */}
+      {/*Icon bar code for users to scan */}
       <Link to="/scan">
         <i className="fa fa-barcode fa-3x" aria-hidden="true"></i>
       </Link>

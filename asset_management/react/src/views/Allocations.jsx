@@ -32,7 +32,7 @@ import axiosClient from "../axios-client.js";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 
 export default function Allocations() {
-  //retorna todos os utilizadores (mount hook é chamado 2x)
+  //returns all users (mount hook is called 2x)
   useEffect(() => {
     getAllocations();
   }, []);

@@ -97,7 +97,7 @@ const SideBar = () => {
         {/*   <!-- Heading --> */}
         <div className="sidebar-heading">Gestão de ativos</div>
 
-        {/* <!-- Nav Item - Relatorios --> */}
+        {/* <!-- Nav Item - ReportPage --> */}
         <MenuItem
           titulo={"Movimento de Ativos"}
           icon={"fa-chart-area"}
@@ -110,7 +110,7 @@ const SideBar = () => {
           origem={"assets"}
         />
 
-        {/*  <!-- Nav Item - Utilizadores --> */}
+        {/*  <!-- Nav Item - Users --> */}
         {/*  <!-- Divider --> */}
         <hr className="sidebar-divider" />
 

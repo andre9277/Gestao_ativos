@@ -44,7 +44,7 @@ import axiosClient from "../axios-client.js";
 ChartJS.register(Tooltip, Legend, ArcElement);
 
 const PieChart = () => {
-  //retorna todos os assets (mount hook é chamado 2x)
+  //return all assets(mount hook its called 2x)
   useEffect(() => {
     getCategories();
     getAssets();
@@ -53,7 +53,7 @@ const PieChart = () => {
   const [charts, setCharts] = useState([]);
   const [assets, setAssets] = useState([]);
 
-  //Realiza um request access client
+  //Performs a client access request to categories
   const getCategories = (url) => {
     url = url || "/categories";
 
@@ -62,7 +62,7 @@ const PieChart = () => {
     });
   };
 
-  //Realiza um request access client
+  //Performs a client access request to assets
   const getAssets = (url) => {
     url = url || "/assets";
 
@@ -71,6 +71,7 @@ const PieChart = () => {
     });
   };
 
+  //Chart (Pie)
   var data = {
     labels: charts.map((x) => x.name),
     datasets: [
@@ -123,6 +124,7 @@ const PieChart = () => {
         </div>
         {/*  <!-- Card Body --> */}
         <div>
+          {/* Pie graphic */}
           <Pie height={400} data={data} options={options} />
         </div>
       </div>
