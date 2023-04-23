@@ -8,20 +8,38 @@ const Scan = () => {
   const [assets, setAssets] = useState([]);
 
   const navigate = useNavigate();
+  /* 
+  const getAssets = async () => {
+    const response = await axiosClient.get("/assets");
+    console.log(response.data.data);
+    setAssets(response.data.data);
+  };
 
   useEffect(() => {
-    initializeBarcodeScanner();
     getAssets();
   }, []);
 
-  const getAssets = (url) => {
-    url = url || "/assets";
+  useEffect(() => {
+    Quagga.onDetected((result) => {
+      console.log("Barcode detected:", result.codeResult.code);
+      setBarcode(result.codeResult.code);
+      drawLine(result.codeResult);
 
-    axiosClient.get(url).then(({ data }) => {
-      console.log(data.data);
-      setAssets(data.data);
+      // Look up the asset by inventory number
+      const inventoryNumber = result.codeResult.code;
+      console.log("eer", assets);
+      const foundAsset = assets.find((asset) => {
+        return asset.numb_inv === inventoryNumber;
+      });
+      console.log("Found Asset:", foundAsset);
+
+      // Redirect to corresponding asset page
+      if (foundAsset) {
+        navigate(`/infoasset/${foundAsset.id}`);
+        Quagga.stop();
+      }
     });
-  };
+  }, [assets]);
 
   function initializeBarcodeScanner() {
     Quagga.init(
@@ -44,7 +62,24 @@ const Scan = () => {
         Quagga.start();
       }
     );
+  }
 
+  useEffect(() => {
+    initializeBarcodeScanner();
+  }, []); */
+
+  const getAssets = async () => {
+    const response = await axiosClient.get("/assets");
+    console.log(response.data.data);
+    setAssets(response.data.data);
+    initializeBarcodeScanner();
+  };
+
+  useEffect(() => {
+    getAssets();
+  }, []);
+
+  useEffect(() => {
     Quagga.onDetected((result) => {
       console.log("Barcode detected:", result.codeResult.code);
       setBarcode(result.codeResult.code);
@@ -52,18 +87,41 @@ const Scan = () => {
 
       // Look up the asset by inventory number
       const inventoryNumber = result.codeResult.code;
+      console.log("eer", assets);
       const foundAsset = assets.find((asset) => {
         return asset.numb_inv === inventoryNumber;
       });
-
       console.log("Found Asset:", foundAsset);
-      // Redirect to corresponding asset page
-      if (assets) {
-        navigate(`/infoasset/${foundAsset.id}`);
 
+      // Redirect to corresponding asset page
+      if (foundAsset) {
+        navigate(`/infoasset/${foundAsset.id}`);
         Quagga.stop();
       }
     });
+  }, [assets]);
+
+  function initializeBarcodeScanner() {
+    Quagga.init(
+      {
+        inputStream: {
+          name: "Live",
+          type: "LiveStream",
+          target: document.querySelector("#scanner-container"),
+        },
+        decoder: {
+          readers: ["code_128_reader", "ean_reader", "upc_reader"],
+        },
+      },
+      function (err) {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        console.log("Barcode scanner initialized.");
+        Quagga.start();
+      }
+    );
   }
 
   function drawLine(code) {
