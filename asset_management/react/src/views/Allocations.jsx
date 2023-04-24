@@ -32,7 +32,8 @@ import axiosClient from "../axios-client.js";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import { DateRangePicker } from "react-date-range";
+import { DateRangePicker, locales } from "react-date-range";
+import Papa from "papaparse";
 
 //SideBar:-------------Relatório---------------
 export default function Allocations() {
@@ -73,6 +74,32 @@ export default function Allocations() {
       });
   };
 
+  //Download of the current table displayed
+  const downloadCSV = () => {
+    const csvData = Papa.unparse({
+      fields: ["Utilizador", "Operação", "Nº Inventário", "Data de alteração"],
+      data: allocations.map((allocation) => {
+        return [
+          allocation.users.name,
+          allocation.action_type,
+          allocation.assets === null
+            ? allocation.inv_number
+            : allocation.assets.numb_inv,
+          allocation.allocation_date,
+        ];
+      }),
+    });
+    const blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", "relatorioMov.csv");
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   //For the calendar
   const handleSelect = (date) => {
     let filtered = allAllocations.filter((allocation) => {
@@ -87,7 +114,7 @@ export default function Allocations() {
     setEndDate(date.selection.endDate);
     setAllocations(filtered);
   };
-
+  //For the calendar range chosen by the user
   const selectionRange = {
     startDate: startDate,
     endDate: endDate,
@@ -105,9 +132,18 @@ export default function Allocations() {
         className="container-fluid"
       >
         <h1>Relatório</h1>
+        <div className="tb-btn-user">
+          <button onClick={downloadCSV} className="btn-dwl">
+            Download CSV
+          </button>
+        </div>
       </div>
       <div className="card animated fadeInDown">
-        <DateRangePicker ranges={[selectionRange]} onChange={handleSelect} />
+        <DateRangePicker
+          ranges={[selectionRange]}
+          onChange={handleSelect}
+          locales={"pt"}
+        />
         <table>
           <thead>
             <tr>
