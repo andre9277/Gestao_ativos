@@ -30,7 +30,11 @@ All the changes made to enable the implementation of the desired development too
 import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import PaginationLinks from "../components/PaginationLinks.jsx";
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { DateRangePicker } from "react-date-range";
 
+//SideBar:-------------Relatório---------------
 export default function Allocations() {
   //returns all users (mount hook is called 2x)
   useEffect(() => {
@@ -40,6 +44,9 @@ export default function Allocations() {
   const [allocations, setAllocations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [meta, setMeta] = useState({});
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [allAllocations, setAllAllocations] = useState([]);
 
   const onPageClick = (link) => {
     getAllocations(link.url);
@@ -57,12 +64,34 @@ export default function Allocations() {
         //quando obtemos um request, loading=false
         setLoading(false);
         setAllocations(data.data);
+        setAllAllocations(data.data);
         /* console.log("dados Mov.:", data.data); */
         setMeta(data.meta);
       })
       .catch(() => {
         setLoading(false);
       });
+  };
+
+  //For the calendar
+  const handleSelect = (date) => {
+    let filtered = allAllocations.filter((allocation) => {
+      let allocationDate = new Date(allocation["allocation_date"]);
+      return (
+        allocationDate >= date.selection.startDate &&
+        allocationDate <= date.selection.endDate
+      );
+    });
+
+    setStartDate(date.selection.startDate);
+    setEndDate(date.selection.endDate);
+    setAllocations(filtered);
+  };
+
+  const selectionRange = {
+    startDate: startDate,
+    endDate: endDate,
+    key: "selection",
   };
 
   return (
@@ -75,9 +104,10 @@ export default function Allocations() {
         }}
         className="container-fluid"
       >
-        <h1>Movimentação de Ativos</h1>
+        <h1>Relatório</h1>
       </div>
       <div className="card animated fadeInDown">
+        <DateRangePicker ranges={[selectionRange]} onChange={handleSelect} />
         <table>
           <thead>
             <tr>
@@ -101,6 +131,7 @@ export default function Allocations() {
           {!loading && (
             <tbody>
               {allocations.map((allocation, index) => {
+                let date = new Date(allocation["allocation_date"]);
                 return (
                   <tr key={`${allocation.user_id}-${index}`}>
                     <td>{allocation.users.name}</td>
@@ -110,7 +141,8 @@ export default function Allocations() {
                         ? allocation.inv_number
                         : allocation.assets.numb_inv}
                     </td>
-                    <td>{allocation.allocation_date}</td>
+                    {/* <td>{allocation.allocation_date}</td> */}
+                    <td>{date.toLocaleDateString()}</td>
                   </tr>
                 );
               })}

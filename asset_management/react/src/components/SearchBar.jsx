@@ -63,22 +63,18 @@ const Search = ({ setResults }) => {
         <div className="input-group">
           <input
             type="text"
-            className="form-control bg-light border-0 small"
+            className="form-control bg-success border-0 small"
             placeholder="Procure o ativo..."
             aria-label="Search"
             aria-describedby="basic-addon2"
             onChange={(e) => handleChange(e.target.value)}
             value={inputText}
           />
-          <div className="input-group-append">
-            <button
-              className="btn btn-primary"
-              type="button"
-              /* onClick= {`http://localhost:3000/infoasset/${}`} */
-            >
+          {/*   <div className="input-group-append">
+            <button className="btn btn-primary" type="button">
               <i className="fas fa-search fa-sm"></i>
             </button>
-          </div>
+          </div> */}
         </div>
       </form>
     </div>

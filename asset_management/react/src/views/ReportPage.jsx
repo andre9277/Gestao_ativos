@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import Papa from "papaparse";
 
+//SideBar:-------------Movimentação de ativos---------------
 const ReportPage = () => {
   useEffect(() => {
     getAssets();
     getAllocations();
-    //getAllocationData();
+    getUnits();
   }, []);
 
   const [assets, setAssets] = useState([]);
   const [allocations, setAllocations] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [prevName, setPrevName] = useState([]);
+  const [units, setUnits] = useState([]);
 
   const getAssets = (url) => {
     url = url || "/assets";
@@ -46,6 +47,14 @@ const ReportPage = () => {
       });
   };
 
+  const getUnits = (url) => {
+    url = url || "/units";
+
+    axiosClient.get(url).then(({ data }) => {
+      setUnits(data);
+    });
+  };
+
   /*   const getAllocationData = async (assetId) => {
     const allocation = allocations.find((a) => a.asset.id === assetId);
     if (!allocation) {
@@ -67,7 +76,7 @@ const ReportPage = () => {
   }; */
   const getAllocationData = (assetId) => {
     const allocation = allocations.find((a) => a.assets.id === assetId);
-
+    //console.log("Aqui all:", allocation);
     if (!allocation) {
       return {
         user: "",
@@ -77,7 +86,6 @@ const ReportPage = () => {
     return {
       user: allocation.users.name,
       date: allocation.allocation_date,
-      previousUnitName: "data.unit_name",
     };
   };
 
@@ -95,7 +103,7 @@ const ReportPage = () => {
         const allocationData = getAllocationData(asset.id);
         return [
           asset.numb_inv,
-          allocationData.previousUnitName,
+          asset.previous_unit_id,
           asset.previous_ent_id,
           asset.units === null ? asset.entity.ent_name : asset.units.name,
           allocationData.user,
@@ -117,7 +125,7 @@ const ReportPage = () => {
   return (
     <div>
       <div className="tb-user">
-        <h1>Relatórios</h1>
+        <h1>Movimentação de ativos</h1>
         <div className="tb-btn-user">
           <button onClick={downloadCSV} className="btn-dwl">
             Download CSV
@@ -155,11 +163,6 @@ const ReportPage = () => {
                     <td>{asset.numb_inv}</td>
 
                     <td>
-                      {/* {console.log("here:", allocationData.previousUnitName)}
-                      {allocationData.previousUnitName === null
-                        ? " "
-                        : allocationData.previousUnitName} */}
-
                       {asset.previous_unit_id === null
                         ? " "
                         : asset.previous_unit_id}
