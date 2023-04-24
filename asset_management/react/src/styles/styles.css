@@ -2748,6 +2748,7 @@ textarea.form-control-lg {
     font-size: 14px;
     border-radius: 4px;
     color: white;
+    margin: 15px;
 }
 .btn-delete {
     background-color: #b72424;
@@ -12466,7 +12467,7 @@ select {
         box-sizing: border-box;
         padding: 12px 20px;
         margin: 8px 0;
-        border-bottom: 2px solid #007840;
+        border-bottom: 2px;
     }
     select,
     .children,

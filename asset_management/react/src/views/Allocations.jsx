@@ -57,6 +57,7 @@ export default function Allocations() {
         //quando obtemos um request, loading=false
         setLoading(false);
         setAllocations(data.data);
+        /* console.log("dados Mov.:", data.data); */
         setMeta(data.meta);
       })
       .catch(() => {
@@ -81,7 +82,7 @@ export default function Allocations() {
           <thead>
             <tr>
               <th>Utilizador</th>
-              <th>Ativo</th>
+              <th>Operação</th>
               <th>Nº Inventário</th>
               <th>Data de Alteração</th>
             </tr>
@@ -103,8 +104,12 @@ export default function Allocations() {
                 return (
                   <tr key={`${allocation.user_id}-${index}`}>
                     <td>{allocation.users.name}</td>
-                    <td>{allocation.asset_id}</td>
-                    <td>{allocation.assets.numb_inv}</td>
+                    <td>{allocation.action_type}</td>
+                    <td>
+                      {allocation.assets === null
+                        ? allocation.inv_number
+                        : allocation.assets.numb_inv}
+                    </td>
                     <td>{allocation.allocation_date}</td>
                   </tr>
                 );

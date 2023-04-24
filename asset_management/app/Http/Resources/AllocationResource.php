@@ -23,6 +23,8 @@ class AllocationResource extends JsonResource
             'user_id' => $this->user_id,
             'asset_id' => $this->asset_id,
             'allocation_date' => $this->allocation_date,
+            'action_type' => $this->action_type,
+            'inv_number' => $this->inv_number,
             'users' => $this->users ? [
                 'id' => $this->users->id,
                 'name' => $this->users->name,

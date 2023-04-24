@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('assets', function (Blueprint $table) {
-            $table->id();
+            $table->id()->nullable();
             $table->string('numb_inv', 100)->nullable();
             $table->date('date_purch');
             $table->string('state');

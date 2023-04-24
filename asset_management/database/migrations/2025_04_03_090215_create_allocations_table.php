@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -17,9 +18,11 @@ return new class extends Migration
             $table->id();
             $table->dateTime('allocation_date');
             $table->timestamps();
+            $table->string('action_type');
+            $table->string('inv_number');
 
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('asset_id')->constrained('assets')->onDelete('cascade');
+            $table->foreignId('asset_id')->nullable()->constrained("assets")->cascadeOnUpdate()->nullOnDelete();
         });
     }
 

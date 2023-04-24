@@ -47,8 +47,26 @@ class AssetController extends Controller
      */
     public function store(StoreAssetRequest $request)
     {
+        /* $this->authorize('create-edit');
+        return Asset::create($request->all()); */
+
+
         $this->authorize('create-edit');
-        return Asset::create($request->all());
+
+        $asset = Asset::create($request->all());
+
+        // Create a new allocation record for the asset with action type "create"
+        $allocation = new Allocation([
+            'allocation_date' => now(),
+            'action_type' => 'Adicionar',
+            'inv_number' => $asset->numb_inv,
+            'user_id' => auth()->user()->id
+        ]);
+
+        // Associate the new allocation record with the asset
+        $asset->allocations()->save($allocation);
+
+        return $asset;
     }
 
 
@@ -58,6 +76,8 @@ class AssetController extends Controller
         return $asset::count();
     }
 
+
+    //For frontend statistics
     public function countRepair(Asset $asset)
     {
 
@@ -107,6 +127,8 @@ class AssetController extends Controller
             'asset_id' => $asset->id,
             'user_id' => Auth::id(),
             'allocation_date' => now(),
+            'action_type' => 'Atualizar',
+            'inv_number' => $asset->numb_inv,
 
         ]);
         $update->save();
@@ -121,13 +143,32 @@ class AssetController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('delete');
+        /* $this->authorize('delete');
 
         $asset = Asset::find($id);
+        $asset->delete(); */
+
+        $this->authorize('delete');
+
+        $asset = Asset::findOrFail($id);
+
+        // Save a copy of the asset ID and inventory number
+        $inventoryNumber = $asset->numb_inv;
+
+        // Delete the asset
         $asset->delete();
+
+        // Create an allocation record to track the deletion
+        $allocation = new Allocation([
+            'inv_number' => $inventoryNumber,
+            'action_type' => 'Apagar',
+            'user_id' => Auth::id(),
+            'allocation_date' => now(),
+        ]);
+        $allocation->save();
     }
 
-
+    //Show the previous unit name of one Asset
     public function showPrevious($id)
     {
         $asset = Asset::with('previousUnit')->find($id);
