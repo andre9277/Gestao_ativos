@@ -32,8 +32,9 @@ import axiosClient from "../axios-client.js";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import { DateRangePicker, locales } from "react-date-range";
+import { DateRangePicker } from "react-date-range";
 import Papa from "papaparse";
+import { pt } from "date-fns/locale";
 
 //SideBar:-------------Relatório---------------
 export default function Allocations() {
@@ -142,7 +143,9 @@ export default function Allocations() {
         <DateRangePicker
           ranges={[selectionRange]}
           onChange={handleSelect}
-          locales={"pt"}
+          locale={pt}
+          color={"#459c2c"}
+          definedRanges={[]}
         />
         <table>
           <thead>
