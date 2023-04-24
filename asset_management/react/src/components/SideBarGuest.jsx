@@ -110,7 +110,7 @@ const SideBarGuest = () => {
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
         {/* <MenuItem Name="Pages" MenuId="collapsePages" /> */}
 
-        {/* <!-- Nav Item - Relatorios --> */}
+        {/* <!-- Nav Item - Reports --> */}
         <MenuItem
           titulo={"Relatórios"}
           icon={"fa-chart-area"}
@@ -125,7 +125,7 @@ const SideBarGuest = () => {
           ></button>
         </div>
 
-        {/*  <!-- Nav Item - Utilizadores --> */}
+        {/*  <!-- Nav Item - Users --> */}
         {/*  <!-- Divider --> */}
         <hr className="sidebar-divider" />
 

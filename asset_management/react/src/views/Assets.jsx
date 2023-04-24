@@ -118,16 +118,17 @@ export default function Assets() {
   };
 
   return (
-    <div>
+    <div id="content">
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
         }}
+        className="container-fluid"
       >
         <h1>Listagem de Ativos</h1>
-        <div className="tb-btn-user">
+        <div>
           {user.role_id === 3 ? null : (
             <Link
               className="btn-add text-link"

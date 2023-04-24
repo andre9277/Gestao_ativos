@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ModeloResource;
 use App\Models\Modelo;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ModeloController extends Controller
@@ -24,5 +25,14 @@ class ModeloController extends Controller
     {
         $modelos = Modelo::all(['id', 'model_name']);
         return response()->json($modelos);
+    }
+
+    public function getModelsByEntity(Request $request): JsonResponse
+    {
+        $brandId = $request->query('brand_id');
+
+        $models_hb = Modelo::where('brand_id', $brandId)->get();
+
+        return response()->json($models_hb);
     }
 }

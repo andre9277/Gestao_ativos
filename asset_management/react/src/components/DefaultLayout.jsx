@@ -68,10 +68,10 @@ export default function DefaultLayout() {
       {user.role_id === 3 ? <SideBarGuest /> : <SideBar />}
       <div className="content">
         <TopBar user={user} onLogout={onLogout} />
-        <main>
-          <Outlet />
-        </main>
-        {/* Notificação quando um utilizador é criado/atualizado ou eliminado */}
+
+        <Outlet />
+
+        {/* Notification when a user is created/updated or deleted */}
         {notification && <div className="notification">{notification}</div>}
         <Footer />
       </div>

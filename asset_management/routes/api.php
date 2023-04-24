@@ -54,6 +54,14 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->asset();
     });
 
+    //get the name of the previous unit name
+    Route::get('assets/{id}/previous-unit-name', [AssetController::class, 'showPrevious']);
+
+    Route::get('/assetsC', [AssetController::class, 'count']);
+    Route::get('/countRepair', [AssetController::class, 'countRepair']);
+
+
+
     //Route para os Movimentos dos ativos
     //Route::resource('allocations', AllocationsController::class);
     Route::get('/allocations', [AllocationsController::class, 'index']);
@@ -67,6 +75,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Endpoint Models
     Route::get('/modelos', [ModeloController::class, 'index']);
+    Route::get('/modelsHb', [ModeloController::class, 'getModelsByEntity']);
 
     //Endpoint Supplier
     Route::get('/supplier', [SupplierController::class, 'index']);

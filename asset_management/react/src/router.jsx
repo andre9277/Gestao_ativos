@@ -37,7 +37,7 @@ import Signup from "./views/Signup";
 import Users from "./views/Users";
 import UserForm from "./views/UserForm";
 import ForgotPass from "./views/ForgotPass.jsx";
-import Scan from "./views/Scan.tsx";
+import Scan from "./views/Scan.jsx";
 import Assets from "./views/Assets.jsx";
 import AssetForm from "./views/AssetForm.jsx";
 import Allocations from "./views/Allocations.jsx";
@@ -98,7 +98,7 @@ const router = createBrowserRouter([
         element: <ReportPage />,
       },
       {
-        path: "/infoasset",
+        path: "/infoasset/:id",
         element: <AssetInfo />,
       },
     ],

@@ -29,58 +29,24 @@ All the changes made to enable the implementation of the desired development too
 */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Alert from "./Alert";
+/* import Alert from "./Alert"; */
 import SearchBar from "./SearchBar";
 import SearchResultsList from "./SearchResultsList";
 import UserInfo from "./UserInfo";
 
 const TopBar = ({ user, onLogout }) => {
   const [results, setResults] = useState([]);
-  const [style, setStyle] = useState(
-    "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-  );
-
-  const changeStyle = () => {
-    if (
-      style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-    ) {
-      setStyle(
-        "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"
-      );
-    } else {
-      setStyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
-    }
-  };
-  const changeStyle1 = () => {
-    if (
-      style == "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-    ) {
-      setStyle(
-        "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1"
-      );
-    } else {
-      setStyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
-    }
-  };
 
   return (
     <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-      {/*  <!-- Sidebar Toggle (Topbar) --> */}
-      <button
-        id="sidebarToggleTop"
-        className="btn btn-link d-md-none rounded-circle mr-3"
-        onClick={changeStyle1}
-      >
-        <i className="fa fa-bars"></i>
-      </button>
       {/*  <!-- Topbar Search --> */}
       <div className="search-bar-container">
         <SearchBar setResults={setResults} />
         {results && results.length > 0 && (
-          <SearchResultsList results={results} />
+          <SearchResultsList results={results} setResults={setResults} />
         )}
       </div>
-      {/*Icon bar code para utilizadores realizam scan */}
+      {/*Icon bar code for users to scan */}
       <Link to="/scan">
         <i className="fa fa-barcode fa-3x" aria-hidden="true"></i>
       </Link>
@@ -126,7 +92,8 @@ const TopBar = ({ user, onLogout }) => {
         </li>
 
         {/*  <!-- Nav Item - Alerts --> */}
-        <Alert />
+
+        {/*  <Alert /> */}
 
         <div className="topbar-divider d-none d-sm-block"></div>
 

@@ -9,11 +9,11 @@ use App\Http\Resources\AssetResource;
 use App\Models\Allocation;
 use App\Models\Brand;
 use App\Models\Entity;
+use App\Models\Unit;
 use Illuminate\Support\Facades\Auth;
 
 class AssetController extends Controller
 {
-
 
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class AssetController extends Controller
     {
         $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name,sig', 'modelo:id,model_name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
             ->orderBy('id', 'desc')
-            ->paginate(10);
+            ->paginate(20);
 
         return AssetResource::collection($assets);
     }
@@ -49,6 +49,19 @@ class AssetController extends Controller
     {
         $this->authorize('create-edit');
         return Asset::create($request->all());
+    }
+
+
+    public function count(Asset $asset)
+    {
+
+        return $asset::count();
+    }
+
+    public function countRepair(Asset $asset)
+    {
+
+        return $asset::where('cond', 'Reparação')->count();
     }
 
     /**
@@ -85,6 +98,7 @@ class AssetController extends Controller
     {
         $this->authorize('create-edit');
 
+
         //$asset = Asset::find($id);
         $asset->update($request->all());
 
@@ -99,12 +113,6 @@ class AssetController extends Controller
         return $asset;
     }
 
-
-
-
-
-
-
     /**
      * Remove the specified resource from storage.
      *
@@ -117,5 +125,18 @@ class AssetController extends Controller
 
         $asset = Asset::find($id);
         $asset->delete();
+    }
+
+
+    public function showPrevious($id)
+    {
+        $asset = Asset::with('previousUnit')->find($id);
+        if (!$asset) {
+            return response()->json(['error' => 'Asset not found'], 404);
+        }
+
+        $unitName = $asset->previousUnit->name;
+
+        return response()->json(['unit_name' => $unitName]);
     }
 }

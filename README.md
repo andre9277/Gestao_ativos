@@ -64,12 +64,29 @@
      **15- Run:**
 
         npm install
-    
-     **16- Run:**
 
-        npm run dev
-        
-     **17- Login information:**
+     **16- Install library for Scan feature:**
+
+         npm i quagga
+
+
+      **17- Install Chart for graphics on Dashboard**
+
+         npm install --save chart.js react-chartjs-2
+
+         npm install chart.js
+
+     **18- Run:**
+
+        npm i react-router-dom
+      ______________________________________________________
+
+        npm i axios
+      ______________________________________________________
+
+         npm run dev
+
+     **19- Login information:**
      
         email: admin@gmail.com
         password: Admin@277

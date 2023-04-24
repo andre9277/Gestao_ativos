@@ -32,7 +32,7 @@ import axiosClient from "../axios-client.js";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 
 export default function Allocations() {
-  //retorna todos os utilizadores (mount hook é chamado 2x)
+  //returns all users (mount hook is called 2x)
   useEffect(() => {
     getAllocations();
   }, []);
@@ -65,13 +65,14 @@ export default function Allocations() {
   };
 
   return (
-    <div>
+    <div id="content">
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
         }}
+        className="container-fluid"
       >
         <h1>Movimentação de Ativos</h1>
       </div>
@@ -81,7 +82,7 @@ export default function Allocations() {
             <tr>
               <th>Utilizador</th>
               <th>Ativo</th>
-              <th>Nº Série</th>
+              <th>Nº Inventário</th>
               <th>Data de Alteração</th>
             </tr>
           </thead>
@@ -103,7 +104,7 @@ export default function Allocations() {
                   <tr key={`${allocation.user_id}-${index}`}>
                     <td>{allocation.users.name}</td>
                     <td>{allocation.asset_id}</td>
-                    <td>{allocation.assets.numb_ser}</td>
+                    <td>{allocation.assets.numb_inv}</td>
                     <td>{allocation.allocation_date}</td>
                   </tr>
                 );

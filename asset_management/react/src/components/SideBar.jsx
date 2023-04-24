@@ -97,7 +97,7 @@ const SideBar = () => {
         {/*   <!-- Heading --> */}
         <div className="sidebar-heading">Gestão de ativos</div>
 
-        {/* <!-- Nav Item - Relatorios --> */}
+        {/* <!-- Nav Item - ReportPage --> */}
         <MenuItem
           titulo={"Movimento de Ativos"}
           icon={"fa-chart-area"}
@@ -110,7 +110,7 @@ const SideBar = () => {
           origem={"assets"}
         />
 
-        {/*  <!-- Nav Item - Utilizadores --> */}
+        {/*  <!-- Nav Item - Users --> */}
         {/*  <!-- Divider --> */}
         <hr className="sidebar-divider" />
 
@@ -152,6 +152,20 @@ const SideBar = () => {
       <a className="scroll-to-top rounded" href="#top">
         <i className="fas fa-angle-up"></i>
       </a>
+      <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <div id="content-wrapper" className="d-flex flex-column">
+          <div id="content">
+            {/*  <!-- Sidebar Toggle (Topbar) --> */}
+            <button
+              id="sidebarToggleTop"
+              className="btn btn-link d-md-none rounded-circle mr-3"
+              onClick={changeStyle1}
+            >
+              <i className="fa fa-bars"></i>
+            </button>
+          </div>
+        </div>
+      </nav>
     </>
   );
 };

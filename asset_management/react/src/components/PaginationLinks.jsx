@@ -33,7 +33,7 @@ const PaginationLinks = ({ meta, onPageClick }) => {
   function onClick(ev, link) {
     ev.preventDefault();
 
-    //Se link do url não existir
+    //if url doesnt exist
     if (!link.url) {
       return;
     }

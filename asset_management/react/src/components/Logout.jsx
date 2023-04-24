@@ -43,7 +43,7 @@ const Logout = () => {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">
-              Ready to Leave?
+              Pronto para encerrar sessão?
             </h5>
             <button
               className="close"
@@ -55,7 +55,7 @@ const Logout = () => {
             </button>
           </div>
           <div className="modal-body">
-            Select "Logout" below if you are ready to end your current session.
+            Selecione a opção Logout caso pretenda acabar sessão.
           </div>
           <div className="modal-footer">
             <button
@@ -63,7 +63,7 @@ const Logout = () => {
               type="button"
               data-dismiss="modal"
             >
-              Cancel
+              Cancelar
             </button>
             <a className="btn btn-primary" href="/">
               Logout
