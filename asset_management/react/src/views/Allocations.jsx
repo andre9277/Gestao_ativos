@@ -35,12 +35,15 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
 import Papa from "papaparse";
 import { pt } from "date-fns/locale";
+import Filter from "../components/Filter.jsx";
 
 //SideBar:-------------Relatório---------------
 export default function Allocations() {
   //returns all users (mount hook is called 2x)
   useEffect(() => {
     getAllocations();
+    getAssets();
+    getUsers();
   }, []);
 
   const [allocations, setAllocations] = useState([]);
@@ -49,6 +52,11 @@ export default function Allocations() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [allAllocations, setAllAllocations] = useState([]);
+  const [assets, setAssets] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [filteredAllocations, setFilteredAllocations] = useState([]);
+
+  const [selectedInv, setSelectedInv] = useState("");
 
   const onPageClick = (link) => {
     getAllocations(link.url);
@@ -67,6 +75,7 @@ export default function Allocations() {
         setLoading(false);
         setAllocations(data.data);
         setAllAllocations(data.data);
+        setFilteredAllocations([]);
         /* console.log("dados Mov.:", data.data); */
         setMeta(data.meta);
       })
@@ -75,6 +84,22 @@ export default function Allocations() {
       });
   };
 
+  //Realiza um request access client
+  const getAssets = (url) => {
+    url = url || "/assets";
+
+    axiosClient.get(url).then(({ data }) => {
+      setAssets(data.data);
+    });
+  };
+
+  const getUsers = (url) => {
+    url = url || "/users";
+
+    axiosClient.get(url).then(({ data }) => {
+      setUsers(data.data);
+    });
+  };
   //Download of the current table displayed
   const downloadCSV = () => {
     const csvData = Papa.unparse({
@@ -122,6 +147,43 @@ export default function Allocations() {
     key: "selection",
   };
 
+  /* const filterInv = (event) => {
+    const inventoryNumber = event.target.value;
+    if (inventoryNumber === "") {
+      setFilteredAllocations([]);
+    } else {
+      const filtered = allocations.filter((allocation) => {
+        if (allocation.assets) {
+          return allocation.assets.numb_inv.includes(inventoryNumber);
+        } else {
+          return allocation.inv_number.includes(inventoryNumber);
+        }
+      });
+      setFilteredAllocations(filtered);
+    }
+  }; */
+
+  const filterInv = (event) => {
+    const filterValue = event.target.value;
+    setSelectedInv(filterValue);
+    if (!filterValue) {
+      setAllocations(allAllocations);
+    } else {
+      const filteredAllocations = allAllocations.filter((allocation) => {
+        return (
+          allocation.assets !== null &&
+          allocation.assets.numb_inv === filterValue
+        );
+      });
+
+      setAllocations(filteredAllocations);
+    }
+  };
+
+  const resetFilter = () => {
+    setAllocations(allAllocations);
+  };
+
   return (
     <div id="content">
       <div
@@ -147,6 +209,13 @@ export default function Allocations() {
           color={"#459c2c"}
           definedRanges={[]}
         />
+        <Filter
+          assets={assets}
+          users={users}
+          filterInv={filterInv}
+          resetFilter={resetFilter}
+          selectedInv={selectedInv}
+        ></Filter>
         <table>
           <thead>
             <tr>
@@ -157,36 +226,50 @@ export default function Allocations() {
             </tr>
           </thead>
 
-          {loading && (
-            <tbody>
+          <tbody>
+            {loading && (
               <tr>
                 <td colSpan="5" className="text-center">
                   Carregando...
                 </td>
               </tr>
-            </tbody>
-          )}
+            )}
 
-          {!loading && (
-            <tbody>
-              {allocations.map((allocation, index) => {
-                let date = new Date(allocation["allocation_date"]);
-                return (
-                  <tr key={`${allocation.user_id}-${index}`}>
-                    <td>{allocation.users.name}</td>
-                    <td>{allocation.action_type}</td>
-                    <td>
-                      {allocation.assets === null
-                        ? allocation.inv_number
-                        : allocation.assets.numb_inv}
-                    </td>
-                    {/* <td>{allocation.allocation_date}</td> */}
-                    <td>{date.toLocaleDateString()}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          )}
+            {!loading &&
+              (filteredAllocations.length > 0
+                ? filteredAllocations.map((allocation, index) => {
+                    let date = new Date(allocation["allocation_date"]);
+                    return (
+                      <tr key={`${allocation.user_id}-${index}`}>
+                        <td>{allocation.users.name}</td>
+                        <td>{allocation.action_type}</td>
+                        <td>
+                          {allocation.assets === null
+                            ? allocation.inv_number
+                            : allocation.assets.numb_inv}
+                        </td>
+                        {/* <td>{allocation.allocation_date}</td> */}
+                        <td>{date.toLocaleDateString()}</td>
+                      </tr>
+                    );
+                  })
+                : allocations.map((allocation, index) => {
+                    let date = new Date(allocation["allocation_date"]);
+                    return (
+                      <tr key={`${allocation.user_id}-${index}`}>
+                        <td>{allocation.users.name}</td>
+                        <td>{allocation.action_type}</td>
+                        <td>
+                          {allocation.assets === null
+                            ? allocation.inv_number
+                            : allocation.assets.numb_inv}
+                        </td>
+                        {/* <td>{allocation.allocation_date}</td> */}
+                        <td>{date.toLocaleDateString()}</td>
+                      </tr>
+                    );
+                  }))}
+          </tbody>
         </table>
         <PaginationLinks meta={meta} onPageClick={onPageClick} />
       </div>

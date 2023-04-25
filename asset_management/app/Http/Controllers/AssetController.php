@@ -26,6 +26,9 @@ class AssetController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(20);
 
+
+
+
         return AssetResource::collection($assets);
     }
 
@@ -58,7 +61,7 @@ class AssetController extends Controller
         // Create a new allocation record for the asset with action type "create"
         $allocation = new Allocation([
             'allocation_date' => now(),
-            'action_type' => 'Adicionar',
+            'action_type' => 'Adiciona',
             'inv_number' => $asset->numb_inv,
             'user_id' => auth()->user()->id
         ]);
@@ -92,7 +95,15 @@ class AssetController extends Controller
      */
     public function show(Asset $asset)
     {
-        //
+        // Create a new asset update record for the action_type 'show'
+        $update = new Allocation([
+            'asset_id' => $asset->id,
+            'user_id' => Auth::id(),
+            'allocation_date' => now(),
+            'action_type' => 'Pesquisa',
+            'inv_number' => $asset->numb_inv,
+        ]);
+        $update->save();
         return new AssetResource($asset);
     }
 
@@ -127,7 +138,7 @@ class AssetController extends Controller
             'asset_id' => $asset->id,
             'user_id' => Auth::id(),
             'allocation_date' => now(),
-            'action_type' => 'Atualizar',
+            'action_type' => 'Atualiza',
             'inv_number' => $asset->numb_inv,
 
         ]);
@@ -161,7 +172,7 @@ class AssetController extends Controller
         // Create an allocation record to track the deletion
         $allocation = new Allocation([
             'inv_number' => $inventoryNumber,
-            'action_type' => 'Apagar',
+            'action_type' => 'Apaga',
             'user_id' => Auth::id(),
             'allocation_date' => now(),
         ]);
