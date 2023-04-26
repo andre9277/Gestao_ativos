@@ -3149,7 +3149,7 @@ textarea.is-valid.dataTable-input {
 }
 .was-validated .form-check-input:valid ~ .form-check-label,
 .form-check-input.is-valid ~ .form-check-label {
-    color: #198754;
+    color: #459c2c;
 }
 
 .form-check-inline .form-check-input ~ .valid-feedback {
@@ -12583,13 +12583,60 @@ select {
 /* Filter */
 
 .filter {
-    display: flex;
+    /* display: inline-block; */
     justify-content: space-between;
     padding: 1rem;
     margin: 1rem;
-    border-bottom: 0.1rem #c0c0c0 solid;
+    /* border-bottom: 0.1rem #c0c0c0 solid; */
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }
 
 .filter div {
     flex: 1;
+}
+
+.headerFilter {
+    display: flex;
+    text-align: right;
+    vertical-align: middle;
+    padding: 1px 5px;
+}
+
+.form-select-filter {
+    display: block;
+    width: 80%;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    -moz-padding-start: calc(0.75rem - 3px);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 30px;
+    right: 0;
+    text-align: center;
+}
+
+.filter-user {
+    margin-right: 150px;
+}
+
+.ssBar {
+    background-color: #459c2c;
+}
+
+.headerInfoAsset {
+    color: #007840;
 }

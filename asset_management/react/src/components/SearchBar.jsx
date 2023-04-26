@@ -63,7 +63,7 @@ const Search = ({ setResults }) => {
         <div className="input-group">
           <input
             type="text"
-            className="form-control bg-success border-0 small"
+            className="form-control border-0 small ssBar"
             placeholder="Procure o ativo..."
             aria-label="Search"
             aria-describedby="basic-addon2"

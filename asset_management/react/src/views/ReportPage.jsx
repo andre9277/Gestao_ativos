@@ -1,3 +1,32 @@
+/* The MIT License (MIT)
+
+Copyright (c) 2013-2023 Start Bootstrap LLC
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. 
+
+You may obtain a copy of the license at:
+
+      https://github.com/StartBootstrap/startbootstrap-sb-admin-2
+
+
+All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
+*/
 import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import Papa from "papaparse";
@@ -8,12 +37,14 @@ const ReportPage = () => {
     getAssets();
     getAllocations();
     getUnits();
+    getEnts();
   }, []);
 
   const [assets, setAssets] = useState([]);
   const [allocations, setAllocations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [units, setUnits] = useState([]);
+  const [ents, setEnts] = useState([]);
 
   const getAssets = (url) => {
     url = url || "/assets";
@@ -52,6 +83,14 @@ const ReportPage = () => {
 
     axiosClient.get(url).then(({ data }) => {
       setUnits(data);
+    });
+  };
+
+  const getEnts = (url) => {
+    url = url || "/entities";
+
+    axiosClient.get(url).then(({ data }) => {
+      setEnts(data);
     });
   };
 
@@ -128,6 +167,16 @@ const ReportPage = () => {
     document.body.removeChild(link);
   };
 
+  //Filter entities by the value that receives
+  const filtered_entities = (value) => {
+    let numb = parseInt(value);
+    ents.filter((ent) => {
+      if (ent.id === numb) {
+        return ent.ent_name;
+      }
+    });
+  };
+
   return (
     <div>
       <div className="tb-user">
@@ -177,11 +226,13 @@ const ReportPage = () => {
                         ? " "
                         : asset.previous_unit_id}
                     </td>
-                    <td>
+                    {/* <td>
                       {asset.previous_ent_id === null
                         ? ""
                         : asset.previous_ent_id}
-                    </td>
+                    </td> */}
+
+                    <td>{filtered_entities(asset.previous_ent_id)}</td>
                     <td>
                       {asset.units === null
                         ? asset.entity.ent_name

@@ -233,24 +233,26 @@ export default function Allocations() {
         </div>
       </div>
       <div className="card animated fadeInDown">
-        <DateRangePicker
-          ranges={[selectionRange]}
-          onChange={handleSelect}
-          locale={pt}
-          color={"#459c2c"}
-          definedRanges={[]}
-        />
-        <Filter
-          assets={assets}
-          users={users}
-          filterInv={filterInv}
-          resetFilter={resetFilter}
-          selectedInv={selectedInv}
-          filterOp={filterOp}
-          selectedOp={selectedOp}
-          filterUser={filterUser}
-          selectedUser={selectedUser}
-        ></Filter>
+        <div className="headerFilter">
+          <DateRangePicker
+            ranges={[selectionRange]}
+            onChange={handleSelect}
+            locale={pt}
+            color={"#459c2c"}
+            definedRanges={[]}
+          />
+          <Filter
+            assets={assets}
+            users={users}
+            filterInv={filterInv}
+            resetFilter={resetFilter}
+            selectedInv={selectedInv}
+            filterOp={filterOp}
+            selectedOp={selectedOp}
+            filterUser={filterUser}
+            selectedUser={selectedUser}
+          ></Filter>
+        </div>
         <table>
           <thead>
             <tr>
