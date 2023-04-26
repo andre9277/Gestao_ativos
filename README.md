@@ -73,6 +73,7 @@
       **17- Install Chart for graphics on Dashboard**
 
          npm install --save chart.js react-chartjs-2
+     ______________________________________________________
 
          npm install chart.js
 
@@ -85,8 +86,15 @@
       ______________________________________________________
 
          npm run dev
+         
+     **19- Calendar Filter:**
+     
+         npm install --save react-date-range
+    ______________________________________________________
+         
+         npm install --save react date-fns
 
-     **19- Login information:**
+     **20- Login information:**
      
         email: admin@gmail.com
         password: Admin@277
