@@ -35,6 +35,7 @@ class Asset extends Model
         'model_id',
         'previous_unit_id',
         'previous_ent_id',
+        'previous_ci',
 
     ];
 
@@ -96,6 +97,9 @@ class Asset extends Model
             if ($unit->isDirty('ent_id')) {
                 // Store the current ent_id value in previous_ent_id
                 $unit->previous_ent_id = $unit->getOriginal('ent_id');
+            }
+            if ($unit->isDirty('ci')) {
+                $unit->previous_ci = $unit->getOriginal('ci');
             }
         });
     }

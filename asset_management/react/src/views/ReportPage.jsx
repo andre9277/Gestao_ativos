@@ -93,8 +93,10 @@ const ReportPage = () => {
     const csvData = Papa.unparse({
       fields: [
         "Nº Inventário",
-        "Local Anterior-Unidade",
-        "Local Anterior-Entidade",
+        "CI(Anterior)",
+        "CI(Atual)",
+        "Unidade(Anterior)",
+        "Entidade(Anterior)",
         "Local Atual",
         "Utilizador",
         "Movido em",
@@ -103,6 +105,8 @@ const ReportPage = () => {
         const allocationData = getAllocationData(asset.id);
         return [
           asset.numb_inv,
+          asset.previous_ci,
+          asset.ci,
           asset.previous_unit_id,
           asset.previous_ent_id,
           asset.units === null ? asset.entity.ent_name : asset.units.name,
@@ -137,8 +141,10 @@ const ReportPage = () => {
           <thead>
             <tr>
               <th>Nº Inventário</th>
-              <th>Local Anterior - Unidade</th>
-              <th>Local Anterior - Entidade</th>
+              <th>CI(Anterior)</th>
+              <th>CI(Atual)</th>
+              <th>Unidade(Anterior)</th>
+              <th>Entidade(Anterior)</th>
               <th>Local Atual</th>
               <th>Utilizador</th>
               <th>Movido em</th>
@@ -161,6 +167,8 @@ const ReportPage = () => {
                 return (
                   <tr key={`${asset.id}-${index}`}>
                     <td>{asset.numb_inv}</td>
+                    <td>{asset.previous_ci}</td>
+                    <td>{asset.ci}</td>
 
                     <td>
                       {asset.previous_unit_id === null
