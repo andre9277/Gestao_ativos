@@ -170,11 +170,14 @@ const ReportPage = () => {
   //Filter entities by the value that receives
   const filtered_entities = (value) => {
     let numb = parseInt(value);
-    ents.filter((ent) => {
-      if (ent.id === numb) {
-        return ent.ent_name;
-      }
-    });
+    const filtered = ents.filter((ent) => ent.id === numb);
+    return filtered.length > 0 ? filtered[0].ent_name : "";
+  };
+
+  const filtered_units = (value) => {
+    let numb = parseInt(value);
+    const filtered = units.filter((unit) => unit.id === numb);
+    return filtered.length > 0 ? filtered[0].name : "";
   };
 
   return (
@@ -222,9 +225,10 @@ const ReportPage = () => {
                     <td>{asset.ci}</td>
 
                     <td>
-                      {asset.previous_unit_id === null
+                      {/* {asset.previous_unit_id === null
                         ? " "
-                        : asset.previous_unit_id}
+                        : asset.previous_unit_id} */}
+                      {filtered_units(asset.previous_unit_id)}
                     </td>
                     {/* <td>
                       {asset.previous_ent_id === null

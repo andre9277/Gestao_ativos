@@ -36,6 +36,7 @@ import { DateRangePicker } from "react-date-range";
 import Papa from "papaparse";
 import { pt } from "date-fns/locale";
 import Filter from "../components/Filter.jsx";
+import axios from "axios";
 
 //SideBar:-------------Relatório---------------
 export default function Allocations() {
@@ -103,7 +104,7 @@ export default function Allocations() {
     });
   };
   //Download of the current table displayed
-  const downloadCSV = () => {
+  /*  const downloadCSV = () => {
     const csvData = Papa.unparse({
       fields: ["Utilizador", "Operação", "Nº Inventário", "Data de alteração"],
       data: allocations.map((allocation) => {
@@ -127,7 +128,20 @@ export default function Allocations() {
     link.click();
     document.body.removeChild(link);
   };
+ */
 
+  const downloadCsv = (url) => {
+    url = url || "/download-csv";
+
+    axiosClient.get(url).then(({ data }) => {
+      const url = window.URL.createObjectURL(new Blob([data.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "relatorioMov.csv");
+      document.body.appendChild(link);
+      link.click();
+    });
+  };
   //For the calendar
   const handleSelect = (date) => {
     let filtered = allAllocations.filter((allocation) => {
@@ -148,22 +162,6 @@ export default function Allocations() {
     endDate: endDate,
     key: "selection",
   };
-
-  /* const filterInv = (event) => {
-    const inventoryNumber = event.target.value;
-    if (inventoryNumber === "") {
-      setFilteredAllocations([]);
-    } else {
-      const filtered = allocations.filter((allocation) => {
-        if (allocation.assets) {
-          return allocation.assets.numb_inv.includes(inventoryNumber);
-        } else {
-          return allocation.inv_number.includes(inventoryNumber);
-        }
-      });
-      setFilteredAllocations(filtered);
-    }
-  }; */
 
   const filterInv = (event) => {
     const filterValue = event.target.value;
@@ -227,7 +225,7 @@ export default function Allocations() {
       >
         <h1>Relatório</h1>
         <div className="tb-btn-user">
-          <button onClick={downloadCSV} className="btn-dwl">
+          <button onClick={downloadCsv} className="btn-dwl">
             Download CSV
           </button>
         </div>

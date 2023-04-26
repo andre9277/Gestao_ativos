@@ -24,6 +24,37 @@ class AllocationsController extends Controller
     }
 
 
+    public function downloadCsv()
+    {
+        $alloc = Allocation::with('users:id,name', 'assets:id,numb_ser,unit_id,numb_inv')
+            ->orderBy('id', 'desc')
+            ->paginate(20);
+        $allData = $alloc->items();
+        $currentPage = $alloc->currentPage();
+        $totalPages = $alloc->lastPage();
+
+        for ($i = $currentPage + 1; $i <= $totalPages; $i++) {
+            $alloc = Allocation::with('users:id,name', 'assets:id,numb_ser,unit_id,numb_inv')
+                ->orderBy('id', 'desc')
+                ->paginate(20, ['*'], 'page', $i);
+            $allData = array_merge($allData, $alloc->items());
+        }
+
+        $csvData = "";
+        foreach ($allData as $allocation) {
+            $csvData .= "{$allocation->users->name},{$allocation->action_type},";
+            if ($allocation->assets === null) {
+                $csvData .= "{$allocation->inv_number},";
+            } else {
+                $csvData .= "{$allocation->assets->numb_inv},";
+            }
+            $csvData .= "{$allocation->allocation_date}\n";
+        }
+
+        return response($csvData)
+            ->header('Content-Type', 'text/csv')
+            ->header('Content-Disposition', 'attachment; filename="relatorioMov.csv"');
+    }
 
 
     /**

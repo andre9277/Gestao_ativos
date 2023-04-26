@@ -60,6 +60,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/assetsC', [AssetController::class, 'count']);
     Route::get('/countRepair', [AssetController::class, 'countRepair']);
 
+    Route::get('/download-csv', [AllocationsController::class, 'downloadCsv']);
 
 
     //Route para os Movimentos dos ativos
