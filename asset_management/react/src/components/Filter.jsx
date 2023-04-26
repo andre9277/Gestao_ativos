@@ -8,15 +8,17 @@ const Filter = ({
   selectedInv,
   filterOp,
   selectedOp,
+  filterUser,
+  selectedUser,
 }) => {
   return (
     <div className="filter">
       <div className="filter-user">
         Utilizador:{""}
-        <select>
-          <option>Selecione o utilizador...</option>
+        <select value={selectedUser} onChange={filterUser}>
+          <option value={null}>Selecione o utilizador...</option>
           {users.map((user) => (
-            <option key={user.id} value={user.id}>
+            <option key={user.id} value={user.name}>
               {" "}
               {user.name}
             </option>

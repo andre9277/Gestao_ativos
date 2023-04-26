@@ -58,6 +58,7 @@ export default function Allocations() {
 
   const [selectedInv, setSelectedInv] = useState("");
   const [selectedOp, setSelectedOp] = useState("");
+  const [selectedUser, setSelectedUser] = useState("");
 
   const onPageClick = (link) => {
     getAllocations(link.url);
@@ -195,6 +196,20 @@ export default function Allocations() {
     }
   };
 
+  const filterUser = (event) => {
+    const filterValue = event.target.value;
+    setSelectedUser(filterValue);
+    if (!filterValue) {
+      setAllocations(allAllocations);
+    } else {
+      const filteredAllocations = allAllocations.filter((allocation) => {
+        return allocation.users.name === filterValue;
+      });
+
+      setAllocations(filteredAllocations);
+    }
+  };
+
   //Button to reset the filter:
   const resetFilter = () => {
     setAllocations(allAllocations);
@@ -233,6 +248,8 @@ export default function Allocations() {
           selectedInv={selectedInv}
           filterOp={filterOp}
           selectedOp={selectedOp}
+          filterUser={filterUser}
+          selectedUser={selectedUser}
         ></Filter>
         <table>
           <thead>
