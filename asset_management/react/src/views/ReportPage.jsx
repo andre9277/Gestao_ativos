@@ -75,7 +75,9 @@ const ReportPage = () => {
     }
   }; */
   const getAllocationData = (assetId) => {
-    const allocation = allocations.find((a) => a.assets.id === assetId);
+    const allocation = allocations.find((a) =>
+      a.assets === null ? "" : a.assets.id === assetId
+    );
     //console.log("Aqui all:", allocation);
     if (!allocation) {
       return {

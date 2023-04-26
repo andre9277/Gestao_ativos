@@ -1,6 +1,14 @@
 import React from "react";
 
-const Filter = ({ assets, users, filterInv, resetFilter, selectedInv }) => {
+const Filter = ({
+  assets,
+  users,
+  filterInv,
+  resetFilter,
+  selectedInv,
+  filterOp,
+  selectedOp,
+}) => {
   return (
     <div className="filter">
       <div className="filter-user">
@@ -17,12 +25,12 @@ const Filter = ({ assets, users, filterInv, resetFilter, selectedInv }) => {
       </div>
       <div className="filter-user">
         Operação:{""}
-        <select>
+        <select value={selectedOp} onChange={filterOp}>
           {" "}
           <option>Selecione a operação...</option>
           <option value="Pesquisa">Pesquisa</option>
           <option value="Atualiza">Atualiza</option>
-          <option value="Apagar">Apagar</option>
+          <option value="Apaga">Apaga</option>
           <option value="Adiciona">Adiciona</option>
         </select>
       </div>
