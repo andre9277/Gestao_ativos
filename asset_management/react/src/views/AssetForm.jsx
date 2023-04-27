@@ -103,7 +103,7 @@ export default function AssetForm() {
   const [selectedEntity, setSelectedEntity] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
 
-  //Sempre que o ID do asset existir:
+  //Whenever the asset ID exists:
   if (id) {
     useEffect(() => {
       setLoading(true);

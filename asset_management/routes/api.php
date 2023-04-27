@@ -25,17 +25,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//endpoints que têm acesso
+//endpoints the user has access when login
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 
-    //ApiResource no endpoint users
+    //ApiResource in endpoint users
     Route::apiResource('/users', UserController::class);
 
-    //Endpoint Categorias
+    //Endpoint Categories
     Route::get('/categories', [CategoryController::class, 'index']);
 
     //Endpoint Entities
@@ -63,7 +63,7 @@ Route::middleware('auth:sanctum')->group(function () {
     /* Route::get('/download-csv', [AllocationsController::class, 'downloadCsv']); */
 
 
-    //Route para os Movimentos dos ativos
+    //Route for the Asset Movement
     //Route::resource('allocations', AllocationsController::class);
     Route::get('/allocations', [AllocationsController::class, 'index']);
     Route::apiResource('/allocations', AllocationsController::class);

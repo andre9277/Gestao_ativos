@@ -46,7 +46,7 @@ import ManutLayout from "./components/ManutLayout.jsx";
 import ReportPage from "./views/ReportPage.jsx";
 import AssetInfo from "./views/AssetInfo.jsx";
 
-//O objeto router define os caminhos(routes) e os componentes que devem ser renderizados quando um utilizador navega para um caminho específico.
+//The router object defines the routes and components that should be rendered when a user navigates to a specific path.
 
 const router = createBrowserRouter([
   {

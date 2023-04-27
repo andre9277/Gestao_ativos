@@ -4,16 +4,16 @@ import axiosClient from "../axios-client.js";
 import { useParams } from "react-router-dom";
 
 const AssetInfo = () => {
-  //Ficamos com o ID
+  //We take the ID
   let { id } = useParams();
 
   useEffect(() => {
-    //Realiza um request access client
+    //Performs a client access request
     axiosClient.get(`/assets/${id}`).then(({ data }) => {
       setAsset(data);
     });
   }, [id]);
-  //Lista de utilizadores:
+  //Lists the assets:
   const [asset, setAsset] = useState({
     id: null,
     numb_inv: "",

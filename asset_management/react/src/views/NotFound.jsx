@@ -45,12 +45,10 @@ export default function NotFound() {
                     src="img/error-404-monochrome.svg"
                     alt="Not Found"
                   />
-                  <p className="lead">
-                    This requested URL was not found on this server.
-                  </p>
+                  <p className="lead">Página não encontrada!</p>
                   <Link to="/dashboard">
                     <i className="fas fa-arrow-left me-1"></i>
-                    Return to Dashboard
+                    Voltar para o Dashboard
                   </Link>
                 </div>
               </div>

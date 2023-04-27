@@ -40,14 +40,14 @@ export default function Assets() {
   const [meta, setMeta] = useState({});
   const { setNotification, user } = useStateContext();
 
-  //retorna todos os assets (mount hook é chamado 2x)
+  //returns all assets (mount hook is called 2x)
   useEffect(() => {
     getAssets();
   }, []);
 
   const navigate = useNavigate();
 
-  //Handel click para apagar um asset
+  //Handle click para apagar um asset
   const onDeleteClick = () => {
     // Get the IDs of all the checked users
     const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
@@ -57,16 +57,16 @@ export default function Assets() {
       return;
     }
 
-    //Confirmação da eliminação de um asset
+    //Confirmation of deletion of an asset
     if (!window.confirm("Tem a certeza que pretende apagar o ativo?")) {
       return;
     }
 
-    //Requests para apagar o asset
+    //Requests to delete the asset
     axiosClient.delete(`/assets/${checkedAssetIds.join(",")}`).then(() => {
       setNotification("Ativo apagado com sucesso!");
 
-      //após asset ser eliminado, faz fetch de todos os assets para mostrar a eliminação realizada com sucesso
+      //after asset being deleted, fetch of all assets, so it displays with success all the assets
       getAssets();
     });
   };
@@ -89,16 +89,16 @@ export default function Assets() {
     getAssets(link.url);
   };
 
-  //Realiza um request access client
+  //Performs a client access request
   const getAssets = (url) => {
     url = url || "/assets";
 
-    //enquanto não acaba o request, aplicamos o loading = true
+    //when there is still a request, we aply loading = true
     setLoading(true);
     axiosClient
       .get(url)
       .then(({ data }) => {
-        //quando obtemos um request, loading=false
+        //when the request is successfull, loading=false
         setLoading(false);
         //console.log(data);
         setAssets(data.data);
@@ -190,7 +190,7 @@ export default function Assets() {
           )}
           {!loading && (
             <tbody>
-              {/* Iteração pelos assets todos */}
+              {/* Iteration between all assets */}
               {assets.map((a) => (
                 <tr key={a.id}>
                   <td>{a.category.name}</td>

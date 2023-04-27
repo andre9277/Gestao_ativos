@@ -33,11 +33,11 @@ import PaginationLinks from "../components/PaginationLinks.jsx";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
-import Papa from "papaparse";
+import Papa from "papaparse"; //library to export in .csv
 import { pt } from "date-fns/locale";
 import Filter from "../components/Filter.jsx";
 
-//SideBar:-------------Relatório---------------
+//SideBar:-------------Reports---------------
 export default function Allocations() {
   //returns all users (mount hook is called 2x)
   useEffect(() => {
@@ -64,21 +64,21 @@ export default function Allocations() {
     getAllocations(link.url);
   };
 
-  //Realiza um request access client
+  //Performs a client access request
   const getAllocations = (url) => {
     url = url || "/allocations";
 
-    //enquanto não acaba o request, aplicamos o loading = true
+    //while the request does not finish, we apply the loading = true
     setLoading(true);
     axiosClient
       .get(url)
       .then(({ data }) => {
-        //quando obtemos um request, loading=false
+        //when we get a request, loading=false
         setLoading(false);
         setAllocations(data.data);
         setAllAllocations(data.data);
         setFilteredAllocations([]);
-        /* console.log("dados Mov.:", data.data); */
+        /* console.log("Mov. data.:", data.data); */
         setMeta(data.meta);
       })
       .catch(() => {
@@ -86,7 +86,7 @@ export default function Allocations() {
       });
   };
 
-  //Realiza um request access client
+  //Performs a client access request
   const getAssets = (url) => {
     url = url || "/assets";
 

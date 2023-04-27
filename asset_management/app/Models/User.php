@@ -49,7 +49,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    //Relação entre as tabelas Role e User. Cada user tem uma role e várias roles podem ter vários users
+    //Relationship between Role and User tables. Each user has a role and multiple roles can have multiple users
     public function roles()
     {
 

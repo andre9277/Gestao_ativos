@@ -29,22 +29,22 @@ All the changes made to enable the implementation of the desired development too
 */
 import axios from "axios";
 
-//Utilização da libraria Axios para realizar HTTP requests
+//Using the Axios library to perform HTTP requests
 
 const axiosClient = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
-}); //criado uma instância do axios com um baseURL que é obtido pela variável .env
+}); //created an instance of axios with a baseURL which is obtained by the .env variable
 
-//Dois interceptors (um para o request e outro para a response)
+//Two interceptors (one for the request and one for the response)
 
-//Adiciona autorização com um JWT access token retirado do localStorage
+//Add authorization with a JWT access token taken from localStorage
 axiosClient.interceptors.request.use((config) => {
   const token = localStorage.getItem("ACCESS_TOKEN");
   config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
-//Verifica o status da resposta e realiza a ação conforme o código que recebe
+//Checks the status of the response and performs the action according to the code it receives
 axiosClient.interceptors.response.use(
   (response) => {
     return response;
@@ -64,4 +64,4 @@ axiosClient.interceptors.response.use(
 );
 
 export default axiosClient;
-//exportado , deste modo pode ser utilizado para realizar HTTP requests
+//export to be able to make HTTP requests and getting the responses

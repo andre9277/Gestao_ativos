@@ -29,10 +29,10 @@ All the changes made to enable the implementation of the desired development too
 */
 import { createContext, useContext, useState } from "react";
 
-//Gestão do estado utilizando um objeto Context
-//Também armazena alguns dados no localStorage
+//State management using a Context object
+//It also stores some data in localStorage
 
-//Valores iniciais e algumas funções para realizar atualizações
+//Initial values ​​and some functions to perform updates
 const StateContext = createContext({
   currentUser: null,
   token: null,
@@ -42,13 +42,13 @@ const StateContext = createContext({
   setNotification: () => {},
 });
 
-//Função responsável por definir o estado inicial do utilizador, token e notificação utilizando o useState
+//Function responsible for defining the initial state of the user, token and notification using the useState
 export const ContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
-  const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN")); //quando user atualiza, guarda a sessão
+  const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN")); //When user updates, it saves the session
   const [notification, _setNotification] = useState("");
 
-  //Grava o token no localstorage do browser, assim guarda o token quando o utilizador realiza refresh
+  //Save the token in the localstorage of the browser, so when the user refresh it saves the token
   const setToken = (token) => {
     _setToken(token);
     if (token) {
@@ -58,7 +58,7 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
-  //Mensagem apresentada ao utilizador por um período de tempo
+  //Message displayed to the user for a period of time
   const setNotification = (message) => {
     _setNotification(message);
 
@@ -69,7 +69,7 @@ export const ContextProvider = ({ children }) => {
 
   //
   return (
-    //expoe todos estes valores para qualquer componente/página que utilizar o ContextProvider
+    //exposes all the values for the components/pages that uses the ContextProvider
     <StateContext.Provider
       value={{
         user,

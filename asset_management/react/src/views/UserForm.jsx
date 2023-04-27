@@ -33,13 +33,13 @@ import axiosClient from "../axios-client.js";
 import { useStateContext } from "../context/ContextProvider.jsx";
 
 export default function UserForm() {
-  //permite a navegação de users para outra página
+  //Allows the navigation of users to other page
   const navigate = useNavigate();
 
-  //Ficamos com o ID
+  //We stay with the ID
   let { id } = useParams();
 
-  //Lista de utilizadores:
+  //Lists of users
   const [user, setUser] = useState({
     id: null,
     name: "",
@@ -52,10 +52,11 @@ export default function UserForm() {
   const [errors, setErrors] = useState(null);
 
   //Loading para informar aos users de quando a tabela acaba de dar load
+  //Loading to inform the users when the table has finished loading
   const [loading, setLoading] = useState(false);
   const { setNotification } = useStateContext();
 
-  //Sempre que o ID do utilizador existir:
+  //If the user ID exists
   if (id) {
     useEffect(() => {
       setLoading(true);
@@ -71,18 +72,19 @@ export default function UserForm() {
     }, []);
   }
 
-  //Ao submeter o update:
+  //When submiting the update
   const onSubmit = (ev) => {
     ev.preventDefault();
 
-    //se existir um user id: faz a atualização
+    //if the user id exists: it makes an update
     if (user.id) {
       axiosClient
         .put(`/users/${user.id}`, user)
         .then(() => {
-          //mensagem de update realizado com sucesso
+          //message updated made succesfully
           setNotification("Utilizador atualizado com sucesso!");
-          //Redireciona para a página dos utilizadores
+
+          //Redirection to the users pages
           navigate("/users");
         })
         .catch((err) => {
@@ -92,7 +94,7 @@ export default function UserForm() {
           }
         });
     }
-    //senão vai criar um utilizador
+    //else creates a user
     else {
       axiosClient
         .post("/users", user)

@@ -32,9 +32,6 @@ import Card from "./components/Card";
 import "./styles/Dashboard.css";
 import AreaChart from "./components/AreaChart";
 import PieChart from "./components/PieChart";
-/*import ProjectCard from "./components/ProjectCard";
- import Illustration from "./components/Illustration";
-import Approach from "./components/Approach"; */
 import { useState, useLayoutEffect } from "react";
 import axiosClient from "./axios-client.js";
 
@@ -47,7 +44,7 @@ function Dashboard() {
   const [assetTotal, setAssetTotal] = useState("");
   const [repairAsset, setRepairAsset] = useState([]);
 
-  //Realiza um request access client
+  //Performs a client access request
   const getTotalAssets = (url) => {
     url = url || "/assetsC";
     axiosClient.get(url).then(({ data }) => {
@@ -74,7 +71,7 @@ function Dashboard() {
 
           {/*  <!-- Content Row --> */}
           <div className="row">
-            {/*  <!-- Total de Ativos --> */}
+            {/*  <!-- Total of Assets --> */}
             <Card
               Titulo="Total de ativos"
               Descricao={assetTotal}
@@ -83,7 +80,7 @@ function Dashboard() {
               Tipo="primary"
             />
 
-            {/*  <!-- Ativos Alterados --> */}
+            {/*  <!-- Assets Changed --> */}
             <Card
               Titulo="Ativos Alterados - Média Mensal"
               Descricao=""
@@ -92,7 +89,7 @@ function Dashboard() {
               Tipo="success"
             />
 
-            {/*  <!-- Ativos em Reparação --> */}
+            {/*  <!-- Assets in Repair --> */}
 
             <Card
               Titulo="Ativos em Reparação"

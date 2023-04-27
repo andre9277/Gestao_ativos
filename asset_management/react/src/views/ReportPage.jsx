@@ -30,9 +30,8 @@ All the changes made to enable the implementation of the desired development too
 import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import Papa from "papaparse";
-import PaginationLinks from "../components/PaginationLinks.jsx";
 
-//SideBar:-------------Movimentação de ativos---------------
+//SideBar:-------------Asset movement---------------
 const ReportPage = () => {
   useEffect(() => {
     getAssets();
@@ -97,7 +96,6 @@ const ReportPage = () => {
     const allocation = allocations.find((a) =>
       a.assets === null ? "" : a.assets.id === assetId
     );
-    //console.log("Aqui all:", allocation);
     if (!allocation) {
       return {
         user: "",
