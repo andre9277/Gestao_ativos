@@ -182,19 +182,22 @@ export default function Allocations() {
 
   //For the calendar
   const handleSelect = (date) => {
+    let startDate = date.selection.startDate;
+    startDate.setHours(0, 0, 0, 0); // set time to midnight
+
+    let endDate = date.selection.endDate;
+    endDate.setHours(23, 59, 59, 999); // Set end date to end of day
+
     let filtered = allAllocations.filter((allocation) => {
       let allocationDate = new Date(allocation["allocation_date"]);
 
-      return (
-        allocationDate >= date.selection.startDate &&
-        allocationDate <= date.selection.endDate
-      );
+      return allocationDate >= startDate && allocationDate <= endDate;
     });
-    //console.log("endDate:", date.selection.endDate);
-    setStartDate(date.selection.startDate);
-    setEndDate(date.selection.endDate);
+    setStartDate(startDate);
+    setEndDate(endDate);
     setAllocations(filtered);
   };
+
   //For the calendar range chosen by the user
   const selectionRange = {
     startDate: startDate,
