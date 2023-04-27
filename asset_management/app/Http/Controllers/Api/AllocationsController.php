@@ -26,6 +26,9 @@ class AllocationsController extends Controller
 
     public function downloadCsv()
     {
+
+        $this->authorize('download');
+
         $alloc = Allocation::with('users:id,name', 'assets:id,numb_ser,unit_id,numb_inv')
             ->orderBy('id', 'desc')
             ->paginate(20);

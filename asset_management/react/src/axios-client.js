@@ -28,7 +28,6 @@ You may obtain a copy of the license at:
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import axios from "axios";
-import { useStateContext } from "./context/ContextProvider.jsx";
 
 //Utilização da libraria Axios para realizar HTTP requests
 
@@ -52,7 +51,7 @@ axiosClient.interceptors.response.use(
   },
   (error) => {
     const { response } = error;
-    //401: sem autorização (remove o access token do local storage)
+
     if (response.status === 401) {
       localStorage.removeItem("ACCESS_TOKEN");
       // window.location.reload();

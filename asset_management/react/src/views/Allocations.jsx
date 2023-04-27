@@ -36,7 +36,6 @@ import { DateRangePicker } from "react-date-range";
 import Papa from "papaparse";
 import { pt } from "date-fns/locale";
 import Filter from "../components/Filter.jsx";
-import axios from "axios";
 
 //SideBar:-------------Relatório---------------
 export default function Allocations() {
@@ -76,6 +75,7 @@ export default function Allocations() {
       .then(({ data }) => {
         //quando obtemos um request, loading=false
         setLoading(false);
+        console.log(data);
         setAllocations(data.data);
         setAllAllocations(data.data);
         setFilteredAllocations([]);
@@ -127,31 +127,96 @@ export default function Allocations() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  };
- */
+  }; */
 
-  const downloadCsv = (url) => {
-    url = url || "/download-csv";
+  const downloadCSV = async () => {
+    setLoading(true);
 
-    axiosClient.get(url).then(({ data }) => {
-      const url = window.URL.createObjectURL(new Blob([data.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", "relatorioMov.csv");
-      document.body.appendChild(link);
-      link.click();
+    const allData = [];
+
+    for (let page = 1; page <= meta.last_page; page++) {
+      const { data } = await axiosClient.get(`/allocations?page=${page}`);
+      allData.push(...data.data);
+    }
+
+    const filteredData = allData.filter((allocation) => {
+      const invFilter = selectedInv
+        ? allocation.assets?.numb_inv === selectedInv
+        : true;
+      const opFilter = selectedOp
+        ? allocation.action_type === selectedOp
+        : true;
+      const userFilter = selectedUser
+        ? allocation.users.name === selectedUser
+        : true;
+      return invFilter && opFilter && userFilter;
     });
+
+    setLoading(false);
+
+    const csvData = Papa.unparse({
+      fields: ["Utilizador", "Operação", "Nº Inventário", "Data de alteração"],
+      data: filteredData.map((allocation) => {
+        return [
+          allocation.users.name,
+          allocation.action_type,
+          allocation.assets === null
+            ? allocation.inv_number
+            : allocation.assets.numb_inv,
+          allocation.allocation_date,
+        ];
+      }),
+    });
+
+    const blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", "relatorioMov.csv");
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
+
+  /*  const downloadCSV = async () => {
+    // Get all the data from the server
+    const allData = await fetchAllData();
+  
+    // Filter the data based on the selected filters
+    const filteredData = allData.filter((allocation) => {
+      const invFilter = selectedInv ? allocation.assets?.numb_inv === selectedInv : true;
+      const opFilter = selectedOp ? allocation.action_type === selectedOp : true;
+      const userFilter = selectedUser ? allocation.users.name === selectedUser : true;
+      return invFilter && opFilter && userFilter;
+    });
+  
+    // Convert the filtered data to CSV
+    const csvData = Papa.unparse({
+      fields: ["Utilizador", "Operação", "Nº Inventário", "Data de alteração"],
+      data: filteredData.map((allocation) => {
+        return [
+          allocation.users.name,
+          allocation.action_type,
+          allocation.assets === null
+            ? allocation.inv_number
+            : allocation.assets.numb_inv,
+          allocation.allocation_date,
+        ];
+      }),
+    }); */
+
   //For the calendar
   const handleSelect = (date) => {
     let filtered = allAllocations.filter((allocation) => {
       let allocationDate = new Date(allocation["allocation_date"]);
+
       return (
         allocationDate >= date.selection.startDate &&
         allocationDate <= date.selection.endDate
       );
     });
-
+    //console.log("endDate:", date.selection.endDate);
     setStartDate(date.selection.startDate);
     setEndDate(date.selection.endDate);
     setAllocations(filtered);
@@ -225,7 +290,7 @@ export default function Allocations() {
       >
         <h1>Relatório</h1>
         <div className="tb-btn-user">
-          <button onClick={downloadCsv} className="btn-dwl">
+          <button onClick={downloadCSV} className="btn-dwl">
             Download CSV
           </button>
         </div>
