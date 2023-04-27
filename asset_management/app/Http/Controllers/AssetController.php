@@ -10,7 +10,9 @@ use App\Models\Allocation;
 use App\Models\Brand;
 use App\Models\Entity;
 use App\Models\Unit;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AssetController extends Controller
 {
@@ -190,5 +192,33 @@ class AssetController extends Controller
         $unitName = $asset->previousUnit->name;
 
         return response()->json(['unit_name' => $unitName]);
+    }
+
+    public function import(Request $request)
+    {
+        $file = $request->file('file');
+
+        Excel::import($file, function ($rows) {
+            foreach ($rows as $row) {
+                Asset::create([
+                    'numb_inv' => $row[0],
+                    'date_purch' => $row[1],
+                    'state' => $row[2],
+                    'numb_ser' => $row[3],
+                    'cond' => $row[4],
+                    'ala' => $row[5],
+                    'floor' => $row[6],
+                    'ci' => $row[7],
+                    'brand_id' => $row[8],
+                    'cat_id' => $row[9],
+                    'supplier_id' => $row[10],
+                    'ent_id' => $row[11],
+                    'unit_id' => $row[12],
+                    'model_id' => $row[13],
+                ]);
+            }
+        });
+
+        return redirect()->back()->with('success', 'Dados importados com sucesso!');
     }
 }

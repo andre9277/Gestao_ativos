@@ -33,6 +33,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 import "../styles/Dashboard.css";
+import ImportForm from "../components/ImportForm.jsx";
 
 export default function Assets() {
   const [assets, setAssets] = useState([]);
@@ -129,6 +130,7 @@ export default function Assets() {
       >
         <h1>Listagem de Ativos</h1>
         <div>
+          <ImportForm />
           {user.role_id === 3 ? null : (
             <Link
               className="btn-add text-link"

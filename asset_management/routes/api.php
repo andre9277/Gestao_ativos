@@ -80,6 +80,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Endpoint Supplier
     Route::get('/supplier', [SupplierController::class, 'index']);
+
+    Route::post('/import', [AssetController::class, 'import'])->name('import');
 });
 
 //Route::post('/signup', [AuthController::class, 'signup']);
