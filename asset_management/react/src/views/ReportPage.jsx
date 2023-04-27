@@ -30,6 +30,7 @@ All the changes made to enable the implementation of the desired development too
 import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import Papa from "papaparse";
+import PaginationLinks from "../components/PaginationLinks.jsx";
 
 //SideBar:-------------Movimentação de ativos---------------
 const ReportPage = () => {
@@ -55,7 +56,6 @@ const ReportPage = () => {
       .then(({ data }) => {
         setLoading(false);
         setAssets(data.data);
-        setMeta(data.meta);
       })
       .catch(() => {
         setLoading(false);
@@ -71,7 +71,6 @@ const ReportPage = () => {
       .then(({ data }) => {
         setLoading(false);
         setAllocations(data.data);
-        setMeta(data.meta);
       })
       .catch(() => {
         setLoading(false);
@@ -94,25 +93,6 @@ const ReportPage = () => {
     });
   };
 
-  /*   const getAllocationData = async (assetId) => {
-    const allocation = allocations.find((a) => a.asset.id === assetId);
-    if (!allocation) {
-      return {
-        user: "",
-        date: "",
-        previousUnitName: "",
-      };
-    } else {
-      const { data } = await axiosClient.get(
-        `/assets/${assetId}/previous-unit-name`
-      );
-      return {
-        user: allocation.user.name,
-        date: allocation.allocation_date,
-        previousUnitName: data.unit_name,
-      };
-    }
-  }; */
   const getAllocationData = (assetId) => {
     const allocation = allocations.find((a) =>
       a.assets === null ? "" : a.assets.id === assetId
@@ -130,7 +110,14 @@ const ReportPage = () => {
     };
   };
 
-  const downloadCSV = () => {
+  const downloadCSV = async () => {
+    const allData = [];
+
+    for (let page = 1; page <= meta.last_page; page++) {
+      const { data } = await axiosClient.get(`/allocations?page=${page}`);
+      allData.push(...data.data);
+    }
+
     const csvData = Papa.unparse({
       fields: [
         "Nº Inventário",
@@ -174,6 +161,7 @@ const ReportPage = () => {
     return filtered.length > 0 ? filtered[0].ent_name : "";
   };
 
+  //Filter units by the value that receives
   const filtered_units = (value) => {
     let numb = parseInt(value);
     const filtered = units.filter((unit) => unit.id === numb);
@@ -181,13 +169,15 @@ const ReportPage = () => {
   };
 
   return (
-    <div>
-      <div className="tb-user">
-        <h1>Movimentação de ativos</h1>
-        <div className="tb-btn-user">
-          <button onClick={downloadCSV} className="btn-dwl">
-            Download CSV
-          </button>
+    <div id="content">
+      <div className="container-fluid">
+        <div className="tb-user">
+          <h1>Movimentação de ativos</h1>
+          <div className="tb-btn-user">
+            <button onClick={downloadCSV} className="btn-dwl">
+              Download CSV
+            </button>
+          </div>
         </div>
       </div>
       <div className="card animated fadeInDown">

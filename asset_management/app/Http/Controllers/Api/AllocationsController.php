@@ -24,7 +24,7 @@ class AllocationsController extends Controller
     }
 
 
-    public function downloadCsv()
+    /*   public function downloadCsv()
     {
 
         $this->authorize('download');
@@ -58,7 +58,7 @@ class AllocationsController extends Controller
             ->header('Content-Type', 'text/csv')
             ->header('Content-Disposition', 'attachment; filename="relatorioMov.csv"');
     }
-
+ */
 
     /**
      * Display the specified resource.

@@ -70,11 +70,11 @@ const Search = ({ setResults }) => {
             onChange={(e) => handleChange(e.target.value)}
             value={inputText}
           />
-          {/*   <div className="input-group-append">
-            <button className="btn btn-primary" type="button">
+          <div className="input-group-append">
+            <button className="btn btn-primary">
               <i className="fas fa-search fa-sm"></i>
             </button>
-          </div> */}
+          </div>
         </div>
       </form>
     </div>

@@ -75,7 +75,6 @@ export default function Allocations() {
       .then(({ data }) => {
         //quando obtemos um request, loading=false
         setLoading(false);
-        console.log(data);
         setAllocations(data.data);
         setAllAllocations(data.data);
         setFilteredAllocations([]);
@@ -103,31 +102,6 @@ export default function Allocations() {
       setUsers(data.data);
     });
   };
-  //Download of the current table displayed
-  /*  const downloadCSV = () => {
-    const csvData = Papa.unparse({
-      fields: ["Utilizador", "Operação", "Nº Inventário", "Data de alteração"],
-      data: allocations.map((allocation) => {
-        return [
-          allocation.users.name,
-          allocation.action_type,
-          allocation.assets === null
-            ? allocation.inv_number
-            : allocation.assets.numb_inv,
-          allocation.allocation_date,
-        ];
-      }),
-    });
-    const blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.setAttribute("href", url);
-    link.setAttribute("download", "relatorioMov.csv");
-    link.style.visibility = "hidden";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }; */
 
   const downloadCSV = async () => {
     setLoading(true);
