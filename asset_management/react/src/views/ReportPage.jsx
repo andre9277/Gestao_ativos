@@ -220,17 +220,7 @@ const ReportPage = () => {
                     <td>{asset.previous_ci}</td>
                     <td>{asset.ci}</td>
 
-                    <td>
-                      {/* {asset.previous_unit_id === null
-                        ? " "
-                        : asset.previous_unit_id} */}
-                      {filtered_units(asset.previous_unit_id)}
-                    </td>
-                    {/* <td>
-                      {asset.previous_ent_id === null
-                        ? ""
-                        : asset.previous_ent_id}
-                    </td> */}
+                    <td>{filtered_units(asset.previous_unit_id)}</td>
 
                     <td>{filtered_entities(asset.previous_ent_id)}</td>
                     <td>
