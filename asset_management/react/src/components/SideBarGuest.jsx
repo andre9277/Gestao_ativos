@@ -112,7 +112,7 @@ const SideBarGuest = () => {
 
         {/* <!-- Nav Item - Reports --> */}
         <MenuItem
-          titulo={"Relatórios"}
+          titulo={"Movimentação de ativos"}
           icon={"fa-chart-area"}
           origem={"report"}
         />

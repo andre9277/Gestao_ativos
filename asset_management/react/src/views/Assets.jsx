@@ -139,21 +139,23 @@ export default function Assets() {
               + Adicionar Ativo
             </Link>
           )}
-          <>
-            <button
-              className=" btn-edit text-link"
-              onClick={(ev) => onEditClick()}
-            >
-              Editar
-            </button>
-            &nbsp;
-            <button
-              className="btn-delete text-link"
-              onClick={(ev) => onDeleteClick()}
-            >
-              Apagar
-            </button>
-          </>
+          {user.role_id === 3 ? null : (
+            <>
+              <button
+                className=" btn-edit text-link"
+                onClick={(ev) => onEditClick()}
+              >
+                Editar
+              </button>
+              &nbsp;
+              <button
+                className="btn-delete text-link"
+                onClick={(ev) => onDeleteClick()}
+              >
+                Apagar
+              </button>
+            </>
+          )}
         </div>
       </div>
       <div
