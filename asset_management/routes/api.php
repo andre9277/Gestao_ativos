@@ -12,6 +12,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -82,6 +83,31 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/supplier', [SupplierController::class, 'index']);
 
     Route::post('/import', [AssetController::class, 'import'])->name('import');
+
+    //For backend download CSV
+    /*  Route::get('/allocationss', function (Request $request) {
+        $query = DB::table('allocations')
+            ->join('users', 'allocations.user_id', '=', 'users.id')
+            ->join('assets', 'allocations.asset_id', '=', 'assets.id')
+            ->select('allocations.*', 'users.name as user_name', 'assets.numb_inv')
+            ->orderBy('allocations.created_at', 'desc');
+
+        if ($request->has('inv_number')) {
+            $query->where('assets.numb_inv', $request->input('inv_number'));
+        }
+
+        if ($request->has('action_type')) {
+            $query->where('allocations.action_type', $request->input('action_type'));
+        }
+
+        if ($request->has('user_name')) {
+            $query->where('users.name', $request->input('user_name'));
+        }
+
+        $allocations = $query->paginate(20);
+
+        return response()->json($allocations);
+    }); */
 });
 
 //Route::post('/signup', [AuthController::class, 'signup']);

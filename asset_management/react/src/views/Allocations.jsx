@@ -123,6 +123,7 @@ export default function Allocations() {
       const userFilter = selectedUser
         ? allocation.users.name === selectedUser
         : true;
+
       return invFilter && opFilter && userFilter;
     });
 
@@ -153,33 +154,6 @@ export default function Allocations() {
     document.body.removeChild(link);
   };
 
-  /*  const downloadCSV = async () => {
-    // Get all the data from the server
-    const allData = await fetchAllData();
-  
-    // Filter the data based on the selected filters
-    const filteredData = allData.filter((allocation) => {
-      const invFilter = selectedInv ? allocation.assets?.numb_inv === selectedInv : true;
-      const opFilter = selectedOp ? allocation.action_type === selectedOp : true;
-      const userFilter = selectedUser ? allocation.users.name === selectedUser : true;
-      return invFilter && opFilter && userFilter;
-    });
-  
-    // Convert the filtered data to CSV
-    const csvData = Papa.unparse({
-      fields: ["Utilizador", "Operação", "Nº Inventário", "Data de alteração"],
-      data: filteredData.map((allocation) => {
-        return [
-          allocation.users.name,
-          allocation.action_type,
-          allocation.assets === null
-            ? allocation.inv_number
-            : allocation.assets.numb_inv,
-          allocation.allocation_date,
-        ];
-      }),
-    }); */
-
   //For the calendar
   const handleSelect = (date) => {
     let startDate = date.selection.startDate;
@@ -195,6 +169,8 @@ export default function Allocations() {
     });
     setStartDate(startDate);
     setEndDate(endDate);
+    console.log("startDate:", startDate);
+    console.log("EndDate:", endDate);
     setAllocations(filtered);
   };
 
@@ -253,6 +229,9 @@ export default function Allocations() {
   //Button to reset the filter:
   const resetFilter = () => {
     setAllocations(allAllocations);
+    setSelectedInv("");
+    setSelectedOp("");
+    setSelectedUser("");
   };
 
   return (
@@ -293,62 +272,6 @@ export default function Allocations() {
             selectedUser={selectedUser}
           ></Filter>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Utilizador</th>
-              <th>Operação</th>
-              <th>Nº Inventário</th>
-              <th>Data de Alteração</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {loading && (
-              <tr>
-                <td colSpan="5" className="text-center">
-                  Carregando...
-                </td>
-              </tr>
-            )}
-
-            {!loading &&
-              (filteredAllocations.length > 0
-                ? filteredAllocations.map((allocation, index) => {
-                    let date = new Date(allocation["allocation_date"]);
-                    return (
-                      <tr key={`${allocation.user_id}-${index}`}>
-                        <td>{allocation.users.name}</td>
-                        <td>{allocation.action_type}</td>
-                        <td>
-                          {allocation.assets === null
-                            ? allocation.inv_number
-                            : allocation.assets.numb_inv}
-                        </td>
-                        {/* <td>{allocation.allocation_date}</td> */}
-                        <td>{date.toLocaleDateString()}</td>
-                      </tr>
-                    );
-                  })
-                : allocations.map((allocation, index) => {
-                    let date = new Date(allocation["allocation_date"]);
-                    return (
-                      <tr key={`${allocation.user_id}-${index}`}>
-                        <td>{allocation.users.name}</td>
-                        <td>{allocation.action_type}</td>
-                        <td>
-                          {allocation.assets === null
-                            ? allocation.inv_number
-                            : allocation.assets.numb_inv}
-                        </td>
-                        {/* <td>{allocation.allocation_date}</td> */}
-                        <td>{date.toLocaleDateString()}</td>
-                      </tr>
-                    );
-                  }))}
-          </tbody>
-        </table>
-        <PaginationLinks meta={meta} onPageClick={onPageClick} />
       </div>
     </div>
   );
