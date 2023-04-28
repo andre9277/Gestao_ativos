@@ -30,6 +30,7 @@ All the changes made to enable the implementation of the desired development too
 import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import Papa from "papaparse";
+import PaginationLinks from "../components/PaginationLinks.jsx";
 
 //SideBar:-------------Asset movement---------------
 const ReportPage = () => {
@@ -46,6 +47,8 @@ const ReportPage = () => {
   const [units, setUnits] = useState([]);
   const [ents, setEnts] = useState([]);
 
+  const [meta, setMeta] = useState({});
+
   const getAssets = (url) => {
     url = url || "/assets";
 
@@ -55,6 +58,7 @@ const ReportPage = () => {
       .then(({ data }) => {
         setLoading(false);
         setAssets(data.data);
+        setMeta(data.meta);
       })
       .catch(() => {
         setLoading(false);
@@ -74,6 +78,10 @@ const ReportPage = () => {
       .catch(() => {
         setLoading(false);
       });
+  };
+
+  const onPageClick = (link) => {
+    getAssets(link.url);
   };
 
   const getUnits = (url) => {
@@ -112,10 +120,10 @@ const ReportPage = () => {
     const allData = [];
 
     for (let page = 1; page <= meta.last_page; page++) {
-      const { data } = await axiosClient.get(`/allocations?page=${page}`);
+      const { data } = await axiosClient.get(`/assets?page=${page}`);
       allData.push(...data.data);
     }
-
+    console.log("allData::", allData);
     const csvData = Papa.unparse({
       fields: [
         "Nº Inventário",
@@ -127,14 +135,14 @@ const ReportPage = () => {
         "Utilizador",
         "Movido em",
       ],
-      data: assets.map((asset) => {
+      data: allData.map((asset) => {
         const allocationData = getAllocationData(asset.id);
         return [
           asset.numb_inv,
           asset.previous_ci,
           asset.ci,
-          asset.previous_unit_id,
-          asset.previous_ent_id,
+          filtered_units(asset.previous_unit_id),
+          filtered_entities(asset.previous_ent_id), //-----------------
           asset.units === null ? asset.entity.ent_name : asset.units.name,
           allocationData.user,
           allocationData.date,
@@ -239,6 +247,7 @@ const ReportPage = () => {
             </tbody>
           )}
         </table>
+        <PaginationLinks meta={meta} onPageClick={onPageClick} />
       </div>
     </div>
   );

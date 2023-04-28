@@ -12642,3 +12642,16 @@ select {
 .headerInfoAsset {
     color: #007840;
 }
+
+.importAsset {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.impLab {
+    width: 30%;
+}
+
+.inpImport {
+    width: 75%;
+}

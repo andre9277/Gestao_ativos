@@ -130,7 +130,6 @@ export default function Assets() {
       >
         <h1>Listagem de Ativos</h1>
         <div>
-          <ImportForm />
           {user.role_id === 3 ? null : (
             <Link
               className="btn-add text-link"
@@ -231,6 +230,7 @@ export default function Assets() {
           )}
         </table>
         <PaginationLinks meta={meta} onPageClick={onPageClick} />
+        <ImportForm />
       </div>
     </div>
   );

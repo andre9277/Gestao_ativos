@@ -28,13 +28,23 @@ const ImportForm = () => {
   };
 
   return (
-    <div>
-      <h1>Import Form</h1>
+    <div className="importAsset">
+      <h1>Importar Ativos</h1>
       <div>
-        <label htmlFor="fileInput">Select File:</label>
-        <input type="file" id="fileInput" onChange={handleFileSelect} />
+        <p></p>
+        <label htmlFor="fileInput" className="impLab">
+          Selecione o Ficheiro:
+        </label>
+        <input
+          type="file"
+          id="fileInput"
+          className="inpImport"
+          onChange={handleFileSelect}
+        />
       </div>
-      <button onClick={handleImport}>Import</button>
+      <button onClick={handleImport} className="btn-dwl">
+        Importar
+      </button>
       {successMessage && <p>{successMessage}</p>}
       {errorMessage && <p>{errorMessage}</p>}
     </div>
