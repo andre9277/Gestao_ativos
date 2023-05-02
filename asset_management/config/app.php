@@ -186,6 +186,8 @@ return [
         /*
          * Package Service Providers...
          */
+        //For the import:
+        /* Maatwebsite\Excel\Facades\Excel::class, */
 
         /*
          * Application Service Providers...

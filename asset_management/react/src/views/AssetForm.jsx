@@ -307,7 +307,7 @@ export default function AssetForm() {
               {" "}
               CI:
               <input
-                value={asset.ci}
+                value={asset.ci == null ? "" : asset.ci}
                 onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
                 placeholder="CI"
               />
