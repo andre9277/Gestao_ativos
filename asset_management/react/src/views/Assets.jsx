@@ -184,7 +184,7 @@ export default function Assets() {
           {loading && (
             <tbody>
               <tr>
-                <td colSpan="5" className="text-center">
+                <td colSpan="5" className="caprr-re">
                   Carregando...
                 </td>
               </tr>

@@ -12655,3 +12655,9 @@ select {
 .inpImport {
     width: 75%;
 }
+
+.caprr-re {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+}

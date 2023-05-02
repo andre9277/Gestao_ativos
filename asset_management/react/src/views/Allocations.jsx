@@ -45,6 +45,7 @@ export default function Allocations() {
     getUsers();
   }, []);
 
+  const [loading, setLoading] = useState(false);
   const [allocations, setAllocations] = useState([]);
   const [meta, setMeta] = useState({});
   const [startDate, setStartDate] = useState(new Date());
@@ -60,15 +61,22 @@ export default function Allocations() {
 
   //Performs a client access request
   const getAllocations = (url) => {
+    setLoading(true);
     url = url || "/allocations";
 
-    axiosClient.get(url).then(({ data }) => {
-      setAllocations(data.data);
-      setAllAllocations(data.data);
-      setFilteredAllocations([]);
-      /* console.log("Mov. data.:", data.data); */
-      setMeta(data.meta);
-    });
+    axiosClient
+      .get(url)
+      .then(({ data }) => {
+        setAllocations(data.data);
+        setAllAllocations(data.data);
+        setFilteredAllocations([]);
+        /* console.log("Mov. data.:", data.data); */
+        setMeta(data.meta);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
 
   //Performs a client access request
@@ -241,28 +249,32 @@ export default function Allocations() {
           </button>
         </div>
       </div>
-      <div className="card animated fadeInDown">
-        <div className="headerFilter">
-          <DateRangePicker
-            ranges={[selectionRange]}
-            onChange={handleSelect}
-            locale={pt}
-            color={"#459c2c"}
-            definedRanges={[]}
-          />
-          <Filter
-            assets={assets}
-            users={users}
-            filterInv={filterInv}
-            resetFilter={resetFilter}
-            selectedInv={selectedInv}
-            filterOp={filterOp}
-            selectedOp={selectedOp}
-            filterUser={filterUser}
-            selectedUser={selectedUser}
-          ></Filter>
+      {loading && <div className="caprr-re">Carregando...</div>}
+
+      {!loading && (
+        <div className="card animated fadeInDown">
+          <div className="headerFilter">
+            <DateRangePicker
+              ranges={[selectionRange]}
+              onChange={handleSelect}
+              locale={pt}
+              color={"#459c2c"}
+              definedRanges={[]}
+            />
+            <Filter
+              assets={assets}
+              users={users}
+              filterInv={filterInv}
+              resetFilter={resetFilter}
+              selectedInv={selectedInv}
+              filterOp={filterOp}
+              selectedOp={selectedOp}
+              filterUser={filterUser}
+              selectedUser={selectedUser}
+            ></Filter>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
