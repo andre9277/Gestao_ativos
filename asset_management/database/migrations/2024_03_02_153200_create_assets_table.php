@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('assets', function (Blueprint $table) {
             $table->id()->unique();
-            $table->string('numb_inv', 100)->nullable();
+            $table->string('numb_inv', 6)->unique()->nullable();
             $table->date('date_purch');
             $table->string('state');
-            $table->string('numb_ser');
+            $table->string('numb_ser', 25)->unique();
             $table->string('cond');
             $table->string('ala', 100)->nullable();
             $table->string('floor', 100)->nullable();
-            $table->string('ci', 100)->nullable();
+            $table->string('ci', 7)->nullable();
             $table->string('previous_unit_id')->nullable();;
             $table->string('previous_ent_id')->nullable();;
             $table->string('previous_ci')->nullable();;

@@ -26,7 +26,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:55',
-            'mec' => 'required',
+            'mec' => 'required|size:5',
             'email' => 'required|email|unique:users,email',
             'role_id' => 'required',
             'password' => [
@@ -35,6 +35,21 @@ class StoreUserRequest extends FormRequest
                     ->letters()
                     ->symbols(),
             ]
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'mec.size' => 'Atenção! O Número Mecanográfico deve ter exatamente 5 algarismos.',
+            'role_id.required' => 'Atenção! Deve ser atribuída uma função ao utilizador.',
+            'password.required' => 'Atenção! Deve inserir uma password com pelo menos 8 caracteres, 1 letra maiuscula e símbolos.',
+            'email.required' => 'Atenção! Deve ser inserir uma password.',
+            'mec.required' => 'Atenção! Insira o número mecanográfico do utilizador.',
+            'name.required' => 'Atenção! Insira o nome do utilizador.',
+            'password.min' => 'Atenção! A password deve conter pelo menos 8 caracteres.',
+            'password.letters' => 'Atenção! A password deve conter letras.',
+            'password.symbols' => 'Atenção! A password deve conter símbolos.'
         ];
     }
 }

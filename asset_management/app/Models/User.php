@@ -29,6 +29,13 @@ class User extends Authenticatable
         'role_id',
         'password',
     ];
+    public static $rules = [
+        'mec' => [
+            'nullable',
+            'regex:/^\d{5}$/',
+            'size:5'
+        ]
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
