@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('assets', function (Blueprint $table) {
-            $table->id();
+            $table->id()->unique();
             $table->string('numb_inv', 100)->nullable();
             $table->date('date_purch');
             $table->string('state');
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('ci', 100)->nullable();
             $table->string('previous_unit_id')->nullable();;
             $table->string('previous_ent_id')->nullable();;
+            $table->string('previous_ci')->nullable();;
 
 
             $table->unsignedBigInteger('brand_id');

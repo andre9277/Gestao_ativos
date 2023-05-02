@@ -14,7 +14,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        //dá permissão
+        //gives permisson
         return true;
     }
 
@@ -25,7 +25,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules()
     {
-        //exceato o id
+        //except the id
         return [
             'name' => 'required|string|max:55',
             'mec' => 'required',

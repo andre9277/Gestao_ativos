@@ -29,7 +29,6 @@ All the changes made to enable the implementation of the desired development too
 */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-/* import Alert from "./Alert"; */
 import SearchBar from "./SearchBar";
 import SearchResultsList from "./SearchResultsList";
 import UserInfo from "./UserInfo";
@@ -76,16 +75,11 @@ const TopBar = ({ user, onLogout }) => {
               <div className="input-group">
                 <input
                   type="text"
-                  className="form-control bg-light border-0 small"
+                  className="form-control bg-primary border-0 small"
                   placeholder="Procure o ativo..."
                   aria-label="Search"
                   aria-describedby="basic-addon2"
                 />
-                <div className="input-group-append">
-                  <button className="btn btn-primary" type="button">
-                    <i className="fas fa-search fa-sm"></i>
-                  </button>
-                </div>
               </div>
             </form>
           </div>

@@ -12,6 +12,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,17 +26,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//endpoints que têm acesso
+//endpoints the user has access when login
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 
-    //ApiResource no endpoint users
+    //ApiResource in endpoint users
     Route::apiResource('/users', UserController::class);
 
-    //Endpoint Categorias
+    //Endpoint Categories
     Route::get('/categories', [CategoryController::class, 'index']);
 
     //Endpoint Entities
@@ -60,9 +61,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/assetsC', [AssetController::class, 'count']);
     Route::get('/countRepair', [AssetController::class, 'countRepair']);
 
+    /* Route::get('/download-csv', [AllocationsController::class, 'downloadCsv']); */
 
 
-    //Route para os Movimentos dos ativos
+    //Route for the Asset Movement
     //Route::resource('allocations', AllocationsController::class);
     Route::get('/allocations', [AllocationsController::class, 'index']);
     Route::apiResource('/allocations', AllocationsController::class);
@@ -79,6 +81,33 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Endpoint Supplier
     Route::get('/supplier', [SupplierController::class, 'index']);
+
+    Route::post('/import', [AssetController::class, 'import'])->name('import');
+
+    //For backend download CSV
+    /*  Route::get('/allocationss', function (Request $request) {
+        $query = DB::table('allocations')
+            ->join('users', 'allocations.user_id', '=', 'users.id')
+            ->join('assets', 'allocations.asset_id', '=', 'assets.id')
+            ->select('allocations.*', 'users.name as user_name', 'assets.numb_inv')
+            ->orderBy('allocations.created_at', 'desc');
+
+        if ($request->has('inv_number')) {
+            $query->where('assets.numb_inv', $request->input('inv_number'));
+        }
+
+        if ($request->has('action_type')) {
+            $query->where('allocations.action_type', $request->input('action_type'));
+        }
+
+        if ($request->has('user_name')) {
+            $query->where('users.name', $request->input('user_name'));
+        }
+
+        $allocations = $query->paginate(20);
+
+        return response()->json($allocations);
+    }); */
 });
 
 //Route::post('/signup', [AuthController::class, 'signup']);

@@ -4,16 +4,16 @@ import axiosClient from "../axios-client.js";
 import { useParams } from "react-router-dom";
 
 const AssetInfo = () => {
-  //Ficamos com o ID
+  //We take the ID
   let { id } = useParams();
 
   useEffect(() => {
-    //Realiza um request access client
+    //Performs a client access request
     axiosClient.get(`/assets/${id}`).then(({ data }) => {
       setAsset(data);
     });
   }, [id]);
-  //Lista de utilizadores:
+  //Lists the assets:
   const [asset, setAsset] = useState({
     id: null,
     numb_inv: "",
@@ -54,7 +54,9 @@ const AssetInfo = () => {
   return (
     <div className="container-fluid">
       <div className="card animated fadeInDown">
-        <h1>Informação do Ativo: {asset.numb_inv}</h1>
+        <h1 className="headerInfoAsset">
+          Informação do Ativo: {asset.numb_inv}
+        </h1>
         <p></p>
         <p></p>
         <div>
@@ -96,7 +98,7 @@ const AssetInfo = () => {
               </div>
               <p></p>
               <div className="locInfo">
-                <h2 className="sub_asset">Localização: </h2>
+                <h2 className="headerInfoAsset">Localização: </h2>
                 <ul>
                   <ol className="lb-infoAsset">
                     <label className="lb-infoAsset2">Entidade:</label>{" "}
@@ -136,7 +138,7 @@ const AssetInfo = () => {
                   </ol>
                 </ul>
 
-                <h2 className="sub_asset">Fornecedor: </h2>
+                <h2 className="headerInfoAsset">Fornecedor: </h2>
                 <ul>
                   <ol className="lb-infoAsset">
                     <label className="lb-infoAsset2">Fornecedor-Nome: </label>{" "}

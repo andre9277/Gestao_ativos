@@ -17,17 +17,19 @@ class Allocation extends Model
         'asset_id',
         'user_id',
         'allocation_date',
+        'action_type',
+        'inv_number',
     ];
 
     protected $table = 'allocations';
 
-    //User e Allocation tem uma ligação many:many; pode realizar várias movimentações
+    //User and Allocation have a many:many binding; can perform multiple moves
     public function users()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    //Asset e Allocation tem uma ligação many:many
+    //Asset and Allocation have a many:many binding
     public function assets()
     {
         return $this->belongsTo(Asset::class, 'asset_id');

@@ -33,10 +33,10 @@ import axiosClient from "../axios-client.js";
 import { useStateContext } from "../context/ContextProvider.jsx";
 
 export default function AssetForm() {
-  //permite a navegação de assets para outra página
+  //Allows the navigation of the assets to other page
   const navigate = useNavigate();
 
-  //retorna todos os assets (mount hook é chamado 2x)
+  //returns all objects (called x2times)
   useEffect(() => {
     getCats();
     getEnts();
@@ -46,10 +46,10 @@ export default function AssetForm() {
     getSuppliers();
   }, []);
 
-  //Ficamos com o ID
+  //We take the id
   let { id } = useParams();
 
-  //Lista de utilizadores:
+  //List of users:
   const [asset, setAsset] = useState({
     id: null,
     numb_inv: "",
@@ -89,7 +89,7 @@ export default function AssetForm() {
 
   const [errors, setErrors] = useState(null);
 
-  //Loading para informar aos assets de quando a tabela acaba de dar load
+  //Meanwhile the table isnt loading we show a loading string
   const [loading, setLoading] = useState(false);
   const { setNotification } = useStateContext();
 
@@ -103,7 +103,7 @@ export default function AssetForm() {
   const [selectedEntity, setSelectedEntity] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
 
-  //Sempre que o ID do asset existir:
+  //Whenever the asset ID exists:
   if (id) {
     useEffect(() => {
       setLoading(true);
@@ -119,7 +119,7 @@ export default function AssetForm() {
     }, []);
   }
 
-  //Apresenta opções de acordo com a relação Entidade/Unidade
+  //Give options by the relation entity/unit
   useEffect(() => {
     if (selectedEntity) {
       axiosClient.get(`/unitss?ent_id=${selectedEntity}`).then((response) => {
@@ -142,18 +142,18 @@ export default function AssetForm() {
     }
   }, [selectedBrand]);
 
-  //Ao submeter o update:
+  //When the user submits the request
   const onSubmit = (ev) => {
     ev.preventDefault();
 
-    //se existir um asset id: faz a atualização
+    //if asset id exists: it updates
     if (asset.id) {
       axiosClient
         .put(`/assets/${asset.id}`, asset)
         .then(() => {
-          //mensagem de update realizado com sucesso
+          //update with good outcome
           setNotification("Ativo atualizado com sucesso!");
-          //Redireciona para a página dos assets
+          //redirect to the page with assets
           navigate("/assets");
         })
         .catch((err) => {
@@ -163,7 +163,7 @@ export default function AssetForm() {
           }
         });
     }
-    //senão vai criar um asset
+    //or it will create a new asset
     else {
       axiosClient
         .post("/assets", asset)
@@ -276,7 +276,7 @@ export default function AssetForm() {
         {!loading && (
           <form onSubmit={onSubmit} className="assetForm">
             <button className="btn-adicionar">Gravar</button>
-            {/* ---------- Nº Inv ----------*/}
+            {/* ---------- Inventory Number ----------*/}
             <label className="lb-info">
               {" "}
               Nº Inventário:
@@ -442,7 +442,7 @@ export default function AssetForm() {
               <p></p>
               <h4>Localização: </h4>
               <p></p>
-              {/* ---------- Entidades ----------*/}
+              {/* ---------- Entities ----------*/}
               <label htmlFor="entity" className="lb-info">
                 Entidade:
                 <select
@@ -461,14 +461,14 @@ export default function AssetForm() {
                 </select>
               </label>
 
-              {/* ---------- Unidades ----------*/}
+              {/* ---------- Units ----------*/}
               <label htmlFor="unit" className="lb-info">
                 Unidade:
                 <select
                   className="form-select"
                   name="unit"
                   id="unit"
-                  value={asset.unit_id}
+                  value={asset.unit_id === null ? "" : asset.unit_id}
                   onChange={(event) =>
                     setAsset({ ...asset, unit_id: event.target.value })
                   }

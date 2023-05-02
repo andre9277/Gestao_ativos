@@ -96,14 +96,12 @@ const SideBar = () => {
 
         {/*   <!-- Heading --> */}
         <div className="sidebar-heading">Gestão de ativos</div>
-
-        {/* <!-- Nav Item - ReportPage --> */}
-        <MenuItem
-          titulo={"Movimento de Ativos"}
-          icon={"fa-chart-area"}
-          origem={"allocations"}
-        />
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
+        <MenuItem
+          titulo={"Movimentação de ativos"}
+          icon={"fa-plus"}
+          origem={"report"}
+        />
         <MenuItem
           titulo={"Listagem de Ativos"}
           icon={"fa-cog"}
@@ -118,7 +116,13 @@ const SideBar = () => {
         <div className="sidebar-heading"> Área do Administrador</div>
 
         <MenuItem titulo={"Utilizadores"} icon={"fa-table"} origem={"users"} />
-        <MenuItem titulo={"Relatório"} icon={"fa-plus"} origem={"report"} />
+
+        {/* <!-- Nav Item - ReportPage --> */}
+        <MenuItem
+          titulo={"Relatório"}
+          icon={"fa-chart-area"}
+          origem={"allocations"}
+        />
 
         <div className="text-center d-none d-md-inline">
           <button

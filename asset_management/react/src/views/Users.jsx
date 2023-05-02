@@ -43,7 +43,7 @@ export default function Users() {
     return <Navigate to="/notfound" />;
   }
 
-  //retorna todos os utilizadores (mount hook é chamado 2x)
+  //return all users(mount hook its called 2x)
   useEffect(() => {
     getUsers();
   }, []);
@@ -96,16 +96,16 @@ export default function Users() {
     getUsers(link.url);
   };
 
-  //Realiza um request access client
+  //Performs a client access request
   const getUsers = (url) => {
     url = url || "/users";
 
-    //enquanto não acaba o request, aplicamos o loading = true
+    //when the request isnt finished, we aply loading=true
     setLoading(true);
     axiosClient
       .get(url)
       .then(({ data }) => {
-        //quando obtemos um request, loading=false
+        //When there is a request: loading=false
         setLoading(false);
         setUsers(data.data);
         //console.log(data);
@@ -181,7 +181,7 @@ export default function Users() {
 
           {!loading && (
             <tbody>
-              {/* Iteração pelos utilizadores todos */}
+              {/* Iteration through all the users */}
               {users.map((u) => (
                 <tr key={u.id}>
                   <td>{u.mec}</td>

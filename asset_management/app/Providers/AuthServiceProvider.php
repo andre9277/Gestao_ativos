@@ -35,14 +35,16 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
-        //Só o Admin e o SI pode criar um novo ativo
+
+        //Only the Admin and SI can create a new asset
         Gate::define('create-edit', function (User $user) {
             if ($user->role_id === 1 || $user->role_id === 2) {
                 return true;
             }
         });
 
-        //Só o Admin pode apagar um ativo
+
+        //Only Admin can delete an asset
         Gate::define('delete', function (User $user) {
             if ($user->role_id === 1) {
                 return true;
