@@ -27,7 +27,7 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Quagga from "quagga";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client.js";
@@ -69,7 +69,7 @@ const Scan = () => {
         Quagga.stop();
       }
     });
-  }, [assets]);
+  }, [assets, navigate]);
 
   function initializeBarcodeScanner() {
     Quagga.init(
@@ -96,16 +96,18 @@ const Scan = () => {
 
   function drawLine(code) {
     const canvas = document.querySelector("canvas");
-    const ctx = canvas.getContext("2d");
-    const x = Math.min(code.startX, code.endX);
-    const y = Math.min(code.startY, code.endY);
-    const width = Math.abs(code.endX - code.startX);
-    const height = Math.abs(code.endY - code.startY);
-    ctx.beginPath();
-    ctx.lineWidth = "5";
-    ctx.strokeStyle = "red";
-    ctx.rect(x, y, width, height);
-    ctx.stroke();
+    if (canvas) {
+      const ctx = canvas.getContext("2d");
+      const x = Math.min(code.startX, code.endX);
+      const y = Math.min(code.startY, code.endY);
+      const width = Math.abs(code.endX - code.startX);
+      const height = Math.abs(code.endY - code.startY);
+      ctx.beginPath();
+      ctx.lineWidth = "5";
+      ctx.strokeStyle = "red";
+      ctx.rect(x, y, width, height);
+      ctx.stroke();
+    }
   }
 
   return (
@@ -113,9 +115,12 @@ const Scan = () => {
       <h1>Barcode Scanner</h1>
       <div
         id="scanner-container"
-        style={{ position: "relative", width: "100%", height: "100%" }}
+        style={{ position: "relative", width: "50%", margin: "0 auto" }}
       >
-        <video style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        <video
+          id="barcode-video"
+          style={{ width: "100%", height: "auto", objectFit: "cover" }}
+        />
         <canvas
           style={{
             position: "absolute",
