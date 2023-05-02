@@ -376,7 +376,7 @@ export default function AssetForm() {
               Fornecedor*:
               <select
                 className="form-select"
-                value={supplierId}
+                value={asset.supplier_id}
                 onChange={handleSupplierChange}
               >
                 <option value="">Selecione um Fornecedor</option>

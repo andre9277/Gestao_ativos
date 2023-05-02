@@ -164,7 +164,7 @@ export default function Allocations() {
     });
     setStartDate(startDate);
     setEndDate(endDate);
-    /* console.log("startDate:", startDate);
+    /*  console.log("startDate:", startDate);
     console.log("EndDate:", endDate); */
     setAllocations(filtered);
   };
