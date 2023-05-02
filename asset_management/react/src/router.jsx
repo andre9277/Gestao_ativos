@@ -45,6 +45,7 @@ import { useStateContext } from "./context/ContextProvider";
 import ManutLayout from "./components/ManutLayout.jsx";
 import ReportPage from "./views/ReportPage.jsx";
 import AssetInfo from "./views/AssetInfo.jsx";
+import Import from "./views/Import.jsx";
 
 //The router object defines the routes and components that should be rendered when a user navigates to a specific path.
 
@@ -100,6 +101,10 @@ const router = createBrowserRouter([
       {
         path: "/infoasset/:id",
         element: <AssetInfo />,
+      },
+      {
+        path: "/import",
+        element: <Import />,
       },
     ],
   },

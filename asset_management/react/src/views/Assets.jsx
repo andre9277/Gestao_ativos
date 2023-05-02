@@ -33,7 +33,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 import "../styles/Dashboard.css";
-import ImportForm from "../components/ImportForm.jsx";
 
 export default function Assets() {
   const [assets, setAssets] = useState([]);
@@ -232,7 +231,6 @@ export default function Assets() {
           )}
         </table>
         <PaginationLinks meta={meta} onPageClick={onPageClick} />
-        <ImportForm />
       </div>
     </div>
   );

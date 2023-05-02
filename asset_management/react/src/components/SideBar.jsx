@@ -124,6 +124,13 @@ const SideBar = () => {
           origem={"allocations"}
         />
 
+        {/* <!-- Nav Item - ReportPage --> */}
+        <MenuItem
+          titulo={"Importar Ativos"}
+          icon={"fa fa-edit"}
+          origem={"import"}
+        />
+
         <div className="text-center d-none d-md-inline">
           <button
             className="border-0"
