@@ -119,7 +119,7 @@ const SideBar = () => {
 
         {/* <!-- Nav Item - ReportPage --> */}
         <MenuItem
-          titulo={"Relatório"}
+          titulo={"Relatório de Ativos"}
           icon={"fa-chart-area"}
           origem={"allocations"}
         />

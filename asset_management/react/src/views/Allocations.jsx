@@ -228,8 +228,8 @@ export default function Allocations() {
     setSelectedInv("");
     setSelectedOp("");
     setSelectedUser("");
-    setStartDate(null);
-    setEndDate(null);
+    setStartDate(new Date());
+    setEndDate(new Date());
   };
 
   return (
