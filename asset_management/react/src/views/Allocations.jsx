@@ -176,7 +176,7 @@ export default function Allocations() {
     key: "selection",
   };
 
-  //--------------Filtros---------------
+  //--------------Filters---------------
   const filterInv = (event) => {
     const filterValue = event.target.value;
     setSelectedInv(filterValue);

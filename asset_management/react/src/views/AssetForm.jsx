@@ -49,7 +49,7 @@ export default function AssetForm() {
   //We take the id
   let { id } = useParams();
 
-  //List of users:
+  //List of assets:
   const [asset, setAsset] = useState({
     id: null,
     numb_inv: "",

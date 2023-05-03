@@ -12600,8 +12600,8 @@ select {
 }
 
 .headerFilter {
-    display: flex;
-    text-align: right;
+    display: inline-flex;
+    margin-left: 250px;
     vertical-align: middle;
     padding: 1px 5px;
 }
@@ -12632,7 +12632,7 @@ select {
 }
 
 .filter-user {
-    margin-right: 150px;
+    margin-right: 250px;
 }
 
 .ssBar {
