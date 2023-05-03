@@ -39,10 +39,12 @@ function Dashboard() {
   useLayoutEffect(() => {
     getTotalAssets();
     getRepairs();
+    getMonthCount();
   }, []);
 
   const [assetTotal, setAssetTotal] = useState("");
   const [repairAsset, setRepairAsset] = useState([]);
+  const [assetTotalMonth, setAssetTotalMonth] = useState("");
 
   //Performs a client access request
   const getTotalAssets = (url) => {
@@ -56,6 +58,13 @@ function Dashboard() {
     url = url || "/countRepair";
     axiosClient.get(url).then(({ data }) => {
       setRepairAsset(data);
+    });
+  };
+
+  const getMonthCount = (url) => {
+    url = url || "/countMonth";
+    axiosClient.get(url).then(({ data }) => {
+      setAssetTotalMonth(data);
     });
   };
   return (
@@ -83,7 +92,7 @@ function Dashboard() {
             {/*  <!-- Assets Changed --> */}
             <Card
               Titulo="Ativos Alterados - Média Mensal"
-              Descricao=""
+              Descricao={assetTotalMonth}
               Icon="fa-arrows-alt"
               Cor="text-success"
               Tipo="success"

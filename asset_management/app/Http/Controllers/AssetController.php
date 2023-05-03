@@ -75,6 +75,18 @@ class AssetController extends Controller
         return $asset::count();
     }
 
+    public function countMonth(Asset $asset)
+    {
+        $countAll = $asset::count();
+
+        // Count assets changed this month
+        $countChanged = $asset::whereMonth('updated_at', '=', now()->month)->count();
+
+        return
+            $countChanged;
+    }
+
+
 
     //For frontend statistics
     public function countRepair(Asset $asset)
