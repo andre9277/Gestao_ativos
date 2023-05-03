@@ -307,7 +307,7 @@ export default function AssetForm() {
               {" "}
               CI:
               <input
-                value={asset.ci == null ? "" : asset.ci}
+                value={asset.ci === null ? "" : asset.ci}
                 onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
                 placeholder="CI"
               />
@@ -489,7 +489,7 @@ export default function AssetForm() {
                   className="form-select"
                   name="floor"
                   id="floor"
-                  value={asset.floor}
+                  value={asset.floor === null ? "" : asset.floor}
                   onChange={(event) =>
                     setAsset({ ...asset, floor: event.target.value })
                   }
@@ -509,7 +509,7 @@ export default function AssetForm() {
                   className="form-select"
                   name="ala"
                   id="ala"
-                  value={asset.ala}
+                  value={asset.ala === null ? "" : asset.ala}
                   onChange={(event) =>
                     setAsset({ ...asset, ala: event.target.value })
                   }

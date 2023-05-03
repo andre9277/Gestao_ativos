@@ -50,10 +50,6 @@ class AssetController extends Controller
      */
     public function store(StoreAssetRequest $request)
     {
-        /* $this->authorize('create-edit');
-        return Asset::create($request->all()); */
-
-
         $this->authorize('create-edit');
 
         $asset = Asset::create($request->all());
@@ -154,10 +150,7 @@ class AssetController extends Controller
      */
     public function destroy($id)
     {
-        /* $this->authorize('delete');
 
-        $asset = Asset::find($id);
-        $asset->delete(); */
 
         $this->authorize('delete');
 
@@ -194,6 +187,8 @@ class AssetController extends Controller
 
     public function import(Request $request)
     {
+        $this->authorize('import');
+
         $file = $request->file('file');
 
         Excel::import($file, function ($rows) {
