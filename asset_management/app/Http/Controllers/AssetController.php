@@ -68,32 +68,24 @@ class AssetController extends Controller
         return $asset;
     }
 
-
+    //For the dashboard statistics
     public function count(Asset $asset)
     {
 
-        return $asset::count();
-    }
-
-    public function countMonth(Asset $asset)
-    {
-        $countAll = $asset::count();
+        $total = $asset::count();
 
         // Count assets changed this month
         $countChanged = $asset::whereMonth('updated_at', '=', now()->month)->count();
 
-        return
-            $countChanged;
+        $totalRep = $asset::where('cond', 'Reparação')->count();
+
+        return [
+            'total' => $total,
+            'countChanged' => $countChanged,
+            'totalRep' => $totalRep
+        ];
     }
 
-
-
-    //For frontend statistics
-    public function countRepair(Asset $asset)
-    {
-
-        return $asset::where('cond', 'Reparação')->count();
-    }
 
     /**
      * Display the specified resource.
