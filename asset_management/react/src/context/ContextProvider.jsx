@@ -27,8 +27,8 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import { createContext, useContext, useState, useEffect } from "react";
-import axiosClient from "../axios-client.js";
+import { createContext, useContext, useState } from "react";
+
 //State management using a Context object
 //It also stores some data in localStorage
 
@@ -47,9 +47,6 @@ export const ContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN")); //When user updates, it saves the session
   const [notification, _setNotification] = useState("");
-  const [assets, setAssets] = useState([]);
-  const [meta, setMeta] = useState({});
-  const [loading, setLoading] = useState(false);
 
   //Save the token in the localstorage of the browser, so when the user refresh it saves the token
   const setToken = (token) => {
@@ -69,34 +66,7 @@ export const ContextProvider = ({ children }) => {
       _setNotification("");
     }, 5000);
   };
-  const getAssets = (url) => {
-    url = url || "/assets";
-    setLoading(true);
-    axiosClient
-      .get(url)
-      .then(({ data }) => {
-        setLoading(false);
-        setAssets(data.data);
-        setMeta(data.meta);
-        localStorage.setItem("assetsData", JSON.stringify(data.data));
-        localStorage.setItem("assetsMeta", JSON.stringify(data.meta));
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  };
 
-  useEffect(() => {
-    const cachedData = localStorage.getItem("assetsData");
-    const cachedMeta = localStorage.getItem("assetsMeta");
-
-    if (cachedData && cachedMeta) {
-      setAssets(JSON.parse(cachedData));
-      setMeta(JSON.parse(cachedMeta));
-    } else {
-      getAssets();
-    }
-  }, []);
   //
   return (
     //exposes all the values for the components/pages that uses the ContextProvider
@@ -108,10 +78,6 @@ export const ContextProvider = ({ children }) => {
         setToken,
         notification,
         setNotification,
-        assets,
-        meta,
-        loading,
-        getAssets,
       }}
     >
       {children}
