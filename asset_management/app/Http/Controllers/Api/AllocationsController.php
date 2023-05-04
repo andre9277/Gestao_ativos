@@ -17,6 +17,7 @@ class AllocationsController extends Controller
      */
     public function index()
     {
+        //In the Asset Movement the user with id=3 wont see the last 2 columns of the table
         $this->authorize('allocations');
 
         $alloc = Allocation::with('users:id,name', 'assets:id,numb_ser,unit_id,numb_inv')

@@ -62,7 +62,7 @@ const AreaChart = ({ assets }) => {
     labels: charts.map((x) => x.ent_name),
     datasets: [
       {
-        label: `${assets.length} Ativos Disponíveis`,
+        label: "Ativos Disponíveis",
         data: charts.map((x) => {
           let count = 0;
           assets.forEach((y) => {
