@@ -35,10 +35,8 @@ import PaginationLinks from "../components/PaginationLinks.jsx";
 import "../styles/Dashboard.css";
 
 export default function Assets() {
-  const [assets, setAssets] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [meta, setMeta] = useState({});
-  const { setNotification, user } = useStateContext();
+  const { setNotification, user, assets, meta, loading, getAssets } =
+    useStateContext();
 
   //returns all assets (mount hook is called 2x)
   useEffect(() => {
@@ -85,36 +83,16 @@ export default function Assets() {
     //console.log(checkedAssetIds);
   };
 
-  const onPageClick = (link) => {
-    getAssets(link.url);
-  };
-
-  //Performs a client access request
-  const getAssets = (url) => {
-    url = url || "/assets";
-
-    //when there is still a request, we aply loading = true
-    setLoading(true);
-    axiosClient
-      .get(url)
-      .then(({ data }) => {
-        //when the request is successfull, loading=false
-        setLoading(false);
-        //console.log(data);
-        setAssets(data.data);
-        setMeta(data.meta);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  };
-
   const toggleCheck = (id) => {
     const checkedIdx = assets.findIndex((a) => a.id === id);
     if (checkedIdx === -1) return;
     const updatedAssets = [...assets];
     updatedAssets[checkedIdx].checked = !updatedAssets[checkedIdx].checked;
     setAssets(updatedAssets);
+  };
+
+  const handlePageClick = (link) => {
+    getAssets(link.url);
   };
 
   return (
@@ -230,7 +208,7 @@ export default function Assets() {
             </tbody>
           )}
         </table>
-        <PaginationLinks meta={meta} onPageClick={onPageClick} />
+        <PaginationLinks meta={meta} onPageClick={handlePageClick} />
       </div>
     </div>
   );
