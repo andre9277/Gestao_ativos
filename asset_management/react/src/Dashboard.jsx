@@ -32,41 +32,26 @@ import Card from "./components/Card";
 import "./styles/Dashboard.css";
 import AreaChart from "./components/AreaChart";
 import PieChart from "./components/PieChart";
-import { useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect, useEffect } from "react";
 import axiosClient from "./axios-client.js";
 
 function Dashboard() {
-  useLayoutEffect(() => {
-    getTotalAssets();
-    getRepairs();
-    getMonthCount();
-  }, []);
-
   const [assetTotal, setAssetTotal] = useState("");
   const [repairAsset, setRepairAsset] = useState([]);
   const [assetTotalMonth, setAssetTotalMonth] = useState("");
 
-  //Performs a client access request
-  const getTotalAssets = (url) => {
-    url = url || "/assetsC";
-    axiosClient.get(url).then(({ data }) => {
-      setAssetTotal(data);
+  useLayoutEffect(() => {
+    Promise.all([
+      axiosClient.get("/assetsC"),
+      axiosClient.get("/countRepair"),
+      axiosClient.get("/countMonth"),
+    ]).then((responses) => {
+      setAssetTotal(responses[0].data);
+      setRepairAsset(responses[1].data);
+      setAssetTotalMonth(responses[2].data);
     });
-  };
+  }, []);
 
-  const getRepairs = (url) => {
-    url = url || "/countRepair";
-    axiosClient.get(url).then(({ data }) => {
-      setRepairAsset(data);
-    });
-  };
-
-  const getMonthCount = (url) => {
-    url = url || "/countMonth";
-    axiosClient.get(url).then(({ data }) => {
-      setAssetTotalMonth(data);
-    });
-  };
   return (
     <div id="content-wrapper" className="d-flex flex-column">
       {/*  <!-- Main Content --> */}

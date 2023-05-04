@@ -33,17 +33,41 @@ import axiosClient from "../axios-client.js";
 import { useStateContext } from "../context/ContextProvider.jsx";
 
 export default function AssetForm() {
+  const [errors, setErrors] = useState(null);
+
+  //Meanwhile the table isnt loading we show a loading string
+  const [loading, setLoading] = useState(false);
+  const { setNotification } = useStateContext();
+
+  const [cats, setCats] = useState([]);
+  const [ents, setEnts] = useState([]);
+  const [units, setUnits] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [modelos, setModelos] = useState([]);
+  const [supplier, setSupplier] = useState([]);
+
+  const [selectedEntity, setSelectedEntity] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [supplierId, setSupplierId] = useState("");
   //Allows the navigation of the assets to other page
   const navigate = useNavigate();
 
-  //returns all objects (called x2times)
   useEffect(() => {
-    getCats();
-    getEnts();
-    getUnits();
-    getBrands();
-    getModels_HB();
-    getSuppliers();
+    Promise.all([
+      axiosClient.get("/categories"),
+      axiosClient.get("/entities"),
+      axiosClient.get("/units"),
+      axiosClient.get("/brands"),
+      axiosClient.get("/modelos"),
+      axiosClient.get("/supplier"),
+    ]).then((responses) => {
+      setCats(responses[0].data);
+      setEnts(responses[1].data);
+      setUnits(responses[2].data);
+      setBrands(responses[3].data);
+      setModelos(responses[4].data);
+      setSupplier(responses[5].data);
+    });
   }, []);
 
   //We take the id
@@ -86,22 +110,6 @@ export default function AssetForm() {
     },
     units: "",
   });
-
-  const [errors, setErrors] = useState(null);
-
-  //Meanwhile the table isnt loading we show a loading string
-  const [loading, setLoading] = useState(false);
-  const { setNotification } = useStateContext();
-
-  const [cats, setCats] = useState([]);
-  const [ents, setEnts] = useState([]);
-  const [units, setUnits] = useState([]);
-  const [brands, setBrands] = useState([]);
-  const [modelos, setModelos] = useState([]);
-  const [supplier, setSupplier] = useState([]);
-
-  const [selectedEntity, setSelectedEntity] = useState("");
-  const [selectedBrand, setSelectedBrand] = useState("");
 
   //Whenever the asset ID exists:
   if (id) {
@@ -180,6 +188,7 @@ export default function AssetForm() {
     }
   };
 
+  //---------Functions that allow the change of some values-------------
   const handleEntityChange = (event) => {
     const selectedEntity = event.target.value;
     setAsset((prevState) => ({
@@ -188,54 +197,6 @@ export default function AssetForm() {
       unit_id: "",
     }));
     setSelectedEntity(selectedEntity);
-  };
-
-  const getCats = (url) => {
-    url = url || "/categories";
-
-    axiosClient.get(url).then(({ data }) => {
-      setCats(data);
-    });
-  };
-
-  const getEnts = (url) => {
-    url = url || "/entities";
-
-    axiosClient.get(url).then(({ data }) => {
-      setEnts(data);
-    });
-  };
-
-  const getUnits = (url) => {
-    url = url || "/units";
-
-    axiosClient.get(url).then(({ data }) => {
-      setUnits(data);
-    });
-  };
-
-  const getBrands = (url) => {
-    url = url || "/brands";
-
-    axiosClient.get(url).then(({ data }) => {
-      setBrands(data);
-    });
-  };
-
-  const getModels_HB = (url) => {
-    url = url || "/modelos";
-
-    axiosClient.get(url).then(({ data }) => {
-      setModelos(data);
-    });
-  };
-
-  const getSuppliers = (url) => {
-    url = url || "supplier";
-
-    axiosClient.get(url).then(({ data }) => {
-      setSupplier(data);
-    });
   };
 
   function handleBrandChange(event) {
@@ -249,8 +210,6 @@ export default function AssetForm() {
     setSelectedBrand(selectedBrand);
   }
 
-  const [supplierId, setSupplierId] = useState("");
-
   function handleSupplierChange(event) {
     setSupplierId(event.target.value);
     const newAsset = {
@@ -262,7 +221,7 @@ export default function AssetForm() {
 
   return (
     <>
-      {asset.id && <h1>Atualizar Ativo: {asset.id}</h1>}
+      {asset.id && <h1>Atualizar Ativo: {asset.numb_inv}</h1>}
       {!asset.id && <h1>Novo Ativo</h1>}
       <div className="card animated fadeInDown">
         {loading && <div className="text-center">Carregando...</div>}
