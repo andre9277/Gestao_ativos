@@ -30,9 +30,12 @@ All the changes made to enable the implementation of the desired development too
 import React, { useState } from "react";
 import axiosClient from "../axios-client.js";
 import "../styles/SearchBar.css";
+import { useNavigate } from "react-router-dom";
 
 const Search = ({ setResults }) => {
   const [inputText, setInputText] = useState("");
+
+  const navigate = useNavigate();
 
   const getAssets = (url, value) => {
     url = url || "/assets";
@@ -47,8 +50,10 @@ const Search = ({ setResults }) => {
           asset.numb_inv.toUpperCase().includes(value)
         );
       });
-      //console.log(results);
       setResults(results);
+      if (results.length === 1) {
+        navigate(`/infoasset/${results[0].id}`); // add this line
+      }
     });
   };
 
@@ -71,7 +76,13 @@ const Search = ({ setResults }) => {
             value={inputText}
           />
           <div>
-            <button className="btn btn-primary">
+            <button
+              className="btn btn-primary"
+              onClick={(e) => {
+                e.preventDefault();
+                getAssets("", inputText);
+              }}
+            >
               <i className="fas fa-search fa-sm"></i>
             </button>
           </div>
