@@ -12666,3 +12666,7 @@ input::placeholder {
     font-weight: bold;
     font-size: 16px;
 }
+
+.filtAsset-tab{
+    color: black;
+}

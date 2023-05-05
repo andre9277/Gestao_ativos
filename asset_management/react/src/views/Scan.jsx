@@ -111,27 +111,33 @@ const Scan = () => {
   }
 
   return (
-    <div>
-      <h1>Barcode Scanner</h1>
-      <div
-        id="scanner-container"
-        style={{ position: "relative", width: "50%", margin: "0 auto" }}
-      >
-        <video
-          id="barcode-video"
-          style={{ width: "100%", height: "auto", objectFit: "cover" }}
-        />
-        <canvas
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-          }}
-        />
+    <div id="content-wrapper" className="d-flex flex-column">
+      <div id="content">
+        <div className="container-fluid">
+          <div className="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1>Barcode Scanner</h1>
+          </div>
+          <div
+            id="scanner-container"
+            style={{ position: "relative", width: "50%", margin: "0 auto" }}
+          >
+            <video
+              id="barcode-video"
+              style={{ width: "100%", height: "auto", objectFit: "cover" }}
+            />
+            <canvas
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+              }}
+            />
+          </div>
+          <p>Barcode: {barcode}</p>
+        </div>
       </div>
-      <p>Barcode: {barcode}</p>
     </div>
   );
 };

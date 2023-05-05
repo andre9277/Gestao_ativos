@@ -33,20 +33,56 @@ import { Link, useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 import "../styles/Dashboard.css";
-import ImportForm from "../components/ImportForm.jsx";
+import ColumnMenuFilter from "../components/ColumnMenuFilter.jsx";
+import TableAssets from "../components/TableAssets.jsx";
 
 export default function Assets() {
+  const navigate = useNavigate();
+
   const [assets, setAssets] = useState([]);
   const [loading, setLoading] = useState(false);
   const [meta, setMeta] = useState({});
   const { setNotification, user } = useStateContext();
+
+  const [cats, setCats] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [modelos, setModelos] = useState([]);
+  useEffect(() => {
+    Promise.all([
+      axiosClient.get("/categories"),
+      axiosClient.get("/brands"),
+      axiosClient.get("/modelos"),
+    ]).then((responses) => {
+      setCats(responses[0].data);
+      setBrands(responses[1].data);
+      setModelos(responses[2].data);
+    });
+  }, []);
 
   //returns all assets (mount hook is called 2x)
   useEffect(() => {
     getAssets();
   }, []);
 
-  const navigate = useNavigate();
+  //Performs a client access request
+  const getAssets = (url) => {
+    url = url || "/assets";
+
+    //when there is still a request, we aply loading = true
+    setLoading(true);
+    axiosClient
+      .get(url)
+      .then(({ data }) => {
+        //when the request is successfull, loading=false
+        setLoading(false);
+        //console.log(data);
+        setAssets(data.data);
+        setMeta(data.meta);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  };
 
   //Handle click para apagar um asset
   const onDeleteClick = () => {
@@ -90,26 +126,7 @@ export default function Assets() {
     getAssets(link.url);
   };
 
-  //Performs a client access request
-  const getAssets = (url) => {
-    url = url || "/assets";
-
-    //when there is still a request, we aply loading = true
-    setLoading(true);
-    axiosClient
-      .get(url)
-      .then(({ data }) => {
-        //when the request is successfull, loading=false
-        setLoading(false);
-        //console.log(data);
-        setAssets(data.data);
-        setMeta(data.meta);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  };
-
+  //For the checkbox
   const toggleCheck = (id) => {
     const checkedIdx = assets.findIndex((a) => a.id === id);
     if (checkedIdx === -1) return;
@@ -118,6 +135,37 @@ export default function Assets() {
     setAssets(updatedAssets);
   };
 
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedFloor, setSelectedFloor] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedModel, setSelectedModel] = useState("");
+
+  const handleCategoryChange = (event) => {
+    const selectedCategory = event.target.value;
+    setSelectedCategory(selectedCategory);
+  };
+
+  const handleFloorChange = (event) => {
+    const selectedFloor = event.target.value;
+    setSelectedFloor(selectedFloor);
+  };
+
+  const handleBrandChange = (event) => {
+    const selectedBrand = event.target.value;
+    setSelectedBrand(selectedBrand);
+  };
+
+  const handleModelChange = (event) => {
+    const selectedModel = event.target.value;
+    setSelectedModel(selectedModel);
+  };
+
+  const resetFilter = () => {
+    setSelectedBrand("");
+    setSelectedFloor("");
+    setSelectedCategory("");
+    setSelectedModel("");
+  };
   return (
     <div id="content">
       <div
@@ -156,6 +204,11 @@ export default function Assets() {
               </button>
             </>
           )}
+          {
+            <button onClick={resetFilter} className="btn-dwl">
+              Limpar filtro
+            </button>
+          }
         </div>
       </div>
       <div
@@ -167,14 +220,42 @@ export default function Assets() {
         <table>
           <thead>
             <tr>
-              <th>Categoria</th>
-              <th>Marca</th>
-              <th>Modelo</th>
+              <th>
+                <ColumnMenuFilter
+                  titulo={"Categoria"}
+                  data={cats}
+                  selectedAttribut={selectedCategory}
+                  handleFunc={handleCategoryChange}
+                />
+              </th>
+              <th>
+                <ColumnMenuFilter
+                  titulo={"Marca"}
+                  data={brands}
+                  selectedAttribut={selectedBrand}
+                  handleFunc={handleBrandChange}
+                />
+              </th>
+              <th>
+                <ColumnMenuFilter
+                  titulo={"Modelo"}
+                  data={modelos}
+                  selectedAttribut={selectedModel}
+                  handleFunc={handleModelChange}
+                />
+              </th>
               <th>NºInventário</th>
               <th>Nº Série</th>
               <th>Localização</th>
               <th>Unidade</th>
-              <th>Piso</th>
+              <th>
+                <ColumnMenuFilter
+                  titulo={"Piso"}
+                  data={[]}
+                  selectedAttribut={selectedFloor}
+                  handleFunc={handleFloorChange}
+                />
+              </th>
               <th>Ala</th>
               <th>CI</th>
               <th>Estado</th>
@@ -192,46 +273,20 @@ export default function Assets() {
             </tbody>
           )}
           {!loading && (
-            <tbody>
-              {/* Iteration between all assets */}
-              {assets.map((a) => (
-                <tr key={a.id}>
-                  <td>{a.category.name}</td>
-                  <td>{a.brand.sig}</td>
-                  <td>{a.modelo.model_name}</td>
-                  <td>{a.numb_inv}</td>
-                  <td>{a.numb_ser}</td>
-                  <td>{a.entity.ent_name}</td>
-                  <td>{a.units === null ? "" : a.units.name}</td>
-                  <td>{a.floor}</td>
-                  <td>{a.ala}</td>
-                  <td>{a.ci}</td>
-                  <td>
-                    {a.state === "Ativo" ? (
-                      <div className="circle active"></div>
-                    ) : (
-                      <div className="circle inactive"></div>
-                    )}
-                  </td>
-                  <td>{a.created_at}</td>
-
-                  {user.role_id === 3 ? null : (
-                    <td>
-                      <input
-                        type="checkbox"
-                        name=""
-                        id=""
-                        onChange={() => toggleCheck(a.id)}
-                        value={a.checked}
-                      />
-                    </td>
-                  )}
-                </tr>
-              ))}
-            </tbody>
+            <TableAssets
+              assets={assets}
+              selectedCategory={selectedCategory}
+              selectedFloor={selectedFloor}
+              selectedBrand={selectedBrand}
+              selectedModel={selectedModel}
+            />
           )}
         </table>
-        <PaginationLinks meta={meta} onPageClick={onPageClick} />
+        <PaginationLinks
+          meta={meta}
+          onPageClick={onPageClick}
+          toggleCheck={toggleCheck}
+        />
       </div>
     </div>
   );
