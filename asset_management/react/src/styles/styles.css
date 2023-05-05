@@ -12667,6 +12667,12 @@ input::placeholder {
     font-size: 16px;
 }
 
-.filtAsset-tab{
+.filtAsset-tab {
     color: black;
+    width: 12px;
+    margin: 0.5px;
+    cursor: pointer;
+    line-height: 1.1;
+    /* border: 1px solid black; */
+    font-size: 18px;
 }
