@@ -126,15 +126,6 @@ export default function Assets() {
     getAssets(link.url);
   };
 
-  //For the checkbox
-  const toggleCheck = (id) => {
-    const checkedIdx = assets.findIndex((a) => a.id === id);
-    if (checkedIdx === -1) return;
-    const updatedAssets = [...assets];
-    updatedAssets[checkedIdx].checked = !updatedAssets[checkedIdx].checked;
-    setAssets(updatedAssets);
-  };
-
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedFloor, setSelectedFloor] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -165,6 +156,15 @@ export default function Assets() {
     setSelectedFloor("");
     setSelectedCategory("");
     setSelectedModel("");
+  };
+
+  //For the checkbox
+  const toggleCheck = (id) => {
+    const checkedIdx = assets.findIndex((a) => a.id === id);
+    if (checkedIdx === -1) return;
+    const updatedAssets = [...assets];
+    updatedAssets[checkedIdx].checked = !updatedAssets[checkedIdx].checked;
+    setAssets(updatedAssets);
   };
   return (
     <div id="content">
@@ -279,6 +279,7 @@ export default function Assets() {
               selectedFloor={selectedFloor}
               selectedBrand={selectedBrand}
               selectedModel={selectedModel}
+              toggleCheck={toggleCheck}
             />
           )}
         </table>

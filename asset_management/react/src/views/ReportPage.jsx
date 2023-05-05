@@ -135,19 +135,25 @@ const ReportPage = () => {
         "Utilizador",
         "Movido em",
       ],
-      data: allData.map((asset) => {
-        const allocationData = getAllocationData(asset.id);
-        return [
-          asset.numb_inv,
-          asset.previous_ci,
-          asset.ci,
-          filtered_units(asset.previous_unit_id),
-          filtered_entities(asset.previous_ent_id), //-----------------
-          asset.units === null ? asset.entity.ent_name : asset.units.name,
-          allocationData.user,
-          allocationData.date,
-        ];
-      }),
+      data: allData
+        .filter((asset) => {
+          return (
+            asset.previous_ci || asset.previous_unit_id || asset.previous_ent_id
+          ); // only include data where at least one of the three fields has a value
+        })
+        .map((asset) => {
+          const allocationData = getAllocationData(asset.id);
+          return [
+            asset.numb_inv,
+            asset.previous_ci,
+            asset.ci,
+            filtered_units(asset.previous_unit_id),
+            filtered_entities(asset.previous_ent_id),
+            asset.units === null ? asset.entity.ent_name : asset.units.name,
+            allocationData.user,
+            allocationData.date,
+          ];
+        }),
     });
     const blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
@@ -192,10 +198,11 @@ const ReportPage = () => {
             <tr>
               <th>Nº Inventário</th>
               <th>CI(Anterior)</th>
-              <th>CI(Atual)</th>
+
               <th>Unidade(Anterior)</th>
               <th>Entidade(Anterior)</th>
-              <th>Local Atual</th>
+              <th>CI(Atual)</th>
+              <th>Local(Atual)</th>
               <th>Utilizador</th>
               <th>Movido em</th>
             </tr>
@@ -213,16 +220,23 @@ const ReportPage = () => {
           {!loading && (
             <tbody>
               {assets.map((asset, index) => {
+                if (
+                  !asset.previous_ci &&
+                  !asset.previous_ent_id &&
+                  !asset.previous_unit_id
+                ) {
+                  return null; // skip rendering if previous_ci is null
+                }
                 const allocationData = getAllocationData(asset.id);
                 return (
                   <tr key={`${asset.id}-${index}`}>
                     <td>{asset.numb_inv}</td>
                     <td>{asset.previous_ci}</td>
-                    <td>{asset.ci}</td>
 
                     <td>{filtered_units(asset.previous_unit_id)}</td>
 
                     <td>{filtered_entities(asset.previous_ent_id)}</td>
+                    <td>{asset.ci}</td>
                     <td>
                       {asset.units === null
                         ? asset.entity.ent_name
