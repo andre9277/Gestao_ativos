@@ -53,7 +53,6 @@ const Scan = () => {
     Quagga.onDetected((result) => {
       console.log("Barcode detected:", result.codeResult.code);
       setBarcode(result.codeResult.code);
-      drawLine(result.codeResult);
 
       // Look up the asset by inventory number
       const inventoryNumber = result.codeResult.code;
@@ -92,22 +91,35 @@ const Scan = () => {
         Quagga.start();
       }
     );
-  }
 
-  function drawLine(code) {
-    const canvas = document.querySelector("canvas");
-    if (canvas) {
-      const ctx = canvas.getContext("2d");
-      const x = Math.min(code.startX, code.endX);
-      const y = Math.min(code.startY, code.endY);
-      const width = Math.abs(code.endX - code.startX);
-      const height = Math.abs(code.endY - code.startY);
-      ctx.beginPath();
-      ctx.lineWidth = "5";
-      ctx.strokeStyle = "red";
-      ctx.rect(x, y, width, height);
-      ctx.stroke();
-    }
+    Quagga.onProcessed((result) => {
+      const drawingCtx = Quagga.canvas.ctx.overlay;
+      const drawingCanvas = Quagga.canvas.dom.overlay;
+
+      if (result && result.boxes) {
+        drawingCtx.clearRect(
+          0,
+          0,
+          parseInt(drawingCanvas.getAttribute("width")),
+          parseInt(drawingCanvas.getAttribute("height"))
+        );
+        result.boxes
+          .filter((box) => box !== result.box)
+          .forEach((box) => {
+            Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, {
+              color: "green",
+              lineWidth: 2,
+            });
+          });
+      }
+
+      if (result && result.box) {
+        Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, {
+          color: "red",
+          lineWidth: 2,
+        });
+      }
+    });
   }
 
   return (
@@ -119,11 +131,10 @@ const Scan = () => {
           </div>
           <div
             id="scanner-container"
-            style={{ position: "relative", width: "50%", margin: "0 auto" }}
+            style={{ position: "relative", width: "100%", height: "100%" }}
           >
             <video
-              id="barcode-video"
-              style={{ width: "100%", height: "auto", objectFit: "cover" }}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
             <canvas
               style={{
