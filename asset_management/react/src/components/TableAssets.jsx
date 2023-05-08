@@ -10,7 +10,13 @@ const TableAssets = ({
   selectedModel,
 }) => {
   const { user } = useStateContext();
-  //aqui.........
+
+  //aqui....realizar a leitura de todos os pagination e guardar .. depois imprimir no ecrã:
+  /*  const allData = [];
+  for (let page = 1; page <= meta.last_page; page++) {
+    const { data } = await axiosClient.get(`/allocations?page=${page}`);
+    allData.push(...data.data);
+  } */
   const [filteredAssets, setFilteredAssets] = useState(assets);
 
   useEffect(() => {
@@ -26,7 +32,7 @@ const TableAssets = ({
 
   return (
     <tbody>
-      {console.log(filteredAssets)}
+      {console.log("filters aqui:", filteredAssets)}
       {/* Iteration between all assets */}
       {filteredAssets.map((a) => (
         <tr key={a.id}>
