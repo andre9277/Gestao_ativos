@@ -118,23 +118,6 @@ function Dashboard() {
 
             <PieChart assets={assets} />
           </div>
-
-          {/*   <!-- Content Row --> */}
-          <div className="row">
-            {/*   <!-- Content Column --> */}
-            <div className="col-lg-6 mb-4">
-              {/* <!-- Project Card Example --> */}
-              {/*  <ProjectCard /> */}
-            </div>
-
-            <div className="col-lg-6 mb-4">
-              {/* <!-- Illustrations --> */}
-              {/*  <Illustration /> */}
-
-              {/* <!-- Approach --> */}
-              {/*  <Approach /> */}
-            </div>
-          </div>
         </div>
         {/*   <!-- /.container-fluid --> */}
       </div>
