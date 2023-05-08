@@ -54,7 +54,7 @@ const TopBar = ({ user, onLogout }) => {
       <ul className="navbar-nav ml-auto">
         {/*  <!-- Nav Item - Search Dropdown (Visible Only XS) --> */}
 
-        <li className="nav-item dropdown no-arrow d-sm-none">
+        {/*  <li className="nav-item dropdown no-arrow d-sm-none">
           <a
             className="nav-link dropdown-toggle"
             id="searchDropdown"
@@ -65,9 +65,9 @@ const TopBar = ({ user, onLogout }) => {
           >
             <i className="fas fa-search fa-fw"></i>
           </a>
-
-          {/*   <!-- Dropdown - Messages --> */}
-          <div
+ */}
+        {/*   <!-- Dropdown - Messages --> */}
+        {/*   <div
             className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
             aria-labelledby="searchDropdown"
           >
@@ -83,7 +83,7 @@ const TopBar = ({ user, onLogout }) => {
               </div>
             </form>
           </div>
-        </li>
+        </li> */}
 
         {/*  <!-- Nav Item - Alerts --> */}
 
