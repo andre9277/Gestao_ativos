@@ -283,11 +283,7 @@ export default function Assets() {
             />
           )}
         </table>
-        <PaginationLinks
-          meta={meta}
-          onPageClick={onPageClick}
-          toggleCheck={toggleCheck}
-        />
+        <PaginationLinks meta={meta} onPageClick={onPageClick} />
       </div>
     </div>
   );

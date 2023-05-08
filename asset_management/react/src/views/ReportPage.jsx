@@ -46,7 +46,6 @@ const ReportPage = () => {
   const [loading, setLoading] = useState(false);
   const [units, setUnits] = useState([]);
   const [ents, setEnts] = useState([]);
-
   const [meta, setMeta] = useState({});
 
   const getAssetsFilter = (url) => {
