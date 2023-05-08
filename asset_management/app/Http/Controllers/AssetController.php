@@ -26,11 +26,23 @@ class AssetController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(20);
 
+        return AssetResource::collection($assets);
+    }
 
-
+    public function filterValues()
+    {
+        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name,sig', 'modelo:id,model_name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+            ->where(function ($query) {
+                $query->whereNotNull('previous_ci')
+                    ->orWhereNotNull('previous_ent_id')
+                    ->orWhereNotNull('previous_unit_id');
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(20);
 
         return AssetResource::collection($assets);
     }
+
 
     /**
      * Show the form for creating a new resource.

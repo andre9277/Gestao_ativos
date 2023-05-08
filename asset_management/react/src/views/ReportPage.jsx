@@ -35,7 +35,7 @@ import PaginationLinks from "../components/PaginationLinks.jsx";
 //SideBar:-------------Asset movement---------------
 const ReportPage = () => {
   useEffect(() => {
-    getAssets();
+    getAssetsFilter();
     getAllocations();
     getUnits();
     getEnts();
@@ -49,8 +49,8 @@ const ReportPage = () => {
 
   const [meta, setMeta] = useState({});
 
-  const getAssets = (url) => {
-    url = url || "/assets";
+  const getAssetsFilter = (url) => {
+    url = url || "/filterVal";
 
     setLoading(true);
     axiosClient
@@ -81,7 +81,7 @@ const ReportPage = () => {
   };
 
   const onPageClick = (link) => {
-    getAssets(link.url);
+    getAssetsFilter(link.url);
   };
 
   const getUnits = (url) => {
@@ -120,10 +120,10 @@ const ReportPage = () => {
     const allData = [];
 
     for (let page = 1; page <= meta.last_page; page++) {
-      const { data } = await axiosClient.get(`/assets?page=${page}`);
+      const { data } = await axiosClient.get(`/filterVal?page=${page}`);
       allData.push(...data.data);
     }
-    console.log("allData::", allData);
+    /* console.log("allData::", allData); */
     const csvData = Papa.unparse({
       fields: [
         "Nº Inventário",

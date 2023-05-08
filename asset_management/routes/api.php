@@ -82,6 +82,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/supplier', [SupplierController::class, 'index']);
 
     Route::post('/import', [AssetController::class, 'import'])->name('import');
+
+    Route::get('/filterVal', [AssetController::class, 'filterValues']);
 });
 
 //Route::post('/signup', [AuthController::class, 'signup']);
