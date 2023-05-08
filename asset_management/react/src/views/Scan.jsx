@@ -27,7 +27,7 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Quagga from "quagga";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client.js";
@@ -53,7 +53,6 @@ const Scan = () => {
     Quagga.onDetected((result) => {
       console.log("Barcode detected:", result.codeResult.code);
       setBarcode(result.codeResult.code);
-      drawLine(result.codeResult);
 
       // Look up the asset by inventory number
       const inventoryNumber = result.codeResult.code;
@@ -69,7 +68,7 @@ const Scan = () => {
         Quagga.stop();
       }
     });
-  }, [assets]);
+  }, [assets, navigate]);
 
   function initializeBarcodeScanner() {
     Quagga.init(
@@ -92,41 +91,64 @@ const Scan = () => {
         Quagga.start();
       }
     );
-  }
 
-  function drawLine(code) {
-    const canvas = document.querySelector("canvas");
-    const ctx = canvas.getContext("2d");
-    const x = Math.min(code.startX, code.endX);
-    const y = Math.min(code.startY, code.endY);
-    const width = Math.abs(code.endX - code.startX);
-    const height = Math.abs(code.endY - code.startY);
-    ctx.beginPath();
-    ctx.lineWidth = "5";
-    ctx.strokeStyle = "red";
-    ctx.rect(x, y, width, height);
-    ctx.stroke();
+    Quagga.onProcessed((result) => {
+      const drawingCtx = Quagga.canvas.ctx.overlay;
+      const drawingCanvas = Quagga.canvas.dom.overlay;
+
+      if (result && result.boxes) {
+        drawingCtx.clearRect(
+          0,
+          0,
+          parseInt(drawingCanvas.getAttribute("width")),
+          parseInt(drawingCanvas.getAttribute("height"))
+        );
+        result.boxes
+          .filter((box) => box !== result.box)
+          .forEach((box) => {
+            Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, {
+              color: "green",
+              lineWidth: 2,
+            });
+          });
+      }
+
+      if (result && result.box) {
+        Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, {
+          color: "red",
+          lineWidth: 2,
+        });
+      }
+    });
   }
 
   return (
-    <div>
-      <h1>Barcode Scanner</h1>
-      <div
-        id="scanner-container"
-        style={{ position: "relative", width: "100%", height: "100%" }}
-      >
-        <video style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-        <canvas
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-          }}
-        />
+    <div id="content-wrapper" className="d-flex flex-column">
+      <div id="content">
+        <div className="container-fluid">
+          <div className="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1>Barcode Scanner</h1>
+          </div>
+          <div
+            id="scanner-container"
+            style={{ position: "relative", width: "100%", height: "100%" }}
+          >
+            <video
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+            <canvas
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+              }}
+            />
+          </div>
+          <p>Barcode: {barcode}</p>
+        </div>
       </div>
-      <p>Barcode: {barcode}</p>
     </div>
   );
 };

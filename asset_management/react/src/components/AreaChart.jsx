@@ -40,15 +40,13 @@ import axiosClient from "../axios-client.js";
 
 ChartJS.register(CategoryScale, BarElement, LinearScale);
 
-const AreaChart = () => {
+const AreaChart = ({ assets }) => {
   //initialize all assets and entities (mount hook is called 2x)
   useEffect(() => {
     getEntities();
-    getAssets();
   }, []);
 
   const [charts, setCharts] = useState([]);
-  const [assets, setAssets] = useState([]);
 
   //Performs a client access request to entities
   const getEntities = (url) => {
@@ -59,37 +57,12 @@ const AreaChart = () => {
     });
   };
 
-  //Performs a client access request to assets
-  /* const getAssets = (url) => {
-    url = url || "/assets";
-
-    axiosClient.get(url).then(({ data }) => {
-      setAssets(data.data);
-      console.log("dados gráfico:", data);
-    });
-  }; */
-
-  const getAssets = (url, page = 1, results = []) => {
-    url = url || "/assets";
-    axiosClient.get(`${url}?page=${page}`).then(({ data }) => {
-      const assets = data.data;
-      results = [...results, ...assets];
-      if (data.meta.current_page < data.meta.last_page) {
-        // if there are more pages, recursively call the function
-        getAssets(url, page + 1, results);
-      } else {
-        // update the state with all the assets
-        setAssets(results);
-      }
-    });
-  };
-
   //Chart (bar):
   var data = {
     labels: charts.map((x) => x.ent_name),
     datasets: [
       {
-        label: `${assets.length} Ativos Disponíveis`,
+        label: "Ativos Disponíveis",
         data: charts.map((x) => {
           let count = 0;
           assets.forEach((y) => {

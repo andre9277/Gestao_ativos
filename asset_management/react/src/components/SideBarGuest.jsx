@@ -99,7 +99,7 @@ const SideBarGuest = () => {
 
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
         <MenuItem
-          titulo={"Gestão de ativos"}
+          titulo={"Listagem de ativos"}
           icon={"fa-cog"}
           origem={"assets"}
         />

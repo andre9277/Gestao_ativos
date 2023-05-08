@@ -29,7 +29,6 @@ All the changes made to enable the implementation of the desired development too
 */
 import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
-import PaginationLinks from "../components/PaginationLinks.jsx";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
@@ -46,8 +45,8 @@ export default function Allocations() {
     getUsers();
   }, []);
 
-  const [allocations, setAllocations] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [allocations, setAllocations] = useState([]);
   const [meta, setMeta] = useState({});
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -60,26 +59,20 @@ export default function Allocations() {
   const [selectedOp, setSelectedOp] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
 
-  const onPageClick = (link) => {
-    getAllocations(link.url);
-  };
-
   //Performs a client access request
   const getAllocations = (url) => {
+    setLoading(true);
     url = url || "/allocations";
 
-    //while the request does not finish, we apply the loading = true
-    setLoading(true);
     axiosClient
       .get(url)
       .then(({ data }) => {
-        //when we get a request, loading=false
-        setLoading(false);
         setAllocations(data.data);
         setAllAllocations(data.data);
         setFilteredAllocations([]);
         /* console.log("Mov. data.:", data.data); */
         setMeta(data.meta);
+        setLoading(false);
       })
       .catch(() => {
         setLoading(false);
@@ -103,9 +96,8 @@ export default function Allocations() {
     });
   };
 
+  //-----------Download---------------
   const downloadCSV = async () => {
-    setLoading(true);
-
     const allData = [];
 
     for (let page = 1; page <= meta.last_page; page++) {
@@ -114,6 +106,8 @@ export default function Allocations() {
     }
 
     const filteredData = allData.filter((allocation) => {
+      const allocationDate = new Date(allocation.allocation_date);
+
       const invFilter = selectedInv
         ? allocation.assets?.numb_inv === selectedInv
         : true;
@@ -123,11 +117,11 @@ export default function Allocations() {
       const userFilter = selectedUser
         ? allocation.users.name === selectedUser
         : true;
+      const dateFilter =
+        allocationDate >= startDate && allocationDate <= endDate;
 
-      return invFilter && opFilter && userFilter;
+      return invFilter && opFilter && userFilter && dateFilter;
     });
-
-    setLoading(false);
 
     const csvData = Papa.unparse({
       fields: ["Utilizador", "Operação", "Nº Inventário", "Data de alteração"],
@@ -154,7 +148,7 @@ export default function Allocations() {
     document.body.removeChild(link);
   };
 
-  //For the calendar
+  //------------For the Calendar---------------------
   const handleSelect = (date) => {
     let startDate = date.selection.startDate;
     startDate.setHours(0, 0, 0, 0); // set time to midnight
@@ -163,14 +157,15 @@ export default function Allocations() {
     endDate.setHours(23, 59, 59, 999); // Set end date to end of day
 
     let filtered = allAllocations.filter((allocation) => {
-      let allocationDate = new Date(allocation["allocation_date"]);
+      const allocationDate = new Date(allocation.allocation_date);
+      allocationDate.setHours(0, 0, 0, 0);
 
       return allocationDate >= startDate && allocationDate <= endDate;
     });
     setStartDate(startDate);
     setEndDate(endDate);
-    console.log("startDate:", startDate);
-    console.log("EndDate:", endDate);
+    /*  console.log("startDate:", startDate);
+    console.log("EndDate:", endDate); */
     setAllocations(filtered);
   };
 
@@ -181,6 +176,7 @@ export default function Allocations() {
     key: "selection",
   };
 
+  //--------------Filters---------------
   const filterInv = (event) => {
     const filterValue = event.target.value;
     setSelectedInv(filterValue);
@@ -226,12 +222,14 @@ export default function Allocations() {
     }
   };
 
-  //Button to reset the filter:
+  //-----------Button to reset the filter:----
   const resetFilter = () => {
     setAllocations(allAllocations);
     setSelectedInv("");
     setSelectedOp("");
     setSelectedUser("");
+    setStartDate(new Date());
+    setEndDate(new Date());
   };
 
   return (
@@ -244,35 +242,39 @@ export default function Allocations() {
         }}
         className="container-fluid"
       >
-        <h1>Relatório</h1>
+        <h1>Relatório de Ativos</h1>
         <div className="tb-btn-user">
           <button onClick={downloadCSV} className="btn-dwl">
             Download CSV
           </button>
         </div>
       </div>
-      <div className="card animated fadeInDown">
-        <div className="headerFilter">
-          <DateRangePicker
-            ranges={[selectionRange]}
-            onChange={handleSelect}
-            locale={pt}
-            color={"#459c2c"}
-            definedRanges={[]}
-          />
-          <Filter
-            assets={assets}
-            users={users}
-            filterInv={filterInv}
-            resetFilter={resetFilter}
-            selectedInv={selectedInv}
-            filterOp={filterOp}
-            selectedOp={selectedOp}
-            filterUser={filterUser}
-            selectedUser={selectedUser}
-          ></Filter>
+      {loading && <div className="caprr-re">Carregando...</div>}
+
+      {!loading && (
+        <div className="card animated fadeInDown">
+          <div className="headerFilter">
+            <DateRangePicker
+              ranges={[selectionRange]}
+              onChange={handleSelect}
+              locale={pt}
+              color={"#459c2c"}
+              definedRanges={[]}
+            />
+            <Filter
+              assets={assets}
+              users={users}
+              filterInv={filterInv}
+              resetFilter={resetFilter}
+              selectedInv={selectedInv}
+              filterOp={filterOp}
+              selectedOp={selectedOp}
+              filterUser={filterUser}
+              selectedUser={selectedUser}
+            ></Filter>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

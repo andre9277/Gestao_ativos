@@ -17,6 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        //$this->authorize('create-delete-users');
         $users = User::with('roles:id,name')
             ->orderBy('id', 'desc')
             ->paginate(20);
@@ -54,6 +55,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $this->authorize('create-delete-users');
         //retornamos o UserResource
         return new UserResource($user);
     }
@@ -82,20 +84,6 @@ class UserController extends Controller
         //Novo user resource 
         return new UserResource($user);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
-     */
-    /*    public function destroy(User $user)
-    {
-        //Função que elimina o utilizador
-        $user->delete();
-
-        return response("", 204);
-    } */
 
     /**
      * Remove the specified resource from storage.

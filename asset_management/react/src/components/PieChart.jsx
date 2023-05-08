@@ -43,15 +43,13 @@ import axiosClient from "../axios-client.js";
 
 ChartJS.register(Tooltip, Legend, ArcElement);
 
-const PieChart = () => {
+const PieChart = ({ assets }) => {
   //return all assets(mount hook its called 2x)
   useEffect(() => {
     getCategories();
-    getAssets();
   }, []);
 
   const [charts, setCharts] = useState([]);
-  const [assets, setAssets] = useState([]);
 
   //Performs a client access request to categories
   const getCategories = (url) => {
@@ -63,21 +61,6 @@ const PieChart = () => {
   };
 
   //Performs a client access request to assets
-
-  const getAssets = (url, page = 1, results = []) => {
-    url = url || "/assets";
-    axiosClient.get(`${url}?page=${page}`).then(({ data }) => {
-      const assets = data.data;
-      results = [...results, ...assets];
-      if (data.meta.current_page < data.meta.last_page) {
-        // if there are more pages, recursively call the function
-        getAssets(url, page + 1, results);
-      } else {
-        // update the state with all the assets
-        setAssets(results);
-      }
-    });
-  };
 
   //Chart (Pie)
   var data = {

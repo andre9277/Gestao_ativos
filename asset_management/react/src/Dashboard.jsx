@@ -32,17 +32,17 @@ import Card from "./components/Card";
 import "./styles/Dashboard.css";
 import AreaChart from "./components/AreaChart";
 import PieChart from "./components/PieChart";
-import { useState, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import axiosClient from "./axios-client.js";
 
 function Dashboard() {
-  useLayoutEffect(() => {
-    getTotalAssets();
-    getRepairs();
-  }, []);
-
   const [assetTotal, setAssetTotal] = useState("");
-  const [repairAsset, setRepairAsset] = useState([]);
+  const [assets, setAssets] = useState([]);
+
+  useEffect(() => {
+    getTotalAssets();
+    getAssets();
+  }, []);
 
   //Performs a client access request
   const getTotalAssets = (url) => {
@@ -51,13 +51,21 @@ function Dashboard() {
       setAssetTotal(data);
     });
   };
-
-  const getRepairs = (url) => {
-    url = url || "/countRepair";
-    axiosClient.get(url).then(({ data }) => {
-      setRepairAsset(data);
+  const getAssets = (url, page = 1, results = []) => {
+    url = url || "/assets";
+    axiosClient.get(`${url}?page=${page}`).then(({ data }) => {
+      const assets = data.data;
+      results = [...results, ...assets];
+      if (data.meta.current_page < data.meta.last_page) {
+        // if there are more pages, recursively call the function
+        getAssets(url, page + 1, results);
+      } else {
+        // update the state with all the assets
+        setAssets(results);
+      }
     });
   };
+
   return (
     <div id="content-wrapper" className="d-flex flex-column">
       {/*  <!-- Main Content --> */}
@@ -74,7 +82,7 @@ function Dashboard() {
             {/*  <!-- Total of Assets --> */}
             <Card
               Titulo="Total de ativos"
-              Descricao={assetTotal}
+              Descricao={assetTotal.total}
               Icon="fa-laptop"
               Cor="text-primary"
               Tipo="primary"
@@ -83,7 +91,7 @@ function Dashboard() {
             {/*  <!-- Assets Changed --> */}
             <Card
               Titulo="Ativos Alterados - Média Mensal"
-              Descricao=""
+              Descricao={assetTotal.countChanged}
               Icon="fa-arrows-alt"
               Cor="text-success"
               Tipo="success"
@@ -93,7 +101,7 @@ function Dashboard() {
 
             <Card
               Titulo="Ativos em Reparação"
-              Descricao={repairAsset}
+              Descricao={assetTotal.totalRep}
               Icon="fa-wrench"
               Cor="text-warning"
               Tipo="warning"
@@ -104,11 +112,11 @@ function Dashboard() {
 
           <div className="row">
             {/*   <!-- Area Chart --> */}
-            <AreaChart />
+            <AreaChart assets={assets} />
 
             {/*  <!-- Pie Chart --> */}
 
-            <PieChart />
+            <PieChart assets={assets} />
           </div>
 
           {/*   <!-- Content Row --> */}

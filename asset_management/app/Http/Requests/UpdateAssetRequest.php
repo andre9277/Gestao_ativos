@@ -24,7 +24,19 @@ class UpdateAssetRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'numb_ser' => 'required',
+            'cond' => 'required',
+            'state' => 'required',
+            'cat_id' => 'required',
+            'brand_id' => 'required',
+            //'model_id' => 'required',
+            'ent_id' => 'required',
+            'numb_inv' => [
+                'required',
+                'string',
+                'digits:6',
+                'regex:/^0/',
+            ],
         ];
     }
 }

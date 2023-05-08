@@ -50,10 +50,6 @@ class AssetController extends Controller
      */
     public function store(StoreAssetRequest $request)
     {
-        /* $this->authorize('create-edit');
-        return Asset::create($request->all()); */
-
-
         $this->authorize('create-edit');
 
         $asset = Asset::create($request->all());
@@ -72,20 +68,24 @@ class AssetController extends Controller
         return $asset;
     }
 
-
+    //For the dashboard statistics
     public function count(Asset $asset)
     {
 
-        return $asset::count();
+        $total = $asset::count();
+
+        // Count assets changed this month
+        $countChanged = $asset::whereMonth('updated_at', '=', now()->month)->count();
+
+        $totalRep = $asset::where('cond', 'Reparação')->count();
+
+        return [
+            'total' => $total,
+            'countChanged' => $countChanged,
+            'totalRep' => $totalRep
+        ];
     }
 
-
-    //For frontend statistics
-    public function countRepair(Asset $asset)
-    {
-
-        return $asset::where('cond', 'Reparação')->count();
-    }
 
     /**
      * Display the specified resource.
@@ -154,10 +154,7 @@ class AssetController extends Controller
      */
     public function destroy($id)
     {
-        /* $this->authorize('delete');
 
-        $asset = Asset::find($id);
-        $asset->delete(); */
 
         $this->authorize('delete');
 
@@ -194,6 +191,8 @@ class AssetController extends Controller
 
     public function import(Request $request)
     {
+        $this->authorize('import');
+
         $file = $request->file('file');
 
         Excel::import($file, function ($rows) {

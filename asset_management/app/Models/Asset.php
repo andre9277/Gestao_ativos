@@ -39,6 +39,16 @@ class Asset extends Model
 
     ];
 
+    public static $rules = [
+        'numb_inv' => [
+            'required',
+            'integer',
+            'digits:6',
+            'unique:assets,numb_inv',
+            'regex:/^0/',
+        ],
+    ];
+
 
     public function brand()
     {

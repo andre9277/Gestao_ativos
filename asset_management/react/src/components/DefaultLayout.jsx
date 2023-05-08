@@ -36,6 +36,7 @@ import TopBar from "./TopBar";
 import Footer from "./Footer";
 import SideBarGuest from "./SideBarGuest";
 import ManutLayout from "./ManutLayout";
+import SideBarSi from "./SideBarSi";
 
 export default function DefaultLayout() {
   const { user, token, setUser, setToken, notification } = useStateContext();
@@ -65,7 +66,13 @@ export default function DefaultLayout() {
 
   return (
     <div id="defaultLayout">
-      {user.role_id === 3 ? <SideBarGuest /> : <SideBar />}
+      {user.role_id === 3 ? (
+        <SideBarGuest />
+      ) : user.role_id === 2 ? (
+        <SideBarSi />
+      ) : (
+        <SideBar />
+      )}
       <div className="content">
         <TopBar user={user} onLogout={onLogout} />
 

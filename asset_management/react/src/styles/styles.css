@@ -12468,7 +12468,7 @@ select {
         width: 60%;
         box-sizing: border-box;
         padding: 12px 20px;
-        margin: 8px 0;
+        /*  margin: 8px 0; */
         border-bottom: 2px;
     }
     select,
@@ -12600,8 +12600,8 @@ select {
 }
 
 .headerFilter {
-    display: flex;
-    text-align: right;
+    display: inline-flex;
+    margin-left: 250px;
     vertical-align: middle;
     padding: 1px 5px;
 }
@@ -12632,7 +12632,7 @@ select {
 }
 
 .filter-user {
-    margin-right: 150px;
+    margin-right: 250px;
 }
 
 .ssBar {
@@ -12654,4 +12654,25 @@ select {
 
 .inpImport {
     width: 75%;
+}
+
+.caprr-re {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+input::placeholder {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.filtAsset-tab {
+    color: black;
+    width: 12px;
+    margin: 0.5px;
+    cursor: pointer;
+    line-height: 1.1;
+    /* border: 1px solid black; */
+    font-size: 18px;
 }

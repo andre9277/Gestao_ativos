@@ -50,5 +50,17 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
         });
+
+        Gate::define('allocations', function (User $user) {
+            if ($user->role_id === 1 || $user->role_id === 2) {
+                return true;
+            }
+        });
+
+        Gate::define('import', function (User $user) {
+            if ($user->role_id === 1) {
+                return true;
+            }
+        });
     }
 }

@@ -27,16 +27,18 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
+
 .results-list {
-    width: 100%;
+    width: 68%;
     background-color: white;
     display: flex;
     flex-direction: column;
     box-shadow: 0px 0px 8px #ddd;
     border-radius: 10px;
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
     max-height: 300px;
     overflow-y: scroll;
     position: absolute;
     z-index: 9999;
+    text-align: center;
 }

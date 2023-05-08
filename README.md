@@ -77,7 +77,14 @@
 
          npm install chart.js
 
-     **18- Run:**
+      **18- Calendar Filter:**
+     
+         npm install --save react-date-range
+       ______________________________________________________
+         
+         npm install --save react date-fns
+
+       **19- Run:**
 
         npm i react-router-dom
       ______________________________________________________
@@ -87,12 +94,7 @@
 
          npm run dev
          
-     **19- Calendar Filter:**
      
-         npm install --save react-date-range
-    ______________________________________________________
-         
-         npm install --save react date-fns
 
      **20- Login information:**
      
