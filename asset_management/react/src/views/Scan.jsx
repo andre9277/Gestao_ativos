@@ -127,11 +127,12 @@ const Scan = () => {
       <div id="content">
         <div className="container-fluid">
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1>Barcode Scanner</h1>
+            <h1 className="h3 mb-0 text-gray-800">Barcode Scanner</h1>
           </div>
           <div
             id="scanner-container"
             style={{ position: "relative", width: "100%", height: "100%" }}
+            className="row"
           >
             <video
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
