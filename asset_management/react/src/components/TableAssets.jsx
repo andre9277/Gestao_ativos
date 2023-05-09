@@ -78,6 +78,7 @@ const TableAssets = ({
         !loading &&
         filteredAssets.map((a) => (
           <tr key={a.id}>
+            {/*  {console.log(filteredAssets)} */}
             <td>{a.category.name}</td>
             <td>{a.brand.sig}</td>
             <td>{a.modelo.model_name}</td>

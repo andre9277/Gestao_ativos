@@ -55,6 +55,7 @@ export default function Assets() {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
 
+  const [allDados, setAllDados] = useState([]);
   useEffect(() => {
     Promise.all([
       axiosClient.get("/catName"),
@@ -83,10 +84,12 @@ export default function Assets() {
     axiosClient
       .get(url)
       .then(({ data }) => {
+        console.log("allData", allData);
         //when the request is successfull, loading=false
+        setAllDados(dados);
         setLoading(false);
         //console.log(data);
-        setAssets(data.data);
+        setAssets(data.data); //deve guardar TODOS os ativos de todas as páginas!!!!!
         setMeta(data.meta);
       })
       .catch(() => {
@@ -124,6 +127,13 @@ export default function Assets() {
     const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
     const url = `/assets/${checkedAssetIds}`;
 
+    const allData = [];
+
+    for (let page = 1; page <= meta.last_page; page++) {
+      const { data } = axiosClient.get(`/assets?page=${page}`);
+      allData.push(...data.data);
+    }
+    console.log("dados:", dados);
     if (checkedAssetIds.length === 0) {
       return;
     } else {
