@@ -58,7 +58,13 @@ const TableAssets = ({
   return (
     <tbody>
       {/* Iteration between all assets */}
-      {loading && <div className="lgText">Carregando...</div>}
+      {loading && (
+        <tr>
+          <td colSpan="5" className="lgText">
+            Carregando...
+          </td>
+        </tr>
+      )}
       {!loading &&
         filteredAssets.map((a) => (
           <tr key={a.id}>

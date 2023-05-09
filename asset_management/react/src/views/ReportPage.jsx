@@ -209,7 +209,7 @@ const ReportPage = () => {
           {loading && (
             <tbody>
               <tr>
-                <td colSpan="5" className="caprr-re">
+                <td colSpan="5" className="lgText">
                   Carregando...
                 </td>
               </tr>
