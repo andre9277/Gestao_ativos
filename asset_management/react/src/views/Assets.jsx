@@ -47,6 +47,7 @@ export default function Assets() {
   const [cats, setCats] = useState([]);
   const [brands, setBrands] = useState([]);
   const [modelos, setModelos] = useState([]);
+
   useEffect(() => {
     Promise.all([
       axiosClient.get("/categories"),
@@ -280,6 +281,7 @@ export default function Assets() {
               selectedBrand={selectedBrand}
               selectedModel={selectedModel}
               toggleCheck={toggleCheck}
+              meta={meta}
             />
           )}
         </table>

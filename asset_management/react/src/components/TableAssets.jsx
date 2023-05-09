@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
+import axiosClient from "../axios-client.js";
 
 const TableAssets = ({
   assets,
@@ -8,31 +9,50 @@ const TableAssets = ({
   selectedFloor,
   selectedBrand,
   selectedModel,
+  meta,
 }) => {
   const { user } = useStateContext();
 
-  //aqui....realizar a leitura de todos os pagination e guardar .. depois imprimir no ecrã:
-  /*  const allData = [];
-  for (let page = 1; page <= meta.last_page; page++) {
-    const { data } = await axiosClient.get(`/allocations?page=${page}`);
-    allData.push(...data.data);
-  } */
-  const [filteredAssets, setFilteredAssets] = useState(assets);
+  //keeps checking if there is a filter on or off:
+  const [filtered, setFiltered] = useState(false);
+  //For the all the asset data:
+  const [allData, setAllData] = useState([]);
 
   useEffect(() => {
-    const filtered = assets.filter(
-      (row) =>
-        (selectedCategory === "" || row.category.name === selectedCategory) &&
-        (selectedFloor === "" || row.floor === selectedFloor) &&
-        (selectedBrand === "" || row.brand.name === selectedBrand) &&
-        (selectedModel === "" || row.modelo.model_name === selectedModel)
-    );
-    setFilteredAssets(filtered);
-  }, [assets, selectedCategory, selectedFloor, selectedBrand, selectedModel]);
+    const hasFilter =
+      selectedCategory !== "" ||
+      selectedFloor !== "" ||
+      selectedBrand !== "" ||
+      selectedModel !== "";
+
+    setFiltered(hasFilter);
+    //if hasFilter = true then it gets all the assets from all the pages:
+    if (hasFilter) {
+      const fetchData = async () => {
+        const result = [];
+        for (let page = 1; page <= meta.last_page; page++) {
+          const { data } = await axiosClient.get(`/assets?page=${page}`);
+          result.push(...data.data);
+        }
+        setAllData(result);
+      };
+      fetchData();
+    }
+  }, [selectedCategory, selectedFloor, selectedBrand, selectedModel, meta]);
+
+  //use allData when filtered = true and when its false its equal to the assets object
+  const filteredAssets = filtered
+    ? allData.filter(
+        (row) =>
+          (selectedCategory === "" || row.category.name === selectedCategory) &&
+          (selectedFloor === "" || row.floor === selectedFloor) &&
+          (selectedBrand === "" || row.brand.name === selectedBrand) &&
+          (selectedModel === "" || row.modelo.model_name === selectedModel)
+      )
+    : assets;
 
   return (
     <tbody>
-      {console.log("filters aqui:", filteredAssets)}
       {/* Iteration between all assets */}
       {filteredAssets.map((a) => (
         <tr key={a.id}>
