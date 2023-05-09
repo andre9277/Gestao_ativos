@@ -65,7 +65,17 @@ const TableAssets = ({
           </td>
         </tr>
       )}
-      {!loading &&
+
+      {!loading && filteredAssets.length === 0 ? (
+        <tbody>
+          <tr>
+            <td colSpan="5" className="lgText">
+              Não existem resultados para os filtros selecionados!
+            </td>
+          </tr>
+        </tbody>
+      ) : (
+        !loading &&
         filteredAssets.map((a) => (
           <tr key={a.id}>
             <td>{a.category.name}</td>
@@ -99,7 +109,8 @@ const TableAssets = ({
               </td>
             )}
           </tr>
-        ))}
+        ))
+      )}
     </tbody>
   );
 };
