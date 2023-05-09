@@ -18,6 +18,8 @@ const TableAssets = ({
   //For the all the asset data:
   const [allData, setAllData] = useState([]);
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const hasFilter =
       selectedCategory !== "" ||
@@ -30,9 +32,11 @@ const TableAssets = ({
     if (hasFilter) {
       const fetchData = async () => {
         const result = [];
+        setLoading(true);
         for (let page = 1; page <= meta.last_page; page++) {
           const { data } = await axiosClient.get(`/assets?page=${page}`);
           result.push(...data.data);
+          setLoading(false);
         }
         setAllData(result);
       };
@@ -54,40 +58,42 @@ const TableAssets = ({
   return (
     <tbody>
       {/* Iteration between all assets */}
-      {filteredAssets.map((a) => (
-        <tr key={a.id}>
-          <td>{a.category.name}</td>
-          <td>{a.brand.sig}</td>
-          <td>{a.modelo.model_name}</td>
-          <td>{a.numb_inv}</td>
-          <td>{a.numb_ser}</td>
-          <td>{a.entity.ent_name}</td>
-          <td>{a.units === null ? "" : a.units.name}</td>
-          <td>{a.floor}</td>
-          <td>{a.ala}</td>
-          <td>{a.ci}</td>
-          <td>
-            {a.state === "Ativo" ? (
-              <div className="circle active"></div>
-            ) : (
-              <div className="circle inactive"></div>
-            )}
-          </td>
-          <td>{a.created_at}</td>
-
-          {user.role_id === 3 ? null : (
+      {loading && <div className="lgText">Carregando...</div>}
+      {!loading &&
+        filteredAssets.map((a) => (
+          <tr key={a.id}>
+            <td>{a.category.name}</td>
+            <td>{a.brand.sig}</td>
+            <td>{a.modelo.model_name}</td>
+            <td>{a.numb_inv}</td>
+            <td>{a.numb_ser}</td>
+            <td>{a.entity.ent_name}</td>
+            <td>{a.units === null ? "" : a.units.name}</td>
+            <td>{a.floor}</td>
+            <td>{a.ala}</td>
+            <td>{a.ci}</td>
             <td>
-              <input
-                type="checkbox"
-                name=""
-                id=""
-                onChange={() => toggleCheck(a.id)}
-                value={a.checked}
-              />
+              {a.state === "Ativo" ? (
+                <div className="circle active"></div>
+              ) : (
+                <div className="circle inactive"></div>
+              )}
             </td>
-          )}
-        </tr>
-      ))}
+            <td>{a.created_at}</td>
+
+            {user.role_id === 3 ? null : (
+              <td>
+                <input
+                  type="checkbox"
+                  name=""
+                  id=""
+                  onChange={() => toggleCheck(a.id)}
+                  value={a.checked}
+                />
+              </td>
+            )}
+          </tr>
+        ))}
     </tbody>
   );
 };

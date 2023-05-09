@@ -12677,6 +12677,21 @@ input::placeholder {
     font-size: 18px;
 }
 
+/*-----------For the Scan---------*/
 /* .drawingBuffer {
     display: none;
 } */
+
+/*----------For the Loading-------*/
+.lgText {
+    text-align: center;
+    font-weight: bold;
+    font-size: 150%;
+    padding: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}

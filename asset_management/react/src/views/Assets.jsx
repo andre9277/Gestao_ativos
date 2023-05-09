@@ -167,6 +167,7 @@ export default function Assets() {
     updatedAssets[checkedIdx].checked = !updatedAssets[checkedIdx].checked;
     setAssets(updatedAssets);
   };
+
   return (
     <div id="content">
       <div
@@ -267,7 +268,7 @@ export default function Assets() {
           {loading && (
             <tbody>
               <tr>
-                <td colSpan="5" className="text-center">
+                <td colSpan="5" className="lgText">
                   Carregando...
                 </td>
               </tr>
@@ -285,6 +286,8 @@ export default function Assets() {
             />
           )}
         </table>
+        <p> </p>
+        <p> </p>
         <PaginationLinks meta={meta} onPageClick={onPageClick} />
       </div>
     </div>

@@ -126,10 +126,10 @@ const ReportPage = () => {
     const csvData = Papa.unparse({
       fields: [
         "Nº Inventário",
-        "CI(Anterior)",
-        "CI(Atual)",
         "Unidade(Anterior)",
         "Entidade(Anterior)",
+        "CI(Anterior)",
+        "CI(Atual)",
         "Local Atual",
         "Utilizador",
         "Movido em",
@@ -144,10 +144,10 @@ const ReportPage = () => {
           const allocationData = getAllocationData(asset.id);
           return [
             asset.numb_inv,
-            asset.previous_ci,
-            asset.ci,
             filtered_units(asset.previous_unit_id),
             filtered_entities(asset.previous_ent_id),
+            asset.previous_ci,
+            asset.ci,
             asset.units === null ? asset.entity.ent_name : asset.units.name,
             allocationData.user,
             allocationData.date,
@@ -158,7 +158,7 @@ const ReportPage = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.setAttribute("href", url);
-    link.setAttribute("download", "relatorio.csv");
+    link.setAttribute("download", "mov_ativos.csv");
     link.style.visibility = "hidden";
     document.body.appendChild(link);
     link.click();
@@ -196,10 +196,10 @@ const ReportPage = () => {
           <thead>
             <tr>
               <th>Nº Inventário</th>
-              <th>CI(Anterior)</th>
 
               <th>Unidade(Anterior)</th>
               <th>Entidade(Anterior)</th>
+              <th>CI(Anterior)</th>
               <th>CI(Atual)</th>
               <th>Local(Atual)</th>
               <th>Utilizador</th>
@@ -230,11 +230,11 @@ const ReportPage = () => {
                 return (
                   <tr key={`${asset.id}-${index}`}>
                     <td>{asset.numb_inv}</td>
-                    <td>{asset.previous_ci}</td>
 
                     <td>{filtered_units(asset.previous_unit_id)}</td>
 
                     <td>{filtered_entities(asset.previous_ent_id)}</td>
+                    <td>{asset.previous_ci}</td>
                     <td>{asset.ci}</td>
                     <td>
                       {asset.units === null
