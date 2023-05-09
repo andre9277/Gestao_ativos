@@ -25,4 +25,10 @@ class CategoryController extends Controller
         $categories = Category::all(['id', 'name']);
         return response()->json($categories);
     }
+
+    public function indexCat()
+    {
+        $categories = Category::all(['name']);
+        return response()->json($categories);
+    }
 }

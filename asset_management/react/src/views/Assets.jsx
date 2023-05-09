@@ -48,11 +48,16 @@ export default function Assets() {
   const [brands, setBrands] = useState([]);
   const [modelos, setModelos] = useState([]);
 
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedFloor, setSelectedFloor] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedModel, setSelectedModel] = useState("");
+
   useEffect(() => {
     Promise.all([
-      axiosClient.get("/categories"),
-      axiosClient.get("/brands"),
-      axiosClient.get("/modelos"),
+      axiosClient.get("/catName"),
+      axiosClient.get("/brandsSig"),
+      axiosClient.get("/modelosName"),
     ]).then((responses) => {
       setCats(responses[0].data);
       setBrands(responses[1].data);
@@ -85,7 +90,7 @@ export default function Assets() {
       });
   };
 
-  //Handle click para apagar um asset
+  //----------Handle click to delete an asset
   const onDeleteClick = () => {
     // Get the IDs of all the checked users
     const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
@@ -109,6 +114,7 @@ export default function Assets() {
     });
   };
 
+  //-----------Handle click to edit an asset
   const onEditClick = () => {
     // Get the IDs of all the checked assets
     const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
@@ -123,15 +129,12 @@ export default function Assets() {
     //console.log(checkedAssetIds);
   };
 
+  //OnPageClick for the pagination
   const onPageClick = (link) => {
     getAssets(link.url);
   };
 
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedFloor, setSelectedFloor] = useState("");
-  const [selectedBrand, setSelectedBrand] = useState("");
-  const [selectedModel, setSelectedModel] = useState("");
-
+  //-------------Handle change of the columns
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
@@ -152,6 +155,7 @@ export default function Assets() {
     setSelectedModel(selectedModel);
   };
 
+  //Reset of the filters implemented
   const resetFilter = () => {
     setSelectedBrand("");
     setSelectedFloor("");

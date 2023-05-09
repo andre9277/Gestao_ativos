@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Endpoint Categories
     Route::get('/categories', [CategoryController::class, 'index']);
+    Route::get('/catName', [CategoryController::class, 'indexCat']);
 
     //Endpoint Entities
     Route::get('/entities', [EntityController::class, 'index']);
@@ -49,6 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //routes para os assets
     Route::post('/assets', [AssetController::class, 'store']);
     Route::get('/assets', [AssetController::class, 'index']);
+
     Route::resource('assets', AssetController::class);
     Route::apiResource('/assets', AssetController::class);
     Route::get('/asset', function (Request $request) {
@@ -71,13 +73,15 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->allocation();
     });
 
+
     //Endpoint Brands
     Route::get('/brands', [BrandController::class, 'index']);
+    Route::get('/brandsSig', [BrandController::class, 'indexSig']);
 
     //Endpoint Models
     Route::get('/modelos', [ModeloController::class, 'index']);
     Route::get('/modelsHb', [ModeloController::class, 'getModelsByEntity']);
-
+    Route::get('/modelosName', [ModeloController::class, 'indexName']);
     //Endpoint Supplier
     Route::get('/supplier', [SupplierController::class, 'index']);
 
