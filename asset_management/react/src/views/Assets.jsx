@@ -35,6 +35,7 @@ import PaginationLinks from "../components/PaginationLinks.jsx";
 import "../styles/Dashboard.css";
 import ColumnMenuFilter from "../components/ColumnMenuFilter.jsx";
 import TableAssets from "../components/TableAssets.jsx";
+import axios from "axios";
 
 export default function Assets() {
   const navigate = useNavigate();
@@ -47,6 +48,7 @@ export default function Assets() {
   const [cats, setCats] = useState([]);
   const [brands, setBrands] = useState([]);
   const [modelos, setModelos] = useState([]);
+  const [floor, setFloor] = useState([]);
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedFloor, setSelectedFloor] = useState("");
@@ -58,10 +60,12 @@ export default function Assets() {
       axiosClient.get("/catName"),
       axiosClient.get("/brandsSig"),
       axiosClient.get("/modelosName"),
+      axiosClient.get("/floorLevel"),
     ]).then((responses) => {
       setCats(responses[0].data);
       setBrands(responses[1].data);
       setModelos(responses[2].data);
+      setFloor(responses[3].data);
     });
   }, []);
 
@@ -257,7 +261,7 @@ export default function Assets() {
               <th>
                 <ColumnMenuFilter
                   titulo={"Piso"}
-                  data={[]}
+                  data={floor}
                   selectedAttribut={selectedFloor}
                   handleFunc={handleFloorChange}
                 />

@@ -50,6 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //routes para os assets
     Route::post('/assets', [AssetController::class, 'store']);
     Route::get('/assets', [AssetController::class, 'index']);
+    Route::get('/floorLevel', [AssetController::class, 'get_floor_levels']);
 
     Route::resource('assets', AssetController::class);
     Route::apiResource('/assets', AssetController::class);

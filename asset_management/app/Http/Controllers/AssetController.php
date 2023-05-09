@@ -231,4 +231,14 @@ class AssetController extends Controller
 
         return redirect()->back()->with('success', 'Dados importados com sucesso!');
     }
+
+
+    function get_floor_levels()
+    {
+        $floor_levels = [-1, 0, 1, 2, 3, 4, 5];
+        $result = array_map(function ($floor_level) {
+            return ['name' => $floor_level];
+        }, $floor_levels);
+        return $result;
+    }
 }
