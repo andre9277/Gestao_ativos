@@ -50,7 +50,7 @@ const TableAssets = ({
         (row) =>
           (selectedCategory === "" || row.category.name === selectedCategory) &&
           (selectedFloor === "" || row.floor === selectedFloor) &&
-          (selectedBrand === "" || row.brand.name === selectedBrand) &&
+          (selectedBrand === "" || row.brand.sig === selectedBrand) &&
           (selectedModel === "" || row.modelo.model_name === selectedModel)
       )
     : assets;

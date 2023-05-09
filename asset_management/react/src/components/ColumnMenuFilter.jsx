@@ -11,7 +11,7 @@ const ColumnMenuFilter = ({ titulo, data, selectedAttribut, handleFunc }) => {
       >
         <option value=""></option>
         {data.map((dat) => (
-          <option value={dat.name}> {dat.name}</option>
+          <option value={dat.name}>{dat.name}</option>
         ))}
       </select>
     </div>
