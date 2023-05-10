@@ -66,7 +66,7 @@ const TableAssets = ({
         </tr>
       )}
 
-      {!loading && filteredAssets.length === 0 ? (
+      {filteredAssets.length === 0 ? (
         <tbody>
           <tr>
             <td colSpan="5" className="lgText">

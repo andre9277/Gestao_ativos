@@ -206,14 +206,12 @@ export default function Assets() {
       const updatedAssets = [...assets];
       updatedAssets[checkedIdx].checked = !updatedAssets[checkedIdx].checked;
       setAssets(updatedAssets);
-      console.log("sem brand updateAssets", updatedAssets);
     } else {
       const checkedIdx = allDados.findIndex((a) => a.id === id);
       if (checkedIdx === -1) return;
       const updatedAssets = [...allDados];
       updatedAssets[checkedIdx].checked = !updatedAssets[checkedIdx].checked;
       setAssets(updatedAssets);
-      console.log("updateAssets", updatedAssets);
     }
   };
 
