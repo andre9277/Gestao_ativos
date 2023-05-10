@@ -56,6 +56,7 @@ export default function Assets() {
   const [selectedModel, setSelectedModel] = useState("");
 
   const [allDados, setAllDados] = useState([]);
+
   useEffect(() => {
     Promise.all([
       axiosClient.get("/catName"),
@@ -72,29 +73,51 @@ export default function Assets() {
 
   //returns all assets (mount hook is called 2x)
   useEffect(() => {
-    getAssets();
+    const fetchData = async () => {
+      await getAssets();
+    };
+
+    fetchData();
   }, []);
 
-  //Performs a client access request
+  // Performs a client access request
   const getAssets = (url) => {
     url = url || "/assets";
 
-    //when there is still a request, we aply loading = true
+    // When there is still a request, we apply loading = true
     setLoading(true);
     axiosClient
       .get(url)
       .then(({ data }) => {
-        console.log("allData", allData);
-        //when the request is successfull, loading=false
-        setAllDados(dados);
+        // When the request is successful, loading=false
         setLoading(false);
-        //console.log(data);
-        setAssets(data.data); //deve guardar TODOS os ativos de todas as páginas!!!!!
+        // console.log(data);
+        setAssets(data.data); // Deve guardar TODOS os ativos de todas as páginas!!!!!
         setMeta(data.meta);
+        getAllAssetsData(data.meta); // Call getAllAssetsData with the updated meta
       })
       .catch(() => {
         setLoading(false);
       });
+  };
+
+  const getAllAssetsData = async (meta) => {
+    try {
+      const allData = [];
+      for (let page = 1; page <= meta.last_page; page++) {
+        try {
+          const response = await axiosClient.get(`/assets?page=${page}`);
+          const { data } = response;
+          allData.push(...data.data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      setAllDados(allData);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   //----------Handle click to delete an asset
@@ -127,13 +150,6 @@ export default function Assets() {
     const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
     const url = `/assets/${checkedAssetIds}`;
 
-    const allData = [];
-
-    for (let page = 1; page <= meta.last_page; page++) {
-      const { data } = axiosClient.get(`/assets?page=${page}`);
-      allData.push(...data.data);
-    }
-    console.log("dados:", dados);
     if (checkedAssetIds.length === 0) {
       return;
     } else {
@@ -179,11 +195,26 @@ export default function Assets() {
 
   //For the checkbox
   const toggleCheck = (id) => {
-    const checkedIdx = assets.findIndex((a) => a.id === id);
-    if (checkedIdx === -1) return;
-    const updatedAssets = [...assets];
-    updatedAssets[checkedIdx].checked = !updatedAssets[checkedIdx].checked;
-    setAssets(updatedAssets);
+    if (
+      selectedBrand === "" &&
+      selectedCategory === "" &&
+      selectedFloor === "" &&
+      selectedModel === ""
+    ) {
+      const checkedIdx = assets.findIndex((a) => a.id === id);
+      if (checkedIdx === -1) return;
+      const updatedAssets = [...assets];
+      updatedAssets[checkedIdx].checked = !updatedAssets[checkedIdx].checked;
+      setAssets(updatedAssets);
+      console.log("sem brand updateAssets", updatedAssets);
+    } else {
+      const checkedIdx = allDados.findIndex((a) => a.id === id);
+      if (checkedIdx === -1) return;
+      const updatedAssets = [...allDados];
+      updatedAssets[checkedIdx].checked = !updatedAssets[checkedIdx].checked;
+      setAssets(updatedAssets);
+      console.log("updateAssets", updatedAssets);
+    }
   };
 
   return (
