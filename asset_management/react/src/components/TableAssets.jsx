@@ -66,14 +66,12 @@ const TableAssets = ({
         </tr>
       )}
 
-      {filteredAssets.length === 0 ? (
-        <tbody>
-          <tr>
-            <td colSpan="5" className="lgText">
-              Não existem resultados para os filtros selecionados!
-            </td>
-          </tr>
-        </tbody>
+      {!loading && filteredAssets.length === 0 ? (
+        <tr>
+          <td colSpan="5" className="lgText">
+            Não existem resultados para os filtros selecionados!
+          </td>
+        </tr>
       ) : (
         !loading &&
         filteredAssets.map((a) => (
