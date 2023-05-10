@@ -193,7 +193,8 @@ export default function Assets() {
     setSelectedModel("");
   };
 
-  //For the checkbox
+  //For the checkbox, if the value of the filter is empty, then uses the assets array of the current page.
+  //if filter exists then uses the allDados array, that gives information about every assets in our database
   const toggleCheck = (id) => {
     if (
       selectedBrand === "" &&

@@ -12669,13 +12669,14 @@ input::placeholder {
 
 .filtAsset-tab {
     color: black;
-    width: 12px;
+    width: 20px;
     margin: 0.5px;
     cursor: pointer;
     line-height: 1.1;
     /* border: 1px solid black; */
     font-size: 18px;
     align-items: center;
+    
 }
 
 /*-----------For the Scan---------*/
