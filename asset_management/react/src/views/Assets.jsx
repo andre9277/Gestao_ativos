@@ -35,7 +35,6 @@ import PaginationLinks from "../components/PaginationLinks.jsx";
 import "../styles/Dashboard.css";
 import ColumnMenuFilter from "../components/ColumnMenuFilter.jsx";
 import TableAssets from "../components/TableAssets.jsx";
-import axios from "axios";
 
 export default function Assets() {
   const navigate = useNavigate();
@@ -276,6 +275,8 @@ export default function Assets() {
                   data={cats}
                   selectedAttribut={selectedCategory}
                   handleFunc={handleCategoryChange}
+                  assets={assets}
+                  setAssets={setAssets}
                 />
               </th>
               <th>
@@ -284,6 +285,8 @@ export default function Assets() {
                   data={brands}
                   selectedAttribut={selectedBrand}
                   handleFunc={handleBrandChange}
+                  assets={assets}
+                  setAssets={setAssets}
                 />
               </th>
               <th>
@@ -292,6 +295,8 @@ export default function Assets() {
                   data={modelos}
                   selectedAttribut={selectedModel}
                   handleFunc={handleModelChange}
+                  assets={assets}
+                  setAssets={setAssets}
                 />
               </th>
               <th>NºInventário</th>
@@ -304,6 +309,8 @@ export default function Assets() {
                   data={floor}
                   selectedAttribut={selectedFloor}
                   handleFunc={handleFloorChange}
+                  assets={assets}
+                  setAssets={setAssets}
                 />
               </th>
               <th>Ala</th>
