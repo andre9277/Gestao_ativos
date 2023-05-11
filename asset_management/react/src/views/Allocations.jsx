@@ -253,7 +253,10 @@ export default function Allocations() {
 
       {!loading && (
         <div className="card animated fadeInDown">
-          <h6>Atenção: Selecione intervalo de datas e(ou) filtro(s)!</h6>
+          <h6>
+            Atenção: Selecione intervalo de datas e(ou) um dos seguinte(s)
+            filtro(s)!
+          </h6>
           <div className="headerFilter">
             <DateRangePicker
               ranges={[selectionRange]}

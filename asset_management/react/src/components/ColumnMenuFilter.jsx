@@ -5,28 +5,21 @@ const ColumnMenuFilter = ({
   data,
   selectedAttribut,
   handleFunc,
-  assets,
-  setAssets,
+  sorting,
+  order,
 }) => {
   let i = 0;
 
-  const [order, setOrder] = useState("ASC");
-  const sorting = (col) => {
-    if (order === "ASC") {
-      const sorted = [...assets].sort((a, b) => (a[col] > b[col] ? 1 : -1));
-      setAssets(sorted);
-      setOrder("DSC");
-    }
-    if (order === "DSC") {
-      const sorted = [...assets].sort((a, b) => (a[col] < b[col] ? 1 : -1));
-      setAssets(sorted);
-      setOrder("ASC");
-    }
+  const handleSort = () => {
+    sorting(titulo);
   };
 
   return (
     <div>
-      <span onClick={() => sorting({ titulo })}>{titulo}</span>
+      <span onClick={handleSort}>
+        {titulo}
+        {order === "ASC" ? " ▲" : " ▼"}{" "}
+      </span>
       <select
         className="filtAsset-tab"
         onChange={handleFunc}

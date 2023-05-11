@@ -215,6 +215,47 @@ export default function Assets() {
     }
   };
 
+  //----------Sorting of the asset table in every column
+  const [order, setOrder] = useState("ASC");
+  const sorting = (col) => {
+    const columnMapping = {
+      Categoria: "category.name",
+      Marca: "brand.sig",
+      Modelo: "modelo.model_name",
+      Piso: "floor",
+    };
+
+    const dbColumnName = columnMapping[col];
+
+    if (order === "ASC") {
+      const sorted = [...assets].sort((a, b) => {
+        const propA = getPropertyByPath(a, dbColumnName);
+        const propB = getPropertyByPath(b, dbColumnName);
+        return propA > propB ? 1 : -1;
+      });
+      setAssets(sorted);
+      setOrder("DSC");
+    }
+    if (order === "DSC") {
+      const sorted = [...assets].sort((a, b) => {
+        const propA = getPropertyByPath(a, dbColumnName);
+        const propB = getPropertyByPath(b, dbColumnName);
+        return propA < propB ? 1 : -1;
+      });
+      setAssets(sorted);
+      setOrder("ASC");
+    }
+  };
+
+  const getPropertyByPath = (obj, path) => {
+    const properties = path.split(".");
+    let value = obj;
+    for (let prop of properties) {
+      value = value[prop];
+    }
+    return value;
+  };
+
   return (
     <div id="content">
       <div
@@ -275,8 +316,8 @@ export default function Assets() {
                   data={cats}
                   selectedAttribut={selectedCategory}
                   handleFunc={handleCategoryChange}
-                  assets={assets}
-                  setAssets={setAssets}
+                  sorting={sorting}
+                  order={order}
                 />
               </th>
               <th>
@@ -285,8 +326,8 @@ export default function Assets() {
                   data={brands}
                   selectedAttribut={selectedBrand}
                   handleFunc={handleBrandChange}
-                  assets={assets}
-                  setAssets={setAssets}
+                  sorting={sorting}
+                  order={order}
                 />
               </th>
               <th>
@@ -295,8 +336,8 @@ export default function Assets() {
                   data={modelos}
                   selectedAttribut={selectedModel}
                   handleFunc={handleModelChange}
-                  assets={assets}
-                  setAssets={setAssets}
+                  sorting={sorting}
+                  order={order}
                 />
               </th>
               <th>NºInventário</th>
@@ -309,8 +350,8 @@ export default function Assets() {
                   data={floor}
                   selectedAttribut={selectedFloor}
                   handleFunc={handleFloorChange}
-                  assets={assets}
-                  setAssets={setAssets}
+                  sorting={sorting}
+                  order={order}
                 />
               </th>
               <th>Ala</th>
