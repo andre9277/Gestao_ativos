@@ -258,7 +258,9 @@ const ImportForm = () => {
             ))}
           </select>
         </label>
-        <p></p>
+        <br></br>
+        <br></br>
+        <br></br>
         <label htmlFor="fileInput" className="impLab">
           Selecione o Ficheiro para Upload: (Ficheiros excel)
         </label>
@@ -276,10 +278,9 @@ const ImportForm = () => {
       {successMessage && <p>{successMessage}</p>}
       {errorMessage && <p>{errorMessage}</p>}
 
-      <p></p>
-      <p></p>
-      <p></p>
-      <p></p>
+      <br></br>
+      <br></br>
+      <br></br>
       <div>
         <h5>Download do template para inserir dados em bulk:</h5>
         <Link to="/files/import_template.xlsx" target="_blank" download>
