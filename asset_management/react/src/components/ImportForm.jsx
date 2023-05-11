@@ -1,7 +1,6 @@
 import React from "react";
 import axiosClient from "../axios-client.js";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 const ImportForm = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -275,17 +274,6 @@ const ImportForm = () => {
       </button>
       {successMessage && <p>{successMessage}</p>}
       {errorMessage && <p>{errorMessage}</p>}
-
-      <p></p>
-      <p></p>
-      <p></p>
-      <p></p>
-      <div>
-        <h5>Download do template para inserir dados em bulk:</h5>
-        <Link to="/files/import_template.xlsx" target="_blank" download>
-          Download Template
-        </Link>
-      </div>
     </div>
   );
 };
