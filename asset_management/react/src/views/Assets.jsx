@@ -100,6 +100,7 @@ export default function Assets() {
       });
   };
 
+  //Gets all the assets, in all pages
   const getAllAssetsData = async (meta) => {
     try {
       const allData = [];
