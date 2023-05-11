@@ -20,6 +20,7 @@ const ColumnMenuFilter = ({
         {titulo}
         {order === "ASC" ? " ▲" : " ▼"}{" "}
       </span>
+
       <select
         className="filtAsset-tab"
         onChange={handleFunc}

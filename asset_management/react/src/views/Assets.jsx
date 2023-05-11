@@ -190,6 +190,9 @@ export default function Assets() {
     setSelectedFloor("");
     setSelectedCategory("");
     setSelectedModel("");
+    const sortedAssets = [...assets].sort((a, b) => b.id - a.id); // Sort by the "id" column in ascending order
+    setAssets(sortedAssets);
+    setOrder("ASC"); // Reset the sorting order to "ASC"
   };
 
   //For the checkbox, if the value of the filter is empty, then uses the assets array of the current page.
@@ -217,6 +220,7 @@ export default function Assets() {
 
   //----------Sorting of the asset table in every column
   const [order, setOrder] = useState("ASC");
+
   const sorting = (col) => {
     const columnMapping = {
       Categoria: "category.name",
@@ -247,6 +251,7 @@ export default function Assets() {
     }
   };
 
+  //auxiliar function to get the property of one array of objects of objects
   const getPropertyByPath = (obj, path) => {
     const properties = path.split(".");
     let value = obj;

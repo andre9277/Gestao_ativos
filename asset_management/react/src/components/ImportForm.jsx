@@ -259,8 +259,9 @@ const ImportForm = () => {
         </label>
         <p></p>
         <label htmlFor="fileInput" className="impLab">
-          Selecione o Ficheiro:
+          Selecione o Ficheiro para Upload: (Ficheiros excel)
         </label>
+
         <input
           type="file"
           id="fileInput"
