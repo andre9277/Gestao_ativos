@@ -74,6 +74,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/allocation', function (Request $request) {
         return $request->allocation();
     });
+    Route::get('/allocationAll', [AllocationsController::class, 'indexAllocation']);
 
 
     //Endpoint Brands

@@ -39,13 +39,12 @@ const ReportPage = () => {
   const [units, setUnits] = useState([]);
   const [ents, setEnts] = useState([]);
   const [meta, setMeta] = useState({});
-  const [metaAllocations, setMetaAllocations] = useState({});
-  const [allAllocationss, setAllAllocationss] = useState([]);
+
+  const [allocations, setAllocations] = useState([]);
 
   const fetchData = async () => {
     await getAllocations(); // Fetch allocations first
     getAssetsFilter();
-
     getUnits();
     getEnts();
   };
@@ -53,29 +52,6 @@ const ReportPage = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  useEffect(() => {
-    saveAllAllocations();
-  }, [metaAllocations]);
-
-  const saveAllAllocations = async () => {
-    try {
-      const allAllocations = [];
-
-      const { last_page } = metaAllocations;
-
-      for (let page = 1; page <= last_page; page++) {
-        const response = await axiosClient.get(`/allocations?page=${page}`);
-        const { data } = response;
-        allAllocations.push(...data.data);
-      }
-
-      // TODO: Save allAllocations to your desired storage or perform further processing
-      setAllAllocationss(allAllocations);
-    } catch (error) {
-      // Handle error here
-    }
-  };
 
   const getAssetsFilter = (url) => {
     url = url || "/filterVal";
@@ -94,14 +70,14 @@ const ReportPage = () => {
   };
 
   const getAllocations = (url) => {
-    url = url || "/allocations";
+    url = url || "/allocationAll";
 
     setLoading(true);
     axiosClient
       .get(url)
       .then(({ data }) => {
         setLoading(false);
-        setMetaAllocations(data.meta);
+        setAllocations(data.data);
       })
       .catch(() => {
         setLoading(false);
@@ -129,7 +105,7 @@ const ReportPage = () => {
   };
 
   const getAllocationData = (assetId) => {
-    const allocation = allAllocationss.find((a) =>
+    const allocation = allocations.find((a) =>
       a.assets === null ? "" : a.assets.id === assetId
     );
 
