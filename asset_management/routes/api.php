@@ -68,7 +68,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     //Route for the Asset Movement
-    //Route::resource('allocations', AllocationsController::class);
+    Route::resource('allocations', AllocationsController::class);
     Route::get('/allocations', [AllocationsController::class, 'index']);
     Route::apiResource('/allocations', AllocationsController::class);
     Route::get('/allocation', function (Request $request) {

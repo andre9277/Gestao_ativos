@@ -34,19 +34,48 @@ import PaginationLinks from "../components/PaginationLinks.jsx";
 
 //SideBar:-------------Asset movement---------------
 const ReportPage = () => {
-  useEffect(() => {
-    getAssetsFilter();
-    getAllocations();
-    getUnits();
-    getEnts();
-  }, []);
-
   const [assets, setAssets] = useState([]);
-  const [allocations, setAllocations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [units, setUnits] = useState([]);
   const [ents, setEnts] = useState([]);
   const [meta, setMeta] = useState({});
+  const [metaAllocations, setMetaAllocations] = useState({});
+  const [allAllocationss, setAllAllocationss] = useState([]);
+
+  const fetchData = async () => {
+    await getAllocations(); // Fetch allocations first
+    getAssetsFilter();
+
+    getUnits();
+    getEnts();
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    saveAllAllocations();
+  }, [metaAllocations]);
+
+  const saveAllAllocations = async () => {
+    try {
+      const allAllocations = [];
+
+      const { last_page } = metaAllocations;
+
+      for (let page = 1; page <= last_page; page++) {
+        const response = await axiosClient.get(`/allocations?page=${page}`);
+        const { data } = response;
+        allAllocations.push(...data.data);
+      }
+
+      // TODO: Save allAllocations to your desired storage or perform further processing
+      setAllAllocationss(allAllocations);
+    } catch (error) {
+      // Handle error here
+    }
+  };
 
   const getAssetsFilter = (url) => {
     url = url || "/filterVal";
@@ -72,7 +101,7 @@ const ReportPage = () => {
       .get(url)
       .then(({ data }) => {
         setLoading(false);
-        setAllocations(data.data);
+        setMetaAllocations(data.meta);
       })
       .catch(() => {
         setLoading(false);
@@ -100,21 +129,24 @@ const ReportPage = () => {
   };
 
   const getAllocationData = (assetId) => {
-    const allocation = allocations.find((a) =>
+    const allocation = allAllocationss.find((a) =>
       a.assets === null ? "" : a.assets.id === assetId
     );
+
     if (!allocation) {
       return {
         user: "",
         date: "",
       };
     }
+
     return {
       user: allocation.users.name,
       date: allocation.allocation_date,
     };
   };
 
+  //------------------------Download-------
   const downloadCSV = async () => {
     setLoading(true);
     const allData = [];
@@ -123,7 +155,6 @@ const ReportPage = () => {
       const { data } = await axiosClient.get(`/filterVal?page=${page}`);
       allData.push(...data.data);
     }
-    /* console.log("allData::", allData); */
     const csvData = Papa.unparse({
       fields: [
         "Nº Inventário",
@@ -143,6 +174,7 @@ const ReportPage = () => {
         })
         .map((asset) => {
           const allocationData = getAllocationData(asset.id);
+
           return [
             asset.numb_inv,
             filtered_units(asset.previous_unit_id),
@@ -217,7 +249,6 @@ const ReportPage = () => {
               </tr>
             </tbody>
           )}
-
           {!loading && (
             <tbody>
               {assets.map((asset, index) => {
@@ -228,7 +259,9 @@ const ReportPage = () => {
                 ) {
                   return null; // skip rendering if previous_ci is null
                 }
+
                 const allocationData = getAllocationData(asset.id);
+
                 return (
                   <tr key={`${asset.id}-${index}`}>
                     <td>{asset.numb_inv}</td>
