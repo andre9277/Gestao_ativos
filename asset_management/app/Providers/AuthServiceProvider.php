@@ -44,9 +44,9 @@ class AuthServiceProvider extends ServiceProvider
         });
 
 
-        //Only Admin can delete an asset
+        //Admin and SI can delete an asset
         Gate::define('delete', function (User $user) {
-            if ($user->role_id === 1) {
+            if ($user->role_id === 1 || $user->role_id === 2) {
                 return true;
             }
         });

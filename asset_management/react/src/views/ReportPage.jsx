@@ -116,6 +116,7 @@ const ReportPage = () => {
   };
 
   const downloadCSV = async () => {
+    setLoading(true);
     const allData = [];
 
     for (let page = 1; page <= meta.last_page; page++) {
@@ -163,6 +164,7 @@ const ReportPage = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    setLoading(false);
   };
 
   //Filter entities by the value that receives

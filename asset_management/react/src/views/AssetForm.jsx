@@ -52,6 +52,9 @@ export default function AssetForm() {
   //Allows the navigation of the assets to other page
   const navigate = useNavigate();
 
+  //We take the id
+  let { id } = useParams();
+
   useEffect(() => {
     Promise.all([
       axiosClient.get("/categories"),
@@ -61,6 +64,7 @@ export default function AssetForm() {
       axiosClient.get("/modelos"),
       axiosClient.get("/supplier"),
     ]).then((responses) => {
+      setLoading(false);
       setCats(responses[0].data);
       setEnts(responses[1].data);
       setUnits(responses[2].data);
@@ -70,8 +74,48 @@ export default function AssetForm() {
     });
   }, []);
 
-  //We take the id
-  let { id } = useParams();
+  //Whenever the asset ID exists:
+  if (id) {
+    useEffect(() => {
+      setLoading(true);
+      axiosClient
+        .get(`/assets/${id}`)
+        .then(({ data }) => {
+          setLoading(false);
+          setAsset(data);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
+    }, []);
+  }
+
+  useEffect(() => {
+    if (selectedBrand) {
+      setLoading(true);
+      axiosClient
+        .get(`/modelsHb?brand_id=${selectedBrand}`)
+        .then((response) => {
+          setLoading(false);
+          setModelos(response.data);
+        });
+    } else {
+      setModelos([]);
+    }
+  }, [selectedBrand]);
+
+  //Give options by the relation entity/unit
+  useEffect(() => {
+    if (selectedEntity) {
+      setLoading(true);
+      axiosClient.get(`/unitss?ent_id=${selectedEntity}`).then((response) => {
+        setLoading(false);
+        setUnits(response.data);
+      });
+    } else {
+      setUnits([]);
+    }
+  }, [selectedEntity]);
 
   //List of assets:
   const [asset, setAsset] = useState({
@@ -111,60 +155,24 @@ export default function AssetForm() {
     units: "",
   });
 
-  //Whenever the asset ID exists:
-  if (id) {
-    useEffect(() => {
-      setLoading(true);
-      axiosClient
-        .get(`/assets/${id}`)
-        .then(({ data }) => {
-          setLoading(false);
-          setAsset(data);
-        })
-        .catch(() => {
-          setLoading(false);
-        });
-    }, []);
-  }
-
-  //Give options by the relation entity/unit
-  useEffect(() => {
-    if (selectedEntity) {
-      axiosClient.get(`/unitss?ent_id=${selectedEntity}`).then((response) => {
-        setUnits(response.data);
-      });
-    } else {
-      setUnits([]);
-    }
-  }, [selectedEntity]);
-
-  useEffect(() => {
-    if (selectedBrand) {
-      axiosClient
-        .get(`/modelsHb?brand_id=${selectedBrand}`)
-        .then((response) => {
-          setModelos(response.data);
-        });
-    } else {
-      setModelos([]);
-    }
-  }, [selectedBrand]);
-
   //When the user submits the request
   const onSubmit = (ev) => {
     ev.preventDefault();
 
     //if asset id exists: it updates
     if (asset.id) {
+      setLoading(true);
       axiosClient
         .put(`/assets/${asset.id}`, asset)
         .then(() => {
+          setLoading(false);
           //update with good outcome
           setNotification("Ativo atualizado com sucesso!");
           //redirect to the page with assets
           navigate("/assets");
         })
         .catch((err) => {
+          setLoading(false);
           const response = err.response;
           if (response && response.status === 422) {
             setErrors(response.data.errors);

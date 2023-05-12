@@ -98,6 +98,7 @@ export default function Allocations() {
 
   //-----------Download---------------
   const downloadCSV = async () => {
+    setLoading(true);
     const allData = [];
 
     for (let page = 1; page <= meta.last_page; page++) {
@@ -146,6 +147,7 @@ export default function Allocations() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    setLoading(false);
   };
 
   //------------For the Calendar---------------------

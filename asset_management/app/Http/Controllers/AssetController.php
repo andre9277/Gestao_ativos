@@ -226,12 +226,6 @@ class AssetController extends Controller
                     'ala' => $row[5],
                     'floor' => $row[6],
                     'ci' => $row[7],
-                    'model_id' => $row[8],
-                    'brand_id' => $row[9],
-                    'cat_id' => $row[10],
-                    'supplier_id' => $row[11],
-                    'ent_id' => $row[12],
-                    'unit_id' => $row[13],
 
                 ]);
             }
