@@ -42,15 +42,11 @@ const ReportPage = () => {
 
   const [allocations, setAllocations] = useState([]);
 
-  const fetchData = async () => {
-    await getAllocations(); // Fetch allocations first
+  useEffect(() => {
+    getAllocations();
     getAssetsFilter();
     getUnits();
     getEnts();
-  };
-
-  useEffect(() => {
-    fetchData();
   }, []);
 
   const getAssetsFilter = (url) => {

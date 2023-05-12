@@ -37,7 +37,7 @@ class AllocationsController extends Controller
         $this->authorize('allocations');
 
         $allocations = Allocation::with('users:id,name', 'assets:id,numb_ser,unit_id,numb_inv')
-            ->orderBy('id', 'desc')
+            ->orderBy('allocations.allocation_date', 'desc')
             ->get();
 
         return AllocationResource::collection($allocations);

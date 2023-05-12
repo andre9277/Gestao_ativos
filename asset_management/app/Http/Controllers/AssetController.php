@@ -45,7 +45,7 @@ class AssetController extends Controller
                     ->orWhereNotNull('previous_ent_id')
                     ->orWhereNotNull('previous_unit_id');
             })
-            ->orderBy('id', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->paginate(20);
 
         return AssetResource::collection($assets);
