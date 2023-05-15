@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
+import axiosClient from "../axios-client.js";
 
 const TableAssets = ({
   assets,
@@ -8,27 +9,74 @@ const TableAssets = ({
   selectedFloor,
   selectedBrand,
   selectedModel,
+  meta,
 }) => {
   const { user } = useStateContext();
+
+  //keeps checking if there is a filter on or off:
+  const [filtered, setFiltered] = useState(false);
+  //For the all the asset data:
+  const [allData, setAllData] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const hasFilter =
+      selectedCategory !== "" ||
+      selectedFloor !== "" ||
+      selectedBrand !== "" ||
+      selectedModel !== "";
+
+    setFiltered(hasFilter);
+    //if hasFilter = true then it gets all the assets from all the pages:
+    if (hasFilter) {
+      const fetchData = async () => {
+        const result = [];
+        setLoading(true);
+        for (let page = 1; page <= meta.last_page; page++) {
+          const { data } = await axiosClient.get(`/assets?page=${page}`);
+          result.push(...data.data);
+          setLoading(false);
+        }
+        setAllData(result);
+      };
+      fetchData();
+    }
+  }, [selectedCategory, selectedFloor, selectedBrand, selectedModel, meta]);
+
+  //use allData when filtered = true and when its false its equal to the assets object
+  const filteredAssets = filtered
+    ? allData.filter(
+        (row) =>
+          (selectedCategory === "" || row.category.name === selectedCategory) &&
+          (selectedFloor === "" || row.floor === selectedFloor) &&
+          (selectedBrand === "" || row.brand.sig === selectedBrand) &&
+          (selectedModel === "" || row.modelo.model_name === selectedModel)
+      )
+    : assets;
 
   return (
     <tbody>
       {/* Iteration between all assets */}
-      {assets
-        .filter(
-          (row) =>
-            selectedCategory === "" || row.category.name === selectedCategory
-        )
-        .filter((row) => selectedFloor === "" || row.floor === selectedFloor)
-        .filter(
-          (row) => selectedBrand === "" || row.brand.name === selectedBrand
-        )
-        .filter(
-          (row) =>
-            selectedModel === "" || row.modelo.model_name === selectedModel
-        )
-        .map((a) => (
+      {loading && (
+        <tr>
+          <td colSpan="5" className="lgText">
+            Carregando...
+          </td>
+        </tr>
+      )}
+
+      {!loading && filteredAssets.length === 0 ? (
+        <tr>
+          <td colSpan="5" className="lgText">
+            Não existem resultados para os filtros selecionados!
+          </td>
+        </tr>
+      ) : (
+        !loading &&
+        filteredAssets.map((a) => (
           <tr key={a.id}>
+            {/*  {console.log(filteredAssets)} */}
             <td>{a.category.name}</td>
             <td>{a.brand.sig}</td>
             <td>{a.modelo.model_name}</td>
@@ -60,7 +108,8 @@ const TableAssets = ({
               </td>
             )}
           </tr>
-        ))}
+        ))
+      )}
     </tbody>
   );
 };

@@ -25,6 +25,22 @@ class AllocationsController extends Controller
             ->paginate(20);
 
         return AllocationResource::collection($alloc);
+
+        /*  $allocations = Allocation::with('users:id,name', 'assets:id,numb_ser,unit_id,numb_inv')
+            ->orderBy('id', 'desc')
+            ->paginate(20);
+        return $allocations; */
+    }
+
+    public function indexAllocation()
+    {
+        $this->authorize('allocations');
+
+        $allocations = Allocation::with('users:id,name', 'assets:id,numb_ser,unit_id,numb_inv')
+            ->orderBy('allocations.allocation_date', 'desc')
+            ->get();
+
+        return AllocationResource::collection($allocations);
     }
 
 

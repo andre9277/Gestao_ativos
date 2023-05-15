@@ -136,7 +136,7 @@ export default function Users() {
                 to="/users/new"
                 style={{ textDecoration: "none", color: "white" }}
               >
-                + Adicionar Novo
+                + Adicionar Utilizador
               </Link>
             </button>
           ) : null}

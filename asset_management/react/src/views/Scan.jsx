@@ -77,10 +77,12 @@ const Scan = () => {
           name: "Live",
           type: "LiveStream",
           target: document.querySelector("#scanner-container"),
+          scan: true, // added property
         },
         decoder: {
           readers: ["code_128_reader", "ean_reader", "upc_reader"],
         },
+        debug: false, // disable debug canvas
       },
       function (err) {
         if (err) {
@@ -93,63 +95,54 @@ const Scan = () => {
     );
 
     Quagga.onProcessed((result) => {
-      const drawingCtx = Quagga.canvas.ctx.overlay;
-      const drawingCanvas = Quagga.canvas.dom.overlay;
+      const drawingCanvas = document.querySelector(".drawingBuffer");
+      const drawingCtx = drawingCanvas.getContext("2d");
 
-      if (result && result.boxes) {
-        drawingCtx.clearRect(
-          0,
-          0,
-          parseInt(drawingCanvas.getAttribute("width")),
-          parseInt(drawingCanvas.getAttribute("height"))
+      // clear canvas
+      drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+
+      // draw detection result
+      if (result && result.codeResult) {
+        Quagga.ImageDebug.drawPath(
+          result.line,
+          { x: "x", y: "y" },
+          drawingCtx,
+          {
+            color: "green",
+            lineWidth: 4,
+          }
         );
-        result.boxes
-          .filter((box) => box !== result.box)
-          .forEach((box) => {
-            Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, {
-              color: "green",
-              lineWidth: 2,
-            });
-          });
-      }
-
-      if (result && result.box) {
-        Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, {
-          color: "red",
-          lineWidth: 2,
-        });
       }
     });
   }
 
   return (
-    <div id="content-wrapper" className="d-flex flex-column">
-      <div id="content">
-        <div className="container-fluid">
-          <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1>Barcode Scanner</h1>
-          </div>
-          <div
-            id="scanner-container"
-            style={{ position: "relative", width: "100%", height: "100%" }}
-          >
-            <video
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-            <canvas
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-              }}
-            />
-          </div>
-          <p>Barcode: {barcode}</p>
-        </div>
+    <>
+      <div className="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 className="h3 mb-0 text-gray-800">Barcode Scanner</h1>
       </div>
-    </div>
+      <div id="scanner-container" className="row">
+        <div style={{ position: "relative", width: "100%", height: "100%" }}>
+          <video
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+          <canvas
+            className="drawingBuffer"
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              pointerEvents: "none", // prevent canvas from capturing mouse/touch events
+              zIndex: 1, // position canvas on top of video
+            }}
+          />
+        </div>
+
+        <p>Barcode: {barcode}</p>
+      </div>
+    </>
   );
 };
 

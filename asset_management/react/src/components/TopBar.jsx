@@ -55,7 +55,7 @@ const TopBar = ({ user, onLogout }) => {
         {/*  <!-- Nav Item - Search Dropdown (Visible Only XS) --> */}
 
         <li className="nav-item dropdown no-arrow d-sm-none">
-          <a
+          <div
             className="nav-link dropdown-toggle"
             id="searchDropdown"
             role="button"
@@ -63,26 +63,12 @@ const TopBar = ({ user, onLogout }) => {
             aria-haspopup="true"
             aria-expanded="false"
           >
-            <i className="fas fa-search fa-fw"></i>
-          </a>
+            <Link to="/assets/new">
+              <i className="fas fa-plus-circle fa-lg"></i>
+            </Link>
+          </div>
 
           {/*   <!-- Dropdown - Messages --> */}
-          <div
-            className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-            aria-labelledby="searchDropdown"
-          >
-            <form className="form-inline mr-auto w-100 navbar-search">
-              <div className="input-group">
-                <input
-                  type="text"
-                  className="form-control bg-primary border-0 small"
-                  placeholder="Procure o ativo..."
-                  aria-label="Search"
-                  aria-describedby="basic-addon2"
-                />
-              </div>
-            </form>
-          </div>
         </li>
 
         {/*  <!-- Nav Item - Alerts --> */}

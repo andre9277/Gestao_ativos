@@ -64,7 +64,7 @@ const Search = ({ setResults }) => {
 
   return (
     <div>
-      <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+      <form className="className=form-inline mr-auto w-100 navbar-search">
         <div className="input-group">
           <input
             type="text"

@@ -25,4 +25,10 @@ class BrandController extends Controller
         $brands = Brand::all(['id', 'name', 'sig']);
         return response()->json($brands);
     }
+
+    public function indexSig()
+    {
+        $brands = Brand::all(['sig as name']);
+        return response()->json($brands);
+    }
 }

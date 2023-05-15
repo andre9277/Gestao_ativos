@@ -52,11 +52,11 @@ function Dashboard() {
     });
   };
   const getAssets = (url, page = 1, results = []) => {
-    url = url || "/assets";
+    url = url || "/getDashb";
     axiosClient.get(`${url}?page=${page}`).then(({ data }) => {
       const assets = data.data;
       results = [...results, ...assets];
-      if (data.meta.current_page < data.meta.last_page) {
+      if (data.current_page < data.last_page) {
         // if there are more pages, recursively call the function
         getAssets(url, page + 1, results);
       } else {
@@ -117,23 +117,6 @@ function Dashboard() {
             {/*  <!-- Pie Chart --> */}
 
             <PieChart assets={assets} />
-          </div>
-
-          {/*   <!-- Content Row --> */}
-          <div className="row">
-            {/*   <!-- Content Column --> */}
-            <div className="col-lg-6 mb-4">
-              {/* <!-- Project Card Example --> */}
-              {/*  <ProjectCard /> */}
-            </div>
-
-            <div className="col-lg-6 mb-4">
-              {/* <!-- Illustrations --> */}
-              {/*  <Illustration /> */}
-
-              {/* <!-- Approach --> */}
-              {/*  <Approach /> */}
-            </div>
           </div>
         </div>
         {/*   <!-- /.container-fluid --> */}

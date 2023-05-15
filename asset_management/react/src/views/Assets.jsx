@@ -47,44 +47,79 @@ export default function Assets() {
   const [cats, setCats] = useState([]);
   const [brands, setBrands] = useState([]);
   const [modelos, setModelos] = useState([]);
+  const [floor, setFloor] = useState([]);
+
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedFloor, setSelectedFloor] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedModel, setSelectedModel] = useState("");
+
+  const [allDados, setAllDados] = useState([]);
+
   useEffect(() => {
     Promise.all([
-      axiosClient.get("/categories"),
-      axiosClient.get("/brands"),
-      axiosClient.get("/modelos"),
+      axiosClient.get("/catName"),
+      axiosClient.get("/brandsSig"),
+      axiosClient.get("/modelosName"),
+      axiosClient.get("/floorLevel"),
     ]).then((responses) => {
       setCats(responses[0].data);
       setBrands(responses[1].data);
       setModelos(responses[2].data);
+      setFloor(responses[3].data);
     });
   }, []);
 
   //returns all assets (mount hook is called 2x)
   useEffect(() => {
-    getAssets();
+    const fetchData = async () => {
+      await getAssets();
+    };
+
+    fetchData();
   }, []);
 
-  //Performs a client access request
+  // Performs a client access request
   const getAssets = (url) => {
     url = url || "/assets";
 
-    //when there is still a request, we aply loading = true
+    // When there is still a request, we apply loading = true
     setLoading(true);
     axiosClient
       .get(url)
       .then(({ data }) => {
-        //when the request is successfull, loading=false
+        // When the request is successful, loading=false
         setLoading(false);
-        //console.log(data);
-        setAssets(data.data);
+        // console.log(data);
+        setAssets(data.data); // Deve guardar TODOS os ativos de todas as páginas!!!!!
         setMeta(data.meta);
+        getAllAssetsData(data.meta); // Call getAllAssetsData with the updated meta
       })
       .catch(() => {
         setLoading(false);
       });
   };
 
-  //Handle click para apagar um asset
+  const getAllAssetsData = async (meta) => {
+    try {
+      const allData = [];
+      for (let page = 1; page <= meta.last_page; page++) {
+        try {
+          const response = await axiosClient.get(`/assets?page=${page}`);
+          const { data } = response;
+          allData.push(...data.data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      setAllDados(allData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //----------Handle click to delete an asset
   const onDeleteClick = () => {
     // Get the IDs of all the checked users
     const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
@@ -108,6 +143,7 @@ export default function Assets() {
     });
   };
 
+  //-----------Handle click to edit an asset
   const onEditClick = () => {
     // Get the IDs of all the checked assets
     const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
@@ -122,15 +158,12 @@ export default function Assets() {
     //console.log(checkedAssetIds);
   };
 
+  //OnPageClick for the pagination
   const onPageClick = (link) => {
     getAssets(link.url);
   };
 
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedFloor, setSelectedFloor] = useState("");
-  const [selectedBrand, setSelectedBrand] = useState("");
-  const [selectedModel, setSelectedModel] = useState("");
-
+  //-------------Handle change of the columns
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
@@ -151,21 +184,83 @@ export default function Assets() {
     setSelectedModel(selectedModel);
   };
 
+  //Reset of the filters implemented
   const resetFilter = () => {
     setSelectedBrand("");
     setSelectedFloor("");
     setSelectedCategory("");
     setSelectedModel("");
+    const sortedAssets = [...assets].sort((a, b) => b.id - a.id); // Sort by the "id" column in ascending order
+    setAssets(sortedAssets);
+    setOrder("ASC"); // Reset the sorting order to "ASC"
   };
 
-  //For the checkbox
+  //For the checkbox, if the value of the filter is empty, then uses the assets array of the current page.
+  //if filter exists then uses the allDados array, that gives information about every assets in our database
   const toggleCheck = (id) => {
-    const checkedIdx = assets.findIndex((a) => a.id === id);
-    if (checkedIdx === -1) return;
-    const updatedAssets = [...assets];
-    updatedAssets[checkedIdx].checked = !updatedAssets[checkedIdx].checked;
-    setAssets(updatedAssets);
+    if (
+      selectedBrand === "" &&
+      selectedCategory === "" &&
+      selectedFloor === "" &&
+      selectedModel === ""
+    ) {
+      const checkedIdx = assets.findIndex((a) => a.id === id);
+      if (checkedIdx === -1) return;
+      const updatedAssets = [...assets];
+      updatedAssets[checkedIdx].checked = !updatedAssets[checkedIdx].checked;
+      setAssets(updatedAssets);
+    } else {
+      const checkedIdx = allDados.findIndex((a) => a.id === id);
+      if (checkedIdx === -1) return;
+      const updatedAssets = [...allDados];
+      updatedAssets[checkedIdx].checked = !updatedAssets[checkedIdx].checked;
+      setAssets(updatedAssets);
+    }
   };
+
+  //----------Sorting of the asset table in every column
+  const [order, setOrder] = useState("ASC");
+
+  const sorting = (col) => {
+    const columnMapping = {
+      Categoria: "category.name",
+      Marca: "brand.sig",
+      Modelo: "modelo.model_name",
+      Piso: "floor",
+    };
+
+    const dbColumnName = columnMapping[col];
+
+    if (order === "ASC") {
+      const sorted = [...assets].sort((a, b) => {
+        const propA = getPropertyByPath(a, dbColumnName);
+        const propB = getPropertyByPath(b, dbColumnName);
+        return propA > propB ? 1 : -1;
+      });
+      setAssets(sorted);
+      setOrder("DSC");
+    }
+    if (order === "DSC") {
+      const sorted = [...assets].sort((a, b) => {
+        const propA = getPropertyByPath(a, dbColumnName);
+        const propB = getPropertyByPath(b, dbColumnName);
+        return propA < propB ? 1 : -1;
+      });
+      setAssets(sorted);
+      setOrder("ASC");
+    }
+  };
+
+  //auxiliar function to get the property of one array of objects of objects
+  const getPropertyByPath = (obj, path) => {
+    const properties = path.split(".");
+    let value = obj;
+    for (let prop of properties) {
+      value = value[prop];
+    }
+    return value;
+  };
+
   return (
     <div id="content">
       <div
@@ -226,6 +321,8 @@ export default function Assets() {
                   data={cats}
                   selectedAttribut={selectedCategory}
                   handleFunc={handleCategoryChange}
+                  sorting={sorting}
+                  order={order}
                 />
               </th>
               <th>
@@ -234,6 +331,8 @@ export default function Assets() {
                   data={brands}
                   selectedAttribut={selectedBrand}
                   handleFunc={handleBrandChange}
+                  sorting={sorting}
+                  order={order}
                 />
               </th>
               <th>
@@ -242,6 +341,8 @@ export default function Assets() {
                   data={modelos}
                   selectedAttribut={selectedModel}
                   handleFunc={handleModelChange}
+                  sorting={sorting}
+                  order={order}
                 />
               </th>
               <th>NºInventário</th>
@@ -251,9 +352,11 @@ export default function Assets() {
               <th>
                 <ColumnMenuFilter
                   titulo={"Piso"}
-                  data={[]}
+                  data={floor}
                   selectedAttribut={selectedFloor}
                   handleFunc={handleFloorChange}
+                  sorting={sorting}
+                  order={order}
                 />
               </th>
               <th>Ala</th>
@@ -266,7 +369,7 @@ export default function Assets() {
           {loading && (
             <tbody>
               <tr>
-                <td colSpan="5" className="text-center">
+                <td colSpan="5" className="lgText">
                   Carregando...
                 </td>
               </tr>
@@ -280,14 +383,13 @@ export default function Assets() {
               selectedBrand={selectedBrand}
               selectedModel={selectedModel}
               toggleCheck={toggleCheck}
+              meta={meta}
             />
           )}
         </table>
-        <PaginationLinks
-          meta={meta}
-          onPageClick={onPageClick}
-          toggleCheck={toggleCheck}
-        />
+        <p> </p>
+        <p> </p>
+        <PaginationLinks meta={meta} onPageClick={onPageClick} />
       </div>
     </div>
   );

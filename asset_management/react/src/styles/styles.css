@@ -12644,7 +12644,7 @@ select {
 }
 
 .importAsset {
-    margin-left: 0;
+    margin-left: 3%;
     margin-right: auto;
 }
 
@@ -12669,10 +12669,31 @@ input::placeholder {
 
 .filtAsset-tab {
     color: black;
-    width: 12px;
+    width: 20px;
     margin: 0.5px;
     cursor: pointer;
     line-height: 1.1;
     /* border: 1px solid black; */
     font-size: 18px;
+    align-items: center;
+    
+}
+
+/*-----------For the Scan---------*/
+/* .drawingBuffer {
+    display: none;
+} */
+
+/*----------For the Loading-------*/
+.lgText {
+    text-align: center;
+    font-weight: bold;
+    font-size: 150%;
+    padding: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }

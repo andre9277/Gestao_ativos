@@ -27,6 +27,12 @@ class ModeloController extends Controller
         return response()->json($modelos);
     }
 
+    public function indexName()
+    {
+        $modelos = Modelo::all(['model_name as name']);
+        return response()->json($modelos);
+    }
+
     public function getModelsByEntity(Request $request): JsonResponse
     {
         $brandId = $request->query('brand_id');

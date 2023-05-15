@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Endpoint Categories
     Route::get('/categories', [CategoryController::class, 'index']);
+    Route::get('/catName', [CategoryController::class, 'indexCat']);
 
     //Endpoint Entities
     Route::get('/entities', [EntityController::class, 'index']);
@@ -49,6 +50,9 @@ Route::middleware('auth:sanctum')->group(function () {
     //routes para os assets
     Route::post('/assets', [AssetController::class, 'store']);
     Route::get('/assets', [AssetController::class, 'index']);
+    Route::get('/floorLevel', [AssetController::class, 'get_floor_levels']);
+    Route::get('/getDashb', [AssetController::class, 'indexDashb']);
+
     Route::resource('assets', AssetController::class);
     Route::apiResource('/assets', AssetController::class);
     Route::get('/asset', function (Request $request) {
@@ -64,24 +68,29 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     //Route for the Asset Movement
-    //Route::resource('allocations', AllocationsController::class);
+    Route::resource('allocations', AllocationsController::class);
     Route::get('/allocations', [AllocationsController::class, 'index']);
     Route::apiResource('/allocations', AllocationsController::class);
     Route::get('/allocation', function (Request $request) {
         return $request->allocation();
     });
+    Route::get('/allocationAll', [AllocationsController::class, 'indexAllocation']);
+
 
     //Endpoint Brands
     Route::get('/brands', [BrandController::class, 'index']);
+    Route::get('/brandsSig', [BrandController::class, 'indexSig']);
 
     //Endpoint Models
     Route::get('/modelos', [ModeloController::class, 'index']);
     Route::get('/modelsHb', [ModeloController::class, 'getModelsByEntity']);
-
+    Route::get('/modelosName', [ModeloController::class, 'indexName']);
     //Endpoint Supplier
     Route::get('/supplier', [SupplierController::class, 'index']);
 
     Route::post('/import', [AssetController::class, 'import'])->name('import');
+
+    Route::get('/filterVal', [AssetController::class, 'filterValues']);
 });
 
 //Route::post('/signup', [AuthController::class, 'signup']);

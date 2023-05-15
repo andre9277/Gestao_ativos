@@ -34,23 +34,23 @@ import PaginationLinks from "../components/PaginationLinks.jsx";
 
 //SideBar:-------------Asset movement---------------
 const ReportPage = () => {
+  const [assets, setAssets] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [units, setUnits] = useState([]);
+  const [ents, setEnts] = useState([]);
+  const [meta, setMeta] = useState({});
+
+  const [allocations, setAllocations] = useState([]);
+
   useEffect(() => {
-    getAssets();
     getAllocations();
+    getAssetsFilter();
     getUnits();
     getEnts();
   }, []);
 
-  const [assets, setAssets] = useState([]);
-  const [allocations, setAllocations] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [units, setUnits] = useState([]);
-  const [ents, setEnts] = useState([]);
-
-  const [meta, setMeta] = useState({});
-
-  const getAssets = (url) => {
-    url = url || "/assets";
+  const getAssetsFilter = (url) => {
+    url = url || "/filterVal";
 
     setLoading(true);
     axiosClient
@@ -66,7 +66,7 @@ const ReportPage = () => {
   };
 
   const getAllocations = (url) => {
-    url = url || "/allocations";
+    url = url || "/allocationAll";
 
     setLoading(true);
     axiosClient
@@ -81,7 +81,7 @@ const ReportPage = () => {
   };
 
   const onPageClick = (link) => {
-    getAssets(link.url);
+    getAssetsFilter(link.url);
   };
 
   const getUnits = (url) => {
@@ -104,33 +104,36 @@ const ReportPage = () => {
     const allocation = allocations.find((a) =>
       a.assets === null ? "" : a.assets.id === assetId
     );
+
     if (!allocation) {
       return {
         user: "",
         date: "",
       };
     }
+
     return {
       user: allocation.users.name,
       date: allocation.allocation_date,
     };
   };
 
+  //------------------------Download-------
   const downloadCSV = async () => {
+    setLoading(true);
     const allData = [];
 
     for (let page = 1; page <= meta.last_page; page++) {
-      const { data } = await axiosClient.get(`/assets?page=${page}`);
+      const { data } = await axiosClient.get(`/filterVal?page=${page}`);
       allData.push(...data.data);
     }
-    console.log("allData::", allData);
     const csvData = Papa.unparse({
       fields: [
         "Nº Inventário",
-        "CI(Anterior)",
-        "CI(Atual)",
         "Unidade(Anterior)",
         "Entidade(Anterior)",
+        "CI(Anterior)",
+        "CI(Atual)",
         "Local Atual",
         "Utilizador",
         "Movido em",
@@ -143,12 +146,13 @@ const ReportPage = () => {
         })
         .map((asset) => {
           const allocationData = getAllocationData(asset.id);
+
           return [
             asset.numb_inv,
-            asset.previous_ci,
-            asset.ci,
             filtered_units(asset.previous_unit_id),
             filtered_entities(asset.previous_ent_id),
+            asset.previous_ci,
+            asset.ci,
             asset.units === null ? asset.entity.ent_name : asset.units.name,
             allocationData.user,
             allocationData.date,
@@ -159,11 +163,12 @@ const ReportPage = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.setAttribute("href", url);
-    link.setAttribute("download", "relatorio.csv");
+    link.setAttribute("download", "mov_ativos.csv");
     link.style.visibility = "hidden";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    setLoading(false);
   };
 
   //Filter entities by the value that receives
@@ -197,10 +202,10 @@ const ReportPage = () => {
           <thead>
             <tr>
               <th>Nº Inventário</th>
-              <th>CI(Anterior)</th>
 
               <th>Unidade(Anterior)</th>
               <th>Entidade(Anterior)</th>
+              <th>CI(Anterior)</th>
               <th>CI(Atual)</th>
               <th>Local(Atual)</th>
               <th>Utilizador</th>
@@ -210,13 +215,12 @@ const ReportPage = () => {
           {loading && (
             <tbody>
               <tr>
-                <td colSpan="5" className="caprr-re">
+                <td colSpan="5" className="lgText">
                   Carregando...
                 </td>
               </tr>
             </tbody>
           )}
-
           {!loading && (
             <tbody>
               {assets.map((asset, index) => {
@@ -227,15 +231,17 @@ const ReportPage = () => {
                 ) {
                   return null; // skip rendering if previous_ci is null
                 }
+
                 const allocationData = getAllocationData(asset.id);
+
                 return (
                   <tr key={`${asset.id}-${index}`}>
                     <td>{asset.numb_inv}</td>
-                    <td>{asset.previous_ci}</td>
 
                     <td>{filtered_units(asset.previous_unit_id)}</td>
 
                     <td>{filtered_entities(asset.previous_ent_id)}</td>
+                    <td>{asset.previous_ci}</td>
                     <td>{asset.ci}</td>
                     <td>
                       {asset.units === null

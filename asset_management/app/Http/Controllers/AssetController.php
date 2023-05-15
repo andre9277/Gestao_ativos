@@ -22,15 +22,35 @@ class AssetController extends Controller
      */
     public function index()
     {
-        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name,sig', 'modelo:id,model_name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+        $assets = Asset::with('entity:id,ent_name', 'brand:id,sig', 'modelo:id,model_name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
             ->orderBy('id', 'desc')
             ->paginate(20);
 
+        return AssetResource::collection($assets);
+    }
 
+    public function indexDashb()
+    {
+        $dashb = Asset::select(['ent_id', 'cat_id'])
+            ->orderBy('id', 'desc')
+            ->paginate(20);
+        return response()->json($dashb);
+    }
 
+    public function filterValues()
+    {
+        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name,sig', 'modelo:id,model_name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+            ->where(function ($query) {
+                $query->whereNotNull('previous_ci')
+                    ->orWhereNotNull('previous_ent_id')
+                    ->orWhereNotNull('previous_unit_id');
+            })
+            ->orderBy('updated_at', 'desc')
+            ->paginate(20);
 
         return AssetResource::collection($assets);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -206,17 +226,21 @@ class AssetController extends Controller
                     'ala' => $row[5],
                     'floor' => $row[6],
                     'ci' => $row[7],
-                    'model_id' => $row[8],
-                    'brand_id' => $row[9],
-                    'cat_id' => $row[10],
-                    'supplier_id' => $row[11],
-                    'ent_id' => $row[12],
-                    'unit_id' => $row[13],
 
                 ]);
             }
         });
 
         return redirect()->back()->with('success', 'Dados importados com sucesso!');
+    }
+
+
+    function get_floor_levels()
+    {
+        $floor_levels = [-1, 0, 1, 2, 3, 4, 5];
+        $result = array_map(function ($floor_level) {
+            return ['name' => $floor_level];
+        }, $floor_levels);
+        return $result;
     }
 }
