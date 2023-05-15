@@ -7,6 +7,7 @@ use App\Http\Controllers\AssetController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EntityController;
+use App\Http\Controllers\ExcelImportController;
 use App\Http\Controllers\ModeloController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
@@ -63,6 +64,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('assets/{id}/previous-unit-name', [AssetController::class, 'showPrevious']);
 
     Route::get('/assetsC', [AssetController::class, 'count']);
+    Route::get('/filterVal', [AssetController::class, 'filterValues']);
 
     /* Route::get('/download-csv', [AllocationsController::class, 'downloadCsv']); */
 
@@ -88,9 +90,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //Endpoint Supplier
     Route::get('/supplier', [SupplierController::class, 'index']);
 
-    Route::post('/import', [AssetController::class, 'import'])->name('import');
-
-    Route::get('/filterVal', [AssetController::class, 'filterValues']);
+    Route::post('/import', [ExcelImportController::class, 'import']);
 });
 
 //Route::post('/signup', [AuthController::class, 'signup']);

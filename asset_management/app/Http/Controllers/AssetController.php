@@ -209,7 +209,8 @@ class AssetController extends Controller
         return response()->json(['unit_name' => $unitName]);
     }
 
-    public function import(Request $request)
+    //Import Files
+    /* public function import(Request $request)
     {
         $this->authorize('import');
 
@@ -233,8 +234,9 @@ class AssetController extends Controller
 
         return redirect()->back()->with('success', 'Dados importados com sucesso!');
     }
+ */
 
-
+    //Fllor Levels 
     function get_floor_levels()
     {
         $floor_levels = [-1, 0, 1, 2, 3, 4, 5];
