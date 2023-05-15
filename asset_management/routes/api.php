@@ -91,6 +91,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/supplier', [SupplierController::class, 'index']);
 
     Route::post('/import', [ExcelImportController::class, 'import']);
+    Route::get('/download-template', [ExcelImportController::class, 'downloadTemplate'])->name('download.template');;
 });
 
 //Route::post('/signup', [AuthController::class, 'signup']);

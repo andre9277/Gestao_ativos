@@ -12676,7 +12676,6 @@ input::placeholder {
     /* border: 1px solid black; */
     font-size: 18px;
     align-items: center;
-    
 }
 
 /*-----------For the Scan---------*/
@@ -12696,4 +12695,9 @@ input::placeholder {
     -ms-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+
+.dwlTemp {
+    color: blue;
+    text-decoration: underline;
 }

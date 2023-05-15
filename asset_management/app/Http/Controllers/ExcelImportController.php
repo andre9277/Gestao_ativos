@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 
 class ExcelImportController extends Controller
 {
@@ -92,5 +93,18 @@ class ExcelImportController extends Controller
 
         // Return a response indicating the success of the import
         return response()->json(['message' => 'Excel file imported successfully']);
+    }
+
+
+    public function downloadTemplate()
+    {
+        // Path to the template file
+        $templatePath = storage_path('app/template.csv');
+
+        // Define the file name
+        $fileName = 'template.csv';
+
+        // Generate the response to download the file
+        return Response::download($templatePath, $fileName);
     }
 }

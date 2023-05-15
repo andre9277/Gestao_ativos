@@ -1,6 +1,7 @@
 import React from "react";
 import axiosClient from "../axios-client.js";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const ImportForm = () => {
   const [loading, setLoading] = useState(false);
@@ -201,6 +202,30 @@ const ImportForm = () => {
     setSelectedEntity(selectedEntity);
   };
 
+  //-------------Download template----------------
+  const handleDownload = () => {
+    axiosClient
+      .get("/download-template")
+      .then((response) => {
+        // Create a URL for the file blob
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+
+        // Create a temporary anchor tag and trigger the download
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "template.csv");
+        document.body.appendChild(link);
+        link.click();
+
+        // Clean up the temporary URL and anchor
+        URL.revokeObjectURL(url);
+        document.body.removeChild(link);
+      })
+      .catch((error) => {
+        console.error("Download failed:", error);
+      });
+  };
+
   return (
     <div className="importAsset">
       <h1>Importar Ativos</h1>
@@ -327,10 +352,12 @@ const ImportForm = () => {
             </select>
           </label>
           <p></p>
+          <p></p>
+
           {/*------Ficheiro upload de ativos------*/}
-          <label htmlFor="fileInput" className="impLab">
+          <h5 htmlFor="fileInput" className="impLab">
             Selecione o Ficheiro para Upload: (Ficheiros .CSV)
-          </label>
+          </h5>
 
           <input
             type="file"
@@ -345,6 +372,10 @@ const ImportForm = () => {
       </button>
       {successMessage && <p>{successMessage}</p>}
       {errorMessage && <p>{errorMessage}</p>}
+
+      <button onClick={handleDownload} className="dwlTemp">
+        Download Template
+      </button>
     </div>
   );
 };
