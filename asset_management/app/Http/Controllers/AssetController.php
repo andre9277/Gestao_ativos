@@ -10,7 +10,6 @@ use App\Models\Allocation;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Maatwebsite\Excel\Facades\Excel;
 
 class AssetController extends Controller
 {
@@ -29,13 +28,14 @@ class AssetController extends Controller
         return AssetResource::collection($assets);
     }
 
+    //For the dashboard grafics
     public function indexDashb()
     {
-        $dashb = Asset::select(['ent_id', 'cat_id'])
-            ->orderBy('id', 'desc')
-            ->paginate(20);
+        $dashb = Asset::select(['ent_id', 'cat_id'])->get();
         return response()->json($dashb);
     }
+
+
 
     public function filterValues()
     {
@@ -50,6 +50,7 @@ class AssetController extends Controller
 
         return AssetResource::collection($assets);
     }
+
 
 
     /**
@@ -126,6 +127,7 @@ class AssetController extends Controller
         $update->save();
         return new AssetResource($asset);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -208,33 +210,6 @@ class AssetController extends Controller
 
         return response()->json(['unit_name' => $unitName]);
     }
-
-    //Import Files
-    /* public function import(Request $request)
-    {
-        $this->authorize('import');
-
-        $file = $request->file('file');
-
-        Excel::import($file, function ($rows) {
-            foreach ($rows as $row) {
-                Asset::create([
-                    'numb_inv' => $row[0],
-                    'date_purch' => $row[1],
-                    'state' => $row[2],
-                    'numb_ser' => $row[3],
-                    'cond' => $row[4],
-                    'ala' => $row[5],
-                    'floor' => $row[6],
-                    'ci' => $row[7],
-
-                ]);
-            }
-        });
-
-        return redirect()->back()->with('success', 'Dados importados com sucesso!');
-    }
- */
 
     //Fllor Levels 
     function get_floor_levels()
