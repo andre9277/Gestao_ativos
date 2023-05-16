@@ -81,7 +81,7 @@ export default function Allocations() {
 
   //Performs a client access request
   const getAssets = (url) => {
-    url = url || "/assets";
+    url = url || "/allAssets";
 
     axiosClient.get(url).then(({ data }) => {
       setAssets(data.data);
