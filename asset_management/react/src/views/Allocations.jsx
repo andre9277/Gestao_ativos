@@ -101,10 +101,8 @@ export default function Allocations() {
     setLoading(true);
     const allData = [];
 
-    for (let page = 1; page <= meta.last_page; page++) {
-      const { data } = await axiosClient.get(`/allocations?page=${page}`);
-      allData.push(...data.data);
-    }
+    const { data } = await axiosClient.get("/allocationAll");
+    allData.push(...data.data);
 
     const filteredData = allData.filter((allocation) => {
       const allocationDate = new Date(allocation.allocation_date);
@@ -150,7 +148,7 @@ export default function Allocations() {
     setLoading(false);
   };
 
-  //------------For the Calendar---------------------
+  //------------For the Calendar---------------
   const handleSelect = (date) => {
     let startDate = date.selection.startDate;
     startDate.setHours(0, 0, 0, 0); // set time to midnight

@@ -370,8 +370,8 @@ const ImportForm = () => {
       <button onClick={handleImport} className="btn-dwl">
         Importar
       </button>
-      {successMessage && <p>{successMessage}</p>}
-      {errorMessage && <p>{errorMessage}</p>}
+      {successMessage && <p className="succMess">{successMessage}</p>}
+      {errorMessage && <p className="errMess">{errorMessage}</p>}
 
       <button onClick={handleDownload} className="dwlTemp">
         Download Template

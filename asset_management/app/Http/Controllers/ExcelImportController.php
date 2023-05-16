@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Allocation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
@@ -62,10 +64,8 @@ class ExcelImportController extends Controller
 
 
 
-
-
             // Insert the data into the MySQL database
-            DB::table('assets')->insert([
+            $assetId = DB::table('assets')->insertGetId([
                 'numb_inv' => $column1,
                 'date_purch' => $column2,
                 'state' => $column3,
@@ -86,13 +86,24 @@ class ExcelImportController extends Controller
                 'created_at' => now(),
 
             ]);
+            // Create a new allocation record
+            $allocation = new Allocation([
+                'asset_id' => $assetId,
+                'user_id' => Auth::id(),
+                'allocation_date' => now(),
+                'action_type' => 'Adiciona',
+                'inv_number' => $column1,
+            ]);
+
+            // Save the allocation record
+            $allocation->save();
         }
 
         // Close the file handle
         fclose($handle);
 
         // Return a response indicating the success of the import
-        return response()->json(['message' => 'Excel file imported successfully']);
+        return response()->json(['message' => 'Ficheiro .csv importado com sucesso!']);
     }
 
 

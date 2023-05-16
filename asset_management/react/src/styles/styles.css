@@ -12701,3 +12701,19 @@ input::placeholder {
     color: blue;
     text-decoration: underline;
 }
+
+.succMess {
+    color: #270;
+    background-color: #dff2bf;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 3px 3px 3px 3px;
+}
+
+.errMess {
+    color: #270;
+    background-color: #dff2bf;
+    margin: 10px 0;
+    color: #d8000c;
+    background-color: #ffbaba;
+}
