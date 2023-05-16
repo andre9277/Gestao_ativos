@@ -30,7 +30,7 @@ const TableAssets = ({
     setFiltered(hasFilter);
     //if hasFilter = true then it gets all the assets from all the pages:
     if (hasFilter) {
-      setAllData(allDados.data);
+      setAllData(allDados);
     }
   }, [selectedCategory, selectedFloor, selectedBrand, selectedModel]);
 
@@ -66,7 +66,7 @@ const TableAssets = ({
         !loading &&
         filteredAssets.map((a) => (
           <tr key={a.id}>
-            {/*  {console.log(filteredAssets)} */}
+            {/* {console.log(filteredAssets)} */}
             <td>{a.category.name}</td>
             <td>{a.brand.sig}</td>
             <td>{a.modelo.model_name}</td>

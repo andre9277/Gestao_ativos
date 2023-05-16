@@ -92,7 +92,6 @@ export default function Assets() {
       .then(({ data }) => {
         // When the request is successful, loading=false
         setLoading(false);
-        // console.log(data);
         setAssets(data.data);
         setMeta(data.meta);
       })
@@ -107,7 +106,7 @@ export default function Assets() {
       .get("/allAssets")
       .then(({ data }) => {
         setLoadingAll(false);
-        setAllDados(data);
+        setAllDados(data.data);
       })
       .catch(() => {
         setLoading(false);
