@@ -171,7 +171,7 @@ const ImportForm = () => {
     });
   };
 
-  //-----Function handlers-----
+  //---------Function handlers-----------
   function handleBrandChange(event) {
     const selectedBrand = event.target.value;
     setAsset((prevState) => ({

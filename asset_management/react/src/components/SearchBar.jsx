@@ -38,10 +38,11 @@ const Search = ({ setResults }) => {
   const navigate = useNavigate();
 
   const getAssets = (url, value) => {
-    url = url || "/assets";
+    url = url || "/allAssets";
 
     axiosClient.get(url, { params: { numb_inv: value } }).then(({ data }) => {
       const assets = data.data;
+
       const results = assets.filter((asset) => {
         return (
           value &&
