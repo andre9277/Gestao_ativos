@@ -36,7 +36,7 @@ class AssetController extends Controller
     }
 
 
-
+    //Filter values for the ci, ent_id or unit_id atributes
     public function filterValues()
     {
         $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name,sig', 'modelo:id,model_name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
@@ -51,6 +51,14 @@ class AssetController extends Controller
         return AssetResource::collection($assets);
     }
 
+    public function indexAll()
+    {
+        $assets = Asset::with('entity:id,ent_name', 'brand:id,sig', 'modelo:id,model_name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return AssetResource::collection($assets);
+    }
 
 
     /**

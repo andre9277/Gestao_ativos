@@ -11,7 +11,7 @@ use App\Http\Controllers\ExcelImportController;
 use App\Http\Controllers\ModeloController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
-
+use App\Models\Asset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +59,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/asset', function (Request $request) {
         return $request->asset();
     });
+
+    Route::get('/allAssets', [AssetController::class, 'indexAll']);
+
 
     //get the name of the previous unit name
     Route::get('assets/{id}/previous-unit-name', [AssetController::class, 'showPrevious']);

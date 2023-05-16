@@ -9,7 +9,7 @@ const TableAssets = ({
   selectedFloor,
   selectedBrand,
   selectedModel,
-  meta,
+  allDados,
 }) => {
   const { user } = useStateContext();
 
@@ -30,19 +30,9 @@ const TableAssets = ({
     setFiltered(hasFilter);
     //if hasFilter = true then it gets all the assets from all the pages:
     if (hasFilter) {
-      const fetchData = async () => {
-        const result = [];
-        setLoading(true);
-        for (let page = 1; page <= meta.last_page; page++) {
-          const { data } = await axiosClient.get(`/assets?page=${page}`);
-          result.push(...data.data);
-          setLoading(false);
-        }
-        setAllData(result);
-      };
-      fetchData();
+      setAllData(allDados.data);
     }
-  }, [selectedCategory, selectedFloor, selectedBrand, selectedModel, meta]);
+  }, [selectedCategory, selectedFloor, selectedBrand, selectedModel]);
 
   //use allData when filtered = true and when its false its equal to the assets object
   const filteredAssets = filtered

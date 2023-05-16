@@ -41,6 +41,7 @@ export default function Assets() {
 
   const [assets, setAssets] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingAll, setLoadingAll] = useState(false);
   const [meta, setMeta] = useState({});
   const { setNotification, user } = useStateContext();
 
@@ -74,6 +75,7 @@ export default function Assets() {
   useEffect(() => {
     const fetchData = async () => {
       await getAssets();
+      getAllAssetsData();
     };
 
     fetchData();
@@ -91,32 +93,25 @@ export default function Assets() {
         // When the request is successful, loading=false
         setLoading(false);
         // console.log(data);
-        setAssets(data.data); // Deve guardar TODOS os ativos de todas as páginas!!!!!
+        setAssets(data.data);
         setMeta(data.meta);
-        getAllAssetsData(data.meta); // Call getAllAssetsData with the updated meta
       })
       .catch(() => {
         setLoading(false);
       });
   };
 
-  const getAllAssetsData = async (meta) => {
-    try {
-      const allData = [];
-      for (let page = 1; page <= meta.last_page; page++) {
-        try {
-          const response = await axiosClient.get(`/assets?page=${page}`);
-          const { data } = response;
-          allData.push(...data.data);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-
-      setAllDados(allData);
-    } catch (error) {
-      console.error(error);
-    }
+  //Gets all data from the assets
+  const getAllAssetsData = () => {
+    axiosClient
+      .get("/allAssets")
+      .then(({ data }) => {
+        setLoadingAll(false);
+        setAllDados(data);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
 
   //----------Handle click to delete an asset
@@ -383,7 +378,7 @@ export default function Assets() {
               selectedBrand={selectedBrand}
               selectedModel={selectedModel}
               toggleCheck={toggleCheck}
-              meta={meta}
+              allDados={allDados}
             />
           )}
         </table>
