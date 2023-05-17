@@ -25,6 +25,15 @@ class UserController extends Controller
         return UserResource::collection($users);
     }
 
+    public function indexAll()
+    {
+        $users = User::with('roles:id,name')
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return UserResource::collection($users);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
