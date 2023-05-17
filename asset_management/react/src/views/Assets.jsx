@@ -130,7 +130,7 @@ export default function Assets() {
 
     //Requests to delete the asset
     axiosClient.delete(`/assets/${checkedAssetIds.join(",")}`).then(() => {
-      setNotification("Ativo apagado com sucesso!");
+      setNotification("Ativo(s) apagado(s) com sucesso!");
 
       //after asset being deleted, fetch of all assets, so it displays with success all the assets
       getAssets();
@@ -229,6 +229,11 @@ export default function Assets() {
       const sorted = [...assets].sort((a, b) => {
         const propA = getPropertyByPath(a, dbColumnName);
         const propB = getPropertyByPath(b, dbColumnName);
+
+        if (propA === null || propB === null) {
+          //Exclude null values
+          return propA === null ? 1 : -1;
+        }
         return propA > propB ? 1 : -1;
       });
       setAssets(sorted);
@@ -238,6 +243,10 @@ export default function Assets() {
       const sorted = [...assets].sort((a, b) => {
         const propA = getPropertyByPath(a, dbColumnName);
         const propB = getPropertyByPath(b, dbColumnName);
+        if (propA === null || propB === null) {
+          //Exclude null values
+          return propA === null ? -1 : 1;
+        }
         return propA < propB ? 1 : -1;
       });
       setAssets(sorted);

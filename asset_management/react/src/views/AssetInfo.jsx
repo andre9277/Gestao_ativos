@@ -176,7 +176,7 @@ const AssetInfo = () => {
                 </div>
               </div>
             ) : (
-              <div>Carregando...</div>
+              <div className="lgText">Carregando...</div>
             )}
           </div>
         </div>
