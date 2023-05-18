@@ -43,6 +43,10 @@ const ReportPage = () => {
   const [allocations, setAllocations] = useState([]);
 
   useEffect(() => {
+    getAssetsFilter();
+  }, []);
+
+  useEffect(() => {
     Promise.all([axiosClient.get("/reportAll")]).then((responses) => {
       setLoading(false);
       console.log("hee", responses);

@@ -95,7 +95,7 @@ const ImportForm = () => {
         setShowMessage(false);
         setSuccessMessage("");
         setErrorMessage("");
-      }, 5000);
+      }, 10000);
 
       return () => {
         clearTimeout(timer);
@@ -164,9 +164,29 @@ const ImportForm = () => {
         },
       });
 
-      setSuccessMessage(response.data.message);
+      if (response.status === 200) {
+        setSuccessMessage("Ficheiro importado com sucesso!");
+      } else {
+        throw new Error("Erro inesperado do servidor!");
+      }
     } catch (error) {
-      setErrorMessage(error.message);
+      if (error.response) {
+        // Server responded with an error
+        const { data } = error.response;
+
+        if (data && data.message) {
+          setErrorMessage(
+            "Verifique se o nºsérie ou nºinventário se encontra inserido na lista de ativos!"
+          );
+        } else {
+          setErrorMessage("Um erro ocorreu ao processar o pedido!");
+        }
+      } else if (error.message) {
+        // Network or request-related error
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage("Ocorreu um erro desconhecido!");
+      }
     } finally {
       setLoading(false);
     }
