@@ -43,10 +43,13 @@ const ReportPage = () => {
   const [allocations, setAllocations] = useState([]);
 
   useEffect(() => {
-    getAllocations();
-    getAssetsFilter();
-    getUnits();
-    getEnts();
+    Promise.all([axiosClient.get("/reportAll")]).then((responses) => {
+      setLoading(false);
+      console.log("hee", responses);
+      setAllocations(responses[0].data.allocations);
+      setUnits(responses[0].data.units);
+      setEnts(responses[0].data.ents);
+    });
   }, []);
 
   const getAssetsFilter = (url) => {
@@ -59,22 +62,6 @@ const ReportPage = () => {
         setLoading(false);
         setAssets(data.data);
         setMeta(data.meta);
-        console.log(data.meta);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  };
-
-  const getAllocations = (url) => {
-    url = url || "/allocationAll";
-
-    setLoading(true);
-    axiosClient
-      .get(url)
-      .then(({ data }) => {
-        setLoading(false);
-        setAllocations(data.data);
       })
       .catch(() => {
         setLoading(false);
@@ -83,22 +70,6 @@ const ReportPage = () => {
 
   const onPageClick = (link) => {
     getAssetsFilter(link.url);
-  };
-
-  const getUnits = (url) => {
-    url = url || "/units";
-
-    axiosClient.get(url).then(({ data }) => {
-      setUnits(data);
-    });
-  };
-
-  const getEnts = (url) => {
-    url = url || "/entities";
-
-    axiosClient.get(url).then(({ data }) => {
-      setEnts(data);
-    });
   };
 
   const getAllocationData = (assetId) => {

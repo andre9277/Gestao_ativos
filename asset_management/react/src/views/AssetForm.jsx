@@ -57,21 +57,14 @@ export default function AssetForm() {
   let { id } = useParams();
 
   useEffect(() => {
-    Promise.all([
-      axiosClient.get("/categories"),
-      axiosClient.get("/entities"),
-      axiosClient.get("/units"),
-      axiosClient.get("/brands"),
-      axiosClient.get("/modelos"),
-      axiosClient.get("/supplier"),
-    ]).then((responses) => {
+    Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
       setLoading(false);
-      setCats(responses[0].data);
-      setEnts(responses[1].data);
-      setUnits(responses[2].data);
-      setBrands(responses[3].data);
-      setModelos(responses[4].data);
-      setSupplier(responses[5].data);
+      setCats(responses[0].data.cats);
+      setEnts(responses[0].data.ents);
+      setUnits(responses[0].data.units);
+      setBrands(responses[0].data.brands);
+      setModelos(responses[0].data.models);
+      setSupplier(responses[0].data.suppliers);
     });
   }, []);
 

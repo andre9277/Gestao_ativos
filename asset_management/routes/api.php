@@ -96,6 +96,97 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/import', [ExcelImportController::class, 'import']);
     Route::get('/download-template', [ExcelImportController::class, 'downloadTemplate'])->name('download.template');;
+
+
+    //Endpoint for the AssetForm component (Joins all the calls, does one request do the server)
+    Route::get('/combinedData', function () {
+
+        $allCats = getCatsAll();
+        $allEnts = getEntsAll();
+        $allUnits = getUnitsAll();
+        $allBrands = getBrandsAll();
+        $allModels = getModelAll();
+        $allSupp = getSupplierAll();
+
+
+        return response()->json([
+            'cats' => $allCats,
+            'ents' => $allEnts,
+            'units' => $allUnits,
+            'brands' => $allBrands,
+            'models' => $allModels,
+            'suppliers' => $allSupp,
+
+        ]);
+    });
+
+    Route::get('/reportAll', function () {
+        $allUnits = getUnitsAll();
+        $allEnts = getEntsAll();
+        $allocationAll = getAllocationAll();
+
+        return response()->json([
+            'units' => $allUnits,
+            'ents' => $allEnts,
+            'allocations' => $allocationAll,
+        ]);
+    });
+
+
+    function getCatsAll()
+    {
+        $response = app(CategoryController::class)->index();
+        $values = $response->getData();
+
+        return $values;
+    }
+
+    function getEntsAll()
+    {
+        $response = app(EntityController::class)->index();
+        $values = $response->getData();
+
+        return $values;
+    }
+
+    function getUnitsAll()
+    {
+        $response = app(UnitController::class)->index();
+        $values = $response->getData();
+
+        return $values;
+    }
+
+    function getBrandsAll()
+    {
+        $response = app(BrandController::class)->index();
+        $values = $response->getData();
+
+        return $values;
+    }
+
+    function getModelAll()
+    {
+        $response = app(ModeloController::class)->index();
+        $values = $response->getData();
+
+        return $values;
+    }
+    function getSupplierAll()
+    {
+        $response = app(SupplierController::class)->index();
+        $values = $response->getData();
+
+        return $values;
+    }
+
+    function getAllocationAll()
+    {
+        $response = app(AllocationsController::class)->indexAllocation();
+        $values = $response;
+
+        return $values;
+    }
 });
 
 //Route::post('/signup', [AuthController::class, 'signup']);
