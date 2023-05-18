@@ -48,7 +48,7 @@ class AssetController extends Controller
             ->orderBy('updated_at', 'desc')
             ->paginate(20);
 
-        return $assets;
+        return AssetResource::collection($assets);
     }
 
     public function indexAll()
@@ -184,8 +184,6 @@ class AssetController extends Controller
      */
     public function destroy($id)
     {
-
-
         $this->authorize('delete');
 
         $asset = Asset::findOrFail($id);
