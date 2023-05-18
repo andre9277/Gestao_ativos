@@ -416,17 +416,17 @@ const ImportForm = () => {
             className="inpImport"
             onChange={handleFileSelect}
           />
+          <button onClick={handleImport} className="btn-dwl">
+            Importar
+          </button>
+          {successMessage && <p className="succMess">{successMessage}</p>}
+          {errorMessage && <p className="errMess">{errorMessage}</p>}
+
+          <button onClick={handleDownload} className="dwlTemp">
+            Download Template
+          </button>
         </div>
       )}
-      <button onClick={handleImport} className="btn-dwl">
-        Importar
-      </button>
-      {successMessage && <p className="succMess">{successMessage}</p>}
-      {errorMessage && <p className="errMess">{errorMessage}</p>}
-
-      <button onClick={handleDownload} className="dwlTemp">
-        Download Template
-      </button>
     </div>
   );
 };

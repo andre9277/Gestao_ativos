@@ -48,7 +48,7 @@ class AssetController extends Controller
             ->orderBy('updated_at', 'desc')
             ->paginate(20);
 
-        return AssetResource::collection($assets);
+        return $assets;
     }
 
     public function indexAll()

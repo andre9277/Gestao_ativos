@@ -25,6 +25,7 @@ class UserController extends Controller
         return UserResource::collection($users);
     }
 
+    //Displays all users fromthe current database
     public function indexAll()
     {
         $users = User::with('roles:id,name')

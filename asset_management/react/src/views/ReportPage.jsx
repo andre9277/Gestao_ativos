@@ -59,6 +59,7 @@ const ReportPage = () => {
         setLoading(false);
         setAssets(data.data);
         setMeta(data.meta);
+        console.log(data.meta);
       })
       .catch(() => {
         setLoading(false);
