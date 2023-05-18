@@ -133,6 +133,22 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
 
+    Route::get('/assetsDefault', function () {
+        $allCats = getCatsAll();
+        $allBrands = getBrandsAll();
+        $allModels = getModelAll();
+        $allFloor = getFloors();
+        $allAssets = getAllAssets();
+
+        return response()->json([
+            'cats' => $allCats,
+            'brands' => $allBrands,
+            'models' => $allModels,
+            'floor' => $allFloor,
+            'assets' => $allAssets,
+        ]);
+    });
+
     function getCatsAll()
     {
         $response = app(CategoryController::class)->index();
@@ -183,6 +199,22 @@ Route::middleware('auth:sanctum')->group(function () {
     function getAllocationAll()
     {
         $response = app(AllocationsController::class)->indexAllocation();
+        $values = $response;
+
+        return $values;
+    }
+
+    function getFloors()
+    {
+        $response = app(AssetController::class)->get_floor_levels();
+        $values = $response;
+
+        return $values;
+    }
+
+    function getAllAssets()
+    {
+        $response = app(AssetController::class)->indexAll();
         $values = $response;
 
         return $values;

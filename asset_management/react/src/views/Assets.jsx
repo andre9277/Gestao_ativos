@@ -58,16 +58,13 @@ export default function Assets() {
   const [allDados, setAllDados] = useState([]);
 
   useEffect(() => {
-    Promise.all([
-      axiosClient.get("/catName"),
-      axiosClient.get("/brandsSig"),
-      axiosClient.get("/modelosName"),
-      axiosClient.get("/floorLevel"),
-    ]).then((responses) => {
-      setCats(responses[0].data);
-      setBrands(responses[1].data);
-      setModelos(responses[2].data);
-      setFloor(responses[3].data);
+    Promise.all([axiosClient.get("/assetsDefault")]).then((responses) => {
+      setLoading(false);
+      setCats(responses[0].data.cats);
+      setBrands(responses[0].data.brands);
+      setModelos(responses[0].data.models);
+      setFloor(responses[0].data.floor);
+      setAllDados(responses[0].data.assets); //Gets all data from the assets
     });
   }, []);
 
@@ -75,7 +72,6 @@ export default function Assets() {
   useEffect(() => {
     const fetchData = async () => {
       await getAssets();
-      getAllAssetsData();
     };
 
     fetchData();
@@ -94,19 +90,6 @@ export default function Assets() {
         setLoading(false);
         setAssets(data.data);
         setMeta(data.meta);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  };
-
-  //Gets all data from the assets
-  const getAllAssetsData = () => {
-    axiosClient
-      .get("/allAssets")
-      .then(({ data }) => {
-        setLoadingAll(false);
-        setAllDados(data.data);
       })
       .catch(() => {
         setLoading(false);

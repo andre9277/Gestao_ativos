@@ -27,7 +27,7 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import React, { useState } from "react";
+import React from "react";
 
 const ColumnMenuFilter = ({
   titulo,

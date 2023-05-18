@@ -55,7 +55,6 @@ const ImportForm = () => {
   useEffect(() => {
     Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
       setLoading(false);
-      console.log(responses);
       setCats(responses[0].data.cats);
       setEnts(responses[0].data.ents);
       setUnits(responses[0].data.units);
@@ -195,54 +194,6 @@ const ImportForm = () => {
       setLoading(false);
     }
   };
-
-  //Get the values for the selected box´s
-  /* const getModels_HB = (url) => {
-    url = url || "/modelos";
-
-    axiosClient.get(url).then(({ data }) => {
-      setModelos(data);
-    });
-  };
-
-     const getBrands = (url) => {
-    url = url || "/brands";
-
-    axiosClient.get(url).then(({ data }) => {
-      setBrands(data);
-    });
-  };
-
-  const getCats = (url) => {
-    url = url || "/categories";
-
-    axiosClient.get(url).then(({ data }) => {
-      setCats(data);
-    });
-  };
-
-  const getEnts = (url) => {
-    url = url || "/entities";
-
-    axiosClient.get(url).then(({ data }) => {
-      setEnts(data);
-    });
-  };
-
-  const getSuppliers = (url) => {
-    url = url || "supplier";
-
-    axiosClient.get(url).then(({ data }) => {
-      setSupplier(data);
-    });
-  };
-
-  const getUnits = (url) => {
-    url = url || "units";
-    axiosClient.get(url).then(({ data }) => {
-      setUnits(data);
-    });
-  }; */
 
   //---------Function handlers-----------
   function handleBrandChange(event) {
