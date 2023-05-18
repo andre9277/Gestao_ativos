@@ -49,7 +49,6 @@ const ReportPage = () => {
   useEffect(() => {
     Promise.all([axiosClient.get("/reportAll")]).then((responses) => {
       setLoading(false);
-      console.log("hee", responses);
       setAllocations(responses[0].data.allocations);
       setUnits(responses[0].data.units);
       setEnts(responses[0].data.ents);
