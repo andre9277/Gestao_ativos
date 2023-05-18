@@ -89,7 +89,7 @@ export default function Allocations() {
   };
 
   const getUsers = (url) => {
-    url = url || "/users";
+    url = url || "/usersAll";
 
     axiosClient.get(url).then(({ data }) => {
       setUsers(data.data);
