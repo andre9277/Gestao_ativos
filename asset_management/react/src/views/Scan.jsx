@@ -39,7 +39,7 @@ const Scan = () => {
   const navigate = useNavigate();
 
   const getAssets = async () => {
-    const response = await axiosClient.get("/assets");
+    const response = await axiosClient.get("/allAssets");
     console.log(response.data.data);
     setAssets(response.data.data);
     initializeBarcodeScanner();

@@ -3047,7 +3047,9 @@ textarea.form-control-lg {
     > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(
         .valid-feedback
     ):not(.invalid-tooltip):not(.invalid-feedback) {
-    margin-left: -1px;
+    background-color: #007840;
+    padding: 0.5rem;
+    margin-left: 0.2rem;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
