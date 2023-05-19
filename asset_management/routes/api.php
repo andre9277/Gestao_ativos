@@ -97,6 +97,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/import', [ExcelImportController::class, 'import']);
     Route::get('/download-template', [ExcelImportController::class, 'downloadTemplate'])->name('download.template');;
 
+    //Gets the values of the asset by inventory number
+    Route::get('/assetSearch', [AssetController::class, 'getAllAssets']);
+
+
 
     //Endpoint for the AssetForm component (Joins all the calls, does one request do the server)
     Route::get('/combinedData', function () {
@@ -148,6 +152,8 @@ Route::middleware('auth:sanctum')->group(function () {
             'assets' => $allAssets,
         ]);
     });
+
+
 
     function getCatsAll()
     {

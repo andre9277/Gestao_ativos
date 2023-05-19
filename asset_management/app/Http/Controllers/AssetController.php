@@ -217,7 +217,7 @@ class AssetController extends Controller
         return response()->json(['unit_name' => $unitName]);
     }
 
-    //Fllor Levels 
+    //Floor Levels 
     function get_floor_levels()
     {
         $floor_levels = [-1, 0, 1, 2, 3, 4, 5];
@@ -225,5 +225,16 @@ class AssetController extends Controller
             return ['name' => $floor_level];
         }, $floor_levels);
         return $result;
+    }
+
+
+    //Gets the asset values from the current inventory number
+    public function getAllAssets(Request $request)
+    {
+        $assetNumber = $request->query('numb_inv');
+
+        $assets = Asset::where('numb_inv', $assetNumber)->get();
+
+        return response()->json($assets);
     }
 }

@@ -27,69 +27,55 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import "../styles/SearchBar.css";
 import { useNavigate } from "react-router-dom";
 
-const Search = ({ setResults }) => {
-  const [inputText, setInputText] = useState("");
-
+const Search = () => {
   const navigate = useNavigate();
 
-  const getAssets = (url, value) => {
-    url = url || "/allAssets";
+  const [assetNumber, setAssetNumber] = useState("");
 
-    axiosClient.get(url, { params: { numb_inv: value } }).then(({ data }) => {
-      const assets = data.data;
-
-      const results = assets.filter((asset) => {
-        return (
-          value &&
-          asset &&
-          asset.numb_inv &&
-          asset.numb_inv.toUpperCase().includes(value)
-        );
-      });
-      setResults(results);
-      if (results.length === 1) {
-        navigate(`/infoasset/${results[0].id}`); // add this line
-      }
-    });
+  const handleChange = (event) => {
+    setAssetNumber(event.target.value);
   };
 
-  const handleChange = (value) => {
-    setInputText(value);
-    getAssets("", value);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (assetNumber.trim() !== "") {
+      try {
+        const response = await axiosClient.get(
+          `/assetSearch?numb_inv=${assetNumber}`
+        );
+
+        const assetId = response.data[0].id; // Assuming the response contains the asset ID
+        navigate(`/infoasset/${assetId}`);
+      } catch (error) {
+        console.error("Ativo não existe. Tente novamente!", error);
+      }
+    }
+    setAssetNumber("");
   };
 
   return (
-    <div>
-      <form className="className=form-inline mr-auto w-100 navbar-search">
-        <div className="input-group">
-          <input
-            type="text"
-            className="form-control border-0 small ssBar"
-            placeholder="Procure o ativo..."
-            aria-label="Search"
-            aria-describedby="basic-addon2"
-            onChange={(e) => handleChange(e.target.value)}
-            value={inputText}
-          />
-          <div>
-            <button
-              className="btn btn-primary"
-              onClick={(e) => {
-                e.preventDefault();
-                getAssets("", inputText);
-              }}
-            >
-              <i className="fas fa-search fa-sm"></i>
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
+    <form
+      onSubmit={handleSubmit}
+      className="form-inline mr-auto w-100 navbar-search"
+    >
+      <div className="input-group">
+        <input
+          type="text"
+          placeholder="Insira nºInventário"
+          value={assetNumber}
+          onChange={handleChange}
+          className="form-control border-0 small ssBar"
+        />
+        <button type="submit" className="btn btn-primary">
+          Procurar
+        </button>
+      </div>
+    </form>
   );
 };
 
