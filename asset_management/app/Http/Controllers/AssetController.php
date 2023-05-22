@@ -189,21 +189,22 @@ class AssetController extends Controller
         // Convert the comma-separated string of IDs to an array
         $assetIds = explode(',', $ids);
 
+        // Retrieve the assets before deletion
+        $assets = Asset::whereIn('id', $assetIds)->get();
+
         // Delete the assets
         Asset::whereIn('id', $assetIds)->delete();
 
+
         // Create allocation records for the deleted assets
-        foreach ($assetIds as $assetId) {
-            $asset = Asset::find($assetId);
-            if ($asset) {
-                $allocation = new Allocation([
-                    'inv_number' => $asset->numb_inv,
-                    'action_type' => 'Apaga',
-                    'user_id' => Auth::id(),
-                    'allocation_date' => now(),
-                ]);
-                $allocation->save();
-            }
+        foreach ($assets as $asset) {
+            $allocation = new Allocation([
+                'inv_number' => $asset->numb_inv,
+                'action_type' => 'Apaga',
+                'user_id' => Auth::id(),
+                'allocation_date' => now(),
+            ]);
+            $allocation->save();
         }
 
         // Return a response indicating success
