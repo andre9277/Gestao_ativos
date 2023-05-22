@@ -29,7 +29,7 @@ class ModeloController extends Controller
 
     public function indexName()
     {
-        $modelos = Modelo::all(['model_name as name']);
+        $modelos = Modelo::all(['id', 'model_name'])->toArray();
         return response()->json($modelos);
     }
 
