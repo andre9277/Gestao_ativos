@@ -183,7 +183,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     function getBrandsAll()
     {
-        $response = app(BrandController::class)->index();
+        $response = app(BrandController::class)->indexSig();
         $values = $response->getData();
 
         return $values;
