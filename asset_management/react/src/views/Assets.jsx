@@ -108,7 +108,9 @@ export default function Assets() {
 
     // Confirmation of asset deletion
     if (
-      !window.confirm("Are you sure you want to delete the selected assets?")
+      !window.confirm(
+        "Tem a certeza que pretende eliminar o(s) ativo(s) selecionado(s)?"
+      )
     ) {
       return;
     }
@@ -119,20 +121,18 @@ export default function Assets() {
     // Send the DELETE request
     axiosClient
       .delete(url)
-      .then((response) => {
-        // Handle the response
-        console.log(response.data.message); // Success message from the server
-
+      .then(() => {
+        setNotification("Ativo(s) apagado(s) com sucesso!");
         // Fetch assets again to update the UI
         getAssets();
       })
       .catch((error) => {
-        console.error("Error deleting assets:", error);
+        console.error("Erro ao apagar ativo(s):", error);
         // Handle error if necessary...
       });
   };
 
-  //-----------Handle click to edit an asset
+  //-----------Handle click to edit an asset-------------
   const onEditClick = () => {
     // Get the IDs of all the checked assets
     const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
@@ -152,7 +152,7 @@ export default function Assets() {
     getAssets(link.url);
   };
 
-  //-------------Handle change of the columns
+  //-------------Handle change of the columns-------------
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
@@ -187,7 +187,6 @@ export default function Assets() {
   //For the checkbox, if the value of the filter is empty, then uses the assets array of the current page.
   //if filter exists then uses the allDados array, that gives information about every assets in our database
   const toggleCheck = (id) => {
-    console.log("Toggle check called for ID:", id);
     if (
       selectedBrand === "" &&
       selectedCategory === "" &&

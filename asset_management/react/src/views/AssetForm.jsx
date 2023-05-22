@@ -178,7 +178,7 @@ export default function AssetForm() {
       axiosClient
         .post("/assets", asset)
         .then(() => {
-          setNotification("Ativo criado com sucesso!");
+          setNotification("Ativo adicionado com sucesso!");
           navigate("/assets");
         })
         .catch((err) => {
