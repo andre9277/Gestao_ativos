@@ -182,27 +182,34 @@ class AssetController extends Controller
      * @param  \App\Models\Asset  $asset
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($ids)
     {
         $this->authorize('delete');
 
-        $asset = Asset::findOrFail($id);
+        // Convert the comma-separated string of IDs to an array
+        $assetIds = explode(',', $ids);
 
-        // Save a copy of the asset ID and inventory number
-        $inventoryNumber = $asset->numb_inv;
+        // Delete the assets
+        Asset::whereIn('id', $assetIds)->delete();
 
-        // Delete the asset
-        $asset->delete();
+        // Create allocation records for the deleted assets
+        foreach ($assetIds as $assetId) {
+            $asset = Asset::find($assetId);
+            if ($asset) {
+                $allocation = new Allocation([
+                    'inv_number' => $asset->numb_inv,
+                    'action_type' => 'Apaga',
+                    'user_id' => Auth::id(),
+                    'allocation_date' => now(),
+                ]);
+                $allocation->save();
+            }
+        }
 
-        // Create an allocation record to track the deletion
-        $allocation = new Allocation([
-            'inv_number' => $inventoryNumber,
-            'action_type' => 'Apaga',
-            'user_id' => Auth::id(),
-            'allocation_date' => now(),
-        ]);
-        $allocation->save();
+        // Return a response indicating success
+        return response()->json(['message' => 'Assets deleted successfully']);
     }
+
 
     //Show the previous unit name of one Asset
     public function showPrevious($id)

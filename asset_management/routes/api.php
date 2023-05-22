@@ -153,6 +153,8 @@ Route::middleware('auth:sanctum')->group(function () {
         ]);
     });
 
+    Route::delete('/assets/{ids}', [AssetController::class, 'destroy']);
+
 
 
     function getCatsAll()

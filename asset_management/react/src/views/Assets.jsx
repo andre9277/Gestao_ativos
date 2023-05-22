@@ -98,26 +98,38 @@ export default function Assets() {
 
   //----------Handle click to delete an asset
   const onDeleteClick = () => {
-    // Get the IDs of all the checked users
+    // Get the IDs of all the checked assets
     const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
 
-    // If no users are checked, return
+    // If no assets are checked, return
     if (checkedAssetIds.length === 0) {
       return;
     }
 
-    //Confirmation of deletion of an asset
-    if (!window.confirm("Tem a certeza que pretende apagar o ativo?")) {
+    // Confirmation of asset deletion
+    if (
+      !window.confirm("Are you sure you want to delete the selected assets?")
+    ) {
       return;
     }
 
-    //Requests to delete the asset
-    axiosClient.delete(`/assets/${checkedAssetIds.join(",")}`).then(() => {
-      setNotification("Ativo(s) apagado(s) com sucesso!");
+    // Create the URL with the asset IDs
+    const url = `/assets/${checkedAssetIds.join(",")}`;
 
-      //after asset being deleted, fetch of all assets, so it displays with success all the assets
-      getAssets();
-    });
+    // Send the DELETE request
+    axiosClient
+      .delete(url)
+      .then((response) => {
+        // Handle the response
+        console.log(response.data.message); // Success message from the server
+
+        // Fetch assets again to update the UI
+        getAssets();
+      })
+      .catch((error) => {
+        console.error("Error deleting assets:", error);
+        // Handle error if necessary...
+      });
   };
 
   //-----------Handle click to edit an asset
@@ -175,6 +187,7 @@ export default function Assets() {
   //For the checkbox, if the value of the filter is empty, then uses the assets array of the current page.
   //if filter exists then uses the allDados array, that gives information about every assets in our database
   const toggleCheck = (id) => {
+    console.log("Toggle check called for ID:", id);
     if (
       selectedBrand === "" &&
       selectedCategory === "" &&
@@ -182,6 +195,7 @@ export default function Assets() {
       selectedModel === ""
     ) {
       const checkedIdx = assets.findIndex((a) => a.id === id);
+
       if (checkedIdx === -1) return;
       const updatedAssets = [...assets];
       updatedAssets[checkedIdx].checked = !updatedAssets[checkedIdx].checked;
