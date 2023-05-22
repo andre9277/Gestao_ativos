@@ -189,7 +189,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     function getModelAll()
     {
-        $response = app(ModeloController::class)->index();
+        $response = app(ModeloController::class)->indexName();
         $values = $response->getData();
 
         return $values;
