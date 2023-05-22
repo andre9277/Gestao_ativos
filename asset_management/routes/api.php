@@ -7,10 +7,11 @@ use App\Http\Controllers\AssetController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EntityController;
+use App\Http\Controllers\ExcelImportController;
 use App\Http\Controllers\ModeloController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
-
+use App\Models\Asset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //ApiResource in endpoint users
     Route::apiResource('/users', UserController::class);
+    Route::get('/usersAll', [UserController::class, 'indexAll']);
 
     //Endpoint Categories
     Route::get('/categories', [CategoryController::class, 'index']);
@@ -59,10 +61,14 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->asset();
     });
 
+    Route::get('/allAssets', [AssetController::class, 'indexAll']);
+
+
     //get the name of the previous unit name
     Route::get('assets/{id}/previous-unit-name', [AssetController::class, 'showPrevious']);
 
     Route::get('/assetsC', [AssetController::class, 'count']);
+    Route::get('/filterVal', [AssetController::class, 'filterValues']);
 
     /* Route::get('/download-csv', [AllocationsController::class, 'downloadCsv']); */
 
@@ -88,9 +94,137 @@ Route::middleware('auth:sanctum')->group(function () {
     //Endpoint Supplier
     Route::get('/supplier', [SupplierController::class, 'index']);
 
-    Route::post('/import', [AssetController::class, 'import'])->name('import');
+    Route::post('/import', [ExcelImportController::class, 'import']);
+    Route::get('/download-template', [ExcelImportController::class, 'downloadTemplate'])->name('download.template');;
 
-    Route::get('/filterVal', [AssetController::class, 'filterValues']);
+    //Gets the values of the asset by inventory number
+    Route::get('/assetSearch', [AssetController::class, 'getAllAssets']);
+
+
+
+    //Endpoint for the AssetForm component (Joins all the calls, does one request do the server)
+    Route::get('/combinedData', function () {
+
+        $allCats = getCatsAll();
+        $allEnts = getEntsAll();
+        $allUnits = getUnitsAll();
+        $allBrands = getBrandsAll();
+        $allModels = getModelAll();
+        $allSupp = getSupplierAll();
+
+
+        return response()->json([
+            'cats' => $allCats,
+            'ents' => $allEnts,
+            'units' => $allUnits,
+            'brands' => $allBrands,
+            'models' => $allModels,
+            'suppliers' => $allSupp,
+
+        ]);
+    });
+
+    Route::get('/reportAll', function () {
+        $allUnits = getUnitsAll();
+        $allEnts = getEntsAll();
+        $allocationAll = getAllocationAll();
+
+        return response()->json([
+            'units' => $allUnits,
+            'ents' => $allEnts,
+            'allocations' => $allocationAll,
+        ]);
+    });
+
+
+    Route::get('/assetsDefault', function () {
+        $allCats = getCatsAll();
+        $allBrands = getBrandsAll();
+        $allModels = getModelAll();
+        $allFloor = getFloors();
+        $allAssets = getAllAssets();
+
+        return response()->json([
+            'cats' => $allCats,
+            'brands' => $allBrands,
+            'models' => $allModels,
+            'floor' => $allFloor,
+            'assets' => $allAssets,
+        ]);
+    });
+
+
+
+    function getCatsAll()
+    {
+        $response = app(CategoryController::class)->index();
+        $values = $response->getData();
+
+        return $values;
+    }
+
+    function getEntsAll()
+    {
+        $response = app(EntityController::class)->index();
+        $values = $response->getData();
+
+        return $values;
+    }
+
+    function getUnitsAll()
+    {
+        $response = app(UnitController::class)->index();
+        $values = $response->getData();
+
+        return $values;
+    }
+
+    function getBrandsAll()
+    {
+        $response = app(BrandController::class)->index();
+        $values = $response->getData();
+
+        return $values;
+    }
+
+    function getModelAll()
+    {
+        $response = app(ModeloController::class)->index();
+        $values = $response->getData();
+
+        return $values;
+    }
+    function getSupplierAll()
+    {
+        $response = app(SupplierController::class)->index();
+        $values = $response->getData();
+
+        return $values;
+    }
+
+    function getAllocationAll()
+    {
+        $response = app(AllocationsController::class)->indexAllocation();
+        $values = $response;
+
+        return $values;
+    }
+
+    function getFloors()
+    {
+        $response = app(AssetController::class)->get_floor_levels();
+        $values = $response;
+
+        return $values;
+    }
+
+    function getAllAssets()
+    {
+        $response = app(AssetController::class)->indexAll();
+        $values = $response;
+
+        return $values;
+    }
 });
 
 //Route::post('/signup', [AuthController::class, 'signup']);

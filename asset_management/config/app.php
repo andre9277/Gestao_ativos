@@ -186,8 +186,7 @@ return [
         /*
          * Package Service Providers...
          */
-        //For the import:
-        /* Maatwebsite\Excel\Facades\Excel::class, */
+
 
         /*
          * Application Service Providers...
@@ -211,10 +210,6 @@ return [
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
-
-
-    ])->toArray(),
+    'aliases' => Facade::defaultAliases()->merge([])->toArray(),
 
 ];

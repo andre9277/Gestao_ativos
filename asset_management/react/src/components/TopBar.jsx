@@ -27,23 +27,19 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import SearchResultsList from "./SearchResultsList";
 import UserInfo from "./UserInfo";
 
 const TopBar = ({ user, onLogout }) => {
-  const [results, setResults] = useState([]);
+  //const [results, setResults] = useState([]);
 
   return (
     <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
       {/*  <!-- Topbar Search --> */}
       <div className="search-bar-container">
-        <SearchBar setResults={setResults} />
-        {results && results.length > 0 && (
-          <SearchResultsList results={results} setResults={setResults} />
-        )}
+        <SearchBar />
       </div>
       {/*Icon bar code for users to scan */}
       <Link to="/scan">

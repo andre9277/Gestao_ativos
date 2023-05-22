@@ -41,6 +41,7 @@ export default function Assets() {
 
   const [assets, setAssets] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingAll, setLoadingAll] = useState(false);
   const [meta, setMeta] = useState({});
   const { setNotification, user } = useStateContext();
 
@@ -57,16 +58,13 @@ export default function Assets() {
   const [allDados, setAllDados] = useState([]);
 
   useEffect(() => {
-    Promise.all([
-      axiosClient.get("/catName"),
-      axiosClient.get("/brandsSig"),
-      axiosClient.get("/modelosName"),
-      axiosClient.get("/floorLevel"),
-    ]).then((responses) => {
-      setCats(responses[0].data);
-      setBrands(responses[1].data);
-      setModelos(responses[2].data);
-      setFloor(responses[3].data);
+    Promise.all([axiosClient.get("/assetsDefault")]).then((responses) => {
+      setLoading(false);
+      setCats(responses[0].data.cats);
+      setBrands(responses[0].data.brands);
+      setModelos(responses[0].data.models);
+      setFloor(responses[0].data.floor);
+      setAllDados(responses[0].data.assets); //Gets all data from the assets
     });
   }, []);
 
@@ -90,33 +88,12 @@ export default function Assets() {
       .then(({ data }) => {
         // When the request is successful, loading=false
         setLoading(false);
-        // console.log(data);
-        setAssets(data.data); // Deve guardar TODOS os ativos de todas as páginas!!!!!
+        setAssets(data.data);
         setMeta(data.meta);
-        getAllAssetsData(data.meta); // Call getAllAssetsData with the updated meta
       })
       .catch(() => {
         setLoading(false);
       });
-  };
-
-  const getAllAssetsData = async (meta) => {
-    try {
-      const allData = [];
-      for (let page = 1; page <= meta.last_page; page++) {
-        try {
-          const response = await axiosClient.get(`/assets?page=${page}`);
-          const { data } = response;
-          allData.push(...data.data);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-
-      setAllDados(allData);
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   //----------Handle click to delete an asset
@@ -136,7 +113,7 @@ export default function Assets() {
 
     //Requests to delete the asset
     axiosClient.delete(`/assets/${checkedAssetIds.join(",")}`).then(() => {
-      setNotification("Ativo apagado com sucesso!");
+      setNotification("Ativo(s) apagado(s) com sucesso!");
 
       //after asset being deleted, fetch of all assets, so it displays with success all the assets
       getAssets();
@@ -235,6 +212,11 @@ export default function Assets() {
       const sorted = [...assets].sort((a, b) => {
         const propA = getPropertyByPath(a, dbColumnName);
         const propB = getPropertyByPath(b, dbColumnName);
+
+        if (propA === null || propB === null) {
+          //Exclude null values
+          return propA === null ? 1 : -1;
+        }
         return propA > propB ? 1 : -1;
       });
       setAssets(sorted);
@@ -244,6 +226,10 @@ export default function Assets() {
       const sorted = [...assets].sort((a, b) => {
         const propA = getPropertyByPath(a, dbColumnName);
         const propB = getPropertyByPath(b, dbColumnName);
+        if (propA === null || propB === null) {
+          //Exclude null values
+          return propA === null ? -1 : 1;
+        }
         return propA < propB ? 1 : -1;
       });
       setAssets(sorted);
@@ -383,7 +369,7 @@ export default function Assets() {
               selectedBrand={selectedBrand}
               selectedModel={selectedModel}
               toggleCheck={toggleCheck}
-              meta={meta}
+              allDados={allDados}
             />
           )}
         </table>

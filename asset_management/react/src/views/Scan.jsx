@@ -27,7 +27,7 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Quagga from "quagga";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client.js";
@@ -39,7 +39,7 @@ const Scan = () => {
   const navigate = useNavigate();
 
   const getAssets = async () => {
-    const response = await axiosClient.get("/assets");
+    const response = await axiosClient.get("/allAssets");
     console.log(response.data.data);
     setAssets(response.data.data);
     initializeBarcodeScanner();
@@ -60,7 +60,7 @@ const Scan = () => {
       const foundAsset = assets.find((asset) => {
         return asset.numb_inv === inventoryNumber;
       });
-      console.log("Found Asset:", foundAsset);
+      console.log("Asset encontrado:", foundAsset);
 
       // Redirect to corresponding asset page
       if (foundAsset) {

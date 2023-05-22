@@ -51,18 +51,12 @@ function Dashboard() {
       setAssetTotal(data);
     });
   };
-  const getAssets = (url, page = 1, results = []) => {
+
+  const getAssets = (url) => {
     url = url || "/getDashb";
-    axiosClient.get(`${url}?page=${page}`).then(({ data }) => {
-      const assets = data.data;
-      results = [...results, ...assets];
-      if (data.current_page < data.last_page) {
-        // if there are more pages, recursively call the function
-        getAssets(url, page + 1, results);
-      } else {
-        // update the state with all the assets
-        setAssets(results);
-      }
+    axiosClient.get(url).then(({ data }) => {
+      // update the state with all the assets
+      setAssets(data);
     });
   };
 

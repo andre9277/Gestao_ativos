@@ -56,3 +56,14 @@ input:focus {
 #search-icon {
     color: royalblue;
 }
+
+/* Media Query for Mobile Screens */
+@media (max-width: 600px) {
+    .input-wrapper {
+        padding: 0 10px; /* Adjust the padding for smaller screens */
+    }
+
+    input {
+        font-size: 1rem; /* Decrease the font size for smaller screens */
+    }
+}

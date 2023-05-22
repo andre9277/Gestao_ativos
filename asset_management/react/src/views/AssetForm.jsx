@@ -39,6 +39,7 @@ export default function AssetForm() {
   const [loading, setLoading] = useState(false);
   const { setNotification } = useStateContext();
 
+  //States to get the list of selected options
   const [cats, setCats] = useState([]);
   const [ents, setEnts] = useState([]);
   const [units, setUnits] = useState([]);
@@ -56,21 +57,14 @@ export default function AssetForm() {
   let { id } = useParams();
 
   useEffect(() => {
-    Promise.all([
-      axiosClient.get("/categories"),
-      axiosClient.get("/entities"),
-      axiosClient.get("/units"),
-      axiosClient.get("/brands"),
-      axiosClient.get("/modelos"),
-      axiosClient.get("/supplier"),
-    ]).then((responses) => {
+    Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
       setLoading(false);
-      setCats(responses[0].data);
-      setEnts(responses[1].data);
-      setUnits(responses[2].data);
-      setBrands(responses[3].data);
-      setModelos(responses[4].data);
-      setSupplier(responses[5].data);
+      setCats(responses[0].data.cats);
+      setEnts(responses[0].data.ents);
+      setUnits(responses[0].data.units);
+      setBrands(responses[0].data.brands);
+      setModelos(responses[0].data.models);
+      setSupplier(responses[0].data.suppliers);
     });
   }, []);
 
@@ -232,7 +226,7 @@ export default function AssetForm() {
       {asset.id && <h1>Atualizar Ativo: {asset.numb_inv}</h1>}
       {!asset.id && <h1>Novo Ativo</h1>}
       <div className="card animated fadeInDown">
-        {loading && <div className="text-center">Carregando...</div>}
+        {loading && <div className="caprr-re">Carregando...</div>}
         {errors && (
           <div className="alert">
             {Object.keys(errors).map((key) => (
@@ -299,6 +293,7 @@ export default function AssetForm() {
                 ))}
               </select>
             </label>
+
             {/* ---------- Brands ----------*/}
             <label className="lb-info">
               {" "}
