@@ -295,7 +295,7 @@ const ImportForm = () => {
               <option value="">Selecione uma Marca</option>
               {brands.map((brand) => (
                 <option key={brand.id} value={brand.id}>
-                  {brand.sig}
+                  {brand.name}
                 </option>
               ))}
             </select>

@@ -397,14 +397,6 @@ label {
     display: inline-block;
 }
 
-/* button {
-    border-radius: 0;
-} */
-
-/* button:focus:not(:focus-visible) {
-    outline: 0;
-} */
-
 input,
 button,
 select,
@@ -501,14 +493,6 @@ legend + * {
     -webkit-appearance: textfield;
 }
 
-/* rtl:raw:
-[type="tel"],
-[type="url"],
-[type="email"],
-[type="number"] {
-  direction: ltr;
-}
-*/
 ::-webkit-search-decoration {
     -webkit-appearance: none;
 }
@@ -753,15 +737,6 @@ progress {
     margin-right: calc(-0.5 * var(--bs-gutter-x));
     margin-left: calc(-0.5 * var(--bs-gutter-x));
 }
-*
-/* .row > * {
-    flex-shrink: 0;
-    width: 100%;
-    max-width: 100%;
-    padding-right: calc(var(--bs-gutter-x) * 0.5);
-    padding-left: calc(var(--bs-gutter-x) * 0.5);
-    margin-top: var(--bs-gutter-y);
-} */
 
 .col {
     flex: 1 0 0%;
@@ -2703,8 +2678,6 @@ textarea.form-control-lg {
 
 .tb-btn-user {
     align-items: right;
-    /*  padding: 4px;
-    margin: 4px; */
 }
 
 .btn,
@@ -2712,19 +2685,12 @@ textarea.form-control-lg {
 .btn-edit,
 .btn-delete {
     font-family: "Roboto", sans-serif;
-    /*  outline: 0;
-    border: 0; */
     text-decoration: none;
-    /* padding: 15px; */
     color: #ffffff;
-
     font-size: 14px;
     -webkit-transition: all 0.3 ease;
     transition: all 0.3 ease;
     cursor: pointer;
-    /*     padding: 0.5rem 0.75rem;
-    font-size: 14px;
-    border-radius: 4px; */
 }
 
 .btn-adicionar {
@@ -3949,14 +3915,6 @@ fieldset:disabled .btn {
     background-color: transparent;
 }
 
-/* .btn-link {
-    font-weight: 400;
-    color: #0d6efd;
-    text-decoration: underline;
-}
-.btn-link:hover {
-    color: #0a58ca;
-} */
 .btn-link:disabled,
 .btn-link.disabled {
     color: #6c757d;
@@ -12355,7 +12313,6 @@ body {
 
 h1 {
     margin: 0;
-    /* font-weight: 400; */
 }
 h3 {
     margin: 12px 0;
@@ -12387,12 +12344,7 @@ fieldset {
     align-items: center;
     margin-bottom: 10px;
 }
-/* .account-details > div,
-.personal-details > div,
-input,
-label {
-    width: 100%;
-} */
+
 .lbAdd {
     padding: 0 5px;
     text-align: right;
@@ -12455,9 +12407,7 @@ select {
     font-weight: 600;
     color: #fff;
 }
-/* button:hover {
-    background: #4e73df;
-} */
+
 @media (min-width: 568px) {
     .account-details > div,
     .personal-details > div {
@@ -12470,7 +12420,6 @@ select {
         width: 60%;
         box-sizing: border-box;
         padding: 12px 20px;
-        /*  margin: 8px 0; */
         border-bottom: 2px;
     }
     select,
