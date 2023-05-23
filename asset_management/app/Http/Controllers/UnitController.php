@@ -27,6 +27,12 @@ class UnitController extends Controller
         return response()->json($entities);
     }
 
+    public function indexAll()
+    {
+        $entities = Unit::all(['id', 'name']);
+        return response()->json($entities);
+    }
+
     public function getUnitsByEntity(Request $request): JsonResponse
     {
         $entId = $request->query('ent_id');

@@ -169,7 +169,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     function getEntsAll()
     {
-        $response = app(EntityController::class)->index();
+        $response = app(EntityController::class)->indexAll();
         $values = $response->getData();
 
         return $values;
@@ -177,7 +177,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     function getUnitsAll()
     {
-        $response = app(UnitController::class)->index();
+        $response = app(UnitController::class)->indexAll();
         $values = $response->getData();
 
         return $values;
@@ -200,7 +200,7 @@ Route::middleware('auth:sanctum')->group(function () {
     }
     function getSupplierAll()
     {
-        $response = app(SupplierController::class)->index();
+        $response = app(SupplierController::class)->indexAll();
         $values = $response->getData();
 
         return $values;
