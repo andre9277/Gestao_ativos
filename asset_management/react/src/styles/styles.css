@@ -2524,6 +2524,21 @@ textarea.form-control-lg {
     -moz-appearance: none;
     appearance: none;
 }
+
+@media (max-width: 768px) {
+    .form-select,
+    .dataTable-selector {
+        width: 100%;
+        max-width: 80%;
+    }
+
+    .form-select {
+        padding-right: 2.25rem;
+        background-position: right 0.5rem center;
+        background-size: 12px 9px;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .form-select,
     .dataTable-selector {
@@ -12493,6 +12508,14 @@ select {
     margin: 4px;
     color: #007840;
     font-size: large;
+}
+@media (max-width: 768px) {
+    .lb-info {
+        width: 100%;
+        margin: 4px 0;
+        color: #007840;
+        font-size: medium;
+    }
 }
 
 .lb-infoAsset {
