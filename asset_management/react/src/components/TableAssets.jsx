@@ -71,7 +71,7 @@ const TableAssets = ({
           (selectedCategory === "" || row.category.name === selectedCategory) &&
           (selectedFloor === "" || row.floor === selectedFloor) &&
           (selectedBrand === "" || row.brand.sig === selectedBrand) &&
-          (selectedModel === "" || row.modelo.model_name === selectedModel)
+          (selectedModel === "" || row.modelo.name === selectedModel)
       )
     : assets;
 
@@ -96,10 +96,9 @@ const TableAssets = ({
         !loading &&
         filteredAssets.map((a) => (
           <tr key={a.id}>
-            {/* {console.log(filteredAssets)} */}
             <td>{a.category.name}</td>
             <td>{a.brand.sig}</td>
-            <td>{a.modelo.model_name}</td>
+            <td>{a.modelo.name}</td>
             <td>{a.numb_inv}</td>
             <td>{a.numb_ser}</td>
             <td>{a.entity.ent_name}</td>

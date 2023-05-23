@@ -315,7 +315,7 @@ const ImportForm = () => {
               <option value="">Selecione um Modelo</option>
               {modelos.map((modelo) => (
                 <option key={modelo.id} value={modelo.id}>
-                  {modelo.model_name}
+                  {modelo.name}
                 </option>
               ))}
             </select>

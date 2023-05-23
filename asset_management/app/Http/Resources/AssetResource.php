@@ -50,7 +50,7 @@ class AssetResource extends JsonResource
             ] : null,
             'modelo' => $this->modelo ? [
                 'id' => $this->modelo->id,
-                'model_name' => $this->modelo->model_name,
+                'name' => $this->modelo->name,
             ] : null,
             'category' => $this->category ? [
                 'id' => $this->category->id,

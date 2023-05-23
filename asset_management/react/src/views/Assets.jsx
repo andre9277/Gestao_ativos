@@ -62,9 +62,11 @@ export default function Assets() {
       setLoading(false);
       setCats(responses[0].data.cats);
       setBrands(responses[0].data.brands);
+
       setModelos(responses[0].data.models);
       setFloor(responses[0].data.floor);
       setAllDados(responses[0].data.assets); //Gets all data from the assets
+      //console.log("allDados", responses[0].data);
     });
   }, []);
 
@@ -215,7 +217,7 @@ export default function Assets() {
     const columnMapping = {
       Categoria: "category.name",
       Marca: "brand.sig",
-      Modelo: "modelo.model_name",
+      Modelo: "modelo.name",
       Piso: "floor",
     };
 

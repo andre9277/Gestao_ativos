@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('modelo', function (Blueprint $table) {
             $table->id();
-            $table->string('model_name');
+            $table->string('name');
             $table->timestamps();
             $table->unsignedBigInteger('brand_id');
 
