@@ -47,10 +47,17 @@ const Scan = () => {
 
   useEffect(() => {
     getAssets();
+
+    return () => {
+      stopBarcodeScanner();
+    };
   }, []);
 
   useEffect(() => {
+    let timeoutId;
+
     Quagga.onDetected((result) => {
+      clearTimeout(timeoutId); //Clear the timeout if barcode is detected
       console.log("Barcode detected:", result.codeResult.code);
       setBarcode(result.codeResult.code);
 
@@ -66,9 +73,19 @@ const Scan = () => {
       if (foundAsset) {
         navigate(`/infoasset/${foundAsset.id}`);
         Quagga.stop();
+      } else {
+        //If asset is not found, redirect to notFound page after 5 seconds
+        timeoutId = setTimeout(() => {
+          navigate("/assets/new");
+        }, 5000);
       }
     });
+    return () => {
+      clearTimeout(timeoutId); //Clear the timeout on component unmount
+    };
   }, [assets, navigate]);
+
+  let barcodeScannerInitialized = false; // flag to track if the barcode scanner has been initialized
 
   function initializeBarcodeScanner() {
     Quagga.init(
@@ -91,6 +108,7 @@ const Scan = () => {
         }
         console.log("Barcode scanner initialized.");
         Quagga.start();
+        barcodeScannerInitialized = true;
       }
     );
 
@@ -114,6 +132,13 @@ const Scan = () => {
         );
       }
     });
+  }
+
+  function stopBarcodeScanner() {
+    if (barcodeScannerInitialized) {
+      Quagga.stop();
+      barcodeScannerInitialized = false;
+    }
   }
 
   return (
