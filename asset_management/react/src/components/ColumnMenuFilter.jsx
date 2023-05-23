@@ -35,6 +35,7 @@ const ColumnMenuFilter = ({
   selectedAttribut,
   handleFunc,
   sorting,
+  sortingFilter,
   order,
 }) => {
   let i = 0;
@@ -43,11 +44,19 @@ const ColumnMenuFilter = ({
     sorting(titulo);
   };
 
+  const handleSortFilter = () => {
+    sortingFilter(titulo);
+  };
+
   return (
     <div>
       <span onClick={handleSort}>
         {titulo}
         {order === "ASC" ? " ▲" : " ▼"}{" "}
+      </span>
+      <span onClick={handleSortFilter}>
+        {titulo}
+        {order === "ASC" ? " .▲" : " .▼"}{" "}
       </span>
 
       <select

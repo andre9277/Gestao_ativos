@@ -28,52 +28,13 @@ You may obtain a copy of the license at:
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
 
-const TableAssets = ({
-  assets,
-  toggleCheck,
-  selectedCategory,
-  selectedFloor,
-  selectedBrand,
-  selectedModel,
-  allDados,
-}) => {
+const TableAssets = ({ toggleCheck, filteredAssets }) => {
   const { user } = useStateContext();
 
-  //keeps checking if there is a filter on or off:
-  const [filtered, setFiltered] = useState(false);
-
-  //For the all the asset data:
-  const [allData, setAllData] = useState([]);
-
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const hasFilter =
-      selectedCategory !== "" ||
-      selectedFloor !== "" ||
-      selectedBrand !== "" ||
-      selectedModel !== "";
-
-    setFiltered(hasFilter);
-    //if hasFilter = true then it gets all the assets from all the pages:
-    if (hasFilter) {
-      setAllData(allDados);
-    }
-  }, [selectedCategory, selectedFloor, selectedBrand, selectedModel]);
-
-  //use allData when filtered = true and when its false its equal to the assets object
-  const filteredAssets = filtered
-    ? allData.filter(
-        (row) =>
-          (selectedCategory === "" || row.category.name === selectedCategory) &&
-          (selectedFloor === "" || row.floor === selectedFloor) &&
-          (selectedBrand === "" || row.brand.sig === selectedBrand) &&
-          (selectedModel === "" || row.modelo.name === selectedModel)
-      )
-    : assets;
 
   return (
     <tbody>

@@ -79,6 +79,89 @@ export default function Assets() {
     fetchData();
   }, []);
 
+  //------------------------Filter Sorting-----------------------------------------------
+  //keeps checking if there is a filter on or off:
+  const [filtered, setFiltered] = useState(false);
+  //For the all the asset data:
+  const [allDataF, setAllDataF] = useState([]);
+  useEffect(() => {
+    const hasFilter =
+      selectedCategory !== "" ||
+      selectedFloor !== "" ||
+      selectedBrand !== "" ||
+      selectedModel !== "";
+
+    setFiltered(hasFilter);
+    //if hasFilter = true then it gets all the assets from all the pages:
+    if (hasFilter) {
+      setAllDataF(allDados);
+    }
+  }, [selectedCategory, selectedFloor, selectedBrand, selectedModel]);
+
+  //use allData when filtered = true and when its false its equal to the assets object
+  const filteredAssets = filtered
+    ? allDataF.filter(
+        (row) =>
+          (selectedCategory === "" || row.category.name === selectedCategory) &&
+          (selectedFloor === "" || row.floor === selectedFloor) &&
+          (selectedBrand === "" || row.brand.sig === selectedBrand) &&
+          (selectedModel === "" || row.modelo.name === selectedModel)
+      )
+    : assets;
+
+  const [orderFilter, setOrderFilter] = useState("ASC");
+
+  const sortingFilter = (col) => {
+    const columnMapping = {
+      Categoria: "category.name",
+      Marca: "brand.sig",
+      Modelo: "modelo.name",
+      Piso: "floor",
+    };
+
+    const dbColumnName = columnMapping[col];
+
+    if (orderFilter === "ASC") {
+      const sorted = [...assets].sort((a, b) => {
+        const propA = getPropertyByPathFilter(a, dbColumnName);
+        const propB = getPropertyByPathFilter(b, dbColumnName);
+
+        if (propA === null || propB === null) {
+          //Exclude null values
+          return propA === null ? 1 : -1;
+        }
+        return propA > propB ? 1 : -1;
+      });
+      setAssets(sorted);
+      setOrderFilter("DSC");
+    }
+    if (orderFilter === "DSC") {
+      const sorted = [...assets].sort((a, b) => {
+        const propA = getPropertyByPathFilter(a, dbColumnName);
+        const propB = getPropertyByPathFilter(b, dbColumnName);
+        if (propA === null || propB === null) {
+          //Exclude null values
+          return propA === null ? -1 : 1;
+        }
+        return propA < propB ? 1 : -1;
+      });
+      setAssets(sorted);
+      setOrder("ASC");
+    }
+  };
+
+  //auxiliar function to get the property of one array of objects of objects
+  const getPropertyByPathFilter = (obj, path) => {
+    const properties = path.split(".");
+    let value = obj;
+    for (let prop of properties) {
+      value = value[prop];
+    }
+    return value;
+  };
+
+  //------------------------------------------------------------------------
+
   // Performs a client access request
   const getAssets = (url) => {
     url = url || "/assets";
@@ -210,7 +293,7 @@ export default function Assets() {
     }
   };
 
-  //----------Sorting of the asset table in every column
+  //----------Sorting of the asset table in every column---------- (with pagination)
   const [order, setOrder] = useState("ASC");
 
   const sorting = (col) => {
@@ -323,6 +406,7 @@ export default function Assets() {
                   selectedAttribut={selectedCategory}
                   handleFunc={handleCategoryChange}
                   sorting={sorting}
+                  sortingFilter={sortingFilter}
                   order={order}
                 />
               </th>
@@ -378,13 +462,8 @@ export default function Assets() {
           )}
           {!loading && (
             <TableAssets
-              assets={assets}
-              selectedCategory={selectedCategory}
-              selectedFloor={selectedFloor}
-              selectedBrand={selectedBrand}
-              selectedModel={selectedModel}
               toggleCheck={toggleCheck}
-              allDados={allDados}
+              filteredAssets={filteredAssets}
             />
           )}
         </table>
