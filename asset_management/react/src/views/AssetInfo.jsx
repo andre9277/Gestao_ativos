@@ -72,7 +72,7 @@ const AssetInfo = () => {
                   </ul>
                   <ul className="lb-infoAsset">
                     <label className="lb-infoAsset2">Modelo:</label>{" "}
-                    <h6 className="attrAsset">{asset.modelo.model_name}</h6>
+                    <h6 className="attrAsset">{asset.modelo.name}</h6>
                   </ul>
                   <ul className="lb-infoAsset">
                     <label className="lb-infoAsset2">Categoria:</label>{" "}
