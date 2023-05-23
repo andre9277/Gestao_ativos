@@ -37,6 +37,8 @@ Route::middleware('auth:sanctum')->group(function () {
     //ApiResource in endpoint users
     Route::apiResource('/users', UserController::class);
     Route::get('/usersAll', [UserController::class, 'indexAll']);
+    Route::get('/userAllo', [UserController::class, 'usersAllocations']);
+
 
     //Endpoint Categories
     Route::get('/categories', [CategoryController::class, 'index']);

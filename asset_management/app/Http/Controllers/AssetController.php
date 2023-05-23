@@ -53,11 +53,10 @@ class AssetController extends Controller
 
     public function indexAll()
     {
-        $assets = Asset::with('entity:id,ent_name', 'brand:id,sig', 'modelo:id,model_name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
-            ->orderBy('id', 'desc')
-            ->get();
+        $assets = Asset::select(['id', 'numb_inv'])->get();
+        return response()->json($assets);
 
-        return AssetResource::collection($assets);
+        return $assets;
     }
 
 

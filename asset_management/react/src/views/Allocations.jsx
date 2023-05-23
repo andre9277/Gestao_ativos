@@ -84,15 +84,15 @@ export default function Allocations() {
     url = url || "/allAssets";
 
     axiosClient.get(url).then(({ data }) => {
-      setAssets(data.data);
+      setAssets(data);
     });
   };
 
   const getUsers = (url) => {
-    url = url || "/usersAll";
+    url = url || "/userAllo";
 
     axiosClient.get(url).then(({ data }) => {
-      setUsers(data.data);
+      setUsers(data);
     });
   };
 
