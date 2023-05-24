@@ -413,6 +413,7 @@ export default function Assets() {
                   order={order}
                   sortingFilter={sortingFilter}
                   orderFilter={orderFilter}
+                  filtered={filtered}
                 />
               </th>
               <th>
@@ -426,6 +427,7 @@ export default function Assets() {
                   order={order}
                   sortingFilter={sortingFilter}
                   orderFilter={orderFilter}
+                  filtered={filtered}
                 />
               </th>
               <th>
@@ -439,6 +441,7 @@ export default function Assets() {
                   order={order}
                   sortingFilter={sortingFilter}
                   orderFilter={orderFilter}
+                  filtered={filtered}
                 />
               </th>
               <th>NºInventário</th>
@@ -456,6 +459,7 @@ export default function Assets() {
                   order={order}
                   sortingFilter={sortingFilter}
                   orderFilter={orderFilter}
+                  filtered={filtered}
                 />
               </th>
               <th>Ala</th>
@@ -483,7 +487,11 @@ export default function Assets() {
         </table>
         <p> </p>
         <p> </p>
-        <PaginationLinks meta={meta} onPageClick={onPageClick} />
+        {filtered === false ? (
+          <PaginationLinks meta={meta} onPageClick={onPageClick} />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

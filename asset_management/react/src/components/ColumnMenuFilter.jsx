@@ -39,6 +39,7 @@ const ColumnMenuFilter = ({
   sortingFilter,
   order,
   orderFilter,
+  filtered,
 }) => {
   let i = 0;
 
@@ -52,14 +53,17 @@ const ColumnMenuFilter = ({
 
   return (
     <div>
-      <span onClick={handleSort}>
-        {titulo}
-        {order === "ASC" ? " ▲" : " ▼"}{" "}
-      </span>
-      <span onClick={handleSortFilter}>
-        {tituloF}
-        {orderFilter === "ASC" ? " ..▲" : " ..▼"}{" "}
-      </span>
+      {filtered === true ? (
+        <span onClick={handleSortFilter}>
+          {tituloF}
+          {orderFilter === "ASC" ? " ▲" : " ▼"}{" "}
+        </span>
+      ) : (
+        <span onClick={handleSort}>
+          {titulo}
+          {order === "ASC" ? " ▲" : " ▼"}{" "}
+        </span>
+      )}
 
       <select
         className="filtAsset-tab"
