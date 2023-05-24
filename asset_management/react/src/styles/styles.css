@@ -12643,13 +12643,14 @@ input::placeholder {
 
 .filtAsset-tab {
     color: black;
-    width: 20px;
+    width: 100%;
     margin: 0.5px;
     cursor: pointer;
     line-height: 1.1;
-    /* border: 1px solid black; */
-    font-size: 18px;
+    font-size: 14px;
     align-items: center;
+    text-align: center;
+    border: 2px solid #459c2c;
 }
 
 /*-----------For the Scan---------*/
@@ -12665,6 +12666,18 @@ input::placeholder {
     padding: 15px;
     position: absolute;
     top: 50%;
+    left: 50%;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.lgTextF {
+    text-align: center;
+    font-weight: bold;
+    font-size: 150%;
+    padding: 15px;
+    position: absolute;
+    top: 90%;
     left: 50%;
     -ms-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translate(-50%, -50%);

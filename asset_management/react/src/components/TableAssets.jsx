@@ -49,8 +49,8 @@ const TableAssets = ({ toggleCheck, filteredAssets }) => {
 
       {!loading && filteredAssets.length === 0 ? (
         <tr>
-          <td colSpan="5" className="lgText">
-            Não existem resultados para os filtros selecionados!
+          <td colSpan="5" className="lgTextF">
+            Não existe(m) resultado(s) para o(s) filtro(s) selecionado(s)!
           </td>
         </tr>
       ) : (

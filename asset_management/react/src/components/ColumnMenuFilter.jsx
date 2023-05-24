@@ -70,7 +70,7 @@ const ColumnMenuFilter = ({
         onChange={handleFunc}
         value={selectedAttribut}
       >
-        <option value=""></option>
+        <option value="">Selecione</option>
         {data.map((dat) => (
           <option key={`${dat}+${i++}`} value={dat.name}>
             {dat.name}

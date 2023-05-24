@@ -346,7 +346,7 @@ export default function Assets() {
     }
     return value;
   };
-  /* console.log("data filtered:", allDataF);
+  /*  console.log("data filtered:", allDataF);
   console.log("assets", assets); */
   return (
     <div id="content">
