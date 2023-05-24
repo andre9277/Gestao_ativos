@@ -84,6 +84,8 @@ export default function Assets() {
   const [filtered, setFiltered] = useState(false);
   //For the all the asset data:
   const [allDataF, setAllDataF] = useState([]);
+  const [orderFilter, setOrderFilter] = useState("ASC");
+
   useEffect(() => {
     const hasFilter =
       selectedCategory !== "" ||
@@ -109,8 +111,6 @@ export default function Assets() {
       )
     : assets;
 
-  const [orderFilter, setOrderFilter] = useState("ASC");
-
   const sortingFilter = (col) => {
     const columnMapping = {
       Categoria: "category.name",
@@ -122,7 +122,7 @@ export default function Assets() {
     const dbColumnName = columnMapping[col];
 
     if (orderFilter === "ASC") {
-      const sorted = [...assets].sort((a, b) => {
+      const sorted = [...allDataF].sort((a, b) => {
         const propA = getPropertyByPathFilter(a, dbColumnName);
         const propB = getPropertyByPathFilter(b, dbColumnName);
 
@@ -132,11 +132,11 @@ export default function Assets() {
         }
         return propA > propB ? 1 : -1;
       });
-      setAssets(sorted);
+      setAllDataF(sorted);
       setOrderFilter("DSC");
     }
     if (orderFilter === "DSC") {
-      const sorted = [...assets].sort((a, b) => {
+      const sorted = [...allDataF].sort((a, b) => {
         const propA = getPropertyByPathFilter(a, dbColumnName);
         const propB = getPropertyByPathFilter(b, dbColumnName);
         if (propA === null || propB === null) {
@@ -145,8 +145,8 @@ export default function Assets() {
         }
         return propA < propB ? 1 : -1;
       });
-      setAssets(sorted);
-      setOrder("ASC");
+      setAllDataF(sorted);
+      setOrderFilter("ASC");
     }
   };
 
@@ -174,6 +174,7 @@ export default function Assets() {
         // When the request is successful, loading=false
         setLoading(false);
         setAssets(data.data);
+
         setMeta(data.meta);
       })
       .catch(() => {
@@ -266,6 +267,7 @@ export default function Assets() {
     setSelectedModel("");
     const sortedAssets = [...assets].sort((a, b) => b.id - a.id); // Sort by the "id" column in ascending order
     setAssets(sortedAssets);
+    setAllDataF([]);
     setOrder("ASC"); // Reset the sorting order to "ASC"
   };
 
@@ -344,7 +346,8 @@ export default function Assets() {
     }
     return value;
   };
-
+  /* console.log("data filtered:", allDataF);
+  console.log("assets", assets); */
   return (
     <div id="content">
       <div
@@ -402,32 +405,40 @@ export default function Assets() {
               <th>
                 <ColumnMenuFilter
                   titulo={"Categoria"}
+                  tituloF={"Categoria"}
                   data={cats}
                   selectedAttribut={selectedCategory}
                   handleFunc={handleCategoryChange}
                   sorting={sorting}
-                  sortingFilter={sortingFilter}
                   order={order}
+                  sortingFilter={sortingFilter}
+                  orderFilter={orderFilter}
                 />
               </th>
               <th>
                 <ColumnMenuFilter
                   titulo={"Marca"}
+                  tituloF={"Marca"}
                   data={brands}
                   selectedAttribut={selectedBrand}
                   handleFunc={handleBrandChange}
                   sorting={sorting}
                   order={order}
+                  sortingFilter={sortingFilter}
+                  orderFilter={orderFilter}
                 />
               </th>
               <th>
                 <ColumnMenuFilter
                   titulo={"Modelo"}
+                  tituloF={"Modelo"}
                   data={modelos}
                   selectedAttribut={selectedModel}
                   handleFunc={handleModelChange}
                   sorting={sorting}
                   order={order}
+                  sortingFilter={sortingFilter}
+                  orderFilter={orderFilter}
                 />
               </th>
               <th>NºInventário</th>
@@ -437,11 +448,14 @@ export default function Assets() {
               <th>
                 <ColumnMenuFilter
                   titulo={"Piso"}
+                  tituloF={"Piso"}
                   data={floor}
                   selectedAttribut={selectedFloor}
                   handleFunc={handleFloorChange}
                   sorting={sorting}
                   order={order}
+                  sortingFilter={sortingFilter}
+                  orderFilter={orderFilter}
                 />
               </th>
               <th>Ala</th>

@@ -31,12 +31,14 @@ import React from "react";
 
 const ColumnMenuFilter = ({
   titulo,
+  tituloF,
   data,
   selectedAttribut,
   handleFunc,
   sorting,
   sortingFilter,
   order,
+  orderFilter,
 }) => {
   let i = 0;
 
@@ -45,7 +47,7 @@ const ColumnMenuFilter = ({
   };
 
   const handleSortFilter = () => {
-    sortingFilter(titulo);
+    sortingFilter(tituloF);
   };
 
   return (
@@ -55,8 +57,8 @@ const ColumnMenuFilter = ({
         {order === "ASC" ? " ▲" : " ▼"}{" "}
       </span>
       <span onClick={handleSortFilter}>
-        {titulo}
-        {order === "ASC" ? " .▲" : " .▼"}{" "}
+        {tituloF}
+        {orderFilter === "ASC" ? " ..▲" : " ..▼"}{" "}
       </span>
 
       <select
