@@ -135,6 +135,7 @@ Route::middleware('auth:sanctum')->group(function () {
             'units' => $allUnits,
             'ents' => $allEnts,
             'allocations' => $allocationAll,
+
         ]);
     });
 

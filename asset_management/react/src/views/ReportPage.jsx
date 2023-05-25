@@ -105,6 +105,7 @@ const ReportPage = () => {
     const csvData = Papa.unparse({
       fields: [
         "Nº Inventário",
+        "Categoria",
         "Unidade(Anterior)",
         "Entidade(Anterior)",
         "CI(Anterior)",
@@ -124,6 +125,7 @@ const ReportPage = () => {
 
           return [
             asset.numb_inv,
+            asset.category.name,
             filtered_units(asset.previous_unit_id),
             filtered_entities(asset.previous_ent_id),
             asset.previous_ci,
@@ -162,6 +164,7 @@ const ReportPage = () => {
 
   return (
     <div id="content">
+      {console.log(assets)}
       <div className="container-fluid">
         <div className="tb-user">
           <h1>Movimentação de ativos</h1>
@@ -177,7 +180,7 @@ const ReportPage = () => {
           <thead>
             <tr>
               <th>Nº Inventário</th>
-
+              <th>Categoria</th>
               <th>Unidade(Anterior)</th>
               <th>Entidade(Anterior)</th>
               <th>CI(Anterior)</th>
@@ -212,6 +215,7 @@ const ReportPage = () => {
                 return (
                   <tr key={`${asset.id}-${index}`}>
                     <td>{asset.numb_inv}</td>
+                    <td>{asset.category.name}</td>
 
                     <td>{filtered_units(asset.previous_unit_id)}</td>
 
