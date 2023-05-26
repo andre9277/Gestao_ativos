@@ -52,6 +52,12 @@ const ReportPage = () => {
   const [allDados, setAllDados] = useState([]);
   const [allAssets, setAllAssets] = useState([]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const resultsPerPage = 20;
+
+  const startIndex = (currentPage - 1) * resultsPerPage;
+  const endIndex = startIndex + resultsPerPage;
+
   useEffect(() => {
     getAssetsFilter();
   }, []);
@@ -218,6 +224,7 @@ const ReportPage = () => {
   const resetFilter = () => {
     setSelectedCategory("");
   };
+
   return (
     <div id="content">
       <div className="container-fluid">
@@ -272,45 +279,59 @@ const ReportPage = () => {
           )}
           {!loading && (
             <tbody>
-              {filteredAllocations.map((asset, index) => {
-                if (
-                  !asset.previous_ci &&
-                  !asset.previous_ent_id &&
-                  !asset.previous_unit_id
-                ) {
-                  return null; // skip rendering if previous_ci is null
-                }
+              {filteredAllocations
+                .slice(startIndex, endIndex)
+                .map((asset, index) => {
+                  if (
+                    !asset.previous_ci &&
+                    !asset.previous_ent_id &&
+                    !asset.previous_unit_id
+                  ) {
+                    return null; // skip rendering if previous_ci is null
+                  }
 
-                const allocationData = getAllocationData(asset.id);
+                  const allocationData = getAllocationData(asset.id);
 
-                return (
-                  <tr key={`${asset.id}-${index}`}>
-                    <td>{asset.numb_inv}</td>
-                    <td>{asset.category.name}</td>
-
-                    <td>{filtered_units(asset.previous_unit_id)}</td>
-
-                    <td>{filtered_entities(asset.previous_ent_id)}</td>
-                    <td>{asset.previous_ci}</td>
-                    <td>{asset.ci}</td>
-                    <td>
-                      {asset.units === null
-                        ? asset.entity.ent_name
-                        : asset.units.name}
-                    </td>
-
-                    <td>{allocationData.user}</td>
-                    <td>{allocationData.date}</td>
-                  </tr>
-                );
-              })}
+                  return (
+                    <tr key={`${asset.id}-${index}`}>
+                      <td>{asset.numb_inv}</td>
+                      <td>{asset.category.name}</td>
+                      <td>{filtered_units(asset.previous_unit_id)}</td>
+                      <td>{filtered_entities(asset.previous_ent_id)}</td>
+                      <td>{asset.previous_ci}</td>
+                      <td>{asset.ci}</td>
+                      <td>
+                        {asset.units === null
+                          ? asset.entity.ent_name
+                          : asset.units.name}
+                      </td>
+                      <td>{allocationData.user}</td>
+                      <td>{allocationData.date}</td>
+                    </tr>
+                  );
+                })}
             </tbody>
           )}
         </table>
+
         {filtered === false ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
         ) : (
-          ""
+          <>
+            <button
+              onClick={() => setCurrentPage(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Anterior
+            </button>
+
+            <button
+              onClick={() => setCurrentPage(currentPage + 1)}
+              disabled={endIndex >= filteredAllocations.length}
+            >
+              Seguinte
+            </button>
+          </>
         )}
       </div>
     </div>
