@@ -71,6 +71,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/assetsC', [AssetController::class, 'count']);
     Route::get('/filterVal', [AssetController::class, 'filterValues']);
+    Route::get('/filterValuesNoPag', [AssetController::class, 'filterValuesNoPag']);
 
     /* Route::get('/download-csv', [AllocationsController::class, 'downloadCsv']); */
 

@@ -51,6 +51,21 @@ class AssetController extends Controller
         return AssetResource::collection($assets);
     }
 
+    public function filterValuesNoPag()
+    {
+        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+            ->where(function ($query) {
+                $query->whereNotNull('previous_ci')
+                    ->orWhereNotNull('previous_ent_id')
+                    ->orWhereNotNull('previous_unit_id');
+            })
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
+        return AssetResource::collection($assets);
+    }
+
+
     public function indexAll()
     {
         /* $assets = Asset::select(['id', 'numb_inv', 'floor'])

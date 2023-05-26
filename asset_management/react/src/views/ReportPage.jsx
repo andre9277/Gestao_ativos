@@ -50,6 +50,7 @@ const ReportPage = () => {
   const [filtered, setFiltered] = useState(false);
   //For the all the asset data:
   const [allDados, setAllDados] = useState([]);
+  const [allAssets, setAllAssets] = useState([]);
 
   useEffect(() => {
     getAssetsFilter();
@@ -80,6 +81,14 @@ const ReportPage = () => {
       });
   };
 
+  //Gets all the assets
+  useEffect((url) => {
+    url = url || "filterValuesNoPag";
+    axiosClient.get(url).then(({ data }) => {
+      setAllAssets(data.data);
+    });
+  }, []);
+
   //-----------------------Category Filter-----------------------------------------
 
   useEffect(() => {
@@ -88,7 +97,7 @@ const ReportPage = () => {
     setFiltered(hasFilter);
 
     if (hasFilter) {
-      setAllDados(assets);
+      setAllDados(allAssets);
     }
   }, [selectedCategory]);
 
@@ -130,12 +139,20 @@ const ReportPage = () => {
   //----------------------------Download----------------------------
   const downloadCSV = async () => {
     setLoading(true);
-    const allData = [];
+    let allData = [];
 
-    for (let page = 1; page <= meta.last_page; page++) {
-      const { data } = await axiosClient.get(`/filterVal?page=${page}`);
-      allData.push(...data.data);
+    if (!filtered) {
+      allData = [];
+      //No filter, fetch all assets with pagination
+      for (let page = 1; page <= meta.last_page; page++) {
+        const { data } = await axiosClient.get(`/filterVal?page=${page}`);
+        allData.push(...data.data);
+      }
+    } else {
+      allData = [];
+      allData = filteredAllocations;
     }
+
     const csvData = Papa.unparse({
       fields: [
         "Nº Inventário",
@@ -148,6 +165,7 @@ const ReportPage = () => {
         "Utilizador",
         "Movido em",
       ],
+
       data: allData
         .filter((asset) => {
           return (
@@ -196,6 +214,10 @@ const ReportPage = () => {
     return filtered.length > 0 ? filtered[0].name : "";
   };
 
+  //Reset of the filters implemented
+  const resetFilter = () => {
+    setSelectedCategory("");
+  };
   return (
     <div id="content">
       <div className="container-fluid">
@@ -205,11 +227,15 @@ const ReportPage = () => {
             <button onClick={downloadCSV} className="btn-dwl">
               Download CSV
             </button>
+            {
+              <button onClick={resetFilter} className="btn-dwl">
+                Limpar filtro
+              </button>
+            }
           </div>
         </div>
       </div>
       <div className="card animated fadeInDown">
-        {console.log(filteredAllocations)}
         <table>
           <thead>
             <tr>
@@ -231,13 +257,18 @@ const ReportPage = () => {
             </tr>
           </thead>
           {loading && (
-            <tbody>
-              <tr>
-                <td colSpan="5" className="lgText">
-                  Carregando...
-                </td>
-              </tr>
-            </tbody>
+            <>
+              <tbody></tbody>
+              <tbody></tbody>
+
+              <tbody>
+                <tr>
+                  <td colSpan="5" className="lgText">
+                    Carregando...
+                  </td>
+                </tr>
+              </tbody>
+            </>
           )}
           {!loading && (
             <tbody>
@@ -276,7 +307,11 @@ const ReportPage = () => {
             </tbody>
           )}
         </table>
-        <PaginationLinks meta={meta} onPageClick={onPageClick} />
+        {filtered === false ? (
+          <PaginationLinks meta={meta} onPageClick={onPageClick} />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

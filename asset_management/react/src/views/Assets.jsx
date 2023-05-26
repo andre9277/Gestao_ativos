@@ -439,7 +439,7 @@ export default function Assets() {
                   filtered={filtered}
                 />
               </th>
-              <th>NºInventário</th>
+              <th>Nº Inventário</th>
               <th>Nº Série</th>
               <th>Localização</th>
               <th>Unidade</th>
