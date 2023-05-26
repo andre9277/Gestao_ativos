@@ -62,11 +62,9 @@ export default function Assets() {
       setLoading(false);
       setCats(responses[0].data.cats);
       setBrands(responses[0].data.brands);
-
       setModelos(responses[0].data.models);
       setFloor(responses[0].data.floor);
       setAllDados(responses[0].data.assets); //Gets all data from the assets
-      //console.log("allDados", responses[0].data);
     });
   }, []);
 
@@ -75,7 +73,6 @@ export default function Assets() {
     const fetchData = async () => {
       await getAssets();
     };
-
     fetchData();
   }, []);
 
@@ -110,7 +107,7 @@ export default function Assets() {
           (selectedModel === "" || row.modelo.name === selectedModel)
       )
     : assets;
-
+  //----------------------------Sorting (with filter)-----------------------------------------
   const sortingFilter = (col) => {
     const columnMapping = {
       Categoria: "category.name",
@@ -182,7 +179,7 @@ export default function Assets() {
       });
   };
 
-  //----------Handle click to delete an asset
+  //----------Handle click to delete an asset------------------------
   const onDeleteClick = () => {
     // Get the IDs of all the checked assets
     const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
@@ -218,7 +215,7 @@ export default function Assets() {
       });
   };
 
-  //-----------Handle click to edit an asset-------------
+  //-----------Handle click to edit an asset-----------------------------
   const onEditClick = () => {
     // Get the IDs of all the checked assets
     const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
@@ -229,8 +226,6 @@ export default function Assets() {
     } else {
       navigate(url);
     }
-
-    //console.log(checkedAssetIds);
   };
 
   //OnPageClick for the pagination
@@ -238,7 +233,7 @@ export default function Assets() {
     getAssets(link.url);
   };
 
-  //-------------Handle change of the columns-------------
+  //-------------Handle change of the columns----------------------------
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);

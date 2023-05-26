@@ -31,6 +31,7 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import Papa from "papaparse";
 import PaginationLinks from "../components/PaginationLinks.jsx";
+import FilterReport from "../components/FilterReport.jsx";
 
 //SideBar:-------------Asset movement---------------
 const ReportPage = () => {
@@ -39,8 +40,16 @@ const ReportPage = () => {
   const [units, setUnits] = useState([]);
   const [ents, setEnts] = useState([]);
   const [meta, setMeta] = useState({});
+  const [cats, setCats] = useState([]);
 
   const [allocations, setAllocations] = useState([]);
+
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  //keeps checking if there is a filter on or off:
+  const [filtered, setFiltered] = useState(false);
+  //For the all the asset data:
+  const [allDados, setAllDados] = useState([]);
 
   useEffect(() => {
     getAssetsFilter();
@@ -52,9 +61,9 @@ const ReportPage = () => {
       setAllocations(responses[0].data.allocations);
       setUnits(responses[0].data.units);
       setEnts(responses[0].data.ents);
+      setCats(responses[0].data.categories);
     });
   }, []);
-
   const getAssetsFilter = (url) => {
     url = url || "/filterVal";
 
@@ -71,6 +80,31 @@ const ReportPage = () => {
       });
   };
 
+  //-----------------------Category Filter-----------------------------------------
+
+  useEffect(() => {
+    const hasFilter = selectedCategory !== "";
+
+    setFiltered(hasFilter);
+
+    if (hasFilter) {
+      setAllDados(assets);
+    }
+  }, [selectedCategory]);
+
+  const filteredAllocations = filtered
+    ? allDados.filter(
+        (row) =>
+          selectedCategory === "" || row.category.name === selectedCategory
+      )
+    : assets;
+
+  const handleCategoryChange = (event) => {
+    const selectedCategory = event.target.value;
+    setSelectedCategory(selectedCategory);
+  };
+
+  //------------------------------------------------------------------
   const onPageClick = (link) => {
     getAssetsFilter(link.url);
   };
@@ -93,7 +127,7 @@ const ReportPage = () => {
     };
   };
 
-  //------------------------Download-------
+  //----------------------------Download----------------------------
   const downloadCSV = async () => {
     setLoading(true);
     const allData = [];
@@ -164,7 +198,6 @@ const ReportPage = () => {
 
   return (
     <div id="content">
-      {console.log(assets)}
       <div className="container-fluid">
         <div className="tb-user">
           <h1>Movimentação de ativos</h1>
@@ -176,11 +209,18 @@ const ReportPage = () => {
         </div>
       </div>
       <div className="card animated fadeInDown">
+        {console.log(filteredAllocations)}
         <table>
           <thead>
             <tr>
               <th>Nº Inventário</th>
-              <th>Categoria</th>
+              <th>
+                <FilterReport
+                  data={cats}
+                  handleFunc={handleCategoryChange}
+                  selectedAtt={selectedCategory}
+                />
+              </th>
               <th>Unidade(Anterior)</th>
               <th>Entidade(Anterior)</th>
               <th>CI(Anterior)</th>
@@ -201,7 +241,7 @@ const ReportPage = () => {
           )}
           {!loading && (
             <tbody>
-              {assets.map((asset, index) => {
+              {filteredAllocations.map((asset, index) => {
                 if (
                   !asset.previous_ci &&
                   !asset.previous_ent_id &&

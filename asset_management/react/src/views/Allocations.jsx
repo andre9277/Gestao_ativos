@@ -158,6 +158,7 @@ export default function Allocations() {
 
     let filtered = allAllocations.filter((allocation) => {
       const allocationDate = new Date(allocation.allocation_date);
+      c;
       allocationDate.setHours(0, 0, 0, 0);
 
       return allocationDate >= startDate && allocationDate <= endDate;

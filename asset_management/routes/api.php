@@ -130,11 +130,13 @@ Route::middleware('auth:sanctum')->group(function () {
         $allUnits = getUnitsAll();
         $allEnts = getEntsAll();
         $allocationAll = getAllocationAll();
+        $allCats = getCatsAll();
 
         return response()->json([
             'units' => $allUnits,
             'ents' => $allEnts,
             'allocations' => $allocationAll,
+            'categories' => $allCats,
 
         ]);
     });
