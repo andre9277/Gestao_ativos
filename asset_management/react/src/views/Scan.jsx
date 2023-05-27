@@ -40,8 +40,8 @@ const Scan = () => {
 
   const getAssets = async () => {
     const response = await axiosClient.get("/allAssets");
-    console.log(response.data);
-    setAssets(response.data);
+    console.log(response.data.data);
+    setAssets(response.data.data);
     initializeBarcodeScanner();
   };
 
@@ -52,36 +52,34 @@ const Scan = () => {
       stopBarcodeScanner();
     };
   }, []);
-
   useEffect(() => {
-    let timeoutId;
+    let scanCount = 0;
 
     Quagga.onDetected((result) => {
-      clearTimeout(timeoutId); //Clear the timeout if barcode is detected
+      scanCount++;
       console.log("Barcode detected:", result.codeResult.code);
       setBarcode(result.codeResult.code);
 
       // Look up the asset by inventory number
       const inventoryNumber = result.codeResult.code;
-      console.log("eer", assets);
-      const foundAsset = assets.find((asset) => {
-        return asset.numb_inv === inventoryNumber;
-      });
+      console.log("asset", assets);
+      const foundAsset = assets.find(
+        (asset) => asset.numb_inv === inventoryNumber
+      );
       console.log("Asset encontrado:", foundAsset);
 
-      // Redirect to corresponding asset page
+      // Redirect to corresponding asset page or new asset page
       if (foundAsset) {
         navigate(`/infoasset/${foundAsset.id}`);
         Quagga.stop();
-      } else {
-        //If asset is not found, redirect to notFound page after 5 seconds
-        timeoutId = setTimeout(() => {
-          navigate("/assets/new");
-        }, 5000);
+      } else if (scanCount > 500) {
+        navigate("/assets/new");
+        Quagga.stop();
       }
     });
+
     return () => {
-      clearTimeout(timeoutId); //Clear the timeout on component unmount
+      Quagga.offDetected(); // Unbind the detected event on component unmount
     };
   }, [assets, navigate]);
 
