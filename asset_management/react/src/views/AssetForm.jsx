@@ -178,7 +178,7 @@ export default function AssetForm() {
       axiosClient
         .post("/assets", asset)
         .then(() => {
-          setNotification("Ativo criado com sucesso!");
+          setNotification("Ativo adicionado com sucesso!");
           navigate("/assets");
         })
         .catch((err) => {
@@ -306,7 +306,7 @@ export default function AssetForm() {
                 <option value="">Selecione uma Marca</option>
                 {brands.map((brand) => (
                   <option key={brand.id} value={brand.id}>
-                    {brand.sig}
+                    {brand.name}
                   </option>
                 ))}
               </select>
@@ -326,7 +326,7 @@ export default function AssetForm() {
                 <option value="">Selecione um Modelo</option>
                 {modelos.map((modelo) => (
                   <option key={modelo.id} value={modelo.id}>
-                    {modelo.model_name}
+                    {modelo.name}
                   </option>
                 ))}
               </select>

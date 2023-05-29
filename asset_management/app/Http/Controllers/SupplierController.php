@@ -25,4 +25,10 @@ class SupplierController extends Controller
         $suppliers = Supplier::all(['id', 'name', 'email', 'phone', 'address']);
         return response()->json($suppliers);
     }
+
+    public function indexAll()
+    {
+        $suppliers = Supplier::all(['id', 'name']);
+        return response()->json($suppliers);
+    }
 }

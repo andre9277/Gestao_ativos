@@ -28,52 +28,13 @@ You may obtain a copy of the license at:
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
 
-const TableAssets = ({
-  assets,
-  toggleCheck,
-  selectedCategory,
-  selectedFloor,
-  selectedBrand,
-  selectedModel,
-  allDados,
-}) => {
+const TableAssets = ({ toggleCheck, filteredAssets }) => {
   const { user } = useStateContext();
 
-  //keeps checking if there is a filter on or off:
-  const [filtered, setFiltered] = useState(false);
-
-  //For the all the asset data:
-  const [allData, setAllData] = useState([]);
-
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const hasFilter =
-      selectedCategory !== "" ||
-      selectedFloor !== "" ||
-      selectedBrand !== "" ||
-      selectedModel !== "";
-
-    setFiltered(hasFilter);
-    //if hasFilter = true then it gets all the assets from all the pages:
-    if (hasFilter) {
-      setAllData(allDados);
-    }
-  }, [selectedCategory, selectedFloor, selectedBrand, selectedModel]);
-
-  //use allData when filtered = true and when its false its equal to the assets object
-  const filteredAssets = filtered
-    ? allData.filter(
-        (row) =>
-          (selectedCategory === "" || row.category.name === selectedCategory) &&
-          (selectedFloor === "" || row.floor === selectedFloor) &&
-          (selectedBrand === "" || row.brand.sig === selectedBrand) &&
-          (selectedModel === "" || row.modelo.model_name === selectedModel)
-      )
-    : assets;
 
   return (
     <tbody>
@@ -88,18 +49,17 @@ const TableAssets = ({
 
       {!loading && filteredAssets.length === 0 ? (
         <tr>
-          <td colSpan="5" className="lgText">
-            Não existem resultados para os filtros selecionados!
+          <td colSpan="5" className="lgTextF">
+            Não existe(m) resultado(s) para o(s) filtro(s) selecionado(s)!
           </td>
         </tr>
       ) : (
         !loading &&
         filteredAssets.map((a) => (
           <tr key={a.id}>
-            {/* {console.log(filteredAssets)} */}
             <td>{a.category.name}</td>
             <td>{a.brand.sig}</td>
-            <td>{a.modelo.model_name}</td>
+            <td>{a.modelo.name}</td>
             <td>{a.numb_inv}</td>
             <td>{a.numb_ser}</td>
             <td>{a.entity.ent_name}</td>

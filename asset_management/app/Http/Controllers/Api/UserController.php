@@ -35,6 +35,13 @@ class UserController extends Controller
         return UserResource::collection($users);
     }
 
+    public function usersAllocations()
+    {
+        $users = User::select(['id', 'name'])->get();
+
+        return response()->json($users);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

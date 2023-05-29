@@ -37,6 +37,8 @@ Route::middleware('auth:sanctum')->group(function () {
     //ApiResource in endpoint users
     Route::apiResource('/users', UserController::class);
     Route::get('/usersAll', [UserController::class, 'indexAll']);
+    Route::get('/userAllo', [UserController::class, 'usersAllocations']);
+
 
     //Endpoint Categories
     Route::get('/categories', [CategoryController::class, 'index']);
@@ -69,6 +71,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/assetsC', [AssetController::class, 'count']);
     Route::get('/filterVal', [AssetController::class, 'filterValues']);
+    Route::get('/filterValuesNoPag', [AssetController::class, 'filterValuesNoPag']);
 
     /* Route::get('/download-csv', [AllocationsController::class, 'downloadCsv']); */
 
@@ -128,11 +131,14 @@ Route::middleware('auth:sanctum')->group(function () {
         $allUnits = getUnitsAll();
         $allEnts = getEntsAll();
         $allocationAll = getAllocationAll();
+        $allCats = getCatsAll();
 
         return response()->json([
             'units' => $allUnits,
             'ents' => $allEnts,
             'allocations' => $allocationAll,
+            'categories' => $allCats,
+
         ]);
     });
 
@@ -153,6 +159,8 @@ Route::middleware('auth:sanctum')->group(function () {
         ]);
     });
 
+    Route::delete('/assets/{ids}', [AssetController::class, 'destroy']);
+
 
 
     function getCatsAll()
@@ -165,7 +173,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     function getEntsAll()
     {
-        $response = app(EntityController::class)->index();
+        $response = app(EntityController::class)->indexAll();
         $values = $response->getData();
 
         return $values;
@@ -173,7 +181,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     function getUnitsAll()
     {
-        $response = app(UnitController::class)->index();
+        $response = app(UnitController::class)->indexAll();
         $values = $response->getData();
 
         return $values;
@@ -181,7 +189,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     function getBrandsAll()
     {
-        $response = app(BrandController::class)->index();
+        $response = app(BrandController::class)->indexSig();
         $values = $response->getData();
 
         return $values;
@@ -189,14 +197,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
     function getModelAll()
     {
-        $response = app(ModeloController::class)->index();
+        $response = app(ModeloController::class)->indexName();
         $values = $response->getData();
 
         return $values;
     }
     function getSupplierAll()
     {
-        $response = app(SupplierController::class)->index();
+        $response = app(SupplierController::class)->indexAll();
         $values = $response->getData();
 
         return $values;

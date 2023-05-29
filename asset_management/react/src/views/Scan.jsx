@@ -47,28 +47,43 @@ const Scan = () => {
 
   useEffect(() => {
     getAssets();
-  }, []);
 
+    return () => {
+      stopBarcodeScanner();
+    };
+  }, []);
   useEffect(() => {
+    let scanCount = 0;
+
     Quagga.onDetected((result) => {
+      scanCount++;
       console.log("Barcode detected:", result.codeResult.code);
       setBarcode(result.codeResult.code);
 
       // Look up the asset by inventory number
       const inventoryNumber = result.codeResult.code;
-      console.log("eer", assets);
-      const foundAsset = assets.find((asset) => {
-        return asset.numb_inv === inventoryNumber;
-      });
+      console.log("asset", assets);
+      const foundAsset = assets.find(
+        (asset) => asset.numb_inv === inventoryNumber
+      );
       console.log("Asset encontrado:", foundAsset);
 
-      // Redirect to corresponding asset page
+      // Redirect to corresponding asset page or new asset page
       if (foundAsset) {
         navigate(`/infoasset/${foundAsset.id}`);
         Quagga.stop();
+      } else if (scanCount > 500) {
+        navigate("/assets/new");
+        Quagga.stop();
       }
     });
+
+    return () => {
+      Quagga.offDetected(); // Unbind the detected event on component unmount
+    };
   }, [assets, navigate]);
+
+  let barcodeScannerInitialized = false; // flag to track if the barcode scanner has been initialized
 
   function initializeBarcodeScanner() {
     Quagga.init(
@@ -91,6 +106,7 @@ const Scan = () => {
         }
         console.log("Barcode scanner initialized.");
         Quagga.start();
+        barcodeScannerInitialized = true;
       }
     );
 
@@ -114,6 +130,13 @@ const Scan = () => {
         );
       }
     });
+  }
+
+  function stopBarcodeScanner() {
+    if (barcodeScannerInitialized) {
+      Quagga.stop();
+      barcodeScannerInitialized = false;
+    }
   }
 
   return (

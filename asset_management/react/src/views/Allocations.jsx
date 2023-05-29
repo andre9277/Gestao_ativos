@@ -89,10 +89,10 @@ export default function Allocations() {
   };
 
   const getUsers = (url) => {
-    url = url || "/usersAll";
+    url = url || "/userAllo";
 
     axiosClient.get(url).then(({ data }) => {
-      setUsers(data.data);
+      setUsers(data);
     });
   };
 
@@ -158,6 +158,7 @@ export default function Allocations() {
 
     let filtered = allAllocations.filter((allocation) => {
       const allocationDate = new Date(allocation.allocation_date);
+      c;
       allocationDate.setHours(0, 0, 0, 0);
 
       return allocationDate >= startDate && allocationDate <= endDate;

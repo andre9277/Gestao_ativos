@@ -21,7 +21,7 @@ class AssetController extends Controller
      */
     public function index()
     {
-        $assets = Asset::with('entity:id,ent_name', 'brand:id,sig', 'modelo:id,model_name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+        $assets = Asset::with('entity:id,ent_name', 'brand:id,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
             ->orderBy('id', 'desc')
             ->paginate(20);
 
@@ -39,7 +39,7 @@ class AssetController extends Controller
     //Filter values for the ci, ent_id or unit_id atributes
     public function filterValues()
     {
-        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name,sig', 'modelo:id,model_name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
             ->where(function ($query) {
                 $query->whereNotNull('previous_ci')
                     ->orWhereNotNull('previous_ent_id')
@@ -51,9 +51,31 @@ class AssetController extends Controller
         return AssetResource::collection($assets);
     }
 
+    public function filterValuesNoPag()
+    {
+        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+            ->where(function ($query) {
+                $query->whereNotNull('previous_ci')
+                    ->orWhereNotNull('previous_ent_id')
+                    ->orWhereNotNull('previous_unit_id');
+            })
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
+        return AssetResource::collection($assets);
+    }
+
+
     public function indexAll()
     {
-        $assets = Asset::with('entity:id,ent_name', 'brand:id,sig', 'modelo:id,model_name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+        /* $assets = Asset::select(['id', 'numb_inv', 'floor'])
+            ->with('category: id, name', 'brand:id,sig', 'modelo:id,model_name')
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return response()->json($assets); */
+        $assets = $assets = Asset::with('entity:id,ent_name', 'brand:id,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+            ->select('id', 'numb_inv', 'created_at', 'cat_id', 'model_id', 'brand_id', 'floor', 'ent_id', 'unit_id', 'numb_ser')
             ->orderBy('id', 'desc')
             ->get();
 
@@ -182,27 +204,35 @@ class AssetController extends Controller
      * @param  \App\Models\Asset  $asset
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($ids)
     {
         $this->authorize('delete');
 
-        $asset = Asset::findOrFail($id);
+        // Convert the comma-separated string of IDs to an array
+        $assetIds = explode(',', $ids);
 
-        // Save a copy of the asset ID and inventory number
-        $inventoryNumber = $asset->numb_inv;
+        // Retrieve the assets before deletion
+        $assets = Asset::whereIn('id', $assetIds)->get();
 
-        // Delete the asset
-        $asset->delete();
+        // Delete the assets
+        Asset::whereIn('id', $assetIds)->delete();
 
-        // Create an allocation record to track the deletion
-        $allocation = new Allocation([
-            'inv_number' => $inventoryNumber,
-            'action_type' => 'Apaga',
-            'user_id' => Auth::id(),
-            'allocation_date' => now(),
-        ]);
-        $allocation->save();
+
+        // Create allocation records for the deleted assets
+        foreach ($assets as $asset) {
+            $allocation = new Allocation([
+                'inv_number' => $asset->numb_inv,
+                'action_type' => 'Apaga',
+                'user_id' => Auth::id(),
+                'allocation_date' => now(),
+            ]);
+            $allocation->save();
+        }
+
+        // Return a response indicating success
+        return response()->json(['message' => 'Assets deleted successfully']);
     }
+
 
     //Show the previous unit name of one Asset
     public function showPrevious($id)

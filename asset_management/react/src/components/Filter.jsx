@@ -78,6 +78,7 @@ const Filter = ({
           className="form-select-filter"
         >
           <option value={null}>Selecione o nºinventário...</option>
+
           {assets.map((asset) => (
             <option key={asset.id} value={asset.numb_inv}>
               {" "}

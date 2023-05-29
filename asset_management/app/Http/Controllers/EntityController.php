@@ -25,4 +25,10 @@ class EntityController extends Controller
         $entities = Entity::all(['id', 'ent_name', 'ent_type']);
         return response()->json($entities);
     }
+
+    public function indexAll()
+    {
+        $entities = Entity::all(['id', 'ent_name']);
+        return response()->json($entities);
+    }
 }

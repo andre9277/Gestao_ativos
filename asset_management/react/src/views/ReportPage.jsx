@@ -31,6 +31,7 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import Papa from "papaparse";
 import PaginationLinks from "../components/PaginationLinks.jsx";
+import FilterReport from "../components/FilterReport.jsx";
 
 //SideBar:-------------Asset movement---------------
 const ReportPage = () => {
@@ -39,8 +40,23 @@ const ReportPage = () => {
   const [units, setUnits] = useState([]);
   const [ents, setEnts] = useState([]);
   const [meta, setMeta] = useState({});
+  const [cats, setCats] = useState([]);
 
   const [allocations, setAllocations] = useState([]);
+
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  //keeps checking if there is a filter on or off:
+  const [filtered, setFiltered] = useState(false);
+  //For the all the asset data:
+  const [allDados, setAllDados] = useState([]);
+  const [allAssets, setAllAssets] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const resultsPerPage = 20;
+
+  const startIndex = (currentPage - 1) * resultsPerPage;
+  const endIndex = startIndex + resultsPerPage;
 
   useEffect(() => {
     getAssetsFilter();
@@ -52,9 +68,9 @@ const ReportPage = () => {
       setAllocations(responses[0].data.allocations);
       setUnits(responses[0].data.units);
       setEnts(responses[0].data.ents);
+      setCats(responses[0].data.categories);
     });
   }, []);
-
   const getAssetsFilter = (url) => {
     url = url || "/filterVal";
 
@@ -71,6 +87,39 @@ const ReportPage = () => {
       });
   };
 
+  //Gets all the assets
+  useEffect((url) => {
+    url = url || "filterValuesNoPag";
+    axiosClient.get(url).then(({ data }) => {
+      setAllAssets(data.data);
+    });
+  }, []);
+
+  //-----------------------Category Filter-----------------------------------------
+
+  useEffect(() => {
+    const hasFilter = selectedCategory !== "";
+
+    setFiltered(hasFilter);
+
+    if (hasFilter) {
+      setAllDados(allAssets);
+    }
+  }, [selectedCategory]);
+
+  const filteredAllocations = filtered
+    ? allDados.filter(
+        (row) =>
+          selectedCategory === "" || row.category.name === selectedCategory
+      )
+    : assets;
+
+  const handleCategoryChange = (event) => {
+    const selectedCategory = event.target.value;
+    setSelectedCategory(selectedCategory);
+  };
+
+  //------------------------------------------------------------------
   const onPageClick = (link) => {
     getAssetsFilter(link.url);
   };
@@ -93,18 +142,27 @@ const ReportPage = () => {
     };
   };
 
-  //------------------------Download-------
+  //----------------------------Download----------------------------
   const downloadCSV = async () => {
     setLoading(true);
-    const allData = [];
+    let allData = [];
 
-    for (let page = 1; page <= meta.last_page; page++) {
-      const { data } = await axiosClient.get(`/filterVal?page=${page}`);
-      allData.push(...data.data);
+    if (!filtered) {
+      allData = [];
+      //No filter, fetch all assets with pagination
+      for (let page = 1; page <= meta.last_page; page++) {
+        const { data } = await axiosClient.get(`/filterVal?page=${page}`);
+        allData.push(...data.data);
+      }
+    } else {
+      allData = [];
+      allData = filteredAllocations;
     }
+
     const csvData = Papa.unparse({
       fields: [
         "Nº Inventário",
+        "Categoria",
         "Unidade(Anterior)",
         "Entidade(Anterior)",
         "CI(Anterior)",
@@ -113,6 +171,7 @@ const ReportPage = () => {
         "Utilizador",
         "Movido em",
       ],
+
       data: allData
         .filter((asset) => {
           return (
@@ -124,6 +183,7 @@ const ReportPage = () => {
 
           return [
             asset.numb_inv,
+            asset.category.name,
             filtered_units(asset.previous_unit_id),
             filtered_entities(asset.previous_ent_id),
             asset.previous_ci,
@@ -160,6 +220,11 @@ const ReportPage = () => {
     return filtered.length > 0 ? filtered[0].name : "";
   };
 
+  //Reset of the filters implemented
+  const resetFilter = () => {
+    setSelectedCategory("");
+  };
+
   return (
     <div id="content">
       <div className="container-fluid">
@@ -169,6 +234,11 @@ const ReportPage = () => {
             <button onClick={downloadCSV} className="btn-dwl">
               Download CSV
             </button>
+            {
+              <button onClick={resetFilter} className="btn-dwl">
+                Limpar filtro
+              </button>
+            }
           </div>
         </div>
       </div>
@@ -177,7 +247,13 @@ const ReportPage = () => {
           <thead>
             <tr>
               <th>Nº Inventário</th>
-
+              <th>
+                <FilterReport
+                  data={cats}
+                  handleFunc={handleCategoryChange}
+                  selectedAtt={selectedCategory}
+                />
+              </th>
               <th>Unidade(Anterior)</th>
               <th>Entidade(Anterior)</th>
               <th>CI(Anterior)</th>
@@ -188,51 +264,75 @@ const ReportPage = () => {
             </tr>
           </thead>
           {loading && (
-            <tbody>
-              <tr>
-                <td colSpan="5" className="lgText">
-                  Carregando...
-                </td>
-              </tr>
-            </tbody>
+            <>
+              <tbody></tbody>
+              <tbody></tbody>
+
+              <tbody>
+                <tr>
+                  <td colSpan="5" className="lgText">
+                    Carregando...
+                  </td>
+                </tr>
+              </tbody>
+            </>
           )}
           {!loading && (
             <tbody>
-              {assets.map((asset, index) => {
-                if (
-                  !asset.previous_ci &&
-                  !asset.previous_ent_id &&
-                  !asset.previous_unit_id
-                ) {
-                  return null; // skip rendering if previous_ci is null
-                }
+              {filteredAllocations
+                .slice(startIndex, endIndex)
+                .map((asset, index) => {
+                  if (
+                    !asset.previous_ci &&
+                    !asset.previous_ent_id &&
+                    !asset.previous_unit_id
+                  ) {
+                    return null; // skip rendering if previous_ci is null
+                  }
 
-                const allocationData = getAllocationData(asset.id);
+                  const allocationData = getAllocationData(asset.id);
 
-                return (
-                  <tr key={`${asset.id}-${index}`}>
-                    <td>{asset.numb_inv}</td>
-
-                    <td>{filtered_units(asset.previous_unit_id)}</td>
-
-                    <td>{filtered_entities(asset.previous_ent_id)}</td>
-                    <td>{asset.previous_ci}</td>
-                    <td>{asset.ci}</td>
-                    <td>
-                      {asset.units === null
-                        ? asset.entity.ent_name
-                        : asset.units.name}
-                    </td>
-
-                    <td>{allocationData.user}</td>
-                    <td>{allocationData.date}</td>
-                  </tr>
-                );
-              })}
+                  return (
+                    <tr key={`${asset.id}-${index}`}>
+                      <td>{asset.numb_inv}</td>
+                      <td>{asset.category.name}</td>
+                      <td>{filtered_units(asset.previous_unit_id)}</td>
+                      <td>{filtered_entities(asset.previous_ent_id)}</td>
+                      <td>{asset.previous_ci}</td>
+                      <td>{asset.ci}</td>
+                      <td>
+                        {asset.units === null
+                          ? asset.entity.ent_name
+                          : asset.units.name}
+                      </td>
+                      <td>{allocationData.user}</td>
+                      <td>{allocationData.date}</td>
+                    </tr>
+                  );
+                })}
             </tbody>
           )}
         </table>
-        <PaginationLinks meta={meta} onPageClick={onPageClick} />
+
+        {filtered === false ? (
+          <PaginationLinks meta={meta} onPageClick={onPageClick} />
+        ) : (
+          <>
+            <button
+              onClick={() => setCurrentPage(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Anterior
+            </button>
+
+            <button
+              onClick={() => setCurrentPage(currentPage + 1)}
+              disabled={endIndex >= filteredAllocations.length}
+            >
+              Seguinte
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

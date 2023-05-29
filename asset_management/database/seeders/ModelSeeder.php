@@ -16,9 +16,9 @@ class ModelSeeder extends Seeder
     public function run()
     {
         Modelo::insert([
-            ['model_name' => 'JCN23', 'brand_id' => '1'],
-            ['model_name' => 'LJ129', 'brand_id' => '2'],
-            ['model_name' => 'K5N3', 'brand_id' => '1']
+            ['name' => 'JCN23', 'brand_id' => '1'],
+            ['name' => 'LJ129', 'brand_id' => '2'],
+            ['name' => 'K5N3', 'brand_id' => '1']
         ]);
     }
 }

@@ -73,9 +73,91 @@ export default function Assets() {
     const fetchData = async () => {
       await getAssets();
     };
-
     fetchData();
   }, []);
+
+  //------------------------Filter Sorting-----------------------------------------------
+  //keeps checking if there is a filter on or off:
+  const [filtered, setFiltered] = useState(false);
+  //For the all the asset data:
+  const [allDataF, setAllDataF] = useState([]);
+  const [orderFilter, setOrderFilter] = useState("ASC");
+
+  useEffect(() => {
+    const hasFilter =
+      selectedCategory !== "" ||
+      selectedFloor !== "" ||
+      selectedBrand !== "" ||
+      selectedModel !== "";
+
+    setFiltered(hasFilter);
+    //if hasFilter = true then it gets all the assets from all the pages:
+    if (hasFilter) {
+      setAllDataF(allDados);
+    }
+  }, [selectedCategory, selectedFloor, selectedBrand, selectedModel]);
+
+  //use allData when filtered = true and when its false its equal to the assets object
+  const filteredAssets = filtered
+    ? allDataF.filter(
+        (row) =>
+          (selectedCategory === "" || row.category.name === selectedCategory) &&
+          (selectedFloor === "" || row.floor === selectedFloor) &&
+          (selectedBrand === "" || row.brand.sig === selectedBrand) &&
+          (selectedModel === "" || row.modelo.name === selectedModel)
+      )
+    : assets;
+  //----------------------------Sorting (with filter)-----------------------------------------
+  const sortingFilter = (col) => {
+    const columnMapping = {
+      Categoria: "category.name",
+      Marca: "brand.sig",
+      Modelo: "modelo.name",
+      Piso: "floor",
+    };
+
+    const dbColumnName = columnMapping[col];
+
+    if (orderFilter === "ASC") {
+      const sorted = [...allDataF].sort((a, b) => {
+        const propA = getPropertyByPathFilter(a, dbColumnName);
+        const propB = getPropertyByPathFilter(b, dbColumnName);
+
+        if (propA === null || propB === null) {
+          //Exclude null values
+          return propA === null ? 1 : -1;
+        }
+        return propA > propB ? 1 : -1;
+      });
+      setAllDataF(sorted);
+      setOrderFilter("DSC");
+    }
+    if (orderFilter === "DSC") {
+      const sorted = [...allDataF].sort((a, b) => {
+        const propA = getPropertyByPathFilter(a, dbColumnName);
+        const propB = getPropertyByPathFilter(b, dbColumnName);
+        if (propA === null || propB === null) {
+          //Exclude null values
+          return propA === null ? -1 : 1;
+        }
+        return propA < propB ? 1 : -1;
+      });
+      setAllDataF(sorted);
+      setOrderFilter("ASC");
+    }
+  };
+
+  //auxiliar function to get the property of one array of objects of objects
+  const getPropertyByPathFilter = (obj, path) => {
+    const properties = path.split(".");
+    let value = obj;
+    for (let prop of properties) {
+      value = value[prop];
+    }
+    return value;
+  };
+
+  //------------------------------------------------------------------------
 
   // Performs a client access request
   const getAssets = (url) => {
@@ -89,6 +171,7 @@ export default function Assets() {
         // When the request is successful, loading=false
         setLoading(false);
         setAssets(data.data);
+
         setMeta(data.meta);
       })
       .catch(() => {
@@ -96,31 +179,43 @@ export default function Assets() {
       });
   };
 
-  //----------Handle click to delete an asset
+  //----------Handle click to delete an asset------------------------
   const onDeleteClick = () => {
-    // Get the IDs of all the checked users
+    // Get the IDs of all the checked assets
     const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
 
-    // If no users are checked, return
+    // If no assets are checked, return
     if (checkedAssetIds.length === 0) {
       return;
     }
 
-    //Confirmation of deletion of an asset
-    if (!window.confirm("Tem a certeza que pretende apagar o ativo?")) {
+    // Confirmation of asset deletion
+    if (
+      !window.confirm(
+        "Tem a certeza que pretende eliminar o(s) ativo(s) selecionado(s)?"
+      )
+    ) {
       return;
     }
 
-    //Requests to delete the asset
-    axiosClient.delete(`/assets/${checkedAssetIds.join(",")}`).then(() => {
-      setNotification("Ativo(s) apagado(s) com sucesso!");
+    // Create the URL with the asset IDs
+    const url = `/assets/${checkedAssetIds.join(",")}`;
 
-      //after asset being deleted, fetch of all assets, so it displays with success all the assets
-      getAssets();
-    });
+    // Send the DELETE request
+    axiosClient
+      .delete(url)
+      .then(() => {
+        setNotification("Ativo(s) apagado(s) com sucesso!");
+        // Fetch assets again to update the UI
+        getAssets();
+      })
+      .catch((error) => {
+        console.error("Erro ao apagar ativo(s):", error);
+        // Handle error if necessary...
+      });
   };
 
-  //-----------Handle click to edit an asset
+  //-----------Handle click to edit an asset-----------------------------
   const onEditClick = () => {
     // Get the IDs of all the checked assets
     const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
@@ -131,8 +226,6 @@ export default function Assets() {
     } else {
       navigate(url);
     }
-
-    //console.log(checkedAssetIds);
   };
 
   //OnPageClick for the pagination
@@ -140,7 +233,7 @@ export default function Assets() {
     getAssets(link.url);
   };
 
-  //-------------Handle change of the columns
+  //-------------Handle change of the columns----------------------------
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
@@ -169,6 +262,7 @@ export default function Assets() {
     setSelectedModel("");
     const sortedAssets = [...assets].sort((a, b) => b.id - a.id); // Sort by the "id" column in ascending order
     setAssets(sortedAssets);
+    setAllDataF([]);
     setOrder("ASC"); // Reset the sorting order to "ASC"
   };
 
@@ -182,6 +276,7 @@ export default function Assets() {
       selectedModel === ""
     ) {
       const checkedIdx = assets.findIndex((a) => a.id === id);
+
       if (checkedIdx === -1) return;
       const updatedAssets = [...assets];
       updatedAssets[checkedIdx].checked = !updatedAssets[checkedIdx].checked;
@@ -195,14 +290,14 @@ export default function Assets() {
     }
   };
 
-  //----------Sorting of the asset table in every column
+  //----------Sorting of the asset table in every column---------- (with pagination)
   const [order, setOrder] = useState("ASC");
 
   const sorting = (col) => {
     const columnMapping = {
       Categoria: "category.name",
       Marca: "brand.sig",
-      Modelo: "modelo.model_name",
+      Modelo: "modelo.name",
       Piso: "floor",
     };
 
@@ -246,7 +341,8 @@ export default function Assets() {
     }
     return value;
   };
-
+  /*  console.log("data filtered:", allDataF);
+  console.log("assets", assets); */
   return (
     <div id="content">
       <div
@@ -304,45 +400,61 @@ export default function Assets() {
               <th>
                 <ColumnMenuFilter
                   titulo={"Categoria"}
+                  tituloF={"Categoria"}
                   data={cats}
                   selectedAttribut={selectedCategory}
                   handleFunc={handleCategoryChange}
                   sorting={sorting}
                   order={order}
+                  sortingFilter={sortingFilter}
+                  orderFilter={orderFilter}
+                  filtered={filtered}
                 />
               </th>
               <th>
                 <ColumnMenuFilter
                   titulo={"Marca"}
+                  tituloF={"Marca"}
                   data={brands}
                   selectedAttribut={selectedBrand}
                   handleFunc={handleBrandChange}
                   sorting={sorting}
                   order={order}
+                  sortingFilter={sortingFilter}
+                  orderFilter={orderFilter}
+                  filtered={filtered}
                 />
               </th>
               <th>
                 <ColumnMenuFilter
                   titulo={"Modelo"}
+                  tituloF={"Modelo"}
                   data={modelos}
                   selectedAttribut={selectedModel}
                   handleFunc={handleModelChange}
                   sorting={sorting}
                   order={order}
+                  sortingFilter={sortingFilter}
+                  orderFilter={orderFilter}
+                  filtered={filtered}
                 />
               </th>
-              <th>NºInventário</th>
+              <th>Nº Inventário</th>
               <th>Nº Série</th>
               <th>Localização</th>
               <th>Unidade</th>
               <th>
                 <ColumnMenuFilter
                   titulo={"Piso"}
+                  tituloF={"Piso"}
                   data={floor}
                   selectedAttribut={selectedFloor}
                   handleFunc={handleFloorChange}
                   sorting={sorting}
                   order={order}
+                  sortingFilter={sortingFilter}
+                  orderFilter={orderFilter}
+                  filtered={filtered}
                 />
               </th>
               <th>Ala</th>
@@ -363,19 +475,18 @@ export default function Assets() {
           )}
           {!loading && (
             <TableAssets
-              assets={assets}
-              selectedCategory={selectedCategory}
-              selectedFloor={selectedFloor}
-              selectedBrand={selectedBrand}
-              selectedModel={selectedModel}
               toggleCheck={toggleCheck}
-              allDados={allDados}
+              filteredAssets={filteredAssets}
             />
           )}
         </table>
         <p> </p>
         <p> </p>
-        <PaginationLinks meta={meta} onPageClick={onPageClick} />
+        {filtered === false ? (
+          <PaginationLinks meta={meta} onPageClick={onPageClick} />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
