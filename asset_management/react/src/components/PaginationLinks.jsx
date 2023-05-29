@@ -53,8 +53,6 @@ const PaginationLinks = ({ meta, onPageClick }) => {
         <div className="filternopag">
           {meta.total > meta.per_page && (
             <nav aria-label="Pagination">
-              {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", 
-            Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
               {meta.links &&
                 meta.links.map((link, ind) => (
                   <a
