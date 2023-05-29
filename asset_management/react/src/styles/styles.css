@@ -12704,3 +12704,23 @@ input::placeholder {
     color: #d8000c;
     background-color: #ffbaba;
 }
+
+.pagFilter {
+    color: #61a60e;
+    text-decoration: underline;
+    font-size: 18px;
+    text-align: center;
+}
+
+.infoPagFil {
+    color: #61a60e;
+    font-size: 18px;
+    text-align: center;
+}
+
+.PagFilterCont {
+    font-family: arial;
+    font-size: 24px;
+    margin: 25px;
+    text-align: center;
+}

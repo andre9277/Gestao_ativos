@@ -36,8 +36,6 @@ const TableAssets = ({ toggleCheck, filteredAssets, startIndex, endIndex }) => {
 
   const [loading, setLoading] = useState(false);
 
-  console.log("filter assets:", filteredAssets);
-
   return (
     <tbody>
       {/* Iteration between all assets */}

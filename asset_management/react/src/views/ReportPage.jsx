@@ -317,21 +317,28 @@ const ReportPage = () => {
         {filtered === false ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
         ) : (
-          <>
+          <div className="PagFilterCont">
+            <div className="infoPagFil">
+              {" "}
+              Exibindo {startIndex + 1} a{" "}
+              {Math.min(endIndex, filteredAllocations.length)} de{" "}
+              {filteredAllocations.length} resultados
+            </div>
             <button
               onClick={() => setCurrentPage(currentPage - 1)}
               disabled={currentPage === 1}
+              className="pagFilter"
             >
-              Anterior
+              « Anterior&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </button>
-
             <button
               onClick={() => setCurrentPage(currentPage + 1)}
               disabled={endIndex >= filteredAllocations.length}
+              className="pagFilter"
             >
-              Seguinte
+              Seguinte »
             </button>
-          </>
+          </div>
         )}
       </div>
     </div>

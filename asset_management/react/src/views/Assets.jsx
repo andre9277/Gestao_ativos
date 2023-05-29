@@ -270,6 +270,7 @@ export default function Assets() {
     setAssets(sortedAssets);
     setAllDataF([]);
     setOrder("ASC"); // Reset the sorting order to "ASC"
+    setCurrentPage(1);
   };
 
   //For the checkbox, if the value of the filter is empty, then uses the assets array of the current page.
@@ -493,20 +494,29 @@ export default function Assets() {
         {filtered === false ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
         ) : (
-          <>
+          <div className="PagFilterCont">
+            {console.log(resultsPerPage)}
+            <div className="infoPagFil">
+              {" "}
+              Exibindo {startIndex + 1} a{" "}
+              {Math.min(endIndex, filteredAssets.length)} de{" "}
+              {filteredAssets.length} resultados
+            </div>
             <button
               onClick={() => setCurrentPage(currentPage - 1)}
               disabled={currentPage === 1}
+              className="pagFilter"
             >
-              Anterior
+              « Anterior&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </button>
             <button
               onClick={() => setCurrentPage(currentPage + 1)}
               disabled={endIndex >= filteredAssets.length}
+              className="pagFilter"
             >
-              Seguinte
+              Seguinte »
             </button>
-          </>
+          </div>
         )}
       </div>
     </div>
