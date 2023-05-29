@@ -232,11 +232,11 @@ const ReportPage = () => {
           <h1>Movimentação de ativos</h1>
           <div className="tb-btn-user">
             <button onClick={downloadCSV} className="btn-dwl">
-              Download CSV
+              Download .csv
             </button>
             {
               <button onClick={resetFilter} className="btn-filter">
-                Limpar filtro
+                Limpar Filtro
               </button>
             }
           </div>

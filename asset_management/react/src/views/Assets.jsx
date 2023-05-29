@@ -390,7 +390,7 @@ export default function Assets() {
           )}
           {
             <button onClick={resetFilter} className="btn-filter">
-              Limpar filtro
+              Limpar Filtro
             </button>
           }
         </div>
@@ -510,6 +510,7 @@ export default function Assets() {
             >
               « Anterior&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </button>
+
             <button
               onClick={() => setCurrentPage(currentPage + 1)}
               disabled={endIndex >= filteredAssets.length}

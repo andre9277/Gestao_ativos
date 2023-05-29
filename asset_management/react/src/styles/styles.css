@@ -12738,3 +12738,7 @@ input::placeholder {
     color: white;
     margin: 15px;
 }
+
+.results-pag {
+    width: 300px;
+}

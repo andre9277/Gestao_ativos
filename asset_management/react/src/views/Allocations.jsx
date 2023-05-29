@@ -158,7 +158,6 @@ export default function Allocations() {
 
     let filtered = allAllocations.filter((allocation) => {
       const allocationDate = new Date(allocation.allocation_date);
-      c;
       allocationDate.setHours(0, 0, 0, 0);
 
       return allocationDate >= startDate && allocationDate <= endDate;
@@ -246,7 +245,7 @@ export default function Allocations() {
         <h1>Relatório de Ativos</h1>
         <div className="tb-btn-user">
           <button onClick={downloadCSV} className="btn-dwl">
-            Download CSV
+            Download .csv
           </button>
         </div>
       </div>
