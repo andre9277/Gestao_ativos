@@ -57,6 +57,12 @@ export default function Assets() {
 
   const [allDados, setAllDados] = useState([]);
 
+  //*For pagination with filters*
+  const [currentPage, setCurrentPage] = useState(1);
+  const resultsPerPage = 20;
+  const startIndex = (currentPage - 1) * resultsPerPage;
+  const endIndex = startIndex + resultsPerPage;
+
   useEffect(() => {
     Promise.all([axiosClient.get("/assetsDefault")]).then((responses) => {
       setLoading(false);
@@ -477,6 +483,8 @@ export default function Assets() {
             <TableAssets
               toggleCheck={toggleCheck}
               filteredAssets={filteredAssets}
+              startIndex={startIndex}
+              endIndex={endIndex}
             />
           )}
         </table>
@@ -485,7 +493,20 @@ export default function Assets() {
         {filtered === false ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
         ) : (
-          ""
+          <>
+            <button
+              onClick={() => setCurrentPage(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Anterior
+            </button>
+            <button
+              onClick={() => setCurrentPage(currentPage + 1)}
+              disabled={endIndex >= filteredAssets.length}
+            >
+              Seguinte
+            </button>
+          </>
         )}
       </div>
     </div>
