@@ -389,7 +389,7 @@ export default function Assets() {
             </>
           )}
           {
-            <button onClick={resetFilter} className="btn-dwl">
+            <button onClick={resetFilter} className="btn-filter">
               Limpar filtro
             </button>
           }
@@ -493,9 +493,10 @@ export default function Assets() {
         <p> </p>
         {filtered === false ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
+        ) : filteredAssets.length === 0 ? (
+          ""
         ) : (
           <div className="PagFilterCont">
-            {console.log(resultsPerPage)}
             <div className="infoPagFil">
               {" "}
               Exibindo {startIndex + 1} a{" "}

@@ -9209,6 +9209,7 @@ a:focus {
 }
 .text-gray-700 {
     color: #61a60e !important;
+    text-align: center;
 }
 .text-gray-800 {
     color: #5a5c69 !important;

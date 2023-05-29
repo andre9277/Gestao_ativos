@@ -86,7 +86,7 @@ const Filter = ({
             </option>
           ))}
         </select>
-        <button onClick={resetFilter} className="btn-dwl">
+        <button onClick={resetFilter} className="btn-filter">
           Limpar filtro
         </button>
       </div>

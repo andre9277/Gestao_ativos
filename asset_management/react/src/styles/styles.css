@@ -12724,3 +12724,17 @@ input::placeholder {
     margin: 25px;
     text-align: center;
 }
+
+.filternopag {
+    color: #61a60e !important;
+    text-align: center;
+}
+
+.btn-filter {
+    background-color: #696969;
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    border-radius: 4px;
+    color: white;
+    margin: 15px;
+}

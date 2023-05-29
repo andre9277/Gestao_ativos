@@ -235,7 +235,7 @@ const ReportPage = () => {
               Download CSV
             </button>
             {
-              <button onClick={resetFilter} className="btn-dwl">
+              <button onClick={resetFilter} className="btn-filter">
                 Limpar filtro
               </button>
             }

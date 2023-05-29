@@ -44,18 +44,15 @@ const PaginationLinks = ({ meta, onPageClick }) => {
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 shadow-md mt-4">
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm text-gray-700">
+          <p className="filternopag">
             Exibindo <span className="font-medium">{meta.from}</span> a{" "}
             <span className="font-medium">{meta.to}</span> de &nbsp;
             <span className="font-medium">{meta.total}</span> resultados
           </p>
         </div>
-        <div>
+        <div className="filternopag">
           {meta.total > meta.per_page && (
-            <nav
-              className="isolate inline-flex -space-x-px rounded-md shadow-sm"
-              aria-label="Pagination"
-            >
+            <nav aria-label="Pagination">
               {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", 
             Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
               {meta.links &&
