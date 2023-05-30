@@ -103,8 +103,6 @@ All the changes made to enable the implementation of the desired development too
     padding-right: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
-
-    text-decoration: underline;
     color: #61a60e !important;
     font-family: arial;
 }
@@ -116,7 +114,6 @@ All the changes made to enable the implementation of the desired development too
     padding-right: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
-    text-decoration: underline 0.1em;
     color: #61a60e !important;
     font-family: arial;
 }
@@ -136,7 +133,6 @@ All the changes made to enable the implementation of the desired development too
     padding-right: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
-    text-decoration: underline 0.1em;
     color: #61a60e !important;
     font-family: arial;
 }

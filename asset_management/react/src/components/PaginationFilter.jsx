@@ -36,7 +36,7 @@ const Pagination = ({
           onClick={() => setCurrentPage(i)}
           className={classNames}
         >
-          &nbsp; {i} &nbsp;
+          <u>&nbsp; {i} &nbsp;</u>
         </button>
       );
     }
@@ -62,7 +62,7 @@ const Pagination = ({
             onClick={() => setCurrentPage(i)}
             className={classNames}
           >
-            &nbsp;{i}&nbsp;
+            <u>&nbsp;{i}&nbsp;</u>
           </button>
         );
       }
@@ -72,7 +72,7 @@ const Pagination = ({
     if (currentPage < totalPages - 3) {
       pageNumbers.push(
         <span key="ellipsis2" className="pageNumber ellipsis">
-          &nbsp;...&nbsp;
+          <u>&nbsp;...&nbsp;</u>
         </span>
       );
     }
@@ -89,7 +89,7 @@ const Pagination = ({
             onClick={() => setCurrentPage(i)}
             className={classNames}
           >
-            &nbsp;{i}&nbsp;
+            <u>&nbsp;{i}&nbsp;</u>
           </button>
         );
       }
@@ -99,41 +99,44 @@ const Pagination = ({
   };
 
   return (
-    <div className="PagFilterCont">
-      <div className="results-pag">
-        <p className="filternopag">
-          Exibindo{" "}
-          <span className="font-medium">
-            <b>{startIndex + 1}</b>
-          </span>{" "}
-          a{" "}
-          <span className="font-medium">
-            {" "}
-            <b>{endIndex} </b>
-          </span>{" "}
-          de &nbsp;
-          <span className="font-medium">
-            <b>{totalResults}</b>
-          </span>{" "}
-          resultados
-        </p>
+    <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 shadow-md mt-4">
+      <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+        <div className="results-pag">
+          <p className="filternopag">
+            Exibindo{" "}
+            <span className="font-medium">
+              <b>{startIndex + 1}</b>
+            </span>{" "}
+            a{" "}
+            <span className="font-medium">
+              {" "}
+              <b>{endIndex} </b>
+            </span>{" "}
+            de &nbsp;
+            <span className="font-medium">
+              <b>{totalResults}</b>
+            </span>{" "}
+            resultados
+          </p>
+        </div>
+        <div className="filternopag">
+          <button
+            onClick={handlePrevPage}
+            disabled={currentPage === 1}
+            className="pagFilter"
+          >
+            « Anterior&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </button>
+          {renderPageNumbers()}
+          <button
+            onClick={handleNextPage}
+            disabled={endIndex >= totalResults}
+            className="pagFilter"
+          >
+            Seguinte »
+          </button>
+        </div>
       </div>
-
-      <button
-        onClick={handlePrevPage}
-        disabled={currentPage === 1}
-        className="pagFilter"
-      >
-        « Anterior&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      </button>
-      {renderPageNumbers()}
-      <button
-        onClick={handleNextPage}
-        disabled={endIndex >= totalResults}
-        className="pagFilter"
-      >
-        Seguinte »
-      </button>
     </div>
   );
 };
