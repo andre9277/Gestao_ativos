@@ -35,6 +35,7 @@ import PaginationLinks from "../components/PaginationLinks.jsx";
 import "../styles/Dashboard.css";
 import ColumnMenuFilter from "../components/ColumnMenuFilter.jsx";
 import TableAssets from "../components/TableAssets.jsx";
+import PaginationFilter from "../components/PaginationFilter.jsx";
 
 export default function Assets() {
   const navigate = useNavigate();
@@ -113,6 +114,9 @@ export default function Assets() {
           (selectedModel === "" || row.modelo.name === selectedModel)
       )
     : assets;
+
+  const totalResults = filteredAssets.length;
+
   //----------------------------Sorting (with filter)-----------------------------------------
   const sortingFilter = (col) => {
     const columnMapping = {
@@ -496,29 +500,14 @@ export default function Assets() {
         ) : filteredAssets.length === 0 ? (
           ""
         ) : (
-          <div className="PagFilterCont">
-            <div className="infoPagFil">
-              {" "}
-              Exibindo {startIndex + 1} a{" "}
-              {Math.min(endIndex, filteredAssets.length)} de{" "}
-              {filteredAssets.length} resultados
-            </div>
-            <button
-              onClick={() => setCurrentPage(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="pagFilter"
-            >
-              « Anterior&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </button>
-
-            <button
-              onClick={() => setCurrentPage(currentPage + 1)}
-              disabled={endIndex >= filteredAssets.length}
-              className="pagFilter"
-            >
-              Seguinte »
-            </button>
-          </div>
+          <>
+            <PaginationFilter
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              resultsPerPage={resultsPerPage}
+              totalResults={totalResults}
+            />
+          </>
         )}
       </div>
     </div>

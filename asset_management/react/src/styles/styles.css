@@ -12708,8 +12708,13 @@ input::placeholder {
 .pagFilter {
     color: #61a60e;
     text-decoration: underline;
-    font-size: 18px;
+    font-size: 14px;
     text-align: center;
+    border: 1px solid #dee2e6 !important;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .infoPagFil {
@@ -12720,7 +12725,7 @@ input::placeholder {
 
 .PagFilterCont {
     font-family: arial;
-    font-size: 24px;
+    font-size: 16px;
     margin: 25px;
     text-align: center;
 }
