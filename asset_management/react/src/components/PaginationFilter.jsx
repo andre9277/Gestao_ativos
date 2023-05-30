@@ -94,7 +94,7 @@ const Pagination = ({
         );
       }
     }
-    //i dont want to replace anything from style1, i want to get adapt the style1 from the first page to the style2
+
     return pageNumbers;
   };
 
