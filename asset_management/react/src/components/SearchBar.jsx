@@ -31,6 +31,7 @@ import React, { useState } from "react";
 import axiosClient from "../axios-client.js";
 import "../styles/SearchBar.css";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -66,12 +67,19 @@ const Search = () => {
       <div className="input-group">
         <input
           type="text"
-          placeholder="Insira nºInventário"
+          placeholder="Nº Inventário"
           value={assetNumber}
           onChange={handleChange}
-          className="form-control border-0 small ssBar"
+          className="form-control border-0 ssBar"
         />
-        <button type="submit" className="fas fa-search fa-sm"></button>
+        <button
+          type="submit"
+          className="botaosearch fas fa-search fa-sm"
+        ></button>
+        {/*Icon bar code for users to scan */}
+        <Link to="/scan">
+          <i className="fa fa-barcode fa-2x" aria-hidden="true"></i>
+        </Link>
       </div>
     </form>
   );

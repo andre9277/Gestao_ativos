@@ -41,10 +41,6 @@ const TopBar = ({ user, onLogout }) => {
       <div className="search-bar-container">
         <SearchBar />
       </div>
-      {/*Icon bar code for users to scan */}
-      <Link to="/scan">
-        <i className="fa fa-barcode fa-3x" aria-hidden="true"></i>
-      </Link>
 
       {/*  <!-- Topbar Navbar --> */}
       <ul className="navbar-nav ml-auto">
@@ -58,11 +54,7 @@ const TopBar = ({ user, onLogout }) => {
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
-          >
-            <Link to="/assets/new">
-              <i className="fas fa-plus-circle fa-lg"></i>
-            </Link>
-          </div>
+          ></div>
 
           {/*   <!-- Dropdown - Messages --> */}
         </li>

@@ -2305,7 +2305,7 @@ progress {
 }
 .form-control::placeholder,
 .dataTable-input::placeholder {
-    color: #000;
+    color: white;
     opacity: 1;
 }
 .form-control:disabled,
@@ -12746,4 +12746,8 @@ input::placeholder {
 
 .results-pag {
     width: 300px;
+}
+
+.botaosearch {
+    color: white;
 }
