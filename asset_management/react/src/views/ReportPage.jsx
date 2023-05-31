@@ -32,6 +32,7 @@ import axiosClient from "../axios-client.js";
 import Papa from "papaparse";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 import FilterReport from "../components/FilterReport.jsx";
+import PaginationFilter from "../components/PaginationFilter.jsx";
 
 //SideBar:-------------Asset movement---------------
 const ReportPage = () => {
@@ -224,6 +225,7 @@ const ReportPage = () => {
   const resetFilter = () => {
     setSelectedCategory("");
   };
+  const totalResults = filteredAllocations.length;
 
   return (
     <div id="content">
@@ -316,29 +318,17 @@ const ReportPage = () => {
 
         {filtered === false ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
+        ) : filteredAllocations.length === 0 ? (
+          ""
         ) : (
-          <div className="PagFilterCont">
-            <div className="infoPagFil">
-              {" "}
-              Exibindo {startIndex + 1} a{" "}
-              {Math.min(endIndex, filteredAllocations.length)} de{" "}
-              {filteredAllocations.length} resultados
-            </div>
-            <button
-              onClick={() => setCurrentPage(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="pagFilter"
-            >
-              « Anterior&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </button>
-            <button
-              onClick={() => setCurrentPage(currentPage + 1)}
-              disabled={endIndex >= filteredAllocations.length}
-              className="pagFilter"
-            >
-              Seguinte »
-            </button>
-          </div>
+          <>
+            <PaginationFilter
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              resultsPerPage={resultsPerPage}
+              totalResults={totalResults}
+            />
+          </>
         )}
       </div>
     </div>
