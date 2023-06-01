@@ -9499,6 +9499,7 @@ a:focus {
     .sidebar .nav-item .nav-link span {
         font-size: 0.85rem;
         display: inline;
+        font-weight: bold;
     }
     .sidebar .nav-item .nav-link[data-toggle="collapse"]::after {
         width: 1rem;

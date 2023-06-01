@@ -42,7 +42,7 @@ const TableAssets = ({ toggleCheck, filteredAssets, startIndex, endIndex }) => {
       {loading && (
         <tr>
           <td colSpan="5" className="lgText">
-            Carregando...
+            A Carregar...
           </td>
         </tr>
       )}

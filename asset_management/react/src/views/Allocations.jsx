@@ -249,7 +249,7 @@ export default function Allocations() {
           </button>
         </div>
       </div>
-      {loading && <div className="caprr-re">Carregando...</div>}
+      {loading && <div className="caprr-re">A Carregar...</div>}
 
       {!loading && (
         <div className="card animated fadeInDown">

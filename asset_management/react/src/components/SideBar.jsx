@@ -95,17 +95,17 @@ const SideBar = () => {
         {/*   <hr className="sidebar-divider" /> */}
 
         {/*   <!-- Heading --> */}
-        <div className="sidebar-heading">Gestão de ativos</div>
+        <div className="sidebar-heading">Ativos</div>
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
+        <MenuItem titulo={"Movimentação"} icon={"fa-plus"} origem={"report"} />
+        <MenuItem titulo={"Listagem"} icon={"fa-cog"} origem={"assets"} />
+        {/* <!-- Nav Item - ReportPage --> */}
+        <MenuItem titulo={"Importar"} icon={"fa fa-edit"} origem={"import"} />
+        {/* <!-- Nav Item - ReportPage --> */}
         <MenuItem
-          titulo={"Movimentação de ativos"}
-          icon={"fa-plus"}
-          origem={"report"}
-        />
-        <MenuItem
-          titulo={"Listagem de Ativos"}
-          icon={"fa-cog"}
-          origem={"assets"}
+          titulo={"Relatório"}
+          icon={"fa-chart-area"}
+          origem={"allocations"}
         />
 
         {/*  <!-- Nav Item - Users --> */}
@@ -116,20 +116,6 @@ const SideBar = () => {
         <div className="sidebar-heading"> Área do Administrador</div>
 
         <MenuItem titulo={"Utilizadores"} icon={"fa-table"} origem={"users"} />
-
-        {/* <!-- Nav Item - ReportPage --> */}
-        <MenuItem
-          titulo={"Relatório de Ativos"}
-          icon={"fa-chart-area"}
-          origem={"allocations"}
-        />
-
-        {/* <!-- Nav Item - ReportPage --> */}
-        <MenuItem
-          titulo={"Importar Ativos"}
-          icon={"fa fa-edit"}
-          origem={"import"}
-        />
 
         <div className="text-center d-none d-md-inline">
           <button

@@ -479,7 +479,7 @@ export default function Assets() {
             <tbody>
               <tr>
                 <td colSpan="5" className="lgText">
-                  Carregando...
+                  A Carregar...
                 </td>
               </tr>
             </tbody>

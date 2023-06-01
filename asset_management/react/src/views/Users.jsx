@@ -173,7 +173,7 @@ export default function Users() {
             <tbody>
               <tr>
                 <td colSpan="5" className="caprr-re">
-                  Carregando...
+                  A Carregar...
                 </td>
               </tr>
             </tbody>
