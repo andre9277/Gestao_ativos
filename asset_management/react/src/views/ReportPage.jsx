@@ -164,11 +164,10 @@ const ReportPage = () => {
       fields: [
         "Nº Inventário",
         "Categoria",
-        "Unidade(Anterior)",
-        "Entidade(Anterior)",
+        "Local(Anterior)",
+        "Local(Atual)",
         "CI(Anterior)",
         "CI(Atual)",
-        "Local Atual",
         "Utilizador",
         "Movido em",
       ],
@@ -185,11 +184,12 @@ const ReportPage = () => {
           return [
             asset.numb_inv,
             asset.category.name,
-            filtered_units(asset.previous_unit_id),
-            filtered_entities(asset.previous_ent_id),
+            filtered_units(asset.previous_unit_id) === null
+              ? filtered_entities(asset.previous_ent_id)
+              : filtered_units(asset.previous_unit_id),
+            asset.units === null ? asset.entity.ent_name : asset.units.name,
             asset.previous_ci,
             asset.ci,
-            asset.units === null ? asset.entity.ent_name : asset.units.name,
             allocationData.user,
             allocationData.date,
           ];
@@ -256,11 +256,10 @@ const ReportPage = () => {
                   selectedAtt={selectedCategory}
                 />
               </th>
-              <th>Unidade(Anterior)</th>
-              <th>Entidade(Anterior)</th>
+              <th>Local(Anterior)</th>
+              <th>Local(Atual)</th>
               <th>CI(Anterior)</th>
               <th>CI(Atual)</th>
-              <th>Local(Atual)</th>
               <th>Utilizador</th>
               <th>Movido em</th>
             </tr>
@@ -298,15 +297,21 @@ const ReportPage = () => {
                     <tr key={`${asset.id}-${index}`}>
                       <td>{asset.numb_inv}</td>
                       <td>{asset.category.name}</td>
-                      <td>{filtered_units(asset.previous_unit_id)}</td>
-                      <td>{filtered_entities(asset.previous_ent_id)}</td>
-                      <td>{asset.previous_ci}</td>
-                      <td>{asset.ci}</td>
+
+                      <td>
+                        {filtered_units(asset.previous_unit_id) === null
+                          ? filtered_entities(asset.previous_ent_id)
+                          : filtered_units(asset.previous_unit_id)}
+                      </td>
+
                       <td>
                         {asset.units === null
                           ? asset.entity.ent_name
                           : asset.units.name}
                       </td>
+                      <td>{asset.previous_ci}</td>
+                      <td>{asset.ci}</td>
+
                       <td>{allocationData.user}</td>
                       <td>{allocationData.date}</td>
                     </tr>
