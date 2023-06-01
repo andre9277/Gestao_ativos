@@ -190,6 +190,12 @@ export default function Assets() {
   };
 
   //----------Handle click to delete an asset------------------------
+
+  const onAddClick = () => {
+    const url = "/assets/new";
+    navigate(url);
+  };
+
   const onDeleteClick = () => {
     // Get the IDs of all the checked assets
     const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
@@ -221,6 +227,7 @@ export default function Assets() {
       })
       .catch((error) => {
         console.error("Erro ao apagar ativo(s):", error);
+
         // Handle error if necessary...
       });
   };
@@ -367,16 +374,13 @@ export default function Assets() {
         <h1>Listagem de Ativos</h1>
         <div>
           {user.role_id === 3 ? null : (
-            <Link
-              className="btn-add text-link"
-              to="/assets/new"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              + Adicionar Ativo
-            </Link>
-          )}
-          {user.role_id === 3 ? null : (
             <>
+              <button
+                className="btn-add text-link"
+                onClick={(ev) => onAddClick()}
+              >
+                Adicionar
+              </button>
               <button
                 className=" btn-edit text-link"
                 onClick={(ev) => onEditClick()}
