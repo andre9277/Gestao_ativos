@@ -8317,7 +8317,7 @@ fieldset:disabled .btn {
 /* rtl:end:remove */
 .text-primary {
     --bs-text-opacity: 1;
-    color: #007840;
+    color: #4e73df;
 }
 
 .text-secondary {
@@ -8327,7 +8327,7 @@ fieldset:disabled .btn {
 
 .text-success {
     --bs-text-opacity: 1;
-    color: rgba(var(--bs-success-rgb), var(--bs-text-opacity)) !important;
+    color: #1cc88a;
 }
 
 .text-info {
@@ -12750,4 +12750,8 @@ input::placeholder {
 
 .botaosearch {
     color: white;
+}
+
+.titulo-dash {
+    color: #61a60e;
 }

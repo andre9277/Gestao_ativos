@@ -36,12 +36,10 @@ const Card = ({ Titulo, Descricao, Icon, Cor, Tipo }) => {
         <div className="card-body">
           <div className="row no-gutters align-items-center">
             <div className="col mr-2">
-              <div
-                className={`text-xs font-weight-bold ${Cor} text-uppercase mb-1`}
-              >
-                {Titulo}
+              <div className={`text-xs font-weight-bold ${Cor} mb-1`}>
+                <h5>{Titulo}</h5>
               </div>
-              <div className="h5 mb-0 font-weight-bold text-gray-800">
+              <div className="h1 mb-0 font-weight-bold text-gray-800">
                 {Descricao}
               </div>
             </div>

@@ -109,9 +109,9 @@ const PieChart = ({ assets }) => {
       <div className="card shadow mb-2">
         {/*  <!-- Card Header - Dropdown --> */}
         <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h6 className="m-0 font-weight-bold text-primary">
+          <h5 className="m-0 font-weight-bold graf-dash">
             Quantidade de Ativos/Categoria
-          </h6>
+          </h5>
         </div>
         {/*  <!-- Card Body --> */}
         <div>

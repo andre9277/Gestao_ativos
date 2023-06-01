@@ -334,7 +334,7 @@ h6 {
     margin-bottom: 0.5rem;
     font-weight: 400;
     line-height: 1.2;
-    color: #007840;
+    /*  color: #007840; */
 }
 .h1,
 h1 {
@@ -8835,7 +8835,7 @@ button.bg-dark:hover {
     color: #fff !important;
 }
 .text-primary {
-    color: #61a60e !important;
+    color: #4e73df !important;
 }
 a.text-primary:focus,
 a.text-primary:hover {

@@ -474,6 +474,7 @@
 }
 .fa-barcode:before {
     content: "\f02a";
+    color: white;
 }
 .fa-bars:before {
     content: "\f0c9";
