@@ -32,17 +32,12 @@ import React from "react";
 const ColumnMenuFilter = ({
   titulo,
   tituloF,
-  data,
-  selectedAttribut,
-  handleFunc,
   sorting,
   sortingFilter,
   order,
   orderFilter,
   filtered,
 }) => {
-  let i = 0;
-
   const handleSort = () => {
     sorting(titulo);
   };
@@ -64,19 +59,6 @@ const ColumnMenuFilter = ({
           {order === "ASC" ? " ▲" : " ▼"}{" "}
         </span>
       )}
-
-      <select
-        className="filtAsset-tab"
-        onChange={handleFunc}
-        value={selectedAttribut}
-      >
-        <option value="">Selecione</option>
-        {data.map((dat) => (
-          <option key={`${dat}+${i++}`} value={dat.name}>
-            {dat.name}
-          </option>
-        ))}
-      </select>
     </div>
   );
 };

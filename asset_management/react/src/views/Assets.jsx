@@ -36,6 +36,7 @@ import "../styles/Dashboard.css";
 import ColumnMenuFilter from "../components/ColumnMenuFilter.jsx";
 import TableAssets from "../components/TableAssets.jsx";
 import PaginationFilter from "../components/PaginationFilter.jsx";
+import FilterAsset from "../components/FilterAsset.jsx";
 
 export default function Assets() {
   const navigate = useNavigate();
@@ -361,6 +362,8 @@ export default function Assets() {
   };
   /*  console.log("data filtered:", allDataF);
   console.log("assets", assets); */
+
+  let i = 0;
   return (
     <div id="content">
       <div
@@ -375,6 +378,7 @@ export default function Assets() {
         <div>
           {user.role_id === 3 ? null : (
             <>
+              <FilterAsset />
               <button
                 className="btn-add text-link"
                 onClick={(ev) => onAddClick()}
@@ -403,6 +407,20 @@ export default function Assets() {
           }
         </div>
       </div>
+      <div>
+        <select
+          className="filtAsset-tab"
+          onChange={handleCategoryChange}
+          value={selectedCategory}
+        >
+          <option value="">Selecione</option>
+          {cats.map((cat) => (
+            <option key={`${cat}+${i++}`} value={cat.name}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
+      </div>
       <div
         className="card animated fadeInDown"
         style={{
@@ -416,9 +434,6 @@ export default function Assets() {
                 <ColumnMenuFilter
                   titulo={"Categoria"}
                   tituloF={"Categoria"}
-                  data={cats}
-                  selectedAttribut={selectedCategory}
-                  handleFunc={handleCategoryChange}
                   sorting={sorting}
                   order={order}
                   sortingFilter={sortingFilter}
@@ -430,9 +445,6 @@ export default function Assets() {
                 <ColumnMenuFilter
                   titulo={"Marca"}
                   tituloF={"Marca"}
-                  data={brands}
-                  selectedAttribut={selectedBrand}
-                  handleFunc={handleBrandChange}
                   sorting={sorting}
                   order={order}
                   sortingFilter={sortingFilter}
@@ -444,9 +456,6 @@ export default function Assets() {
                 <ColumnMenuFilter
                   titulo={"Modelo"}
                   tituloF={"Modelo"}
-                  data={modelos}
-                  selectedAttribut={selectedModel}
-                  handleFunc={handleModelChange}
                   sorting={sorting}
                   order={order}
                   sortingFilter={sortingFilter}
@@ -462,9 +471,6 @@ export default function Assets() {
                 <ColumnMenuFilter
                   titulo={"Piso"}
                   tituloF={"Piso"}
-                  data={floor}
-                  selectedAttribut={selectedFloor}
-                  handleFunc={handleFloorChange}
                   sorting={sorting}
                   order={order}
                   sortingFilter={sortingFilter}
