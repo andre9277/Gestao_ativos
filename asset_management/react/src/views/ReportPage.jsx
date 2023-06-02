@@ -296,43 +296,52 @@ const ReportPage = () => {
           )}
           {!loading && (
             <tbody>
-              {filteredAllocations
-                .slice(startIndex, endIndex)
-                .map((asset, index) => {
-                  if (
-                    !asset.previous_ci &&
-                    !asset.previous_ent_id &&
-                    !asset.previous_unit_id
-                  ) {
-                    return null; // skip rendering if previous_ci is null
-                  }
+              {filteredAllocations.length === 0 ? (
+                <tr>
+                  <td colSpan="5" className="lgTextF">
+                    Não existe(m) resultado(s) para o(s) filtro(s)
+                    selecionado(s)!
+                  </td>
+                </tr>
+              ) : (
+                filteredAllocations
+                  .slice(startIndex, endIndex)
+                  .map((asset, index) => {
+                    if (
+                      !asset.previous_ci &&
+                      !asset.previous_ent_id &&
+                      !asset.previous_unit_id
+                    ) {
+                      return null; // skip rendering if previous_ci is null
+                    }
 
-                  const allocationData = getAllocationData(asset.id);
+                    const allocationData = getAllocationData(asset.id);
 
-                  return (
-                    <tr key={`${asset.id}-${index}`}>
-                      <td>{asset.numb_inv}</td>
-                      <td>{asset.category.name}</td>
+                    return (
+                      <tr key={`${asset.id}-${index}`}>
+                        <td>{asset.numb_inv}</td>
+                        <td>{asset.category.name}</td>
 
-                      <td>
-                        {filtered_units(asset.previous_unit_id) === null
-                          ? filtered_entities(asset.previous_ent_id)
-                          : filtered_units(asset.previous_unit_id)}
-                      </td>
+                        <td>
+                          {filtered_units(asset.previous_unit_id) === null
+                            ? filtered_entities(asset.previous_ent_id)
+                            : filtered_units(asset.previous_unit_id)}
+                        </td>
 
-                      <td>
-                        {asset.units === null
-                          ? asset.entity.ent_name
-                          : asset.units.name}
-                      </td>
-                      <td>{asset.previous_ci}</td>
-                      <td>{asset.ci}</td>
+                        <td>
+                          {asset.units === null
+                            ? asset.entity.ent_name
+                            : asset.units.name}
+                        </td>
+                        <td>{asset.previous_ci}</td>
+                        <td>{asset.ci}</td>
 
-                      <td>{allocationData.user}</td>
-                      <td>{allocationData.date}</td>
-                    </tr>
-                  );
-                })}
+                        <td>{allocationData.user}</td>
+                        <td>{allocationData.date}</td>
+                      </tr>
+                    );
+                  })
+              )}
             </tbody>
           )}
         </table>

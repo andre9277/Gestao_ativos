@@ -517,6 +517,7 @@ export default function Assets() {
               </tr>
             </tbody>
           )}
+
           {!loading && (
             <TableAssets
               toggleCheck={toggleCheck}
