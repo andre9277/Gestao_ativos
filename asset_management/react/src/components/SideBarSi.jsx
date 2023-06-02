@@ -68,16 +68,8 @@ const SideBarSi = () => {
         {/*   <!-- Heading --> */}
         <div className="sidebar-heading">Gestão de ativos</div>
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
-        <MenuItem
-          titulo={"Movimentação de ativos"}
-          icon={"fa-plus"}
-          origem={"report"}
-        />
-        <MenuItem
-          titulo={"Listagem de Ativos"}
-          icon={"fa-cog"}
-          origem={"assets"}
-        />
+        <MenuItem titulo={"Movimentação"} icon={"fa-plus"} origem={"report"} />
+        <MenuItem titulo={"Listagem"} icon={"fa-cog"} origem={"assets"} />
 
         {/*  <!-- Nav Item - Users --> */}
         {/*  <!-- Divider --> */}
@@ -88,7 +80,7 @@ const SideBarSi = () => {
 
         {/* <!-- Nav Item - ReportPage --> */}
         <MenuItem
-          titulo={"Relatório de Ativos"}
+          titulo={"Donwload"}
           icon={"fa-chart-area"}
           origem={"allocations"}
         />

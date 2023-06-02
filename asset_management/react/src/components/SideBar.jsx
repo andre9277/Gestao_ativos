@@ -103,7 +103,7 @@ const SideBar = () => {
         <MenuItem titulo={"Importar"} icon={"fa fa-edit"} origem={"import"} />
         {/* <!-- Nav Item - ReportPage --> */}
         <MenuItem
-          titulo={"Relatório"}
+          titulo={"Download"}
           icon={"fa-chart-area"}
           origem={"allocations"}
         />

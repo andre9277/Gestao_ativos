@@ -242,7 +242,7 @@ export default function Allocations() {
         }}
         className="container-fluid"
       >
-        <h1>Relatório de Ativos</h1>
+        <h1>Download de Ativos</h1>
         <div className="tb-btn-user">
           <button onClick={downloadCSV} className="btn-dwl">
             Download .csv
