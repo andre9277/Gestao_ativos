@@ -12567,6 +12567,8 @@ select {
     position: absolute;
     top: 0px;
     right: 0px;
+    margin-top: 50px;
+    margin-right: 250px;
 }
 
 .filter div {
@@ -12575,7 +12577,7 @@ select {
 
 .headerFilter {
     display: inline-flex;
-    margin-left: 250px;
+    margin-left: 20px;
     vertical-align: middle;
     padding: 1px 5px;
 }
@@ -12809,7 +12811,6 @@ input::placeholder {
 }
 
 .titleFiltAsset {
-    text-align: center;
     font-weight: bold;
     font-size: 14px;
     padding-top: 10px;

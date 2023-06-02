@@ -243,11 +243,6 @@ export default function Allocations() {
         className="container-fluid"
       >
         <h1>Download de Ativos</h1>
-        <div className="tb-btn-user">
-          <button onClick={downloadCSV} className="btn-dwl">
-            Download .csv
-          </button>
-        </div>
       </div>
       {loading && <div className="caprr-re">A Carregar...</div>}
 
@@ -272,6 +267,7 @@ export default function Allocations() {
               selectedOp={selectedOp}
               filterUser={filterUser}
               selectedUser={selectedUser}
+              handleDwl={downloadCSV}
             ></Filter>
           </div>
         </div>

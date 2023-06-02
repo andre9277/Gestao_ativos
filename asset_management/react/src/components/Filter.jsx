@@ -39,6 +39,7 @@ const Filter = ({
   selectedOp,
   filterUser,
   selectedUser,
+  handleDwl,
 }) => {
   return (
     <div className="filter">
@@ -88,6 +89,10 @@ const Filter = ({
         </select>
         <button onClick={resetFilter} className="btn-filter">
           Limpar filtro
+        </button>
+
+        <button onClick={handleDwl} className="btn-dwl">
+          Download .csv
         </button>
       </div>
     </div>
