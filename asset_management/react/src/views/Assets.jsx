@@ -36,7 +36,7 @@ import "../styles/Dashboard.css";
 import ColumnMenuFilter from "../components/ColumnMenuFilter.jsx";
 import TableAssets from "../components/TableAssets.jsx";
 import PaginationFilter from "../components/PaginationFilter.jsx";
-import FilterAsset from "../components/FilterAsset.jsx";
+import SelectFilter from "../components/SelectFilter.jsx";
 
 export default function Assets() {
   const navigate = useNavigate();
@@ -363,7 +363,10 @@ export default function Assets() {
   /*  console.log("data filtered:", allDataF);
   console.log("assets", assets); */
 
-  let i = 0;
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
   return (
     <div id="content">
       <div
@@ -378,7 +381,45 @@ export default function Assets() {
         <div>
           {user.role_id === 3 ? null : (
             <>
-              <FilterAsset />
+              <div className="dropdown">
+                <button className="filterIcon" onClick={toggleDropdown}>
+                  <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
+                </button>
+                <div
+                  className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
+                  id="filterDropdown"
+                >
+                  <SelectFilter
+                    handleFunc={handleCategoryChange}
+                    selectedF={selectedCategory}
+                    data={cats}
+                    title={"Categoria"}
+                  />
+                  <SelectFilter
+                    handleFunc={handleBrandChange}
+                    selectedF={selectedBrand}
+                    data={brands}
+                    title={"Marca"}
+                  />
+                  <SelectFilter
+                    handleFunc={handleModelChange}
+                    selectedF={selectedModel}
+                    data={modelos}
+                    title={"Modelos"}
+                  />
+                  <SelectFilter
+                    handleFunc={handleFloorChange}
+                    selectedF={selectedFloor}
+                    data={floor}
+                    title={"Piso"}
+                  />
+                  {
+                    <button onClick={resetFilter} className="btn-filter">
+                      Limpar Filtro
+                    </button>
+                  }
+                </div>
+              </div>
               <button
                 className="btn-add text-link"
                 onClick={(ev) => onAddClick()}
@@ -400,27 +441,9 @@ export default function Assets() {
               </button>
             </>
           )}
-          {
-            <button onClick={resetFilter} className="btn-filter">
-              Limpar Filtro
-            </button>
-          }
         </div>
       </div>
-      <div>
-        <select
-          className="filtAsset-tab"
-          onChange={handleCategoryChange}
-          value={selectedCategory}
-        >
-          <option value="">Selecione</option>
-          {cats.map((cat) => (
-            <option key={`${cat}+${i++}`} value={cat.name}>
-              {cat.name}
-            </option>
-          ))}
-        </select>
-      </div>
+
       <div
         className="card animated fadeInDown"
         style={{
