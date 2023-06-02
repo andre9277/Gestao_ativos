@@ -29,7 +29,7 @@ All the changes made to enable the implementation of the desired development too
 */
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 import "../styles/Dashboard.css";
@@ -43,7 +43,7 @@ export default function Assets() {
 
   const [assets, setAssets] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [loadingAll, setLoadingAll] = useState(false);
+  //const [loadingAll, setLoadingAll] = useState(false);
   const [meta, setMeta] = useState({});
   const { setNotification, user } = useStateContext();
 
@@ -51,11 +51,13 @@ export default function Assets() {
   const [brands, setBrands] = useState([]);
   const [modelos, setModelos] = useState([]);
   const [floor, setFloor] = useState([]);
+  const [ent, setEnt] = useState([]);
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedFloor, setSelectedFloor] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
+  const [selectedEnt, setSelectedEnt] = useState("");
 
   const [allDados, setAllDados] = useState([]);
 
@@ -73,6 +75,7 @@ export default function Assets() {
       setModelos(responses[0].data.models);
       setFloor(responses[0].data.floor);
       setAllDados(responses[0].data.assets); //Gets all data from the assets
+      setEnt(responses[0].data.localiz);
     });
   }, []);
 
@@ -96,14 +99,20 @@ export default function Assets() {
       selectedCategory !== "" ||
       selectedFloor !== "" ||
       selectedBrand !== "" ||
-      selectedModel !== "";
-
+      selectedModel !== "" ||
+      selectedEnt !== "";
     setFiltered(hasFilter);
     //if hasFilter = true then it gets all the assets from all the pages:
     if (hasFilter) {
       setAllDataF(allDados);
     }
-  }, [selectedCategory, selectedFloor, selectedBrand, selectedModel]);
+  }, [
+    selectedCategory,
+    selectedFloor,
+    selectedBrand,
+    selectedModel,
+    selectedEnt,
+  ]);
 
   //use allData when filtered = true and when its false its equal to the assets object
   const filteredAssets = filtered
@@ -112,12 +121,12 @@ export default function Assets() {
           (selectedCategory === "" || row.category.name === selectedCategory) &&
           (selectedFloor === "" || row.floor === selectedFloor) &&
           (selectedBrand === "" || row.brand.sig === selectedBrand) &&
-          (selectedModel === "" || row.modelo.name === selectedModel)
+          (selectedModel === "" || row.modelo.name === selectedModel) &&
+          (selectedEnt === "" || row.entity.ent_name === selectedEnt)
       )
     : assets;
 
   const totalResults = filteredAssets.length;
-
   //----------------------------Sorting (with filter)-----------------------------------------
   const sortingFilter = (col) => {
     const columnMapping = {
@@ -125,6 +134,7 @@ export default function Assets() {
       Marca: "brand.sig",
       Modelo: "modelo.name",
       Piso: "floor",
+      Entidade: "entity.ent_name",
     };
 
     const dbColumnName = columnMapping[col];
@@ -272,12 +282,18 @@ export default function Assets() {
     setSelectedModel(selectedModel);
   };
 
+  const handleEntityChange = (event) => {
+    const selectedEntity = event.target.value;
+    setSelectedEnt(selectedEntity);
+  };
+
   //Reset of the filters implemented
   const resetFilter = () => {
     setSelectedBrand("");
     setSelectedFloor("");
     setSelectedCategory("");
     setSelectedModel("");
+    setSelectedEnt("");
     const sortedAssets = [...assets].sort((a, b) => b.id - a.id); // Sort by the "id" column in ascending order
     setAssets(sortedAssets);
     setAllDataF([]);
@@ -292,7 +308,8 @@ export default function Assets() {
       selectedBrand === "" &&
       selectedCategory === "" &&
       selectedFloor === "" &&
-      selectedModel === ""
+      selectedModel === "" &&
+      selectedEnt === ""
     ) {
       const checkedIdx = assets.findIndex((a) => a.id === id);
 
@@ -413,6 +430,13 @@ export default function Assets() {
                     data={floor}
                     title={"Piso"}
                   />
+                  <SelectFilter
+                    handleFunc={handleEntityChange}
+                    selectedF={setSelectedEnt}
+                    data={ent}
+                    title={"Localização"}
+                  />
+
                   {
                     <button onClick={resetFilter} className="btn-filter">
                       Limpar Filtro
