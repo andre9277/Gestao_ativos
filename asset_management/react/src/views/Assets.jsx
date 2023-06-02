@@ -405,7 +405,7 @@ export default function Assets() {
                     handleFunc={handleModelChange}
                     selectedF={selectedModel}
                     data={modelos}
-                    title={"Modelos"}
+                    title={"Modelo"}
                   />
                   <SelectFilter
                     handleFunc={handleFloorChange}

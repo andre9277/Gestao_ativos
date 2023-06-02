@@ -33,6 +33,7 @@ import Papa from "papaparse";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 import FilterReport from "../components/FilterReport.jsx";
 import PaginationFilter from "../components/PaginationFilter.jsx";
+import SelectFilter from "../components/SelectFilter.jsx";
 
 //SideBar:-------------Asset movement---------------
 const ReportPage = () => {
@@ -227,20 +228,41 @@ const ReportPage = () => {
   };
   const totalResults = filteredAllocations.length;
 
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
   return (
     <div id="content">
       <div className="container-fluid">
         <div className="tb-user">
           <h1>Movimentação de ativos</h1>
           <div className="tb-btn-user">
+            <div className="dropdown">
+              <button className="filterIcon" onClick={toggleDropdown}>
+                <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
+              </button>
+              <div
+                className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
+                id="filterDropdown"
+              >
+                <SelectFilter
+                  handleFunc={handleCategoryChange}
+                  selectedF={selectedCategory}
+                  data={cats}
+                  title={"Categoria"}
+                />
+                {
+                  <button onClick={resetFilter} className="btn-filter">
+                    Limpar Filtro
+                  </button>
+                }
+              </div>
+            </div>
             <button onClick={downloadCSV} className="btn-dwl">
               Download .csv
             </button>
-            {
-              <button onClick={resetFilter} className="btn-filter">
-                Limpar Filtro
-              </button>
-            }
           </div>
         </div>
       </div>
@@ -249,13 +271,7 @@ const ReportPage = () => {
           <thead>
             <tr>
               <th>Nº Inventário</th>
-              <th>
-                <FilterReport
-                  data={cats}
-                  handleFunc={handleCategoryChange}
-                  selectedAtt={selectedCategory}
-                />
-              </th>
+              <th>Categoria</th>
               <th>Local(Anterior)</th>
               <th>Local(Atual)</th>
               <th>CI(Anterior)</th>

@@ -12807,3 +12807,10 @@ input::placeholder {
 .dropdown-menu.show {
     display: block;
 }
+
+.titleFiltAsset {
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    padding-top: 10px;
+}
