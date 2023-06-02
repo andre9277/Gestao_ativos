@@ -352,7 +352,7 @@ const ImportForm = () => {
               <option value="">Selecione a Entidade ...</option>
               {ents.map((ent) => (
                 <option key={ent.id} value={ent.id}>
-                  {ent.ent_name}
+                  {ent.name}
                 </option>
               ))}
             </select>

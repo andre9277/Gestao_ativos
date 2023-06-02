@@ -109,7 +109,7 @@ class AssetController extends Controller
         $allocation = new Allocation([
             'allocation_date' => now(),
             'action_type' => 'Adiciona',
-            'inv_number' => $asset->numb_inv,
+            'ser_number' => $asset->numb_ser,
             'user_id' => auth()->user()->id
         ]);
 
@@ -152,7 +152,7 @@ class AssetController extends Controller
             'user_id' => Auth::id(),
             'allocation_date' => now(),
             'action_type' => 'Pesquisa',
-            'inv_number' => $asset->numb_inv,
+            'ser_number' => $asset->numb_ser,
         ]);
         $update->save();
         return new AssetResource($asset);
@@ -191,7 +191,7 @@ class AssetController extends Controller
             'user_id' => Auth::id(),
             'allocation_date' => now(),
             'action_type' => 'Atualiza',
-            'inv_number' => $asset->numb_inv,
+            'ser_number' => $asset->numb_ser,
 
         ]);
         $update->save();
@@ -221,7 +221,7 @@ class AssetController extends Controller
         // Create allocation records for the deleted assets
         foreach ($assets as $asset) {
             $allocation = new Allocation([
-                'inv_number' => $asset->numb_inv,
+                'ser_number' => $asset->numb_ser,
                 'action_type' => 'Apaga',
                 'user_id' => Auth::id(),
                 'allocation_date' => now(),

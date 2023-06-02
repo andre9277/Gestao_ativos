@@ -19,7 +19,7 @@ return new class extends Migration
             $table->dateTime('allocation_date');
             $table->timestamps();
             $table->string('action_type');
-            $table->string('inv_number');
+            $table->string('ser_number');
 
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('asset_id')->nullable()->constrained("assets")->cascadeOnUpdate()->nullOnDelete();

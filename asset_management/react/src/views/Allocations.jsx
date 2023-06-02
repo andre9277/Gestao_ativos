@@ -55,7 +55,7 @@ export default function Allocations() {
   const [users, setUsers] = useState([]);
   const [filteredAllocations, setFilteredAllocations] = useState([]);
 
-  const [selectedInv, setSelectedInv] = useState("");
+  const [selectedSer, setSelectedSer] = useState("");
   const [selectedOp, setSelectedOp] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
 
@@ -107,8 +107,8 @@ export default function Allocations() {
     const filteredData = allData.filter((allocation) => {
       const allocationDate = new Date(allocation.allocation_date);
 
-      const invFilter = selectedInv
-        ? allocation.assets?.numb_inv === selectedInv
+      const serFilter = selectedSer
+        ? allocation.assets?.numb_ser === selectedSer
         : true;
       const opFilter = selectedOp
         ? allocation.action_type === selectedOp
@@ -119,18 +119,19 @@ export default function Allocations() {
       const dateFilter =
         allocationDate >= startDate && allocationDate <= endDate;
 
-      return invFilter && opFilter && userFilter && dateFilter;
+      return serFilter && opFilter && userFilter && dateFilter;
     });
 
+    console.log(filteredData);
     const csvData = Papa.unparse({
-      fields: ["Utilizador", "Operação", "Nº Inventário", "Data de alteração"],
+      fields: ["Utilizador", "Operação", "Nº Série", "Data de alteração"],
       data: filteredData.map((allocation) => {
         return [
           allocation.users.name,
           allocation.action_type,
           allocation.assets === null
             ? allocation.inv_number
-            : allocation.assets.numb_inv,
+            : allocation.assets.numb_ser,
           allocation.allocation_date,
         ];
       }),
@@ -177,16 +178,16 @@ export default function Allocations() {
   };
 
   //--------------Filters---------------
-  const filterInv = (event) => {
+  const filterSer = (event) => {
     const filterValue = event.target.value;
-    setSelectedInv(filterValue);
+    setSelectedSer(filterValue);
     if (!filterValue) {
       setAllocations(allAllocations);
     } else {
       const filteredAllocations = allAllocations.filter((allocation) => {
         return (
           allocation.assets !== null &&
-          allocation.assets.numb_inv === filterValue
+          allocation.assets.numb_ser === filterValue
         );
       });
 
@@ -225,7 +226,7 @@ export default function Allocations() {
   //-----------Button to reset the filter:----
   const resetFilter = () => {
     setAllocations(allAllocations);
-    setSelectedInv("");
+    setSelectedSer("");
     setSelectedOp("");
     setSelectedUser("");
     setStartDate(new Date());
@@ -260,9 +261,9 @@ export default function Allocations() {
             <Filter
               assets={assets}
               users={users}
-              filterInv={filterInv}
+              filterSer={filterSer}
               resetFilter={resetFilter}
-              selectedInv={selectedInv}
+              selectedSer={selectedSer}
               filterOp={filterOp}
               selectedOp={selectedOp}
               filterUser={filterUser}

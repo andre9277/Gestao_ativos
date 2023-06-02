@@ -36,7 +36,7 @@ class AllocationsController extends Controller
     {
         $this->authorize('allocations');
 
-        $allocations = Allocation::with('users:id,name', 'assets:id,numb_ser,unit_id,numb_inv', 'assets.category:id,name')
+        $allocations = Allocation::with('users:id,name', 'assets:id,numb_ser,unit_id', 'assets.category:id,name')
             ->orderBy('allocations.allocation_date', 'desc')
             ->get();
 

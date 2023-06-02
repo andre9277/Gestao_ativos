@@ -116,7 +116,7 @@ class ExcelImportController extends Controller
                 'user_id' => Auth::id(),
                 'allocation_date' => now(),
                 'action_type' => 'Adiciona',
-                'inv_number' => $column1,
+                'numb_ser' => $column4,
             ]);
 
             // Save the allocation record
