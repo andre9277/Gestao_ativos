@@ -31,38 +31,44 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import Papa from "papaparse";
 import PaginationLinks from "../components/PaginationLinks.jsx";
-import FilterReport from "../components/FilterReport.jsx";
 import PaginationFilter from "../components/PaginationFilter.jsx";
 import SelectFilter from "../components/SelectFilter.jsx";
 
 //SideBar:-------------Asset movement---------------
 const ReportPage = () => {
+  //All the data from an asset (not the user) - Filtered!
   const [assets, setAssets] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const [units, setUnits] = useState([]);
   const [ents, setEnts] = useState([]);
   const [meta, setMeta] = useState({});
   const [cats, setCats] = useState([]);
 
+  //All the asset allocation:
   const [allocations, setAllocations] = useState([]);
 
+  //For the filter Category
   const [selectedCategory, setSelectedCategory] = useState("");
 
   //keeps checking if there is a filter on or off:
   const [filtered, setFiltered] = useState(false);
-  //For the all the asset data:
-  const [allDados, setAllDados] = useState([]);
-  const [allAssets, setAllAssets] = useState([]);
 
+  //For all the asset data:
+  const [allDados, setAllDados] = useState([]); //All the data from an asset (not the user)
+  const [allAssets, setAllAssets] = useState([]); //All the data from an asset (not the user)
+
+  //For the pagination:
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 20;
-
   const startIndex = (currentPage - 1) * resultsPerPage;
   const endIndex = startIndex + resultsPerPage;
 
   useEffect(() => {
     getAssetsFilter();
   }, []);
+
+  console.log(assets);
 
   useEffect(() => {
     Promise.all([axiosClient.get("/reportAll")]).then((responses) => {
@@ -73,6 +79,8 @@ const ReportPage = () => {
       setCats(responses[0].data.categories);
     });
   }, []);
+
+  //Gets assets data with pagination
   const getAssetsFilter = (url) => {
     url = url || "/filterVal";
 
@@ -89,7 +97,7 @@ const ReportPage = () => {
       });
   };
 
-  //Gets all the assets
+  //Gets all the assets with no pagination
   useEffect((url) => {
     url = url || "filterValuesNoPag";
     axiosClient.get(url).then(({ data }) => {
@@ -109,6 +117,7 @@ const ReportPage = () => {
     }
   }, [selectedCategory]);
 
+  //-------Filters the category by user input
   const filteredAllocations = filtered
     ? allDados.filter(
         (row) =>
@@ -116,6 +125,7 @@ const ReportPage = () => {
       )
     : assets;
 
+  //----------Handles Category Change
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
@@ -126,6 +136,7 @@ const ReportPage = () => {
     getAssetsFilter(link.url);
   };
 
+  //Gets data of data allocation
   const getAllocationData = (assetId) => {
     const allocation = allocations.find((a) =>
       a.assets === null ? "" : a.assets.id === assetId
@@ -228,6 +239,7 @@ const ReportPage = () => {
   const resetFilter = () => {
     setSelectedCategory("");
   };
+
   const totalResults = filteredAllocations.length;
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
