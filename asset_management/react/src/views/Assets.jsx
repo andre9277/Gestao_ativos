@@ -435,7 +435,7 @@ export default function Assets() {
                   />
                   <SelectFilter
                     handleFunc={handleEntityChange}
-                    selectedF={setSelectedEnt}
+                    selectedF={selectedEnt}
                     data={ent}
                     title={"Localização:"}
                   />
