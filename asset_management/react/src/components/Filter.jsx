@@ -32,13 +32,14 @@ import React from "react";
 const Filter = ({
   assets,
   users,
-  filterInv,
+  filterSer,
   resetFilter,
-  selectedInv,
+  selectedSer,
   filterOp,
   selectedOp,
   filterUser,
   selectedUser,
+  handleDwl,
 }) => {
   return (
     <div className="filter">
@@ -73,21 +74,25 @@ const Filter = ({
       </div>
       <div className="filter-user">
         <select
-          value={selectedInv}
-          onChange={filterInv}
+          value={selectedSer}
+          onChange={filterSer}
           className="form-select-filter"
         >
-          <option value={null}>Selecione o nºinventário...</option>
+          <option value={null}>Selecione o nºsérie...</option>
 
           {assets.map((asset) => (
-            <option key={asset.id} value={asset.numb_inv}>
+            <option key={asset.id} value={asset.numb_ser}>
               {" "}
-              {asset.numb_inv}
+              {asset.numb_ser}
             </option>
           ))}
         </select>
-        <button onClick={resetFilter} className="btn-dwl">
+        <button onClick={resetFilter} className="btn-filter">
           Limpar filtro
+        </button>
+
+        <button onClick={handleDwl} className="btn-dwl">
+          Download .csv
         </button>
       </div>
     </div>

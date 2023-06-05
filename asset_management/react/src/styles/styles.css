@@ -2305,7 +2305,7 @@ progress {
 }
 .form-control::placeholder,
 .dataTable-input::placeholder {
-    color: #000;
+    color: white;
     opacity: 1;
 }
 .form-control:disabled,
@@ -8317,7 +8317,7 @@ fieldset:disabled .btn {
 /* rtl:end:remove */
 .text-primary {
     --bs-text-opacity: 1;
-    color: #007840;
+    color: #4e73df;
 }
 
 .text-secondary {
@@ -8327,7 +8327,7 @@ fieldset:disabled .btn {
 
 .text-success {
     --bs-text-opacity: 1;
-    color: rgba(var(--bs-success-rgb), var(--bs-text-opacity)) !important;
+    color: #1cc88a;
 }
 
 .text-info {
@@ -12567,6 +12567,8 @@ select {
     position: absolute;
     top: 0px;
     right: 0px;
+    margin-top: 50px;
+    margin-right: 250px;
 }
 
 .filter div {
@@ -12575,7 +12577,7 @@ select {
 
 .headerFilter {
     display: inline-flex;
-    margin-left: 250px;
+    margin-left: 20px;
     vertical-align: middle;
     padding: 1px 5px;
 }
@@ -12643,13 +12645,13 @@ input::placeholder {
 
 .filtAsset-tab {
     color: black;
-    width: 100%;
+    width: 100px;
     margin: 0.5px;
     cursor: pointer;
     line-height: 1.1;
     font-size: 14px;
     align-items: center;
-    text-align: center;
+    text-align: left;
     border: 2px solid #459c2c;
 }
 
@@ -12703,4 +12705,113 @@ input::placeholder {
     margin: 10px 0;
     color: #d8000c;
     background-color: #ffbaba;
+}
+
+.pagFilter {
+    color: #61a60e;
+    text-decoration: underline;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #dee2e6 !important;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.infoPagFil {
+    color: #61a60e;
+    font-size: 18px;
+    text-align: center;
+}
+
+.PagFilterCont {
+    font-family: arial;
+    font-size: 16px;
+    margin: 25px;
+    text-align: center;
+}
+
+.filternopag {
+    color: #61a60e !important;
+    text-align: center;
+}
+
+.btn-filter {
+    background-color: #696969;
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    border-radius: 4px;
+    color: white;
+    margin: 15px;
+}
+
+.results-pag {
+    width: 300px;
+}
+
+.botaosearch {
+    color: white;
+}
+
+.titulo-dash {
+    color: #61a60e;
+}
+
+/* Filter container */
+.filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+/* Filter option */
+.filter-option {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 16px;
+    margin-bottom: 8px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: #e0e0e0;
+    color: #333;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filter-option:hover {
+    background-color: #c0c0c0;
+}
+
+.filter-option.active {
+    background-color: #0070f3;
+    color: #fff;
+}
+
+/* */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.titleFiltAsset {
+    font-weight: bold;
+    font-size: 14px;
+    padding-top: 10px;
 }

@@ -32,6 +32,8 @@ import axiosClient from "../axios-client.js";
 import Papa from "papaparse";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 import FilterReport from "../components/FilterReport.jsx";
+import PaginationFilter from "../components/PaginationFilter.jsx";
+import SelectFilter from "../components/SelectFilter.jsx";
 
 //SideBar:-------------Asset movement---------------
 const ReportPage = () => {
@@ -163,11 +165,10 @@ const ReportPage = () => {
       fields: [
         "Nº Inventário",
         "Categoria",
-        "Unidade(Anterior)",
-        "Entidade(Anterior)",
+        "Local(Anterior)",
+        "Local(Atual)",
         "CI(Anterior)",
         "CI(Atual)",
-        "Local Atual",
         "Utilizador",
         "Movido em",
       ],
@@ -184,11 +185,12 @@ const ReportPage = () => {
           return [
             asset.numb_inv,
             asset.category.name,
-            filtered_units(asset.previous_unit_id),
-            filtered_entities(asset.previous_ent_id),
+            filtered_units(asset.previous_unit_id) === null
+              ? filtered_entities(asset.previous_ent_id)
+              : filtered_units(asset.previous_unit_id),
+            asset.units === null ? asset.entity.ent_name : asset.units.name,
             asset.previous_ci,
             asset.ci,
-            asset.units === null ? asset.entity.ent_name : asset.units.name,
             allocationData.user,
             allocationData.date,
           ];
@@ -224,6 +226,12 @@ const ReportPage = () => {
   const resetFilter = () => {
     setSelectedCategory("");
   };
+  const totalResults = filteredAllocations.length;
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
 
   return (
     <div id="content">
@@ -231,14 +239,30 @@ const ReportPage = () => {
         <div className="tb-user">
           <h1>Movimentação de ativos</h1>
           <div className="tb-btn-user">
-            <button onClick={downloadCSV} className="btn-dwl">
-              Download CSV
-            </button>
-            {
-              <button onClick={resetFilter} className="btn-dwl">
-                Limpar filtro
+            <div className="dropdown">
+              <button className="filterIcon" onClick={toggleDropdown}>
+                <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
               </button>
-            }
+              <div
+                className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
+                id="filterDropdown"
+              >
+                <SelectFilter
+                  handleFunc={handleCategoryChange}
+                  selectedF={selectedCategory}
+                  data={cats}
+                  title={"Categoria"}
+                />
+                {
+                  <button onClick={resetFilter} className="btn-filter">
+                    Limpar Filtro
+                  </button>
+                }
+              </div>
+            </div>
+            <button onClick={downloadCSV} className="btn-dwl">
+              Download .csv
+            </button>
           </div>
         </div>
       </div>
@@ -247,18 +271,11 @@ const ReportPage = () => {
           <thead>
             <tr>
               <th>Nº Inventário</th>
-              <th>
-                <FilterReport
-                  data={cats}
-                  handleFunc={handleCategoryChange}
-                  selectedAtt={selectedCategory}
-                />
-              </th>
-              <th>Unidade(Anterior)</th>
-              <th>Entidade(Anterior)</th>
+              <th>Categoria</th>
+              <th>Local(Anterior)</th>
+              <th>Local(Atual)</th>
               <th>CI(Anterior)</th>
               <th>CI(Atual)</th>
-              <th>Local(Atual)</th>
               <th>Utilizador</th>
               <th>Movido em</th>
             </tr>
@@ -271,7 +288,7 @@ const ReportPage = () => {
               <tbody>
                 <tr>
                   <td colSpan="5" className="lgText">
-                    Carregando...
+                    A Carregar...
                   </td>
                 </tr>
               </tbody>
@@ -279,58 +296,68 @@ const ReportPage = () => {
           )}
           {!loading && (
             <tbody>
-              {filteredAllocations
-                .slice(startIndex, endIndex)
-                .map((asset, index) => {
-                  if (
-                    !asset.previous_ci &&
-                    !asset.previous_ent_id &&
-                    !asset.previous_unit_id
-                  ) {
-                    return null; // skip rendering if previous_ci is null
-                  }
+              {filteredAllocations.length === 0 ? (
+                <tr>
+                  <td colSpan="5" className="lgTextF">
+                    Não existe(m) resultado(s) para o(s) filtro(s)
+                    selecionado(s)!
+                  </td>
+                </tr>
+              ) : (
+                filteredAllocations
+                  .slice(startIndex, endIndex)
+                  .map((asset, index) => {
+                    if (
+                      !asset.previous_ci &&
+                      !asset.previous_ent_id &&
+                      !asset.previous_unit_id
+                    ) {
+                      return null; // skip rendering if previous_ci is null
+                    }
 
-                  const allocationData = getAllocationData(asset.id);
+                    const allocationData = getAllocationData(asset.id);
 
-                  return (
-                    <tr key={`${asset.id}-${index}`}>
-                      <td>{asset.numb_inv}</td>
-                      <td>{asset.category.name}</td>
-                      <td>{filtered_units(asset.previous_unit_id)}</td>
-                      <td>{filtered_entities(asset.previous_ent_id)}</td>
-                      <td>{asset.previous_ci}</td>
-                      <td>{asset.ci}</td>
-                      <td>
-                        {asset.units === null
-                          ? asset.entity.ent_name
-                          : asset.units.name}
-                      </td>
-                      <td>{allocationData.user}</td>
-                      <td>{allocationData.date}</td>
-                    </tr>
-                  );
-                })}
+                    return (
+                      <tr key={`${asset.id}-${index}`}>
+                        <td>{asset.numb_inv}</td>
+                        <td>{asset.category.name}</td>
+
+                        <td>
+                          {filtered_units(asset.previous_unit_id) === null
+                            ? filtered_entities(asset.previous_ent_id)
+                            : filtered_units(asset.previous_unit_id)}
+                        </td>
+
+                        <td>
+                          {asset.units === null
+                            ? asset.entity.ent_name
+                            : asset.units.name}
+                        </td>
+                        <td>{asset.previous_ci}</td>
+                        <td>{asset.ci}</td>
+
+                        <td>{allocationData.user}</td>
+                        <td>{allocationData.date}</td>
+                      </tr>
+                    );
+                  })
+              )}
             </tbody>
           )}
         </table>
 
         {filtered === false ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
+        ) : filteredAllocations.length === 0 ? (
+          ""
         ) : (
           <>
-            <button
-              onClick={() => setCurrentPage(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              Anterior
-            </button>
-
-            <button
-              onClick={() => setCurrentPage(currentPage + 1)}
-              disabled={endIndex >= filteredAllocations.length}
-            >
-              Seguinte
-            </button>
+            <PaginationFilter
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              resultsPerPage={resultsPerPage}
+              totalResults={totalResults}
+            />
           </>
         )}
       </div>

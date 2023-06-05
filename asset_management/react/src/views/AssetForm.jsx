@@ -226,7 +226,7 @@ export default function AssetForm() {
       {asset.id && <h1>Atualizar Ativo: {asset.numb_inv}</h1>}
       {!asset.id && <h1>Novo Ativo</h1>}
       <div className="card animated fadeInDown">
-        {loading && <div className="caprr-re">Carregando...</div>}
+        {loading && <div className="caprr-re">A Carregar...</div>}
         {errors && (
           <div className="alert">
             {Object.keys(errors).map((key) => (

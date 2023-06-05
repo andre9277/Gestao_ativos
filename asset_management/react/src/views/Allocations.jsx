@@ -55,7 +55,7 @@ export default function Allocations() {
   const [users, setUsers] = useState([]);
   const [filteredAllocations, setFilteredAllocations] = useState([]);
 
-  const [selectedInv, setSelectedInv] = useState("");
+  const [selectedSer, setSelectedSer] = useState("");
   const [selectedOp, setSelectedOp] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
 
@@ -107,8 +107,8 @@ export default function Allocations() {
     const filteredData = allData.filter((allocation) => {
       const allocationDate = new Date(allocation.allocation_date);
 
-      const invFilter = selectedInv
-        ? allocation.assets?.numb_inv === selectedInv
+      const serFilter = selectedSer
+        ? allocation.assets?.numb_ser === selectedSer
         : true;
       const opFilter = selectedOp
         ? allocation.action_type === selectedOp
@@ -119,18 +119,19 @@ export default function Allocations() {
       const dateFilter =
         allocationDate >= startDate && allocationDate <= endDate;
 
-      return invFilter && opFilter && userFilter && dateFilter;
+      return serFilter && opFilter && userFilter && dateFilter;
     });
 
+    console.log(filteredData);
     const csvData = Papa.unparse({
-      fields: ["Utilizador", "Operação", "Nº Inventário", "Data de alteração"],
+      fields: ["Utilizador", "Operação", "Nº Série", "Data de alteração"],
       data: filteredData.map((allocation) => {
         return [
           allocation.users.name,
           allocation.action_type,
           allocation.assets === null
             ? allocation.inv_number
-            : allocation.assets.numb_inv,
+            : allocation.assets.numb_ser,
           allocation.allocation_date,
         ];
       }),
@@ -158,7 +159,6 @@ export default function Allocations() {
 
     let filtered = allAllocations.filter((allocation) => {
       const allocationDate = new Date(allocation.allocation_date);
-      c;
       allocationDate.setHours(0, 0, 0, 0);
 
       return allocationDate >= startDate && allocationDate <= endDate;
@@ -178,16 +178,16 @@ export default function Allocations() {
   };
 
   //--------------Filters---------------
-  const filterInv = (event) => {
+  const filterSer = (event) => {
     const filterValue = event.target.value;
-    setSelectedInv(filterValue);
+    setSelectedSer(filterValue);
     if (!filterValue) {
       setAllocations(allAllocations);
     } else {
       const filteredAllocations = allAllocations.filter((allocation) => {
         return (
           allocation.assets !== null &&
-          allocation.assets.numb_inv === filterValue
+          allocation.assets.numb_ser === filterValue
         );
       });
 
@@ -226,7 +226,7 @@ export default function Allocations() {
   //-----------Button to reset the filter:----
   const resetFilter = () => {
     setAllocations(allAllocations);
-    setSelectedInv("");
+    setSelectedSer("");
     setSelectedOp("");
     setSelectedUser("");
     setStartDate(new Date());
@@ -243,14 +243,9 @@ export default function Allocations() {
         }}
         className="container-fluid"
       >
-        <h1>Relatório de Ativos</h1>
-        <div className="tb-btn-user">
-          <button onClick={downloadCSV} className="btn-dwl">
-            Download CSV
-          </button>
-        </div>
+        <h1>Download de Ativos</h1>
       </div>
-      {loading && <div className="caprr-re">Carregando...</div>}
+      {loading && <div className="caprr-re">A Carregar...</div>}
 
       {!loading && (
         <div className="card animated fadeInDown">
@@ -266,13 +261,14 @@ export default function Allocations() {
             <Filter
               assets={assets}
               users={users}
-              filterInv={filterInv}
+              filterSer={filterSer}
               resetFilter={resetFilter}
-              selectedInv={selectedInv}
+              selectedSer={selectedSer}
               filterOp={filterOp}
               selectedOp={selectedOp}
               filterUser={filterUser}
               selectedUser={selectedUser}
+              handleDwl={downloadCSV}
             ></Filter>
           </div>
         </div>

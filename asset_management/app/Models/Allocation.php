@@ -18,7 +18,7 @@ class Allocation extends Model
         'user_id',
         'allocation_date',
         'action_type',
-        'inv_number',
+        'ser_number',
     ];
 
     protected $table = 'allocations';

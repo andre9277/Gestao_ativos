@@ -32,7 +32,7 @@ import { Link } from "react-router-dom";
 
 const MenuItem = ({ titulo, icon, origem }) => {
   return (
-    <li className="nav-item">
+    <li className="nav-item mn-item">
       <Link to={`/${origem}`} className="nav-link">
         <i className={`fas fa-fw ${icon}`}></i>
         <span>{titulo}</span>

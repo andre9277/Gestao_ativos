@@ -98,11 +98,7 @@ const SideBarGuest = () => {
         <div className="sidebar-heading">Interface</div>
 
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
-        <MenuItem
-          titulo={"Listagem de ativos"}
-          icon={"fa-cog"}
-          origem={"assets"}
-        />
+        <MenuItem titulo={"Listagem"} icon={"fa-cog"} origem={"assets"} />
 
         {/* <!-- Nav Item - Utilities Collapse Menu --> */}
         {/* <MenuItem Name="Utilities-teste" MenuId="collapseUtilities" /> */}
@@ -112,7 +108,7 @@ const SideBarGuest = () => {
 
         {/* <!-- Nav Item - Reports --> */}
         <MenuItem
-          titulo={"Movimentação de ativos"}
+          titulo={"Movimentação"}
           icon={"fa-chart-area"}
           origem={"report"}
         />

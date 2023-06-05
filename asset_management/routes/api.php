@@ -149,6 +149,7 @@ Route::middleware('auth:sanctum')->group(function () {
         $allModels = getModelAll();
         $allFloor = getFloors();
         $allAssets = getAllAssets();
+        $allLocals = getEntsAll();
 
         return response()->json([
             'cats' => $allCats,
@@ -156,6 +157,7 @@ Route::middleware('auth:sanctum')->group(function () {
             'models' => $allModels,
             'floor' => $allFloor,
             'assets' => $allAssets,
+            'localiz' => $allLocals,
         ]);
     });
 
@@ -229,6 +231,14 @@ Route::middleware('auth:sanctum')->group(function () {
     function getAllAssets()
     {
         $response = app(AssetController::class)->indexAll();
+        $values = $response;
+
+        return $values;
+    }
+
+    function getAllLocals()
+    {
+        $response = app(EntityController::class)->indexAll();
         $values = $response;
 
         return $values;

@@ -29,19 +29,21 @@ All the changes made to enable the implementation of the desired development too
 */
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 import "../styles/Dashboard.css";
 import ColumnMenuFilter from "../components/ColumnMenuFilter.jsx";
 import TableAssets from "../components/TableAssets.jsx";
+import PaginationFilter from "../components/PaginationFilter.jsx";
+import SelectFilter from "../components/SelectFilter.jsx";
 
 export default function Assets() {
   const navigate = useNavigate();
 
   const [assets, setAssets] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [loadingAll, setLoadingAll] = useState(false);
+  //const [loadingAll, setLoadingAll] = useState(false);
   const [meta, setMeta] = useState({});
   const { setNotification, user } = useStateContext();
 
@@ -49,13 +51,21 @@ export default function Assets() {
   const [brands, setBrands] = useState([]);
   const [modelos, setModelos] = useState([]);
   const [floor, setFloor] = useState([]);
+  const [ent, setEnt] = useState([]);
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedFloor, setSelectedFloor] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
+  const [selectedEnt, setSelectedEnt] = useState("");
 
   const [allDados, setAllDados] = useState([]);
+
+  //*For pagination with filters*
+  const [currentPage, setCurrentPage] = useState(1);
+  const resultsPerPage = 20;
+  const startIndex = (currentPage - 1) * resultsPerPage;
+  const endIndex = startIndex + resultsPerPage;
 
   useEffect(() => {
     Promise.all([axiosClient.get("/assetsDefault")]).then((responses) => {
@@ -65,6 +75,7 @@ export default function Assets() {
       setModelos(responses[0].data.models);
       setFloor(responses[0].data.floor);
       setAllDados(responses[0].data.assets); //Gets all data from the assets
+      setEnt(responses[0].data.localiz);
     });
   }, []);
 
@@ -88,14 +99,20 @@ export default function Assets() {
       selectedCategory !== "" ||
       selectedFloor !== "" ||
       selectedBrand !== "" ||
-      selectedModel !== "";
-
+      selectedModel !== "" ||
+      selectedEnt !== "";
     setFiltered(hasFilter);
     //if hasFilter = true then it gets all the assets from all the pages:
     if (hasFilter) {
       setAllDataF(allDados);
     }
-  }, [selectedCategory, selectedFloor, selectedBrand, selectedModel]);
+  }, [
+    selectedCategory,
+    selectedFloor,
+    selectedBrand,
+    selectedModel,
+    selectedEnt,
+  ]);
 
   //use allData when filtered = true and when its false its equal to the assets object
   const filteredAssets = filtered
@@ -104,9 +121,12 @@ export default function Assets() {
           (selectedCategory === "" || row.category.name === selectedCategory) &&
           (selectedFloor === "" || row.floor === selectedFloor) &&
           (selectedBrand === "" || row.brand.sig === selectedBrand) &&
-          (selectedModel === "" || row.modelo.name === selectedModel)
+          (selectedModel === "" || row.modelo.name === selectedModel) &&
+          (selectedEnt === "" || row.entity.ent_name === selectedEnt)
       )
     : assets;
+
+  const totalResults = filteredAssets.length;
   //----------------------------Sorting (with filter)-----------------------------------------
   const sortingFilter = (col) => {
     const columnMapping = {
@@ -114,6 +134,7 @@ export default function Assets() {
       Marca: "brand.sig",
       Modelo: "modelo.name",
       Piso: "floor",
+      Entidade: "entity.ent_name",
     };
 
     const dbColumnName = columnMapping[col];
@@ -180,6 +201,12 @@ export default function Assets() {
   };
 
   //----------Handle click to delete an asset------------------------
+
+  const onAddClick = () => {
+    const url = "/assets/new";
+    navigate(url);
+  };
+
   const onDeleteClick = () => {
     // Get the IDs of all the checked assets
     const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
@@ -211,6 +238,7 @@ export default function Assets() {
       })
       .catch((error) => {
         console.error("Erro ao apagar ativo(s):", error);
+
         // Handle error if necessary...
       });
   };
@@ -254,16 +282,23 @@ export default function Assets() {
     setSelectedModel(selectedModel);
   };
 
+  const handleEntityChange = (event) => {
+    const selectedEntity = event.target.value;
+    setSelectedEnt(selectedEntity);
+  };
+
   //Reset of the filters implemented
   const resetFilter = () => {
     setSelectedBrand("");
     setSelectedFloor("");
     setSelectedCategory("");
     setSelectedModel("");
+    setSelectedEnt("");
     const sortedAssets = [...assets].sort((a, b) => b.id - a.id); // Sort by the "id" column in ascending order
     setAssets(sortedAssets);
     setAllDataF([]);
     setOrder("ASC"); // Reset the sorting order to "ASC"
+    setCurrentPage(1);
   };
 
   //For the checkbox, if the value of the filter is empty, then uses the assets array of the current page.
@@ -273,7 +308,8 @@ export default function Assets() {
       selectedBrand === "" &&
       selectedCategory === "" &&
       selectedFloor === "" &&
-      selectedModel === ""
+      selectedModel === "" &&
+      selectedEnt === ""
     ) {
       const checkedIdx = assets.findIndex((a) => a.id === id);
 
@@ -343,6 +379,11 @@ export default function Assets() {
   };
   /*  console.log("data filtered:", allDataF);
   console.log("assets", assets); */
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
   return (
     <div id="content">
       <div
@@ -356,16 +397,59 @@ export default function Assets() {
         <h1>Listagem de Ativos</h1>
         <div>
           {user.role_id === 3 ? null : (
-            <Link
-              className="btn-add text-link"
-              to="/assets/new"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              + Adicionar Ativo
-            </Link>
-          )}
-          {user.role_id === 3 ? null : (
             <>
+              <div className="dropdown">
+                <button className="filterIcon" onClick={toggleDropdown}>
+                  <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
+                </button>
+                <div
+                  className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
+                  id="filterDropdown"
+                >
+                  <SelectFilter
+                    handleFunc={handleCategoryChange}
+                    selectedF={selectedCategory}
+                    data={cats}
+                    title={"Categoria"}
+                  />
+                  <SelectFilter
+                    handleFunc={handleBrandChange}
+                    selectedF={selectedBrand}
+                    data={brands}
+                    title={"Marca"}
+                  />
+                  <SelectFilter
+                    handleFunc={handleModelChange}
+                    selectedF={selectedModel}
+                    data={modelos}
+                    title={"Modelo"}
+                  />
+                  <SelectFilter
+                    handleFunc={handleFloorChange}
+                    selectedF={selectedFloor}
+                    data={floor}
+                    title={"Piso"}
+                  />
+                  <SelectFilter
+                    handleFunc={handleEntityChange}
+                    selectedF={setSelectedEnt}
+                    data={ent}
+                    title={"Localização"}
+                  />
+
+                  {
+                    <button onClick={resetFilter} className="btn-filter">
+                      Limpar Filtro
+                    </button>
+                  }
+                </div>
+              </div>
+              <button
+                className="btn-add text-link"
+                onClick={(ev) => onAddClick()}
+              >
+                Adicionar
+              </button>
               <button
                 className=" btn-edit text-link"
                 onClick={(ev) => onEditClick()}
@@ -381,13 +465,9 @@ export default function Assets() {
               </button>
             </>
           )}
-          {
-            <button onClick={resetFilter} className="btn-dwl">
-              Limpar filtro
-            </button>
-          }
         </div>
       </div>
+
       <div
         className="card animated fadeInDown"
         style={{
@@ -401,9 +481,6 @@ export default function Assets() {
                 <ColumnMenuFilter
                   titulo={"Categoria"}
                   tituloF={"Categoria"}
-                  data={cats}
-                  selectedAttribut={selectedCategory}
-                  handleFunc={handleCategoryChange}
                   sorting={sorting}
                   order={order}
                   sortingFilter={sortingFilter}
@@ -415,9 +492,6 @@ export default function Assets() {
                 <ColumnMenuFilter
                   titulo={"Marca"}
                   tituloF={"Marca"}
-                  data={brands}
-                  selectedAttribut={selectedBrand}
-                  handleFunc={handleBrandChange}
                   sorting={sorting}
                   order={order}
                   sortingFilter={sortingFilter}
@@ -429,9 +503,6 @@ export default function Assets() {
                 <ColumnMenuFilter
                   titulo={"Modelo"}
                   tituloF={"Modelo"}
-                  data={modelos}
-                  selectedAttribut={selectedModel}
-                  handleFunc={handleModelChange}
                   sorting={sorting}
                   order={order}
                   sortingFilter={sortingFilter}
@@ -447,9 +518,6 @@ export default function Assets() {
                 <ColumnMenuFilter
                   titulo={"Piso"}
                   tituloF={"Piso"}
-                  data={floor}
-                  selectedAttribut={selectedFloor}
-                  handleFunc={handleFloorChange}
                   sorting={sorting}
                   order={order}
                   sortingFilter={sortingFilter}
@@ -468,15 +536,18 @@ export default function Assets() {
             <tbody>
               <tr>
                 <td colSpan="5" className="lgText">
-                  Carregando...
+                  A Carregar...
                 </td>
               </tr>
             </tbody>
           )}
+
           {!loading && (
             <TableAssets
               toggleCheck={toggleCheck}
               filteredAssets={filteredAssets}
+              startIndex={startIndex}
+              endIndex={endIndex}
             />
           )}
         </table>
@@ -484,8 +555,17 @@ export default function Assets() {
         <p> </p>
         {filtered === false ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
-        ) : (
+        ) : filteredAssets.length === 0 ? (
           ""
+        ) : (
+          <>
+            <PaginationFilter
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              resultsPerPage={resultsPerPage}
+              totalResults={totalResults}
+            />
+          </>
         )}
       </div>
     </div>

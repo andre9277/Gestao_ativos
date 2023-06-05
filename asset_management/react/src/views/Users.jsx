@@ -124,20 +124,22 @@ export default function Users() {
     setUsers(updatedUsers);
   };
 
+  const onAddClick = () => {
+    const url = "/users/new";
+    navigate(url);
+  };
+
   return (
     <div>
       <div className="tb-user">
         <h1>Utilizadores</h1>
         <div className="tb-btn-user">
           {user.role_id === 1 ? (
-            <button className="btn-add">
-              <Link
-                className=" text-link"
-                to="/users/new"
-                style={{ textDecoration: "none", color: "white" }}
-              >
-                + Adicionar Utilizador
-              </Link>
+            <button
+              className="btn-add text-link"
+              onClick={(ev) => onAddClick()}
+            >
+              Adicionar
             </button>
           ) : null}
           <>
@@ -173,7 +175,7 @@ export default function Users() {
             <tbody>
               <tr>
                 <td colSpan="5" className="caprr-re">
-                  Carregando...
+                  A Carregar...
                 </td>
               </tr>
             </tbody>

@@ -28,15 +28,7 @@ You may obtain a copy of the license at:
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React from "react";
-import {
-  Chart as ChartJS,
-  BarElement,
-  LinearScale,
-  CategoryScale,
-  ArcElement,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
@@ -109,9 +101,9 @@ const PieChart = ({ assets }) => {
       <div className="card shadow mb-2">
         {/*  <!-- Card Header - Dropdown --> */}
         <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h6 className="m-0 font-weight-bold text-primary">
+          <h5 className="m-0 font-weight-bold graf-dash">
             Quantidade de Ativos/Categoria
-          </h6>
+          </h5>
         </div>
         {/*  <!-- Card Body --> */}
         <div>

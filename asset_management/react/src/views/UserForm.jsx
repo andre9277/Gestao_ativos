@@ -116,7 +116,7 @@ export default function UserForm() {
       {user.id && <h1>Atualizar Utilizador: {user.name}</h1>}
       {!user.id && <h1>Novo Utilizador</h1>}
       <div className="card animated fadeInDown">
-        {loading && <div className="caprr-re">Carregando...</div>}
+        {loading && <div className="caprr-re">A Carregar...</div>}
         {errors && (
           <div className="alert">
             {Object.keys(errors).map((key) => (
