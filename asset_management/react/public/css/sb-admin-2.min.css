@@ -9591,6 +9591,7 @@ a:focus {
 }
 .sidebar-dark .sidebar-heading {
     color: rgba(255, 255, 255, 0.4);
+    font-size: 1rem;
 }
 .sidebar-dark .nav-item .nav-link {
     color: rgba(255, 255, 255, 0.8);

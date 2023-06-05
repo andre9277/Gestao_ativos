@@ -122,7 +122,7 @@ export default function Allocations() {
       return serFilter && opFilter && userFilter && dateFilter;
     });
 
-    console.log(filteredData);
+    /* console.log(filteredData); */
     const csvData = Papa.unparse({
       fields: ["Utilizador", "Operação", "Nº Série", "Data de alteração"],
       data: filteredData.map((allocation) => {

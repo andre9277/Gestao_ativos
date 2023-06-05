@@ -220,7 +220,7 @@ export default function AssetForm() {
     };
     setAsset(newAsset);
   }
-
+  console.log(asset);
   return (
     <>
       {asset.id && <h1>Atualizar Ativo: {asset.numb_inv}</h1>}
@@ -415,9 +415,10 @@ export default function AssetForm() {
                   onChange={handleEntityChange}
                 >
                   <option value="">Selecione a Entidade ...</option>
+
                   {ents.map((ent) => (
                     <option key={ent.id} value={ent.id}>
-                      {ent.ent_name}
+                      {ent.name}
                     </option>
                   ))}
                 </select>
