@@ -220,7 +220,6 @@ export default function AssetForm() {
     };
     setAsset(newAsset);
   }
-  console.log(asset);
   return (
     <>
       {asset.id && <h1>Atualizar Ativo: {asset.numb_inv}</h1>}

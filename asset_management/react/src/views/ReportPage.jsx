@@ -164,6 +164,7 @@ const ReportPage = () => {
     const csvData = Papa.unparse({
       fields: [
         "Nº Inventário",
+        "Nº Série",
         "Categoria",
         "Local(Anterior)",
         "Local(Atual)",
@@ -184,6 +185,7 @@ const ReportPage = () => {
 
           return [
             asset.numb_inv,
+            asset.numb_ser,
             asset.category.name,
             filtered_units(asset.previous_unit_id) === null
               ? filtered_entities(asset.previous_ent_id)
@@ -274,6 +276,7 @@ const ReportPage = () => {
           <thead>
             <tr>
               <th>Nº Inventário</th>
+              <th>Nº Série</th>
               <th>Categoria</th>
               <th>Local(Anterior)</th>
               <th>Local(Atual)</th>
@@ -323,6 +326,7 @@ const ReportPage = () => {
                     return (
                       <tr key={`${asset.id}-${index}`}>
                         <td>{asset.numb_inv}</td>
+                        <td>{asset.numb_ser}</td>
                         <td>{asset.category.name}</td>
 
                         <td>
