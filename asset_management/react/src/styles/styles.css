@@ -2697,6 +2697,7 @@ textarea.form-control-lg {
 
 .btn,
 .btn-add,
+.btn-filter,
 .btn-edit,
 .btn-delete {
     font-family: "Roboto", sans-serif;
@@ -2725,6 +2726,21 @@ textarea.form-control-lg {
 .btn-add {
     background-color: #00a762;
 }
+.btn-filter {
+    background-color: #6c757d;
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.btn-cleanfilter {
+    background-color: #6c757d;
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    border-radius: 4px;
+    align-items: center;
+    margin-left: 50px;
+    margin-top: 10px;
+}
 .btn-dwl {
     background-color: #0a58ca;
     padding: 0.5rem 0.75rem;
@@ -2735,6 +2751,9 @@ textarea.form-control-lg {
 }
 .btn-delete {
     background-color: #b72424;
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    border-radius: 4px;
 }
 
 .btn-check[disabled] + .btn,
@@ -2748,6 +2767,9 @@ textarea.form-control-lg {
     color: white;
     text-decoration: none;
     margin: 10px;
+}
+.text-link-f {
+    color: white;
 }
 
 .form-range {
@@ -12643,18 +12665,6 @@ input::placeholder {
     font-size: 16px;
 }
 
-.filtAsset-tab {
-    color: black;
-    width: 100px;
-    margin: 0.5px;
-    cursor: pointer;
-    line-height: 1.1;
-    font-size: 14px;
-    align-items: center;
-    text-align: left;
-    border: 2px solid #459c2c;
-}
-
 /*-----------For the Scan---------*/
 /* .drawingBuffer {
     display: none;
@@ -12737,7 +12747,7 @@ input::placeholder {
     text-align: center;
 }
 
-.btn-filter {
+/* .btn-filter {
     background-color: #696969;
     padding: 0.5rem 0.75rem;
     font-size: 14px;
@@ -12745,7 +12755,7 @@ input::placeholder {
     color: white;
     margin: 15px;
 }
-
+ */
 .results-pag {
     width: 300px;
 }
@@ -12810,8 +12820,30 @@ input::placeholder {
     display: block;
 }
 
+.dropdown-ind {
+    display: flex; /* Use flexbox to display the filters side by side */
+    align-items: center; /* Center the label vertically */
+    margin-right: 10px; /* Optional: Add some space between the filters */
+    margin: 10px;
+}
+
 .titleFiltAsset {
+    margin-right: 5px; /* Optional: Add some space between the label and select */
+    color: #459c2c;
     font-weight: bold;
     font-size: 14px;
-    padding-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 0.1px;
+}
+
+.filtAsset-tab {
+    color: black;
+    width: 100px;
+    margin: 0.5px;
+    cursor: pointer;
+    line-height: 1.1;
+    font-size: 14px;
+    align-items: center;
+    text-align: left;
+    border: 2px solid #459c2c;
 }

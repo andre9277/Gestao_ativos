@@ -399,8 +399,11 @@ export default function Assets() {
           {user.role_id === 3 ? null : (
             <>
               <div className="dropdown">
-                <button className="filterIcon" onClick={toggleDropdown}>
-                  <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
+                <button
+                  className="btn-filter text-link"
+                  onClick={toggleDropdown}
+                >
+                  Filtro
                 </button>
                 <div
                   className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
@@ -410,35 +413,38 @@ export default function Assets() {
                     handleFunc={handleCategoryChange}
                     selectedF={selectedCategory}
                     data={cats}
-                    title={"Categoria"}
+                    title={"Categoria:"}
                   />
                   <SelectFilter
                     handleFunc={handleBrandChange}
                     selectedF={selectedBrand}
                     data={brands}
-                    title={"Marca"}
+                    title={"Marca:"}
                   />
                   <SelectFilter
                     handleFunc={handleModelChange}
                     selectedF={selectedModel}
                     data={modelos}
-                    title={"Modelo"}
+                    title={"Modelo:"}
                   />
                   <SelectFilter
                     handleFunc={handleFloorChange}
                     selectedF={selectedFloor}
                     data={floor}
-                    title={"Piso"}
+                    title={"Piso:"}
                   />
                   <SelectFilter
                     handleFunc={handleEntityChange}
                     selectedF={setSelectedEnt}
                     data={ent}
-                    title={"Localização"}
+                    title={"Localização:"}
                   />
 
                   {
-                    <button onClick={resetFilter} className="btn-filter">
+                    <button
+                      onClick={resetFilter}
+                      className="btn-cleanfilter text-link-f"
+                    >
                       Limpar Filtro
                     </button>
                   }

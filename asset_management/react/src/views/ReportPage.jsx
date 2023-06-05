@@ -240,8 +240,8 @@ const ReportPage = () => {
           <h1>Movimentação de ativos</h1>
           <div className="tb-btn-user">
             <div className="dropdown">
-              <button className="filterIcon" onClick={toggleDropdown}>
-                <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
+              <button className="btn-filter text-link" onClick={toggleDropdown}>
+                Filtro
               </button>
               <div
                 className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
@@ -251,10 +251,13 @@ const ReportPage = () => {
                   handleFunc={handleCategoryChange}
                   selectedF={selectedCategory}
                   data={cats}
-                  title={"Categoria"}
+                  title={"Categoria:"}
                 />
                 {
-                  <button onClick={resetFilter} className="btn-filter">
+                  <button
+                    onClick={resetFilter}
+                    className="btn-cleanfilter text-link-f"
+                  >
                     Limpar Filtro
                   </button>
                 }
