@@ -241,7 +241,7 @@ export default function AssetForm() {
               {" "}
               Nº Inventário:
               <input
-                value={asset.numb_inv}
+                value={asset.numb_inv === null ? "" : asset.numb_inv}
                 onChange={(ev) =>
                   setAsset({ ...asset, numb_inv: ev.target.value })
                 }

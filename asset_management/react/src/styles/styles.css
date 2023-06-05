@@ -12648,6 +12648,7 @@ select {
 
 .impLab {
     width: 30%;
+    color: #007840;
 }
 
 .inpImport {
@@ -12675,7 +12676,7 @@ input::placeholder {
 .lgText {
     text-align: center;
     font-weight: bold;
-    font-size:1.75rem;
+    font-size: 1.75rem;
     padding: 15px;
     position: absolute;
     top: 50%;
@@ -12696,6 +12697,7 @@ input::placeholder {
     -ms-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    color: #007840;
 }
 
 .dwlTemp {
@@ -12853,4 +12855,8 @@ input::placeholder {
 .title-page-all {
     color: #007840;
     font-size: 1.75rem;
+}
+
+.asset-import {
+    color: #007840;
 }

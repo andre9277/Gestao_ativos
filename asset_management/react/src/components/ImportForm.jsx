@@ -402,7 +402,9 @@ const ImportForm = () => {
             Download Template
           </button>
           <p></p>
-          <h6>Atenção! Critérios para ficheiro "Template":</h6>
+          <h6 className="asset-import">
+            Atenção! Critérios para ficheiro "Template":
+          </h6>
           <li>
             Campo <b>"numb_inv"</b>: Iniciar com algarismo <u>0</u>.
           </li>

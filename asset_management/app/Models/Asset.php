@@ -41,6 +41,7 @@ class Asset extends Model
 
     public static $rules = [
         'numb_inv' => [
+            'nullable',
             'digits:6',
             'unique:assets,numb_inv',
             'regex:/^0/',
