@@ -50,8 +50,19 @@ const Search = () => {
           `/assetSearch?numb_inv=${assetNumber}`
         );
 
-        const assetId = response.data[0].id; // Assuming the response contains the asset ID
-        navigate(`/infoasset/${assetId}`);
+        const responseSer = await axiosClient.get(
+          `/assetSearchSer?numb_ser=${assetNumber}`
+        );
+        console.log("responseSer:", responseSer);
+        console.log("response:", response);
+
+        if (responseSer.data.length === 0) {
+          const assetId = response.data[0].id; // Assuming the response contains the asset ID
+          navigate(`/infoasset/${assetId}`);
+        } else {
+          const assetId = responseSer.data[0].id;
+          navigate(`/infoasset/${assetId}`);
+        }
       } catch (error) {
         navigate("/*");
       }
@@ -67,7 +78,7 @@ const Search = () => {
       <div className="input-group">
         <input
           type="text"
-          placeholder="Nº Inventário"
+          placeholder="Nº Inventário\Série"
           value={assetNumber}
           onChange={handleChange}
           className="form-control border-0 ssBar"

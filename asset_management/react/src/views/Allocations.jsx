@@ -141,7 +141,7 @@ export default function Allocations() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.setAttribute("href", url);
-    link.setAttribute("download", "relatorioMov.csv");
+    link.setAttribute("download", "dwlMov.csv");
     link.style.visibility = "hidden";
     document.body.appendChild(link);
     link.click();

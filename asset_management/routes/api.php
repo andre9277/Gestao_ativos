@@ -102,6 +102,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Gets the values of the asset by inventory number
     Route::get('/assetSearch', [AssetController::class, 'getAllAssets']);
+    //Gets the values of the asset by serial number
+    Route::get('/assetSearchSer', [AssetController::class, 'getAllAssetsSer']);
 
 
 

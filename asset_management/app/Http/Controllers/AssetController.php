@@ -267,4 +267,13 @@ class AssetController extends Controller
 
         return response()->json($assets);
     }
+
+    public function getAllAssetsSer(Request $request)
+    {
+        $assetNumber = $request->query('numb_ser');
+
+        $assets = Asset::where('numb_ser', $assetNumber)->get();
+
+        return response()->json($assets);
+    }
 }
