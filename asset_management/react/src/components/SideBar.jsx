@@ -99,14 +99,15 @@ const SideBar = () => {
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
         <MenuItem titulo={"Movimentação"} icon={"fa-plus"} origem={"report"} />
         <MenuItem titulo={"Listagem"} icon={"fa-cog"} origem={"assets"} />
-        {/* <!-- Nav Item - ReportPage --> */}
-        <MenuItem titulo={"Importar"} icon={"fa fa-edit"} origem={"import"} />
+
         {/* <!-- Nav Item - ReportPage --> */}
         <MenuItem
           titulo={"Download"}
           icon={"fa-chart-area"}
           origem={"allocations"}
         />
+        {/* <!-- Nav Item - ReportPage --> */}
+        <MenuItem titulo={"Importar"} icon={"fa fa-edit"} origem={"import"} />
 
         {/*  <!-- Nav Item - Users --> */}
         {/*  <!-- Divider --> */}

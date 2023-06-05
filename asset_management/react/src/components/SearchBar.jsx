@@ -53,8 +53,6 @@ const Search = () => {
         const responseSer = await axiosClient.get(
           `/assetSearchSer?numb_ser=${assetNumber}`
         );
-        console.log("responseSer:", responseSer);
-        console.log("response:", response);
 
         if (responseSer.data.length === 0) {
           const assetId = response.data[0].id; // Assuming the response contains the asset ID
