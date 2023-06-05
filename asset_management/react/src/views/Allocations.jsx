@@ -243,7 +243,7 @@ export default function Allocations() {
         }}
         className="container-fluid"
       >
-        <h1>Download de Ativos</h1>
+        <h1 className="title-page-all">Download de Ativos</h1>
       </div>
       {loading && <div className="caprr-re">A Carregar...</div>}
 

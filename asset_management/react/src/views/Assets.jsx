@@ -394,7 +394,7 @@ export default function Assets() {
         }}
         className="container-fluid"
       >
-        <h1>Listagem de Ativos</h1>
+        <h1 className="title-page-all">Listagem de Ativos</h1>
         <div>
           {user.role_id === 3 ? null : (
             <>
@@ -541,6 +541,7 @@ export default function Assets() {
           {loading && (
             <tbody>
               <tr>
+                {/* caprr-re */}
                 <td colSpan="5" className="lgText">
                   A Carregar...
                 </td>

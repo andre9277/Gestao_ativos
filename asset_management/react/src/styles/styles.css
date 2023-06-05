@@ -12657,7 +12657,8 @@ select {
 .caprr-re {
     text-align: center;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 1.75rem;
+    color: #007840;
 }
 
 input::placeholder {
@@ -12674,7 +12675,7 @@ input::placeholder {
 .lgText {
     text-align: center;
     font-weight: bold;
-    font-size: 150%;
+    font-size:1.75rem;
     padding: 15px;
     position: absolute;
     top: 50%;
@@ -12682,6 +12683,7 @@ input::placeholder {
     -ms-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    color: #007840;
 }
 .lgTextF {
     text-align: center;
@@ -12846,4 +12848,9 @@ input::placeholder {
     align-items: center;
     text-align: left;
     border: 2px solid #459c2c;
+}
+
+.title-page-all {
+    color: #007840;
+    font-size: 1.75rem;
 }

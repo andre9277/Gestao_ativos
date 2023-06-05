@@ -239,7 +239,7 @@ const ReportPage = () => {
     <div id="content">
       <div className="container-fluid">
         <div className="tb-user">
-          <h1>Movimentação de ativos</h1>
+          <h1 className="title-page-all">Movimentação de ativos</h1>
           <div className="tb-btn-user">
             <div className="dropdown">
               <button className="btn-filter text-link" onClick={toggleDropdown}>
