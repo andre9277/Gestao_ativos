@@ -36,7 +36,6 @@ class Asset extends Model
         'previous_unit_id',
         'previous_ent_id',
         'previous_ci',
-
     ];
 
     public static $rules = [

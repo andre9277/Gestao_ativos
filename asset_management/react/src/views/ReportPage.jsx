@@ -153,7 +153,7 @@ const ReportPage = () => {
       )
     : assets;
 
-  console.log(allocations);
+  console.log("categories:", filteredAllocations);
   console.log("users:", filteredByUser);
 
   //----------Handles Category Change
