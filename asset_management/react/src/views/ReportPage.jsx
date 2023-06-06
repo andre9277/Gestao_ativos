@@ -223,7 +223,7 @@ const ReportPage = () => {
   const filtered_entities = (value) => {
     let numb = parseInt(value);
     const filtered = ents.filter((ent) => ent.id === numb);
-    return filtered.length > 0 ? filtered[0].ent_name : "";
+    return filtered.length > 0 ? filtered[0].name : "";
   };
 
   //Filter units by the value that receives
@@ -340,7 +340,7 @@ const ReportPage = () => {
                         <td>{asset.category.name}</td>
 
                         <td>
-                          {filtered_units(asset.previous_unit_id) === null
+                          {asset.previous_unit_id === null
                             ? filtered_entities(asset.previous_ent_id)
                             : filtered_units(asset.previous_unit_id)}
                         </td>
