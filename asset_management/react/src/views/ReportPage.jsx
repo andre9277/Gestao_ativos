@@ -56,6 +56,7 @@ const ReportPage = () => {
 
   //keeps checking if there is a filter on or off:
   const [filtered, setFiltered] = useState(false);
+  const [filteredUser, setFilteredUser] = useState(false);
 
   //For all the asset data:
   const [allDados, setAllDados] = useState([]); //All the data from an asset (not the user)
@@ -125,13 +126,18 @@ const ReportPage = () => {
 
   useEffect(() => {
     const hasFilter = selectedCategory !== "";
+    const hasFilterUser = selectedUser !== "";
 
     setFiltered(hasFilter);
+    setFilteredUser(hasFilterUser);
 
     if (hasFilter) {
       setAllDados(allAssets);
     }
-  }, [selectedCategory]);
+    if (hasFilterUser) {
+      setAllDados(allAssets);
+    }
+  }, [selectedCategory, selectedUser]);
 
   //-------Filters the category by user input
   const filteredAllocations = filtered
@@ -140,6 +146,15 @@ const ReportPage = () => {
           selectedCategory === "" || row.category.name === selectedCategory
       )
     : assets;
+
+  const filteredByUser = filteredUser
+    ? allocations.filter(
+        (row) => selectedUser === "" || row.users.name === selectedUser
+      )
+    : assets;
+
+  console.log(allocations);
+  console.log("users:", filteredByUser);
 
   //----------Handles Category Change
   const handleCategoryChange = (event) => {
