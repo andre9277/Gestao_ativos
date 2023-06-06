@@ -44,12 +44,15 @@ const ReportPage = () => {
   const [ents, setEnts] = useState([]);
   const [meta, setMeta] = useState({});
   const [cats, setCats] = useState([]);
+  const [users, setUsers] = useState([]);
 
   //All the asset allocation:
   const [allocations, setAllocations] = useState([]);
 
   //For the filter Category
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  const [selectedUser, setSelectedUser] = useState("");
 
   //keeps checking if there is a filter on or off:
   const [filtered, setFiltered] = useState(false);
@@ -66,6 +69,7 @@ const ReportPage = () => {
 
   useEffect(() => {
     getAssetsFilter();
+    getUsers();
   }, []);
 
   useEffect(() => {
@@ -89,6 +93,20 @@ const ReportPage = () => {
         setLoading(false);
         setAssets(data.data);
         setMeta(data.meta);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  };
+
+  const getUsers = (url) => {
+    url = url || "/userAllo";
+    setLoading(true);
+    axiosClient
+      .get(url)
+      .then(({ data }) => {
+        setLoading(false);
+        setUsers(data);
       })
       .catch(() => {
         setLoading(false);
@@ -129,6 +147,10 @@ const ReportPage = () => {
     setSelectedCategory(selectedCategory);
   };
 
+  const handleUserChange = (event) => {
+    const selectedUser = event.target.value;
+    setSelectedUser(selectedUser);
+  };
   //------------------------------------------------------------------
   const onPageClick = (link) => {
     getAssetsFilter(link.url);
@@ -196,7 +218,7 @@ const ReportPage = () => {
             asset.numb_inv,
             asset.numb_ser,
             asset.category.name,
-            filtered_units(asset.previous_unit_id) === null
+            asset.previous_unit_id === null
               ? filtered_entities(asset.previous_ent_id)
               : filtered_units(asset.previous_unit_id),
             asset.units === null ? asset.entity.ent_name : asset.units.name,
@@ -236,6 +258,7 @@ const ReportPage = () => {
   //Reset of the filters implemented
   const resetFilter = () => {
     setSelectedCategory("");
+    setSelectedUser("");
   };
 
   const totalResults = filteredAllocations.length;
@@ -264,6 +287,12 @@ const ReportPage = () => {
                   selectedF={selectedCategory}
                   data={cats}
                   title={"Categoria:"}
+                />
+                <SelectFilter
+                  handleFunc={handleUserChange}
+                  selectedF={selectedUser}
+                  data={users}
+                  title={"Utilizadores:"}
                 />
                 {
                   <button
