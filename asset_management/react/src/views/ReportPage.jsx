@@ -194,6 +194,25 @@ const ReportPage = () => {
     getAssetsFilter(link.url);
   };
 
+  //Gets data of data allocation
+  const getAllocationData = (assetId) => {
+    const allocation = allocations.find((a) =>
+      a.assets === null ? "" : a.assets.id === assetId
+    );
+
+    if (!allocation) {
+      return {
+        user: "",
+        date: "",
+      };
+    }
+
+    return {
+      user: allocation.users.name,
+      date: allocation.allocation_date,
+    };
+  };
+
   //----------------------------Download----------------------------
   const downloadCSV = async () => {
     setLoading(true);
@@ -231,7 +250,7 @@ const ReportPage = () => {
           ); // only include data where at least one of the three fields has a value
         })
         .map((asset) => {
-          const allocationData = getAllocationData(asset.id);
+          /* const allocationData = getAllocationData(asset.id);
 
           return [
             asset.numb_inv,
@@ -245,7 +264,7 @@ const ReportPage = () => {
             asset.ci,
             allocationData.user,
             allocationData.date,
-          ];
+          ]; */
         }),
     });
     const blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
@@ -360,53 +379,99 @@ const ReportPage = () => {
           )}
           {!loading && (
             <tbody>
-              {filteredAllocations.length === 0 ? (
+              {console.log(selectedUser)}
+              {
+                /* filteredAllocations.length === 0 ? (
                 <tr>
                   <td colSpan="5" className="lgTextF">
                     Não existe(m) resultado(s) para o(s) filtro(s)
                     selecionado(s)!
                   </td>
                 </tr>
-              ) : (
-                filteredAllocations
-                  .slice(startIndex, endIndex)
-                  .map((asset, index) => {
-                    if (
-                      !asset.previous_ci &&
-                      !asset.previous_ent_id &&
-                      !asset.previous_unit_id
-                    ) {
-                      return null; // skip rendering if previous_ci is null
-                    }
+              ) : */ filteredAllocations.length === 0 &&
+                selectedCategory === "" &&
+                selectedUser === ""
+                  ? assets.map((asset, index) => {
+                      const allocationData = getAllocationData(asset.id);
+                      return (
+                        <tr key={`${asset.id}-${index}`}>
+                          <td>{asset.numb_inv}</td>
+                          <td>{asset.numb_ser}</td>
+                          <td>{asset.category.name}</td>
 
-                    const allocationData = getAllocationData(asset.id);
+                          <td>
+                            {asset.previous_unit_id === null
+                              ? filtered_entities(asset.previous_ent_id)
+                              : filtered_units(asset.previous_unit_id)}
+                          </td>
 
-                    return (
-                      <tr key={`${asset.id}-${index}`}>
-                        <td>{asset.numb_inv}</td>
-                        <td>{asset.numb_ser}</td>
-                        <td>{asset.category.name}</td>
+                          <td>
+                            {asset.units === null
+                              ? asset.entity.ent_name
+                              : asset.units.name}
+                          </td>
+                          <td>{asset.previous_ci}</td>
+                          <td>{asset.ci}</td>
 
-                        <td>
-                          {asset.previous_unit_id === null
-                            ? filtered_entities(asset.previous_ent_id)
-                            : filtered_units(asset.previous_unit_id)}
-                        </td>
+                          <td>
+                            {asset.user === undefined
+                              ? allocationData.user
+                              : asset.user}
+                          </td>
+                          <td>
+                            {asset.allocation_date === undefined
+                              ? allocationData.date
+                              : asset.allocation_date}
+                          </td>
+                        </tr>
+                      );
+                    })
+                  : filteredAllocations
+                      .slice(startIndex, endIndex)
+                      .map((asset, index) => {
+                        if (
+                          !asset.previous_ci &&
+                          !asset.previous_ent_id &&
+                          !asset.previous_unit_id
+                        ) {
+                          return null; // skip rendering if previous_ci is null
+                        }
 
-                        <td>
-                          {asset.units === null
-                            ? asset.entity.ent_name
-                            : asset.units.name}
-                        </td>
-                        <td>{asset.previous_ci}</td>
-                        <td>{asset.ci}</td>
+                        const allocationData = getAllocationData(asset.id);
+                        return (
+                          <tr key={`${asset.id}-${index}`}>
+                            <td>{asset.numb_inv}</td>
+                            <td>{asset.numb_ser}</td>
+                            <td>{asset.category.name}</td>
 
-                        <td>{asset.user}</td>
-                        <td>{asset.allocation_date}</td>
-                      </tr>
-                    );
-                  })
-              )}
+                            <td>
+                              {asset.previous_unit_id === null
+                                ? filtered_entities(asset.previous_ent_id)
+                                : filtered_units(asset.previous_unit_id)}
+                            </td>
+
+                            <td>
+                              {asset.units === null
+                                ? asset.entity.ent_name
+                                : asset.units.name}
+                            </td>
+                            <td>{asset.previous_ci}</td>
+                            <td>{asset.ci}</td>
+
+                            <td>
+                              {asset.user === null
+                                ? allocationData.user
+                                : asset.user}
+                            </td>
+                            <td>
+                              {asset.allocation_date === null
+                                ? allocationData.date
+                                : asset.allocation_date}
+                            </td>
+                          </tr>
+                        );
+                      })
+              }
             </tbody>
           )}
         </table>
