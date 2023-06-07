@@ -153,7 +153,7 @@ const ReportPage = () => {
 
   /* console.log(joinedArray); */
 
-  const filteredAllocations = joinedArray.filter((row) => {
+  let filteredAllocations = joinedArray.filter((row) => {
     if (
       filtered &&
       filteredUser &&
@@ -250,7 +250,7 @@ const ReportPage = () => {
           ); // only include data where at least one of the three fields has a value
         })
         .map((asset) => {
-          /* const allocationData = getAllocationData(asset.id);
+          const allocationData = getAllocationData(asset.id);
 
           return [
             asset.numb_inv,
@@ -264,7 +264,7 @@ const ReportPage = () => {
             asset.ci,
             allocationData.user,
             allocationData.date,
-          ]; */
+          ];
         }),
     });
     const blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
@@ -297,6 +297,7 @@ const ReportPage = () => {
   const resetFilter = () => {
     setSelectedCategory("");
     setSelectedUser("");
+    filteredAllocations = [];
   };
 
   const totalResults = filteredAllocations.length;
@@ -305,6 +306,8 @@ const ReportPage = () => {
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
+
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
 
   return (
     <div id="content">
@@ -338,6 +341,14 @@ const ReportPage = () => {
                     className="btn-cleanfilter text-link-f"
                   >
                     Limpar Filtro
+                  </button>
+                }
+                {
+                  <button
+                    onClick={() => setIsButtonClicked(true)}
+                    className="btn-cleanfilter text-link-f"
+                  >
+                    Aplicar
                   </button>
                 }
               </div>
@@ -425,6 +436,7 @@ const ReportPage = () => {
                   </td>
                 </tr>
               ) : (
+                isButtonClicked &&
                 filteredAllocations
                   .slice(startIndex, endIndex)
                   .map((asset, index) => {
@@ -474,7 +486,7 @@ const ReportPage = () => {
             </tbody>
           )}
         </table>
-
+        {console.log(filteredAllocations)}
         {filtered === false ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
         ) : filteredAllocations.length === 0 ? (

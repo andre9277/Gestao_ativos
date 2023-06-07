@@ -2738,8 +2738,9 @@ textarea.form-control-lg {
     font-size: 14px;
     border-radius: 4px;
     align-items: center;
-    margin-left: 50px;
+    border-radius: 10px;
     margin-top: 10px;
+    border: solid;
 }
 .btn-dwl {
     background-color: #0a58ca;
