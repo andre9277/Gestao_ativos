@@ -140,7 +140,7 @@ const ReportPage = () => {
   }, [selectedCategory, selectedUser]);
 
   //-------Filters the category by user input
-  const filteredAllocations = filtered
+  /*   const filteredAllocations = filtered
     ? allDados.filter(
         (row) =>
           selectedCategory === "" || row.category.name === selectedCategory
@@ -151,10 +151,86 @@ const ReportPage = () => {
     ? allocations.filter(
         (row) => selectedUser === "" || row.users.name === selectedUser
       )
+    : assets; */
+
+  //Arrays:
+  /*  console.log("allDados", allDados);
+  console.log("filteredByUser", allocations); */
+
+  //Only with users:
+  /*   const joinedArray = allDados.map((dados) => {
+    const allocation = allocations.find((alloc) => alloc.asset_id === dados.id);
+    const user = allocation
+      ? users.find((usr) => usr.id === allocation.user_id)
+      : null;
+    const userName = user ? user.name : null;
+    return { ...dados, user: userName };
+  }); */
+
+  const joinedArray = allDados.map((dados) => {
+    const allocation = allocations.find((alloc) => alloc.asset_id === dados.id);
+    const user = allocation
+      ? users.find((usr) => usr.id === allocation.user_id)
+      : null;
+    const userName = user ? user.name : null;
+    const allocationDate = allocation ? allocation.allocation_date : null;
+    return { ...dados, user: userName, allocation_date: allocationDate };
+  });
+
+  /* console.log(joinedArray); */
+
+  /*  const filteredAllocations = filtered
+    ? joinedArray.filter(
+        (row) =>
+          selectedCategory === "" || row.category.name === selectedCategory
+      )
     : assets;
 
-  console.log("categories:", filteredAllocations);
-  console.log("users:", filteredByUser);
+  const filteredByUser = filteredUser
+    ? joinedArray.filter(
+        (row) => selectedUser === "" || row.user === selectedUser
+      )
+    : assets; */
+
+  /* const filteredAllocations =
+    filtered || filteredUser
+      ? joinedArray.filter(
+          (row) =>
+            (filtered &&
+              (selectedCategory === "" ||
+                row.category.name === selectedCategory)) ||
+            (filteredUser && (selectedUser === "" || row.user === selectedUser))
+        )
+      : assets; */
+
+  const filteredAllocations = joinedArray.filter((row) => {
+    if (
+      filtered &&
+      filteredUser &&
+      (selectedCategory === "" ||
+        row.category.name !== selectedCategory ||
+        row.user !== selectedUser)
+    ) {
+      return false; // Exclude rows that don't match both filters
+    }
+
+    if (
+      filtered &&
+      selectedCategory !== "" &&
+      row.category.name !== selectedCategory
+    ) {
+      return false; // Exclude rows that don't match the category filter
+    }
+
+    if (filteredUser && selectedUser !== "" && row.user !== selectedUser) {
+      return false; // Exclude rows that don't match the user filter
+    }
+
+    return true; // Include rows that match both filters or don't have any filters
+  });
+
+  /*  console.log("categories:", filteredAllocations);
+   console.log("users:", filteredByUser); */
 
   //----------Handles Category Change
   const handleCategoryChange = (event) => {
@@ -397,8 +473,8 @@ const ReportPage = () => {
                         <td>{asset.previous_ci}</td>
                         <td>{asset.ci}</td>
 
-                        <td>{allocationData.user}</td>
-                        <td>{allocationData.date}</td>
+                        <td>{asset.user}</td>
+                        <td>{asset.allocation_date}</td>
                       </tr>
                     );
                   })
