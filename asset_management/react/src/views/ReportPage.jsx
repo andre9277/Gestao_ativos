@@ -140,32 +140,6 @@ const ReportPage = () => {
   }, [selectedCategory, selectedUser]);
 
   //-------Filters the category by user input
-  /*   const filteredAllocations = filtered
-    ? allDados.filter(
-        (row) =>
-          selectedCategory === "" || row.category.name === selectedCategory
-      )
-    : assets;
-
-  const filteredByUser = filteredUser
-    ? allocations.filter(
-        (row) => selectedUser === "" || row.users.name === selectedUser
-      )
-    : assets; */
-
-  //Arrays:
-  /*  console.log("allDados", allDados);
-  console.log("filteredByUser", allocations); */
-
-  //Only with users:
-  /*   const joinedArray = allDados.map((dados) => {
-    const allocation = allocations.find((alloc) => alloc.asset_id === dados.id);
-    const user = allocation
-      ? users.find((usr) => usr.id === allocation.user_id)
-      : null;
-    const userName = user ? user.name : null;
-    return { ...dados, user: userName };
-  }); */
 
   const joinedArray = allDados.map((dados) => {
     const allocation = allocations.find((alloc) => alloc.asset_id === dados.id);
@@ -178,30 +152,6 @@ const ReportPage = () => {
   });
 
   /* console.log(joinedArray); */
-
-  /*  const filteredAllocations = filtered
-    ? joinedArray.filter(
-        (row) =>
-          selectedCategory === "" || row.category.name === selectedCategory
-      )
-    : assets;
-
-  const filteredByUser = filteredUser
-    ? joinedArray.filter(
-        (row) => selectedUser === "" || row.user === selectedUser
-      )
-    : assets; */
-
-  /* const filteredAllocations =
-    filtered || filteredUser
-      ? joinedArray.filter(
-          (row) =>
-            (filtered &&
-              (selectedCategory === "" ||
-                row.category.name === selectedCategory)) ||
-            (filteredUser && (selectedUser === "" || row.user === selectedUser))
-        )
-      : assets; */
 
   const filteredAllocations = joinedArray.filter((row) => {
     if (
@@ -229,9 +179,6 @@ const ReportPage = () => {
     return true; // Include rows that match both filters or don't have any filters
   });
 
-  /*  console.log("categories:", filteredAllocations);
-   console.log("users:", filteredByUser); */
-
   //----------Handles Category Change
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
@@ -245,25 +192,6 @@ const ReportPage = () => {
   //------------------------------------------------------------------
   const onPageClick = (link) => {
     getAssetsFilter(link.url);
-  };
-
-  //Gets data of data allocation
-  const getAllocationData = (assetId) => {
-    const allocation = allocations.find((a) =>
-      a.assets === null ? "" : a.assets.id === assetId
-    );
-
-    if (!allocation) {
-      return {
-        user: "",
-        date: "",
-      };
-    }
-
-    return {
-      user: allocation.users.name,
-      date: allocation.allocation_date,
-    };
   };
 
   //----------------------------Download----------------------------
