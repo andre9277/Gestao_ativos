@@ -46,6 +46,8 @@ const ReportPage = () => {
   const [cats, setCats] = useState([]);
   const [users, setUsers] = useState([]);
 
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+
   //All the asset allocation:
   const [allocations, setAllocations] = useState([]);
 
@@ -307,8 +309,6 @@ const ReportPage = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
-  const [isButtonClicked, setIsButtonClicked] = useState(false);
-
   return (
     <div id="content">
       <div className="container-fluid">
@@ -486,7 +486,9 @@ const ReportPage = () => {
             </tbody>
           )}
         </table>
+        {/*Check if there is any data in filter*/}
         {console.log(filteredAllocations)}
+
         {filtered === false ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
         ) : filteredAllocations.length === 0 ? (
