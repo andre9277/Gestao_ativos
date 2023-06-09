@@ -187,8 +187,9 @@ const ReportPage = () => {
 
     setFilteredAllocations(updatedAllocations); // Update the filteredAllocations state
     setIsButtonClicked(true);
+    setDropdownOpen(false);
   };
-  //----------Handles Category Change
+  //----------Handles Category Change------------------------
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
@@ -198,7 +199,7 @@ const ReportPage = () => {
     const selectedUser = event.target.value;
     setSelectedUser(selectedUser);
   };
-  //------------------------------------------------------------------
+  //----------------------------------------------------------
   const onPageClick = (link) => {
     getAssetsFilter(link.url);
   };
@@ -222,7 +223,7 @@ const ReportPage = () => {
     };
   };
 
-  //----------------------------Download----------------------------
+  //----------------------------Download----------------------
   const downloadCSV = async () => {
     setLoading(true);
     let allData = [];
@@ -308,6 +309,7 @@ const ReportPage = () => {
     setSelectedUser("");
     setFilteredAllocations([]);
     setIsButtonClicked(false);
+    setDropdownOpen(false);
   };
 
   const totalResults = filteredAllocations.length;
@@ -497,8 +499,6 @@ const ReportPage = () => {
             </tbody>
           )}
         </table>
-        {/*Check if there is any data in filter*/}
-        {console.log(filteredAllocations)}
 
         {filtered === false ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />

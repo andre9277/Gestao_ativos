@@ -61,6 +61,9 @@ export default function Assets() {
 
   const [allDados, setAllDados] = useState([]);
 
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [filteredAllocations, setFilteredAllocations] = useState([]);
+
   //*For pagination with filters*
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 20;
@@ -115,18 +118,22 @@ export default function Assets() {
   ]);
 
   //use allData when filtered = true and when its false its equal to the assets object
-  const filteredAssets = filtered
-    ? allDataF.filter(
-        (row) =>
-          (selectedCategory === "" || row.category.name === selectedCategory) &&
-          (selectedFloor === "" || row.floor === selectedFloor) &&
-          (selectedBrand === "" || row.brand.sig === selectedBrand) &&
-          (selectedModel === "" || row.modelo.name === selectedModel) &&
-          (selectedEnt === "" || row.entity.ent_name === selectedEnt)
-      )
-    : assets;
+  const filterAsset = () => {
+    const filteredData = allDataF.filter(
+      (row) =>
+        (selectedCategory === "" || row.category.name === selectedCategory) &&
+        (selectedFloor === "" || row.floor === selectedFloor) &&
+        (selectedBrand === "" || row.brand.sig === selectedBrand) &&
+        (selectedModel === "" || row.modelo.name === selectedModel) &&
+        (selectedEnt === "" || row.entity.ent_name === selectedEnt)
+    );
 
-  const totalResults = filteredAssets.length;
+    setFilteredAllocations(filtered ? filteredData : assets);
+    setIsButtonClicked(true);
+    setDropdownOpen(false);
+  };
+
+  const totalResults = filteredAllocations.length;
   //----------------------------Sorting (with filter)-----------------------------------------
   const sortingFilter = (col) => {
     const columnMapping = {
@@ -299,6 +306,9 @@ export default function Assets() {
     setAllDataF([]);
     setOrder("ASC"); // Reset the sorting order to "ASC"
     setCurrentPage(1);
+    setFilteredAllocations([]);
+    setIsButtonClicked(false);
+    setDropdownOpen(false);
   };
 
   //For the checkbox, if the value of the filter is empty, then uses the assets array of the current page.
@@ -384,6 +394,7 @@ export default function Assets() {
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
+
   return (
     <div id="content">
       <div
@@ -443,9 +454,17 @@ export default function Assets() {
                   {
                     <button
                       onClick={resetFilter}
-                      className="btn-cleanfilter text-link-f"
+                      className="btn-cleanfilter text-link-a"
                     >
                       Limpar Filtro
+                    </button>
+                  }
+                  {
+                    <button
+                      onClick={filterAsset}
+                      className="btn-cleanfilter text-link-aa"
+                    >
+                      Aplicar
                     </button>
                   }
                 </div>
@@ -555,9 +574,11 @@ export default function Assets() {
           {!loading && (
             <TableAssets
               toggleCheck={toggleCheck}
-              filteredAssets={filteredAssets}
+              filteredAllocations={filteredAllocations}
               startIndex={startIndex}
               endIndex={endIndex}
+              isButtonClicked={isButtonClicked}
+              assets={assets}
             />
           )}
         </table>
@@ -565,7 +586,7 @@ export default function Assets() {
         <p> </p>
         {filtered === false ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
-        ) : filteredAssets.length === 0 ? (
+        ) : filteredAllocations.length === 0 ? (
           ""
         ) : (
           <>
