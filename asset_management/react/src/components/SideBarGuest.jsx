@@ -95,10 +95,10 @@ const SideBarGuest = () => {
         {/*   <hr className="sidebar-divider" /> */}
         <br></br>
         {/*   <!-- Heading --> */}
-        <div className="sidebar-heading">Interface</div>
+        <div className="sidebar-heading">Gestão</div>
 
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
-        <MenuItem titulo={"Listagem"} icon={"fa-cog"} origem={"assets"} />
+        <MenuItem titulo={"Ativos"} icon={"fa-cog"} origem={"assets"} />
 
         {/* <!-- Nav Item - Utilities Collapse Menu --> */}
         {/* <MenuItem Name="Utilities-teste" MenuId="collapseUtilities" /> */}

@@ -95,10 +95,10 @@ const SideBar = () => {
         {/*   <hr className="sidebar-divider" /> */}
 
         {/*   <!-- Heading --> */}
-        <div className="sidebar-heading">Ativos</div>
+        <div className="sidebar-heading">Gestão</div>
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
+        <MenuItem titulo={"Ativos"} icon={"fa-cog"} origem={"assets"} />
         <MenuItem titulo={"Movimentação"} icon={"fa-plus"} origem={"report"} />
-        <MenuItem titulo={"Listagem"} icon={"fa-cog"} origem={"assets"} />
 
         {/* <!-- Nav Item - ReportPage --> */}
         <MenuItem
