@@ -314,49 +314,54 @@ const ReportPage = () => {
       <div className="container-fluid">
         <div className="tb-user">
           <h1 className="title-page-all">Movimentação de ativos</h1>
-          <>
-            <div className="dropdown">
-              <button className="btn-filter text-link" onClick={toggleDropdown}>
-                <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
-              </button>
-              <div
-                className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
-                id="filterDropdown"
-              >
-                <SelectFilter
-                  handleFunc={handleCategoryChange}
-                  selectedF={selectedCategory}
-                  data={cats}
-                  title={"Categoria:"}
-                />
-                <SelectFilter
-                  handleFunc={handleUserChange}
-                  selectedF={selectedUser}
-                  data={users}
-                  title={"Utilizadores:"}
-                />
-                {
-                  <button
-                    onClick={resetFilter}
-                    className="btn-cleanfilter text-link-f"
-                  >
-                    Limpar Filtro
-                  </button>
-                }
-                {
-                  <button
-                    onClick={() => setIsButtonClicked(true)}
-                    className="btn-cleanfilter text-link-f"
-                  >
-                    Aplicar
-                  </button>
-                }
+          <div>
+            <>
+              <div className="dropdown">
+                <button
+                  className="btn-filter text-link"
+                  onClick={toggleDropdown}
+                >
+                  <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
+                </button>
+                <div
+                  className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
+                  id="filterDropdown"
+                >
+                  <SelectFilter
+                    handleFunc={handleCategoryChange}
+                    selectedF={selectedCategory}
+                    data={cats}
+                    title={"Categoria:"}
+                  />
+                  <SelectFilter
+                    handleFunc={handleUserChange}
+                    selectedF={selectedUser}
+                    data={users}
+                    title={"Utilizadores:"}
+                  />
+                  {
+                    <button
+                      onClick={resetFilter}
+                      className="btn-cleanfilter text-link-f"
+                    >
+                      Limpar
+                    </button>
+                  }
+                  {
+                    <button
+                      onClick={() => setIsButtonClicked(true)}
+                      className="btn-cleanfilter text-link-ff"
+                    >
+                      Aplicar
+                    </button>
+                  }
+                </div>
               </div>
-            </div>
-            <button onClick={downloadCSV} className="btn-dwl">
-              <i className="fa fa-download fa-lg" aria-hidden="true"></i>
-            </button>
-          </>
+              <button onClick={downloadCSV} className="btn-dwl">
+                <i className="fa fa-download fa-lg" aria-hidden="true"></i>
+              </button>
+            </>
+          </div>
         </div>
       </div>
       <div className="card animated fadeInDown">

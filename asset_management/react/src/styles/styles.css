@@ -2748,7 +2748,7 @@ textarea.form-control-lg {
     font-size: 14px;
     border-radius: 4px;
     color: white;
-    margin: 15px;
+    margin: 3px;
 }
 .btn-delete {
     background-color: #b72424;
@@ -2771,6 +2771,13 @@ textarea.form-control-lg {
 }
 .text-link-f {
     color: white;
+    margin-left: 35px;
+    font-size: 14px;
+}
+.text-link-ff {
+    color: white;
+    background-color: #007840;
+    font-size: 14px;
 }
 
 .form-range {
@@ -4048,6 +4055,8 @@ fieldset:disabled .btn {
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 0.25rem;
+    margin-left: -190px;
+    margin-right: 10px;
 }
 .dropdown-menu[data-bs-popper] {
     top: 100%;
