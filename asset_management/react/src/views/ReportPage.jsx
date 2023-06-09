@@ -314,10 +314,10 @@ const ReportPage = () => {
       <div className="container-fluid">
         <div className="tb-user">
           <h1 className="title-page-all">Movimentação de ativos</h1>
-          <div className="tb-btn-user">
+          <>
             <div className="dropdown">
               <button className="btn-filter text-link" onClick={toggleDropdown}>
-                Filtro
+                <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
               </button>
               <div
                 className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
@@ -354,9 +354,9 @@ const ReportPage = () => {
               </div>
             </div>
             <button onClick={downloadCSV} className="btn-dwl">
-              Download .csv
+              <i className="fa fa-download fa-lg" aria-hidden="true"></i>
             </button>
-          </div>
+          </>
         </div>
       </div>
       <div className="card animated fadeInDown">

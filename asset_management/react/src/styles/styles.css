@@ -235,14 +235,13 @@ address {
 ol,
 ul {
     padding-left: 2rem;
-    padding-top: 0.5rem;
+    /* padding-top: 0.5rem; */
 }
 
 ol,
 ul,
 dl {
     margin-top: 0;
-    margin-bottom: 1rem;
 }
 
 ol ol,
@@ -2693,6 +2692,7 @@ textarea.form-control-lg {
 
 .tb-btn-user {
     align-items: right;
+    margin: 1px;
 }
 
 .btn,
@@ -2767,7 +2767,7 @@ textarea.form-control-lg {
 .text-link {
     color: white;
     text-decoration: none;
-    margin: 10px;
+    margin: 3px;
 }
 .text-link-f {
     color: white;
@@ -12546,7 +12546,7 @@ select {
 }
 
 .lb-infoAsset2 {
-    width: 1050%;
+    width: 300%;
     color: #61a60e;
     font-size: 18px;
     font-weight: bold;
