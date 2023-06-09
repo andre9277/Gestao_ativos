@@ -64,6 +64,8 @@ const ReportPage = () => {
   const [allDados, setAllDados] = useState([]); //All the data from an asset (not the user)
   const [allAssets, setAllAssets] = useState([]); //All the data from an asset (not the user)
 
+  const [filteredAllocations, setFilteredAllocations] = useState([]);
+
   //For the pagination:
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 20;
@@ -155,32 +157,37 @@ const ReportPage = () => {
 
   /* console.log(joinedArray); */
 
-  let filteredAllocations = joinedArray.filter((row) => {
-    if (
-      filtered &&
-      filteredUser &&
-      (selectedCategory === "" ||
-        row.category.name !== selectedCategory ||
-        row.user !== selectedUser)
-    ) {
-      return false; // Exclude rows that don't match both filters
-    }
+  const filterAllocations = () => {
+    setIsButtonClicked(false);
+    const updatedAllocations = joinedArray.filter((row) => {
+      if (
+        filtered &&
+        filteredUser &&
+        (selectedCategory === "" ||
+          row.category.name !== selectedCategory ||
+          row.user !== selectedUser)
+      ) {
+        return false; // Exclude rows that don't match both filters
+      }
 
-    if (
-      filtered &&
-      selectedCategory !== "" &&
-      row.category.name !== selectedCategory
-    ) {
-      return false; // Exclude rows that don't match the category filter
-    }
+      if (
+        filtered &&
+        selectedCategory !== "" &&
+        row.category.name !== selectedCategory
+      ) {
+        return false; // Exclude rows that don't match the category filter
+      }
 
-    if (filteredUser && selectedUser !== "" && row.user !== selectedUser) {
-      return false; // Exclude rows that don't match the user filter
-    }
+      if (filteredUser && selectedUser !== "" && row.user !== selectedUser) {
+        return false; // Exclude rows that don't match the user filter
+      }
 
-    return true; // Include rows that match both filters or don't have any filters
-  });
+      return true; // Include rows that match both filters or don't have any filters
+    });
 
+    setFilteredAllocations(updatedAllocations); // Update the filteredAllocations state
+    setIsButtonClicked(true);
+  };
   //----------Handles Category Change
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
@@ -299,7 +306,8 @@ const ReportPage = () => {
   const resetFilter = () => {
     setSelectedCategory("");
     setSelectedUser("");
-    filteredAllocations = [];
+    setFilteredAllocations([]);
+    setIsButtonClicked(false);
   };
 
   const totalResults = filteredAllocations.length;
@@ -349,7 +357,7 @@ const ReportPage = () => {
                   }
                   {
                     <button
-                      onClick={() => setIsButtonClicked(true)}
+                      onClick={filterAllocations}
                       className="btn-cleanfilter text-link-ff"
                     >
                       Aplicar
@@ -357,6 +365,7 @@ const ReportPage = () => {
                   }
                 </div>
               </div>
+              {/* ------------Button to download------------ */}
               <button onClick={downloadCSV} className="btn-dwl">
                 <i className="fa fa-download fa-lg" aria-hidden="true"></i>
               </button>
@@ -395,9 +404,7 @@ const ReportPage = () => {
           )}
           {!loading && (
             <tbody>
-              {filteredAllocations.length === 0 &&
-              selectedCategory === "" &&
-              selectedUser === "" ? (
+              {!isButtonClicked && filteredAllocations.length === 0 ? (
                 assets.map((asset, index) => {
                   const allocationData = getAllocationData(asset.id);
                   return (
@@ -441,7 +448,6 @@ const ReportPage = () => {
                   </td>
                 </tr>
               ) : (
-                isButtonClicked &&
                 filteredAllocations
                   .slice(startIndex, endIndex)
                   .map((asset, index) => {
