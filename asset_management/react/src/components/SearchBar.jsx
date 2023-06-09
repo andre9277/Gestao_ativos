@@ -78,7 +78,7 @@ const Search = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(assets);
+
     // Sort the assets array by asset number (assuming it's not already sorted)
     const sortedAssets = [...assets].sort(
       (a, b) =>

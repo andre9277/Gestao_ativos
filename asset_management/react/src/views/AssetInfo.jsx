@@ -56,7 +56,7 @@ const AssetInfo = () => {
       <div id="content">
         <div className="container-fluid">
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 className="h3 mb-0 text-gray-800">
+            <h1 className="title-page-all">
               Informação do Ativo: {asset.numb_inv}
             </h1>
             <p></p>
@@ -67,109 +67,141 @@ const AssetInfo = () => {
               <div className="container">
                 <div className="row">
                   <ul className="lb-infoAsset">
-                    <label className="lb-infoAsset2">Marca:</label>{" "}
-                    <h6 className="attrAsset">{asset.brand.sig}</h6>
+                    <label className="lb-infoAsset2">
+                      Marca:
+                      <h6 className="attrAsset">{asset.brand.sig}</h6>
+                    </label>{" "}
                   </ul>
                   <ul className="lb-infoAsset">
-                    <label className="lb-infoAsset2">Modelo:</label>{" "}
-                    <h6 className="attrAsset">{asset.modelo.name}</h6>
+                    <label className="lb-infoAsset2">
+                      Modelo: <h6 className="attrAsset">{asset.modelo.name}</h6>
+                    </label>{" "}
                   </ul>
                   <ul className="lb-infoAsset">
-                    <label className="lb-infoAsset2">Categoria:</label>{" "}
-                    <h6 className="attrAsset">{asset.category.name}</h6>
+                    <label className="lb-infoAsset2">
+                      Categoria:{" "}
+                      <h6 className="attrAsset">{asset.category.name}</h6>
+                    </label>{" "}
                   </ul>
                   <ul className="lb-infoAsset">
-                    <label className="lb-infoAsset2">Nº de Inventário:</label>{" "}
-                    <h6 className="attrAsset"> {asset.numb_inv}</h6>
+                    <label className="lb-infoAsset2">
+                      Nº de Inventário:{" "}
+                      <h6 className="attrAsset"> {asset.numb_inv}</h6>
+                    </label>{" "}
                   </ul>
                   <ul className="lb-infoAsset">
-                    <label className="lb-infoAsset2">Nº de Série:</label>{" "}
-                    <h6 className="attrAsset">{asset.numb_ser}</h6>
+                    <label className="lb-infoAsset2">
+                      Nº de Série:{" "}
+                      <h6 className="attrAsset">{asset.numb_ser}</h6>
+                    </label>{" "}
                   </ul>
                   <ul className="lb-infoAsset">
-                    <label className="lb-infoAsset2">Data de Compra:</label>{" "}
-                    <h6 className="attrAsset">{asset.date_purch}</h6>
+                    <label className="lb-infoAsset2">
+                      Data de Compra:{" "}
+                      <h6 className="attrAsset">{asset.date_purch}</h6>
+                    </label>{" "}
                   </ul>
                   <ul className="lb-infoAsset">
-                    <label className="lb-infoAsset2">Condição:</label>
-                    <h6 className="attrAsset"> {asset.cond}</h6>
+                    <label className="lb-infoAsset2">
+                      Condição: <h6 className="attrAsset"> {asset.cond}</h6>
+                    </label>
                   </ul>
                   <ul className="lb-infoAsset">
-                    <label className="lb-infoAsset2">Estado:</label>
-                    <h6 className="attrAsset"> {asset.state}</h6>
+                    <label className="lb-infoAsset2">
+                      Estado:<h6 className="attrAsset"> {asset.state}</h6>
+                    </label>
                   </ul>
                 </div>
                 <p></p>
-                <div className="row">
-                  <div className="locInfo">
-                    <h2 className="headerInfoAsset">Localização: </h2>
-                    <ul>
-                      <ol className="lb-infoAsset">
-                        <label className="lb-infoAsset2">Entidade:</label>{" "}
-                        <h6 className="attrAsset">{asset.entity.ent_name}</h6>
-                      </ol>
-                      <ol className="lb-infoAsset">
-                        <label className="lb-infoAsset2">Unidade:</label>{" "}
-                        <h6 className="attrAsset">
-                          {asset.units === null ? "" : asset.units.name}
-                        </h6>
-                      </ol>
-                      <ol className="lb-infoAsset">
-                        <label className="lb-infoAsset2">
-                          Unidade-Contato:
-                        </label>
-
-                        <h6 className="attrAsset">
-                          {asset.units === null ? "" : asset.units.unit_contact}
-                        </h6>
-                      </ol>
-                      <ol className="lb-infoAsset">
-                        <label className="lb-infoAsset2">Unidade-Morada:</label>
-
-                        <h6 className="attrAsset">
-                          {asset.units === null ? "" : asset.units.unit_address}
-                        </h6>
-                      </ol>
-                      <ol className="lb-infoAsset">
-                        <label className="lb-infoAsset2">Piso:</label>{" "}
-                        <h6 className="attrAsset">{asset.floor}</h6>
-                      </ol>
-                      <ol className="lb-infoAsset">
-                        <label className="lb-infoAsset2">Ala:</label>{" "}
-                        <h6 className="attrAsset">{asset.ala}</h6>
-                      </ol>
-                      <ol className="lb-infoAsset">
-                        <label className="lb-infoAsset2">CI:</label>
-                        <h6 className="attrAsset"> {asset.ci}</h6>
-                      </ol>
-                    </ul>
+                {/* -------------Informação ativo - localização------------- */}
+                <div className="container">
+                  <div className="row">
+                    <div className="locInfo">
+                      <h2 className="headerInfoAsset">Localização: </h2>
+                      <ul>
+                        <ol className="lb-infoAsset">
+                          <label className="lb-infoAsset2">
+                            Entidade:{" "}
+                            <h6 className="attrAsset">
+                              {asset.entity.ent_name}
+                            </h6>
+                          </label>{" "}
+                        </ol>
+                        <ol className="lb-infoAsset">
+                          <label className="lb-infoAsset2">
+                            Unidade:{" "}
+                            <h6 className="attrAsset">
+                              {asset.units === null ? "" : asset.units.name}
+                            </h6>
+                          </label>{" "}
+                        </ol>
+                        <ol className="lb-infoAsset">
+                          <label className="lb-infoAsset2">
+                            Contato:
+                            <h6 className="attrAsset">
+                              {asset.units === null
+                                ? ""
+                                : asset.units.unit_contact}
+                            </h6>
+                          </label>
+                        </ol>
+                        <ol className="lb-infoAsset">
+                          <label className="lb-infoAsset2">
+                            Morada:{" "}
+                            <h6 className="attrAsset">
+                              {asset.units === null
+                                ? ""
+                                : asset.units.unit_address}
+                            </h6>
+                          </label>
+                        </ol>
+                        <ol className="lb-infoAsset">
+                          <label className="lb-infoAsset2">
+                            Piso: <h6 className="attrAsset">{asset.floor}</h6>
+                          </label>{" "}
+                        </ol>
+                        <ol className="lb-infoAsset">
+                          <label className="lb-infoAsset2">
+                            Ala: <h6 className="attrAsset">{asset.ala}</h6>
+                          </label>{" "}
+                        </ol>
+                        <ol className="lb-infoAsset">
+                          <label className="lb-infoAsset2">
+                            CI: <h6 className="attrAsset"> {asset.ci}</h6>
+                          </label>
+                        </ol>
+                      </ul>
+                    </div>
                   </div>
+                  {/* -------------Informação ativo - fornecedor------------- */}
                   <div className="row">
                     <h2 className="headerInfoAsset">Fornecedor: </h2>
                     <ul>
                       <ol className="lb-infoAsset">
                         <label className="lb-infoAsset2">
-                          Fornecedor-Nome:{" "}
+                          Nome:{" "}
+                          <h6 className="attrAsset">{asset.suppliers.name} </h6>
                         </label>{" "}
-                        <h6 className="attrAsset">{asset.suppliers.name} </h6>
                       </ol>
                       <ol className="lb-infoAsset">
                         <label className="lb-infoAsset2">
-                          Fornecedor-Email:
+                          Email:
+                          <h6 className="attrAsset">{asset.suppliers.email}</h6>
                         </label>{" "}
-                        <h6 className="attrAsset">{asset.suppliers.email}</h6>
                       </ol>
                       <ol className="lb-infoAsset">
                         <label className="lb-infoAsset2">
-                          Fornecedor-Contato:
+                          Contato:{" "}
+                          <h6 className="attrAsset">{asset.suppliers.phone}</h6>
                         </label>{" "}
-                        <h6 className="attrAsset">{asset.suppliers.phone}</h6>
                       </ol>
                       <ol className="lb-infoAsset">
                         <label className="lb-infoAsset2">
-                          Fornecedor-Morada:
+                          Morada:{" "}
+                          <h6 className="attrAsset">
+                            {asset.suppliers.address}
+                          </h6>
                         </label>{" "}
-                        <h6 className="attrAsset">{asset.suppliers.address}</h6>
                       </ol>
                     </ul>
                   </div>

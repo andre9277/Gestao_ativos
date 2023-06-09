@@ -235,7 +235,7 @@ address {
 ol,
 ul {
     padding-left: 2rem;
-    padding-top: 1rem;
+    padding-top: 0.5rem;
 }
 
 ol,
@@ -12546,7 +12546,7 @@ select {
 }
 
 .lb-infoAsset2 {
-    width: 150%;
+    width: 1050%;
     color: #61a60e;
     font-size: 18px;
     font-weight: bold;
@@ -12640,6 +12640,7 @@ select {
 
 .headerInfoAsset {
     color: #007840;
+    font-size: 1.5rem;
 }
 
 .importAsset {
