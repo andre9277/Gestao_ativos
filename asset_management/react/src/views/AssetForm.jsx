@@ -222,8 +222,10 @@ export default function AssetForm() {
   }
   return (
     <>
-      {asset.id && <h1>Atualizar Ativo: {asset.numb_inv}</h1>}
-      {!asset.id && <h1>Novo Ativo</h1>}
+      {asset.id && (
+        <h1 className="title-page-all">Atualizar Ativo: {asset.numb_inv}</h1>
+      )}
+      {!asset.id && <h1 className="title-page-all">Novo Ativo</h1>}
       <div className="card animated fadeInDown">
         {loading && <div className="caprr-re">A Carregar...</div>}
         {errors && (
@@ -401,7 +403,7 @@ export default function AssetForm() {
             </label>
             <div className="localAsset">
               <p></p>
-              <h4>Localização: </h4>
+              <h4 className="title-page-all">Localização: </h4>
               <p></p>
               {/* ---------- Entities ----------*/}
               <label htmlFor="entity" className="lb-info">

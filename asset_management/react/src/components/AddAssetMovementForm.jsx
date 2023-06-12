@@ -4,12 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 
 const AddAssetMovementForm = () => {
+  const [errors, setErrors] = useState(null);
   const [serNumber, setSerNumber] = useState("");
   const [reason, setReason] = useState("");
   const [other, setOther] = useState("");
-  const [assetEve, setAssetEve] = useState("");
+  const [assetEve, setAssetEve] = useState([]);
+  const [assetCi, setAssetCi] = useState("");
 
   const { user, setNotification } = useStateContext();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getTotalAssetsEve();
@@ -21,13 +25,13 @@ const AddAssetMovementForm = () => {
       setAssetEve(data.data);
     });
   };
-  /* const navigate = useNavigate(); */
-  console.log("assets", assetEve);
 
-  const serNumberr = serNumber; // Replace with the user-inputted ser_number
-  const matchingAsset = assetEve.find((asset) => asset.numb_ser === serNumberr);
+  let matchingAsset = null;
 
-  console.log("matchingAsset", matchingAsset);
+  if (assetEve !== null) {
+    const serNumberr = serNumber; // Replace with the user-inputted ser_number
+    matchingAsset = assetEve.find((asset) => asset.numb_ser === serNumberr);
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -46,49 +50,119 @@ const AddAssetMovementForm = () => {
       other: other,
       user_id: user.id,
       asset_id: matchingAsset ? matchingAsset.id : null,
+      ci: assetCi,
     };
 
     // Perform the POST request using a library like Axios or fetch
     // Example using Axios:
     axiosClient
       .post("/assetMovement", data)
-      .then((response) => {
-        // Handle the response
-        console.log(response);
+      .then(() => {
+        if (matchingAsset) {
+          const updateAsset = { ...matchingAsset, ci: assetCi };
+          axiosClient
+            .put(`/assets/${matchingAsset.id}`, updateAsset)
+            .then(() => {
+              setNotification("Ativo Movimentado com sucesso!");
+              navigate("/report");
+            })
+            .catch((err) => {
+              const response = err.response;
+              if (response && response.status === 422) {
+                setErrors(response.data.errors);
+              }
+            });
+        }
       })
-      .catch((error) => {
+      .catch(() => {
         // Handle the error
-        console.log(error);
+        const response = err.response;
+        if (response && response.status === 422) {
+          setErrors(response.data.errors);
+        }
       });
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Serial Number:
-        <input
-          type="text"
-          value={serNumber}
-          onChange={(e) => setSerNumber(e.target.value)}
-          required
-        />
-      </label>
+    <>
+      <h1 className="title-page-all">Movimento de Ativo</h1>
 
-      <label>
-        Reason:
-        <input
-          type="text"
-          value={reason}
-          onChange={(e) => setReason(e.target.value)}
-        />
-      </label>
+      <div className="card animated fadeInDown">
+        <h6>Insira primeiro o número de série do ativo a mover!</h6>
+        <form onSubmit={handleSubmit} className="assetForm">
+          <button type="submit" className="btn-adicionar">
+            Gravar
+          </button>
+          <label className="lb-info">
+            Número de Série:
+            <input
+              type="text"
+              value={serNumber}
+              onChange={(e) => setSerNumber(e.target.value)}
+              required
+              className="attrAsset"
+              placeholder="Número de Série"
+            />
+          </label>
+          <label className="lb-info">
+            Localização:
+            <h6 className="attrAsset">
+              {matchingAsset ? matchingAsset.entity.ent_name : ""}
+            </h6>
+          </label>
+          <label className="lb-info">
+            Nova Localização:
+            <input
+              value={""}
+              onChange={(e) => ""}
+              className="attrAsset"
+              placeholder="Nova Localização"
+            />
+          </label>
+          <label className="lb-info">
+            CI:
+            <h6 className="attrAsset">
+              {matchingAsset ? matchingAsset.ci : ""}
+            </h6>
+          </label>
 
-      <label>
-        Other:
-        <textarea value={other} onChange={(e) => setOther(e.target.value)} />
-      </label>
+          <label className="lb-info">
+            Novo CI:{" "}
+            <input
+              value={assetCi}
+              onChange={(e) => setAssetCi(e.target.value)}
+              className="attrAsset"
+              placeholder="Novo CI"
+            />
+          </label>
+          <label className="lb-info">
+            Motivo:
+            <select
+              className="form-select"
+              name="motivo"
+              id="motivo"
+              value={reason}
+              onChange={(event) => setReason(event.target.value)}
+            >
+              <option value="">Selecione o Motivo...</option>
+              <option value="Transferência">Transferência</option>
+              <option value="Reparação">Reparação</option>
+              <option value="Obsoleto">Obsoleto</option>
+              <option value="Garantia">Garantia</option>
+            </select>
+          </label>
 
-      <button type="submit">Submit</button>
-    </form>
+          <label className="lb-info">
+            Observações:
+            <textarea
+              value={other}
+              onChange={(e) => setOther(e.target.value)}
+              placeholder="Escreva aqui..."
+              className="attrAsset"
+            />
+          </label>
+        </form>
+      </div>
+    </>
   );
 };
 
