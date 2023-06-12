@@ -1,20 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client";
 import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 
 const AddAssetMovementForm = () => {
-  const [allocationDate, setAllocationDate] = useState("");
-  const [actionType, setActionType] = useState("");
   const [serNumber, setSerNumber] = useState("");
   const [reason, setReason] = useState("");
   const [other, setOther] = useState("");
+  const [assetEve, setAssetEve] = useState("");
 
-  const { user, setUser, notification, setNotification, asset } =
-    useStateContext();
+  const { user, setNotification } = useStateContext();
 
-  const navigate = useNavigate();
-  console.log(asset);
+  useEffect(() => {
+    getTotalAssetsEve();
+  }, []);
+
+  const getTotalAssetsEve = (url) => {
+    url = url || "/allAssets";
+    axiosClient.get(url).then(({ data }) => {
+      setAssetEve(data.data);
+    });
+  };
+  /* const navigate = useNavigate(); */
+  console.log("assets", assetEve);
+
+  const serNumberr = serNumber; // Replace with the user-inputted ser_number
+  const matchingAsset = assetEve.find((asset) => asset.numb_ser === serNumberr);
+
+  console.log("matchingAsset", matchingAsset);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -32,7 +45,7 @@ const AddAssetMovementForm = () => {
       action_type: "Atualiza",
       other: other,
       user_id: user.id,
-      asset_id: 1,
+      asset_id: matchingAsset ? matchingAsset.id : null,
     };
 
     // Perform the POST request using a library like Axios or fetch

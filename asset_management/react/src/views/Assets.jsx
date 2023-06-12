@@ -45,7 +45,7 @@ export default function Assets() {
   const [loading, setLoading] = useState(false);
   //const [loadingAll, setLoadingAll] = useState(false);
   const [meta, setMeta] = useState({});
-  const { setNotification, user } = useStateContext();
+  const { user } = useStateContext();
 
   const [cats, setCats] = useState([]);
   const [brands, setBrands] = useState([]);
