@@ -28,6 +28,7 @@ You may obtain a copy of the license at:
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client.js";
 import Papa from "papaparse";
 import PaginationLinks from "../components/PaginationLinks.jsx";
@@ -36,6 +37,8 @@ import SelectFilter from "../components/SelectFilter.jsx";
 
 //SideBar:-------------Asset movement---------------
 const ReportPage = () => {
+  const navigate = useNavigate();
+
   //All the data from an asset (not the user) - Filtered!
   const [assets, setAssets] = useState([]);
 
@@ -319,6 +322,11 @@ const ReportPage = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
+  const onAddClick = () => {
+    const url = "/addAssetMovement";
+    navigate(url);
+  };
+
   return (
     <div id="content">
       <div className="container-fluid">
@@ -327,6 +335,14 @@ const ReportPage = () => {
           <div>
             <>
               <div className="dropdown">
+                {
+                  <button
+                    className="btn-add text-link"
+                    onClick={(ev) => onAddClick()}
+                  >
+                    Movimentação
+                  </button>
+                }
                 <button
                   className="btn-filter text-link"
                   onClick={toggleDropdown}
@@ -349,6 +365,7 @@ const ReportPage = () => {
                     data={users}
                     title={"Utilizadores:"}
                   />
+
                   {
                     <button
                       onClick={resetFilter}

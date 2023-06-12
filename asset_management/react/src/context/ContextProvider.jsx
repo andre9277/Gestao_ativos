@@ -38,6 +38,7 @@ const StateContext = createContext({
   token: null,
   notification: null,
   setUser: () => {},
+  setAsset: () => {},
   setToken: () => {},
   setNotification: () => {},
 });
@@ -45,6 +46,7 @@ const StateContext = createContext({
 //Function responsible for defining the initial state of the user, token and notification using the useState
 export const ContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
+  const [asset, setAsset] = useState({});
   const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN")); //When user updates, it saves the session
   const [notification, _setNotification] = useState("");
 
@@ -72,6 +74,8 @@ export const ContextProvider = ({ children }) => {
     //exposes all the values for the components/pages that uses the ContextProvider
     <StateContext.Provider
       value={{
+        asset,
+        setAsset,
         user,
         setUser,
         token,
