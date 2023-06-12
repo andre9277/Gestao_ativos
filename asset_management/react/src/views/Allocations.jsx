@@ -122,7 +122,7 @@ export default function Allocations() {
       return serFilter && opFilter && userFilter && dateFilter;
     });
 
-    console.log(filteredData);
+    /* console.log(filteredData); */
     const csvData = Papa.unparse({
       fields: ["Utilizador", "Operação", "Nº Série", "Data de alteração"],
       data: filteredData.map((allocation) => {
@@ -141,7 +141,7 @@ export default function Allocations() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.setAttribute("href", url);
-    link.setAttribute("download", "relatorioMov.csv");
+    link.setAttribute("download", "dwlMov.csv");
     link.style.visibility = "hidden";
     document.body.appendChild(link);
     link.click();
@@ -243,7 +243,7 @@ export default function Allocations() {
         }}
         className="container-fluid"
       >
-        <h1>Download de Ativos</h1>
+        <h1 className="title-page-all">Download de Ativos</h1>
       </div>
       {loading && <div className="caprr-re">A Carregar...</div>}
 

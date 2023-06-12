@@ -32,7 +32,7 @@ class UpdateAssetRequest extends FormRequest
             //'model_id' => 'required',
             'ent_id' => 'required',
             'numb_inv' => [
-                'required',
+                'nullable',
                 'string',
                 'digits:6',
                 'regex:/^0/',

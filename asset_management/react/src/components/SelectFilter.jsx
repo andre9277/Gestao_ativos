@@ -3,7 +3,7 @@ import React from "react";
 const SelectFilter = ({ data, handleFunc, selectedF, title }) => {
   let i = 0;
   return (
-    <div>
+    <div className="dropdown-ind">
       {" "}
       <label className="titleFiltAsset">{title}</label>
       <select className="filtAsset-tab" onChange={handleFunc} value={selectedF}>

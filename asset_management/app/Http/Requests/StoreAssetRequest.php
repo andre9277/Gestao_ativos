@@ -33,7 +33,7 @@ class StoreAssetRequest extends FormRequest
             //'model_id' => 'required',
             'ent_id' => 'required',
             'numb_inv' => [
-                'required',
+                'nullable',
                 'string',
                 'size:6',
                 'unique:assets,numb_inv',

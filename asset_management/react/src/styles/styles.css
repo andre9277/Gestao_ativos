@@ -235,14 +235,13 @@ address {
 ol,
 ul {
     padding-left: 2rem;
-    padding-top: 1rem;
+    /* padding-top: 0.5rem; */
 }
 
 ol,
 ul,
 dl {
     margin-top: 0;
-    margin-bottom: 1rem;
 }
 
 ol ol,
@@ -2693,10 +2692,12 @@ textarea.form-control-lg {
 
 .tb-btn-user {
     align-items: right;
+    margin: 1px;
 }
 
 .btn,
 .btn-add,
+.btn-filter,
 .btn-edit,
 .btn-delete {
     font-family: "Roboto", sans-serif;
@@ -2725,16 +2726,35 @@ textarea.form-control-lg {
 .btn-add {
     background-color: #00a762;
 }
+.btn-filter {
+    background-color: #6c757d;
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.btn-cleanfilter {
+    background-color: #6c757d;
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    border-radius: 4px;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: solid;
+}
 .btn-dwl {
     background-color: #0a58ca;
     padding: 0.5rem 0.75rem;
     font-size: 14px;
     border-radius: 4px;
     color: white;
-    margin: 15px;
+    margin: 3px;
 }
 .btn-delete {
     background-color: #b72424;
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    border-radius: 4px;
 }
 
 .btn-check[disabled] + .btn,
@@ -2747,7 +2767,29 @@ textarea.form-control-lg {
 .text-link {
     color: white;
     text-decoration: none;
-    margin: 10px;
+    margin: 3px;
+}
+.text-link-f {
+    color: white;
+    margin-left: 35px;
+    font-size: 14px;
+}
+.text-link-ff {
+    color: white;
+    background-color: #007840;
+    font-size: 14px;
+}
+
+.text-link-a {
+    color: white;
+    margin-left: 18px;
+    font-size: 14px;
+}
+
+.text-link-aa {
+    color: white;
+    background-color: #007840;
+    font-size: 14px;
 }
 
 .form-range {
@@ -4025,6 +4067,8 @@ fieldset:disabled .btn {
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 0.25rem;
+    margin-left: -190px;
+    margin-right: 10px;
 }
 .dropdown-menu[data-bs-popper] {
     top: 100%;
@@ -12523,7 +12567,7 @@ select {
 }
 
 .lb-infoAsset2 {
-    width: 150%;
+    width: 300%;
     color: #61a60e;
     font-size: 18px;
     font-weight: bold;
@@ -12617,6 +12661,7 @@ select {
 
 .headerInfoAsset {
     color: #007840;
+    font-size: 1.5rem;
 }
 
 .importAsset {
@@ -12626,6 +12671,7 @@ select {
 
 .impLab {
     width: 30%;
+    color: #007840;
 }
 
 .inpImport {
@@ -12635,24 +12681,13 @@ select {
 .caprr-re {
     text-align: center;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 1.75rem;
+    color: #007840;
 }
 
 input::placeholder {
     font-weight: bold;
     font-size: 16px;
-}
-
-.filtAsset-tab {
-    color: black;
-    width: 100px;
-    margin: 0.5px;
-    cursor: pointer;
-    line-height: 1.1;
-    font-size: 14px;
-    align-items: center;
-    text-align: left;
-    border: 2px solid #459c2c;
 }
 
 /*-----------For the Scan---------*/
@@ -12664,7 +12699,7 @@ input::placeholder {
 .lgText {
     text-align: center;
     font-weight: bold;
-    font-size: 150%;
+    font-size: 1.75rem;
     padding: 15px;
     position: absolute;
     top: 50%;
@@ -12672,6 +12707,7 @@ input::placeholder {
     -ms-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    color: #007840;
 }
 .lgTextF {
     text-align: center;
@@ -12684,6 +12720,7 @@ input::placeholder {
     -ms-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    color: #007840;
 }
 
 .dwlTemp {
@@ -12737,7 +12774,7 @@ input::placeholder {
     text-align: center;
 }
 
-.btn-filter {
+/* .btn-filter {
     background-color: #696969;
     padding: 0.5rem 0.75rem;
     font-size: 14px;
@@ -12745,7 +12782,7 @@ input::placeholder {
     color: white;
     margin: 15px;
 }
-
+ */
 .results-pag {
     width: 300px;
 }
@@ -12810,8 +12847,39 @@ input::placeholder {
     display: block;
 }
 
+.dropdown-ind {
+    display: flex; /* Use flexbox to display the filters side by side */
+    align-items: center; /* Center the label vertically */
+    margin-right: 10px; /* Optional: Add some space between the filters */
+    margin: 10px;
+}
+
 .titleFiltAsset {
+    margin-right: 5px; /* Optional: Add some space between the label and select */
+    color: #459c2c;
     font-weight: bold;
     font-size: 14px;
-    padding-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 0.1px;
+}
+
+.filtAsset-tab {
+    color: black;
+    width: 100px;
+    margin: 0.5px;
+    cursor: pointer;
+    line-height: 1.1;
+    font-size: 14px;
+    align-items: center;
+    text-align: left;
+    border: 2px solid #459c2c;
+}
+
+.title-page-all {
+    color: #007840;
+    font-size: 1.75rem;
+}
+
+.asset-import {
+    color: #007840;
 }

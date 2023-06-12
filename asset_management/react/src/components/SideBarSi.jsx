@@ -66,24 +66,18 @@ const SideBarSi = () => {
         {/*   <hr className="sidebar-divider" /> */}
 
         {/*   <!-- Heading --> */}
-        <div className="sidebar-heading">Gestão de ativos</div>
+        <div className="sidebar-heading">Gestão</div>
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
+        <MenuItem titulo={"Ativos"} icon={"fa-cog"} origem={"assets"} />
         <MenuItem titulo={"Movimentação"} icon={"fa-plus"} origem={"report"} />
-        <MenuItem titulo={"Listagem"} icon={"fa-cog"} origem={"assets"} />
 
-        {/*  <!-- Nav Item - Users --> */}
-        {/*  <!-- Divider --> */}
-        <hr className="sidebar-divider" />
-
-        {/* <!-- Heading --> */}
-        <div className="sidebar-heading"> Área do Administrador</div>
-
-        {/* <!-- Nav Item - ReportPage --> */}
         <MenuItem
           titulo={"Donwload"}
           icon={"fa-chart-area"}
           origem={"allocations"}
         />
+
+        {/* <!-- Nav Item - ReportPage --> */}
 
         <div className="text-center d-none d-md-inline">
           <button

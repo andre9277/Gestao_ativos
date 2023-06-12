@@ -31,37 +31,50 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import Papa from "papaparse";
 import PaginationLinks from "../components/PaginationLinks.jsx";
-import FilterReport from "../components/FilterReport.jsx";
 import PaginationFilter from "../components/PaginationFilter.jsx";
 import SelectFilter from "../components/SelectFilter.jsx";
 
 //SideBar:-------------Asset movement---------------
 const ReportPage = () => {
+  //All the data from an asset (not the user) - Filtered!
   const [assets, setAssets] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const [units, setUnits] = useState([]);
   const [ents, setEnts] = useState([]);
   const [meta, setMeta] = useState({});
   const [cats, setCats] = useState([]);
+  const [users, setUsers] = useState([]);
 
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+
+  //All the asset allocation:
   const [allocations, setAllocations] = useState([]);
 
+  //For the filter Category
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  const [selectedUser, setSelectedUser] = useState("");
 
   //keeps checking if there is a filter on or off:
   const [filtered, setFiltered] = useState(false);
-  //For the all the asset data:
-  const [allDados, setAllDados] = useState([]);
-  const [allAssets, setAllAssets] = useState([]);
+  const [filteredUser, setFilteredUser] = useState(false);
 
+  //For all the asset data:
+  const [allDados, setAllDados] = useState([]); //All the data from an asset (not the user)
+  const [allAssets, setAllAssets] = useState([]); //All the data from an asset (not the user)
+
+  const [filteredAllocations, setFilteredAllocations] = useState([]);
+
+  //For the pagination:
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 20;
-
   const startIndex = (currentPage - 1) * resultsPerPage;
   const endIndex = startIndex + resultsPerPage;
 
   useEffect(() => {
     getAssetsFilter();
+    getUsers();
   }, []);
 
   useEffect(() => {
@@ -73,6 +86,8 @@ const ReportPage = () => {
       setCats(responses[0].data.categories);
     });
   }, []);
+
+  //Gets assets data with pagination
   const getAssetsFilter = (url) => {
     url = url || "/filterVal";
 
@@ -89,7 +104,21 @@ const ReportPage = () => {
       });
   };
 
-  //Gets all the assets
+  const getUsers = (url) => {
+    url = url || "/userAllo";
+    setLoading(true);
+    axiosClient
+      .get(url)
+      .then(({ data }) => {
+        setLoading(false);
+        setUsers(data);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  };
+
+  //Gets all the assets with no pagination
   useEffect((url) => {
     url = url || "filterValuesNoPag";
     axiosClient.get(url).then(({ data }) => {
@@ -101,31 +130,81 @@ const ReportPage = () => {
 
   useEffect(() => {
     const hasFilter = selectedCategory !== "";
+    const hasFilterUser = selectedUser !== "";
 
     setFiltered(hasFilter);
+    setFilteredUser(hasFilterUser);
 
     if (hasFilter) {
       setAllDados(allAssets);
     }
-  }, [selectedCategory]);
+    if (hasFilterUser) {
+      setAllDados(allAssets);
+    }
+  }, [selectedCategory, selectedUser]);
 
-  const filteredAllocations = filtered
-    ? allDados.filter(
-        (row) =>
-          selectedCategory === "" || row.category.name === selectedCategory
-      )
-    : assets;
+  //-------Filters the category by user input
 
+  const joinedArray = allDados.map((dados) => {
+    const allocation = allocations.find((alloc) => alloc.asset_id === dados.id);
+    const user = allocation
+      ? users.find((usr) => usr.id === allocation.user_id)
+      : null;
+    const userName = user ? user.name : null;
+    const allocationDate = allocation ? allocation.allocation_date : null;
+    return { ...dados, user: userName, allocation_date: allocationDate };
+  });
+
+  /* console.log(joinedArray); */
+
+  const filterAllocations = () => {
+    setIsButtonClicked(false);
+    const updatedAllocations = joinedArray.filter((row) => {
+      if (
+        filtered &&
+        filteredUser &&
+        (selectedCategory === "" ||
+          row.category.name !== selectedCategory ||
+          row.user !== selectedUser)
+      ) {
+        return false; // Exclude rows that don't match both filters
+      }
+
+      if (
+        filtered &&
+        selectedCategory !== "" &&
+        row.category.name !== selectedCategory
+      ) {
+        return false; // Exclude rows that don't match the category filter
+      }
+
+      if (filteredUser && selectedUser !== "" && row.user !== selectedUser) {
+        return false; // Exclude rows that don't match the user filter
+      }
+
+      return true; // Include rows that match both filters or don't have any filters
+    });
+
+    setFilteredAllocations(updatedAllocations); // Update the filteredAllocations state
+    setIsButtonClicked(true);
+    setDropdownOpen(false);
+  };
+  //----------Handles Category Change------------------------
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
   };
 
-  //------------------------------------------------------------------
+  const handleUserChange = (event) => {
+    const selectedUser = event.target.value;
+    setSelectedUser(selectedUser);
+  };
+  //----------------------------------------------------------
   const onPageClick = (link) => {
     getAssetsFilter(link.url);
   };
 
+  //Gets data of data allocation
   const getAllocationData = (assetId) => {
     const allocation = allocations.find((a) =>
       a.assets === null ? "" : a.assets.id === assetId
@@ -144,7 +223,7 @@ const ReportPage = () => {
     };
   };
 
-  //----------------------------Download----------------------------
+  //----------------------------Download----------------------
   const downloadCSV = async () => {
     setLoading(true);
     let allData = [];
@@ -164,6 +243,7 @@ const ReportPage = () => {
     const csvData = Papa.unparse({
       fields: [
         "Nº Inventário",
+        "Nº Série",
         "Categoria",
         "Local(Anterior)",
         "Local(Atual)",
@@ -184,8 +264,9 @@ const ReportPage = () => {
 
           return [
             asset.numb_inv,
+            asset.numb_ser,
             asset.category.name,
-            filtered_units(asset.previous_unit_id) === null
+            asset.previous_unit_id === null
               ? filtered_entities(asset.previous_ent_id)
               : filtered_units(asset.previous_unit_id),
             asset.units === null ? asset.entity.ent_name : asset.units.name,
@@ -212,7 +293,7 @@ const ReportPage = () => {
   const filtered_entities = (value) => {
     let numb = parseInt(value);
     const filtered = ents.filter((ent) => ent.id === numb);
-    return filtered.length > 0 ? filtered[0].ent_name : "";
+    return filtered.length > 0 ? filtered[0].name : "";
   };
 
   //Filter units by the value that receives
@@ -225,7 +306,12 @@ const ReportPage = () => {
   //Reset of the filters implemented
   const resetFilter = () => {
     setSelectedCategory("");
+    setSelectedUser("");
+    setFilteredAllocations([]);
+    setIsButtonClicked(false);
+    setDropdownOpen(false);
   };
+
   const totalResults = filteredAllocations.length;
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -237,32 +323,55 @@ const ReportPage = () => {
     <div id="content">
       <div className="container-fluid">
         <div className="tb-user">
-          <h1>Movimentação de ativos</h1>
-          <div className="tb-btn-user">
-            <div className="dropdown">
-              <button className="filterIcon" onClick={toggleDropdown}>
-                <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
-              </button>
-              <div
-                className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
-                id="filterDropdown"
-              >
-                <SelectFilter
-                  handleFunc={handleCategoryChange}
-                  selectedF={selectedCategory}
-                  data={cats}
-                  title={"Categoria"}
-                />
-                {
-                  <button onClick={resetFilter} className="btn-filter">
-                    Limpar Filtro
-                  </button>
-                }
+          <h1 className="title-page-all">Movimentação de ativos</h1>
+          <div>
+            <>
+              <div className="dropdown">
+                <button
+                  className="btn-filter text-link"
+                  onClick={toggleDropdown}
+                >
+                  <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
+                </button>
+                <div
+                  className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
+                  id="filterDropdown"
+                >
+                  <SelectFilter
+                    handleFunc={handleCategoryChange}
+                    selectedF={selectedCategory}
+                    data={cats}
+                    title={"Categoria:"}
+                  />
+                  <SelectFilter
+                    handleFunc={handleUserChange}
+                    selectedF={selectedUser}
+                    data={users}
+                    title={"Utilizadores:"}
+                  />
+                  {
+                    <button
+                      onClick={resetFilter}
+                      className="btn-cleanfilter text-link-f"
+                    >
+                      Limpar
+                    </button>
+                  }
+                  {
+                    <button
+                      onClick={filterAllocations}
+                      className="btn-cleanfilter text-link-ff"
+                    >
+                      Aplicar
+                    </button>
+                  }
+                </div>
               </div>
-            </div>
-            <button onClick={downloadCSV} className="btn-dwl">
-              Download .csv
-            </button>
+              {/* ------------Button to download------------ */}
+              <button onClick={downloadCSV} className="btn-dwl">
+                <i className="fa fa-download fa-lg" aria-hidden="true"></i>
+              </button>
+            </>
           </div>
         </div>
       </div>
@@ -271,6 +380,7 @@ const ReportPage = () => {
           <thead>
             <tr>
               <th>Nº Inventário</th>
+              <th>Nº Série</th>
               <th>Categoria</th>
               <th>Local(Anterior)</th>
               <th>Local(Atual)</th>
@@ -296,7 +406,43 @@ const ReportPage = () => {
           )}
           {!loading && (
             <tbody>
-              {filteredAllocations.length === 0 ? (
+              {!isButtonClicked && filteredAllocations.length === 0 ? (
+                assets.map((asset, index) => {
+                  const allocationData = getAllocationData(asset.id);
+                  return (
+                    <tr key={`${asset.id}-${index}`}>
+                      <td>{asset.numb_inv}</td>
+                      <td>{asset.numb_ser}</td>
+                      <td>{asset.category.name}</td>
+
+                      <td>
+                        {asset.previous_unit_id === null
+                          ? filtered_entities(asset.previous_ent_id)
+                          : filtered_units(asset.previous_unit_id)}
+                      </td>
+
+                      <td>
+                        {asset.units === null
+                          ? asset.entity.ent_name
+                          : asset.units.name}
+                      </td>
+                      <td>{asset.previous_ci}</td>
+                      <td>{asset.ci}</td>
+
+                      <td>
+                        {asset.user === undefined
+                          ? allocationData.user
+                          : asset.user}
+                      </td>
+                      <td>
+                        {asset.allocation_date === undefined
+                          ? allocationData.date
+                          : asset.allocation_date}
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : filteredAllocations.length === 0 ? (
                 <tr>
                   <td colSpan="5" className="lgTextF">
                     Não existe(m) resultado(s) para o(s) filtro(s)
@@ -316,14 +462,14 @@ const ReportPage = () => {
                     }
 
                     const allocationData = getAllocationData(asset.id);
-
                     return (
                       <tr key={`${asset.id}-${index}`}>
                         <td>{asset.numb_inv}</td>
+                        <td>{asset.numb_ser}</td>
                         <td>{asset.category.name}</td>
 
                         <td>
-                          {filtered_units(asset.previous_unit_id) === null
+                          {asset.previous_unit_id === null
                             ? filtered_entities(asset.previous_ent_id)
                             : filtered_units(asset.previous_unit_id)}
                         </td>
@@ -336,8 +482,16 @@ const ReportPage = () => {
                         <td>{asset.previous_ci}</td>
                         <td>{asset.ci}</td>
 
-                        <td>{allocationData.user}</td>
-                        <td>{allocationData.date}</td>
+                        <td>
+                          {asset.user === null
+                            ? allocationData.user
+                            : asset.user}
+                        </td>
+                        <td>
+                          {asset.allocation_date === null
+                            ? allocationData.date
+                            : asset.allocation_date}
+                        </td>
                       </tr>
                     );
                   })

@@ -34,6 +34,10 @@ class AllocationResource extends JsonResource
                 'numb_ser' => $this->assets->numb_ser,
                 'numb_inv' => $this->assets->numb_inv,
                 'unit_id' => $this->assets->unit_id,
+                'previous_ent_id' => $this->assets->previous_ent_id,
+                'previous_unit_id' => $this->assets->previous_unit_id,
+                'previous_ci' => $this->assets->previous_ci,
+                'ci' => $this->assets->ci,
                 /* 'unit' => $this->assets->units ? [
                     'id' => $this->assets->units->id,
                     'name' => $this->assets->units->name,

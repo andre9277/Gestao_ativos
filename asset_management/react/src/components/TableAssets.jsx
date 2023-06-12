@@ -31,7 +31,14 @@ All the changes made to enable the implementation of the desired development too
 import React, { useState } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
 
-const TableAssets = ({ toggleCheck, filteredAssets, startIndex, endIndex }) => {
+const TableAssets = ({
+  toggleCheck,
+  filteredAllocations,
+  startIndex,
+  endIndex,
+  isButtonClicked,
+  assets,
+}) => {
   const { user } = useStateContext();
 
   const [loading, setLoading] = useState(false);
@@ -47,49 +54,8 @@ const TableAssets = ({ toggleCheck, filteredAssets, startIndex, endIndex }) => {
         </tr>
       )}
 
-      {!loading && filteredAssets.length === 0 ? (
-        <tr>
-          <td colSpan="5" className="lgTextF">
-            Não existe(m) resultado(s) para o(s) filtro(s) selecionado(s)!
-          </td>
-        </tr>
-      ) : !loading && filteredAssets.length > 20 ? (
-        filteredAssets.slice(startIndex, endIndex).map((asset) => (
-          <tr key={asset.id}>
-            <td>{asset.category.name}</td>
-            <td>{asset.brand.sig}</td>
-            <td>{asset.modelo.name}</td>
-            <td>{asset.numb_inv}</td>
-            <td>{asset.numb_ser}</td>
-            <td>{asset.entity.ent_name}</td>
-            <td>{asset.units === null ? "" : asset.units.name}</td>
-            <td>{asset.floor}</td>
-            <td>{asset.ala}</td>
-            <td>{asset.ci}</td>
-            <td>
-              {asset.state === "Ativo" ? (
-                <div className="circle active"></div>
-              ) : (
-                <div className="circle inactive"></div>
-              )}
-            </td>
-            <td>{asset.created_at}</td>
-
-            {user.role_id === 3 ? null : (
-              <td>
-                <input
-                  type="checkbox"
-                  name=""
-                  id=""
-                  onChange={() => toggleCheck(asset.id)}
-                  value={asset.checked}
-                />
-              </td>
-            )}
-          </tr>
-        ))
-      ) : (
-        filteredAssets.map((a) => (
+      {!isButtonClicked && filteredAllocations.length === 0 ? (
+        assets.map((a) => (
           <tr key={a.id}>
             <td>{a.category.name}</td>
             <td>{a.brand.sig}</td>
@@ -118,6 +84,47 @@ const TableAssets = ({ toggleCheck, filteredAssets, startIndex, endIndex }) => {
                   id=""
                   onChange={() => toggleCheck(a.id)}
                   value={a.checked}
+                />
+              </td>
+            )}
+          </tr>
+        ))
+      ) : filteredAllocations.length === 0 ? (
+        <tr>
+          <td colSpan="5" className="lgTextF">
+            Não existe(m) resultado(s) para o(s) filtro(s) selecionado(s)!
+          </td>
+        </tr>
+      ) : (
+        filteredAllocations.slice(startIndex, endIndex).map((asset) => (
+          <tr key={asset.id}>
+            <td>{asset.category.name}</td>
+            <td>{asset.brand.sig}</td>
+            <td>{asset.modelo.name}</td>
+            <td>{asset.numb_inv}</td>
+            <td>{asset.numb_ser}</td>
+            <td>{asset.entity.ent_name}</td>
+            <td>{asset.units === null ? "" : asset.units.name}</td>
+            <td>{asset.floor}</td>
+            <td>{asset.ala}</td>
+            <td>{asset.ci}</td>
+            <td>
+              {asset.state === "Ativo" ? (
+                <div className="circle active"></div>
+              ) : (
+                <div className="circle inactive"></div>
+              )}
+            </td>
+            <td>{asset.created_at}</td>
+
+            {user.role_id === 3 ? null : (
+              <td>
+                <input
+                  type="checkbox"
+                  name=""
+                  id=""
+                  onChange={() => toggleCheck(asset.id)}
+                  value={asset.checked}
                 />
               </td>
             )}

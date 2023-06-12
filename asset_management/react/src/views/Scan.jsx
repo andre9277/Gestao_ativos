@@ -53,10 +53,7 @@ const Scan = () => {
     };
   }, []);
   useEffect(() => {
-    let scanCount = 0;
-
     Quagga.onDetected((result) => {
-      scanCount++;
       console.log("Barcode detected:", result.codeResult.code);
       setBarcode(result.codeResult.code);
 
@@ -72,7 +69,7 @@ const Scan = () => {
       if (foundAsset) {
         navigate(`/infoasset/${foundAsset.id}`);
         Quagga.stop();
-      } else if (scanCount > 500) {
+      } else {
         navigate("/assets/new");
         Quagga.stop();
       }
@@ -92,6 +89,10 @@ const Scan = () => {
           name: "Live",
           type: "LiveStream",
           target: document.querySelector("#scanner-container"),
+          constraints: {
+            width: 640, // adjust the width as needed
+            height: 480, // adjust the height as needed
+          },
           scan: true, // added property
         },
         decoder: {
@@ -118,20 +119,44 @@ const Scan = () => {
       drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
 
       // draw detection result
-      if (result && result.codeResult) {
-        Quagga.ImageDebug.drawPath(
-          result.line,
-          { x: "x", y: "y" },
-          drawingCtx,
-          {
-            color: "green",
-            lineWidth: 4,
-          }
+      if (
+        result &&
+        result.codeResult &&
+        result.codeResult.box &&
+        result.codeResult.box.length >= 3
+      ) {
+        const { box } = result.codeResult;
+
+        // draw rectangle around barcode area
+        drawingCtx.strokeStyle = "red";
+        drawingCtx.lineWidth = 2;
+        drawingCtx.beginPath();
+        drawingCtx.rect(
+          box[0].x,
+          box[0].y,
+          box[2].x - box[0].x,
+          box[2].y - box[0].y
         );
+        drawingCtx.closePath();
+        drawingCtx.stroke();
+      } else {
+        // draw rectangle in the middle of the scanner area
+        const canvasWidth = drawingCanvas.width;
+        const canvasHeight = drawingCanvas.height;
+        const rectWidth = canvasWidth * 0.5; // adjust rectangle width as needed
+        const rectHeight = canvasHeight * 0.3; // adjust rectangle height as needed
+        const rectX = (canvasWidth - rectWidth) / 2;
+        const rectY = (canvasHeight - rectHeight) / 2;
+
+        drawingCtx.strokeStyle = "red";
+        drawingCtx.lineWidth = 2;
+        drawingCtx.beginPath();
+        drawingCtx.rect(rectX, rectY, rectWidth, rectHeight);
+        drawingCtx.closePath();
+        drawingCtx.stroke();
       }
     });
   }
-
   function stopBarcodeScanner() {
     if (barcodeScannerInitialized) {
       Quagga.stop();

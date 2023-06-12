@@ -132,7 +132,7 @@ export default function Users() {
   return (
     <div>
       <div className="tb-user">
-        <h1>Utilizadores</h1>
+        <h1 className="title-page-all">Utilizadores</h1>
         <div className="tb-btn-user">
           {user.role_id === 1 ? (
             <button
