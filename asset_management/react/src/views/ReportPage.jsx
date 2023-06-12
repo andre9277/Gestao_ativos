@@ -340,7 +340,10 @@ const ReportPage = () => {
                     className="btn-add text-link"
                     onClick={(ev) => onAddClick()}
                   >
-                    Movimentação
+                    <i
+                      className="fa fa-exchange-alt fa-lg"
+                      aria-hidden="true"
+                    ></i>
                   </button>
                 }
                 <button

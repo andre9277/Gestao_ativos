@@ -87,7 +87,7 @@ const AddAssetMovementForm = () => {
       <h1 className="title-page-all">Movimento de Ativo</h1>
 
       <div className="card animated fadeInDown">
-        <h6>Insira primeiro o número de série do ativo a mover!</h6>
+        <h6>Insira primeiro o Número de Série do ativo a mover!</h6>
         <form onSubmit={handleSubmit} className="assetForm">
           <button type="submit" className="btn-adicionar">
             Gravar
