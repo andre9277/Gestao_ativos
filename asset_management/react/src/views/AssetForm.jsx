@@ -487,6 +487,18 @@ export default function AssetForm() {
                   <option value="E">E</option>
                 </select>
               </label>
+              {/* ---------- Observações ----------*/}
+              <label className="lb-info">
+                Observações:
+                <textarea
+                  value={asset.obs === null ? "" : asset.obs}
+                  onChange={(ev) =>
+                    setAsset({ ...asset, obs: ev.target.value })
+                  }
+                  placeholder="Escreva aqui..."
+                  className="attrAsset"
+                />
+              </label>
             </div>
           </form>
         )}

@@ -163,7 +163,7 @@ const AssetInfo = () => {
                       </label>
                     </ol>
                   </ul>
-
+                  <p></p>
                   {/* -------------Informação ativo - fornecedor------------- */}
 
                   <h2 className="headerInfoAsset">Fornecedor: </h2>
@@ -194,6 +194,20 @@ const AssetInfo = () => {
                       <div></div>
                     </ol>
                   </ul>
+
+                  <p></p>
+                  <h2 className="headerInfoAsset">Observações:</h2>
+                  <ol className="lb-infoAsset">
+                    <label className="lb-infoAsset2">
+                      <h6 className="attrAsset">
+                        {asset.obs === null ? (
+                          <u>"Não existem observações!"</u>
+                        ) : (
+                          asset.obs
+                        )}
+                      </h6>
+                    </label>
+                  </ol>
                 </div>
               </div>
             ) : (

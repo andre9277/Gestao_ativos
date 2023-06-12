@@ -127,7 +127,14 @@ const AddAssetMovementForm = () => {
               {matchingAsset ? matchingAsset.entity.ent_name : ""}
             </h6>
           </label>
-          {/* ---------- Nova Localização ----------*/}
+          {/* ---------- CI ----------*/}
+          <label className="lb-info">
+            CI:
+            <h6 className="attrAsset">
+              {matchingAsset ? matchingAsset.ci : ""}
+            </h6>
+          </label>
+          {/* ----------Entidade ----------*/}
 
           <label htmlFor="entity" className="lb-info">
             Entidade:
@@ -138,7 +145,7 @@ const AddAssetMovementForm = () => {
               value={assetEnt}
               onChange={(e) => setAssetEnt(e.target.value)}
             >
-              <option value="">Selecione a Entidade ...</option>
+              <option value="">Selecione a Entidade...</option>
 
               {ents.map((ent) => (
                 <option key={ent.id} value={ent.id}>
@@ -148,13 +155,6 @@ const AddAssetMovementForm = () => {
             </select>
           </label>
 
-          {/* ---------- CI ----------*/}
-          <label className="lb-info">
-            CI:
-            <h6 className="attrAsset">
-              {matchingAsset ? matchingAsset.ci : ""}
-            </h6>
-          </label>
           {/* ---------- Novo CI ----------*/}
           <label className="lb-info">
             Novo CI:{" "}
