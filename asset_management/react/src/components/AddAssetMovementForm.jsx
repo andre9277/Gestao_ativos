@@ -10,14 +10,23 @@ const AddAssetMovementForm = () => {
   const [other, setOther] = useState("");
   const [assetEve, setAssetEve] = useState([]);
   const [assetCi, setAssetCi] = useState("");
-
+  const [assetEnt, setAssetEnt] = useState("");
   const { user, setNotification } = useStateContext();
+  const [ents, setEnts] = useState([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     getTotalAssetsEve();
+    getEnts();
   }, []);
+
+  const getEnts = (url) => {
+    url = url || "/entities";
+    axiosClient.get(url).then(({ data }) => {
+      setEnts(data);
+    });
+  };
 
   const getTotalAssetsEve = (url) => {
     url = url || "/allAssets";
@@ -51,6 +60,7 @@ const AddAssetMovementForm = () => {
       user_id: user.id,
       asset_id: matchingAsset ? matchingAsset.id : null,
       ci: assetCi,
+      entity: assetEnt,
     };
 
     // Perform the POST request using a library like Axios or fetch
@@ -59,7 +69,11 @@ const AddAssetMovementForm = () => {
       .post("/assetMovement", data)
       .then(() => {
         if (matchingAsset) {
-          const updateAsset = { ...matchingAsset, ci: assetCi };
+          const updateAsset = {
+            ...matchingAsset,
+            ci: assetCi !== "" ? assetCi : matchingAsset.ci, // Update asset CI only if there is a new value
+            ent_id: assetEnt !== "" ? assetEnt : matchingAsset.ent_id,
+          };
           axiosClient
             .put(`/assets/${matchingAsset.id}`, updateAsset)
             .then(() => {
@@ -82,6 +96,8 @@ const AddAssetMovementForm = () => {
         }
       });
   };
+  console.log("ents", ents);
+  console.log(matchingAsset);
   return (
     <>
       <h1 className="title-page-all">Movimento de Ativo</h1>
@@ -92,6 +108,7 @@ const AddAssetMovementForm = () => {
           <button type="submit" className="btn-adicionar">
             Gravar
           </button>
+          {/* ---------- Número de Série ----------*/}
           <label className="lb-info">
             Número de Série:
             <input
@@ -103,28 +120,42 @@ const AddAssetMovementForm = () => {
               placeholder="Número de Série"
             />
           </label>
+          {/* ---------- Localização ----------*/}
           <label className="lb-info">
             Localização:
             <h6 className="attrAsset">
               {matchingAsset ? matchingAsset.entity.ent_name : ""}
             </h6>
           </label>
-          <label className="lb-info">
-            Nova Localização:
-            <input
-              value={""}
-              onChange={(e) => ""}
-              className="attrAsset"
-              placeholder="Nova Localização"
-            />
+          {/* ---------- Nova Localização ----------*/}
+
+          <label htmlFor="entity" className="lb-info">
+            Entidade:
+            <select
+              className="form-select"
+              name="entity"
+              id="entity"
+              value={assetEnt}
+              onChange={(e) => setAssetEnt(e.target.value)}
+            >
+              <option value="">Selecione a Entidade ...</option>
+
+              {ents.map((ent) => (
+                <option key={ent.id} value={ent.id}>
+                  {ent.ent_name}
+                </option>
+              ))}
+            </select>
           </label>
+
+          {/* ---------- CI ----------*/}
           <label className="lb-info">
             CI:
             <h6 className="attrAsset">
               {matchingAsset ? matchingAsset.ci : ""}
             </h6>
           </label>
-
+          {/* ---------- Novo CI ----------*/}
           <label className="lb-info">
             Novo CI:{" "}
             <input
@@ -134,6 +165,7 @@ const AddAssetMovementForm = () => {
               placeholder="Novo CI"
             />
           </label>
+          {/* ---------- Motivo ----------*/}
           <label className="lb-info">
             Motivo:
             <select
@@ -150,7 +182,7 @@ const AddAssetMovementForm = () => {
               <option value="Garantia">Garantia</option>
             </select>
           </label>
-
+          {/* ---------- Observações ----------*/}
           <label className="lb-info">
             Observações:
             <textarea
