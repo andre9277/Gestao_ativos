@@ -96,8 +96,7 @@ const AddAssetMovementForm = () => {
         }
       });
   };
-  console.log("ents", ents);
-  console.log(matchingAsset);
+
   return (
     <>
       <h1 className="title-page-all">Movimento de Ativo</h1>

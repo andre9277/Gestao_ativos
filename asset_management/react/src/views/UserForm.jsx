@@ -113,8 +113,10 @@ export default function UserForm() {
 
   return (
     <>
-      {user.id && <h1>Atualizar Utilizador: {user.name}</h1>}
-      {!user.id && <h1>Novo Utilizador</h1>}
+      {user.id && (
+        <h1 className="title-page-all">Atualizar Utilizador: {user.name}</h1>
+      )}
+      {!user.id && <h1 className="title-page-all">Novo Utilizador</h1>}
       <div className="card animated fadeInDown">
         {loading && <div className="caprr-re">A Carregar...</div>}
         {errors && (
