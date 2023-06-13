@@ -167,7 +167,7 @@ const AddAssetMovementForm = () => {
           <label htmlFor="entity" className="lb-info">
             Entidade:
             <select
-              className="form-select"
+              className="form-select-mov"
               name="entity"
               id="entity"
               value={assetEnt}
@@ -197,7 +197,7 @@ const AddAssetMovementForm = () => {
           <label className="lb-info">
             Motivo:
             <select
-              className="form-select"
+              className="form-select-mov"
               name="motivo"
               id="motivo"
               value={reason}
