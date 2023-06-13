@@ -59,11 +59,15 @@ const ReportPage = () => {
 
   const [selectedUser, setSelectedUser] = useState("");
   const [selectedEnt, setSelectedEnt] = useState("");
+  const [selectedDateFrom, setSelectedDateFrom] = useState("");
+  const [selectedDateTo, setSelectedDateTo] = useState("");
 
   //keeps checking if there is a filter on or off:
   const [filtered, setFiltered] = useState(false);
   const [filteredUser, setFilteredUser] = useState(false);
   const [filteredEnt, setFilteredEnt] = useState(false);
+  const [filteredDataFrom, setFilteredDataFrom] = useState(false);
+  const [filteredDataTo, setFilteredDataTo] = useState(false);
 
   //For all the asset data:
   const [allDados, setAllDados] = useState([]); //All the data from an asset (not the user)
@@ -137,10 +141,14 @@ const ReportPage = () => {
     const hasFilter = selectedCategory !== "";
     const hasFilterUser = selectedUser !== "";
     const hasFilterEnt = selectedEnt !== "";
+    const hasFilterDateFrom = selectedDateFrom !== "";
+    const hasFilterDateTo = selectedDateTo !== "";
 
     setFiltered(hasFilter);
     setFilteredUser(hasFilterUser);
     setFilteredEnt(hasFilterEnt);
+    setFilteredDataFrom(hasFilterDateFrom);
+    setFilteredDataTo(hasFilterDateTo);
 
     if (hasFilter) {
       setAllDados(allAssets);
@@ -151,7 +159,19 @@ const ReportPage = () => {
     if (hasFilterEnt) {
       setAllDados(allAssets);
     }
-  }, [selectedCategory, selectedUser, selectedEnt]);
+    if (hasFilterDateFrom) {
+      setAllDados(allAssets);
+    }
+    if (hasFilterDateTo) {
+      setAllDados(allAssets);
+    }
+  }, [
+    selectedCategory,
+    selectedUser,
+    selectedEnt,
+    selectedDateFrom,
+    selectedDateTo,
+  ]);
 
   //-------Filters the category by user input
 
@@ -165,7 +185,7 @@ const ReportPage = () => {
     return { ...dados, user: userName, allocation_date: allocationDate };
   });
 
-  console.log("joinedArray", joinedArray);
+  console.log(joinedArray);
 
   const filterAllocations = () => {
     setIsButtonClicked(false);
@@ -174,10 +194,14 @@ const ReportPage = () => {
         filtered &&
         filteredUser &&
         filteredEnt &&
+        filteredDataFrom &&
+        filteredDataTo &&
         (selectedCategory === "" ||
           row.category.name !== selectedCategory ||
           row.user !== selectedUser ||
-          row.entity.ent_name !== selectedEnt)
+          row.entity.ent_name !== selectedEnt ||
+          row.allocation_date < selectedDateFrom ||
+          row.allocation_date > selectedDateTo)
       ) {
         return false; // Exclude rows that don't match both filters
       }
@@ -202,6 +226,16 @@ const ReportPage = () => {
         return false;
       }
 
+      if (
+        (filteredDataFrom &&
+          filteredDataTo &&
+          selectedDateFrom !== "" &&
+          selectedDateTo !== "" &&
+          row.allocation_date < selectedDateFrom) ||
+        row.allocation_date > selectedDateTo
+      ) {
+        return false;
+      }
       return true; // Include rows that match both filters or don't have any filters
     });
 
@@ -223,6 +257,16 @@ const ReportPage = () => {
   const handleLocalChange = (event) => {
     const selectedEnt = event.target.value;
     setSelectedEnt(selectedEnt);
+  };
+
+  const handleDataChangeFrom = (event) => {
+    const selectDateFrom = event.target.value;
+    setSelectedDateFrom(selectDateFrom);
+  };
+
+  const handleDataChangeTo = (event) => {
+    const selectDataTo = event.target.value;
+    setSelectedDateTo(selectDataTo);
   };
   //----------------------------------------------------------
   const onPageClick = (link) => {
@@ -332,6 +376,8 @@ const ReportPage = () => {
   const resetFilter = () => {
     setSelectedCategory("");
     setSelectedUser("");
+    setSelectedDateFrom("");
+    setSelectedDateTo("");
     setFilteredAllocations([]);
     setIsButtonClicked(false);
     setDropdownOpen(false);
@@ -357,6 +403,13 @@ const ReportPage = () => {
           <div>
             <>
               <div className="dropdown">
+                {/* ---------------Button filtrar --------------- */}
+                <button
+                  className="btn-filter text-link"
+                  onClick={toggleDropdown}
+                >
+                  <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
+                </button>
                 {
                   /*------------ Button Troca ------------*/
                   <button
@@ -369,13 +422,7 @@ const ReportPage = () => {
                     ></i>
                   </button>
                 }
-                {/* ---------------Button filtrar --------------- */}
-                <button
-                  className="btn-filter text-link"
-                  onClick={toggleDropdown}
-                >
-                  <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
-                </button>
+
                 <div
                   className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
                   id="filterDropdown"
@@ -398,6 +445,31 @@ const ReportPage = () => {
                     data={ents}
                     title={"Localização:"}
                   />
+                  <div className="dropdown-ind">
+                    <label className="titleFiltAsset">Intervalo de Datas</label>
+
+                    <form>
+                      <label htmlFor="from-date">De:</label>
+                      <input
+                        type="date"
+                        id="from-date"
+                        name="from-date"
+                        value={selectedDateFrom}
+                        onChange={handleDataChangeFrom}
+                        required
+                      />
+
+                      <label htmlFor="to-date">Até:</label>
+                      <input
+                        type="date"
+                        id="to-date"
+                        name="to-date"
+                        required
+                        value={selectedDateTo}
+                        onChange={handleDataChangeTo}
+                      />
+                    </form>
+                  </div>
                   {
                     <button
                       onClick={resetFilter}
