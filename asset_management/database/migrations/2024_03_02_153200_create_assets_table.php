@@ -23,10 +23,10 @@ return new class extends Migration
             $table->string('ala', 100)->nullable();
             $table->string('floor', 100)->nullable();
             $table->string('ci', 7)->nullable();
-            $table->string('previous_unit_id')->nullable();;
-            $table->string('previous_ent_id')->nullable();;
-            $table->string('previous_ci')->nullable();;
-            $table->string('obs');
+            $table->string('previous_unit_id')->nullable();
+            $table->string('previous_ent_id')->nullable();
+            $table->string('previous_ci')->nullable();
+            $table->string('obs')->nullable();
 
             $table->unsignedBigInteger('brand_id');
             $table->unsignedBigInteger('cat_id');
