@@ -87,13 +87,15 @@ const Filter = ({
             </option>
           ))}
         </select>
-        <button onClick={resetFilter} className="btn-filter">
-          Limpar filtro
-        </button>
+        <div className="alloca-icons">
+          <button onClick={resetFilter} className="btn-filter">
+            <i className="fa fa-eraser fa-lg" aria-hidden="true"></i>
+          </button>
 
-        <button onClick={handleDwl} className="btn-dwl">
-          Download .csv
-        </button>
+          <button onClick={handleDwl} className="btn-dwl">
+            <i className="fa fa-download fa-lg" aria-hidden="true"></i>
+          </button>
+        </div>
       </div>
     </div>
   );

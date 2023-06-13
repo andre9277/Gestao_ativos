@@ -336,6 +336,7 @@ const ReportPage = () => {
             <>
               <div className="dropdown">
                 {
+                  /*------------ Button Troca ------------*/
                   <button
                     className="btn-add text-link"
                     onClick={(ev) => onAddClick()}
@@ -346,6 +347,7 @@ const ReportPage = () => {
                     ></i>
                   </button>
                 }
+                {/* ---------------Button filtrar --------------- */}
                 <button
                   className="btn-filter text-link"
                   onClick={toggleDropdown}
