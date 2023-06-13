@@ -127,9 +127,9 @@ export default function UserForm() {
           </div>
         )}
         {!loading && (
-          <form onSubmit={onSubmit}>
-            <button className="btn-adicionar">Guardar</button>
-            <label>
+          <form onSubmit={onSubmit} className="assetForm">
+            <button className="btn-adicionar">Gravar</button>
+            <label className="lb-info-user">
               {" "}
               Nome:
               <input
@@ -138,7 +138,7 @@ export default function UserForm() {
                 placeholder="Nome"
               />
             </label>
-            <label>
+            <label className="lb-info-user">
               Email:
               <input
                 type="email"
@@ -148,7 +148,7 @@ export default function UserForm() {
               />
             </label>
 
-            <label>
+            <label className="lb-info-user">
               Número Mecanográfico:
               <input
                 onChange={(ev) => setUser({ ...user, mec: ev.target.value })}
@@ -156,7 +156,7 @@ export default function UserForm() {
               />
             </label>
 
-            <label>
+            <label className="lb-info-user">
               Password:
               <input
                 type="password"
@@ -166,7 +166,7 @@ export default function UserForm() {
                 placeholder="Password"
               />
             </label>
-            <label>
+            <label className="lb-info-user">
               Confirmação da Password:
               <input
                 type="password"
@@ -177,9 +177,10 @@ export default function UserForm() {
               />
             </label>
 
-            <label htmlFor="role">
+            <label htmlFor="role" className="lb-info-user">
               Função:
               <select
+                className="form-select-user"
                 name="role"
                 id="role"
                 value={user.role_id}
@@ -187,7 +188,7 @@ export default function UserForm() {
                   setUser({ ...user, role_id: ev.target.value })
                 }
               >
-                <option value="">Selecione a Função do Utilizador...</option>
+                <option value="">Selecione a Função...</option>
                 <option value="1">Administrador</option>
                 <option value="2">Sistemas de Informação</option>
                 <option value="3">Manutenção</option>
