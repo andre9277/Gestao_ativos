@@ -185,11 +185,10 @@ const ReportPage = () => {
     return { ...dados, user: userName, allocation_date: allocationDate };
   });
 
-  console.log(joinedArray);
-
   const filterAllocations = () => {
     setIsButtonClicked(false);
     const updatedAllocations = joinedArray.filter((row) => {
+      const rowDate = row.allocation_date.split(" ")[0];
       if (
         filtered &&
         filteredUser &&
@@ -200,8 +199,8 @@ const ReportPage = () => {
           row.category.name !== selectedCategory ||
           row.user !== selectedUser ||
           row.entity.ent_name !== selectedEnt ||
-          row.allocation_date < selectedDateFrom ||
-          row.allocation_date > selectedDateTo)
+          rowDate < selectedDateFrom ||
+          rowDate > selectedDateTo)
       ) {
         return false; // Exclude rows that don't match both filters
       }
@@ -227,12 +226,11 @@ const ReportPage = () => {
       }
 
       if (
-        (filteredDataFrom &&
-          filteredDataTo &&
-          selectedDateFrom !== "" &&
-          selectedDateTo !== "" &&
-          row.allocation_date < selectedDateFrom) ||
-        row.allocation_date > selectedDateTo
+        filteredDataFrom &&
+        filteredDataTo &&
+        selectedDateFrom !== "" &&
+        selectedDateTo !== "" &&
+        (rowDate < selectedDateFrom || rowDate > selectedDateTo)
       ) {
         return false;
       }
@@ -403,7 +401,7 @@ const ReportPage = () => {
           <div>
             <>
               <div className="dropdown">
-                {/* ---------------Button filtrar --------------- */}
+                {/* ---------------Button Filter --------------- */}
                 <button
                   className="btn-filter text-link"
                   onClick={toggleDropdown}
@@ -411,7 +409,7 @@ const ReportPage = () => {
                   <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
                 </button>
                 {
-                  /*------------ Button Troca ------------*/
+                  /*------------ Button Trade ------------*/
                   <button
                     className="btn-add text-link"
                     onClick={(ev) => onAddClick()}
@@ -446,27 +444,34 @@ const ReportPage = () => {
                     title={"Localização:"}
                   />
                   <div className="dropdown-ind">
-                    <label className="titleFiltAsset">Intervalo de Datas</label>
+                    <label className="titleFiltDataMov">Data:</label>
 
-                    <form>
-                      <label htmlFor="from-date">De:</label>
+                    <form className="form-filt">
+                      <label htmlFor="from-date" className="dat-filt">
+                        De:
+                      </label>
                       <input
                         type="date"
                         id="from-date"
                         name="from-date"
                         value={selectedDateFrom}
                         onChange={handleDataChangeFrom}
+                        className="cal-filt"
                         required
                       />
 
-                      <label htmlFor="to-date">Até:</label>
+                      <label htmlFor="to-date" className="dat-filt">
+                        Até:
+                      </label>
                       <input
                         type="date"
                         id="to-date"
                         name="to-date"
                         required
                         value={selectedDateTo}
+                        /* className="cal-filt" */
                         onChange={handleDataChangeTo}
+                        className="cal-filt"
                       />
                     </form>
                   </div>
@@ -488,7 +493,7 @@ const ReportPage = () => {
                   }
                 </div>
               </div>
-              {/* ------------Button to download------------ */}
+              {/* ------------Button download------------ */}
               <button onClick={downloadCSV} className="btn-dwl">
                 <i className="fa fa-download fa-lg" aria-hidden="true"></i>
               </button>

@@ -12935,3 +12935,25 @@ input::placeholder {
 .alloca-icons {
     margin-left: 6rem;
 }
+
+.dat-filt {
+    width: 25%;
+}
+
+.cal-filt {
+    width: 70%;
+    box-sizing: border-box;
+    border-bottom: 2px;
+}
+
+.form-filt {
+    width: 100%;
+    padding: 0.1rem;
+}
+
+.titleFiltDataMov{
+    color: #459c2c;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 0.1px;
+}
