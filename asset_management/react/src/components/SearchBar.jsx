@@ -105,7 +105,7 @@ const Search = () => {
     // Search for the asset by asset number or serial number using binary search
     const matchedAsset = binarySearch(sortedAssets, assetNumber);
 
-    console.log(matchedAsset);
+    /*  console.log(matchedAsset); */
     if (matchedAsset) {
       navigate(`/infoasset/${matchedAsset.id}`);
     } else {
@@ -123,7 +123,7 @@ const Search = () => {
       <div className="input-group">
         <input
           type="text"
-          placeholder="Nº Inventário\Série"
+          placeholder="Insira nº Série"
           value={assetNumber}
           onChange={handleChange}
           className="form-control border-0 ssBar"

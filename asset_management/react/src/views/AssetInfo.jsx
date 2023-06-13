@@ -230,7 +230,7 @@ const AssetInfo = () => {
                     <label className="lb-infoAsset2">
                       <h6 className="attrAsset">
                         {asset.obs === null ? (
-                          <u>"Não existem observações!"</u>
+                          <u>Não existem observações!</u>
                         ) : (
                           asset.obs
                         )}

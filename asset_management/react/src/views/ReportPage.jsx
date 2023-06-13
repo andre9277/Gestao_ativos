@@ -58,10 +58,12 @@ const ReportPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const [selectedUser, setSelectedUser] = useState("");
+  const [selectedEnt, setSelectedEnt] = useState("");
 
   //keeps checking if there is a filter on or off:
   const [filtered, setFiltered] = useState(false);
   const [filteredUser, setFilteredUser] = useState(false);
+  const [filteredEnt, setFilteredEnt] = useState(false);
 
   //For all the asset data:
   const [allDados, setAllDados] = useState([]); //All the data from an asset (not the user)
@@ -134,9 +136,11 @@ const ReportPage = () => {
   useEffect(() => {
     const hasFilter = selectedCategory !== "";
     const hasFilterUser = selectedUser !== "";
+    const hasFilterEnt = selectedEnt !== "";
 
     setFiltered(hasFilter);
     setFilteredUser(hasFilterUser);
+    setFilteredEnt(hasFilterEnt);
 
     if (hasFilter) {
       setAllDados(allAssets);
@@ -144,7 +148,10 @@ const ReportPage = () => {
     if (hasFilterUser) {
       setAllDados(allAssets);
     }
-  }, [selectedCategory, selectedUser]);
+    if (hasFilterEnt) {
+      setAllDados(allAssets);
+    }
+  }, [selectedCategory, selectedUser, selectedEnt]);
 
   //-------Filters the category by user input
 
@@ -158,7 +165,7 @@ const ReportPage = () => {
     return { ...dados, user: userName, allocation_date: allocationDate };
   });
 
-  /* console.log(joinedArray); */
+  console.log("joinedArray", joinedArray);
 
   const filterAllocations = () => {
     setIsButtonClicked(false);
@@ -166,9 +173,11 @@ const ReportPage = () => {
       if (
         filtered &&
         filteredUser &&
+        filteredEnt &&
         (selectedCategory === "" ||
           row.category.name !== selectedCategory ||
-          row.user !== selectedUser)
+          row.user !== selectedUser ||
+          row.entity.ent_name !== selectedEnt)
       ) {
         return false; // Exclude rows that don't match both filters
       }
@@ -183,6 +192,14 @@ const ReportPage = () => {
 
       if (filteredUser && selectedUser !== "" && row.user !== selectedUser) {
         return false; // Exclude rows that don't match the user filter
+      }
+
+      if (
+        filteredEnt &&
+        selectedEnt !== "" &&
+        row.entity.ent_name !== selectedEnt
+      ) {
+        return false;
       }
 
       return true; // Include rows that match both filters or don't have any filters
@@ -201,6 +218,11 @@ const ReportPage = () => {
   const handleUserChange = (event) => {
     const selectedUser = event.target.value;
     setSelectedUser(selectedUser);
+  };
+
+  const handleLocalChange = (event) => {
+    const selectedEnt = event.target.value;
+    setSelectedEnt(selectedEnt);
   };
   //----------------------------------------------------------
   const onPageClick = (link) => {
@@ -370,7 +392,12 @@ const ReportPage = () => {
                     data={users}
                     title={"Utilizadores:"}
                   />
-
+                  <SelectFilter
+                    handleFunc={handleLocalChange}
+                    selectedF={selectedEnt}
+                    data={ents}
+                    title={"Localização:"}
+                  />
                   {
                     <button
                       onClick={resetFilter}
