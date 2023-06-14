@@ -80,6 +80,7 @@ const AddAssetMovementForm = () => {
       .slice(0, 19)
       .replace("T", " ");
 
+    /*!!!!!!!!!!!!!Need to check this code, other, reason and allocationDate that is 1 hour behind!!!!!!!!!!!!!!!!*/
     const data = {
       allocation_date: allocationDate,
       reason: reason,
@@ -137,7 +138,7 @@ const AddAssetMovementForm = () => {
             Gravar
           </button>
           {/* ---------- Número de Série ----------*/}
-          <label className="lb-info">
+          <label className="lb-info-allo">
             Número de Série:
             <input
               type="text"
@@ -149,7 +150,7 @@ const AddAssetMovementForm = () => {
           </label>
           {/* ----------New Local ----------*/}
 
-          <label htmlFor="entity" className="lb-info">
+          <label htmlFor="entity" className="lb-info-allo">
             Localização:
             <select
               className="form-select-mov"
@@ -168,7 +169,7 @@ const AddAssetMovementForm = () => {
             </select>
           </label>
           {/* ---------- CI Now ----------*/}
-          <label className="lb-info">
+          <label className="lb-info-allo">
             Novo CI:{" "}
             <input
               value={assetCi}
@@ -177,15 +178,8 @@ const AddAssetMovementForm = () => {
             />
           </label>
 
-          {/* ---------- Local Now ----------*/}
-          <label className="lb-info">
-            Localização Origem:
-            <h6 className="attrAsset">
-              {matchingAsset ? matchingAsset.entity.ent_name : ""}
-            </h6>
-          </label>
           {/* ---------- Reason ----------*/}
-          <label className="lb-info">
+          <label className="lb-info-allo">
             Motivo:
             <select
               className="form-select-mov"
@@ -201,22 +195,29 @@ const AddAssetMovementForm = () => {
               <option value="Garantia">Garantia</option>
             </select>
           </label>
-          {/* ---------- Obs ----------*/}
-          <label className="lb-info">
-            Observações:
-            <textarea
-              value={other}
-              onChange={(e) => setOther(e.target.value)}
-              className="obs-mov"
-            />
+          {/* ---------- Local Now ----------*/}
+          <label className="lb-info-allo">
+            Localização Origem:
+            <h6 className="attrAsset">
+              {matchingAsset ? matchingAsset.entity.ent_name : ""}
+            </h6>
           </label>
-
           {/* ---------- CI ----------*/}
-          <label className="lb-info">
+          <label className="lb-info-allo-ci">
             CI:
             <h6 className="attrAsset">
               {matchingAsset ? matchingAsset.ci : ""}
             </h6>
+          </label>
+
+          {/* ---------- Obs ----------*/}
+          <label className="lb-info-allo">
+            Observações:
+            <textarea
+              value={other}
+              onChange={(e) => setOther(e.target.value)}
+              className="obs-mov-e"
+            />
           </label>
         </form>
       </div>

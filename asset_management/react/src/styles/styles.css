@@ -12976,8 +12976,27 @@ input::placeholder {
 }
 .obs-mov {
     width: 250px;
-    border: 2px solid #007840;
+    border-bottom: 2px solid #007840;
     margin-left: 10px;
+}
+.obs-mov-e{
+    border-bottom: 2px solid #007840;
+    margin-left: 10px;
+}
+.lb-info-allo {
+    width: 23%;
+    margin: 4px;
+    color: #007840;
+    font-size: large;
+    margin-top: 20px;
+}
+
+.lb-info-allo-ci {
+    width: 12%;
+    margin: 4px;
+    color: #007840;
+    font-size: large;
+    margin-top: 20px;
 }
 
 .lb-info-obs {

@@ -495,7 +495,7 @@ export default function AssetForm() {
                   onChange={(ev) =>
                     setAsset({ ...asset, obs: ev.target.value })
                   }
-                  className="obs"
+                  className="obs-mov-e"
                 />
               </label>
             </div>
