@@ -148,24 +148,10 @@ const AddAssetMovementForm = () => {
               placeholder="Número de Série"
             />
           </label>
-          {/* ---------- Localização ----------*/}
-          <label className="lb-info">
-            Localização:
-            <h6 className="attrAsset">
-              {matchingAsset ? matchingAsset.entity.ent_name : ""}
-            </h6>
-          </label>
-          {/* ---------- CI ----------*/}
-          <label className="lb-info">
-            CI:
-            <h6 className="attrAsset">
-              {matchingAsset ? matchingAsset.ci : ""}
-            </h6>
-          </label>
-          {/* ----------Entidade ----------*/}
+          {/* ----------New Local ----------*/}
 
           <label htmlFor="entity" className="lb-info">
-            Entidade:
+            Localização:
             <select
               className="form-select-mov"
               name="entity"
@@ -182,8 +168,7 @@ const AddAssetMovementForm = () => {
               ))}
             </select>
           </label>
-
-          {/* ---------- Novo CI ----------*/}
+          {/* ---------- CI Now ----------*/}
           <label className="lb-info">
             Novo CI:{" "}
             <input
@@ -193,7 +178,15 @@ const AddAssetMovementForm = () => {
               placeholder="Novo CI"
             />
           </label>
-          {/* ---------- Motivo ----------*/}
+
+          {/* ---------- Local Now ----------*/}
+          <label className="lb-info">
+            Localização Origem:
+            <h6 className="attrAsset">
+              {matchingAsset ? matchingAsset.entity.ent_name : ""}
+            </h6>
+          </label>
+          {/* ---------- Reason ----------*/}
           <label className="lb-info">
             Motivo:
             <select
@@ -210,15 +203,23 @@ const AddAssetMovementForm = () => {
               <option value="Garantia">Garantia</option>
             </select>
           </label>
-          {/* ---------- Observações ----------*/}
+          {/* ---------- Obs ----------*/}
           <label className="lb-info">
             Observações:
             <textarea
               value={other}
               onChange={(e) => setOther(e.target.value)}
               placeholder="Escreva aqui..."
-              className="attrAsset"
+              className="obs"
             />
+          </label>
+
+          {/* ---------- CI ----------*/}
+          <label className="lb-info">
+            CI:
+            <h6 className="attrAsset">
+              {matchingAsset ? matchingAsset.ci : ""}
+            </h6>
           </label>
         </form>
       </div>

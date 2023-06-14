@@ -514,6 +514,7 @@ const ReportPage = () => {
               <th>CI(Atual)</th>
               <th>Utilizador</th>
               <th>Movido em</th>
+              <th></th>
             </tr>
           </thead>
           {loading && (
@@ -618,6 +619,7 @@ const ReportPage = () => {
                             ? allocationData.date
                             : asset.allocation_date}
                         </td>
+                        <td>{console.log(asset)}</td>
                       </tr>
                     );
                   })

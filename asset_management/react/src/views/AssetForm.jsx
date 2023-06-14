@@ -247,7 +247,7 @@ export default function AssetForm() {
                 onChange={(ev) =>
                   setAsset({ ...asset, numb_inv: ev.target.value })
                 }
-                placeholder="NºInventário"
+                className="infoInp"
               />
             </label>
 
@@ -260,7 +260,7 @@ export default function AssetForm() {
                 onChange={(ev) =>
                   setAsset({ ...asset, numb_ser: ev.target.value })
                 }
-                placeholder="Numero de série"
+                className="infoInp"
               />
             </label>
 
@@ -271,7 +271,7 @@ export default function AssetForm() {
               <input
                 value={asset.ci === null ? "" : asset.ci}
                 onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
-                placeholder="CI"
+                className="infoInp"
               />
             </label>
             {/* ---------- Category ----------*/}
@@ -488,15 +488,14 @@ export default function AssetForm() {
                 </select>
               </label>
               {/* ---------- Observações ----------*/}
-              <label className="lb-info">
+              <label className="lb-info-obs">
                 Observações:
                 <textarea
                   value={asset.obs === null ? "" : asset.obs}
                   onChange={(ev) =>
                     setAsset({ ...asset, obs: ev.target.value })
                   }
-                  placeholder="Escreva aqui..."
-                  className="attrAsset"
+                  className="obs"
                 />
               </label>
             </div>
