@@ -34,6 +34,7 @@ import Papa from "papaparse";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 import PaginationFilter from "../components/PaginationFilter.jsx";
 import SelectFilter from "../components/SelectFilter.jsx";
+import AddAssetMovementForm from "../components/AddAssetMovementForm.jsx";
 
 //SideBar:-------------Asset movement---------------
 const ReportPage = () => {
@@ -186,7 +187,7 @@ const ReportPage = () => {
     const allocationDate = allocation ? allocation.allocation_date : null;
     const allocationOther = other ? allocation.other : null;
 
-    /*  console.log("allocation", allocations); */
+    console.log("allocation", allocations);
 
     return {
       ...dados,
@@ -402,8 +403,8 @@ const ReportPage = () => {
   };
 
   const onAddClick = () => {
-    const url = "/addAssetMovement";
-    navigate(url);
+    /*   const url = <AddAssetMovementForm />; */
+    navigate("/addAssetMovement");
   };
 
   return (
@@ -423,10 +424,7 @@ const ReportPage = () => {
                 </button>
                 {
                   /*------------ Button Trade ------------*/
-                  <button
-                    className="btn-add text-link"
-                    onClick={(ev) => onAddClick()}
-                  >
+                  <button className="btn-add text-link" onClick={onAddClick}>
                     <i
                       className="fa fa-exchange-alt fa-lg"
                       aria-hidden="true"
@@ -641,7 +639,7 @@ const ReportPage = () => {
                             : allocationData.other}
                         </td>
                         {/* {console.log(asset)} */}
-                        <td>{console.log("allocationData", allocationData)}</td>
+                        {/* <td>{console.log("allocationData", allocationData)}</td> */}
                       </tr>
                     );
                   })
