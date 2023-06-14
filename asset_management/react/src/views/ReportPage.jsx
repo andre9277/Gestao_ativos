@@ -34,7 +34,6 @@ import Papa from "papaparse";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 import PaginationFilter from "../components/PaginationFilter.jsx";
 import SelectFilter from "../components/SelectFilter.jsx";
-import AddAssetMovementForm from "../components/AddAssetMovementForm.jsx";
 
 //SideBar:-------------Asset movement---------------
 const ReportPage = () => {
@@ -390,8 +389,8 @@ const ReportPage = () => {
   };
 
   const onAddClick = () => {
-    /*   const url = <AddAssetMovementForm />; */
-    navigate("/addAssetMovement");
+    const url = "/addAssetMovement";
+    navigate(url);
   };
 
   return (
@@ -411,7 +410,10 @@ const ReportPage = () => {
                 </button>
                 {
                   /*------------ Button Trade ------------*/
-                  <button className="btn-add text-link" onClick={onAddClick}>
+                  <button
+                    className="btn-add text-link"
+                    onClick={(ev) => onAddClick()}
+                  >
                     <i
                       className="fa fa-exchange-alt fa-lg"
                       aria-hidden="true"

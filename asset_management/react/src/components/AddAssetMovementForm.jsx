@@ -43,8 +43,6 @@ const AddAssetMovementForm = () => {
   const { user, setNotification } = useStateContext();
   const [ents, setEnts] = useState([]);
 
-  const [allo, setAllo] = useState([]);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -73,15 +71,15 @@ const AddAssetMovementForm = () => {
     matchingAsset = assetEve.find((asset) => asset.numb_ser === serNumberr);
   }
 
-  console.log(matchingAsset);
-
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const currentDate = new Date();
     const allocationDate = currentDate
       .toISOString()
       .slice(0, 19)
       .replace("T", " ");
+
     const data = {
       allocation_date: allocationDate,
       reason: reason,
@@ -94,6 +92,8 @@ const AddAssetMovementForm = () => {
       entity: assetEnt,
     };
 
+    // Perform the POST request using a library like Axios or fetch
+    // Example using Axios:
     axiosClient
       .post("/assetMovement", data)
       .then(() => {
@@ -125,8 +125,7 @@ const AddAssetMovementForm = () => {
         }
       });
   };
-  /* console.log("allo", allo);
-  console.log("mat", matchingAsset); */
+
   return (
     <>
       <h1 className="title-page-all">Movimento de Ativo</h1>

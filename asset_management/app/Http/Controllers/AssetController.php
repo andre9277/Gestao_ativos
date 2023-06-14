@@ -228,6 +228,7 @@ class AssetController extends Controller
             ]);
             $allocation->save();
         }
+
         // Return a response indicating success
         return response()->json(['message' => 'Assets deleted successfully']);
     }
