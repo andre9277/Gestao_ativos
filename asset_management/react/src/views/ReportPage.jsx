@@ -135,6 +135,7 @@ const ReportPage = () => {
       setAllAssets(data.data);
     });
   }, []);
+
   //-----------------------Category Filter-----------------------------------------
 
   useEffect(() => {
@@ -177,24 +178,12 @@ const ReportPage = () => {
 
   const joinedArray = allDados.map((dados) => {
     const allocation = allocations.find((alloc) => alloc.asset_id === dados.id);
-    const other = allocations.find((alloc) => alloc.asset_Id === dados.id);
-
     const user = allocation
       ? users.find((usr) => usr.id === allocation.user_id)
       : null;
-
     const userName = user ? user.name : null;
     const allocationDate = allocation ? allocation.allocation_date : null;
-    const allocationOther = other ? allocation.other : null;
-
-    console.log("allocation", allocations);
-
-    return {
-      ...dados,
-      user: userName,
-      allocation_date: allocationDate,
-      other: allocationOther,
-    };
+    return { ...dados, user: userName, allocation_date: allocationDate };
   });
 
   const filterAllocations = () => {
@@ -293,14 +282,12 @@ const ReportPage = () => {
       return {
         user: "",
         date: "",
-        other: "",
       };
     }
 
     return {
       user: allocation.users.name,
       date: allocation.allocation_date,
-      other: allocation.other,
     };
   };
 
@@ -577,9 +564,6 @@ const ReportPage = () => {
                           ? allocationData.date
                           : asset.allocation_date}
                       </td>
-                      <td>
-                        {asset.other === null ? allocationData.other : ""}
-                      </td>
                     </tr>
                   );
                 })
@@ -633,13 +617,7 @@ const ReportPage = () => {
                             ? allocationData.date
                             : asset.allocation_date}
                         </td>
-                        <td>
-                          {allocationData.other === null
-                            ? ""
-                            : allocationData.other}
-                        </td>
-                        {/* {console.log(asset)} */}
-                        {/* <td>{console.log("allocationData", allocationData)}</td> */}
+                        <td>{console.log(asset)}</td>
                       </tr>
                     );
                   })

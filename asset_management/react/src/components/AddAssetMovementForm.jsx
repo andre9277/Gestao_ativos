@@ -97,10 +97,27 @@ const AddAssetMovementForm = () => {
     axiosClient
       .post("/assetMovement", data)
       .then(() => {
-        setNotification("Ativo Movimentado com sucesso!");
-        navigate("/report");
+        if (matchingAsset) {
+          const updateAsset = {
+            ...matchingAsset,
+            ci: assetCi !== "" ? assetCi : matchingAsset.ci, // Update asset CI only if there is a new value
+            ent_id: assetEnt !== "" ? assetEnt : matchingAsset.ent_id,
+          };
+          axiosClient
+            .put(`/assets/${matchingAsset.id}`, updateAsset)
+            .then(() => {
+              setNotification("Ativo Movimentado com sucesso!");
+              navigate("/report");
+            })
+            .catch((err) => {
+              const response = err.response;
+              if (response && response.status === 422) {
+                setErrors(response.data.errors);
+              }
+            });
+        }
       })
-      .catch((err) => {
+      .catch(() => {
         // Handle the error
         const response = err.response;
         if (response && response.status === 422) {
