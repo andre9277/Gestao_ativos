@@ -8,6 +8,7 @@ use App\Models\Allocation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAllocationRequest;
 use App\Models\Asset;
+use Illuminate\Support\Facades\Auth;
 
 class AllocationsController extends Controller
 {
@@ -58,11 +59,9 @@ class AllocationsController extends Controller
         return new AllocationResource($allocation);
     }
 
+
     public function addAssetMovement(StoreAllocationRequest $request)
     {
-
-        /* $asset = Asset::where('numb_ser', $request->ser_number)->first(); */
-
         // Access the values from the request
         $allocationDate = $request->input('allocation_date');
         $reason = $request->input('reason');
@@ -71,7 +70,6 @@ class AllocationsController extends Controller
         $serNumber = $request->input('ser_number');
         $userId = $request->input('user_id');
         $assetId = $request->input('asset_id');
-
 
         $move = new Allocation();
         $move->allocation_date = $allocationDate;
@@ -83,6 +81,20 @@ class AllocationsController extends Controller
         $move->asset_id = $assetId;
 
         $move->save();
+
+        // Create a new asset update record
+        $asset = Asset::where('numb_ser', $serNumber)->first();
+        $update = new Allocation([
+            'asset_id' => $asset->id,
+            'user_id' => Auth::id(),
+            'allocation_date' => now(),
+            'action_type' => 'Atualiza',
+            'ser_number' => $asset->numb_ser,
+            'reason' => $reason,
+            'other' => $other,
+        ]);
+        $update->save();
+
         return response()->json(['message' => 'Data stored successfully']);
     }
 }

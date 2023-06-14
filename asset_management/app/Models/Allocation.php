@@ -36,4 +36,30 @@ class Allocation extends Model
     {
         return $this->belongsTo(Asset::class, 'asset_id');
     }
+
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Listen for the 'created' event
+        static::created(function ($allocation) {
+            $assets = $allocation->assets;
+
+            // Check if the associated assets exist and CI has changed
+            if ($assets) {
+                $assetModels = Asset::whereIn('id', $assets)->get();
+
+                foreach ($assetModels as $asset) {
+                    if ($asset->isDirty('ci')) {
+                        $originalCi = $asset->getOriginal('ci');
+
+                        // Save the previous CI value in the Asset model
+                        $asset->previous_ci = $originalCi;
+                        $asset->save();
+                    }
+                }
+            }
+        });
+    }
 }

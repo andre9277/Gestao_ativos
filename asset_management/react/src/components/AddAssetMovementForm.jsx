@@ -43,6 +43,8 @@ const AddAssetMovementForm = () => {
   const { user, setNotification } = useStateContext();
   const [ents, setEnts] = useState([]);
 
+  const [allo, setAllo] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -71,15 +73,15 @@ const AddAssetMovementForm = () => {
     matchingAsset = assetEve.find((asset) => asset.numb_ser === serNumberr);
   }
 
+  console.log(matchingAsset);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const currentDate = new Date();
     const allocationDate = currentDate
       .toISOString()
       .slice(0, 19)
       .replace("T", " ");
-
     const data = {
       allocation_date: allocationDate,
       reason: reason,
@@ -92,32 +94,13 @@ const AddAssetMovementForm = () => {
       entity: assetEnt,
     };
 
-    // Perform the POST request using a library like Axios or fetch
-    // Example using Axios:
     axiosClient
       .post("/assetMovement", data)
       .then(() => {
-        if (matchingAsset) {
-          const updateAsset = {
-            ...matchingAsset,
-            ci: assetCi !== "" ? assetCi : matchingAsset.ci, // Update asset CI only if there is a new value
-            ent_id: assetEnt !== "" ? assetEnt : matchingAsset.ent_id,
-          };
-          axiosClient
-            .put(`/assets/${matchingAsset.id}`, updateAsset)
-            .then(() => {
-              setNotification("Ativo Movimentado com sucesso!");
-              navigate("/report");
-            })
-            .catch((err) => {
-              const response = err.response;
-              if (response && response.status === 422) {
-                setErrors(response.data.errors);
-              }
-            });
-        }
+        setNotification("Ativo Movimentado com sucesso!");
+        navigate("/report");
       })
-      .catch(() => {
+      .catch((err) => {
         // Handle the error
         const response = err.response;
         if (response && response.status === 422) {
@@ -125,7 +108,8 @@ const AddAssetMovementForm = () => {
         }
       });
   };
-
+  /* console.log("allo", allo);
+  console.log("mat", matchingAsset); */
   return (
     <>
       <h1 className="title-page-all">Movimento de Ativo</h1>
