@@ -144,8 +144,7 @@ const AddAssetMovementForm = () => {
               value={serNumber}
               onChange={(e) => setSerNumber(e.target.value)}
               required
-              className="attrAsset"
-              placeholder="Número de Série"
+              className="infoInp"
             />
           </label>
           {/* ----------New Local ----------*/}
@@ -174,8 +173,7 @@ const AddAssetMovementForm = () => {
             <input
               value={assetCi}
               onChange={(e) => setAssetCi(e.target.value)}
-              className="attrAsset"
-              placeholder="Novo CI"
+              className="infoInp"
             />
           </label>
 
@@ -209,8 +207,7 @@ const AddAssetMovementForm = () => {
             <textarea
               value={other}
               onChange={(e) => setOther(e.target.value)}
-              placeholder="Escreva aqui..."
-              className="obs"
+              className="obs-mov"
             />
           </label>
 

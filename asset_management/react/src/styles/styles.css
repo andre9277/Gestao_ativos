@@ -12974,6 +12974,11 @@ input::placeholder {
     border: 2px solid #007840;
     margin-top: 2px;
 }
+.obs-mov {
+    width: 250px;
+    border: 2px solid #007840;
+    margin-left: 10px;
+}
 
 .lb-info-obs {
     width: 30%;
