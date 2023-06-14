@@ -12979,7 +12979,7 @@ input::placeholder {
     border-bottom: 2px solid #007840;
     margin-left: 10px;
 }
-.obs-mov-e{
+.obs-mov-e {
     border-bottom: 2px solid #007840;
     margin-left: 10px;
 }
@@ -13023,4 +13023,14 @@ input::placeholder {
     padding: 1px;
     width: 40%;
     margin-left: 24px;
+}
+
+.error-msg-rep {
+    position: relative;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    background-color: #ff4040;
+    color: white;
 }

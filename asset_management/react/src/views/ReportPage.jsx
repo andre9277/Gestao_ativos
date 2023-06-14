@@ -75,6 +75,9 @@ const ReportPage = () => {
 
   const [filteredAllocations, setFilteredAllocations] = useState([]);
 
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
   //For the pagination:
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 20;
@@ -136,6 +139,21 @@ const ReportPage = () => {
   }, []);
 
   //-----------------------Category Filter-----------------------------------------
+
+  useEffect(() => {
+    let errorTimer;
+
+    if (error) {
+      // Set a timer to clear the error message after 3 seconds (adjust as needed)
+      errorTimer = setTimeout(() => {
+        setError(false);
+        setErrorMsg("");
+      }, 3000);
+    }
+
+    // Clean up the timer when the component unmounts or when error state changes
+    return () => clearTimeout(errorTimer);
+  }, [error]);
 
   useEffect(() => {
     const hasFilter = selectedCategory !== "";
@@ -259,12 +277,33 @@ const ReportPage = () => {
 
   const handleDataChangeFrom = (event) => {
     const selectDateFrom = event.target.value;
+
+    if (selectedDateFrom > selectedDateTo) {
+      setError(true);
+      setErrorMsg("Intervalo de Datas inválido!");
+      setSelectedDateFrom("");
+      return;
+    }
+
     setSelectedDateFrom(selectDateFrom);
+    setError(false);
+    setErrorMsg("");
   };
 
   const handleDataChangeTo = (event) => {
     const selectDataTo = event.target.value;
+
+    if (selectDataTo < selectedDateFrom) {
+      setError(true);
+      setErrorMsg("Intervalo de Datas Inválido!");
+      setSelectedDateTo("");
+
+      return;
+    }
+
     setSelectedDateTo(selectDataTo);
+    setError(false);
+    setErrorMsg("");
   };
   //----------------------------------------------------------
   const onPageClick = (link) => {
@@ -475,6 +514,7 @@ const ReportPage = () => {
                       />
                     </form>
                   </div>
+                  {error && <p className="error-msg-rep">{errorMsg}</p>}
                   {
                     <button
                       onClick={resetFilter}
