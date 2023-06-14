@@ -12606,7 +12606,7 @@ select {
     }
 }
 .lb-info-user {
-    margin: 4px;
+    margin: 18px;
     color: #007840;
     font-size: large;
 }
@@ -12981,4 +12981,22 @@ input::placeholder {
     color: #007840;
     font-size: large;
     margin-top: 20px;
+}
+
+.infoInp-email {
+    border: none;
+    border-bottom: 2px solid #007840;
+    outline: none;
+    padding: 1px;
+    width: 40%;
+    margin-left: 41px;
+}
+
+.infoInp-numbMec {
+    border: none;
+    border-bottom: 2px solid #007840;
+    outline: none;
+    padding: 1px;
+    width: 40%;
+    margin-left: 24px;
 }

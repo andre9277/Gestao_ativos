@@ -135,7 +135,7 @@ export default function UserForm() {
               <input
                 value={user.name}
                 onChange={(ev) => setUser({ ...user, name: ev.target.value })}
-                placeholder="Nome"
+                className="infoInp"
               />
             </label>
             <label className="lb-info-user">
@@ -144,7 +144,7 @@ export default function UserForm() {
                 type="email"
                 value={user.email}
                 onChange={(ev) => setUser({ ...user, email: ev.target.value })}
-                placeholder="Email"
+                className="infoInp-email"
               />
             </label>
 
@@ -152,7 +152,7 @@ export default function UserForm() {
               Número Mecanográfico:
               <input
                 onChange={(ev) => setUser({ ...user, mec: ev.target.value })}
-                placeholder="Número Mecanográfico"
+                className="infoInp-numbMec"
               />
             </label>
 
@@ -163,7 +163,7 @@ export default function UserForm() {
                 onChange={(ev) =>
                   setUser({ ...user, password: ev.target.value })
                 }
-                placeholder="Password"
+                className="infoInp"
               />
             </label>
             <label className="lb-info-user">
@@ -173,7 +173,7 @@ export default function UserForm() {
                 onChange={(ev) =>
                   setUser({ ...user, password_confirmation: ev.target.value })
                 }
-                placeholder="Confirmação da Password"
+                className="infoInp"
               />
             </label>
 
