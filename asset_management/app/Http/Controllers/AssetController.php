@@ -144,7 +144,7 @@ class AssetController extends Controller
      * @param  \App\Models\Asset  $asset
      * @return \Illuminate\Http\Response
      */
-    public function show(Asset $asset)
+    public function show(Asset $asset, Allocation $allocation)
     {
         // Create a new asset update record for the action_type 'show'
         $update = new Allocation([
@@ -177,10 +177,14 @@ class AssetController extends Controller
      * @param  \App\Models\Asset  $asset
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAssetRequest $request, Asset $asset)
+    public function update(UpdateAssetRequest $request, Asset $asset, Allocation $allocation)
     {
         $this->authorize('create-edit');
 
+        if (!$request->shouldUpdate) {
+            // If the "shouldUpdate" flag is false, skip the update operation
+            return $asset;
+        }
 
         //$asset = Asset::find($id);
         $asset->update($request->all());
@@ -192,6 +196,8 @@ class AssetController extends Controller
             'allocation_date' => now(),
             'action_type' => 'Atualiza',
             'ser_number' => $asset->numb_ser,
+            'reason' => $allocation->reason,
+            'other' => $allocation->other,
 
         ]);
         $update->save();

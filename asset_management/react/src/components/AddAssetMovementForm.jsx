@@ -102,6 +102,7 @@ const AddAssetMovementForm = () => {
             ...matchingAsset,
             ci: assetCi !== "" ? assetCi : matchingAsset.ci, // Update asset CI only if there is a new value
             ent_id: assetEnt !== "" ? assetEnt : matchingAsset.ent_id,
+            shouldUpdate: false, // Add the shouldUpdate flag to indicate that update operation should be performed
           };
           axiosClient
             .put(`/assets/${matchingAsset.id}`, updateAsset)
