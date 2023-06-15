@@ -88,6 +88,7 @@ export default function Allocations() {
     });
   };
 
+  //Performs a client access request
   const getUsers = (url) => {
     url = url || "/userAllo";
 
@@ -103,7 +104,7 @@ export default function Allocations() {
 
     const { data } = await axiosClient.get("/allocationAll");
     allData.push(...data.data);
-
+    console.log("allData:", allData);
     const filteredData = allData.filter((allocation) => {
       const allocationDate = new Date(allocation.allocation_date);
 
@@ -170,7 +171,7 @@ export default function Allocations() {
     setAllocations(filtered);
   };
 
-  //For the calendar range chosen by the user
+  //--------For the calendar range chosen by the user --------
   const selectionRange = {
     startDate: startDate,
     endDate: endDate,
@@ -195,6 +196,7 @@ export default function Allocations() {
     }
   };
 
+  /*---------------- Filter By operation ----------------*/
   const filterOp = (event) => {
     const filterValue = event.target.value;
     setSelectedOp(filterValue);
@@ -208,7 +210,7 @@ export default function Allocations() {
       setAllocations(filteredAllocations);
     }
   };
-
+  /*---------------- Filter By user ----------------*/
   const filterUser = (event) => {
     const filterValue = event.target.value;
     setSelectedUser(filterValue);
