@@ -571,7 +571,7 @@ const ReportPage = () => {
               </tbody>
             </>
           )}
-          {console.log(assets)}
+
           {!loading && (
             <tbody>
               {!isButtonClicked && filteredAllocations.length === 0 ? (
@@ -660,7 +660,7 @@ const ReportPage = () => {
                             ? allocationData.date
                             : asset.allocation_date}
                         </td>
-                        <td>{console.log(asset)}</td>
+                        {/*  <td>{console.log(asset)}</td> */}
                       </tr>
                     );
                   })

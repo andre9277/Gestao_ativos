@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Collection;
 
 //Resource is a class used to convert database models into Json serializable data (sent from the server (API) to the browser)
 class AssetResource extends JsonResource
@@ -70,10 +71,12 @@ class AssetResource extends JsonResource
                 'phone' => $this->suppliers->phone,
                 'address' => $this->suppliers->address,
             ] : null,
-            'allocations' => $this->allocations ? [
-                'other' => $this->allocations->other,
-                'reason' => $this->allocations->reason,
-            ] : null,
+            'allocations' => $this->allocations->map(function ($allocation) {
+                return [
+                    'reason' => $allocation->reason,
+                    'other' => $allocation->other,
+                ];
+            })->all(),
 
         ];
     }

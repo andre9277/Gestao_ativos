@@ -76,7 +76,7 @@ class Asset extends Model
 
     public function allocations()
     {
-        return $this->hasMany(Allocation::class);
+        return $this->hasMany(Allocation::class, 'asset_id');
     }
 
     public function units()

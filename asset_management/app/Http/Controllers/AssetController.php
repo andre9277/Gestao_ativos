@@ -21,7 +21,7 @@ class AssetController extends Controller
      */
     public function index()
     {
-        $assets = Asset::with('entity:id,ent_name', 'brand:id,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address', 'allocations:other,reason')
+        $assets = Asset::with('entity:id,ent_name', 'brand:id,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
             ->orderBy('id', 'desc')
             ->paginate(20);
 
@@ -39,7 +39,7 @@ class AssetController extends Controller
     //Filter values for the ci, ent_id or unit_id atributes
     public function filterValues()
     {
-        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address', 'allocations:other,reason')
+        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address', 'allocations:reason,other')
             ->where(function ($query) {
                 $query->whereNotNull('previous_ci')
                     ->orWhereNotNull('previous_ent_id')
@@ -111,6 +111,7 @@ class AssetController extends Controller
             'action_type' => 'Adiciona',
             'ser_number' => $asset->numb_ser,
             'user_id' => auth()->user()->id
+
         ]);
 
         // Associate the new allocation record with the asset
