@@ -25,6 +25,8 @@ class AllocationResource extends JsonResource
             'allocation_date' => $this->allocation_date,
             'action_type' => $this->action_type,
             'inv_number' => $this->inv_number,
+            'reason' => $this->reason,
+            'other' => $this->other,
             'users' => $this->users ? [
                 'id' => $this->users->id,
                 'name' => $this->users->name,

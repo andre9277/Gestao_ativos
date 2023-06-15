@@ -21,7 +21,7 @@ class AssetController extends Controller
      */
     public function index()
     {
-        $assets = Asset::with('entity:id,ent_name', 'brand:id,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+        $assets = Asset::with('entity:id,ent_name', 'brand:id,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address', 'allocations:other,reason')
             ->orderBy('id', 'desc')
             ->paginate(20);
 
@@ -39,7 +39,7 @@ class AssetController extends Controller
     //Filter values for the ci, ent_id or unit_id atributes
     public function filterValues()
     {
-        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address', 'allocations:other,reason')
             ->where(function ($query) {
                 $query->whereNotNull('previous_ci')
                     ->orWhereNotNull('previous_ent_id')
@@ -144,7 +144,7 @@ class AssetController extends Controller
      * @param  \App\Models\Asset  $asset
      * @return \Illuminate\Http\Response
      */
-    public function show(Asset $asset)
+    public function show(Asset $asset, Allocation $allo)
     {
         // Create a new asset update record for the action_type 'show'
         $update = new Allocation([
@@ -185,6 +185,13 @@ class AssetController extends Controller
         //$asset = Asset::find($id);
         $asset->update($request->all());
 
+        // Get the last allocation
+        $lastAllocation = Allocation::latest()->first();
+        // Extract the fields if the allocation exists
+        $other = $lastAllocation ? $lastAllocation->other : null;
+        $reason = $lastAllocation ? $lastAllocation->reason : null;
+
+
         // create a new asset update record
         $update = new Allocation([
             'asset_id' => $asset->id,
@@ -192,8 +199,10 @@ class AssetController extends Controller
             'allocation_date' => now(),
             'action_type' => 'Atualiza',
             'ser_number' => $asset->numb_ser,
-
+            'other' => $other,
+            'reason' => $reason,
         ]);
+
         $update->save();
         return $asset;
     }

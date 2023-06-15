@@ -74,13 +74,19 @@ const AddAssetMovementForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    //For the format Data: YYYY-MM-DD HH:MM:SS
     const currentDate = new Date();
-    const allocationDate = currentDate
-      .toISOString()
-      .slice(0, 19)
-      .replace("T", " ");
+    let allocationDate = currentDate.toLocaleString();
 
-    /*!!!!!!!!!!!!!Need to check this code, other, reason and allocationDate that is 1 hour behind!!!!!!!!!!!!!!!!*/
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    const hours = String(currentDate.getHours()).padStart(2, "0");
+    const minutes = String(currentDate.getMinutes()).padStart(2, "0");
+    const seconds = String(currentDate.getSeconds()).padStart(2, "0");
+
+    allocationDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
     const data = {
       allocation_date: allocationDate,
       reason: reason,
