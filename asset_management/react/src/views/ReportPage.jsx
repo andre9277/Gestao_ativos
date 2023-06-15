@@ -482,12 +482,12 @@ const ReportPage = () => {
                     data={ents}
                     title={"Localização:"}
                   />
-                  <div className="dropdown-ind">
+                  <div className="data-filter-container">
                     <label className="titleFiltDataMov">Data:</label>
 
                     <form className="form-filt">
                       <label htmlFor="from-date" className="dat-filt">
-                        De:
+                        Início:
                       </label>
                       <input
                         type="date"
@@ -500,7 +500,7 @@ const ReportPage = () => {
                       />
 
                       <label htmlFor="to-date" className="dat-filt">
-                        Até:
+                        Fim:
                       </label>
                       <input
                         type="date"

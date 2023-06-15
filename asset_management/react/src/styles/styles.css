@@ -12938,12 +12938,19 @@ input::placeholder {
 
 .dat-filt {
     width: 25%;
+    text-align: center;
+    margin-left: 8%;
+    margin-top: 1%;
+    color: var(--bs-gray-600);
 }
 
 .cal-filt {
-    width: 70%;
+    width: 52%;
     box-sizing: border-box;
     border-bottom: 2px;
+    padding: 1px;
+    text-align: center;
+    color: var(--bs-gray-600);
 }
 
 .form-filt {
@@ -12956,6 +12963,7 @@ input::placeholder {
     font-weight: bold;
     font-size: 14px;
     margin-bottom: 0.1px;
+    text-align: center;
 }
 
 .infoInp {
