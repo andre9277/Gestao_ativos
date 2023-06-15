@@ -13025,7 +13025,7 @@ input::placeholder {
 .obs-mov-e {
     border-bottom: 2px solid #007840;
     margin-left: 10px;
-    width: 18rem;
+    width: 27rem;
 }
 .lb-info-allo {
     width: 23%;
@@ -13044,6 +13044,7 @@ input::placeholder {
     color: #007840;
     font-size: large;
     margin-top: 20px;
+    margin-left: 27px;
 }
 
 .lb-info-allo-now {

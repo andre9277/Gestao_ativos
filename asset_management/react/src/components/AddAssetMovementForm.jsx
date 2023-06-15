@@ -89,10 +89,8 @@ const AddAssetMovementForm = () => {
 
     const data = {
       allocation_date: allocationDate,
-      reason: reason,
       ser_number: serNumber,
       action_type: "Atualiza",
-      other: other,
       user_id: user.id,
       asset_id: matchingAsset ? matchingAsset.id : null,
       ci: assetCi,
@@ -110,6 +108,7 @@ const AddAssetMovementForm = () => {
             ci: assetCi !== "" ? assetCi : matchingAsset.ci, // Update asset CI only if there is a new value
             ent_id: assetEnt !== "" ? assetEnt : matchingAsset.ent_id,
           };
+
           axiosClient
             .put(`/assets/${matchingAsset.id}`, updateAsset)
             .then(() => {
@@ -208,24 +207,22 @@ const AddAssetMovementForm = () => {
               {matchingAsset ? matchingAsset.entity.ent_name : ""}
             </h6>
           </label>
-          {/* ---------- CI ----------*/}
-          <label className="lb-info-allo-ci">
-            CI:
-            <h6 className="attrAsset">
-              {matchingAsset ? matchingAsset.ci : ""}
-            </h6>
-          </label>
 
           {/* ---------- Obs ----------*/}
           <label className="lb-info-allo-obs">
             Observações:
-            <textarea
+            <input
               value={other}
               onChange={(e) => setOther(e.target.value)}
               className="obs-mov-e"
             />
           </label>
         </form>
+        {/* ---------- CI ----------*/}
+        <label className="lb-info-allo-ci">
+          CI Origem:
+          <h6 className="attrAsset">{matchingAsset ? matchingAsset.ci : ""}</h6>
+        </label>
       </div>
     </>
   );

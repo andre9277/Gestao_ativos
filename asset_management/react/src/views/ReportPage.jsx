@@ -69,6 +69,8 @@ const ReportPage = () => {
   const [filteredDataFrom, setFilteredDataFrom] = useState(false);
   const [filteredDataTo, setFilteredDataTo] = useState(false);
 
+  const [allAllocations, setAllAllocations] = useState([]);
+
   //For all the asset data:
   const [allDados, setAllDados] = useState([]); //All the data from an asset (not the user)
   const [allAssets, setAllAssets] = useState([]); //All the data from an asset (not the user)
@@ -137,6 +139,14 @@ const ReportPage = () => {
       setAllAssets(data.data);
     });
   }, []);
+
+  useEffect((url) => {
+    url = url || "/allocationAll";
+    axiosClient.get(url).then(({ data }) => {
+      setAllAllocations(data.data);
+    });
+  }, []);
+  console.log(allAllocations);
 
   //-----------------------Category Filter-----------------------------------------
 
