@@ -169,12 +169,12 @@ const AddAssetMovementForm = () => {
             </select>
           </label>
           {/* ---------- CI Now ----------*/}
-          <label className="lb-info-allo">
+          <label className="lb-info-allo-new">
             Novo CI:{" "}
             <input
               value={assetCi}
               onChange={(e) => setAssetCi(e.target.value)}
-              className="infoInp"
+              className="infoInp-new"
             />
           </label>
 
@@ -196,7 +196,7 @@ const AddAssetMovementForm = () => {
             </select>
           </label>
           {/* ---------- Local Now ----------*/}
-          <label className="lb-info-allo">
+          <label className="lb-info-allo-now">
             Localização Origem:
             <h6 className="attrAsset">
               {matchingAsset ? matchingAsset.entity.ent_name : ""}
@@ -211,7 +211,7 @@ const AddAssetMovementForm = () => {
           </label>
 
           {/* ---------- Obs ----------*/}
-          <label className="lb-info-allo">
+          <label className="lb-info-allo-obs">
             Observações:
             <textarea
               value={other}

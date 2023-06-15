@@ -91,7 +91,7 @@ const TableAssets = ({
         ))
       ) : filteredAllocations.length === 0 ? (
         <tr>
-          <td colSpan="5" className="lgTextF">
+          <td colSpan="5" className="lgTextF-asset">
             Não existe(m) resultado(s) para o(s) filtro(s) selecionado(s)!
           </td>
         </tr>
