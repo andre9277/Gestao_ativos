@@ -92,7 +92,7 @@ const AssetInfo = () => {
             <p></p>
             <p></p>
           </div>
-          <div className="row">
+          <div className="row-info-asset">
             {asset.id ? (
               <div className="container">
                 <ul className="lb-infoAsset">
