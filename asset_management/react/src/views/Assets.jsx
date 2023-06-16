@@ -564,7 +564,7 @@ export default function Assets() {
             <tbody>
               <tr>
                 {/* caprr-re */}
-                <td colSpan="5" className="lgText">
+                <td colSpan="5" className="lgText-asset">
                   A Carregar...
                 </td>
               </tr>
@@ -584,7 +584,7 @@ export default function Assets() {
         </table>
         <p> </p>
         <p> </p>
-        {filtered === false ? (
+        {filtered === false && !loading ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
         ) : filteredAllocations.length === 0 ? (
           ""

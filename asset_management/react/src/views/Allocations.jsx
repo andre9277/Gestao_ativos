@@ -246,7 +246,7 @@ export default function Allocations() {
       >
         <h1 className="title-page-all">Download de Ativos</h1>
       </div>
-      {loading && <div className="caprr-re">A Carregar...</div>}
+      {loading && <div className="caprr-re">A carregar...</div>}
 
       {!loading && (
         <div className="card animated fadeInDown">

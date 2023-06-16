@@ -12793,7 +12793,7 @@ select {
 .caprr-re {
     text-align: center;
     font-weight: bold;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     color: #007840;
 }
 
@@ -12811,7 +12811,7 @@ input::placeholder {
 .lgText {
     text-align: center;
     font-weight: bold;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     padding: 15px;
     position: absolute;
     top: 50%;
@@ -12820,6 +12820,21 @@ input::placeholder {
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     color: #007840;
+    margin-top: 35px;
+}
+.lgText-asset {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    color: #007840;
+    margin-top: 30px;
 }
 .lgTextF {
     text-align: center;
@@ -12872,6 +12887,7 @@ input::placeholder {
     margin: 10px 0;
     color: #d8000c;
     background-color: #ffbaba;
+    width: 20%;
 }
 
 .pagFilter {

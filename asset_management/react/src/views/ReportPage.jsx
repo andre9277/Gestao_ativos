@@ -608,7 +608,7 @@ const ReportPage = () => {
               <tbody>
                 <tr>
                   <td colSpan="5" className="lgText">
-                    A Carregar...
+                    A carregar...
                   </td>
                 </tr>
               </tbody>
@@ -721,8 +721,9 @@ const ReportPage = () => {
             </tbody>
           )}
         </table>
-
-        {filtered === false ? (
+        <p> </p>
+        <p> </p>
+        {filtered === false && !loading ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
         ) : filteredAllocations.length === 0 ? (
           ""
