@@ -620,6 +620,14 @@ const ReportPage = () => {
               {!isButtonClicked && filteredAllocations.length === 0 ? (
                 assets.map((asset, index) => {
                   const allocationData = getAllocationData(asset.id);
+                  const filteredTogJoin = togJoin.filter(
+                    (assetJoin) => assetJoin.asset_id === asset.id
+                  );
+
+                  const firstOtherInfo =
+                    filteredTogJoin.length > 0
+                      ? filteredTogJoin[0].other
+                      : null;
                   return (
                     <tr key={`${asset.id}-${index}`}>
                       <td>{asset.numb_inv}</td>
@@ -650,6 +658,8 @@ const ReportPage = () => {
                           ? allocationData.date
                           : asset.allocation_date}
                       </td>
+
+                      <td key={`${asset.id}-${index}`}>{firstOtherInfo}</td>
                     </tr>
                   );
                 })

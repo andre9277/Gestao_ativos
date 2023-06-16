@@ -95,6 +95,8 @@ const AddAssetMovementForm = () => {
       asset_id: matchingAsset ? matchingAsset.id : null,
       ci: assetCi,
       entity: assetEnt,
+      other: other,
+      reason: reason,
     };
 
     // Perform the POST request using a library like Axios or fetch
@@ -125,10 +127,10 @@ const AddAssetMovementForm = () => {
       })
       .catch(() => {
         // Handle the error
-        const response = err.response;
+        /*  const response = err.response;
         if (response && response.status === 422) {
           setErrors(response.data.errors);
-        }
+        } */
       });
   };
 
