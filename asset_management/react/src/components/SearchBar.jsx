@@ -46,7 +46,7 @@ const Search = () => {
     if (errorMessage) {
       timer = setTimeout(() => {
         setErrorMessage("");
-      }, 5000); // Display for 5 seconds (5000 milliseconds)
+      }, 2000); // Display for 5 seconds (5000 milliseconds)
     }
     return () => clearTimeout(timer); // Clear the timer if component unmounts or if the error message changes
   }, [errorMessage]);
