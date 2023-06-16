@@ -13082,6 +13082,7 @@ input::placeholder {
     margin-left: 10px;
     width: 27rem;
     margin-top: 10px;
+    margin-bottom: -8px;
 }
 .lb-info-allo {
     width: 23%;
