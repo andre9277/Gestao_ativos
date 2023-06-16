@@ -2533,6 +2533,60 @@ textarea.form-control-lg {
     appearance: none;
 }
 
+.form-select-asset {
+    width: 67%;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    -moz-padding-start: calc(0.75rem - 3px);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin-left: 8px;
+}
+.localAsset-cond {
+    display: contents;
+}
+
+.localAsset-local {
+    display: contents;
+}
+
+.form-select-asset-sup {
+    width: 60%;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    -moz-padding-start: calc(0.75rem - 3px);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin-left: 8px;
+}
+.form-calendar-asset {
+    margin-left: 8px;
+    width: 54%;
+}
 .form-select-user {
     width: 40%;
     padding: 0.375rem 2.25rem 0.375rem 0.75rem;
@@ -12605,6 +12659,7 @@ select {
     margin: 4px;
     color: #007840;
     font-size: large;
+    margin: 14px;
 }
 @media (max-width: 768px) {
     .lb-info {
@@ -13026,6 +13081,7 @@ input::placeholder {
     border-bottom: 2px solid #007840;
     margin-left: 10px;
     width: 27rem;
+    margin-top: 10px;
 }
 .lb-info-allo {
     width: 23%;
@@ -13064,7 +13120,7 @@ input::placeholder {
 }
 
 .lb-info-obs {
-    width: 30%;
+    width: 42%;
     margin: 4px;
     color: #007840;
     font-size: large;
