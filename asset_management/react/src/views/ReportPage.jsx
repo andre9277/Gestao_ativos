@@ -41,7 +41,6 @@ const ReportPage = () => {
 
   //All the data from an asset (not the user) - Filtered!
   const [assets, setAssets] = useState([]);
-
   const [loading, setLoading] = useState(false);
   const [units, setUnits] = useState([]);
   const [ents, setEnts] = useState([]);
@@ -146,8 +145,41 @@ const ReportPage = () => {
       setAllAllocations(data.data);
     });
   }, []);
-  console.log(allAllocations);
+  /* console.log(allAllocations); */
 
+  function joinArrays(array1, array2) {
+    // Create an empty array to store the joined data
+    const joinedArray = [];
+
+    // Iterate over the first array
+    for (let i = 0; i < array1.length; i++) {
+      const item1 = array1[i];
+      const commonNumber = item1.numb_ser;
+
+      // Find matching items in the second array based on the common number
+      const matchingItems = array2.filter(
+        (item2) =>
+          item2.assets.numb_ser === commonNumber &&
+          item2.action_type === "Atualiza"
+      );
+
+      // If matching items are found, join the data
+      if (matchingItems.length > 0) {
+        for (let j = 0; j < matchingItems.length; j++) {
+          const joinedItem = {
+            ...item1,
+            ...matchingItems[j],
+          };
+          joinedArray.push(joinedItem);
+        }
+      }
+    }
+
+    return joinedArray;
+  }
+
+  const togJoin = joinArrays(assets, allocations);
+  console.log(togJoin);
   //-----------------------Category Filter-----------------------------------------
 
   useEffect(() => {
@@ -212,7 +244,8 @@ const ReportPage = () => {
     const allocationDate = allocation ? allocation.allocation_date : null;
     return { ...dados, user: userName, allocation_date: allocationDate };
   });
-
+  /*  console.log("joinedArray", joinedArray);
+   */
   const filterAllocations = () => {
     setIsButtonClicked(false);
     const updatedAllocations = joinedArray.filter((row) => {
@@ -581,7 +614,7 @@ const ReportPage = () => {
               </tbody>
             </>
           )}
-
+          {/* {console.log(assets)} */}
           {!loading && (
             <tbody>
               {!isButtonClicked && filteredAllocations.length === 0 ? (

@@ -104,7 +104,6 @@ export default function Allocations() {
 
     const { data } = await axiosClient.get("/allocationAll");
     allData.push(...data.data);
-    console.log("allData:", allData);
     const filteredData = allData.filter((allocation) => {
       const allocationDate = new Date(allocation.allocation_date);
 
