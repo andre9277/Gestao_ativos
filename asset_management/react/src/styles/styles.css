@@ -126,6 +126,22 @@ body {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+.error-search {
+    color: white;
+    margin-left: 28px;
+    margin-top: 16px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 0.9rem;
+}
+
+.err-search {
+    margin: 0.5rem;
+    background-color: #cc0000;
+    border-radius: 1rem;
+    padding: 0.5rem;
+}
+
 hr {
     margin: 1rem 0;
     color: inherit;
@@ -12822,6 +12838,20 @@ input::placeholder {
     color: #007840;
     margin-top: 35px;
 }
+.lgText-assetInfo {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding: 15px;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    color: #007840;
+    margin-bottom: 20px;
+}
 .lgText-asset {
     text-align: center;
     font-weight: bold;
@@ -12935,6 +12965,7 @@ input::placeholder {
 
 .botaosearch {
     color: white;
+    border-radius: 1rem;
 }
 
 .titulo-dash {

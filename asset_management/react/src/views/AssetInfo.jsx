@@ -229,18 +229,14 @@ const AssetInfo = () => {
                   <ol className="lb-infoAsset">
                     <label className="lb-infoAsset2">
                       <h6 className="attrAsset">
-                        {asset.obs === null ? (
-                          <u>Não existem observações!</u>
-                        ) : (
-                          asset.obs
-                        )}
+                        {asset.obs === null ? "" : asset.obs}
                       </h6>
                     </label>
                   </ol>
                 </div>
               </div>
             ) : (
-              <div className="lgText">A Carregar...</div>
+              <div className="lgText-assetInfo">A carregar...</div>
             )}
           </div>
         </div>

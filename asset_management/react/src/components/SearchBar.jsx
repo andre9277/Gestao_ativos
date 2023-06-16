@@ -39,6 +39,18 @@ const Search = () => {
   const [assetNumber, setAssetNumber] = useState("");
   const [assets, setAssets] = useState([]);
 
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    let timer;
+    if (errorMessage) {
+      timer = setTimeout(() => {
+        setErrorMessage("");
+      }, 5000); // Display for 5 seconds (5000 milliseconds)
+    }
+    return () => clearTimeout(timer); // Clear the timer if component unmounts or if the error message changes
+  }, [errorMessage]);
+
   useEffect(() => {
     getAssets();
   }, []);
@@ -109,7 +121,7 @@ const Search = () => {
     if (matchedAsset) {
       navigate(`/infoasset/${matchedAsset.id}`);
     } else {
-      navigate("/*");
+      setErrorMessage("Ativo não existe!");
     }
 
     setAssetNumber("");
@@ -123,7 +135,7 @@ const Search = () => {
       <div className="input-group">
         <input
           type="text"
-          placeholder="Insira nº Série"
+          placeholder="Insira nº série"
           value={assetNumber}
           onChange={handleChange}
           className="form-control border-0 ssBar"
@@ -136,6 +148,14 @@ const Search = () => {
         <Link to="/scan">
           <i className="fa fa-barcode fa-2x" aria-hidden="true"></i>
         </Link>
+      </div>
+      <div className="error-search">
+        {errorMessage && (
+          <p className="err-search">
+            <i className="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            {" " + errorMessage}
+          </p>
+        )}
       </div>
     </form>
   );
