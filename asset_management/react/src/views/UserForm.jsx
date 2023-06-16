@@ -128,7 +128,6 @@ export default function UserForm() {
         )}
         {!loading && (
           <form onSubmit={onSubmit} className="assetForm">
-            <button className="btn-adicionar">Gravar</button>
             <label className="lb-info-user">
               {" "}
               Nome:
@@ -194,6 +193,10 @@ export default function UserForm() {
                 <option value="3">Manutenção</option>
               </select>
             </label>
+            <button className="btn-adicionar-userForm">
+              {" "}
+              <i className="fa fa-save fa-lg" aria-hidden="true"></i>
+            </button>
           </form>
         )}
       </div>

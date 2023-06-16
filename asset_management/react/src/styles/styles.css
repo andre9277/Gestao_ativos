@@ -2840,6 +2840,28 @@ textarea.form-control-lg {
     border-radius: 4px;
     color: white;
 }
+.btn-adicionar-userForm {
+    float: right;
+    background-color: #00a762;
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    border-radius: 4px;
+    color: white;
+    margin-top: 2rem;
+    margin-right: 10rem;
+}
+
+.btn-adicionar-movAsset {
+    float: right;
+    background-color: #00a762;
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    border-radius: 4px;
+    color: white;
+    width: 3%;
+    margin-left: 1290px;
+    margin-top: -76px;
+}
 
 .btn-adicionar-assetForm {
     float: right;
@@ -13146,6 +13168,15 @@ input::placeholder {
     width: 27rem;
     margin-top: 10px;
     margin-bottom: -8px;
+    padding: 1px;
+}
+.obs-mov-et {
+    border-bottom: 2px solid #007840;
+    margin-left: 10px;
+    width: 27rem;
+    margin-top: 10px;
+    margin-bottom: 12px;
+    padding: 1px;
 }
 .lb-info-allo {
     width: 23%;
@@ -13159,7 +13190,7 @@ input::placeholder {
     font-size: large;
 }
 .lb-info-allo-ci {
-    width: 12%;
+    width: 15%;
     margin: 4px;
     color: #007840;
     font-size: large;

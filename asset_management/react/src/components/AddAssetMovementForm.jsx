@@ -141,9 +141,6 @@ const AddAssetMovementForm = () => {
       <div className="card animated fadeInDown">
         <h6>Insira primeiro o Número de Série do ativo a mover!</h6>
         <form onSubmit={handleSubmit} className="assetForm">
-          <button type="submit" className="btn-adicionar">
-            Gravar
-          </button>
           {/* ---------- Número de Série ----------*/}
           <label className="lb-info-allo">
             Número de Série:
@@ -209,6 +206,13 @@ const AddAssetMovementForm = () => {
               {matchingAsset ? matchingAsset.entity.ent_name : ""}
             </h6>
           </label>
+          {/* ---------- CI ----------*/}
+          <label className="lb-info-allo-ci">
+            CI Origem:
+            <h6 className="attrAsset">
+              {matchingAsset ? matchingAsset.ci : ""}
+            </h6>
+          </label>
 
           {/* ---------- Obs ----------*/}
           <label className="lb-info-allo-obs">
@@ -216,15 +220,13 @@ const AddAssetMovementForm = () => {
             <input
               value={other}
               onChange={(e) => setOther(e.target.value)}
-              className="obs-mov-e"
+              className="obs-mov-et"
             />
           </label>
         </form>
-        {/* ---------- CI ----------*/}
-        <label className="lb-info-allo-ci">
-          CI Origem:
-          <h6 className="attrAsset">{matchingAsset ? matchingAsset.ci : ""}</h6>
-        </label>
+        <button type="submit" className="btn-adicionar-movAsset">
+          <i className="fa fa-save fa-lg" aria-hidden="true"></i>
+        </button>
       </div>
     </>
   );
