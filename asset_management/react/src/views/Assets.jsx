@@ -565,7 +565,7 @@ export default function Assets() {
               <tr>
                 {/* caprr-re */}
                 <td colSpan="5" className="lgText-asset">
-                  A Carregar...
+                  A carregar...
                 </td>
               </tr>
             </tbody>

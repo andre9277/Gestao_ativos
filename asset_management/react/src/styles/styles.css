@@ -12855,7 +12855,7 @@ input::placeholder {
 .lgTextF-asset {
     text-align: center;
     font-weight: bold;
-    font-size: 130%;
+    font-size: 1.1rem;
     padding: 15px;
     position: absolute;
     top: 90%;
@@ -12863,9 +12863,9 @@ input::placeholder {
     -ms-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    color: white;
-    background-color: red;
-    border-radius: 10px;
+    color: #007840;
+    /* background-color: gray;
+    border-radius: 10px; */
 }
 
 .dwlTemp {
