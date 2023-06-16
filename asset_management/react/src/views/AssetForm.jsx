@@ -237,8 +237,9 @@ export default function AssetForm() {
         )}
         {!loading && (
           <form onSubmit={onSubmit} className="assetForm">
-            <button className="btn-adicionar">Gravar</button>
             {/* ---------- Inventory Number ----------*/}
+            <h4 className="title-page-all-sub">Dados do Ativo: </h4>
+            <p></p>
             <label className="lb-info">
               {" "}
               Número de inventário:
@@ -397,7 +398,7 @@ export default function AssetForm() {
 
             <div className="localAsset-local">
               <p></p>
-              <h4 className="title-page-all">Localização: </h4>
+              <h4 className="title-page-all-sub">Localização: </h4>
               <p></p>
               {/* ---------- CI ----------*/}
               <label className="lb-info">
@@ -504,6 +505,9 @@ export default function AssetForm() {
                     className="obs-mov-e"
                   />
                 </label>
+                <button className="btn-adicionar-assetForm">
+                  <i className="fa fa-save fa-lg" aria-hidden="true"></i>
+                </button>
               </div>
             </div>
           </form>

@@ -2841,6 +2841,17 @@ textarea.form-control-lg {
     color: white;
 }
 
+.btn-adicionar-assetForm {
+    float: right;
+    background-color: #00a762;
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    border-radius: 4px;
+    color: white;
+    margin-right: 390px;
+    margin-top: 51px;
+}
+
 .btn-edit {
     background: #5b08a7;
     color: white;
@@ -13055,6 +13066,11 @@ input::placeholder {
 .title-page-all {
     color: #007840;
     font-size: 1.75rem;
+}
+
+.title-page-all-sub {
+    color: #007840;
+    font-size: 1.4rem;
 }
 
 .asset-import {
