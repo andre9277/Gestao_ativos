@@ -12699,7 +12699,7 @@ select {
 }
 
 .assetForm {
-    display: inline-block;
+    display: inline-grid;
     margin: 4px;
 }
 
@@ -13219,7 +13219,7 @@ input::placeholder {
     padding: 1px;
 }
 .lb-info-allo {
-    width: 23%;
+    width: 31%;
     margin: 4px;
     color: #007840;
     font-size: large;
@@ -13235,7 +13235,6 @@ input::placeholder {
     color: #007840;
     font-size: large;
     margin-top: 20px;
-    margin-left: 27px;
 }
 
 .lb-info-allo-now {

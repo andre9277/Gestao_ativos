@@ -42,6 +42,7 @@ const AddAssetMovementForm = () => {
   const [assetEnt, setAssetEnt] = useState("");
   const { user, setNotification } = useStateContext();
   const [ents, setEnts] = useState([]);
+  const [invNumber, setInvNumber] = useState("");
 
   const navigate = useNavigate();
 
@@ -65,11 +66,17 @@ const AddAssetMovementForm = () => {
   };
 
   let matchingAsset = null;
+  let matchingInv = null;
 
   if (assetEve !== null) {
     const serNumberr = serNumber; // Replace with the user-inputted ser_number
     matchingAsset = assetEve.find((asset) => asset.numb_ser === serNumberr);
   }
+  if (assetEve !== null) {
+    const invNumberr = invNumber;
+    matchingInv = assetEve.find((asset) => asset.numb_inv === invNumberr);
+  }
+  console.log(matchingInv);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -89,10 +96,15 @@ const AddAssetMovementForm = () => {
 
     const data = {
       allocation_date: allocationDate,
-      ser_number: serNumber,
+      ser_number: matchingInv ? matchingInv.numb_ser : serNumber,
+      inv_number: matchingAsset ? matchingAsset.numb_inv : invNumber,
       action_type: "Atualiza",
       user_id: user.id,
-      asset_id: matchingAsset ? matchingAsset.id : null,
+      asset_id: matchingAsset
+        ? matchingAsset.id
+        : null || matchingInv
+        ? matchingInv.id
+        : null,
       ci: assetCi,
       entity: assetEnt,
       other: other,
@@ -124,6 +136,27 @@ const AddAssetMovementForm = () => {
               }
             });
         }
+
+        if (matchingInv) {
+          const updateAsset = {
+            ...matchingInv,
+            ci: assetCi !== "" ? assetCi : matchingInv.ci, // Update asset CI only if there is a new value
+            ent_id: assetEnt !== "" ? assetEnt : matchingInv.ent_id,
+          };
+
+          axiosClient
+            .put(`/assets/${matchingInv.id}`, updateAsset)
+            .then(() => {
+              setNotification("Ativo Movimentado com sucesso!");
+              navigate("/report");
+            })
+            .catch((err) => {
+              const response = err.response;
+              if (response && response.status === 422) {
+                setErrors(response.data.errors);
+              }
+            });
+        }
       })
       .catch(() => {
         // Handle the error
@@ -141,21 +174,43 @@ const AddAssetMovementForm = () => {
       <div className="card animated fadeInDown">
         <h6>Insira primeiro o Número de Série do ativo a mover!</h6>
         <form onSubmit={handleSubmit} className="assetForm">
+          {/* ---------- Número de inventário ----------*/}
+          <label className="lb-info-allo">
+            Número de Inventário:
+            <input
+              type="text"
+              value={matchingAsset ? matchingAsset.numb_inv : invNumber}
+              onChange={(e) => setInvNumber(e.target.value)}
+              required
+              className="infoInp"
+            />
+          </label>
           {/* ---------- Número de Série ----------*/}
           <label className="lb-info-allo">
             Número de Série:
             <input
               type="text"
-              value={serNumber}
+              value={matchingInv ? matchingInv.numb_ser : serNumber}
               onChange={(e) => setSerNumber(e.target.value)}
               required
               className="infoInp"
             />
           </label>
+          {/* ---------- Local Now ----------*/}
+          <label className="lb-info-allo-now">
+            Localização origem:
+            <h6 className="attrAsset">
+              {matchingAsset
+                ? matchingAsset.entity.ent_name
+                : "" || matchingInv
+                ? matchingInv.entity.ent_name
+                : ""}
+            </h6>
+          </label>
           {/* ----------New Local ----------*/}
 
           <label htmlFor="entity" className="lb-info-allo">
-            Localização:
+            Localização destino:
             <select
               className="form-select-mov"
               name="entity"
@@ -172,9 +227,21 @@ const AddAssetMovementForm = () => {
               ))}
             </select>
           </label>
+
+          {/* ---------- CI ----------*/}
+          <label className="lb-info-allo-ci">
+            CI origem:
+            <h6 className="attrAsset">
+              {matchingAsset
+                ? matchingAsset.ci
+                : "" || matchingInv
+                ? matchingInv.ci
+                : ""}
+            </h6>
+          </label>
           {/* ---------- CI Now ----------*/}
           <label className="lb-info-allo-new">
-            Novo CI:{" "}
+            CI destino:{" "}
             <input
               value={assetCi}
               onChange={(e) => setAssetCi(e.target.value)}
@@ -198,20 +265,6 @@ const AddAssetMovementForm = () => {
               <option value="Obsoleto">Obsoleto</option>
               <option value="Garantia">Garantia</option>
             </select>
-          </label>
-          {/* ---------- Local Now ----------*/}
-          <label className="lb-info-allo-now">
-            Localização Origem:
-            <h6 className="attrAsset">
-              {matchingAsset ? matchingAsset.entity.ent_name : ""}
-            </h6>
-          </label>
-          {/* ---------- CI ----------*/}
-          <label className="lb-info-allo-ci">
-            CI Origem:
-            <h6 className="attrAsset">
-              {matchingAsset ? matchingAsset.ci : ""}
-            </h6>
           </label>
 
           {/* ---------- Obs ----------*/}
