@@ -12931,6 +12931,22 @@ input::placeholder {
     border-radius: 10px; */
 }
 
+.lgTextF-asset-mov {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 15px;
+    position: absolute;
+    top: 46%;
+    left: 50%;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    color: #007840;
+    /* background-color: gray;
+    border-radius: 10px; */
+}
+
 .dwlTemp {
     color: blue;
     text-decoration: underline;

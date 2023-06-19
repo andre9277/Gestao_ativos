@@ -179,7 +179,7 @@ const ReportPage = () => {
   }
 
   const togJoin = joinArrays(assets, allocations);
-  console.log(togJoin);
+  /*  console.log(togJoin); */
   //-----------------------Category Filter-----------------------------------------
 
   useEffect(() => {
@@ -458,6 +458,7 @@ const ReportPage = () => {
     setSelectedUser("");
     setSelectedDateFrom("");
     setSelectedDateTo("");
+    setSelectedEnt("");
     setFilteredAllocations([]);
     setIsButtonClicked(false);
     setDropdownOpen(false);
@@ -665,7 +666,7 @@ const ReportPage = () => {
                 })
               ) : filteredAllocations.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="lgTextF-asset">
+                  <td colSpan="5" className="lgTextF-asset-mov">
                     Não existe(m) resultado(s) para o(s) filtro(s)
                     selecionado(s)!
                   </td>
