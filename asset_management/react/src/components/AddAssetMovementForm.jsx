@@ -40,6 +40,7 @@ const AddAssetMovementForm = () => {
   const [assetEve, setAssetEve] = useState([]);
   const [assetCi, setAssetCi] = useState("");
   const [assetEnt, setAssetEnt] = useState("");
+  const [assetDate, setAssetDate] = useState("");
   const { user, setNotification } = useStateContext();
   const [ents, setEnts] = useState([]);
   const [invNumber, setInvNumber] = useState("");
@@ -76,13 +77,12 @@ const AddAssetMovementForm = () => {
     const invNumberr = invNumber;
     matchingInv = assetEve.find((asset) => asset.numb_inv === invNumberr);
   }
-  console.log(matchingInv);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     //For the format Data: YYYY-MM-DD HH:MM:SS
-    const currentDate = new Date();
+    /*    const currentDate = new Date();
     let allocationDate = currentDate.toLocaleString();
 
     const year = currentDate.getFullYear();
@@ -92,10 +92,10 @@ const AddAssetMovementForm = () => {
     const minutes = String(currentDate.getMinutes()).padStart(2, "0");
     const seconds = String(currentDate.getSeconds()).padStart(2, "0");
 
-    allocationDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    allocationDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`; */
 
     const data = {
-      allocation_date: allocationDate,
+      allocation_date: assetDate,
       ser_number: matchingInv ? matchingInv.numb_ser : serNumber,
       inv_number: matchingAsset ? matchingAsset.numb_inv : invNumber,
       action_type: "Atualiza",
@@ -173,8 +173,22 @@ const AddAssetMovementForm = () => {
 
       <div className="card animated fadeInDown">
         <h6>Insira primeiro o Número de Série do ativo a mover!</h6>
+
         <form onSubmit={handleSubmit} className="assetForm">
-          {/* ---------- Número de inventário ----------*/}
+          {/* ---------- Allocation Date ----------*/}
+          <label className="lb-info">
+            {" "}
+            Data:
+            <input
+              className="form-calendar-asset"
+              type="date"
+              value={assetDate}
+              onChange={(e) => setAssetDate(e.target.value)}
+              placeholder="YYYY-MM-DD"
+            />
+          </label>
+          {console.log(assetDate)}
+          {/* ---------- Num Inv ----------*/}
           <label className="lb-info-allo">
             Número de Inventário:
             <input
@@ -185,7 +199,7 @@ const AddAssetMovementForm = () => {
               className="infoInp"
             />
           </label>
-          {/* ---------- Número de Série ----------*/}
+          {/* ---------- Num Serial ----------*/}
           <label className="lb-info-allo">
             Número de Série:
             <input
