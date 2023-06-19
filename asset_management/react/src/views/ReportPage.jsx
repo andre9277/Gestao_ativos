@@ -467,6 +467,14 @@ const ReportPage = () => {
   const totalResults = filteredAllocations.length;
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedAsset, setSelectedAsset] = useState(null);
+
+  const handleDropdownToggle = (assetId) => {
+    setSelectedAsset(assetId === selectedAsset ? null : assetId);
+    setShowDropdown(!showDropdown);
+  };
+
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
@@ -660,7 +668,25 @@ const ReportPage = () => {
                           : asset.allocation_date}
                       </td>
 
-                      <td key={`${asset.id}-${index}`}>{firstOtherInfo}</td>
+                      <td>
+                        <i
+                          className="fa fa-info-circle"
+                          aria-hidden="true"
+                          onClick={() => handleDropdownToggle(asset.id)}
+                        ></i>
+                        {selectedAsset === asset.id && showDropdown && (
+                          <div
+                            className={`dropdown-info-mov ${
+                              showDropdown ? "show" : ""
+                            }`}
+                          >
+                            {/* Dropdown content */}
+                            {/* This will be shown when the user clicks the icon */}
+                            <h6 className="titl-obs-mov">Observações</h6>
+                            <p className="obs-mov-asset"> {firstOtherInfo}</p>
+                          </div>
+                        )}
+                      </td>
                     </tr>
                   );
                 })
@@ -682,6 +708,13 @@ const ReportPage = () => {
                     ) {
                       return null; // skip rendering if previous_ci is null
                     }
+                    const filteredTogJoin = togJoin.filter(
+                      (assetJoin) => assetJoin.asset_id === asset.id
+                    );
+                    const firstOtherInfo =
+                      filteredTogJoin.length > 0
+                        ? filteredTogJoin[0].other
+                        : null;
 
                     const allocationData = getAllocationData(asset.id);
                     return (
@@ -714,6 +747,7 @@ const ReportPage = () => {
                             ? allocationData.date
                             : asset.allocation_date}
                         </td>
+                        <td key={`${asset.id}-${index}`}>{firstOtherInfo}</td>
                         {/*  <td>{console.log(asset)}</td> */}
                       </tr>
                     );
