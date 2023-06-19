@@ -20,6 +20,9 @@ return new class extends Migration
             $table->timestamps();
             $table->string('action_type');
             $table->string('ser_number');
+            $table->string('reason')->nullable();
+
+            $table->text('other')->nullable();
 
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('asset_id')->nullable()->constrained("assets")->cascadeOnUpdate()->nullOnDelete();

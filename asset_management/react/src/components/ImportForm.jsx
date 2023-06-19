@@ -254,7 +254,7 @@ const ImportForm = () => {
   return (
     <div className="importAsset">
       <h1 className="title-page-all">Importar Ativos</h1>
-      {loading && <div className="caprr-re">A Carregar...</div>}
+      {loading && <div className="caprr-re">A carregar...</div>}
       {!loading && (
         <div>
           <p></p>

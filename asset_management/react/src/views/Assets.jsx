@@ -27,7 +27,7 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axiosClient from "../axios-client.js";
 import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
@@ -45,7 +45,7 @@ export default function Assets() {
   const [loading, setLoading] = useState(false);
   //const [loadingAll, setLoadingAll] = useState(false);
   const [meta, setMeta] = useState({});
-  const { setNotification, user } = useStateContext();
+  const { user } = useStateContext();
 
   const [cats, setCats] = useState([]);
   const [brands, setBrands] = useState([]);
@@ -70,16 +70,34 @@ export default function Assets() {
   const startIndex = (currentPage - 1) * resultsPerPage;
   const endIndex = startIndex + resultsPerPage;
 
+  const abortControllerRef = useRef(null);
+  const abortControllerrRef = useRef(null);
+  /* const abortControllerrrRef = useRef(null);
+  const abortControllerrrRef = useRef(null); */
+
   useEffect(() => {
-    Promise.all([axiosClient.get("/assetsDefault")]).then((responses) => {
-      setLoading(false);
-      setCats(responses[0].data.cats);
-      setBrands(responses[0].data.brands);
-      setModelos(responses[0].data.models);
-      setFloor(responses[0].data.floor);
-      setAllDados(responses[0].data.assets); //Gets all data from the assets
-      setEnt(responses[0].data.localiz);
-    });
+    abortControllerRef.current = new AbortController();
+    const { signal } = abortControllerRef.current;
+
+    Promise.all([axiosClient.get("/assetsDefault", { signal })])
+      .then((responses) => {
+        setLoading(false);
+        setCats(responses[0].data.cats);
+        setBrands(responses[0].data.brands);
+        setModelos(responses[0].data.models);
+        setFloor(responses[0].data.floor);
+        setAllDados(responses[0].data.assets); //Gets all data from the assets
+        setEnt(responses[0].data.localiz);
+      })
+      .catch((error) => {
+        //error;
+      });
+
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
   }, []);
 
   //returns all assets (mount hook is called 2x)
@@ -134,7 +152,7 @@ export default function Assets() {
   };
 
   const totalResults = filteredAllocations.length;
-  //----------------------------Sorting (with filter)-----------------------------------------
+  //----------------------------Sorting (with filter)----------------------
   const sortingFilter = (col) => {
     const columnMapping = {
       Categoria: "category.name",
@@ -189,12 +207,15 @@ export default function Assets() {
 
   // Performs a client access request
   const getAssets = (url) => {
+    abortControllerrRef.current = new AbortController();
+    const { signal } = abortControllerrRef.current;
+
     url = url || "/assets";
 
     // When there is still a request, we apply loading = true
     setLoading(true);
     axiosClient
-      .get(url)
+      .get(url, { signal })
       .then(({ data }) => {
         // When the request is successful, loading=false
         setLoading(false);
@@ -206,14 +227,21 @@ export default function Assets() {
         setLoading(false);
       });
   };
+  useEffect(() => {
+    return () => {
+      if (abortControllerrRef.current) {
+        abortControllerrRef.current.abort();
+      }
+    };
+  }, []);
 
-  //----------Handle click to delete an asset------------------------
-
+  //----------Handle click to add an asset------------------------
   const onAddClick = () => {
     const url = "/assets/new";
     navigate(url);
   };
 
+  /*------------Button Apagar------------------------------*/
   const onDeleteClick = () => {
     // Get the IDs of all the checked assets
     const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
@@ -564,8 +592,8 @@ export default function Assets() {
             <tbody>
               <tr>
                 {/* caprr-re */}
-                <td colSpan="5" className="lgText">
-                  A Carregar...
+                <td colSpan="5" className="lgText-asset">
+                  A carregar...
                 </td>
               </tr>
             </tbody>
@@ -584,7 +612,7 @@ export default function Assets() {
         </table>
         <p> </p>
         <p> </p>
-        {filtered === false ? (
+        {filtered === false && !loading ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
         ) : filteredAllocations.length === 0 ? (
           ""

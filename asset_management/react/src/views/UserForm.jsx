@@ -113,8 +113,10 @@ export default function UserForm() {
 
   return (
     <>
-      {user.id && <h1>Atualizar Utilizador: {user.name}</h1>}
-      {!user.id && <h1>Novo Utilizador</h1>}
+      {user.id && (
+        <h1 className="title-page-all">Atualizar Utilizador: {user.name}</h1>
+      )}
+      {!user.id && <h1 className="title-page-all">Novo Utilizador</h1>}
       <div className="card animated fadeInDown">
         {loading && <div className="caprr-re">A Carregar...</div>}
         {errors && (
@@ -125,59 +127,59 @@ export default function UserForm() {
           </div>
         )}
         {!loading && (
-          <form onSubmit={onSubmit}>
-            <button className="btn-adicionar">Guardar</button>
-            <label>
+          <form onSubmit={onSubmit} className="assetForm">
+            <label className="lb-info-user">
               {" "}
               Nome:
               <input
                 value={user.name}
                 onChange={(ev) => setUser({ ...user, name: ev.target.value })}
-                placeholder="Nome"
+                className="infoInp"
               />
             </label>
-            <label>
+            <label className="lb-info-user">
               Email:
               <input
                 type="email"
                 value={user.email}
                 onChange={(ev) => setUser({ ...user, email: ev.target.value })}
-                placeholder="Email"
+                className="infoInp-email"
               />
             </label>
 
-            <label>
+            <label className="lb-info-user">
               Número Mecanográfico:
               <input
                 onChange={(ev) => setUser({ ...user, mec: ev.target.value })}
-                placeholder="Número Mecanográfico"
+                className="infoInp-numbMec"
               />
             </label>
 
-            <label>
+            <label className="lb-info-user">
               Password:
               <input
                 type="password"
                 onChange={(ev) =>
                   setUser({ ...user, password: ev.target.value })
                 }
-                placeholder="Password"
+                className="infoInp"
               />
             </label>
-            <label>
+            <label className="lb-info-user">
               Confirmação da Password:
               <input
                 type="password"
                 onChange={(ev) =>
                   setUser({ ...user, password_confirmation: ev.target.value })
                 }
-                placeholder="Confirmação da Password"
+                className="infoInp"
               />
             </label>
 
-            <label htmlFor="role">
+            <label htmlFor="role" className="lb-info-user">
               Função:
               <select
+                className="form-select-user"
                 name="role"
                 id="role"
                 value={user.role_id}
@@ -185,12 +187,16 @@ export default function UserForm() {
                   setUser({ ...user, role_id: ev.target.value })
                 }
               >
-                <option value="">Selecione a Função do Utilizador...</option>
+                <option value="">Selecione a Função...</option>
                 <option value="1">Administrador</option>
                 <option value="2">Sistemas de Informação</option>
                 <option value="3">Manutenção</option>
               </select>
             </label>
+            <button className="btn-adicionar-userForm">
+              {" "}
+              <i className="fa fa-save fa-lg" aria-hidden="true"></i>
+            </button>
           </form>
         )}
       </div>

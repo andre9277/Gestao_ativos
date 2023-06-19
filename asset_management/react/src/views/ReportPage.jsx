@@ -28,6 +28,7 @@ You may obtain a copy of the license at:
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client.js";
 import Papa from "papaparse";
 import PaginationLinks from "../components/PaginationLinks.jsx";
@@ -36,9 +37,10 @@ import SelectFilter from "../components/SelectFilter.jsx";
 
 //SideBar:-------------Asset movement---------------
 const ReportPage = () => {
+  const navigate = useNavigate();
+
   //All the data from an asset (not the user) - Filtered!
   const [assets, setAssets] = useState([]);
-
   const [loading, setLoading] = useState(false);
   const [units, setUnits] = useState([]);
   const [ents, setEnts] = useState([]);
@@ -55,16 +57,27 @@ const ReportPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const [selectedUser, setSelectedUser] = useState("");
+  const [selectedEnt, setSelectedEnt] = useState("");
+  const [selectedDateFrom, setSelectedDateFrom] = useState("");
+  const [selectedDateTo, setSelectedDateTo] = useState("");
 
   //keeps checking if there is a filter on or off:
   const [filtered, setFiltered] = useState(false);
   const [filteredUser, setFilteredUser] = useState(false);
+  const [filteredEnt, setFilteredEnt] = useState(false);
+  const [filteredDataFrom, setFilteredDataFrom] = useState(false);
+  const [filteredDataTo, setFilteredDataTo] = useState(false);
+
+  const [allAllocations, setAllAllocations] = useState([]);
 
   //For all the asset data:
   const [allDados, setAllDados] = useState([]); //All the data from an asset (not the user)
   const [allAssets, setAllAssets] = useState([]); //All the data from an asset (not the user)
 
   const [filteredAllocations, setFilteredAllocations] = useState([]);
+
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   //For the pagination:
   const [currentPage, setCurrentPage] = useState(1);
@@ -126,14 +139,76 @@ const ReportPage = () => {
     });
   }, []);
 
+  useEffect((url) => {
+    url = url || "/allocationAll";
+    axiosClient.get(url).then(({ data }) => {
+      setAllAllocations(data.data);
+    });
+  }, []);
+  /* console.log(allAllocations); */
+
+  function joinArrays(array1, array2) {
+    // Create an empty array to store the joined data
+    const joinedArray = [];
+
+    // Iterate over the first array
+    for (let i = 0; i < array1.length; i++) {
+      const item1 = array1[i];
+      const commonNumber = item1.numb_ser;
+
+      // Find matching items in the second array based on the common number
+      const matchingItems = array2.filter(
+        (item2) =>
+          item2.assets.numb_ser === commonNumber &&
+          item2.action_type === "Atualiza"
+      );
+
+      // If matching items are found, join the data
+      if (matchingItems.length > 0) {
+        for (let j = 0; j < matchingItems.length; j++) {
+          const joinedItem = {
+            ...item1,
+            ...matchingItems[j],
+          };
+          joinedArray.push(joinedItem);
+        }
+      }
+    }
+
+    return joinedArray;
+  }
+
+  const togJoin = joinArrays(assets, allocations);
+  console.log(togJoin);
   //-----------------------Category Filter-----------------------------------------
+
+  useEffect(() => {
+    let errorTimer;
+
+    if (error) {
+      // Set a timer to clear the error message after 3 seconds (adjust as needed)
+      errorTimer = setTimeout(() => {
+        setError(false);
+        setErrorMsg("");
+      }, 3000);
+    }
+
+    // Clean up the timer when the component unmounts or when error state changes
+    return () => clearTimeout(errorTimer);
+  }, [error]);
 
   useEffect(() => {
     const hasFilter = selectedCategory !== "";
     const hasFilterUser = selectedUser !== "";
+    const hasFilterEnt = selectedEnt !== "";
+    const hasFilterDateFrom = selectedDateFrom !== "";
+    const hasFilterDateTo = selectedDateTo !== "";
 
     setFiltered(hasFilter);
     setFilteredUser(hasFilterUser);
+    setFilteredEnt(hasFilterEnt);
+    setFilteredDataFrom(hasFilterDateFrom);
+    setFilteredDataTo(hasFilterDateTo);
 
     if (hasFilter) {
       setAllDados(allAssets);
@@ -141,7 +216,22 @@ const ReportPage = () => {
     if (hasFilterUser) {
       setAllDados(allAssets);
     }
-  }, [selectedCategory, selectedUser]);
+    if (hasFilterEnt) {
+      setAllDados(allAssets);
+    }
+    if (hasFilterDateFrom) {
+      setAllDados(allAssets);
+    }
+    if (hasFilterDateTo) {
+      setAllDados(allAssets);
+    }
+  }, [
+    selectedCategory,
+    selectedUser,
+    selectedEnt,
+    selectedDateFrom,
+    selectedDateTo,
+  ]);
 
   //-------Filters the category by user input
 
@@ -154,18 +244,24 @@ const ReportPage = () => {
     const allocationDate = allocation ? allocation.allocation_date : null;
     return { ...dados, user: userName, allocation_date: allocationDate };
   });
-
-  /* console.log(joinedArray); */
-
+  /*  console.log("joinedArray", joinedArray);
+   */
   const filterAllocations = () => {
     setIsButtonClicked(false);
     const updatedAllocations = joinedArray.filter((row) => {
+      const rowDate = row.allocation_date.split(" ")[0];
       if (
         filtered &&
         filteredUser &&
+        filteredEnt &&
+        filteredDataFrom &&
+        filteredDataTo &&
         (selectedCategory === "" ||
           row.category.name !== selectedCategory ||
-          row.user !== selectedUser)
+          row.user !== selectedUser ||
+          row.entity.ent_name !== selectedEnt ||
+          rowDate < selectedDateFrom ||
+          rowDate > selectedDateTo)
       ) {
         return false; // Exclude rows that don't match both filters
       }
@@ -182,6 +278,23 @@ const ReportPage = () => {
         return false; // Exclude rows that don't match the user filter
       }
 
+      if (
+        filteredEnt &&
+        selectedEnt !== "" &&
+        row.entity.ent_name !== selectedEnt
+      ) {
+        return false;
+      }
+
+      if (
+        filteredDataFrom &&
+        filteredDataTo &&
+        selectedDateFrom !== "" &&
+        selectedDateTo !== "" &&
+        (rowDate < selectedDateFrom || rowDate > selectedDateTo)
+      ) {
+        return false;
+      }
       return true; // Include rows that match both filters or don't have any filters
     });
 
@@ -198,6 +311,42 @@ const ReportPage = () => {
   const handleUserChange = (event) => {
     const selectedUser = event.target.value;
     setSelectedUser(selectedUser);
+  };
+
+  const handleLocalChange = (event) => {
+    const selectedEnt = event.target.value;
+    setSelectedEnt(selectedEnt);
+  };
+
+  const handleDataChangeFrom = (event) => {
+    const selectDateFrom = event.target.value;
+
+    if (selectedDateFrom > selectedDateTo) {
+      setError(true);
+      setErrorMsg("Intervalo de Datas inválido!");
+      setSelectedDateFrom("");
+      return;
+    }
+
+    setSelectedDateFrom(selectDateFrom);
+    setError(false);
+    setErrorMsg("");
+  };
+
+  const handleDataChangeTo = (event) => {
+    const selectDataTo = event.target.value;
+
+    if (selectDataTo < selectedDateFrom) {
+      setError(true);
+      setErrorMsg("Intervalo de Datas Inválido!");
+      setSelectedDateTo("");
+
+      return;
+    }
+
+    setSelectedDateTo(selectDataTo);
+    setError(false);
+    setErrorMsg("");
   };
   //----------------------------------------------------------
   const onPageClick = (link) => {
@@ -307,6 +456,8 @@ const ReportPage = () => {
   const resetFilter = () => {
     setSelectedCategory("");
     setSelectedUser("");
+    setSelectedDateFrom("");
+    setSelectedDateTo("");
     setFilteredAllocations([]);
     setIsButtonClicked(false);
     setDropdownOpen(false);
@@ -319,6 +470,11 @@ const ReportPage = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
+  const onAddClick = () => {
+    const url = "/addAssetMovement";
+    navigate(url);
+  };
+
   return (
     <div id="content">
       <div className="container-fluid">
@@ -327,12 +483,26 @@ const ReportPage = () => {
           <div>
             <>
               <div className="dropdown">
+                {/* ---------------Button Filter --------------- */}
                 <button
                   className="btn-filter text-link"
                   onClick={toggleDropdown}
                 >
                   <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
                 </button>
+                {
+                  /*------------ Button Trade ------------*/
+                  <button
+                    className="btn-add text-link"
+                    onClick={(ev) => onAddClick()}
+                  >
+                    <i
+                      className="fa fa-exchange-alt fa-lg"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                }
+
                 <div
                   className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
                   id="filterDropdown"
@@ -349,6 +519,45 @@ const ReportPage = () => {
                     data={users}
                     title={"Utilizadores:"}
                   />
+                  <SelectFilter
+                    handleFunc={handleLocalChange}
+                    selectedF={selectedEnt}
+                    data={ents}
+                    title={"Localização:"}
+                  />
+                  <div className="data-filter-container">
+                    <label className="titleFiltDataMov">Data:</label>
+
+                    <form className="form-filt">
+                      <label htmlFor="from-date" className="dat-filt">
+                        Início:
+                      </label>
+                      <input
+                        type="date"
+                        id="from-date"
+                        name="from-date"
+                        value={selectedDateFrom}
+                        onChange={handleDataChangeFrom}
+                        className="cal-filt"
+                        required
+                      />
+
+                      <label htmlFor="to-date" className="dat-filt">
+                        Fim:
+                      </label>
+                      <input
+                        type="date"
+                        id="to-date"
+                        name="to-date"
+                        required
+                        value={selectedDateTo}
+                        /* className="cal-filt" */
+                        onChange={handleDataChangeTo}
+                        className="cal-filt"
+                      />
+                    </form>
+                  </div>
+                  {error && <p className="error-msg-rep">{errorMsg}</p>}
                   {
                     <button
                       onClick={resetFilter}
@@ -367,7 +576,7 @@ const ReportPage = () => {
                   }
                 </div>
               </div>
-              {/* ------------Button to download------------ */}
+              {/* ------------Button download------------ */}
               <button onClick={downloadCSV} className="btn-dwl">
                 <i className="fa fa-download fa-lg" aria-hidden="true"></i>
               </button>
@@ -388,6 +597,7 @@ const ReportPage = () => {
               <th>CI(Atual)</th>
               <th>Utilizador</th>
               <th>Movido em</th>
+              <th></th>
             </tr>
           </thead>
           {loading && (
@@ -398,17 +608,26 @@ const ReportPage = () => {
               <tbody>
                 <tr>
                   <td colSpan="5" className="lgText">
-                    A Carregar...
+                    A carregar...
                   </td>
                 </tr>
               </tbody>
             </>
           )}
+          {/* {console.log(assets)} */}
           {!loading && (
             <tbody>
               {!isButtonClicked && filteredAllocations.length === 0 ? (
                 assets.map((asset, index) => {
                   const allocationData = getAllocationData(asset.id);
+                  const filteredTogJoin = togJoin.filter(
+                    (assetJoin) => assetJoin.asset_id === asset.id
+                  );
+
+                  const firstOtherInfo =
+                    filteredTogJoin.length > 0
+                      ? filteredTogJoin[0].other
+                      : null;
                   return (
                     <tr key={`${asset.id}-${index}`}>
                       <td>{asset.numb_inv}</td>
@@ -439,12 +658,14 @@ const ReportPage = () => {
                           ? allocationData.date
                           : asset.allocation_date}
                       </td>
+
+                      <td key={`${asset.id}-${index}`}>{firstOtherInfo}</td>
                     </tr>
                   );
                 })
               ) : filteredAllocations.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="lgTextF">
+                  <td colSpan="5" className="lgTextF-asset">
                     Não existe(m) resultado(s) para o(s) filtro(s)
                     selecionado(s)!
                   </td>
@@ -492,6 +713,7 @@ const ReportPage = () => {
                             ? allocationData.date
                             : asset.allocation_date}
                         </td>
+                        {/*  <td>{console.log(asset)}</td> */}
                       </tr>
                     );
                   })
@@ -499,8 +721,9 @@ const ReportPage = () => {
             </tbody>
           )}
         </table>
-
-        {filtered === false ? (
+        <p> </p>
+        <p> </p>
+        {filtered === false && !loading ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
         ) : filteredAllocations.length === 0 ? (
           ""

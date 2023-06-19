@@ -75,7 +75,7 @@ class AssetController extends Controller
 
         return response()->json($assets); */
         $assets = $assets = Asset::with('entity:id,ent_name', 'brand:id,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
-            ->select('id', 'numb_inv', 'created_at', 'cat_id', 'model_id', 'brand_id', 'floor', 'ent_id', 'unit_id', 'numb_ser')
+            ->select('id', 'numb_inv', 'created_at', 'cat_id', 'model_id', 'brand_id', 'floor', 'ent_id', 'unit_id', 'numb_ser', 'ci', 'previous_ci', 'date_purch', 'state', 'cond', 'ala', 'floor', 'previous_unit_id', 'previous_ent_id', 'supplier_id', 'obs')
             ->orderBy('id', 'desc')
             ->get();
 
@@ -111,6 +111,7 @@ class AssetController extends Controller
             'action_type' => 'Adiciona',
             'ser_number' => $asset->numb_ser,
             'user_id' => auth()->user()->id
+
         ]);
 
         // Associate the new allocation record with the asset
@@ -144,7 +145,7 @@ class AssetController extends Controller
      * @param  \App\Models\Asset  $asset
      * @return \Illuminate\Http\Response
      */
-    public function show(Asset $asset)
+    public function show(Asset $asset, Allocation $allo)
     {
         // Create a new asset update record for the action_type 'show'
         $update = new Allocation([
@@ -185,6 +186,13 @@ class AssetController extends Controller
         //$asset = Asset::find($id);
         $asset->update($request->all());
 
+        // Get the last allocation
+        $lastAllocation = Allocation::latest()->first();
+        // Extract the fields if the allocation exists
+        $other = $lastAllocation ? $lastAllocation->other : null;
+        $reason = $lastAllocation ? $lastAllocation->reason : null;
+
+
         // create a new asset update record
         $update = new Allocation([
             'asset_id' => $asset->id,
@@ -192,8 +200,10 @@ class AssetController extends Controller
             'allocation_date' => now(),
             'action_type' => 'Atualiza',
             'ser_number' => $asset->numb_ser,
-
+            'other' => $other,
+            'reason' => $reason,
         ]);
+
         $update->save();
         return $asset;
     }

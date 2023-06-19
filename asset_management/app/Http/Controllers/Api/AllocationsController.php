@@ -6,7 +6,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Resources\AllocationResource;
 use App\Models\Allocation;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\StoreAllocationRequest;
+use App\Models\Asset;
 
 class AllocationsController extends Controller
 {
@@ -55,5 +56,33 @@ class AllocationsController extends Controller
         $this->authorize('allocations');
         //
         return new AllocationResource($allocation);
+    }
+
+    public function addAssetMovement(StoreAllocationRequest $request)
+    {
+
+        /* $asset = Asset::where('numb_ser', $request->ser_number)->first(); */
+
+        // Access the values from the request
+        $allocationDate = $request->input('allocation_date');
+        $reason = $request->input('reason');
+        $other = $request->input('other');
+        $actionType = $request->input('action_type');
+        $serNumber = $request->input('ser_number');
+        $userId = $request->input('user_id');
+        $assetId = $request->input('asset_id');
+
+
+        $move = new Allocation();
+        $move->allocation_date = $allocationDate;
+        $move->reason = $reason;
+        $move->other = $other;
+        $move->action_type = $actionType;
+        $move->ser_number = $serNumber;
+        $move->user_id = $userId;
+        $move->asset_id = $assetId;
+
+        $move->save();
+        return response()->json(['message' => 'Data stored successfully']);
     }
 }

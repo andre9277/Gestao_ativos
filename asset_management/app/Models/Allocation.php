@@ -14,11 +14,14 @@ class Allocation extends Model
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
+        'id',
         'asset_id',
         'user_id',
         'allocation_date',
         'action_type',
         'ser_number',
+        'reason',
+        'other',
     ];
 
     protected $table = 'allocations';

@@ -36,6 +36,7 @@ class Asset extends Model
         'previous_unit_id',
         'previous_ent_id',
         'previous_ci',
+        'obs',
     ];
 
     public static $rules = [
@@ -75,7 +76,7 @@ class Asset extends Model
 
     public function allocations()
     {
-        return $this->hasMany(Allocation::class);
+        return $this->hasMany(Allocation::class, 'asset_id');
     }
 
     public function units()

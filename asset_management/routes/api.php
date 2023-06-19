@@ -106,6 +106,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/assetSearchSer', [AssetController::class, 'getAllAssetsSer']);
 
 
+    Route::post('/assetMovement', [AllocationsController::class, 'addAssetMovement']);
+
 
     //Endpoint for the AssetForm component (Joins all the calls, does one request do the server)
     Route::get('/combinedData', function () {

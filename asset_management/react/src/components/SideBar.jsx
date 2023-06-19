@@ -98,7 +98,7 @@ const SideBar = () => {
         <div className="sidebar-heading">Gestão</div>
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
         <MenuItem titulo={"Ativos"} icon={"fa-cog"} origem={"assets"} />
-        <MenuItem titulo={"Movimentação"} icon={"fa-plus"} origem={"report"} />
+        <MenuItem titulo={"Movimentos"} icon={"fa-plus"} origem={"report"} />
 
         {/* <!-- Nav Item - ReportPage --> */}
         <MenuItem

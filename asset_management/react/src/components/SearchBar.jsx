@@ -39,6 +39,18 @@ const Search = () => {
   const [assetNumber, setAssetNumber] = useState("");
   const [assets, setAssets] = useState([]);
 
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    let timer;
+    if (errorMessage) {
+      timer = setTimeout(() => {
+        setErrorMessage("");
+      }, 2000); // Display for 5 seconds (5000 milliseconds)
+    }
+    return () => clearTimeout(timer); // Clear the timer if component unmounts or if the error message changes
+  }, [errorMessage]);
+
   useEffect(() => {
     getAssets();
   }, []);
@@ -58,15 +70,25 @@ const Search = () => {
 
   //Binary Search to improve performance in search
   const binarySearch = (arr, target) => {
-    let left = 0;
+    if (arr[0].numb_ser === target || arr[0].numb_inv === target) {
+      return arr[0];
+    }
+
+    let left = 1;
     let right = arr.length - 1;
 
     while (left <= right) {
       const mid = Math.floor((left + right) / 2);
+      const currentAsset = arr[mid];
 
-      if (arr[mid].numb_inv === target || arr[mid].numb_ser === target) {
-        return arr[mid];
-      } else if (arr[mid].numb_inv < target || arr[mid].numb_ser < target) {
+      if (
+        currentAsset.numb_ser === target ||
+        currentAsset.numb_inv === target
+      ) {
+        return currentAsset;
+      }
+
+      if (currentAsset.numb_ser < target) {
         left = mid + 1;
       } else {
         right = mid - 1;
@@ -80,19 +102,26 @@ const Search = () => {
     event.preventDefault();
 
     // Sort the assets array by asset number (assuming it's not already sorted)
-    const sortedAssets = [...assets].sort(
-      (a, b) =>
-        a.numb_inv.localeCompare(b.numb_inv) ||
-        a.numb_ser.localeCompare(b.numb_ser)
-    );
+    const sortedAssets = [...assets].sort((a, b) => {
+      if (a.numb_ser === null && b.numb_ser === null) {
+        return a.id.localeCompare(b.id); // Sort by ID if both ser are null
+      } else if (a.numb_ser === null) {
+        return 1; // Put null ser at the end
+      } else if (b.numb_ser === null) {
+        return -1; // Put null ser at the end
+      } else {
+        return a.numb_ser.localeCompare(b.numb_ser);
+      }
+    });
 
     // Search for the asset by asset number or serial number using binary search
     const matchedAsset = binarySearch(sortedAssets, assetNumber);
 
+    /*  console.log(matchedAsset); */
     if (matchedAsset) {
       navigate(`/infoasset/${matchedAsset.id}`);
     } else {
-      navigate("/*");
+      setErrorMessage("Ativo não existe!");
     }
 
     setAssetNumber("");
@@ -106,7 +135,7 @@ const Search = () => {
       <div className="input-group">
         <input
           type="text"
-          placeholder="Nº Inventário\Série"
+          placeholder="Insira nº série"
           value={assetNumber}
           onChange={handleChange}
           className="form-control border-0 ssBar"
@@ -119,6 +148,14 @@ const Search = () => {
         <Link to="/scan">
           <i className="fa fa-barcode fa-2x" aria-hidden="true"></i>
         </Link>
+      </div>
+      <div className="error-search">
+        {errorMessage && (
+          <p className="err-search">
+            <i className="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            {" " + errorMessage}
+          </p>
+        )}
       </div>
     </form>
   );
