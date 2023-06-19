@@ -669,22 +669,31 @@ const ReportPage = () => {
                       </td>
 
                       <td>
-                        <i
-                          className="fa fa-info-circle"
-                          aria-hidden="true"
-                          onClick={() => handleDropdownToggle(asset.id)}
-                        ></i>
-                        {selectedAsset === asset.id && showDropdown && (
-                          <div
-                            className={`dropdown-info-mov ${
-                              showDropdown ? "show" : ""
-                            }`}
-                          >
-                            {/* Dropdown content */}
-                            {/* This will be shown when the user clicks the icon */}
-                            <h6 className="titl-obs-mov">Observações</h6>
-                            <p className="obs-mov-asset"> {firstOtherInfo}</p>
-                          </div>
+                        {firstOtherInfo === null ? (
+                          ""
+                        ) : (
+                          <>
+                            <i
+                              className="fa fa-info-circle"
+                              aria-hidden="true"
+                              onClick={() => handleDropdownToggle(asset.id)}
+                            ></i>
+                            {selectedAsset === asset.id && showDropdown && (
+                              <div
+                                className={`dropdown-info-mov ${
+                                  showDropdown ? "show" : ""
+                                }`}
+                              >
+                                {/* Dropdown content */}
+                                {/* This will be shown when the user clicks the icon */}
+                                <h6 className="titl-obs-mov">Observações</h6>
+                                <p className="obs-mov-asset">
+                                  {" "}
+                                  {firstOtherInfo}
+                                </p>
+                              </div>
+                            )}
+                          </>
                         )}
                       </td>
                     </tr>
@@ -747,7 +756,25 @@ const ReportPage = () => {
                             ? allocationData.date
                             : asset.allocation_date}
                         </td>
-                        <td key={`${asset.id}-${index}`}>{firstOtherInfo}</td>
+                        <td>
+                          <i
+                            className="fa fa-info-circle"
+                            aria-hidden="true"
+                            onClick={() => handleDropdownToggle(asset.id)}
+                          ></i>
+                          {selectedAsset === asset.id && showDropdown && (
+                            <div
+                              className={`dropdown-info-mov ${
+                                showDropdown ? "show" : ""
+                              }`}
+                            >
+                              {/* Dropdown content */}
+                              {/* This will be shown when the user clicks the icon */}
+                              <h6 className="titl-obs-mov">Observações</h6>
+                              <p className="obs-mov-asset"> {firstOtherInfo}</p>
+                            </div>
+                          )}
+                        </td>
                         {/*  <td>{console.log(asset)}</td> */}
                       </tr>
                     );
