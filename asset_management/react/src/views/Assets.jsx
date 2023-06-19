@@ -160,6 +160,7 @@ export default function Assets() {
       Modelo: "modelo.name",
       Piso: "floor",
       Entidade: "entity.ent_name",
+      NºSerie: "numb_ser",
     };
 
     const dbColumnName = columnMapping[col];
@@ -373,6 +374,7 @@ export default function Assets() {
       Marca: "brand.sig",
       Modelo: "modelo.name",
       Piso: "floor",
+      NºSerie: "numb_ser",
     };
 
     const dbColumnName = columnMapping[col];
@@ -567,7 +569,18 @@ export default function Assets() {
                 />
               </th>
               <th>Nº Inventário</th>
-              <th>Nº Série</th>
+              {/* <th>Nº Série</th> */}
+              <th>
+                <ColumnMenuFilter
+                  titulo={"NºSerie"}
+                  tituloF={"NºSerie"}
+                  sorting={sorting}
+                  order={order}
+                  sortingFilter={sortingFilter}
+                  orderFilter={orderFilter}
+                  filtered={filtered}
+                />
+              </th>
               <th>Localização</th>
               <th>Unidade</th>
               <th>
