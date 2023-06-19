@@ -41,19 +41,8 @@ const TableAssets = ({
 }) => {
   const { user } = useStateContext();
 
-  const [loading, setLoading] = useState(false);
-
   return (
     <tbody>
-      {/* Iteration between all assets */}
-      {loading && (
-        <tr>
-          <td colSpan="5" className="lgText">
-            A Carregar...
-          </td>
-        </tr>
-      )}
-
       {!isButtonClicked && filteredAllocations.length === 0 ? (
         assets.map((a) => (
           <tr key={a.id}>

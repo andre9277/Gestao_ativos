@@ -175,7 +175,7 @@ export default function Users() {
             <tbody>
               <tr>
                 <td colSpan="5" className="caprr-re">
-                  A Carregar...
+                  A carregar...
                 </td>
               </tr>
             </tbody>
@@ -208,7 +208,11 @@ export default function Users() {
             </tbody>
           )}
         </table>
-        <PaginationLinks meta={meta} onPageClick={onPageClick} />
+        {!loading ? (
+          <PaginationLinks meta={meta} onPageClick={onPageClick} />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
