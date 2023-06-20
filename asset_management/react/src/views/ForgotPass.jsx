@@ -62,7 +62,7 @@ const ForgotPass = () => {
                       </div>
                       <div className="d-flex align-items-center justify-content-between mt-4 mb-0">
                         <Link to="/" className="small">
-                          Para o login
+                          Login
                         </Link>
                         <a className="btn btn-primary" href="login.html">
                           Recuperar Password

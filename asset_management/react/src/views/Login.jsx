@@ -32,7 +32,16 @@ import axiosClient from "../axios-client.js";
 import { createRef } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { useState } from "react";
-import logo_hb from "../assets/logo_hb.jpg";
+
+import img_logo from "../assets/hb_logo.png";
+
+import {
+  MDBBtn,
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBInput,
+} from "mdb-react-ui-kit";
 
 export default function Login() {
   const emailRef = createRef();
@@ -62,75 +71,63 @@ export default function Login() {
   };
 
   return (
-    <div id="layoutAuthentication">
-      <div id="layoutAuthentication_content">
-        <main className="mn-lg">
-          <div className="container">
-            <div className="row justify-content-center login-p">
-              <img src={logo_hb} alt="HB logo" className="ig-login" />
-              <div className="col-lg-5">
-                <div className="card shadow-lg border-0 rounded-lg mt-5 login-pp">
-                  <div className="card-header">
-                    <h3 className="text-center my-4">Login</h3>
-                  </div>
-
-                  <div className="form">
-                    <form onSubmit={onSubmit}>
-                      {message && (
-                        <div className="alert">
-                          <p>{message}</p>
-                        </div>
-                      )}
-                      <label htmlFor="inputEmail">Endereço de email</label>
-                      <div className="form-floating mb-1">
-                        <input
-                          ref={emailRef}
-                          className="form-control"
-                          id="inputEmail"
-                          type="email"
-                          placeholder="name@example.com"
-                        />
-                      </div>
-                      <label htmlFor="inputPassword">Password</label>
-                      <div className="form-floating mb-1">
-                        <input
-                          ref={passwordRef}
-                          className="form-control"
-                          id="inputPassword"
-                          type="password"
-                          placeholder="Password"
-                          autoComplete="false"
-                        />
-                      </div>
-                      <div className="form-check mb-3">
-                        <input
-                          className="form-check-input"
-                          id="inputRememberPassword"
-                          type="checkbox"
-                          value=""
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="inputRememberPassword"
-                        >
-                          Remember Password
-                        </label>
-                      </div>
-                      <div className="d-flex align-items-center justify-content-between mt-4 mb-0">
-                        <Link to="/forgotpass" className="small">
-                          Forgot Password?
-                        </Link>
-                        <button className="btn btn-block">Login</button>
-                        <Link to="/signup">Signup </Link>
-                      </div>
-                    </form>
-                  </div>
-                </div>
+    <MDBContainer fluid>
+      <MDBRow>
+        <MDBCol sm="6">
+          <form onSubmit={onSubmit} className="login-temp">
+            {message && (
+              <div className="alert">
+                <p>{message}</p>
               </div>
+            )}
+            <div className="d-flex flex-column justify-content-center h-custom-2 w-75 pt-4">
+              <h3
+                className="fw-normal mb-3 ps-5 pb-3"
+                style={{ letterSpacing: "1px" }}
+              >
+                Log in
+              </h3>
+              <MDBInput
+                wrapperClass="mb-4 mx-5 w-100"
+                label="Endereço de email"
+                id="formControlLg"
+                type="email"
+                size="lg"
+                ref={emailRef}
+              />
+              <MDBInput
+                wrapperClass="mb-4 mx-5 w-100"
+                label="Password"
+                id="formControlLg"
+                type="password"
+                size="lg"
+                ref={passwordRef}
+                autoComplete="false"
+              />
+
+              <MDBBtn className="mb-4 px-5 mx-5 w-100" color="info" size="lg">
+                Log in
+              </MDBBtn>
+              <p className="small mb-5 pb-lg-3 ms-5">
+                <Link to="/forgotpass" className="small">
+                  Esqueceu-se da password?
+                </Link>
+                {"   "}Não tem uma conta?{" "}
+                <Link to="/signup">Registe-se aqui!</Link>
+              </p>
             </div>
-          </div>
-        </main>
-      </div>
-    </div>
+          </form>
+        </MDBCol>
+
+        <MDBCol sm="6" className="d-none d-sm-block px-0">
+          <img
+            src={img_logo}
+            alt="Login image"
+            className="w-100"
+            style={{ objectFit: "cover", objectPosition: "left" }}
+          />
+        </MDBCol>
+      </MDBRow>
+    </MDBContainer>
   );
 }

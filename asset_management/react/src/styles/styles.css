@@ -3650,13 +3650,13 @@ fieldset:disabled .btn {
 
 .btn-info {
     color: #000;
-    background-color: #0dcaf0;
-    border-color: #0dcaf0;
+    background-color: #007840;
+    border-color: #007840;
 }
 .btn-info:hover {
     color: #000;
-    background-color: #31d2f2;
-    border-color: #25cff2;
+    background-color: #007840;
+    border-color: #007840;
 }
 .btn-check:focus + .btn-info,
 .btn-info:focus {
@@ -12678,10 +12678,13 @@ select {
 }
 
 .ig-login {
-    width: 170px;
-    height: 170px;
+    width: 250px;
+    height: 150px;
 }
 
+.login-temp {
+    margin-top: 8rem;
+}
 .mn-lg {
     background-color: #469c2c;
 }
