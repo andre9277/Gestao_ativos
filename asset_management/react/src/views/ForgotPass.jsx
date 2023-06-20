@@ -70,11 +70,6 @@ const ForgotPass = () => {
                       </div>
                     </form>
                   </div>
-                  <div className="card-footer text-center py-3">
-                    <div className="small">
-                      <Link to="/signup">Precisa de uma conta?Registe-se!</Link>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>

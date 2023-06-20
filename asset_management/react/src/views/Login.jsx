@@ -35,6 +35,7 @@ import { useState } from "react";
 
 import img_logo from "../assets/hb_logo.png";
 import img_logo2 from "../assets/logo_new_hb.png";
+/* import img_log from ""; */
 
 import {
   MDBBtn,
@@ -80,7 +81,7 @@ export default function Login() {
               <MDBCol sm="4">
                 <div className="d-flex flex-row ps-5 pt-5">
                   <h1 className="title-lg">
-                    Sistema de Integração e Gestão de Ativos
+                    Sistema Integrado de Gestão de Ativos
                   </h1>
                 </div>
 
@@ -116,7 +117,7 @@ export default function Login() {
                     />
 
                     <MDBBtn
-                      className="mb-4 px-5 mx-5 w-100"
+                      className="mb-4 px-5 mx-5 w-101"
                       color="info"
                       size="lg"
                     >
@@ -126,8 +127,6 @@ export default function Login() {
                       <Link to="/forgotpass" className="small">
                         Esqueceu-se da password?
                       </Link>
-                      {"   "}Não tem uma conta?{" "}
-                      <Link to="/signup">Registe-se aqui!</Link>
                     </p>
                   </div>
                 </form>

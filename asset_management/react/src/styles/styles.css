@@ -2251,6 +2251,7 @@ progress {
 }
 .form-label {
     margin-bottom: 0.5rem;
+    width: 46%;
 }
 
 .col-form-label {
@@ -3660,7 +3661,7 @@ fieldset:disabled .btn {
     border-color: #007840;
 }
 .btn-info:hover {
-    color: #000;
+    color: white;
     background-color: #007840;
     border-color: #007840;
 }
@@ -7765,7 +7766,13 @@ fieldset:disabled .btn {
     height: auto;
     block-size: auto;
 }
-
+.w-101 {
+    max-width: 100% !important;
+    height: auto;
+    block-size: auto;
+    color: white;
+    align-items: center;
+}
 .w-auto {
     width: auto !important;
 }
@@ -7820,7 +7827,7 @@ fieldset:disabled .btn {
 .back-col-login {
     background-color: #007840;
     min-height: "100vh";
-    padding: 5rem;
+    padding: 10rem;
 }
 .back-col-login2 {
     background-color: #ffffff;
@@ -7829,9 +7836,9 @@ fieldset:disabled .btn {
     background-color: #007840;
     padding: 50px;
 }
-/* .logo-div-hb {
-    margin: 100px;
-} */
+.logo-div-hb {
+    border: 5px solid black;
+}
 .flex-row {
     flex-direction: row !important;
 }
@@ -12150,7 +12157,7 @@ body {
 #layoutAuthentication #layoutAuthentication_content {
     min-width: 0;
     flex-grow: 1;
-    background-color: #469c2c;
+    background-color: #007840;
 }
 #layoutAuthentication #layoutAuthentication_footer {
     min-width: 0;
