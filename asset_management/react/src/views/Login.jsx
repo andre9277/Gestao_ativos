@@ -34,6 +34,7 @@ import { useStateContext } from "../context/ContextProvider.jsx";
 import { useState } from "react";
 
 import img_logo from "../assets/hb_logo.png";
+import img_logo2 from "../assets/logo_new_hb.png";
 
 import {
   MDBBtn,
@@ -71,63 +72,79 @@ export default function Login() {
   };
 
   return (
-    <MDBContainer fluid>
-      <MDBRow>
-        <MDBCol sm="6">
-          <form onSubmit={onSubmit} className="login-temp">
-            {message && (
-              <div className="alert">
-                <p>{message}</p>
-              </div>
-            )}
-            <div className="d-flex flex-column justify-content-center h-custom-2 w-75 pt-4">
-              <h3
-                className="fw-normal mb-3 ps-5 pb-3"
-                style={{ letterSpacing: "1px" }}
-              >
-                Log in
-              </h3>
-              <MDBInput
-                wrapperClass="mb-4 mx-5 w-100"
-                label="Endereço de email"
-                id="formControlLg"
-                type="email"
-                size="lg"
-                ref={emailRef}
-              />
-              <MDBInput
-                wrapperClass="mb-4 mx-5 w-100"
-                label="Password"
-                id="formControlLg"
-                type="password"
-                size="lg"
-                ref={passwordRef}
-                autoComplete="false"
-              />
+    <div className="back-col-login">
+      <div className="back-col-login2">
+        <MDBContainer fluid>
+          <div className="logo-div-hb">
+            <MDBRow>
+              <MDBCol sm="4">
+                <div className="d-flex flex-row ps-5 pt-5">
+                  <h1 className="title-lg">
+                    Sistema de Integração e Gestão de Ativos
+                  </h1>
+                </div>
 
-              <MDBBtn className="mb-4 px-5 mx-5 w-100" color="info" size="lg">
-                Log in
-              </MDBBtn>
-              <p className="small mb-5 pb-lg-3 ms-5">
-                <Link to="/forgotpass" className="small">
-                  Esqueceu-se da password?
-                </Link>
-                {"   "}Não tem uma conta?{" "}
-                <Link to="/signup">Registe-se aqui!</Link>
-              </p>
-            </div>
-          </form>
-        </MDBCol>
+                <form onSubmit={onSubmit} className="login-temp">
+                  {message && (
+                    <div className="alert">
+                      <p>{message}</p>
+                    </div>
+                  )}
+                  <div className="d-flex flex-column justify-content-center h-custom-2 w-75 pt-4">
+                    <h3
+                      className="fw-normal mb-3 ps-5 pb-3"
+                      style={{ letterSpacing: "1px" }}
+                    >
+                      Log in
+                    </h3>
+                    <MDBInput
+                      wrapperClass="mb-4 mx-5 w-100"
+                      label="Endereço de email"
+                      id="formControlLg"
+                      type="email"
+                      size="lg"
+                      ref={emailRef}
+                    />
+                    <MDBInput
+                      wrapperClass="mb-4 mx-5 w-100"
+                      label="Password"
+                      id="formControlLg"
+                      type="password"
+                      size="lg"
+                      ref={passwordRef}
+                      autoComplete="false"
+                    />
 
-        <MDBCol sm="6" className="d-none d-sm-block px-0">
-          <img
-            src={img_logo}
-            alt="Login image"
-            className="w-100"
-            style={{ objectFit: "cover", objectPosition: "left" }}
-          />
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer>
+                    <MDBBtn
+                      className="mb-4 px-5 mx-5 w-100"
+                      color="info"
+                      size="lg"
+                    >
+                      Log in
+                    </MDBBtn>
+                    <p className="small mb-5 pb-lg-3 ms-5">
+                      <Link to="/forgotpass" className="small">
+                        Esqueceu-se da password?
+                      </Link>
+                      {"   "}Não tem uma conta?{" "}
+                      <Link to="/signup">Registe-se aqui!</Link>
+                    </p>
+                  </div>
+                </form>
+              </MDBCol>
+
+              <MDBCol sm="8" className="d-none d-sm-block px-0">
+                <img
+                  src={img_logo2}
+                  alt="Login image"
+                  className="w-100-new"
+                  style={{ objectFit: "cover", objectPosition: "left" }}
+                />
+              </MDBCol>
+            </MDBRow>
+          </div>
+        </MDBContainer>
+      </div>
+    </div>
   );
 }
