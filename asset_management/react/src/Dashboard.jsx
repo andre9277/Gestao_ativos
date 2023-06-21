@@ -77,7 +77,7 @@ function Dashboard() {
           </div>
 
           {/*  <!-- Content Row --> */}
-          <div className="row">
+          <div className="row-dash">
             {/*  <!-- Total of Assets --> */}
             <Card
               Titulo="Total de ativos"
@@ -109,7 +109,7 @@ function Dashboard() {
 
           {/*  <!-- Content Row --> */}
 
-          <div className="row">
+          <div className="row-dash">
             {/*   <!-- Area Chart --> */}
             <AreaChart assets={assets} />
 
