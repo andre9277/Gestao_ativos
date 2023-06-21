@@ -751,6 +751,7 @@ progress {
     margin-top: calc(-1 * var(--bs-gutter-y));
     margin-right: calc(-0.5 * var(--bs-gutter-x));
     margin-left: calc(-0.5 * var(--bs-gutter-x));
+    border: 2px solid black;
 }
 
 .row-info-asset {
@@ -2856,6 +2857,8 @@ textarea.form-control-lg {
     color: white;
     margin-top: 2rem;
     margin-right: 10rem;
+    margin-left: 50rem;
+    width: 6%;
 }
 
 .btn-adicionar-movAsset {
@@ -2865,7 +2868,7 @@ textarea.form-control-lg {
     font-size: 14px;
     border-radius: 4px;
     color: white;
-    width: 3%;
+    width: 6%;
     margin-left: 1290px;
     margin-top: -55px;
 }
@@ -7836,9 +7839,9 @@ fieldset:disabled .btn {
     background-color: #007840;
     padding: 50px;
 }
-.logo-div-hb {
+/* .logo-div-hb {
     border: 5px solid black;
-}
+} */
 .flex-row {
     flex-direction: row !important;
 }

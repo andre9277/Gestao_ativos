@@ -505,9 +505,7 @@ export default function AssetForm() {
                     className="obs-mov-e"
                   />
                 </label>
-                <button className="btn-adicionar-assetForm">
-                  <i className="fa fa-save fa-lg" aria-hidden="true"></i>
-                </button>
+                <button className="btn-adicionar-assetForm">Guardar</button>
               </div>
             </div>
           </form>

@@ -193,10 +193,7 @@ export default function UserForm() {
                 <option value="3">Manutenção</option>
               </select>
             </label>
-            <button className="btn-adicionar-userForm">
-              {" "}
-              <i className="fa fa-save fa-lg" aria-hidden="true"></i>
-            </button>
+            <button className="btn-adicionar-userForm"> Guardar</button>
           </form>
         )}
       </div>

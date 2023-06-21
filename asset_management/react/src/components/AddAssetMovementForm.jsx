@@ -291,7 +291,7 @@ const AddAssetMovementForm = () => {
             />
           </label>
           <button type="submit" className="btn-adicionar-movAsset">
-            <i className="fa fa-save fa-lg" aria-hidden="true"></i>
+            Guardar
           </button>
         </form>
       </div>
