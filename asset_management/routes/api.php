@@ -28,6 +28,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 //endpoints the user has access when login
+Route::post('/forgot', [AuthController::class, 'forgot']);
+Route::post('password/reset', 'Auth\ForgotPasswordController@reset')->name('password.reset');
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', function (Request $request) {
