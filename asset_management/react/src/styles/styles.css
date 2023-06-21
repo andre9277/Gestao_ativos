@@ -7920,6 +7920,7 @@ fieldset:disabled .btn {
 
 .justify-content-center {
     justify-content: center !important;
+    display: flex;
 }
 
 .justify-content-between {
