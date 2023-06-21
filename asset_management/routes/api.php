@@ -3,11 +3,13 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AllocationsController;
+
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EntityController;
 use App\Http\Controllers\ExcelImportController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ModeloController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
@@ -28,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // routes/api.php
-Route::post('/forgot-password', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
