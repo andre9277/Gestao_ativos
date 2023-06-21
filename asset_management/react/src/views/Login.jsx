@@ -130,6 +130,8 @@ export default function Login() {
                     </p>
                   </div>
                 </form>
+                <p className="footer-copyR">V1.0.0</p>
+                <p>© 2023. Hospital de Braga</p>
               </MDBCol>
 
               <MDBCol sm="8" className="d-none d-sm-block px-0">
