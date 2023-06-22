@@ -11,6 +11,7 @@ use App\Http\Controllers\EntityController;
 use App\Http\Controllers\ExcelImportController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ModeloController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 use App\Models\Asset;
@@ -31,6 +32,8 @@ use Illuminate\Support\Facades\Route;
 
 // routes/api.php
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
+Route::post('/reset-password', [ResetPasswordController::class, 'reset']);
+
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -66,6 +69,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/asset', function (Request $request) {
         return $request->asset();
     });
+
 
     Route::get('/allAssets', [AssetController::class, 'indexAll']);
 
