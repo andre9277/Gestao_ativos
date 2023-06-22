@@ -3678,13 +3678,13 @@ fieldset:disabled .btn {
     background-color: #007840;
     border-color: #007840;
 }
-.btn-check:focus + .btn-info,
+/* .btn-check:focus + .btn-info,
 .btn-info:focus {
     color: #000;
     background-color: #31d2f2;
     border-color: #25cff2;
     box-shadow: 0 0 0 0.25rem rgba(11, 172, 204, 0.5);
-}
+} */
 .btn-check:checked + .btn-info,
 .btn-check:active + .btn-info,
 .btn-info:active,
@@ -3699,7 +3699,7 @@ fieldset:disabled .btn {
 .btn-info:active:focus,
 .btn-info.active:focus,
 .show > .btn-info.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.25rem rgba(11, 172, 204, 0.5);
+    /* box-shadow: 0 0 0 0.25rem rgba(11, 172, 204, 0.5); */
 }
 .btn-info:disabled,
 .btn-info.disabled {
@@ -7785,6 +7785,7 @@ fieldset:disabled .btn {
     block-size: auto;
     color: white;
     align-items: center;
+    background-color: #007840;
 }
 .w-auto {
     width: auto !important;
