@@ -2865,7 +2865,7 @@ textarea.form-control-lg {
     font-size: 14px;
     border-radius: 4px;
     color: white;
-    margin-top: 2rem;
+    margin-top: -38px;
     margin-right: 10rem;
     margin-left: 50rem;
     width: 6%;
@@ -2879,8 +2879,8 @@ textarea.form-control-lg {
     border-radius: 4px;
     color: white;
     width: 6%;
-    margin-left: 1290px;
-    margin-top: -55px;
+    margin-left: 1000px;
+    margin-top: -43px;
 }
 
 .btn-adicionar-assetForm {
