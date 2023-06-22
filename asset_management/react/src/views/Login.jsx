@@ -124,14 +124,16 @@ export default function Login() {
                       Log in
                     </MDBBtn>
                     <p className="small mb-5 pb-lg-3 ms-5">
-                      <Link to="/forgotpass" className="small">
+                      <Link to="/forgotPassword" className="small">
                         Esqueceu-se da password?
                       </Link>
                     </p>
                   </div>
                 </form>
-                <p className="footer-copyR">V1.0.0</p>
-                <p>© 2023. Hospital de Braga</p>
+                <div className="footer-copyR">
+                  V1.0.0 © 2023. Hospital de Braga Serviço de Sistemas de
+                  Informação
+                </div>
               </MDBCol>
 
               <MDBCol sm="8" className="d-none d-sm-block px-0">

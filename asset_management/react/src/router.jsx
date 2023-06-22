@@ -46,6 +46,7 @@ import ReportPage from "./views/ReportPage.jsx";
 import AssetInfo from "./views/AssetInfo.jsx";
 import Import from "./views/Import.jsx";
 import AddAssetMovementForm from "./components/AddAssetMovementForm.jsx";
+import ForgotPassword from "./views/FrogotPassword.jsx";
 
 //The router object defines the routes and components that should be rendered when a user navigates to a specific path.
 
@@ -145,6 +146,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "/forgotPassword",
+        element: <ForgotPassword />,
       },
     ],
   },

@@ -751,7 +751,7 @@ progress {
     margin-top: calc(-1 * var(--bs-gutter-y));
     margin-right: calc(-0.5 * var(--bs-gutter-x));
     margin-left: calc(-0.5 * var(--bs-gutter-x));
-    border: 2px solid black;
+    border: 2px solid #7e7979;
 }
 
 .row-dash {
@@ -7838,9 +7838,14 @@ fieldset:disabled .btn {
     flex: 1 1 auto !important;
 }
 .back-col-login {
-    background-color: #007840;
     min-height: "100vh";
     padding: 10rem;
+    background: rgb(37, 97, 5);
+    background: linear-gradient(
+        135deg,
+        rgba(37, 97, 5, 1) 0%,
+        rgba(106, 170, 71, 1) 100%
+    );
 }
 .back-col-login2 {
     background-color: #ffffff;
@@ -13347,5 +13352,8 @@ input::placeholder {
 }
 
 .footer-copyR {
-    margin-top: 41px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
 }
