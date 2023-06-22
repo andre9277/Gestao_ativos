@@ -9,7 +9,7 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     try {
-      await axiosClient.post("/api/forgot-password", { email });
+      await axiosClient.post("/forgot-password", { email });
       setMessage("Verifique o seu email");
     } catch (error) {
       setMessage("Erro!");
