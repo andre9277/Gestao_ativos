@@ -726,6 +726,10 @@ const ReportPage = () => {
                       filteredTogJoin.length > 0
                         ? filteredTogJoin[0].other
                         : null;
+                    const dateAsset =
+                      filteredTogJoin.length > 0
+                        ? filteredTogJoin[1].allocation_date
+                        : null;
 
                     const allocationData = getAllocationData(asset.id);
                     return (
@@ -753,11 +757,7 @@ const ReportPage = () => {
                             ? allocationData.user
                             : asset.user}
                         </td>
-                        <td>
-                          {asset.allocation_date === null
-                            ? allocationData.date
-                            : asset.allocation_date}
-                        </td>
+                        <td>{dateAsset}</td>
                         <td>
                           <i
                             className="fa fa-info-circle"
