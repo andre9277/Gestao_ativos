@@ -32,7 +32,9 @@ use Illuminate\Support\Facades\Route;
 
 // routes/api.php
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
-Route::post('/reset-password', [ResetPasswordController::class, 'reset']);
+Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
+
+
 
 
 Route::middleware('auth:sanctum')->group(function () {
