@@ -220,6 +220,28 @@ export default function AssetForm() {
     };
     setAsset(newAsset);
   }
+
+  const resetFilter = () => {
+    // Reset all the values to empty or default
+    setAsset({
+      numb_inv: "",
+      numb_ser: "",
+      cat_id: "",
+      brand_id: "",
+      model_id: "",
+      cond: "",
+      state: "",
+      date_purch: "",
+      supplier_id: "",
+      ci: "",
+      ent_id: "",
+      unit_id: "",
+      floor: "",
+      ala: "",
+      obs: "",
+    });
+  };
+
   return (
     <>
       {asset.id && (
@@ -505,6 +527,9 @@ export default function AssetForm() {
                     className="obs-mov-e"
                   />
                 </label>
+                <button onClick={resetFilter} className="btn-cleanfilter-asset">
+                  Limpar
+                </button>
                 <button className="btn-adicionar-assetFormm">Guardar</button>
               </div>
             </div>

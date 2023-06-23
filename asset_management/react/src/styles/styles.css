@@ -2933,6 +2933,27 @@ textarea.form-control-lg {
     margin-top: 10px;
     border: solid;
 }
+.btn-cleanfilter-asset {
+    /* background-color: #6c757d;
+    padding: 0.5rem 0.75rem;
+    font-size: 20px;
+    border-radius: 4px;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 10px;
+    color: white;
+    margin-left: 864px; */
+
+    float: right;
+    background-color: #6c757d;
+    padding: 0.5rem 0.75rem;
+    font-size: 20px;
+    border-radius: 4px;
+    color: white;
+    margin-right: 510px;
+    margin-top: -51px;
+    overflow: hidden;
+}
 .btn-dwl {
     background-color: #0a58ca;
     padding: 0.5rem 0.75rem;
@@ -12794,7 +12815,7 @@ select {
     background: white;
     /*  border: 1px solid #c1c1c1; */
     margin-top: 2rem;
-    margin-left: 140px;
+    /* margin-left: 140px; */
     margin-right: auto;
     padding: 2em;
     font-size: larger;
