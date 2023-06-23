@@ -127,59 +127,59 @@ export default function UserForm() {
           </div>
         )}
         {!loading && (
-          <form onSubmit={onSubmit} className="assetForm-asset">
-            <label className="lb-info-user">
+          <form onSubmit={onSubmit} className="assetForm-assett">
+            <label className="lb-info">
               {" "}
               Nome:
               <input
                 value={user.name}
                 onChange={(ev) => setUser({ ...user, name: ev.target.value })}
-                className="infoInp-asset"
+                className="infoInp"
               />
             </label>
-            <label className="lb-info-user">
+            <label className="lb-info">
               Email:
               <input
                 type="email"
                 value={user.email}
                 onChange={(ev) => setUser({ ...user, email: ev.target.value })}
-                className="infoInp-email"
+                className="infoInp"
               />
             </label>
 
-            <label className="lb-info-user">
+            <label className="lb-info">
               Número Mecanográfico:
               <input
                 onChange={(ev) => setUser({ ...user, mec: ev.target.value })}
-                className="infoInp-numbMec"
+                className="infoInp"
               />
             </label>
 
-            <label className="lb-info-user">
+            <label className="lb-info">
               Password:
               <input
                 type="password"
                 onChange={(ev) =>
                   setUser({ ...user, password: ev.target.value })
                 }
-                className="infoInp-asset"
+                className="infoInp"
               />
             </label>
-            <label className="lb-info-user">
+            <label className="lb-info">
               Confirmação da Password:
               <input
                 type="password"
                 onChange={(ev) =>
                   setUser({ ...user, password_confirmation: ev.target.value })
                 }
-                className="infoInp-asset"
+                className="infoInp"
               />
             </label>
 
-            <label htmlFor="role" className="lb-info-user">
+            <label htmlFor="role" className="lb-info">
               Função:
               <select
-                className="form-select-user"
+                className="infoInp"
                 name="role"
                 id="role"
                 value={user.role_id}

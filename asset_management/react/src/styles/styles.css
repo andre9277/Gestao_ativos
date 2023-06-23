@@ -2863,13 +2863,13 @@ textarea.form-control-lg {
     float: right;
     background-color: #00a762;
     padding: 0.5rem 0.75rem;
-    font-size: 14px;
+    font-size: 20px;
     border-radius: 4px;
     color: white;
-    margin-top: -38px;
-    margin-right: 10rem;
+    margin-top: -81px;
+    margin-right: 28rem;
     margin-left: 50rem;
-    width: 6%;
+    width: 8%;
 }
 
 .btn-adicionar-movAsset {
