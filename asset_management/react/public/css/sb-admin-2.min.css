@@ -9324,7 +9324,7 @@ a:focus {
     width: 2rem;
 }
 .topbar {
-    height: 5.375rem;
+    height: 6.375rem;
 }
 .topbar #sidebarToggleTop {
     height: 2.5rem;
@@ -9340,7 +9340,7 @@ a:focus {
     width: 25rem;
 }
 .topbar .navbar-search input {
-    font-size: 0.85rem;
+    /* font-size: 0.85rem; */
     height: auto;
 }
 .topbar .topbar-divider {
