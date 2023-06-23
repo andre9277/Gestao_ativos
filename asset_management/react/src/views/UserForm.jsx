@@ -127,14 +127,14 @@ export default function UserForm() {
           </div>
         )}
         {!loading && (
-          <form onSubmit={onSubmit} className="assetForm">
+          <form onSubmit={onSubmit} className="assetForm-asset">
             <label className="lb-info-user">
               {" "}
               Nome:
               <input
                 value={user.name}
                 onChange={(ev) => setUser({ ...user, name: ev.target.value })}
-                className="infoInp"
+                className="infoInp-asset"
               />
             </label>
             <label className="lb-info-user">
@@ -162,7 +162,7 @@ export default function UserForm() {
                 onChange={(ev) =>
                   setUser({ ...user, password: ev.target.value })
                 }
-                className="infoInp"
+                className="infoInp-asset"
               />
             </label>
             <label className="lb-info-user">
@@ -172,7 +172,7 @@ export default function UserForm() {
                 onChange={(ev) =>
                   setUser({ ...user, password_confirmation: ev.target.value })
                 }
-                className="infoInp"
+                className="infoInp-asset"
               />
             </label>
 

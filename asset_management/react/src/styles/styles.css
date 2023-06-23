@@ -2896,6 +2896,18 @@ textarea.form-control-lg {
     overflow: hidden;
 }
 
+.btn-adicionar-assetFormm {
+    float: right;
+    background-color: #00a762;
+    padding: 0.5rem 0.75rem;
+    font-size: 14px;
+    border-radius: 4px;
+    color: white;
+    margin-right: 390px;
+    margin-top: 51px;
+    overflow: hidden;
+}
+
 .btn-edit {
     background: #5b08a7;
     color: white;
@@ -13385,3 +13397,34 @@ button {
     float: right;
     width: calc(100% - 200px);
 } */
+
+.lb-info-asset {
+    width: 23%;
+    margin: 4px;
+    color: #007840;
+    font-size: large;
+    margin: 14px;
+}
+
+.assetForm-asset {
+    display: inline-grid;
+    margin: 4px;
+}
+
+.infoInp-asset {
+    border: none;
+    border-bottom: 2px solid #007840;
+    outline: none;
+    padding: 1px;
+    width: 40%;
+    margin-left: 10px;
+}
+
+.obs-mov-e-form {
+    border-bottom: 2px solid #007840;
+    margin-left: 10px;
+    width: 27rem;
+    margin-top: 10px;
+    margin-bottom: 12px;
+    padding: 1px;
+}

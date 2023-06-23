@@ -236,11 +236,11 @@ export default function AssetForm() {
           </div>
         )}
         {!loading && (
-          <form onSubmit={onSubmit} className="assetForm">
+          <form onSubmit={onSubmit} className="assetForm-asset">
             {/* ---------- Inventory Number ----------*/}
             <h4 className="title-page-all-sub">Dados do Ativo: </h4>
             <p></p>
-            <label className="lb-info">
+            <label className="lb-info-asset">
               {" "}
               Número de inventário:
               <input
@@ -248,12 +248,12 @@ export default function AssetForm() {
                 onChange={(ev) =>
                   setAsset({ ...asset, numb_inv: ev.target.value })
                 }
-                className="infoInp"
+                className="infoInp-asset"
               />
             </label>
 
             {/* ---------- Serial Number ----------*/}
-            <label className="lb-info">
+            <label className="lb-info-asset">
               {" "}
               Número de série:
               <input
@@ -261,12 +261,12 @@ export default function AssetForm() {
                 onChange={(ev) =>
                   setAsset({ ...asset, numb_ser: ev.target.value })
                 }
-                className="infoInp"
+                className="infoInp-asset"
               />
             </label>
 
             {/* ---------- Category ----------*/}
-            <label htmlFor="category" className="lb-info">
+            <label htmlFor="category" className="lb-info-asset">
               Categoria:
               <select
                 className="form-select-asset"
@@ -287,7 +287,7 @@ export default function AssetForm() {
             </label>
 
             {/* ---------- Brands ----------*/}
-            <label className="lb-info">
+            <label className="lb-info-asset">
               {" "}
               Marca*:
               <select
@@ -305,7 +305,7 @@ export default function AssetForm() {
             </label>
 
             {/* ---------- Models ----------*/}
-            <label className="lb-info">
+            <label className="lb-info-asset">
               {" "}
               Modelo*:
               <select
@@ -326,7 +326,7 @@ export default function AssetForm() {
 
             <div className="localAsset-cond">
               {/* ---------- Condition ----------*/}
-              <label htmlFor="condicao" className="lb-info">
+              <label htmlFor="condicao" className="lb-info-asset">
                 Condição:
                 <select
                   className="form-select-asset"
@@ -346,7 +346,7 @@ export default function AssetForm() {
               </label>
 
               {/* ---------- Status ----------*/}
-              <label htmlFor="estado" className="lb-info">
+              <label htmlFor="estado" className="lb-info-asset">
                 Estado:
                 <select
                   className="form-select-asset"
@@ -364,7 +364,7 @@ export default function AssetForm() {
               </label>
 
               {/* ---------- Date of purchase ----------*/}
-              <label className="lb-info">
+              <label className="lb-info-asset">
                 {" "}
                 Data de Compra:
                 <input
@@ -378,7 +378,7 @@ export default function AssetForm() {
                 />
               </label>
               {/* ---------- Supplier ----------*/}
-              <label className="lb-info">
+              <label className="lb-info-asset">
                 {" "}
                 Fornecedor*:
                 <select
@@ -401,17 +401,17 @@ export default function AssetForm() {
               <h4 className="title-page-all-sub">Localização: </h4>
               <p></p>
               {/* ---------- CI ----------*/}
-              <label className="lb-info">
+              <label className="lb-info-asset">
                 {" "}
                 CI:
                 <input
                   value={asset.ci === null ? "" : asset.ci}
                   onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
-                  className="infoInp"
+                  className="infoInp-asset"
                 />
               </label>
               {/* ---------- Entities ----------*/}
-              <label htmlFor="entity" className="lb-info">
+              <label htmlFor="entity" className="lb-info-asset">
                 Entidade:
                 <select
                   className="form-select-asset"
@@ -431,7 +431,7 @@ export default function AssetForm() {
               </label>
 
               {/* ---------- Units ----------*/}
-              <label htmlFor="unit" className="lb-info">
+              <label htmlFor="unit" className="lb-info-asset">
                 Unidade:
                 <select
                   className="form-select-asset"
@@ -452,7 +452,7 @@ export default function AssetForm() {
               </label>
 
               {/* ---------- Floor ----------*/}
-              <label htmlFor="floor" className="lb-info">
+              <label htmlFor="floor" className="lb-info-asset">
                 Piso:
                 <select
                   className="form-select-asset"
@@ -474,7 +474,7 @@ export default function AssetForm() {
                 </select>
               </label>
               {/* ---------- Ala ----------*/}
-              <label htmlFor="ala" className="lb-info">
+              <label htmlFor="ala" className="lb-info-asset">
                 Ala:
                 <select
                   className="form-select-asset"
@@ -505,7 +505,7 @@ export default function AssetForm() {
                     className="obs-mov-e"
                   />
                 </label>
-                <button className="btn-adicionar-assetForm">Guardar</button>
+                <button className="btn-adicionar-assetFormm">Guardar</button>
               </div>
             </div>
           </form>
