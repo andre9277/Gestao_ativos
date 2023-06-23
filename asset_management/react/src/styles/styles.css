@@ -2936,7 +2936,7 @@ textarea.form-control-lg {
 .btn-dwl {
     background-color: #0a58ca;
     padding: 0.5rem 0.75rem;
-    font-size: 14px;
+    font-size: 20px;
     border-radius: 4px;
     color: white;
     margin: 3px;
@@ -12934,6 +12934,7 @@ select {
 
 .inpImport {
     width: 75%;
+    font-size: larger;
 }
 
 .caprr-re {
@@ -13277,6 +13278,14 @@ input::placeholder {
     margin-bottom: 1rem;
     background: #fff;
     border: 1px solid #9c9c9c;
+}
+.infoInpp {
+    width: 100%;
+    padding: 0.7em;
+    margin-bottom: 1rem;
+    background: #fff;
+    border: 1px solid #9c9c9c;
+    width: 573px;
 }
 .infoInp-new {
     /* border: 1px solid #007840;
