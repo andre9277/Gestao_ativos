@@ -12764,8 +12764,9 @@ select {
 }
 
 .img-sb {
-    width: 170px;
-    height: 180px;
+    width: 270px;
+    height: 281px;
+    margin-top:89px;
 }
 
 .search-bar-container {
