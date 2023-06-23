@@ -2876,12 +2876,13 @@ textarea.form-control-lg {
     float: right;
     background-color: #00a762;
     padding: 0.5rem 0.75rem;
-    font-size: 14px;
+    font-size: 20px;
     border-radius: 4px;
     color: white;
-    width: 6%;
+    width: 18%;
     margin-left: 1000px;
-    margin-top: -43px;
+    margin-top: -4px;
+    margin-right: 231px;
 }
 
 .btn-adicionar-assetForm {
@@ -3262,7 +3263,7 @@ textarea.form-control-lg {
     ):not(.invalid-tooltip):not(.invalid-feedback) {
     background-color: #007840;
     padding: 0.5rem;
-    margin-left: 0.2rem;
+    /*  margin-left: 0.2rem */
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
@@ -12696,7 +12697,7 @@ select {
         width: 50%;
     }
     label {
-        width: 40%;
+        width: 45%;
     }
     input {
         width: 60%;
@@ -12777,18 +12778,21 @@ select {
 .assetForm {
     padding: 1em;
     background: white;
-    border: 1px solid #c1c1c1;
+    /*  border: 1px solid #c1c1c1; */
     margin-top: 2rem;
     max-width: 600px;
-    margin-left: auto;
+    margin-left: 140px;
     margin-right: auto;
-    padding: 1em;
+    padding: 2em;
+    font-size: larger;
 }
 
 .lb-info {
     text-align: left;
     display: block;
     padding: 0.5em 1.5em 0.5em 0;
+    font-weight: 700;
+    font-size: x-large;
 }
 @media (max-width: 768px) {
     .lb-info {
@@ -12822,10 +12826,11 @@ select {
 
 .attrAsset {
     width: 100%;
-    padding: 0.7em;
+    padding: 1.7em;
     margin-bottom: 1rem;
-    background: var(--bs-gray);
+    background: #f8f9fc;
     border: 1px solid #9c9c9c;
+    display: block;
 }
 
 .rowGraph {

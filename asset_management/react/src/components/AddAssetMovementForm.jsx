@@ -170,7 +170,8 @@ const AddAssetMovementForm = () => {
   return (
     <form onSubmit={handleSubmit} className="assetForm">
       <h1 className="title-page-all">Movimento de Ativo</h1>
-
+      <p></p>
+      <p></p>
       {/* ---------- Allocation Date ----------*/}
       <label className="lb-info"> Data:</label>
       <input
@@ -278,6 +279,8 @@ const AddAssetMovementForm = () => {
       <button type="submit" className="btn-adicionar-movAsset">
         Guardar
       </button>
+      <p></p>
+      <p></p>
     </form>
   );
 };
