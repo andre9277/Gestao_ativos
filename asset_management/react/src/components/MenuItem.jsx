@@ -35,7 +35,9 @@ const MenuItem = ({ titulo, icon, origem }) => {
     <li className="nav-item mn-item">
       <Link to={`/${origem}`} className="nav-link">
         <i className={`fas fa-fw ${icon}`}></i>
-        <span>{titulo}</span>
+        <span>
+          <h5>{titulo}</h5>
+        </span>
       </Link>
     </li>
   );
