@@ -236,11 +236,11 @@ export default function AssetForm() {
           </div>
         )}
         {!loading && (
-          <form onSubmit={onSubmit} className="assetForm-asset">
+          <form onSubmit={onSubmit} className="assetForm-assett">
             {/* ---------- Inventory Number ----------*/}
-            <h4 className="title-page-all-sub">Dados do Ativo: </h4>
+            <h1 className="title-page-all-sub">Dados do Ativo: </h1>
             <p></p>
-            <label className="lb-info-asset">
+            <label className="lb-info">
               {" "}
               Número de inventário:
               <input
@@ -248,12 +248,12 @@ export default function AssetForm() {
                 onChange={(ev) =>
                   setAsset({ ...asset, numb_inv: ev.target.value })
                 }
-                className="infoInp-asset"
+                className="infoInp"
               />
             </label>
 
             {/* ---------- Serial Number ----------*/}
-            <label className="lb-info-asset">
+            <label className="lb-info">
               {" "}
               Número de série:
               <input
@@ -261,15 +261,15 @@ export default function AssetForm() {
                 onChange={(ev) =>
                   setAsset({ ...asset, numb_ser: ev.target.value })
                 }
-                className="infoInp-asset"
+                className="infoInp"
               />
             </label>
 
             {/* ---------- Category ----------*/}
-            <label htmlFor="category" className="lb-info-asset">
+            <label htmlFor="category" className="lb-info">
               Categoria:
               <select
-                className="form-select-asset"
+                className="infoInp"
                 name="category"
                 id="category"
                 value={asset.cat_id}
@@ -287,13 +287,13 @@ export default function AssetForm() {
             </label>
 
             {/* ---------- Brands ----------*/}
-            <label className="lb-info-asset">
+            <label className="lb-info">
               {" "}
               Marca*:
               <select
                 value={asset.brand_id}
                 onChange={handleBrandChange}
-                className="form-select-asset"
+                className="infoInp"
               >
                 <option value="">Selecione a Marca...</option>
                 {brands.map((brand) => (
@@ -305,12 +305,12 @@ export default function AssetForm() {
             </label>
 
             {/* ---------- Models ----------*/}
-            <label className="lb-info-asset">
+            <label className="lb-info">
               {" "}
               Modelo*:
               <select
                 value={asset.model_id}
-                className="form-select-asset"
+                className="infoInp"
                 onChange={(event) =>
                   setAsset({ ...asset, model_id: event.target.value })
                 }
@@ -326,10 +326,10 @@ export default function AssetForm() {
 
             <div className="localAsset-cond">
               {/* ---------- Condition ----------*/}
-              <label htmlFor="condicao" className="lb-info-asset">
+              <label htmlFor="condicao" className="lb-info">
                 Condição:
                 <select
-                  className="form-select-asset"
+                  className="infoInp"
                   name="condicao"
                   id="condicao"
                   value={asset.cond}
@@ -346,10 +346,10 @@ export default function AssetForm() {
               </label>
 
               {/* ---------- Status ----------*/}
-              <label htmlFor="estado" className="lb-info-asset">
+              <label htmlFor="estado" className="lb-info">
                 Estado:
                 <select
-                  className="form-select-asset"
+                  className="infoInp"
                   name="estado"
                   id="estado"
                   value={asset.state}
@@ -364,7 +364,7 @@ export default function AssetForm() {
               </label>
 
               {/* ---------- Date of purchase ----------*/}
-              <label className="lb-info-asset">
+              <label className="lb-info">
                 {" "}
                 Data de Compra:
                 <input
@@ -378,11 +378,11 @@ export default function AssetForm() {
                 />
               </label>
               {/* ---------- Supplier ----------*/}
-              <label className="lb-info-asset">
+              <label className="lb-info">
                 {" "}
                 Fornecedor*:
                 <select
-                  className="form-select-asset-sup"
+                  className="infoInp"
                   value={asset.supplier_id}
                   onChange={handleSupplierChange}
                 >
@@ -398,23 +398,23 @@ export default function AssetForm() {
 
             <div className="localAsset-local">
               <p></p>
-              <h4 className="title-page-all-sub">Localização: </h4>
+              <h1 className="title-page-all-sub">Localização: </h1>
               <p></p>
               {/* ---------- CI ----------*/}
-              <label className="lb-info-asset">
+              <label className="lb-info">
                 {" "}
                 CI:
                 <input
                   value={asset.ci === null ? "" : asset.ci}
                   onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
-                  className="infoInp-asset"
+                  className="infoInp"
                 />
               </label>
               {/* ---------- Entities ----------*/}
-              <label htmlFor="entity" className="lb-info-asset">
+              <label htmlFor="entity" className="lb-info">
                 Entidade:
                 <select
-                  className="form-select-asset"
+                  className="infoInp"
                   name="entity"
                   id="entity"
                   value={asset.ent_id}
@@ -431,10 +431,10 @@ export default function AssetForm() {
               </label>
 
               {/* ---------- Units ----------*/}
-              <label htmlFor="unit" className="lb-info-asset">
+              <label htmlFor="unit" className="lb-info">
                 Unidade:
                 <select
-                  className="form-select-asset"
+                  className="infoInp"
                   name="unit"
                   id="unit"
                   value={asset.unit_id === null ? "" : asset.unit_id}
@@ -452,10 +452,10 @@ export default function AssetForm() {
               </label>
 
               {/* ---------- Floor ----------*/}
-              <label htmlFor="floor" className="lb-info-asset">
+              <label htmlFor="floor" className="lb-info">
                 Piso:
                 <select
-                  className="form-select-asset"
+                  className="infoInp"
                   name="floor"
                   id="floor"
                   value={asset.floor === null ? "" : asset.floor}
@@ -474,10 +474,10 @@ export default function AssetForm() {
                 </select>
               </label>
               {/* ---------- Ala ----------*/}
-              <label htmlFor="ala" className="lb-info-asset">
+              <label htmlFor="ala" className="lb-info">
                 Ala:
                 <select
-                  className="form-select-asset"
+                  className="infoInp"
                   name="ala"
                   id="ala"
                   value={asset.ala === null ? "" : asset.ala}
@@ -495,7 +495,7 @@ export default function AssetForm() {
 
               <div className="localAsset">
                 {/* ---------- Observações ----------*/}
-                <label className="lb-info-obs">
+                <label className="lb-info">
                   Observações:
                   <textarea
                     value={asset.obs === null ? "" : asset.obs}

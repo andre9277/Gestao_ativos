@@ -220,7 +220,7 @@ const AddAssetMovementForm = () => {
         Localização destino:
       </label>
       <select
-        className="form-select-mov"
+        className="infoInp"
         name="entity"
         id="entity"
         value={assetEnt}
@@ -256,7 +256,7 @@ const AddAssetMovementForm = () => {
       {/* ---------- Reason ----------*/}
       <label className="lb-info">Motivo:</label>
       <select
-        className="form-select-mov"
+        className="infoInp"
         name="motivo"
         id="motivo"
         value={reason}

@@ -2901,11 +2901,11 @@ textarea.form-control-lg {
     float: right;
     background-color: #00a762;
     padding: 0.5rem 0.75rem;
-    font-size: 14px;
+    font-size: 20px;
     border-radius: 4px;
     color: white;
     margin-right: 390px;
-    margin-top: 51px;
+    margin-top: -51px;
     overflow: hidden;
 }
 
@@ -12787,6 +12787,17 @@ select {
     font-size: larger;
 }
 
+.assetForm-assett {
+    padding: 1em;
+    background: white;
+    /*  border: 1px solid #c1c1c1; */
+    margin-top: 2rem;
+    margin-left: 140px;
+    margin-right: auto;
+    padding: 2em;
+    font-size: larger;
+}
+
 .lb-info {
     text-align: left;
     display: block;
@@ -13211,12 +13222,13 @@ input::placeholder {
 
 .title-page-all {
     color: #007840;
-    font-size: 1.75rem;
+    font-size: 2.75rem;
 }
 
 .title-page-all-sub {
     color: #007840;
-    font-size: 1.4rem;
+    font-size: 2.4rem;
+    padding: 1px;
 }
 
 .asset-import {
