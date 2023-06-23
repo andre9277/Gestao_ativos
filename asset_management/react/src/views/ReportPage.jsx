@@ -236,7 +236,9 @@ const ReportPage = () => {
   //-------Filters the category by user input
 
   const joinedArray = allDados.map((dados) => {
-    const allocation = allocations.find((alloc) => alloc.asset_id === dados.id);
+    const allocation = allocations.find(
+      (alloc) => alloc.asset_id === dados.id && alloc.action_type === "Atualiza"
+    );
     const user = allocation
       ? users.find((usr) => usr.id === allocation.user_id)
       : null;
@@ -249,6 +251,7 @@ const ReportPage = () => {
   const filterAllocations = () => {
     setIsButtonClicked(false);
     const updatedAllocations = joinedArray.filter((row) => {
+      console.log(joinedArray);
       const rowDate = row.allocation_date.split(" ")[0];
       if (
         filtered &&
@@ -356,8 +359,11 @@ const ReportPage = () => {
   //Gets data of data allocation
   const getAllocationData = (assetId) => {
     const allocation = allocations.find((a) =>
-      a.assets === null ? "" : a.assets.id === assetId
+      a.assets === null
+        ? ""
+        : a.assets.id === assetId && a.action_type === "Atualiza"
     );
+    /*  console.log("allcoation", allocation); */
 
     if (!allocation) {
       return {
@@ -632,17 +638,17 @@ const ReportPage = () => {
                   const filteredTogJoin = togJoin.filter(
                     (assetJoin) => assetJoin.asset_id === asset.id
                   );
-                  console.log(filteredTogJoin);
+                  /* console.log(filteredTogJoin); */
 
                   const firstOtherInfo =
                     filteredTogJoin.length > 0
                       ? filteredTogJoin[0].other
                       : null;
 
-                  const dateAsset =
+                  /*  const dateAsset =
                     filteredTogJoin.length > 0
                       ? filteredTogJoin[1].allocation_date
-                      : null;
+                      : null; */
                   return (
                     <tr key={`${asset.id}-${index}`}>
                       <td>{asset.numb_inv}</td>
@@ -668,7 +674,11 @@ const ReportPage = () => {
                           ? allocationData.user
                           : asset.user}
                       </td>
-                      <td>{dateAsset}</td>
+                      <td>
+                        {asset.allocation_date === undefined
+                          ? allocationData.date
+                          : asset.allocation_date}
+                      </td>
 
                       <td>
                         {firstOtherInfo === null ? (
@@ -726,10 +736,6 @@ const ReportPage = () => {
                       filteredTogJoin.length > 0
                         ? filteredTogJoin[0].other
                         : null;
-                    const dateAsset =
-                      filteredTogJoin.length > 0
-                        ? filteredTogJoin[1].allocation_date
-                        : null;
 
                     const allocationData = getAllocationData(asset.id);
                     return (
@@ -757,7 +763,7 @@ const ReportPage = () => {
                             ? allocationData.user
                             : asset.user}
                         </td>
-                        <td>{dateAsset}</td>
+                        <td>{allocationData.date}</td>
                         <td>
                           <i
                             className="fa fa-info-circle"
