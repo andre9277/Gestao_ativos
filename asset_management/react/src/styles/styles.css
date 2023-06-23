@@ -5099,6 +5099,7 @@ fieldset:disabled .btn {
 }
 .navbar-expand .navbar-nav .dropdown-menu {
     position: absolute;
+    font-size: larger;
 }
 .navbar-expand .navbar-nav .nav-link {
     padding-right: 0.5rem;
@@ -12766,7 +12767,7 @@ select {
 .img-sb {
     width: 270px;
     height: 281px;
-    margin-top:89px;
+    margin-top: 89px;
 }
 
 .search-bar-container {
