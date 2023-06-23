@@ -2924,16 +2924,19 @@ textarea.form-control-lg {
 .btn-edit {
     background: #5b08a7;
     color: white;
+    font-size: 20px;
 }
 
 .btn-add {
     background-color: #00a762;
+    font-size: 20px;
 }
 .btn-filter {
     background-color: #6c757d;
     padding: 0.5rem 0.75rem;
     font-size: 14px;
     border-radius: 4px;
+    font-size: 20px;
 }
 .btn-cleanfilter {
     background-color: #6c757d;
@@ -2977,7 +2980,7 @@ textarea.form-control-lg {
 .btn-delete {
     background-color: #b72424;
     padding: 0.5rem 0.75rem;
-    font-size: 14px;
+    font-size: 20px;
     border-radius: 4px;
 }
 
