@@ -2881,8 +2881,20 @@ textarea.form-control-lg {
     color: white;
     width: 18%;
     margin-left: 1000px;
-    margin-top: -4px;
-    margin-right: 231px;
+    margin-top: -62px;
+    margin-right: -338px;
+}
+.btn-cleanfilter-movAsset {
+    float: right;
+    background-color: #6c757d;
+    padding: 0.5rem 0.75rem;
+    font-size: 20px;
+    border-radius: 4px;
+    color: white;
+    width: 18%;
+    margin-left: 1000px;
+    margin-top: -62px;
+    margin-right: -223px;
 }
 
 .btn-adicionar-assetForm {

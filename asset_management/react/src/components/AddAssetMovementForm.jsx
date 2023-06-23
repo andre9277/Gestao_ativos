@@ -167,6 +167,17 @@ const AddAssetMovementForm = () => {
       });
   };
 
+  //Reset of the filters implemented
+  const resetFilter = () => {
+    setAssetDate("");
+    setInvNumber("");
+    setSerNumber("");
+    setAssetEnt("");
+    setAssetCi("");
+    setReason("");
+    setOther("");
+  };
+
   return (
     <form onSubmit={handleSubmit} className="assetForm">
       <h1 className="title-page-all">Movimento de Ativo</h1>
@@ -275,7 +286,9 @@ const AddAssetMovementForm = () => {
         onChange={(e) => setOther(e.target.value)}
         className="infoInp"
       />
-
+      <button onClick={resetFilter} className="btn-cleanfilter-movAsset">
+        Limpar
+      </button>
       <button type="submit" className="btn-adicionar-movAsset">
         Guardar
       </button>
