@@ -111,6 +111,18 @@ export default function UserForm() {
     }
   };
 
+  const resetFilter = () => {
+    // Reset all the values to empty or default
+    setUser({
+      name: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+      role_id: "",
+      mec: "",
+    });
+  };
+
   return (
     <>
       {user.id && (
@@ -150,6 +162,7 @@ export default function UserForm() {
             <label className="lb-info">
               Número Mecanográfico:
               <input
+                value={user.mec}
                 onChange={(ev) => setUser({ ...user, mec: ev.target.value })}
                 className="infoInp"
               />
@@ -158,6 +171,7 @@ export default function UserForm() {
             <label className="lb-info">
               Password:
               <input
+                value={user.password}
                 type="password"
                 onChange={(ev) =>
                   setUser({ ...user, password: ev.target.value })
@@ -168,6 +182,7 @@ export default function UserForm() {
             <label className="lb-info">
               Confirmação da Password:
               <input
+                value={user.password_confirmation}
                 type="password"
                 onChange={(ev) =>
                   setUser({ ...user, password_confirmation: ev.target.value })
@@ -192,6 +207,9 @@ export default function UserForm() {
                 <option value="2">Sistemas de Informação</option>
                 <option value="3">Manutenção</option>
               </select>
+            </label>
+            <label onClick={resetFilter} className="btn-cleanfilter-asset">
+              Limpar
             </label>
             <button className="btn-adicionar-userForm"> Guardar</button>
           </form>

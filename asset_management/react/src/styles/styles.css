@@ -2618,9 +2618,10 @@ textarea.form-control-lg {
     margin-left: 8px;
 }
 .form-calendar-asset {
-    width: 100%;
-    padding: 0.7em;
+    width: 93%;
+    padding: 0.1em;
     margin-bottom: 0.5rem;
+    border: 1px solid #9c9c9c;
 }
 .form-select-user {
     width: 40%;
@@ -2866,8 +2867,8 @@ textarea.form-control-lg {
     font-size: 20px;
     border-radius: 4px;
     color: white;
-    margin-top: -81px;
-    margin-right: 28rem;
+    margin-top: -55px;
+    margin-right: 22rem;
     margin-left: 50rem;
     width: 8%;
 }
@@ -2917,7 +2918,7 @@ textarea.form-control-lg {
     border-radius: 4px;
     color: white;
     margin-right: 390px;
-    margin-top: -51px;
+    margin-top: -62px;
     overflow: hidden;
 }
 
@@ -2966,8 +2967,31 @@ textarea.form-control-lg {
     border-radius: 4px;
     color: white;
     margin-right: 510px;
-    margin-top: -51px;
+    margin-top: 4px;
     overflow: hidden;
+    width: 6%;
+}
+.btn-cleanfilter-assett {
+    /* background-color: #6c757d;
+    padding: 0.5rem 0.75rem;
+    font-size: 20px;
+    border-radius: 4px;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 10px;
+    color: white;
+    margin-left: 864px; */
+
+    float: right;
+    background-color: #6c757d;
+    padding: 0.5rem 0.75rem;
+    font-size: 20px;
+    border-radius: 4px;
+    color: white;
+    margin-right: 510px;
+    margin-top: 55px;
+    overflow: hidden;
+    width: 6%;
 }
 .btn-dwl {
     background-color: #0a58ca;
@@ -12801,9 +12825,9 @@ select {
 }
 
 .img-sb {
-    width: 270px;
-    height: 281px;
-    margin-top: 89px;
+    width: 228px;
+    height: 240px;
+    margin-top: 62px;
 }
 
 .search-bar-container {
@@ -12838,7 +12862,6 @@ select {
 
 .lb-info {
     text-align: left;
-    display: block;
     padding: 0.5em 1.5em 0.5em 0;
     font-weight: 700;
     font-size: x-large;
@@ -13309,8 +13332,8 @@ input::placeholder {
 }
 
 .infoInp {
-    width: 100%;
-    padding: 0.7em;
+    width: 96%;
+    padding: 0.1em;
     margin-bottom: 1rem;
     background: #fff;
     border: 1px solid #9c9c9c;
