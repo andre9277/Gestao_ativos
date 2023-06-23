@@ -299,7 +299,7 @@ export default function AssetForm() {
                   setAsset({ ...asset, cat_id: event.target.value })
                 }
               >
-                <option value="">Selecione a Categoria...</option>
+                <option value=""></option>
                 {cats.map((category) => (
                   <option key={category.id} value={category.id}>
                     {category.name}
@@ -317,7 +317,7 @@ export default function AssetForm() {
                 onChange={handleBrandChange}
                 className="infoInp"
               >
-                <option value="">Selecione a Marca...</option>
+                <option value=""></option>
                 {brands.map((brand) => (
                   <option key={brand.id} value={brand.id}>
                     {brand.name}
@@ -337,7 +337,7 @@ export default function AssetForm() {
                   setAsset({ ...asset, model_id: event.target.value })
                 }
               >
-                <option value="">Selecione o Modelo...</option>
+                <option value=""></option>
                 {modelos.map((modelo) => (
                   <option key={modelo.id} value={modelo.id}>
                     {modelo.name}
@@ -359,7 +359,7 @@ export default function AssetForm() {
                     setAsset({ ...asset, cond: event.target.value })
                   }
                 >
-                  <option value="">Selecione a Condição...</option>
+                  <option value=""></option>
                   <option value="Novo">Novo</option>
                   <option value="Usado">Usado</option>
                   <option value="Reparação">Reparação</option>
@@ -379,7 +379,7 @@ export default function AssetForm() {
                     setAsset({ ...asset, state: event.target.value })
                   }
                 >
-                  <option value="">Selecione o Estado...</option>
+                  <option value=""></option>
                   <option value="Ativo">Ativo</option>
                   <option value="Inativo">Inativo</option>
                 </select>
@@ -408,7 +408,7 @@ export default function AssetForm() {
                   value={asset.supplier_id}
                   onChange={handleSupplierChange}
                 >
-                  <option value="">Selecione o Fornecedor...</option>
+                  <option value=""></option>
                   {supplier.map((sup) => (
                     <option key={sup.id} value={sup.id}>
                       {sup.name}
@@ -442,7 +442,7 @@ export default function AssetForm() {
                   value={asset.ent_id}
                   onChange={handleEntityChange}
                 >
-                  <option value="">Selecione a Entidade...</option>
+                  <option value=""></option>
 
                   {ents.map((ent) => (
                     <option key={ent.id} value={ent.id}>
@@ -464,7 +464,7 @@ export default function AssetForm() {
                     setAsset({ ...asset, unit_id: event.target.value })
                   }
                 >
-                  <option value="">Selecione a Unidade...</option>
+                  <option value=""></option>
                   {units.map((unit) => (
                     <option key={unit.id} value={unit.id}>
                       {unit.name}
@@ -485,7 +485,7 @@ export default function AssetForm() {
                     setAsset({ ...asset, floor: event.target.value })
                   }
                 >
-                  <option value="">Selecione o Piso...</option>
+                  <option value=""></option>
                   <option value="-1">-1</option>
                   <option value="0">0</option>
                   <option value="1">1</option>
@@ -507,7 +507,7 @@ export default function AssetForm() {
                     setAsset({ ...asset, ala: event.target.value })
                   }
                 >
-                  <option value="">Selecione a Ala...</option>
+                  <option value=""></option>
                   <option value="B">B</option>
                   <option value="C">C</option>
                   <option value="D">D</option>

@@ -185,108 +185,127 @@ const AddAssetMovementForm = () => {
         <p></p>
         <p></p>
         {/* ---------- Allocation Date ----------*/}
-        <label className="lb-info"> Data:</label>
-        <input
-          className="form-calendar-asset"
-          type="date"
-          value={assetDate}
-          onChange={(e) => setAssetDate(e.target.value)}
-          placeholder="YYYY-MM-DD"
-        />
+        <label className="lb-info">
+          {" "}
+          Data:{" "}
+          <input
+            className="form-calendar-asset"
+            type="date"
+            value={assetDate}
+            onChange={(e) => setAssetDate(e.target.value)}
+            placeholder="YYYY-MM-DD"
+          />
+        </label>
 
-        {console.log(assetDate)}
+        {/*  {console.log(assetDate)} */}
+        <p></p>
         {/* ---------- Num Inv ----------*/}
 
-        <label className="lb-info">Número de Inventário:</label>
-        <input
-          type="text"
-          value={matchingAsset ? matchingAsset.numb_inv : invNumber}
-          onChange={(e) => setInvNumber(e.target.value)}
-          required
-          className="infoInp"
-        />
+        <label className="lb-info">
+          Número de Inventário:{" "}
+          <input
+            type="text"
+            value={matchingAsset ? matchingAsset.numb_inv : invNumber}
+            onChange={(e) => setInvNumber(e.target.value)}
+            required
+            className="infoInp"
+          />
+        </label>
 
         {/* ---------- Num Serial ----------*/}
-        <label className="lb-info">Número de Série:</label>
-        <input
-          type="text"
-          value={matchingInv ? matchingInv.numb_ser : serNumber}
-          onChange={(e) => setSerNumber(e.target.value)}
-          required
-          className="infoInp"
-        />
-
+        <label className="lb-info">
+          Número de Série:{" "}
+          <input
+            type="text"
+            value={matchingInv ? matchingInv.numb_ser : serNumber}
+            onChange={(e) => setSerNumber(e.target.value)}
+            required
+            className="infoInp"
+          />
+        </label>
+        <p></p>
         {/* ---------- Local Now ----------*/}
-        <label className="lb-info">Localização origem:</label>
-        <h6 className="attrAsset">
-          {matchingAsset
-            ? matchingAsset.entity.ent_name
-            : "" || matchingInv
-            ? matchingInv.entity.ent_name
-            : ""}
-        </h6>
+        <label className="lb-info">
+          Localização origem:{" "}
+          <h6 className="attrAsset">
+            {matchingAsset
+              ? matchingAsset.entity.ent_name
+              : "" || matchingInv
+              ? matchingInv.entity.ent_name
+              : ""}
+          </h6>
+        </label>
 
         {/* ----------New Local ----------*/}
 
         <label htmlFor="entity" className="lb-info">
           Localização destino:
+          <select
+            className="infoInp"
+            name="entity"
+            id="entity"
+            value={assetEnt}
+            onChange={(e) => setAssetEnt(e.target.value)}
+          >
+            <option value=""></option>
+            {ents.map((ent) => (
+              <option key={ent.id} value={ent.id}>
+                {ent.ent_name}
+              </option>
+            ))}
+          </select>
         </label>
-        <select
-          className="infoInp"
-          name="entity"
-          id="entity"
-          value={assetEnt}
-          onChange={(e) => setAssetEnt(e.target.value)}
-        >
-          <option value="">Selecione a Entidade...</option>
-
-          {ents.map((ent) => (
-            <option key={ent.id} value={ent.id}>
-              {ent.ent_name}
-            </option>
-          ))}
-        </select>
 
         {/* ---------- CI ----------*/}
-        <label className="lb-info">CI origem:</label>
-        <h6 className="attrAsset">
-          {matchingAsset
-            ? matchingAsset.ci
-            : "" || matchingInv
-            ? matchingInv.ci
-            : ""}
-        </h6>
+        <label className="lb-info">
+          CI origem:{" "}
+          <h6 className="attrAsset">
+            {matchingAsset
+              ? matchingAsset.ci
+              : "" || matchingInv
+              ? matchingInv.ci
+              : ""}
+          </h6>
+        </label>
 
         {/* ---------- CI Now ----------*/}
-        <label className="lb-info">CI destino: </label>
-        <input
-          value={assetCi}
-          onChange={(e) => setAssetCi(e.target.value)}
-          className="infoInp"
-        />
+        <label className="lb-info">
+          CI destino:
+          <input
+            value={assetCi}
+            onChange={(e) => setAssetCi(e.target.value)}
+            className="infoInp"
+          />{" "}
+        </label>
 
+        <p></p>
         {/* ---------- Reason ----------*/}
-        <label className="lb-info">Motivo:</label>
-        <select
-          className="infoInp"
-          name="motivo"
-          id="motivo"
-          value={reason}
-          onChange={(event) => setReason(event.target.value)}
-        >
-          <option value="">Selecione o Motivo...</option>
-          <option value="Transferência">Transferência</option>
-          <option value="Reparação">Reparação</option>
-          <option value="Obsoleto">Obsoleto</option>
-          <option value="Garantia">Garantia</option>
-        </select>
+        <label className="lb-info">
+          Motivo:{" "}
+          <select
+            className="infoInp"
+            name="motivo"
+            id="motivo"
+            value={reason}
+            onChange={(event) => setReason(event.target.value)}
+          >
+            <option value=""></option>
+            <option value="Transferência">Transferência</option>
+            <option value="Reparação">Reparação</option>
+            <option value="Obsoleto">Obsoleto</option>
+            <option value="Garantia">Garantia</option>
+          </select>
+        </label>
 
-        <label className="lb-info">Observações</label>
-        <input
-          value={other}
-          onChange={(e) => setOther(e.target.value)}
-          className="infoInp"
-        />
+        <label className="lb-info">
+          Observações{" "}
+          <input
+            value={other}
+            onChange={(e) => setOther(e.target.value)}
+            className="infoInp"
+          />
+        </label>
+
         <button onClick={resetFilter} className="btn-cleanfilter-movAsset">
           Limpar
         </button>

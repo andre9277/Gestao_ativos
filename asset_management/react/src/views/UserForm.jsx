@@ -179,7 +179,7 @@ export default function UserForm() {
                 className="infoInp"
               />
             </label>
-            <label className="lb-info">
+            {/* <label className="lb-info">
               Confirmação da Password:
               <input
                 value={user.password_confirmation}
@@ -189,7 +189,7 @@ export default function UserForm() {
                 }
                 className="infoInp"
               />
-            </label>
+            </label> */}
 
             <label htmlFor="role" className="lb-info">
               Função:
@@ -202,7 +202,7 @@ export default function UserForm() {
                   setUser({ ...user, role_id: ev.target.value })
                 }
               >
-                <option value="">Selecione a Função...</option>
+                <option value=""></option>
                 <option value="1">Administrador</option>
                 <option value="2">Sistemas de Informação</option>
                 <option value="3">Manutenção</option>
