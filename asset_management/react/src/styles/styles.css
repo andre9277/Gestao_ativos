@@ -2864,11 +2864,11 @@ textarea.form-control-lg {
     float: right;
     background-color: #00a762;
     padding: 0.5rem 0.75rem;
-    font-size: 20px;
+    font-size: 18px;
     border-radius: 4px;
     color: white;
-    margin-top: -55px;
-    margin-right: 22rem;
+    margin-top: -87px;
+    margin-right: 19rem;
     margin-left: 50rem;
     width: 8%;
 }
@@ -2961,13 +2961,13 @@ textarea.form-control-lg {
     float: right;
     background-color: #6c757d;
     padding: 0.5rem 0.75rem;
-    font-size: 20px;
+    font-size: 18px;
     border-radius: 4px;
     color: white;
-    margin-right: 510px;
-    margin-top: 4px;
+    margin-right: 444px;
+    margin-top: 30px;
     overflow: hidden;
-    width: 6%;
+    width: 7%;
 }
 .btn-cleanfilter-assett {
     /* background-color: #6c757d;
@@ -13533,3 +13533,16 @@ button {
     bottom: 0;
     text-align: center;
 }
+.camp-obs-mov {
+    font-size: 16px;
+    bottom: 0;
+    text-align: center;
+    float: left;
+}
+
+/* .div-cp-ob {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+ */

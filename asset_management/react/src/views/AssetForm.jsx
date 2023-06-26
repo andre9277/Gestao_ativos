@@ -535,8 +535,7 @@ export default function AssetForm() {
                 <button className="btn-adicionar-assetFormm">Guardar</button>
               </div>
             </div>
-            <p></p>
-            <p></p>
+
             <p className="camp-obs">*Campo Obrigatório</p>
           </form>
         )}

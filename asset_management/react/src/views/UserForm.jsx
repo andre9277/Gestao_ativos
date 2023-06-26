@@ -130,7 +130,7 @@ export default function UserForm() {
       )}
       {!user.id && <h1 className="title-page-all">Novo Utilizador</h1>}
       <div className="card animated fadeInDown">
-        {loading && <div className="caprr-re">A Carregar...</div>}
+        {loading && <div className="caprr-re">A carregar...</div>}
         {errors && (
           <div className="alert">
             {Object.keys(errors).map((key) => (
@@ -142,7 +142,7 @@ export default function UserForm() {
           <form onSubmit={onSubmit} className="assetForm-assett">
             <label className="lb-info">
               {" "}
-              Nome:
+              <label className="labelofLabel"> Nome*: </label>
               <input
                 value={user.name}
                 onChange={(ev) => setUser({ ...user, name: ev.target.value })}
@@ -150,7 +150,7 @@ export default function UserForm() {
               />
             </label>
             <label className="lb-info">
-              Email:
+              <label className="labelofLabel">Email*: </label>
               <input
                 type="email"
                 value={user.email}
@@ -160,7 +160,7 @@ export default function UserForm() {
             </label>
 
             <label className="lb-info">
-              Número Mecanográfico:
+              <label className="labelofLabel">Número Mecanográfico*: </label>
               <input
                 value={user.mec}
                 onChange={(ev) => setUser({ ...user, mec: ev.target.value })}
@@ -169,7 +169,7 @@ export default function UserForm() {
             </label>
 
             <label className="lb-info">
-              Password:
+              <label className="labelofLabel"> Password*: </label>
               <input
                 value={user.password}
                 type="password"
@@ -192,7 +192,7 @@ export default function UserForm() {
             </label> */}
 
             <label htmlFor="role" className="lb-info">
-              Função:
+              <label className="labelofLabel"> Função*: </label>
               <select
                 className="infoInp"
                 name="role"
@@ -212,6 +212,7 @@ export default function UserForm() {
               Limpar
             </label>
             <button className="btn-adicionar-userForm"> Guardar</button>
+            <p className="camp-obs">*Campo Obrigatório</p>
           </form>
         )}
       </div>

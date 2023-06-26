@@ -187,7 +187,7 @@ const AddAssetMovementForm = () => {
         {/* ---------- Allocation Date ----------*/}
         <label className="lb-info">
           {" "}
-          <label className="labelofLabel"> Data: </label>
+          <label className="labelofLabel"> Data*: </label>
           <input
             className="form-calendar-asset"
             type="date"
@@ -214,7 +214,7 @@ const AddAssetMovementForm = () => {
 
         {/* ---------- Num Serial ----------*/}
         <label className="lb-info">
-          <label className="labelofLabel"> Número de Série: </label>
+          <label className="labelofLabel"> Número de Série*: </label>
           <input
             type="text"
             value={matchingInv ? matchingInv.numb_ser : serNumber}
@@ -297,7 +297,7 @@ const AddAssetMovementForm = () => {
         <p></p>
         {/* ---------- Reason ----------*/}
         <label className="lb-info">
-          <label className="labelofLabel">Motivo: </label>
+          <label className="labelofLabel">Motivo*: </label>
           <select
             className="infoInp"
             name="motivo"
@@ -328,8 +328,8 @@ const AddAssetMovementForm = () => {
         <button type="submit" className="btn-adicionar-movAsset">
           Guardar
         </button>
-        <p></p>
-        <p></p>
+
+        <p className="camp-obs-mov">*Campo Obrigatório</p>
       </form>
     </>
   );
