@@ -12254,6 +12254,8 @@ fieldset:disabled .btn {
 html,
 body {
     height: 100%;
+    margin: 0;
+  padding: 0;
 }
 
 #layoutAuthentication {
@@ -13608,3 +13610,11 @@ button {
     color: red;
     width: auto;
 }
+
+.footer {
+    flex-shrink: 0;
+}
+
+#layoutError_footer {
+    flex-shrink: 0;
+  }

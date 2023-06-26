@@ -497,7 +497,7 @@ const ReportPage = () => {
     <div id="content">
       <div className="container-fluid">
         <div className="tb-user">
-          <h1 className="title-page-all">Movimentação de ativos</h1>
+          <h1 className="title-page-all">Movimentos de ativos</h1>
           <div>
             <>
               <div className="dropdown">

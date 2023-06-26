@@ -70,7 +70,7 @@ const SideBarSi = () => {
         {/*   <!-- Heading --> */}
         <div className="sidebar-heading">Ativos</div>
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
-        <MenuItem titulo={"Lista"} icon={"fa-cog"} origem={"assets"} />
+        <MenuItem titulo={"Listagem"} icon={"fa-cog"} origem={"assets"} />
         <MenuItem titulo={"Movimentos"} icon={"fa-plus"} origem={"report"} />
 
         <MenuItem

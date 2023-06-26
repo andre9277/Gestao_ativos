@@ -100,7 +100,7 @@ const SideBarGuest = () => {
         <div className="sidebar-heading">Ativos</div>
 
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
-        <MenuItem titulo={"Lista"} icon={"fa-cog"} origem={"assets"} />
+        <MenuItem titulo={"Listagem"} icon={"fa-cog"} origem={"assets"} />
 
         {/* <!-- Nav Item - Utilities Collapse Menu --> */}
         {/* <MenuItem Name="Utilities-teste" MenuId="collapseUtilities" /> */}
