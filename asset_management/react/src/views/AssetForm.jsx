@@ -260,8 +260,9 @@ export default function AssetForm() {
         {!loading && (
           <form onSubmit={onSubmit} className="assetForm-assett">
             {/* ---------- Inventory Number ----------*/}
-            {/* <h1 className="title-page-all-sub">Dados do Ativo: </h1> */}
-
+            <h1 className="title-page-all-sub">Dados Gerais: </h1>
+            <p></p>
+            <p></p>
             <label className="lb-info">
               {" "}
               <label className="labelofLabel"> Número de inventário: </label>
