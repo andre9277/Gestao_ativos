@@ -315,10 +315,10 @@ const AddAssetMovementForm = () => {
 
         <label className="lb-info">
           <label className="labelofLabel">Observações </label>
-          <input
+          <textarea
             value={other}
             onChange={(e) => setOther(e.target.value)}
-            className="infoInp"
+            className="obs-mov-e"
           />
         </label>
 

@@ -2912,7 +2912,7 @@ textarea.form-control-lg {
     float: right;
     background-color: #00a762;
     padding: 0.5rem 0.75rem;
-    font-size: 20px;
+    font-size: 18px;
     border-radius: 4px;
     color: white;
     margin-right: 390px;
@@ -2983,13 +2983,13 @@ textarea.form-control-lg {
     float: right;
     background-color: #6c757d;
     padding: 0.5rem 0.75rem;
-    font-size: 20px;
+    font-size: 18px;
     border-radius: 4px;
     color: white;
     margin-right: 510px;
-    margin-top: 55px;
+    margin-top: 76px;
     overflow: hidden;
-    width: 6%;
+    width: 7%;
 }
 .btn-dwl {
     background-color: #0a58ca;
@@ -12857,6 +12857,7 @@ select {
     margin-right: auto;
     padding: 2em;
     font-size: larger;
+    padding-left: 288px;
 }
 
 .lb-info {
@@ -13376,9 +13377,9 @@ input::placeholder {
     margin-left: 10px;
 }
 .obs-mov-e {
-    border-bottom: 2px solid #007840;
-    margin-left: 10px;
-    width: 27rem;
+    border: 1px solid #9c9c9c;
+    /* margin-left: 10px; */
+    width: 21rem;
     margin-top: 10px;
     margin-bottom: -8px;
     padding: 1px;
@@ -13524,4 +13525,11 @@ button {
 
 .labelofLabel {
     width: 270px;
+}
+
+.camp-obs {
+    font-size: 16px;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
 }

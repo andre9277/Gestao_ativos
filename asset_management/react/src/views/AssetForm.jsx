@@ -260,11 +260,11 @@ export default function AssetForm() {
         {!loading && (
           <form onSubmit={onSubmit} className="assetForm-assett">
             {/* ---------- Inventory Number ----------*/}
-            <h1 className="title-page-all-sub">Dados do Ativo: </h1>
-            <p></p>
+            {/* <h1 className="title-page-all-sub">Dados do Ativo: </h1> */}
+
             <label className="lb-info">
               {" "}
-              Número de inventário:
+              <label className="labelofLabel"> Número de inventário: </label>
               <input
                 value={asset.numb_inv === null ? "" : asset.numb_inv}
                 onChange={(ev) =>
@@ -277,7 +277,7 @@ export default function AssetForm() {
             {/* ---------- Serial Number ----------*/}
             <label className="lb-info">
               {" "}
-              Número de série:
+              <label className="labelofLabel">Número de série*: </label>
               <input
                 value={asset.numb_ser}
                 onChange={(ev) =>
@@ -289,7 +289,7 @@ export default function AssetForm() {
 
             {/* ---------- Category ----------*/}
             <label htmlFor="category" className="lb-info">
-              Categoria:
+              <label className="labelofLabel"> Categoria*: </label>
               <select
                 className="infoInp"
                 name="category"
@@ -311,7 +311,7 @@ export default function AssetForm() {
             {/* ---------- Brands ----------*/}
             <label className="lb-info">
               {" "}
-              Marca*:
+              <label className="labelofLabel"> Marca*: </label>
               <select
                 value={asset.brand_id}
                 onChange={handleBrandChange}
@@ -329,7 +329,7 @@ export default function AssetForm() {
             {/* ---------- Models ----------*/}
             <label className="lb-info">
               {" "}
-              Modelo*:
+              <label className="labelofLabel"> Modelo*: </label>
               <select
                 value={asset.model_id}
                 className="infoInp"
@@ -349,7 +349,7 @@ export default function AssetForm() {
             <div className="localAsset-cond">
               {/* ---------- Condition ----------*/}
               <label htmlFor="condicao" className="lb-info">
-                Condição:
+                <label className="labelofLabel">Condição*: </label>
                 <select
                   className="infoInp"
                   name="condicao"
@@ -369,7 +369,7 @@ export default function AssetForm() {
 
               {/* ---------- Status ----------*/}
               <label htmlFor="estado" className="lb-info">
-                Estado:
+                <label className="labelofLabel">Estado*: </label>
                 <select
                   className="infoInp"
                   name="estado"
@@ -388,7 +388,7 @@ export default function AssetForm() {
               {/* ---------- Date of purchase ----------*/}
               <label className="lb-info">
                 {" "}
-                Data de Compra:
+                <label className="labelofLabel">Data de Compra*:</label>
                 <input
                   className="form-calendar-asset"
                   type="date"
@@ -402,7 +402,7 @@ export default function AssetForm() {
               {/* ---------- Supplier ----------*/}
               <label className="lb-info">
                 {" "}
-                Fornecedor*:
+                <label className="labelofLabel"> Fornecedor*:</label>
                 <select
                   className="infoInp"
                   value={asset.supplier_id}
@@ -422,19 +422,10 @@ export default function AssetForm() {
               <p></p>
               <h1 className="title-page-all-sub">Localização: </h1>
               <p></p>
-              {/* ---------- CI ----------*/}
-              <label className="lb-info">
-                {" "}
-                CI:
-                <input
-                  value={asset.ci === null ? "" : asset.ci}
-                  onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
-                  className="infoInp"
-                />
-              </label>
+
               {/* ---------- Entities ----------*/}
               <label htmlFor="entity" className="lb-info">
-                Entidade:
+                <label className="labelofLabel">Entidade*:</label>
                 <select
                   className="infoInp"
                   name="entity"
@@ -454,7 +445,7 @@ export default function AssetForm() {
 
               {/* ---------- Units ----------*/}
               <label htmlFor="unit" className="lb-info">
-                Unidade:
+                <label className="labelofLabel">Unidade: </label>
                 <select
                   className="infoInp"
                   name="unit"
@@ -473,9 +464,20 @@ export default function AssetForm() {
                 </select>
               </label>
 
+              {/* ---------- CI ----------*/}
+              <label className="lb-info">
+                {" "}
+                <label className="labelofLabel">CI:</label>
+                <input
+                  value={asset.ci === null ? "" : asset.ci}
+                  onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
+                  className="infoInp"
+                />
+              </label>
+
               {/* ---------- Floor ----------*/}
               <label htmlFor="floor" className="lb-info">
-                Piso:
+                <label className="labelofLabel">Piso: </label>
                 <select
                   className="infoInp"
                   name="floor"
@@ -497,7 +499,7 @@ export default function AssetForm() {
               </label>
               {/* ---------- Ala ----------*/}
               <label htmlFor="ala" className="lb-info">
-                Ala:
+                <label className="labelofLabel"> Ala: </label>
                 <select
                   className="infoInp"
                   name="ala"
@@ -518,7 +520,7 @@ export default function AssetForm() {
               <div className="localAsset">
                 {/* ---------- Observações ----------*/}
                 <label className="lb-info">
-                  Observações:
+                  <label className="labelofLabel">Observações: </label>
                   <textarea
                     value={asset.obs === null ? "" : asset.obs}
                     onChange={(ev) =>
@@ -533,6 +535,9 @@ export default function AssetForm() {
                 <button className="btn-adicionar-assetFormm">Guardar</button>
               </div>
             </div>
+            <p></p>
+            <p></p>
+            <p className="camp-obs">*Campo Obrigatório</p>
           </form>
         )}
       </div>
