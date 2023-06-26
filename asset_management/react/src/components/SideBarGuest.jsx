@@ -115,13 +115,13 @@ const SideBarGuest = () => {
           origem={"report"}
         />
 
-        <div className="text-center d-none d-md-inline">
+        {/*  <div className="text-center d-none d-md-inline">
           <button
             className="border-0"
             id="sidebarToggle"
             onClick={changeStyle}
           ></button>
-        </div>
+        </div> */}
 
         {/*  <!-- Nav Item - Users --> */}
         {/*  <!-- Divider --> */}
