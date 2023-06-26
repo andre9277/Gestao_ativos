@@ -2618,7 +2618,7 @@ textarea.form-control-lg {
     margin-left: 8px;
 }
 .form-calendar-asset {
-    width: 93%;
+    /* width: 93%; */
     padding: 0.1em;
     margin-bottom: 0.5rem;
     border: 1px solid #9c9c9c;
@@ -2879,8 +2879,8 @@ textarea.form-control-lg {
     font-size: 20px;
     border-radius: 4px;
     color: white;
-    width: 18%;
-    margin-left: 1000px;
+    /* width: 18%; */
+    margin-left: 313px;
     margin-top: -62px;
     margin-right: -338px;
 }
@@ -2890,9 +2890,9 @@ textarea.form-control-lg {
     font-size: 20px;
     border-radius: 4px;
     color: white;
-    width: 18%;
-    margin-left: 704px;
-    margin-top: -62px;
+    /*  width: 18%; */
+    margin-left: 870px;
+    /*  margin-top: -62px; */
     margin-right: -223px;
 }
 
@@ -12841,10 +12841,11 @@ select {
     /*  border: 1px solid #c1c1c1; */
     margin-top: 2rem;
     /* max-width: 600px; */
-    margin-left: 140px;
+    /*  margin-left: 140px; */
     margin-right: auto;
     padding: 2em;
     font-size: revert;
+    padding-left: 288px;
 }
 
 .assetForm-assett {
@@ -12862,7 +12863,7 @@ select {
     text-align: left;
     padding: 0.5em 1.5em 0.5em 0;
     font-weight: 700;
-    font-size: x-large;
+    font-size: 20px;
 }
 @media (max-width: 768px) {
     .lb-info {
@@ -12902,7 +12903,7 @@ select {
     border: 1px solid #9c9c9c;
     display: block; */
 
-    width: 96%;
+    /* width: 50%; */
     padding: 0.1rem;
     margin-bottom: 1rem;
     background: #f8f9fc;
@@ -13337,7 +13338,7 @@ input::placeholder {
 }
 
 .infoInp {
-    width: 96%;
+    /* width: 96%; */
     padding: 0.1em;
     margin-bottom: 1rem;
     background: #fff;
@@ -13519,4 +13520,8 @@ button {
     margin-top: 10px;
     margin-bottom: 12px;
     padding: 1px;
+}
+
+.labelofLabel {
+    width: 270px;
 }

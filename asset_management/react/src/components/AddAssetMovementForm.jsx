@@ -187,7 +187,7 @@ const AddAssetMovementForm = () => {
         {/* ---------- Allocation Date ----------*/}
         <label className="lb-info">
           {" "}
-          Data:{" "}
+          <label className="labelofLabel"> Data: </label>
           <input
             className="form-calendar-asset"
             type="date"
@@ -202,7 +202,7 @@ const AddAssetMovementForm = () => {
         {/* ---------- Num Inv ----------*/}
 
         <label className="lb-info">
-          Número de Inventário:{" "}
+          <label className="labelofLabel">Número de Inventário: </label>
           <input
             type="text"
             value={matchingAsset ? matchingAsset.numb_inv : invNumber}
@@ -214,7 +214,7 @@ const AddAssetMovementForm = () => {
 
         {/* ---------- Num Serial ----------*/}
         <label className="lb-info">
-          Número de Série:{" "}
+          <label className="labelofLabel"> Número de Série: </label>
           <input
             type="text"
             value={matchingInv ? matchingInv.numb_ser : serNumber}
@@ -226,20 +226,28 @@ const AddAssetMovementForm = () => {
         <p></p>
         {/* ---------- Local Now ----------*/}
         <label className="lb-info">
-          Localização origem:{" "}
-          <h6 className="attrAsset">
-            {matchingAsset
-              ? matchingAsset.entity.ent_name
-              : "" || matchingInv
-              ? matchingInv.entity.ent_name
-              : ""}
-          </h6>
+          <label className="labelofLabel">Localização origem: </label>
+          {matchingAsset ? (
+            <input
+              type="text"
+              value={matchingAsset.entity.ent_name}
+              readOnly
+              className="attrAsset"
+            />
+          ) : matchingInv ? (
+            <input
+              type="text"
+              value={matchingInv.entity.ent_name}
+              readOnly
+              className="attrAsset"
+            />
+          ) : null}
         </label>
 
         {/* ----------New Local ----------*/}
 
         <label htmlFor="entity" className="lb-info">
-          Localização destino:
+          <label className="labelofLabel"> Localização destino: </label>
           <select
             className="infoInp"
             name="entity"
@@ -258,19 +266,27 @@ const AddAssetMovementForm = () => {
 
         {/* ---------- CI ----------*/}
         <label className="lb-info">
-          CI origem:{" "}
-          <h6 className="attrAsset">
-            {matchingAsset
-              ? matchingAsset.ci
-              : "" || matchingInv
-              ? matchingInv.ci
-              : ""}
-          </h6>
+          <label className="labelofLabel"> CI origem: </label>
+          {matchingAsset ? (
+            <input
+              type="text"
+              value={matchingAsset.ci}
+              readOnly
+              className="attrAsset"
+            />
+          ) : matchingInv ? (
+            <input
+              type="text"
+              value={matchingInv.ci}
+              readOnly
+              className="attrAsset"
+            />
+          ) : null}
         </label>
 
         {/* ---------- CI Now ----------*/}
         <label className="lb-info">
-          CI destino:
+          <label className="labelofLabel"> CI destino: </label>
           <input
             value={assetCi}
             onChange={(e) => setAssetCi(e.target.value)}
@@ -281,7 +297,7 @@ const AddAssetMovementForm = () => {
         <p></p>
         {/* ---------- Reason ----------*/}
         <label className="lb-info">
-          Motivo:{" "}
+          <label className="labelofLabel">Motivo: </label>
           <select
             className="infoInp"
             name="motivo"
@@ -298,7 +314,7 @@ const AddAssetMovementForm = () => {
         </label>
 
         <label className="lb-info">
-          Observações{" "}
+          <label className="labelofLabel">Observações </label>
           <input
             value={other}
             onChange={(e) => setOther(e.target.value)}
