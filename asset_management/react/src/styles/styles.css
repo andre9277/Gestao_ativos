@@ -13354,12 +13354,10 @@ input::placeholder {
     float: right;
 }
 .infoInpp {
-    width: 100%;
-    padding: 0.7em;
     margin-bottom: 1rem;
     background: #fff;
     border: 1px solid #9c9c9c;
-    width: 573px;
+    float: right;
 }
 .infoInp-new {
     /* border: 1px solid #007840;

@@ -265,7 +265,7 @@ const ImportForm = () => {
 
           {/* ---------- Category ----------*/}
           <label htmlFor="category" className="lb-info">
-            Categoria:
+            Categoria*:
             <select
               className="infoInpp"
               name="category"
@@ -275,7 +275,7 @@ const ImportForm = () => {
                 setAsset({ ...asset, cat_id: event.target.value })
               }
             >
-              <option value="">Selecione a Categoria ...</option>
+              <option value=""></option>
               {cats.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.name}
@@ -292,7 +292,7 @@ const ImportForm = () => {
               onChange={handleBrandChange}
               className="infoInpp"
             >
-              <option value="">Selecione uma Marca</option>
+              <option value=""></option>
               {brands.map((brand) => (
                 <option key={brand.id} value={brand.id}>
                   {brand.name}
@@ -312,7 +312,7 @@ const ImportForm = () => {
                 setAsset({ ...asset, model_id: event.target.value })
               }
             >
-              <option value="">Selecione um Modelo</option>
+              <option value=""></option>
               {modelos.map((modelo) => (
                 <option key={modelo.id} value={modelo.id}>
                   {modelo.name}
@@ -330,7 +330,7 @@ const ImportForm = () => {
               value={asset.supplier_id}
               onChange={handleSupplierChange}
             >
-              <option value="">Selecione um Fornecedor</option>
+              <option value=""></option>
               {supplier.map((sup) => (
                 <option key={sup.id} value={sup.id}>
                   {sup.name}
@@ -341,7 +341,7 @@ const ImportForm = () => {
 
           {/* ---------- Entities ----------*/}
           <label htmlFor="entity" className="lb-info">
-            Entidade:
+            Entidade*:
             <select
               className="infoInpp"
               name="entity"
@@ -349,7 +349,7 @@ const ImportForm = () => {
               value={asset.ent_id}
               onChange={handleEntityChange}
             >
-              <option value="">Selecione a Entidade ...</option>
+              <option value=""></option>
               {ents.map((ent) => (
                 <option key={ent.id} value={ent.id}>
                   {ent.name}
@@ -369,7 +369,7 @@ const ImportForm = () => {
                 setAsset({ ...asset, unit_id: event.target.value })
               }
             >
-              <option value="">Selecione a Unidade ...</option>
+              <option value=""></option>
               {units.map((unit) => (
                 <option key={unit.id} value={unit.id}>
                   {unit.name}
@@ -379,9 +379,11 @@ const ImportForm = () => {
           </label>
           <p></p>
           <p></p>
+          <p className="camp-obs-mov">*Campo Obrigatório</p>
 
           {/*------Ficheiro upload de ativos------*/}
           <h5 htmlFor="fileInput" className="impLab">
+            <p></p>
             Selecione o Ficheiro para Upload: (Ficheiros .CSV)
           </h5>
 
