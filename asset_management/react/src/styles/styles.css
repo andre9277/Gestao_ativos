@@ -2916,8 +2916,10 @@ textarea.form-control-lg {
     border-radius: 4px;
     color: white;
     margin-right: 390px;
-    margin-top: -62px;
+    margin-top: 75px;
     overflow: hidden;
+    position: fixed;
+    margin-left: 200px;
 }
 
 .btn-edit {
