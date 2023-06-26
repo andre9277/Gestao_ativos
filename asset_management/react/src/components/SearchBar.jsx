@@ -69,8 +69,8 @@ const Search = () => {
   };
 
   //Binary Search to improve performance in search
-  const binarySearch = (arr, target) => {
-    if (arr[0].numb_ser === target || arr[0].numb_inv === target) {
+  const searchByNumbSer = (arr, target) => {
+    if (arr[0].numb_ser === target) {
       return arr[0];
     }
 
@@ -81,14 +81,37 @@ const Search = () => {
       const mid = Math.floor((left + right) / 2);
       const currentAsset = arr[mid];
 
-      if (
-        currentAsset.numb_ser === target ||
-        currentAsset.numb_inv === target
-      ) {
+      if (currentAsset.numb_ser === target) {
         return currentAsset;
       }
 
       if (currentAsset.numb_ser < target) {
+        left = mid + 1;
+      } else {
+        right = mid - 1;
+      }
+    }
+
+    return null;
+  };
+
+  const searchByNumbInv = (arr, target) => {
+    if (arr[0].numb_inv === target) {
+      return arr[0];
+    }
+
+    let left = 1;
+    let right = arr.length - 1;
+
+    while (left <= right) {
+      const mid = Math.floor((left + right) / 2);
+      const currentAsset = arr[mid];
+
+      if (currentAsset.numb_inv === target) {
+        return currentAsset;
+      }
+
+      if (currentAsset.numb_inv < target) {
         left = mid + 1;
       } else {
         right = mid - 1;
@@ -114,10 +137,14 @@ const Search = () => {
       }
     });
 
-    // Search for the asset by asset number or serial number using binary search
-    const matchedAsset = binarySearch(sortedAssets, assetNumber);
+    let matchedAsset;
 
-    /*  console.log(matchedAsset); */
+    if (assetNumber.length > 6) {
+      matchedAsset = searchByNumbSer(sortedAssets, assetNumber);
+    } else {
+      matchedAsset = searchByNumbInv(sortedAssets, assetNumber);
+    }
+
     if (matchedAsset) {
       navigate(`/infoasset/${matchedAsset.id}`);
     } else {
