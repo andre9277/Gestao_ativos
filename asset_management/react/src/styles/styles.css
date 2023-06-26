@@ -2923,7 +2923,7 @@ input::placeholder {
     margin-top: 40px;
     overflow: hidden;
     position: fixed;
-    margin-left: 320px;
+    margin-left: 348px;
 }
 
 .btn-edit {
@@ -2995,7 +2995,9 @@ input::placeholder {
     margin-right: 552px;
     margin-top: 40px;
     overflow: hidden;
-    width: 6%;
+    width: 5%;
+    position: fixed;
+    margin-left: 234px;
 }
 .btn-dwl {
     background-color: #0a58ca;
@@ -12890,8 +12892,7 @@ select {
 }
 
 .lb-infoAsset2 {
-    width: 300%;
-    color: #61a60e;
+    width: 78%;
     font-size: 18px;
     font-weight: bold;
 }
@@ -13353,6 +13354,14 @@ input::placeholder {
     border: 1px solid #9c9c9c;
     float: right;
 }
+.infoInp-select {
+    width: 60%;
+    padding: 0.1em;
+    margin-bottom: 1rem;
+    background: #fff;
+    border: 1px solid #9c9c9c;
+    float: right;
+}
 .infoInpp {
     margin-bottom: 1rem;
     background: #fff;
@@ -13552,10 +13561,14 @@ button {
 .obs-mov-ee {
     border: 1px solid #9c9c9c;
     /* margin-left: 10px; */
-    width: 16rem;
+    width: 60%;
     margin-top: 10px;
     margin-bottom: -8px;
     padding: 1px;
     margin-left: 48px;
     float: right;
+}
+
+.space {
+    margin-top: 85px; /* Adjust the value as needed */
 }

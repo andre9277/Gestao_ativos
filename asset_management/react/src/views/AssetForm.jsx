@@ -292,7 +292,7 @@ export default function AssetForm() {
             <label htmlFor="category" className="lb-info">
               <label className="labelofLabel"> Categoria*: </label>
               <select
-                className="infoInp"
+                className="infoInp-select"
                 name="category"
                 id="category"
                 value={asset.cat_id}
@@ -316,7 +316,7 @@ export default function AssetForm() {
               <select
                 value={asset.brand_id}
                 onChange={handleBrandChange}
-                className="infoInp"
+                className="infoInp-select"
               >
                 <option value=""></option>
                 {brands.map((brand) => (
@@ -333,7 +333,7 @@ export default function AssetForm() {
               <label className="labelofLabel"> Modelo*: </label>
               <select
                 value={asset.model_id}
-                className="infoInp"
+                className="infoInp-select"
                 onChange={(event) =>
                   setAsset({ ...asset, model_id: event.target.value })
                 }
@@ -352,7 +352,7 @@ export default function AssetForm() {
               <label htmlFor="condicao" className="lb-info">
                 <label className="labelofLabel">Condição*: </label>
                 <select
-                  className="infoInp"
+                  className="infoInp-select"
                   name="condicao"
                   id="condicao"
                   value={asset.cond}
@@ -372,7 +372,7 @@ export default function AssetForm() {
               <label htmlFor="estado" className="lb-info">
                 <label className="labelofLabel">Estado*: </label>
                 <select
-                  className="infoInp"
+                  className="infoInp-select"
                   name="estado"
                   id="estado"
                   value={asset.state}
@@ -405,7 +405,7 @@ export default function AssetForm() {
                 {" "}
                 <label className="labelofLabel"> Fornecedor*:</label>
                 <select
-                  className="infoInp"
+                  className="infoInp-select"
                   value={asset.supplier_id}
                   onChange={handleSupplierChange}
                 >
@@ -418,9 +418,8 @@ export default function AssetForm() {
                 </select>
               </label>
             </div>
-
+            <div className="space"></div>
             <div className="localAsset-local">
-              <p></p>
               <h1 className="title-page-all-sub">Localização: </h1>
               <p></p>
 
@@ -428,7 +427,7 @@ export default function AssetForm() {
               <label htmlFor="entity" className="lb-info">
                 <label className="labelofLabel">Entidade*:</label>
                 <select
-                  className="infoInp"
+                  className="infoInp-select"
                   name="entity"
                   id="entity"
                   value={asset.ent_id}
@@ -502,7 +501,7 @@ export default function AssetForm() {
               <label htmlFor="ala" className="lb-info">
                 <label className="labelofLabel"> Ala: </label>
                 <select
-                  className="infoInp"
+                  className="infoInp-select"
                   name="ala"
                   id="ala"
                   value={asset.ala === null ? "" : asset.ala}
