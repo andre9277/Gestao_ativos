@@ -13553,12 +13553,14 @@ button {
     position: fixed;
     bottom: 0;
     text-align: center;
+    color: red;
 }
 .camp-obs-mov {
     font-size: 16px;
     bottom: 0;
     text-align: center;
     float: left;
+    color: red;
 }
 
 .obs-mov-ee {
@@ -13583,4 +13585,9 @@ button {
 
 .space-mov {
     margin-top: 45px;
+}
+
+.cmp-obg {
+    color: red;
+    width: auto;
 }

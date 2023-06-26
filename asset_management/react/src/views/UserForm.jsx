@@ -142,7 +142,10 @@ export default function UserForm() {
           <form onSubmit={onSubmit} className="assetForm-assett">
             <label className="lb-info">
               {" "}
-              <label className="labelofLabel"> Nome*: </label>
+              <label className="labelofLabel">
+                {" "}
+                Nome<label className="cmp-obg">*</label>:{" "}
+              </label>
               <input
                 value={user.name}
                 onChange={(ev) => setUser({ ...user, name: ev.target.value })}
@@ -150,7 +153,9 @@ export default function UserForm() {
               />
             </label>
             <label className="lb-info">
-              <label className="labelofLabel">Email*: </label>
+              <label className="labelofLabel">
+                Email<label className="cmp-obg">*</label>:{" "}
+              </label>
               <input
                 type="email"
                 value={user.email}
@@ -160,7 +165,9 @@ export default function UserForm() {
             </label>
 
             <label className="lb-info">
-              <label className="labelofLabel">Nº Mec.*: </label>
+              <label className="labelofLabel">
+                Nº Mec.<label className="cmp-obg">*</label>:{" "}
+              </label>
               <input
                 value={user.mec}
                 onChange={(ev) => setUser({ ...user, mec: ev.target.value })}
@@ -169,7 +176,10 @@ export default function UserForm() {
             </label>
 
             <label className="lb-info">
-              <label className="labelofLabel"> Password*: </label>
+              <label className="labelofLabel">
+                {" "}
+                Password<label className="cmp-obg">*</label>:{" "}
+              </label>
               <input
                 value={user.password}
                 type="password"
@@ -181,7 +191,10 @@ export default function UserForm() {
             </label>
 
             <label htmlFor="role" className="lb-info">
-              <label className="labelofLabel"> Função*: </label>
+              <label className="labelofLabel">
+                {" "}
+                Função<label className="cmp-obg">*</label>:{" "}
+              </label>
               <select
                 className="infoInp-select"
                 name="role"

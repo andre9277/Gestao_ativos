@@ -187,7 +187,10 @@ const AddAssetMovementForm = () => {
         {/* ---------- Allocation Date ----------*/}
         <label className="lb-info">
           {" "}
-          <label className="labelofLabel"> Data*: </label>
+          <label className="labelofLabel">
+            {" "}
+            Data:<label className="cmp-obg">*</label>
+          </label>
           <input
             className="form-calendar-asset"
             type="date"
@@ -202,7 +205,7 @@ const AddAssetMovementForm = () => {
         {/* ---------- Num Inv ----------*/}
 
         <label className="lb-info">
-          <label className="labelofLabel">Nº de Inventário: </label>
+          <label className="labelofLabel">Nº de Inventário:</label>
           <input
             type="text"
             value={matchingAsset ? matchingAsset.numb_inv : invNumber}
@@ -214,7 +217,10 @@ const AddAssetMovementForm = () => {
 
         {/* ---------- Num Serial ----------*/}
         <label className="lb-info">
-          <label className="labelofLabel"> Nº de Série*: </label>
+          <label className="labelofLabel">
+            {" "}
+            Nº de Série:<label className="cmp-obg">*</label>
+          </label>
           <input
             type="text"
             value={matchingInv ? matchingInv.numb_ser : serNumber}
@@ -311,7 +317,9 @@ const AddAssetMovementForm = () => {
         <div className="space-mov"></div>
         {/* ---------- Reason ----------*/}
         <label className="lb-info">
-          <label className="labelofLabel">Motivo*: </label>
+          <label className="labelofLabel">
+            Motivo:<label className="cmp-obg">*</label>
+          </label>
           <select
             className="infoInp-select"
             name="motivo"

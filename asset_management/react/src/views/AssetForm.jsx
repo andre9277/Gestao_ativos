@@ -278,7 +278,9 @@ export default function AssetForm() {
             {/* ---------- Serial Number ----------*/}
             <label className="lb-info">
               {" "}
-              <label className="labelofLabel">Nº de série*: </label>
+              <label className="labelofLabel">
+                Nº de série:<label className="cmp-obg">*</label>
+              </label>
               <input
                 value={asset.numb_ser}
                 onChange={(ev) =>
@@ -290,7 +292,10 @@ export default function AssetForm() {
 
             {/* ---------- Category ----------*/}
             <label htmlFor="category" className="lb-info">
-              <label className="labelofLabel"> Categoria*: </label>
+              <label className="labelofLabel">
+                {" "}
+                Categoria:<label className="cmp-obg">*</label>
+              </label>
               <select
                 className="infoInp-select"
                 name="category"
@@ -312,7 +317,10 @@ export default function AssetForm() {
             {/* ---------- Brands ----------*/}
             <label className="lb-info">
               {" "}
-              <label className="labelofLabel"> Marca*: </label>
+              <label className="labelofLabel">
+                {" "}
+                Marca:<label className="cmp-obg">*</label>
+              </label>
               <select
                 value={asset.brand_id}
                 onChange={handleBrandChange}
@@ -330,7 +338,10 @@ export default function AssetForm() {
             {/* ---------- Models ----------*/}
             <label className="lb-info">
               {" "}
-              <label className="labelofLabel"> Modelo*: </label>
+              <label className="labelofLabel">
+                {" "}
+                Modelo:<label className="cmp-obg">*</label>
+              </label>
               <select
                 value={asset.model_id}
                 className="infoInp-select"
@@ -350,7 +361,9 @@ export default function AssetForm() {
             <div className="localAsset-cond">
               {/* ---------- Condition ----------*/}
               <label htmlFor="condicao" className="lb-info">
-                <label className="labelofLabel">Condição*: </label>
+                <label className="labelofLabel">
+                  Condição:<label className="cmp-obg">*</label>
+                </label>
                 <select
                   className="infoInp-select"
                   name="condicao"
@@ -370,7 +383,9 @@ export default function AssetForm() {
 
               {/* ---------- Status ----------*/}
               <label htmlFor="estado" className="lb-info">
-                <label className="labelofLabel">Estado*: </label>
+                <label className="labelofLabel">
+                  Estado:<label className="cmp-obg">*</label>
+                </label>
                 <select
                   className="infoInp-select"
                   name="estado"
@@ -389,7 +404,9 @@ export default function AssetForm() {
               {/* ---------- Date of purchase ----------*/}
               <label className="lb-info">
                 {" "}
-                <label className="labelofLabel">Data de Compra*:</label>
+                <label className="labelofLabel">
+                  Data de Compra:<label className="cmp-obg">*</label>
+                </label>
                 <input
                   className="form-calendar-asset"
                   type="date"
@@ -403,7 +420,10 @@ export default function AssetForm() {
               {/* ---------- Supplier ----------*/}
               <label className="lb-info">
                 {" "}
-                <label className="labelofLabel"> Fornecedor*:</label>
+                <label className="labelofLabel">
+                  {" "}
+                  Fornecedor:<label className="cmp-obg">*</label>
+                </label>
                 <select
                   className="infoInp-select"
                   value={asset.supplier_id}
@@ -425,7 +445,9 @@ export default function AssetForm() {
 
               {/* ---------- Entities ----------*/}
               <label htmlFor="entity" className="lb-info">
-                <label className="labelofLabel">Entidade*:</label>
+                <label className="labelofLabel">
+                  Entidade:<label className="cmp-obg">*</label>
+                </label>
                 <select
                   className="infoInp-select"
                   name="entity"

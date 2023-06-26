@@ -265,7 +265,7 @@ const ImportForm = () => {
 
           {/* ---------- Category ----------*/}
           <label htmlFor="category" className="lb-info">
-            Categoria*:
+            Categoria:<label className="cmp-obg">*</label>
             <select
               className="infoInpp"
               name="category"
@@ -286,7 +286,7 @@ const ImportForm = () => {
           {/* --------------Brands--------- */}
           <label className="lb-info">
             {" "}
-            Marca*:
+            Marca:<label className="cmp-obg">*</label>
             <select
               value={asset.brand_id}
               onChange={handleBrandChange}
@@ -304,7 +304,7 @@ const ImportForm = () => {
           {/* ---------- Models ----------*/}
           <label className="lb-info">
             {" "}
-            Modelo*:
+            Modelo:<label className="cmp-obg">*</label>
             <select
               value={asset.model_id}
               className="infoInpp"
@@ -324,7 +324,7 @@ const ImportForm = () => {
           {/* ---------- Supplier ----------*/}
           <label className="lb-info">
             {" "}
-            Fornecedor*:
+            Fornecedor:<label className="cmp-obg">*</label>
             <select
               className="infoInpp"
               value={asset.supplier_id}
@@ -341,7 +341,7 @@ const ImportForm = () => {
 
           {/* ---------- Entities ----------*/}
           <label htmlFor="entity" className="lb-info">
-            Entidade*:
+            Entidade:<label className="cmp-obg">*</label>
             <select
               className="infoInpp"
               name="entity"
