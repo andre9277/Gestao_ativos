@@ -12893,10 +12893,18 @@ select {
 .lb-infoAsset {
     width: 40%;
 }
-
+.lb-infoAsset-informat {
+    width: 40%;
+    display: inline-block;
+}
 .lb-infoAsset2 {
     width: 78%;
     font-size: 18px;
+    font-weight: bold;
+}
+.lb-infoAsset2-informat {
+    width: 78%;
+    font-size: 20px;
     font-weight: bold;
 }
 .locInfo {
@@ -12907,13 +12915,6 @@ select {
 }
 
 .attrAsset {
-    /*  width: 100%;
-    padding: 1em;
-    margin-bottom: 1rem;
-    background: #f8f9fc;
-    border: 1px solid #9c9c9c;
-    display: block; */
-
     /* width: 50%; */
     padding: 0.1rem;
     margin-bottom: 1rem;
@@ -12921,6 +12922,17 @@ select {
     border: 1px solid #9c9c9c;
     display: inline-flex;
     float: right;
+}
+.attrAsset-informat {
+    /* width: 50%; */
+    padding: 0.1rem;
+    margin-bottom: 1rem;
+    background: #f8f9fc;
+    border: 1px solid #9c9c9c;
+    display: inline-flex;
+    float: right;
+    border: none;
+    font-weight: 400;
 }
 
 .rowGraph {
@@ -12996,7 +13008,7 @@ select {
 
 .headerInfoAsset {
     color: #007840;
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
 
 .importAsset {
