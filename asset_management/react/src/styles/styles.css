@@ -2867,7 +2867,7 @@ textarea.form-control-lg {
     font-size: 18px;
     border-radius: 4px;
     color: white;
-    margin-top: -87px;
+    margin-top: -52px;
     margin-right: 19rem;
     margin-left: 50rem;
     width: 8%;
@@ -2969,7 +2969,7 @@ input::placeholder {
     font-size: 18px;
     border-radius: 4px;
     color: white;
-    margin-right: 444px;
+    margin-right: 482px;
     margin-top: 30px;
     overflow: hidden;
     width: 7%;
@@ -12761,7 +12761,7 @@ select {
         width: 50%;
     }
     label {
-        width: 45%;
+        width: 40%;
     }
     input {
         width: 60%;
@@ -12867,7 +12867,7 @@ select {
 
 .lb-info {
     text-align: left;
-    padding: 0.5em 1.5em 0.5em 0;
+    padding: 0.5em 6.5em 0.5em 0;
     font-weight: 700;
     font-size: 20px;
 }
@@ -13349,6 +13349,7 @@ input::placeholder {
     margin-bottom: 1rem;
     background: #fff;
     border: 1px solid #9c9c9c;
+    float: right;
 }
 .infoInpp {
     width: 100%;
@@ -13530,6 +13531,7 @@ button {
 
 .labelofLabel {
     width: 270px;
+    display: inline;
 }
 
 .camp-obs {

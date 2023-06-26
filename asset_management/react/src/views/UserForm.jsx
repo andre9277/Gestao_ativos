@@ -160,7 +160,7 @@ export default function UserForm() {
             </label>
 
             <label className="lb-info">
-              <label className="labelofLabel">Número Mecanográfico*: </label>
+              <label className="labelofLabel">Nº Mec.*: </label>
               <input
                 value={user.mec}
                 onChange={(ev) => setUser({ ...user, mec: ev.target.value })}
@@ -179,17 +179,6 @@ export default function UserForm() {
                 className="infoInp"
               />
             </label>
-            {/* <label className="lb-info">
-              Confirmação da Password:
-              <input
-                value={user.password_confirmation}
-                type="password"
-                onChange={(ev) =>
-                  setUser({ ...user, password_confirmation: ev.target.value })
-                }
-                className="infoInp"
-              />
-            </label> */}
 
             <label htmlFor="role" className="lb-info">
               <label className="labelofLabel"> Função*: </label>
@@ -208,6 +197,7 @@ export default function UserForm() {
                 <option value="3">Manutenção</option>
               </select>
             </label>
+
             <label onClick={resetFilter} className="btn-cleanfilter-asset">
               Limpar
             </label>
