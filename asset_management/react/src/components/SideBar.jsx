@@ -120,16 +120,13 @@ const SideBar = () => {
 
         <MenuItem titulo={"Utilizadores"} icon={"fa-table"} origem={"users"} />
 
-        <div className="text-center d-none d-md-inline">
+        {/*   <div className="text-center d-none d-md-inline">
           <button
             className="border-0"
             id="sidebarToggle"
             onClick={changeStyle}
           ></button>
-        </div>
-
-        {/* <!-- Divider --> */}
-        <hr className="sidebar-divider d-none d-md-block" />
+        </div> */}
 
         <li className="nav-item dropdown no-arrow d-sm-none">
           <a
