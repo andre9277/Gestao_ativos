@@ -2622,6 +2622,7 @@ textarea.form-control-lg {
     padding: 0.1em;
     margin-bottom: 0.5rem;
     border: 1px solid #9c9c9c;
+    float: right;
 }
 .form-select-user {
     width: 40%;
@@ -12850,7 +12851,7 @@ select {
     margin-right: auto;
     padding: 2em;
     font-size: revert;
-    padding-left: 288px;
+    padding-left: 115px;
 }
 
 .assetForm-assett {
@@ -12915,6 +12916,7 @@ select {
     background: #f8f9fc;
     border: 1px solid #9c9c9c;
     display: inline-flex;
+    float: right;
 }
 
 .rowGraph {
@@ -13385,10 +13387,11 @@ input::placeholder {
 .obs-mov-e {
     border: 1px solid #9c9c9c;
     /* margin-left: 10px; */
-    width: 21rem;
+    width: 17rem;
     margin-top: 10px;
     margin-bottom: -8px;
     padding: 1px;
+    margin-left: 60px;
 }
 .obs-mov-et {
     /* border: 1px solid #007840;

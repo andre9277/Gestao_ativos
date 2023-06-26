@@ -202,7 +202,7 @@ const AddAssetMovementForm = () => {
         {/* ---------- Num Inv ----------*/}
 
         <label className="lb-info">
-          <label className="labelofLabel">Número de Inventário: </label>
+          <label className="labelofLabel">Nº de Inventário: </label>
           <input
             type="text"
             value={matchingAsset ? matchingAsset.numb_inv : invNumber}
@@ -214,7 +214,7 @@ const AddAssetMovementForm = () => {
 
         {/* ---------- Num Serial ----------*/}
         <label className="lb-info">
-          <label className="labelofLabel"> Número de Série*: </label>
+          <label className="labelofLabel"> Nº de Série*: </label>
           <input
             type="text"
             value={matchingInv ? matchingInv.numb_ser : serNumber}
@@ -226,7 +226,7 @@ const AddAssetMovementForm = () => {
         <p></p>
         {/* ---------- Local Now ----------*/}
         <label className="lb-info">
-          <label className="labelofLabel">Localização origem: </label>
+          <label className="labelofLabel">Local origem: </label>
           {matchingAsset ? (
             <input
               type="text"
@@ -247,7 +247,7 @@ const AddAssetMovementForm = () => {
         {/* ----------New Local ----------*/}
 
         <label htmlFor="entity" className="lb-info">
-          <label className="labelofLabel"> Localização destino: </label>
+          <label className="labelofLabel"> Local destino: </label>
           <select
             className="infoInp"
             name="entity"
@@ -314,7 +314,7 @@ const AddAssetMovementForm = () => {
         </label>
 
         <label className="lb-info">
-          <label className="labelofLabel">Observações </label>
+          <label className="labelofLabel">Observações:</label>
           <textarea
             value={other}
             onChange={(e) => setOther(e.target.value)}
@@ -322,6 +322,8 @@ const AddAssetMovementForm = () => {
           />
         </label>
 
+        <p></p>
+        <p></p>
         <button onClick={resetFilter} className="btn-cleanfilter-movAsset">
           Limpar
         </button>
