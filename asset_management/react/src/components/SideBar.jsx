@@ -88,7 +88,7 @@ const SideBar = () => {
           <Link to="/dashboard" className="nav-link">
             <i className="fas fa-fw fa-tachometer-alt"></i>
             <span>
-              <h4>Dashboard</h4>
+              <h5>Dashboard</h5>
             </span>
           </Link>
         </li>
@@ -97,9 +97,9 @@ const SideBar = () => {
         {/*   <hr className="sidebar-divider" /> */}
 
         {/*   <!-- Heading --> */}
-        <div className="sidebar-heading">Gestão</div>
+        <div className="sidebar-heading">Ativos</div>
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
-        <MenuItem titulo={"Ativos"} icon={"fa-cog"} origem={"assets"} />
+        <MenuItem titulo={"Lista"} icon={"fa-cog"} origem={"assets"} />
         <MenuItem titulo={"Movimentos"} icon={"fa-plus"} origem={"report"} />
 
         {/* <!-- Nav Item - ReportPage --> */}

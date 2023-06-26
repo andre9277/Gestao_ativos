@@ -58,7 +58,9 @@ const SideBarSi = () => {
         <li className="nav-item active">
           <Link to="/dashboard" className="nav-link">
             <i className="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+            <span>
+              <h5>Dashboard</h5>
+            </span>
           </Link>
         </li>
         <br></br>
@@ -66,9 +68,9 @@ const SideBarSi = () => {
         {/*   <hr className="sidebar-divider" /> */}
 
         {/*   <!-- Heading --> */}
-        <div className="sidebar-heading">Gestão</div>
+        <div className="sidebar-heading">Ativos</div>
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
-        <MenuItem titulo={"Ativos"} icon={"fa-cog"} origem={"assets"} />
+        <MenuItem titulo={"Lista"} icon={"fa-cog"} origem={"assets"} />
         <MenuItem titulo={"Movimentos"} icon={"fa-plus"} origem={"report"} />
 
         <MenuItem
