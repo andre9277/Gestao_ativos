@@ -12253,9 +12253,8 @@ fieldset:disabled .btn {
 }
 html,
 body {
-    height: 100%;
     margin: 0;
-  padding: 0;
+    padding: 0;
 }
 
 #layoutAuthentication {
@@ -13611,10 +13610,16 @@ button {
     width: auto;
 }
 
-.footer {
-    flex-shrink: 0;
+.container {
+    min-height: 100vh;
+    padding-bottom: 60px; /* Adjust this value to provide spacing between content and footer */
+    box-sizing: border-box;
 }
 
-#layoutError_footer {
-    flex-shrink: 0;
-  }
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Adjust this value based on your footer's height */
+}

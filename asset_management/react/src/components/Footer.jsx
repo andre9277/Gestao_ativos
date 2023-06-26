@@ -31,10 +31,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div
-      id="layoutError_footer"
-      style={{ position: "absolute", bottom: 0, width: "100%" }}
-    >
+    <div id="layoutError_footer" className="footer">
       <footer className="py-4 bg-light">
         <div className="container-fluid px-4">
           <div className="d-flex align-items-center justify-content-between small">
