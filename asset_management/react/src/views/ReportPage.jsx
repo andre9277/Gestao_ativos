@@ -361,7 +361,8 @@ const ReportPage = () => {
     const allocation = allocations.find((a) =>
       a.assets === null
         ? ""
-        : a.assets.id === assetId && a.action_type === "Atualiza"
+        : a.assets.id === assetId &&
+          (a.action_type === "Atualiza" || a.action_type === "Pesquisa")
     );
     /*  console.log("allcoation", allocation); */
 
