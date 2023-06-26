@@ -135,7 +135,7 @@ const Search = () => {
       <div className="input-group">
         <input
           type="text"
-          placeholder="Insira nº série"
+          placeholder="Insira nº série/inventário"
           value={assetNumber}
           onChange={handleChange}
           className="form-control border-0 ssBar"

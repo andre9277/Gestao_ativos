@@ -2907,6 +2907,9 @@ textarea.form-control-lg {
     margin-top: 51px; */
     overflow: hidden;
 }
+input::placeholder {
+    font: 3.25rem/3 sans-serif;
+}
 
 .btn-adicionar-assetFormm {
     float: right;

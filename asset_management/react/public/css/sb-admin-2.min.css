@@ -2135,7 +2135,7 @@ textarea.form-control.is-invalid {
     box-shadow: 0 0 0 0.2rem rgba(231, 74, 59, 0.25);
 }
 .form-inline {
-    display: flex;
+    display: flow-root;
     flex-flow: row wrap;
     align-items: center;
 }
