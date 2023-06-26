@@ -265,7 +265,7 @@ export default function AssetForm() {
             <p></p>
             <label className="lb-info">
               {" "}
-              <label className="labelofLabel"> Número de inventário: </label>
+              <label className="labelofLabel"> Nº de inventário: </label>
               <input
                 value={asset.numb_inv === null ? "" : asset.numb_inv}
                 onChange={(ev) =>
@@ -278,7 +278,7 @@ export default function AssetForm() {
             {/* ---------- Serial Number ----------*/}
             <label className="lb-info">
               {" "}
-              <label className="labelofLabel">Número de série*: </label>
+              <label className="labelofLabel">Nº de série*: </label>
               <input
                 value={asset.numb_ser}
                 onChange={(ev) =>
@@ -527,7 +527,7 @@ export default function AssetForm() {
                     onChange={(ev) =>
                       setAsset({ ...asset, obs: ev.target.value })
                     }
-                    className="obs-mov-e"
+                    className="obs-mov-ee"
                   />
                 </label>
                 <label onClick={resetFilter} className="btn-cleanfilter-assett">

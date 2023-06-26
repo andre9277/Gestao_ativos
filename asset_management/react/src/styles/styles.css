@@ -2920,10 +2920,10 @@ input::placeholder {
     border-radius: 4px;
     color: white;
     margin-right: 390px;
-    margin-top: 75px;
+    margin-top: 40px;
     overflow: hidden;
     position: fixed;
-    margin-left: 200px;
+    margin-left: 320px;
 }
 
 .btn-edit {
@@ -2992,10 +2992,10 @@ input::placeholder {
     font-size: 18px;
     border-radius: 4px;
     color: white;
-    margin-right: 510px;
-    margin-top: 76px;
+    margin-right: 552px;
+    margin-top: 40px;
     overflow: hidden;
-    width: 7%;
+    width: 6%;
 }
 .btn-dwl {
     background-color: #0a58ca;
@@ -12863,7 +12863,7 @@ select {
     margin-right: auto;
     padding: 2em;
     font-size: larger;
-    padding-left: 288px;
+    padding-left: 115px;
 }
 
 .lb-info {
@@ -13550,9 +13550,13 @@ button {
     float: left;
 }
 
-/* .div-cp-ob {
-    margin: 0;
-    height: 100%;
-    overflow: hidden;
+.obs-mov-ee {
+    border: 1px solid #9c9c9c;
+    /* margin-left: 10px; */
+    width: 16rem;
+    margin-top: 10px;
+    margin-bottom: -8px;
+    padding: 1px;
+    margin-left: 48px;
+    float: right;
 }
- */
