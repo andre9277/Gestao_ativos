@@ -868,6 +868,7 @@
 }
 .fa-chart-area:before {
     content: "\f1fe";
+    font-size: x-large;
 }
 .fa-chart-bar:before {
     content: "\f080";
@@ -1045,6 +1046,7 @@
 }
 .fa-cog:before {
     content: "\f013";
+    font-size: x-large;
 }
 .fa-cogs:before {
     content: "\f085";
@@ -1423,6 +1425,7 @@
 }
 .fa-edit:before {
     content: "\f044";
+    font-size: x-large;
 }
 .fa-egg:before {
     content: "\f7fb";
@@ -3100,6 +3103,7 @@
 }
 .fa-plus:before {
     content: "\f067";
+    font-size: x-large;
 }
 .fa-plus-circle:before {
     content: "\f055";
@@ -3403,6 +3407,7 @@
 }
 .fa-search:before {
     content: "\f002";
+    font-size: x-large;
 }
 .fa-search-dollar:before {
     content: "\f688";
@@ -3883,6 +3888,7 @@
 }
 .fa-table:before {
     content: "\f0ce";
+    font-size: x-large;
 }
 .fa-table-tennis:before {
     content: "\f45d";
@@ -3898,6 +3904,7 @@
 }
 .fa-tachometer-alt:before {
     content: "\f3fd";
+    font-size: x-large;
 }
 .fa-tag:before {
     content: "\f02b";

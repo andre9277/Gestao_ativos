@@ -42,7 +42,7 @@ const UserInfo = ({ user, onLogout }) => {
         aria-expanded="false"
       >
         <span className="mr-2 d-none d-lg-inline text-gray-600 small">
-          {user.name}
+          <h5>{user.name}</h5>
         </span>
         <img
           className="img-profile rounded-circle"

@@ -111,6 +111,18 @@ export default function UserForm() {
     }
   };
 
+  const resetFilter = () => {
+    // Reset all the values to empty or default
+    setUser({
+      name: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+      role_id: "",
+      mec: "",
+    });
+  };
+
   return (
     <>
       {user.id && (
@@ -127,8 +139,8 @@ export default function UserForm() {
           </div>
         )}
         {!loading && (
-          <form onSubmit={onSubmit} className="assetForm">
-            <label className="lb-info-user">
+          <form onSubmit={onSubmit} className="assetForm-assett">
+            <label className="lb-info">
               {" "}
               Nome:
               <input
@@ -137,27 +149,29 @@ export default function UserForm() {
                 className="infoInp"
               />
             </label>
-            <label className="lb-info-user">
+            <label className="lb-info">
               Email:
               <input
                 type="email"
                 value={user.email}
                 onChange={(ev) => setUser({ ...user, email: ev.target.value })}
-                className="infoInp-email"
+                className="infoInp"
               />
             </label>
 
-            <label className="lb-info-user">
+            <label className="lb-info">
               Número Mecanográfico:
               <input
+                value={user.mec}
                 onChange={(ev) => setUser({ ...user, mec: ev.target.value })}
-                className="infoInp-numbMec"
+                className="infoInp"
               />
             </label>
 
-            <label className="lb-info-user">
+            <label className="lb-info">
               Password:
               <input
+                value={user.password}
                 type="password"
                 onChange={(ev) =>
                   setUser({ ...user, password: ev.target.value })
@@ -165,21 +179,22 @@ export default function UserForm() {
                 className="infoInp"
               />
             </label>
-            <label className="lb-info-user">
+            {/* <label className="lb-info">
               Confirmação da Password:
               <input
+                value={user.password_confirmation}
                 type="password"
                 onChange={(ev) =>
                   setUser({ ...user, password_confirmation: ev.target.value })
                 }
                 className="infoInp"
               />
-            </label>
+            </label> */}
 
-            <label htmlFor="role" className="lb-info-user">
+            <label htmlFor="role" className="lb-info">
               Função:
               <select
-                className="form-select-user"
+                className="infoInp"
                 name="role"
                 id="role"
                 value={user.role_id}
@@ -187,16 +202,16 @@ export default function UserForm() {
                   setUser({ ...user, role_id: ev.target.value })
                 }
               >
-                <option value="">Selecione a Função...</option>
+                <option value=""></option>
                 <option value="1">Administrador</option>
                 <option value="2">Sistemas de Informação</option>
                 <option value="3">Manutenção</option>
               </select>
             </label>
-            <button className="btn-adicionar-userForm">
-              {" "}
-              <i className="fa fa-save fa-lg" aria-hidden="true"></i>
-            </button>
+            <label onClick={resetFilter} className="btn-cleanfilter-asset">
+              Limpar
+            </label>
+            <button className="btn-adicionar-userForm"> Guardar</button>
           </form>
         )}
       </div>

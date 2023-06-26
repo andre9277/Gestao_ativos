@@ -16,6 +16,7 @@
     "date-fns": "^2.30.0",
     "flowbite": "^1.6.5",
     "flowbite-react": "^0.4.6",
+    "mdb-react-ui-kit": "^6.1.0",
     "papaparse": "^5.4.1",
     "quagga": "^0.12.1",
     "react": "^18.2.0",

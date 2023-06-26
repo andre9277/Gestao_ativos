@@ -179,7 +179,7 @@ const ReportPage = () => {
   }
 
   const togJoin = joinArrays(assets, allocations);
-  console.log(togJoin);
+  /*  console.log(togJoin); */
   //-----------------------Category Filter-----------------------------------------
 
   useEffect(() => {
@@ -236,7 +236,9 @@ const ReportPage = () => {
   //-------Filters the category by user input
 
   const joinedArray = allDados.map((dados) => {
-    const allocation = allocations.find((alloc) => alloc.asset_id === dados.id);
+    const allocation = allocations.find(
+      (alloc) => alloc.asset_id === dados.id && alloc.action_type === "Atualiza"
+    );
     const user = allocation
       ? users.find((usr) => usr.id === allocation.user_id)
       : null;
@@ -249,6 +251,7 @@ const ReportPage = () => {
   const filterAllocations = () => {
     setIsButtonClicked(false);
     const updatedAllocations = joinedArray.filter((row) => {
+      console.log(joinedArray);
       const rowDate = row.allocation_date.split(" ")[0];
       if (
         filtered &&
@@ -356,8 +359,11 @@ const ReportPage = () => {
   //Gets data of data allocation
   const getAllocationData = (assetId) => {
     const allocation = allocations.find((a) =>
-      a.assets === null ? "" : a.assets.id === assetId
+      a.assets === null
+        ? ""
+        : a.assets.id === assetId && a.action_type === "Atualiza"
     );
+    /*  console.log("allcoation", allocation); */
 
     if (!allocation) {
       return {
@@ -458,6 +464,7 @@ const ReportPage = () => {
     setSelectedUser("");
     setSelectedDateFrom("");
     setSelectedDateTo("");
+    setSelectedEnt("");
     setFilteredAllocations([]);
     setIsButtonClicked(false);
     setDropdownOpen(false);
@@ -466,6 +473,14 @@ const ReportPage = () => {
   const totalResults = filteredAllocations.length;
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedAsset, setSelectedAsset] = useState(null);
+
+  const handleDropdownToggle = (assetId) => {
+    setSelectedAsset(assetId === selectedAsset ? null : assetId);
+    setShowDropdown(!showDropdown);
+  };
+
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
@@ -623,11 +638,17 @@ const ReportPage = () => {
                   const filteredTogJoin = togJoin.filter(
                     (assetJoin) => assetJoin.asset_id === asset.id
                   );
+                  /* console.log(filteredTogJoin); */
 
                   const firstOtherInfo =
                     filteredTogJoin.length > 0
                       ? filteredTogJoin[0].other
                       : null;
+
+                  /*  const dateAsset =
+                    filteredTogJoin.length > 0
+                      ? filteredTogJoin[1].allocation_date
+                      : null; */
                   return (
                     <tr key={`${asset.id}-${index}`}>
                       <td>{asset.numb_inv}</td>
@@ -659,13 +680,40 @@ const ReportPage = () => {
                           : asset.allocation_date}
                       </td>
 
-                      <td key={`${asset.id}-${index}`}>{firstOtherInfo}</td>
+                      <td>
+                        {firstOtherInfo === null ? (
+                          ""
+                        ) : (
+                          <>
+                            <i
+                              className="fa fa-info-circle"
+                              aria-hidden="true"
+                              onClick={() => handleDropdownToggle(asset.id)}
+                            ></i>
+                            {selectedAsset === asset.id && showDropdown && (
+                              <div
+                                className={`dropdown-info-mov ${
+                                  showDropdown ? "show" : ""
+                                }`}
+                              >
+                                {/* Dropdown content */}
+                                {/* This will be shown when the user clicks the icon */}
+                                <h6 className="titl-obs-mov">Observações</h6>
+                                <p className="obs-mov-asset">
+                                  {" "}
+                                  {firstOtherInfo}
+                                </p>
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </td>
                     </tr>
                   );
                 })
               ) : filteredAllocations.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="lgTextF-asset">
+                  <td colSpan="5" className="lgTextF-asset-mov">
                     Não existe(m) resultado(s) para o(s) filtro(s)
                     selecionado(s)!
                   </td>
@@ -681,6 +729,13 @@ const ReportPage = () => {
                     ) {
                       return null; // skip rendering if previous_ci is null
                     }
+                    const filteredTogJoin = togJoin.filter(
+                      (assetJoin) => assetJoin.asset_id === asset.id
+                    );
+                    const firstOtherInfo =
+                      filteredTogJoin.length > 0
+                        ? filteredTogJoin[0].other
+                        : null;
 
                     const allocationData = getAllocationData(asset.id);
                     return (
@@ -708,10 +763,25 @@ const ReportPage = () => {
                             ? allocationData.user
                             : asset.user}
                         </td>
+                        <td>{allocationData.date}</td>
                         <td>
-                          {asset.allocation_date === null
-                            ? allocationData.date
-                            : asset.allocation_date}
+                          <i
+                            className="fa fa-info-circle"
+                            aria-hidden="true"
+                            onClick={() => handleDropdownToggle(asset.id)}
+                          ></i>
+                          {selectedAsset === asset.id && showDropdown && (
+                            <div
+                              className={`dropdown-info-mov ${
+                                showDropdown ? "show" : ""
+                              }`}
+                            >
+                              {/* Dropdown content */}
+                              {/* This will be shown when the user clicks the icon */}
+                              <h6 className="titl-obs-mov">Observações</h6>
+                              <p className="obs-mov-asset"> {firstOtherInfo}</p>
+                            </div>
+                          )}
                         </td>
                         {/*  <td>{console.log(asset)}</td> */}
                       </tr>

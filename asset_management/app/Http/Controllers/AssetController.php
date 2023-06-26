@@ -194,7 +194,7 @@ class AssetController extends Controller
 
 
         // create a new asset update record
-        $update = new Allocation([
+        /*  $update = new Allocation([
             'asset_id' => $asset->id,
             'user_id' => Auth::id(),
             'allocation_date' => now(),
@@ -202,9 +202,9 @@ class AssetController extends Controller
             'ser_number' => $asset->numb_ser,
             'other' => $other,
             'reason' => $reason,
-        ]);
+        ]); */
 
-        $update->save();
+        /* $update->save(); */
         return $asset;
     }
 

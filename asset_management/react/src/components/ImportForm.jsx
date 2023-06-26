@@ -259,7 +259,7 @@ const ImportForm = () => {
         <div>
           <p></p>
           <label htmlFor="fileInput" className="impLab">
-            Preencha os campos dos ativos a inserir:
+            <h5>Preencha os campos dos ativos a inserir:</h5>
           </label>
           <p></p>
 
@@ -267,7 +267,7 @@ const ImportForm = () => {
           <label htmlFor="category" className="lb-info">
             Categoria:
             <select
-              className="form-select"
+              className="infoInpp"
               name="category"
               id="category"
               value={asset.cat_id}
@@ -290,7 +290,7 @@ const ImportForm = () => {
             <select
               value={asset.brand_id}
               onChange={handleBrandChange}
-              className="form-select"
+              className="infoInpp"
             >
               <option value="">Selecione uma Marca</option>
               {brands.map((brand) => (
@@ -307,7 +307,7 @@ const ImportForm = () => {
             Modelo*:
             <select
               value={asset.model_id}
-              className="form-select"
+              className="infoInpp"
               onChange={(event) =>
                 setAsset({ ...asset, model_id: event.target.value })
               }
@@ -326,7 +326,7 @@ const ImportForm = () => {
             {" "}
             Fornecedor*:
             <select
-              className="form-select"
+              className="infoInpp"
               value={asset.supplier_id}
               onChange={handleSupplierChange}
             >
@@ -343,7 +343,7 @@ const ImportForm = () => {
           <label htmlFor="entity" className="lb-info">
             Entidade:
             <select
-              className="form-select"
+              className="infoInpp"
               name="entity"
               id="entity"
               value={asset.ent_id}
@@ -361,7 +361,7 @@ const ImportForm = () => {
           <label htmlFor="unit" className="lb-info">
             Unidade:
             <select
-              className="form-select"
+              className="infoInpp"
               name="unit"
               id="unit"
               value={asset.unit_id === null ? "" : asset.unit_id}

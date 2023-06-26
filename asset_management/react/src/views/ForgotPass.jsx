@@ -62,18 +62,13 @@ const ForgotPass = () => {
                       </div>
                       <div className="d-flex align-items-center justify-content-between mt-4 mb-0">
                         <Link to="/" className="small">
-                          Para o login
+                          Login
                         </Link>
                         <a className="btn btn-primary" href="login.html">
                           Recuperar Password
                         </a>
                       </div>
                     </form>
-                  </div>
-                  <div className="card-footer text-center py-3">
-                    <div className="small">
-                      <Link to="/signup">Precisa de uma conta?Registe-se!</Link>
-                    </div>
                   </div>
                 </div>
               </div>

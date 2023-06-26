@@ -34,7 +34,6 @@ import { useStateContext } from "../context/ContextProvider.jsx";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 import "../styles/Dashboard.css";
 import ColumnMenuFilter from "../components/ColumnMenuFilter.jsx";
-import TableAssets from "../components/TableAssets.jsx";
 import PaginationFilter from "../components/PaginationFilter.jsx";
 import SelectFilter from "../components/SelectFilter.jsx";
 
@@ -72,13 +71,44 @@ export default function Assets() {
 
   const abortControllerRef = useRef(null);
   const abortControllerrRef = useRef(null);
-  /* const abortControllerrrRef = useRef(null);
-  const abortControllerrrRef = useRef(null); */
 
+  useEffect(() => {
+    getAssets();
+  }, []);
+
+  // Performs a client access request
+  const getAssets = (url) => {
+    abortControllerrRef.current = new AbortController();
+    const { signal } = abortControllerrRef.current;
+
+    url = url || "/assets";
+
+    // When there is still a request, we apply loading = true
+    setLoading(true);
+    axiosClient
+      .get(url, { signal })
+      .then(({ data }) => {
+        // When the request is successful, loading=false
+        setLoading(false);
+        setAssets(data.data);
+
+        setMeta(data.meta);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  };
+  /*  useEffect(() => {
+    return () => {
+      if (abortControllerrRef.current) {
+        abortControllerrRef.current.abort();
+      }
+    };
+  }, []);
+ */
   useEffect(() => {
     abortControllerRef.current = new AbortController();
     const { signal } = abortControllerRef.current;
-
     Promise.all([axiosClient.get("/assetsDefault", { signal })])
       .then((responses) => {
         setLoading(false);
@@ -101,12 +131,6 @@ export default function Assets() {
   }, []);
 
   //returns all assets (mount hook is called 2x)
-  useEffect(() => {
-    const fetchData = async () => {
-      await getAssets();
-    };
-    fetchData();
-  }, []);
 
   //------------------------Filter Sorting-----------------------------------------------
   //keeps checking if there is a filter on or off:
@@ -160,6 +184,7 @@ export default function Assets() {
       Modelo: "modelo.name",
       Piso: "floor",
       Entidade: "entity.ent_name",
+      NºSerie: "numb_ser",
     };
 
     const dbColumnName = columnMapping[col];
@@ -204,36 +229,6 @@ export default function Assets() {
   };
 
   //------------------------------------------------------------------------
-
-  // Performs a client access request
-  const getAssets = (url) => {
-    abortControllerrRef.current = new AbortController();
-    const { signal } = abortControllerrRef.current;
-
-    url = url || "/assets";
-
-    // When there is still a request, we apply loading = true
-    setLoading(true);
-    axiosClient
-      .get(url, { signal })
-      .then(({ data }) => {
-        // When the request is successful, loading=false
-        setLoading(false);
-        setAssets(data.data);
-
-        setMeta(data.meta);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  };
-  useEffect(() => {
-    return () => {
-      if (abortControllerrRef.current) {
-        abortControllerrRef.current.abort();
-      }
-    };
-  }, []);
 
   //----------Handle click to add an asset------------------------
   const onAddClick = () => {
@@ -373,6 +368,7 @@ export default function Assets() {
       Marca: "brand.sig",
       Modelo: "modelo.name",
       Piso: "floor",
+      NºSerie: "numb_ser",
     };
 
     const dbColumnName = columnMapping[col];
@@ -567,7 +563,18 @@ export default function Assets() {
                 />
               </th>
               <th>Nº Inventário</th>
-              <th>Nº Série</th>
+              {/* <th>Nº Série</th> */}
+              <th>
+                <ColumnMenuFilter
+                  titulo={"NºSerie"}
+                  tituloF={"NºSerie"}
+                  sorting={sorting}
+                  order={order}
+                  sortingFilter={sortingFilter}
+                  orderFilter={orderFilter}
+                  filtered={filtered}
+                />
+              </th>
               <th>Localização</th>
               <th>Unidade</th>
               <th>
@@ -600,19 +607,91 @@ export default function Assets() {
           )}
 
           {!loading && (
-            <TableAssets
-              toggleCheck={toggleCheck}
-              filteredAllocations={filteredAllocations}
-              startIndex={startIndex}
-              endIndex={endIndex}
-              isButtonClicked={isButtonClicked}
-              assets={assets}
-            />
+            <tbody>
+              {!isButtonClicked && filteredAllocations.length === 0 ? (
+                assets.map((a) => (
+                  <tr key={a.id}>
+                    <td>{a.category.name}</td>
+                    <td>{a.brand.sig}</td>
+                    <td>{a.modelo.name}</td>
+                    <td>{a.numb_inv}</td>
+                    <td>{a.numb_ser}</td>
+                    <td>{a.entity.ent_name}</td>
+                    <td>{a.units === null ? "" : a.units.name}</td>
+                    <td>{a.floor}</td>
+                    <td>{a.ala}</td>
+                    <td>{a.ci}</td>
+                    <td>
+                      {a.state === "Ativo" ? (
+                        <div className="circle active"></div>
+                      ) : (
+                        <div className="circle inactive"></div>
+                      )}
+                    </td>
+                    <td>{a.created_at}</td>
+
+                    {user.role_id === 3 ? null : (
+                      <td>
+                        <input
+                          type="checkbox"
+                          name=""
+                          id=""
+                          onChange={() => toggleCheck(a.id)}
+                          value={a.checked}
+                        />
+                      </td>
+                    )}
+                  </tr>
+                ))
+              ) : filteredAllocations.length === 0 ? (
+                <tr>
+                  <td colSpan="5" className="lgTextF-asset">
+                    Atenção: Não existe(m) resultado(s) para o(s) filtro(s)
+                    selecionado(s)!
+                  </td>
+                </tr>
+              ) : (
+                filteredAllocations.slice(startIndex, endIndex).map((asset) => (
+                  <tr key={asset.id}>
+                    <td>{asset.category.name}</td>
+                    <td>{asset.brand.sig}</td>
+                    <td>{asset.modelo.name}</td>
+                    <td>{asset.numb_inv}</td>
+                    <td>{asset.numb_ser}</td>
+                    <td>{asset.entity.ent_name}</td>
+                    <td>{asset.units === null ? "" : asset.units.name}</td>
+                    <td>{asset.floor}</td>
+                    <td>{asset.ala}</td>
+                    <td>{asset.ci}</td>
+                    <td>
+                      {asset.state === "Ativo" ? (
+                        <div className="circle active"></div>
+                      ) : (
+                        <div className="circle inactive"></div>
+                      )}
+                    </td>
+                    <td>{asset.created_at}</td>
+
+                    {user.role_id === 3 ? null : (
+                      <td>
+                        <input
+                          type="checkbox"
+                          name=""
+                          id=""
+                          onChange={() => toggleCheck(asset.id)}
+                          value={asset.checked}
+                        />
+                      </td>
+                    )}
+                  </tr>
+                ))
+              )}
+            </tbody>
           )}
         </table>
         <p> </p>
         <p> </p>
-        {filtered === false && !loading ? (
+        {!loading && filtered == false ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
         ) : filteredAllocations.length === 0 ? (
           ""

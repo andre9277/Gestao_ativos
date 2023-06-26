@@ -40,21 +40,26 @@ function Dashboard() {
   const [assets, setAssets] = useState([]);
 
   useEffect(() => {
-    getTotalAssets();
-    getAssets();
+    const abortController = new AbortController();
+    getTotalAssets(abortController.signal);
+    getAssets(abortController.signal);
+
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   //Performs a client access request
-  const getTotalAssets = (url) => {
+  const getTotalAssets = (signal, url) => {
     url = url || "/assetsC";
-    axiosClient.get(url).then(({ data }) => {
+    axiosClient.get(url, { signal }).then(({ data }) => {
       setAssetTotal(data);
     });
   };
 
-  const getAssets = (url) => {
+  const getAssets = (signal, url) => {
     url = url || "/getDashb";
-    axiosClient.get(url).then(({ data }) => {
+    axiosClient.get(url, { signal }).then(({ data }) => {
       // update the state with all the assets
       setAssets(data);
     });
@@ -72,7 +77,7 @@ function Dashboard() {
           </div>
 
           {/*  <!-- Content Row --> */}
-          <div className="row">
+          <div className="row-dash">
             {/*  <!-- Total of Assets --> */}
             <Card
               Titulo="Total de ativos"
@@ -104,7 +109,7 @@ function Dashboard() {
 
           {/*  <!-- Content Row --> */}
 
-          <div className="row">
+          <div className="row-dash">
             {/*   <!-- Area Chart --> */}
             <AreaChart assets={assets} />
 

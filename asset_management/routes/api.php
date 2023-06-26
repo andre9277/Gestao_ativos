@@ -3,12 +3,15 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AllocationsController;
+
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EntityController;
 use App\Http\Controllers\ExcelImportController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ModeloController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 use App\Models\Asset;
@@ -27,7 +30,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//endpoints the user has access when login
+// routes/api.php
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
+Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
+
+
+
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', function (Request $request) {
@@ -62,6 +71,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/asset', function (Request $request) {
         return $request->asset();
     });
+
 
     Route::get('/allAssets', [AssetController::class, 'indexAll']);
 

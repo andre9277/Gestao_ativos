@@ -40,9 +40,14 @@ import Filter from "../components/Filter.jsx";
 export default function Allocations() {
   //returns all users (mount hook is called 2x)
   useEffect(() => {
-    getAllocations();
-    getAssets();
-    getUsers();
+    const abortController = new AbortController();
+    getAllocations(abortController.signal);
+    getAssets(abortController.signal);
+    getUsers(abortController.signal);
+
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   const [loading, setLoading] = useState(false);
@@ -60,12 +65,12 @@ export default function Allocations() {
   const [selectedUser, setSelectedUser] = useState("");
 
   //Performs a client access request
-  const getAllocations = (url) => {
+  const getAllocations = (signal, url) => {
     setLoading(true);
     url = url || "/allocations";
 
     axiosClient
-      .get(url)
+      .get(url, { signal })
       .then(({ data }) => {
         setAllocations(data.data);
         setAllAllocations(data.data);
@@ -80,19 +85,19 @@ export default function Allocations() {
   };
 
   //Performs a client access request
-  const getAssets = (url) => {
+  const getAssets = (signal, url) => {
     url = url || "/allAssets";
 
-    axiosClient.get(url).then(({ data }) => {
+    axiosClient.get(url, { signal }).then(({ data }) => {
       setAssets(data.data);
     });
   };
 
   //Performs a client access request
-  const getUsers = (url) => {
+  const getUsers = (signal, url) => {
     url = url || "/userAllo";
 
-    axiosClient.get(url).then(({ data }) => {
+    axiosClient.get(url, { signal }).then(({ data }) => {
       setUsers(data);
     });
   };

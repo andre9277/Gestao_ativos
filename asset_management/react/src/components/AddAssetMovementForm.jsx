@@ -40,8 +40,10 @@ const AddAssetMovementForm = () => {
   const [assetEve, setAssetEve] = useState([]);
   const [assetCi, setAssetCi] = useState("");
   const [assetEnt, setAssetEnt] = useState("");
+  const [assetDate, setAssetDate] = useState("");
   const { user, setNotification } = useStateContext();
   const [ents, setEnts] = useState([]);
+  const [invNumber, setInvNumber] = useState("");
 
   const navigate = useNavigate();
 
@@ -65,17 +67,22 @@ const AddAssetMovementForm = () => {
   };
 
   let matchingAsset = null;
+  let matchingInv = null;
 
   if (assetEve !== null) {
     const serNumberr = serNumber; // Replace with the user-inputted ser_number
     matchingAsset = assetEve.find((asset) => asset.numb_ser === serNumberr);
+  }
+  if (assetEve !== null) {
+    const invNumberr = invNumber;
+    matchingInv = assetEve.find((asset) => asset.numb_inv === invNumberr);
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     //For the format Data: YYYY-MM-DD HH:MM:SS
-    const currentDate = new Date();
+    /*    const currentDate = new Date();
     let allocationDate = currentDate.toLocaleString();
 
     const year = currentDate.getFullYear();
@@ -85,14 +92,19 @@ const AddAssetMovementForm = () => {
     const minutes = String(currentDate.getMinutes()).padStart(2, "0");
     const seconds = String(currentDate.getSeconds()).padStart(2, "0");
 
-    allocationDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    allocationDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`; */
 
     const data = {
-      allocation_date: allocationDate,
-      ser_number: serNumber,
+      allocation_date: assetDate,
+      ser_number: matchingInv ? matchingInv.numb_ser : serNumber,
+      inv_number: matchingAsset ? matchingAsset.numb_inv : invNumber,
       action_type: "Atualiza",
       user_id: user.id,
-      asset_id: matchingAsset ? matchingAsset.id : null,
+      asset_id: matchingAsset
+        ? matchingAsset.id
+        : null || matchingInv
+        ? matchingInv.id
+        : null,
       ci: assetCi,
       entity: assetEnt,
       other: other,
@@ -124,6 +136,27 @@ const AddAssetMovementForm = () => {
               }
             });
         }
+
+        if (matchingInv) {
+          const updateAsset = {
+            ...matchingInv,
+            ci: assetCi !== "" ? assetCi : matchingInv.ci, // Update asset CI only if there is a new value
+            ent_id: assetEnt !== "" ? assetEnt : matchingInv.ent_id,
+          };
+
+          axiosClient
+            .put(`/assets/${matchingInv.id}`, updateAsset)
+            .then(() => {
+              setNotification("Ativo Movimentado com sucesso!");
+              navigate("/report");
+            })
+            .catch((err) => {
+              const response = err.response;
+              if (response && response.status === 422) {
+                setErrors(response.data.errors);
+              }
+            });
+        }
       })
       .catch(() => {
         // Handle the error
@@ -134,100 +167,154 @@ const AddAssetMovementForm = () => {
       });
   };
 
+  //Reset of the filters implemented
+  const resetFilter = () => {
+    setAssetDate("");
+    setInvNumber("");
+    setSerNumber("");
+    setAssetEnt("");
+    setAssetCi("");
+    setReason("");
+    setOther("");
+  };
+
   return (
     <>
       <h1 className="title-page-all">Movimento de Ativo</h1>
+      <form onSubmit={handleSubmit} className="assetForm">
+        <p></p>
+        <p></p>
+        {/* ---------- Allocation Date ----------*/}
+        <label className="lb-info">
+          {" "}
+          Data:{" "}
+          <input
+            className="form-calendar-asset"
+            type="date"
+            value={assetDate}
+            onChange={(e) => setAssetDate(e.target.value)}
+            placeholder="YYYY-MM-DD"
+          />
+        </label>
 
-      <div className="card animated fadeInDown">
-        <h6>Insira primeiro o Número de Série do ativo a mover!</h6>
-        <form onSubmit={handleSubmit} className="assetForm">
-          {/* ---------- Número de Série ----------*/}
-          <label className="lb-info-allo">
-            Número de Série:
-            <input
-              type="text"
-              value={serNumber}
-              onChange={(e) => setSerNumber(e.target.value)}
-              required
-              className="infoInp"
-            />
-          </label>
-          {/* ----------New Local ----------*/}
+        {/*  {console.log(assetDate)} */}
+        <p></p>
+        {/* ---------- Num Inv ----------*/}
 
-          <label htmlFor="entity" className="lb-info-allo">
-            Localização:
-            <select
-              className="form-select-mov"
-              name="entity"
-              id="entity"
-              value={assetEnt}
-              onChange={(e) => setAssetEnt(e.target.value)}
-            >
-              <option value="">Selecione a Entidade...</option>
+        <label className="lb-info">
+          Número de Inventário:{" "}
+          <input
+            type="text"
+            value={matchingAsset ? matchingAsset.numb_inv : invNumber}
+            onChange={(e) => setInvNumber(e.target.value)}
+            required
+            className="infoInp"
+          />
+        </label>
 
-              {ents.map((ent) => (
-                <option key={ent.id} value={ent.id}>
-                  {ent.ent_name}
-                </option>
-              ))}
-            </select>
-          </label>
-          {/* ---------- CI Now ----------*/}
-          <label className="lb-info-allo-new">
-            Novo CI:{" "}
-            <input
-              value={assetCi}
-              onChange={(e) => setAssetCi(e.target.value)}
-              className="infoInp-new"
-            />
-          </label>
+        {/* ---------- Num Serial ----------*/}
+        <label className="lb-info">
+          Número de Série:{" "}
+          <input
+            type="text"
+            value={matchingInv ? matchingInv.numb_ser : serNumber}
+            onChange={(e) => setSerNumber(e.target.value)}
+            required
+            className="infoInp"
+          />
+        </label>
+        <p></p>
+        {/* ---------- Local Now ----------*/}
+        <label className="lb-info">
+          Localização origem:{" "}
+          <h6 className="attrAsset">
+            {matchingAsset
+              ? matchingAsset.entity.ent_name
+              : "" || matchingInv
+              ? matchingInv.entity.ent_name
+              : ""}
+          </h6>
+        </label>
 
-          {/* ---------- Reason ----------*/}
-          <label className="lb-info-allo">
-            Motivo:
-            <select
-              className="form-select-mov"
-              name="motivo"
-              id="motivo"
-              value={reason}
-              onChange={(event) => setReason(event.target.value)}
-            >
-              <option value="">Selecione o Motivo...</option>
-              <option value="Transferência">Transferência</option>
-              <option value="Reparação">Reparação</option>
-              <option value="Obsoleto">Obsoleto</option>
-              <option value="Garantia">Garantia</option>
-            </select>
-          </label>
-          {/* ---------- Local Now ----------*/}
-          <label className="lb-info-allo-now">
-            Localização Origem:
-            <h6 className="attrAsset">
-              {matchingAsset ? matchingAsset.entity.ent_name : ""}
-            </h6>
-          </label>
-          {/* ---------- CI ----------*/}
-          <label className="lb-info-allo-ci">
-            CI Origem:
-            <h6 className="attrAsset">
-              {matchingAsset ? matchingAsset.ci : ""}
-            </h6>
-          </label>
+        {/* ----------New Local ----------*/}
 
-          {/* ---------- Obs ----------*/}
-          <label className="lb-info-allo-obs">
-            Observações:
-            <input
-              value={other}
-              onChange={(e) => setOther(e.target.value)}
-              className="obs-mov-et"
-            />
-          </label>
-        </form>
-        <button type="submit" className="btn-adicionar-movAsset">
-          <i className="fa fa-save fa-lg" aria-hidden="true"></i>
+        <label htmlFor="entity" className="lb-info">
+          Localização destino:
+          <select
+            className="infoInp"
+            name="entity"
+            id="entity"
+            value={assetEnt}
+            onChange={(e) => setAssetEnt(e.target.value)}
+          >
+            <option value=""></option>
+            {ents.map((ent) => (
+              <option key={ent.id} value={ent.id}>
+                {ent.ent_name}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        {/* ---------- CI ----------*/}
+        <label className="lb-info">
+          CI origem:{" "}
+          <h6 className="attrAsset">
+            {matchingAsset
+              ? matchingAsset.ci
+              : "" || matchingInv
+              ? matchingInv.ci
+              : ""}
+          </h6>
+        </label>
+
+        {/* ---------- CI Now ----------*/}
+        <label className="lb-info">
+          CI destino:
+          <input
+            value={assetCi}
+            onChange={(e) => setAssetCi(e.target.value)}
+            className="infoInp"
+          />{" "}
+        </label>
+
+        <p></p>
+        {/* ---------- Reason ----------*/}
+        <label className="lb-info">
+          Motivo:{" "}
+          <select
+            className="infoInp"
+            name="motivo"
+            id="motivo"
+            value={reason}
+            onChange={(event) => setReason(event.target.value)}
+          >
+            <option value=""></option>
+            <option value="Transferência">Transferência</option>
+            <option value="Reparação">Reparação</option>
+            <option value="Obsoleto">Obsoleto</option>
+            <option value="Garantia">Garantia</option>
+          </select>
+        </label>
+
+        <label className="lb-info">
+          Observações{" "}
+          <input
+            value={other}
+            onChange={(e) => setOther(e.target.value)}
+            className="infoInp"
+          />
+        </label>
+
+        <button onClick={resetFilter} className="btn-cleanfilter-movAsset">
+          Limpar
         </button>
-      </div>
+        <button type="submit" className="btn-adicionar-movAsset">
+          Guardar
+        </button>
+        <p></p>
+        <p></p>
+      </form>
     </>
   );
 };

@@ -9324,7 +9324,7 @@ a:focus {
     width: 2rem;
 }
 .topbar {
-    height: 4.375rem;
+    height: 6.375rem;
 }
 .topbar #sidebarToggleTop {
     height: 2.5rem;
@@ -9340,7 +9340,7 @@ a:focus {
     width: 25rem;
 }
 .topbar .navbar-search input {
-    font-size: 0.85rem;
+    /* font-size: 0.85rem; */
     height: auto;
 }
 .topbar .topbar-divider {
@@ -9463,7 +9463,7 @@ a:focus {
 
 @media (min-width: 768px) {
     .sidebar {
-        width: 14rem !important;
+        width: 19rem !important;
     }
     .sidebar .nav-item .collapse {
         position: relative;
@@ -9489,8 +9489,8 @@ a:focus {
         display: block;
         width: 100%;
         text-align: left;
-        padding: 1rem;
-        width: 14rem;
+        padding: 1.2rem;
+        width: 19rem;
     }
     .sidebar .nav-item .nav-link i {
         font-size: 0.85rem;
@@ -9517,6 +9517,7 @@ a:focus {
     .sidebar .sidebar-brand .sidebar-brand-icon i {
         font-size: 2rem;
     }
+
     .sidebar .sidebar-brand .sidebar-brand-text {
         display: inline;
     }
