@@ -223,7 +223,7 @@ const AddAssetMovementForm = () => {
             className="infoInp"
           />
         </label>
-        <p></p>
+        <div className="space-mov"></div>
         {/* ---------- Local Now ----------*/}
         <label className="lb-info">
           <label className="labelofLabel">Local origem: </label>
@@ -241,7 +241,14 @@ const AddAssetMovementForm = () => {
               readOnly
               className="attrAsset"
             />
-          ) : null}
+          ) : (
+            <input
+              type="text"
+              value=""
+              readOnly
+              className="attrAsset null-input"
+            />
+          )}
         </label>
 
         {/* ----------New Local ----------*/}
@@ -249,7 +256,7 @@ const AddAssetMovementForm = () => {
         <label htmlFor="entity" className="lb-info">
           <label className="labelofLabel"> Local destino: </label>
           <select
-            className="infoInp"
+            className="infoInp-select"
             name="entity"
             id="entity"
             value={assetEnt}
@@ -264,9 +271,9 @@ const AddAssetMovementForm = () => {
           </select>
         </label>
 
-        {/* ---------- CI ----------*/}
+        {/* ----------CI----------*/}
         <label className="lb-info">
-          <label className="labelofLabel"> CI origem: </label>
+          <label className="labelofLabel">CI origem: </label>
           {matchingAsset ? (
             <input
               type="text"
@@ -281,7 +288,14 @@ const AddAssetMovementForm = () => {
               readOnly
               className="attrAsset"
             />
-          ) : null}
+          ) : (
+            <input
+              type="text"
+              value=""
+              readOnly
+              className="attrAsset null-input"
+            />
+          )}
         </label>
 
         {/* ---------- CI Now ----------*/}
@@ -294,12 +308,12 @@ const AddAssetMovementForm = () => {
           />{" "}
         </label>
 
-        <p></p>
+        <div className="space-mov"></div>
         {/* ---------- Reason ----------*/}
         <label className="lb-info">
           <label className="labelofLabel">Motivo*: </label>
           <select
-            className="infoInp"
+            className="infoInp-select"
             name="motivo"
             id="motivo"
             value={reason}

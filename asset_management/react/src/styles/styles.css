@@ -2868,10 +2868,11 @@ textarea.form-control-lg {
     font-size: 18px;
     border-radius: 4px;
     color: white;
-    margin-top: -52px;
-    margin-right: 19rem;
-    margin-left: 50rem;
-    width: 8%;
+    margin-right: 390px;
+    margin-top: 40px;
+    overflow: hidden;
+    position: fixed;
+    margin-left: 348px;
 }
 
 .btn-adicionar-movAsset {
@@ -2881,9 +2882,9 @@ textarea.form-control-lg {
     border-radius: 4px;
     color: white;
     /* width: 18%; */
-    margin-left: 280px;
+    margin-left: 361px;
     margin-top: -62px;
-    margin-right: -338px;
+    position: unset;
 }
 .btn-cleanfilter-movAsset {
     background-color: #6c757d;
@@ -2892,9 +2893,9 @@ textarea.form-control-lg {
     border-radius: 4px;
     color: white;
     /*  width: 18%; */
-    margin-left: 605px;
+    margin-left: 714px;
     /*  margin-top: -62px; */
-    margin-right: -223px;
+    margin-right: -330px;
 }
 
 .btn-adicionar-assetForm {
@@ -2970,10 +2971,12 @@ input::placeholder {
     font-size: 18px;
     border-radius: 4px;
     color: white;
-    margin-right: 482px;
-    margin-top: 30px;
+    margin-right: 552px;
+    margin-top: 40px;
     overflow: hidden;
-    width: 7%;
+    width: 5%;
+    position: fixed;
+    margin-left: 234px;
 }
 .btn-cleanfilter-assett {
     /* background-color: #6c757d;
@@ -13394,7 +13397,7 @@ input::placeholder {
 .obs-mov-e {
     border: 1px solid #9c9c9c;
     /* margin-left: 10px; */
-    width: 17rem;
+    width: 60%;
     margin-top: 10px;
     margin-bottom: -8px;
     padding: 1px;
@@ -13571,4 +13574,13 @@ button {
 
 .space {
     margin-top: 85px; /* Adjust the value as needed */
+}
+
+.null-input {
+    border: 1px solid #ccc; /* Add desired border styling */
+    /* Add any other desired styling */
+}
+
+.space-mov {
+    margin-top: 45px;
 }

@@ -418,7 +418,7 @@ export default function AssetForm() {
                 </select>
               </label>
             </div>
-            <div className="space"></div>
+            <div className="space-mov"></div>
             <div className="localAsset-local">
               <h1 className="title-page-all-sub">Localização: </h1>
               <p></p>

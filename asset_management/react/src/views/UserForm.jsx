@@ -183,7 +183,7 @@ export default function UserForm() {
             <label htmlFor="role" className="lb-info">
               <label className="labelofLabel"> Função*: </label>
               <select
-                className="infoInp"
+                className="infoInp-select"
                 name="role"
                 id="role"
                 value={user.role_id}
