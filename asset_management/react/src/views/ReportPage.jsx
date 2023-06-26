@@ -34,6 +34,7 @@ import Papa from "papaparse";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 import PaginationFilter from "../components/PaginationFilter.jsx";
 import SelectFilter from "../components/SelectFilter.jsx";
+import { useStateContext } from "../context/ContextProvider.jsx";
 
 //SideBar:-------------Asset movement---------------
 const ReportPage = () => {
@@ -47,6 +48,7 @@ const ReportPage = () => {
   const [meta, setMeta] = useState({});
   const [cats, setCats] = useState([]);
   const [users, setUsers] = useState([]);
+  const { user } = useStateContext();
 
   const [isButtonClicked, setIsButtonClicked] = useState(false);
 
@@ -506,7 +508,7 @@ const ReportPage = () => {
                 >
                   <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
                 </button>
-                {
+                {user.role_id === 3 ? null : (
                   /*------------ Button Trade ------------*/
                   <button
                     className="btn-add text-link"
@@ -517,7 +519,7 @@ const ReportPage = () => {
                       aria-hidden="true"
                     ></i>
                   </button>
-                }
+                )}
 
                 <div
                   className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}

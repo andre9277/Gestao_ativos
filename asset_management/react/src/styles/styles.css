@@ -13389,7 +13389,8 @@ input::placeholder {
     margin-top: 10px;
     margin-bottom: -8px;
     padding: 1px;
-    margin-left: 60px;
+    margin-left: 38px;
+    float: right;
 }
 .obs-mov-et {
     /* border: 1px solid #007840;
