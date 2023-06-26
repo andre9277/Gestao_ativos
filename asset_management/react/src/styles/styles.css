@@ -7932,6 +7932,8 @@ fieldset:disabled .btn {
         rgba(37, 97, 5, 1) 0%,
         rgba(106, 170, 71, 1) 100%
     );
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 .back-col-login2 {
     background-color: #ffffff;
