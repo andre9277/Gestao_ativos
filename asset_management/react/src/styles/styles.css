@@ -13370,6 +13370,7 @@ input::placeholder {
     background: #fff;
     border: 1px solid #9c9c9c;
     float: right;
+    padding: 0.1em;
 }
 .infoInp-new {
     /* border: 1px solid #007840;
@@ -13403,6 +13404,7 @@ input::placeholder {
     padding: 1px;
     margin-left: 38px;
     float: right;
+    resize: none;
 }
 .obs-mov-et {
     /* border: 1px solid #007840;
@@ -13572,6 +13574,7 @@ button {
     padding: 1px;
     margin-left: 48px;
     float: right;
+    resize: none;
 }
 
 .space {

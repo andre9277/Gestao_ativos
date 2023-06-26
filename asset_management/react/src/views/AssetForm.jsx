@@ -538,7 +538,7 @@ export default function AssetForm() {
                   <option value="E">E</option>
                 </select>
               </label>
-
+              <div className="space-mov"></div>
               <div className="localAsset">
                 {/* ---------- Observações ----------*/}
                 <label className="lb-info">
