@@ -12998,7 +12998,7 @@ select {
     appearance: none;
     margin: 30px;
     right: 0;
-    text-align: center;
+    text-align: left;
 }
 
 .filter-user {

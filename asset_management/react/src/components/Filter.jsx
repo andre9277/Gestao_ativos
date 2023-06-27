@@ -49,7 +49,7 @@ const Filter = ({
           onChange={filterUser}
           className="form-select-filter"
         >
-          <option value={null}>Selecione o utilizador...</option>
+          <option value=""></option>
           {users.map((user) => (
             <option key={user.id} value={user.name}>
               {" "}
@@ -65,7 +65,7 @@ const Filter = ({
           className="form-select-filter"
         >
           {" "}
-          <option>Selecione a operação...</option>
+          <option value=""></option>
           <option value="Pesquisa">Pesquisa</option>
           <option value="Atualiza">Atualiza</option>
           <option value="Apaga">Apaga</option>
@@ -78,7 +78,7 @@ const Filter = ({
           onChange={filterSer}
           className="form-select-filter"
         >
-          <option value={null}>Selecione o nºsérie...</option>
+          <option value=""></option>
 
           {assets.map((asset) => (
             <option key={asset.id} value={asset.numb_ser}>
