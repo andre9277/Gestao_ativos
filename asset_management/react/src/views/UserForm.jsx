@@ -138,8 +138,10 @@ export default function UserForm() {
             ))}
           </div>
         )}
+
         {!loading && (
           <form onSubmit={onSubmit} className="assetForm-assett">
+            <p className="camp-obs">*Campo Obrigatório</p>
             <label className="lb-info">
               {" "}
               <label className="labelofLabel">
@@ -217,7 +219,6 @@ export default function UserForm() {
               </label>
               <button className="btn-adicionar-userForm"> Guardar</button>
             </label>
-            <p className="camp-obs">*Campo Obrigatório</p>
           </form>
         )}
       </div>

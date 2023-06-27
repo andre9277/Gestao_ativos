@@ -262,7 +262,9 @@ export default function AssetForm() {
             {/* ---------- Inventory Number ----------*/}
             <h1 className="title-page-all-sub">Dados Gerais: </h1>
             <p></p>
+            <p className="camp-obs">*Campo Obrigatório</p>
             <p></p>
+
             <label className="lb-info">
               {" "}
               <label className="labelofLabel"> Nº de inventário: </label>
@@ -563,8 +565,6 @@ export default function AssetForm() {
                 </label>
               </div>
             </div>
-
-            <p className="camp-obs">*Campo Obrigatório</p>
           </form>
         )}
       </div>

@@ -183,6 +183,7 @@ const AddAssetMovementForm = () => {
       <h1 className="title-page-all">Movimento de Ativo</h1>
       <form onSubmit={handleSubmit} className="assetForm">
         <p></p>
+        <p className="camp-obs-mov">*Campo Obrigatório</p>
         <p></p>
         {/* ---------- Allocation Date ----------*/}
         <label className="lb-info">
@@ -352,7 +353,6 @@ const AddAssetMovementForm = () => {
             Guardar
           </button>
         </label>
-        {/* <p className="camp-obs-mov">*Campo Obrigatório</p> */}
       </form>
     </>
   );
