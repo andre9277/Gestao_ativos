@@ -12989,6 +12989,7 @@ select {
 .importAsset {
     margin-left: 3%;
     margin-right: auto;
+    margin-bottom: 0px;
 }
 
 .impLab {
@@ -12997,8 +12998,11 @@ select {
 }
 
 .inpImport {
-    width: 75%;
+    width: auto;
     font-size: larger;
+    border: 1px solid black;
+    border-radius: 4px;
+    display: flex;
 }
 
 .caprr-re {
@@ -13601,4 +13605,9 @@ button {
     font-weight: 700;
     font-size: 20px;
     margin-bottom: -32px;
+}
+
+.containerr {
+    padding-bottom: 60px;
+    box-sizing: border-box;
 }

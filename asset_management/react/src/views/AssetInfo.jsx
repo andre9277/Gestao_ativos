@@ -150,7 +150,7 @@ const AssetInfo = () => {
 
                 <div className="space-mov"></div>
                 {/* -------------Informação ativo - localização------------- */}
-                <div className="container">
+                <div className="containerr">
                   <h2 className="headerInfoAsset">Localização: </h2>
                   <p></p>
                   <ul>

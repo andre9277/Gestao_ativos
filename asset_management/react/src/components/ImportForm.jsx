@@ -261,6 +261,7 @@ const ImportForm = () => {
           <label htmlFor="fileInput" className="impLab">
             <h5>Preencha os campos dos ativos a inserir:</h5>
           </label>
+          <p className="camp-obs-mov">*Campo Obrigatório</p>
           <p></p>
 
           {/* ---------- Category ----------*/}
@@ -379,7 +380,6 @@ const ImportForm = () => {
           </label>
           <p></p>
           <p></p>
-          <p className="camp-obs-mov">*Campo Obrigatório</p>
 
           {/*------Ficheiro upload de ativos------*/}
           <h5 htmlFor="fileInput" className="impLab">
