@@ -211,10 +211,12 @@ export default function UserForm() {
               </select>
             </label>
 
-            <label onClick={resetFilter} className="btn-cleanfilter-asset">
-              Limpar
+            <label className="lb-info">
+              <label onClick={resetFilter} className="btn-cleanfilter-asset">
+                Limpar
+              </label>
+              <button className="btn-adicionar-userForm"> Guardar</button>
             </label>
-            <button className="btn-adicionar-userForm"> Guardar</button>
             <p className="camp-obs">*Campo Obrigatório</p>
           </form>
         )}

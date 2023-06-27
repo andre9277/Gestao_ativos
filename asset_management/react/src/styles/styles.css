@@ -2868,11 +2868,7 @@ textarea.form-control-lg {
     font-size: 18px;
     border-radius: 4px;
     color: white;
-    margin-right: 390px;
-    margin-top: 40px;
     overflow: hidden;
-    position: fixed;
-    margin-left: 348px;
 }
 
 .btn-adicionar-movAsset {
@@ -2948,28 +2944,16 @@ input::placeholder {
     border: solid;
 }
 .btn-cleanfilter-asset {
-    /* background-color: #6c757d;
-    padding: 0.5rem 0.75rem;
-    font-size: 20px;
-    border-radius: 4px;
-    align-items: center;
-    border-radius: 10px;
-    margin-top: 10px;
-    color: white;
-    margin-left: 864px; */
-
     float: right;
     background-color: #6c757d;
     padding: 0.5rem 0.75rem;
     font-size: 18px;
     border-radius: 4px;
     color: white;
-    margin-right: 552px;
-    margin-top: 40px;
     overflow: hidden;
-    width: 5%;
-    position: fixed;
-    margin-left: 234px;
+    width: auto;
+    float: right;
+    margin-left: 5px;
 }
 .btn-cleanfilter-assett {
     background-color: #6c757d;
