@@ -13634,3 +13634,7 @@ button {
     display: flex;
     margin-top: 30px;
 }
+
+.serch-warng {
+    display: flex;
+}

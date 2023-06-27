@@ -155,28 +155,30 @@ const Search = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="form-inline mr-auto w-100 navbar-search"
-    >
-      <div className="input-group">
-        <input
-          type="text"
-          placeholder="Insira nº série/inventário"
-          value={assetNumber}
-          onChange={handleChange}
-          className="form-control border-0 ssBar"
-        />
+    <div className="serch-warng">
+      <form
+        onSubmit={handleSubmit}
+        className="form-inline mr-auto w-100 navbar-search"
+      >
+        <div className="input-group">
+          <input
+            type="text"
+            placeholder="Insira nº série/inventário"
+            value={assetNumber}
+            onChange={handleChange}
+            className="form-control border-0 ssBar"
+          />
 
-        <button
-          type="submit"
-          className="botaosearch fas fa-search fa-sm"
-        ></button>
-        {/*Icon bar code for users to scan */}
-        <Link to="/scan">
-          <i className="fa fa-barcode fa-2x" aria-hidden="true"></i>
-        </Link>
-      </div>
+          <button
+            type="submit"
+            className="botaosearch fas fa-search fa-sm"
+          ></button>
+          {/*Icon bar code for users to scan */}
+          <Link to="/scan">
+            <i className="fa fa-barcode fa-2x" aria-hidden="true"></i>
+          </Link>
+        </div>
+      </form>
       <div className="error-search">
         {errorMessage && (
           <p className="err-search">
@@ -185,7 +187,7 @@ const Search = () => {
           </p>
         )}
       </div>
-    </form>
+    </div>
   );
 };
 
