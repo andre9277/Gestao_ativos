@@ -12633,6 +12633,15 @@ body {
     margin-top: 0.5rem;
 }
 
+.cardd {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+
 /*Estilo para página Adicionar Ativo*/
 
 h1 {
