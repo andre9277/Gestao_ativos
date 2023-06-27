@@ -418,7 +418,7 @@ const ImportForm = () => {
               <ul>
                 <li>
                   <i
-                    class="fa fa-info-circle"
+                    className="fa fa-info-circle"
                     aria-hidden="true"
                     onClick={handleIconClick}
                   >
