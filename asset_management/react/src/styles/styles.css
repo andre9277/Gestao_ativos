@@ -12958,7 +12958,7 @@ select {
     padding: 1rem;
     margin: 1rem;
     /* border-bottom: 0.1rem #c0c0c0 solid; */
-    position: absolute;
+    position: fixed;
     top: 0px;
     right: 0px;
     margin-top: 50px;
@@ -13002,7 +13002,7 @@ select {
 }
 
 .filter-user {
-    margin-right: 250px;
+    margin-right: 450px;
 }
 
 .ssBar {
