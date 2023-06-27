@@ -551,10 +551,16 @@ export default function AssetForm() {
                     className="obs-mov-ee"
                   />
                 </label>
-                <label onClick={resetFilter} className="btn-cleanfilter-assett">
-                  Limpar
+
+                <label className="lb-info">
+                  <input
+                    type="button"
+                    onClick={resetFilter}
+                    value="Limpar"
+                    className="btn-cleanfilter-assett"
+                  />
+                  <button className="btn-adicionar-assetFormm">Guardar</button>
                 </label>
-                <button className="btn-adicionar-assetFormm">Guardar</button>
               </div>
             </div>
 
