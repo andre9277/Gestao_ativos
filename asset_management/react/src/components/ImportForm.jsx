@@ -30,6 +30,7 @@ All the changes made to enable the implementation of the desired development too
 import React from "react";
 import axiosClient from "../axios-client.js";
 import { useState, useEffect } from "react";
+import { FaCircle } from "react-icons/fa";
 
 const ImportForm = () => {
   const [loading, setLoading] = useState(false);
@@ -50,6 +51,8 @@ const ImportForm = () => {
   const [selectedBrand, setSelectedBrand] = useState("");
 
   const [showMessage, setShowMessage] = useState(false);
+
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   //returns all objects (called x2times)
   useEffect(() => {
@@ -146,6 +149,10 @@ const ImportForm = () => {
   //-------File checked--------
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0]);
+  };
+
+  const handleIconClick = () => {
+    setIsPopupVisible(!isPopupVisible);
   };
 
   //-------Import handle-------
@@ -386,55 +393,79 @@ const ImportForm = () => {
             <p></p>
             Selecione o Ficheiro para Upload: (Ficheiros .CSV)
           </h5>
-
-          <input
-            type="file"
-            id="fileInput"
-            className="inpImport"
-            onChange={handleFileSelect}
-          />
           <p></p>
-          <button onClick={handleImport} className="btn-dwl">
-            Importar
-          </button>
+          <div className="importing-file">
+            <input
+              type="file"
+              id="fileInput"
+              className="inpImport"
+              onChange={handleFileSelect}
+            />
+
+            <button onClick={handleImport} className="btn-dwl">
+              Importar
+            </button>
+          </div>
           {successMessage && <p className="succMess">{successMessage}</p>}
           {errorMessage && <p className="errMess">{errorMessage}</p>}
 
-          <button onClick={handleDownload} className="dwlTemp">
-            Download Template
-          </button>
-          <p></p>
-          <h6 className="asset-import">
-            Atenção! Critérios para ficheiro "Template":
-          </h6>
-          <li>
-            Campo <b>"numb_inv"</b>: Iniciar com algarismo <u>0</u>.
-          </li>
-          <li>
-            Campo <b>"date_purch"</b>: Inserir um formato de data Ano-Mês-Dia.
-          </li>
-          <li>
-            Campo <b>"state"</b>: Com valores de <u>Ativo</u> ou <u>Inativo</u>.
-          </li>
-          <li>
-            Campo <b>"numb_ser"</b>: Insira um número de série que não exista na
-            base de dados.
-          </li>
-          <li>
-            Campo <b>"cond"</b>: Com valores de <u>Novo</u>, <u>Usado</u>,{" "}
-            <u>Reparação</u> e <u>Obsoleto</u>.
-          </li>
-          <li>
-            Campo <b>"ala"</b>: Com valores de <u>B</u>, <u>C</u>, <u>D</u>,{" "}
-            <u>E</u>.
-          </li>
-          <li>
-            Campo <b>"floor"</b>: Com valores de <u>-1</u>, <u>0</u>, <u>1</u>,{" "}
-            <u>2</u>, <u>3</u>, <u>4</u>, <u>5</u>.
-          </li>
-          <li>
-            Campo <b>"ci"</b>: Inserir CI válido.
-          </li>
+          <div className="impt-temp">
+            <button onClick={handleDownload} className="dwlTemp">
+              Download Template
+            </button>
+            <p></p>
+            <div className="asset-importt">
+              <ul>
+                <li>
+                  <i
+                    class="fa fa-info-circle"
+                    aria-hidden="true"
+                    onClick={handleIconClick}
+                  >
+                    Informação
+                  </i>
+                  {isPopupVisible && (
+                    <div className="popup">
+                      <h6 className="asset-import">
+                        Atenção! Critérios para ficheiro "Template":
+                      </h6>
+                      <li>
+                        Campo <b>"numb_inv"</b>: Iniciar com algarismo <u>0</u>.
+                      </li>
+                      <li>
+                        Campo <b>"date_purch"</b>: Inserir um formato de data
+                        Ano-Mês-Dia.
+                      </li>
+                      <li>
+                        Campo <b>"state"</b>: Com valores de <u>Ativo</u> ou{" "}
+                        <u>Inativo</u>.
+                      </li>
+                      <li>
+                        Campo <b>"numb_ser"</b>: Insira um número de série que
+                        não exista na base de dados.
+                      </li>
+                      <li>
+                        Campo <b>"cond"</b>: Com valores de <u>Novo</u>,{" "}
+                        <u>Usado</u>, <u>Reparação</u> e <u>Obsoleto</u>.
+                      </li>
+                      <li>
+                        Campo <b>"ala"</b>: Com valores de <u>B</u>, <u>C</u>,{" "}
+                        <u>D</u>, <u>E</u>.
+                      </li>
+                      <li>
+                        Campo <b>"floor"</b>: Com valores de <u>-1</u>, <u>0</u>
+                        , <u>1</u>, <u>2</u>, <u>3</u>, <u>4</u>, <u>5</u>.
+                      </li>
+                      <li>
+                        Campo <b>"ci"</b>: Inserir CI válido.
+                      </li>
+                    </div>
+                  )}
+                </li>
+                {/* Other list items */}
+              </ul>
+            </div>
+          </div>
         </div>
       )}
     </div>
