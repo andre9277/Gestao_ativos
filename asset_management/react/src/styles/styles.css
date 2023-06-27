@@ -12913,7 +12913,7 @@ select {
     /* width: 50%; */
     padding: 0.1rem;
     margin-bottom: 1rem;
-    background: #f8f9fc;
+    background: #e0e3e9;
     border: 1px solid #9c9c9c;
     display: inline-flex;
     float: right;
@@ -13646,4 +13646,12 @@ button {
 
 .serch-warng {
     display: flex;
+}
+
+@media print {
+    #sidebar,
+    #topbar,
+    #footer {
+        display: none;
+    }
 }
