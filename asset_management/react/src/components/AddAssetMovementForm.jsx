@@ -343,17 +343,16 @@ const AddAssetMovementForm = () => {
             className="obs-mov-e"
           />
         </label>
-
-        <p></p>
-        <p></p>
-        <button onClick={resetFilter} className="btn-cleanfilter-movAsset">
-          Limpar
-        </button>
-        <button type="submit" className="btn-adicionar-movAsset">
-          Guardar
-        </button>
-
-        <p className="camp-obs-mov">*Campo Obrigatório</p>
+        <label className="lb-info"></label>
+        <label className="lb-info">
+          <button onClick={resetFilter} className="btn-cleanfilter-movAsset">
+            Limpar
+          </button>
+          <button type="submit" className="btn-adicionar-movAsset">
+            Guardar
+          </button>
+        </label>
+        {/* <p className="camp-obs-mov">*Campo Obrigatório</p> */}
       </form>
     </>
   );
