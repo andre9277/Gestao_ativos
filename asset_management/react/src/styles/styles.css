@@ -12857,6 +12857,12 @@ select {
     font-weight: 700;
     font-size: 20px;
 }
+
+.lb-info-allocation {
+    text-align: left;
+    font-weight: 700;
+    font-size: 20px;
+}
 @media (max-width: 768px) {
     .lb-info {
         width: 100%;
@@ -12979,7 +12985,9 @@ select {
 }
 
 .filter-user {
-    margin-right: 450px;
+    width: revert;
+    display: flex;
+    margin-left: -20px;
 }
 
 .ssBar {
