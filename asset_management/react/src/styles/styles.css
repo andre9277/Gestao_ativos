@@ -13589,3 +13589,11 @@ button {
     width: 100%;
     height: 60px; /* Adjust this value based on your footer's height */
 }
+
+.lb-info-btn {
+    text-align: left;
+    padding: 0.5em 6.5em 0.5em 0;
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: -32px;
+}

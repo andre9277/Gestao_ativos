@@ -213,7 +213,7 @@ export default function UserForm() {
               </select>
             </label>
 
-            <label className="lb-info">
+            <label className="lb-info-btn">
               <label onClick={resetFilter} className="btn-cleanfilter-asset">
                 Limpar
               </label>

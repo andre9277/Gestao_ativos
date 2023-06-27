@@ -541,29 +541,28 @@ export default function AssetForm() {
                 </select>
               </label>
               <div className="space-mov"></div>
-              <div className="localAsset">
-                {/* ---------- Observações ----------*/}
-                <label className="lb-info">
-                  <label className="labelofLabel">Observações: </label>
-                  <textarea
-                    value={asset.obs === null ? "" : asset.obs}
-                    onChange={(ev) =>
-                      setAsset({ ...asset, obs: ev.target.value })
-                    }
-                    className="obs-mov-ee"
-                  />
-                </label>
 
-                <label className="lb-info">
-                  <input
-                    type="button"
-                    onClick={resetFilter}
-                    value="Limpar"
-                    className="btn-cleanfilter-assett"
-                  />
-                  <button className="btn-adicionar-assetFormm">Guardar</button>
-                </label>
-              </div>
+              {/* ---------- Observações ----------*/}
+              <label className="lb-info">
+                <label className="labelofLabel">Observações: </label>
+                <textarea
+                  value={asset.obs === null ? "" : asset.obs}
+                  onChange={(ev) =>
+                    setAsset({ ...asset, obs: ev.target.value })
+                  }
+                  className="obs-mov-ee"
+                />
+              </label>
+
+              <label className="lb-info-btn">
+                <input
+                  type="button"
+                  onClick={resetFilter}
+                  value="Limpar"
+                  className="btn-cleanfilter-assett"
+                />
+                <button className="btn-adicionar-assetFormm">Guardar</button>
+              </label>
             </div>
           </form>
         )}
