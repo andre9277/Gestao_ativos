@@ -211,7 +211,6 @@ const AddAssetMovementForm = () => {
             type="text"
             value={matchingAsset ? matchingAsset.numb_inv : invNumber}
             onChange={(e) => setInvNumber(e.target.value)}
-            required
             className="infoInp"
           />
         </label>
@@ -327,6 +326,7 @@ const AddAssetMovementForm = () => {
             id="motivo"
             value={reason}
             onChange={(event) => setReason(event.target.value)}
+            required
           >
             <option value=""></option>
             <option value="Transferência">Transferência</option>

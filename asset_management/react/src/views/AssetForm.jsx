@@ -264,7 +264,6 @@ export default function AssetForm() {
             <p></p>
             <p className="camp-obs">*Campo Obrigatório</p>
             <p></p>
-
             <label className="lb-info">
               {" "}
               <label className="labelofLabel"> Nº de inventário: </label>
@@ -289,6 +288,7 @@ export default function AssetForm() {
                   setAsset({ ...asset, numb_ser: ev.target.value })
                 }
                 className="infoInp"
+                required
               />
             </label>
 
@@ -306,6 +306,7 @@ export default function AssetForm() {
                 onChange={(event) =>
                   setAsset({ ...asset, cat_id: event.target.value })
                 }
+                required
               >
                 <option value=""></option>
                 {cats.map((category) => (
@@ -327,6 +328,7 @@ export default function AssetForm() {
                 value={asset.brand_id}
                 onChange={handleBrandChange}
                 className="infoInp-select"
+                required
               >
                 <option value=""></option>
                 {brands.map((brand) => (
@@ -350,6 +352,7 @@ export default function AssetForm() {
                 onChange={(event) =>
                   setAsset({ ...asset, model_id: event.target.value })
                 }
+                required
               >
                 <option value=""></option>
                 {modelos.map((modelo) => (
@@ -374,6 +377,7 @@ export default function AssetForm() {
                   onChange={(event) =>
                     setAsset({ ...asset, cond: event.target.value })
                   }
+                  required
                 >
                   <option value=""></option>
                   <option value="Novo">Novo</option>
@@ -396,6 +400,7 @@ export default function AssetForm() {
                   onChange={(event) =>
                     setAsset({ ...asset, state: event.target.value })
                   }
+                  required
                 >
                   <option value=""></option>
                   <option value="Ativo">Ativo</option>
