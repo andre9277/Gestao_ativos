@@ -13008,6 +13008,10 @@ select {
 .ssBar {
     background-color: #69b155;
 }
+.ssBar::placeholder {
+    background-color: #69b155;
+    font-size: 20px;
+}
 
 .headerInfoAsset {
     color: #007840;

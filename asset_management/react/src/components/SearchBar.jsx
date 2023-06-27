@@ -167,6 +167,7 @@ const Search = () => {
           onChange={handleChange}
           className="form-control border-0 ssBar"
         />
+
         <button
           type="submit"
           className="botaosearch fas fa-search fa-sm"
