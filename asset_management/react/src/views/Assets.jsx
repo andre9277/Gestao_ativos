@@ -474,13 +474,12 @@ export default function Assets() {
                     data={ent}
                     title={"Localização:"}
                   />
-
                   {
                     <button
                       onClick={resetFilter}
                       className="btn-cleanfilter text-link-a"
                     >
-                      Limpar Filtro
+                      Limpar
                     </button>
                   }
                   {

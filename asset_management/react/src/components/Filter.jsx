@@ -80,12 +80,11 @@ const Filter = ({
         </select>
       </div>
       <div className="alloca-icons">
-        <button onClick={resetFilter} className="btn-filter">
-          <i className="fa fa-eraser fa-lg" aria-hidden="true"></i>
-        </button>
-
         <button onClick={handleDwl} className="btn-dwl">
           <i className="fa fa-download fa-lg" aria-hidden="true"></i>
+        </button>
+        <button onClick={resetFilter} className="btn-filter">
+          <i className="fa fa-eraser fa-lg" aria-hidden="true"></i>
         </button>
       </div>
     </div>

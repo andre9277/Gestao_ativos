@@ -2997,25 +2997,28 @@ input::placeholder {
 }
 .text-link-f {
     color: white;
-    margin-left: 35px;
     font-size: 14px;
+    float: right;
+    margin-right: 50px;
 }
 .text-link-ff {
     color: white;
     background-color: #007840;
     font-size: 14px;
+    float: right;
 }
 
 .text-link-a {
     color: white;
-    margin-left: 18px;
     font-size: 14px;
+    float: right;
 }
 
 .text-link-aa {
     color: white;
     background-color: #007840;
     font-size: 14px;
+    float: right;
 }
 
 .form-range {
@@ -13330,7 +13333,7 @@ input::placeholder {
 }
 
 .alloca-icons {
-    margin-left: 6rem;
+    float: right;
 }
 
 .dat-filt {
