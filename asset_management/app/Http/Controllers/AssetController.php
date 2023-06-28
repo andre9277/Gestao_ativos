@@ -127,7 +127,13 @@ class AssetController extends Controller
         $total = $asset::count();
 
         // Count assets changed this month
-        $countChanged = $asset::whereMonth('updated_at', '=', now()->month)->count();
+        $countChanged = $asset::whereMonth('updated_at', '=', now()->month)
+            ->where(function ($query) {
+                $query->where('import_type', '!=', 'bulk')
+                    ->orWhereNull('import_type');
+            })
+            ->count();
+
 
         $totalRep = $asset::where('cond', 'Reparação')->count();
 

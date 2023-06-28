@@ -40,6 +40,7 @@ class AssetResource extends JsonResource
             'previous_ent_id' => $this->previous_ent_id,
             'previous_ci' => $this->previous_ci,
             'obs' => $this->obs,
+            'import_type' => $this->import_type,
             'entity' => $this->entity ? [
                 'id' => $this->entity->id,
                 'ent_name' => $this->entity->ent_name,

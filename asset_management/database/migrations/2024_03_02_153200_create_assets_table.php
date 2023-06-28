@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('previous_ent_id')->nullable();
             $table->string('previous_ci')->nullable();
             $table->string('obs')->nullable();
+            $table->string('import_type')->nullable();
 
             $table->unsignedBigInteger('brand_id');
             $table->unsignedBigInteger('cat_id');

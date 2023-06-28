@@ -98,6 +98,7 @@ class ExcelImportController extends Controller
                 'ala' => $column6,
                 'floor' => $column7,
                 'ci' => $column8,
+
                 //-----
                 'brand_id' => $brandId,
                 'cat_id' => $catId,
@@ -105,6 +106,7 @@ class ExcelImportController extends Controller
                 'ent_id' => $entId,
                 'unit_id' => $unitId,
                 'model_id' => $modelId,
+                'import_type' => 'bulk',
 
                 'updated_at' => now(),
                 'created_at' => now(),

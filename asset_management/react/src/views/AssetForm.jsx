@@ -147,6 +147,7 @@ export default function AssetForm() {
       ent_type: "",
     },
     units: "",
+    import_type: "",
   });
 
   //When the user submits the request
