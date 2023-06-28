@@ -12948,7 +12948,6 @@ select {
     position: sticky;
     top: 0px;
     right: 0px;
-    margin-top: 50px;
     margin-right: 250px;
     margin-left: 227px;
 }
@@ -13662,4 +13661,26 @@ button {
 
 .nav-item.active {
     font-weight: bold;
+}
+
+.data-allocations {
+    display: table;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.lb-allo-dt {
+    width: auto;
+    font-weight: 700;
+}
+
+.dt-inpt-allo {
+    border: 1px solid black;
+    padding: 0.1em;
+    float: right;
+}
+
+.err-allo-dt {
+    color: red;
+    font-weight: 700;
 }
