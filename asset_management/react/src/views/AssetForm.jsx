@@ -547,7 +547,8 @@ export default function AssetForm() {
                 </select>
               </label>
               <div className="space-mov"></div>
-
+              <h1 className="title-page-all-sub">Outros: </h1>
+              <p></p>
               {/* ---------- Observações ----------*/}
               <label className="lb-info">
                 <label className="labelofLabel">Observações: </label>
