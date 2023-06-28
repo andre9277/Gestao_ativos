@@ -169,8 +169,6 @@ export default function Allocations() {
       setError(true);
       setErrorMsg("Intervalo de Datas inválido!");
       setAllocations([]);
-      setStartDate(null);
-      setEndDate(null);
       setShowError(true);
 
       setTimeout(() => {
@@ -203,6 +201,7 @@ export default function Allocations() {
     setError(false);
     setErrorMsg("");
   };
+
   //--------------Filters---------------
   const filterSer = (event) => {
     const filterValue = event.target.value;
