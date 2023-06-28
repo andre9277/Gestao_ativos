@@ -60,6 +60,12 @@ const SideBar = () => {
     }
   };
 
+  const [activeOption, setActiveOption] = useState("");
+
+  const handleOptionClick = (option) => {
+    setActiveOption(option);
+  };
+
   return (
     <>
       {/*  <!-- Sidebar --> */}
@@ -83,9 +89,15 @@ const SideBar = () => {
         <br></br>
 
         {/*  <!-- Nav Item - Dashboard --> */}
-
-        <li className="nav-item active">
-          <Link to="/dashboard" className="nav-link">
+        <p className="space-mov"></p>
+        <li
+          className={`nav-item ${activeOption === "dashboard" ? "active" : ""}`}
+        >
+          <Link
+            to="/dashboard"
+            className="nav-link"
+            onClick={() => handleOptionClick("dashboard")}
+          >
             <i className="fas fa-fw fa-tachometer-alt"></i>
             <span>
               <h5>Dashboard</h5>
@@ -99,17 +111,37 @@ const SideBar = () => {
         {/*   <!-- Heading --> */}
         <div className="sidebar-heading">Ativos</div>
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
-        <MenuItem titulo={"Listagem"} icon={"fa-cog"} origem={"assets"} />
-        <MenuItem titulo={"Movimentos"} icon={"fa-plus"} origem={"report"} />
+        <MenuItem
+          titulo={"Listagem"}
+          icon={"fa-cog"}
+          origem={"assets"}
+          handleOptionClick={handleOptionClick}
+          activeOption={activeOption}
+        />
+        <MenuItem
+          titulo={"Movimentos"}
+          icon={"fa-plus"}
+          origem={"report"}
+          handleOptionClick={handleOptionClick}
+          activeOption={activeOption}
+        />
 
         {/* <!-- Nav Item - ReportPage --> */}
         <MenuItem
           titulo={"Download"}
           icon={"fa-chart-area"}
           origem={"allocations"}
+          handleOptionClick={handleOptionClick}
+          activeOption={activeOption}
         />
         {/* <!-- Nav Item - ReportPage --> */}
-        <MenuItem titulo={"Importar"} icon={"fa fa-edit"} origem={"import"} />
+        <MenuItem
+          titulo={"Importar"}
+          icon={"fa fa-edit"}
+          origem={"import"}
+          handleOptionClick={handleOptionClick}
+          activeOption={activeOption}
+        />
 
         {/*  <!-- Nav Item - Users --> */}
         {/*  <!-- Divider --> */}
@@ -118,7 +150,13 @@ const SideBar = () => {
         {/* <!-- Heading --> */}
         <div className="sidebar-heading"> Área do Administrador</div>
 
-        <MenuItem titulo={"Utilizadores"} icon={"fa-table"} origem={"users"} />
+        <MenuItem
+          titulo={"Utilizadores"}
+          icon={"fa-table"}
+          origem={"users"}
+          handleOptionClick={handleOptionClick}
+          activeOption={activeOption}
+        />
 
         {/*   <div className="text-center d-none d-md-inline">
           <button

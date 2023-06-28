@@ -30,10 +30,22 @@ All the changes made to enable the implementation of the desired development too
 import React from "react";
 import { Link } from "react-router-dom";
 
-const MenuItem = ({ titulo, icon, origem }) => {
+const MenuItem = ({
+  titulo,
+  icon,
+  origem,
+  handleOptionClick,
+  activeOption,
+}) => {
+  const isActive = activeOption === origem ? "active" : "";
+
   return (
-    <li className="nav-item mn-item">
-      <Link to={`/${origem}`} className="nav-link">
+    <li className={`nav-item ${isActive}`}>
+      <Link
+        to={`/${origem}`}
+        className={`nav-link ${isActive}`}
+        onClick={() => handleOptionClick(origem)}
+      >
         <i className={`fas fa-fw ${icon}`}></i>
         <span>
           <h5>{titulo}</h5>
