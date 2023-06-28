@@ -30,6 +30,11 @@ const SideBarSi = () => {
       setStyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
     }
   };
+  const [activeOption, setActiveOption] = useState("");
+
+  const handleOptionClick = (option) => {
+    setActiveOption(option);
+  };
 
   return (
     <>
@@ -54,9 +59,15 @@ const SideBarSi = () => {
         <br></br>
 
         {/*  <!-- Nav Item - Dashboard --> */}
-
-        <li className="nav-item active">
-          <Link to="/dashboard" className="nav-link">
+        <p className="space-mov"></p>
+        <li
+          className={`nav-item ${activeOption === "dashboard" ? "active" : ""}`}
+        >
+          <Link
+            to="/dashboard"
+            className="nav-link"
+            onClick={() => handleOptionClick("dashboard")}
+          >
             <i className="fas fa-fw fa-tachometer-alt"></i>
             <span>
               <h5>Dashboard</h5>
@@ -70,13 +81,27 @@ const SideBarSi = () => {
         {/*   <!-- Heading --> */}
         <div className="sidebar-heading">Ativos</div>
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
-        <MenuItem titulo={"Listagem"} icon={"fa-cog"} origem={"assets"} />
-        <MenuItem titulo={"Movimentos"} icon={"fa-plus"} origem={"report"} />
+        <MenuItem
+          titulo={"Listagem"}
+          icon={"fa-cog"}
+          origem={"assets"}
+          handleOptionClick={handleOptionClick}
+          activeOption={activeOption}
+        />
+        <MenuItem
+          titulo={"Movimentos"}
+          icon={"fa-plus"}
+          origem={"report"}
+          handleOptionClick={handleOptionClick}
+          activeOption={activeOption}
+        />
 
         <MenuItem
           titulo={"Donwload"}
           icon={"fa-chart-area"}
           origem={"allocations"}
+          handleOptionClick={handleOptionClick}
+          activeOption={activeOption}
         />
 
         {/* <!-- Nav Item - ReportPage --> */}
