@@ -199,6 +199,11 @@ class AssetController extends Controller
         $reason = $lastAllocation ? $lastAllocation->reason : null;
 
 
+        // Set the "import_type" column to null
+        $asset->import_type = null;
+        $asset->save();
+
+
         // create a new asset update record
         /*  $update = new Allocation([
             'asset_id' => $asset->id,
