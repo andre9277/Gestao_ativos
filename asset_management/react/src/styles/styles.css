@@ -12865,6 +12865,7 @@ select {
     text-align: left;
     font-weight: 700;
     font-size: 20px;
+    margin-right: 40px;
 }
 @media (max-width: 768px) {
     .lb-info {
