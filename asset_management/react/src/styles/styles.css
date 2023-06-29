@@ -2496,7 +2496,7 @@ progress {
 
 .form-control-lg {
     min-height: calc(1.5em + 1rem + 2px);
-    padding: 0.5rem 1rem;
+    /* padding: 0.5rem 1rem; */
     font-size: 1.25rem;
     border-radius: 0.3rem;
     width: auto;
