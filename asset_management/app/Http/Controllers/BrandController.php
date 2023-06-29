@@ -22,13 +22,13 @@ class BrandController extends Controller
 
     public function index()
     {
-        $brands = Brand::all(['id', 'name', 'sig']);
+        $brands = Brand::all(['id', 'name']);
         return response()->json($brands);
     }
 
     public function indexSig()
     {
-        $brands = Brand::all(['id', 'sig as name']);
+        $brands = Brand::all(['id', 'name']);
         return response()->json($brands);
     }
 }
