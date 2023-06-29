@@ -45,8 +45,6 @@ const ImportForm = () => {
   const [ents, setEnts] = useState([]);
   const [supplier, setSupplier] = useState([]);
   const [units, setUnits] = useState([]);
-  const [catBr, setCatBr] = useState([]);
-
   const [supplierId, setSupplierId] = useState("");
   const [selectedEntity, setSelectedEntity] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -62,7 +60,6 @@ const ImportForm = () => {
       setCats(responses[0].data.cats);
       setEnts(responses[0].data.ents);
       setUnits(responses[0].data.units);
-      //setBrands(responses[0].data.brands);
       setSupplier(responses[0].data.suppliers);
       setModelos(responses[0].data.models);
     });
@@ -94,17 +91,6 @@ const ImportForm = () => {
       setUnits([]);
     }
   }, [selectedEntity]);
-
-  useEffect(() => {
-    {
-      setLoading(true);
-      axiosClient.get(`/category-brands`).then((response) => {
-        setLoading(false);
-        setCatBr(response.data);
-      });
-    }
-  }, []);
-  console.log(catBr);
 
   useEffect(() => {
     if (successMessage || errorMessage) {
@@ -245,6 +231,26 @@ const ImportForm = () => {
     setSelectedEntity(selectedEntity);
   };
 
+  const handleCategoryChange = (event) => {
+    const selectedCategory = event.target.value;
+
+    setAsset({ ...asset, cat_id: selectedCategory });
+
+    setLoading(true);
+    axiosClient
+      .get(`/brands/category/${selectedCategory}`)
+      .then((response) => {
+        setLoading(false);
+        setBrands(response.data);
+        /*       console.log(selectedCategory);
+        console.log(brands); */
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.error(error);
+      });
+  };
+
   //-------------Download template----------------
   const handleDownload = () => {
     axiosClient
@@ -273,6 +279,7 @@ const ImportForm = () => {
   return (
     <div className="importAsset">
       <h1 className="title-page-all">Importar Ativos</h1>
+
       {loading && <div className="caprr-re">A carregar...</div>}
       {!loading && (
         <div>
@@ -291,9 +298,7 @@ const ImportForm = () => {
               name="category"
               id="category"
               value={asset.cat_id}
-              onChange={(event) =>
-                setAsset({ ...asset, cat_id: event.target.value })
-              }
+              onChange={handleCategoryChange}
             >
               <option value=""></option>
               {cats.map((category) => (
@@ -313,7 +318,7 @@ const ImportForm = () => {
               className="infoInpp"
             >
               <option value=""></option>
-              {brands.map((brand) => (
+              {brands.map((brand, index) => (
                 <option key={brand.id} value={brand.id}>
                   {brand.name}
                 </option>

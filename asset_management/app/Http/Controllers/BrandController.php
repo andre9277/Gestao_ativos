@@ -33,9 +33,13 @@ class BrandController extends Controller
         return response()->json($brands);
     }
 
+
+
     public function getBrandsByCategory($categoryId)
     {
-        $brands = CategoryBrand::where('category_id', $categoryId)->pluck('brand_id')->toArray();
+        $brandIds = CategoryBrand::where('category_id', $categoryId)->pluck('brand_id')->toArray();
+
+        $brands = Brand::whereIn('id', $brandIds)->get(['id', 'name']);
 
         return response()->json($brands);
     }
