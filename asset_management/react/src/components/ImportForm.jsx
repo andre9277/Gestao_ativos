@@ -410,9 +410,11 @@ const ImportForm = () => {
           {errorMessage && <p className="errMess">{errorMessage}</p>}
 
           <div className="impt-temp">
-            <button onClick={handleDownload} className="dwlTemp">
-              Download Template
-            </button>
+            <div>
+              <button onClick={handleDownload} className="dwlTemp">
+                Download Template
+              </button>
+            </div>
             <p></p>
             <div className="asset-importt">
               <ul>
