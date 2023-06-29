@@ -335,6 +335,26 @@ export default function AssetForm() {
                 ))}
               </select>
             </label>
+            {/* ---------- Status ----------*/}
+            <label htmlFor="estado" className="lb-info">
+              <label className="labelofLabel">
+                Estado:<label className="cmp-obg">*</label>
+              </label>
+              <select
+                className="infoInp-select"
+                name="estado"
+                id="estado"
+                value={asset.state}
+                onChange={(event) =>
+                  setAsset({ ...asset, state: event.target.value })
+                }
+                required
+              >
+                <option value=""></option>
+                <option value="Ativo">Ativo</option>
+                <option value="Inativo">Inativo</option>
+              </select>
+            </label>
 
             {/* ---------- Brands ----------*/}
             <label className="lb-info">
@@ -403,27 +423,6 @@ export default function AssetForm() {
                   <option value="Usado">Usado</option>
                   <option value="Reparação">Reparação</option>
                   <option value="Obsoleto">Obsoleto</option>
-                </select>
-              </label>
-
-              {/* ---------- Status ----------*/}
-              <label htmlFor="estado" className="lb-info">
-                <label className="labelofLabel">
-                  Estado:<label className="cmp-obg">*</label>
-                </label>
-                <select
-                  className="infoInp-select"
-                  name="estado"
-                  id="estado"
-                  value={asset.state}
-                  onChange={(event) =>
-                    setAsset({ ...asset, state: event.target.value })
-                  }
-                  required
-                >
-                  <option value=""></option>
-                  <option value="Ativo">Ativo</option>
-                  <option value="Inativo">Inativo</option>
                 </select>
               </label>
 
