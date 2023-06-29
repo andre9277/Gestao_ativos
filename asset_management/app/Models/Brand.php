@@ -11,6 +11,9 @@ class Brand extends Model
     use HasFactory;
 
     protected $table = 'brand';
+    protected $fillable = ['name'];
+
+    public $timestamps = false;
 
     public function assets()
     {
