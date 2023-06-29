@@ -54,6 +54,18 @@ const Pagination = ({
   const renderPageNumbers = () => {
     const pageNumbers = [];
 
+    // Define the number of pagination buttons to display
+    const maxButtons = 5; // Adjust this value according to your needs
+
+    // Calculate the start and end page numbers
+    let startPage = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+    let endPage = Math.min(totalPages, startPage + maxButtons - 1);
+
+    // Adjust start and end page numbers if they exceed the valid range
+    if (endPage - startPage + 1 < maxButtons) {
+      startPage = Math.max(1, endPage - maxButtons + 1);
+    }
+
     // Display first two pages
     for (let i = 1; i <= 2 && i <= totalPages; i++) {
       const isActive = i === currentPage;
@@ -65,7 +77,7 @@ const Pagination = ({
           onClick={() => setCurrentPage(i)}
           className={classNames}
         >
-          <u>&nbsp; {i} &nbsp;</u>
+          <u>&nbsp;{i}&nbsp;</u>
         </button>
       );
     }
@@ -79,8 +91,8 @@ const Pagination = ({
       );
     }
 
-    // Display page numbers from currentPage - 2 to currentPage + 2
-    for (let i = currentPage - 2; i <= currentPage + 2; i++) {
+    // Display page numbers within the defined range
+    for (let i = startPage; i <= endPage; i++) {
       if (i > 2 && i < totalPages - 1) {
         const isActive = i === currentPage;
         const classNames = `pageNumber ${isActive ? "acctive" : "inacctive"}`;

@@ -13687,3 +13687,7 @@ button {
     color: red;
     font-weight: 700;
 }
+
+.paginator-btn {
+    margin-top: auto;
+}
