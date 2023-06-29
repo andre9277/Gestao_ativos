@@ -288,7 +288,7 @@ strong {
 
 small,
 .small {
-    font-size: 0.875em;
+    font-size: 20px;
 }
 
 mark,
@@ -2264,7 +2264,8 @@ progress {
 }
 .form-label {
     margin-bottom: 0.5rem;
-    width: 46%;
+    width: auto;
+    font-size: 20px;
 }
 
 .col-form-label {
@@ -2498,6 +2499,7 @@ progress {
     padding: 0.5rem 1rem;
     font-size: 1.25rem;
     border-radius: 0.3rem;
+    width: auto;
 }
 .form-control-lg::-webkit-file-upload-button {
     padding: 0.5rem 1rem;
@@ -4211,7 +4213,7 @@ fieldset:disabled .btn {
 .btn-lg,
 .btn-group-lg > .btn {
     padding: 0.5rem 1rem;
-    font-size: 1.25rem;
+    font-size: 20px;
     border-radius: 0.3rem;
 }
 
@@ -8549,6 +8551,7 @@ fieldset:disabled .btn {
 
 .fw-normal {
     font-weight: 400 !important;
+    font-size: 40px;
 }
 
 .fw-bold {
