@@ -45,6 +45,7 @@ const ImportForm = () => {
   const [ents, setEnts] = useState([]);
   const [supplier, setSupplier] = useState([]);
   const [units, setUnits] = useState([]);
+  const [catBr, setCatBr] = useState([]);
 
   const [supplierId, setSupplierId] = useState("");
   const [selectedEntity, setSelectedEntity] = useState("");
@@ -61,7 +62,7 @@ const ImportForm = () => {
       setCats(responses[0].data.cats);
       setEnts(responses[0].data.ents);
       setUnits(responses[0].data.units);
-      setBrands(responses[0].data.brands);
+      //setBrands(responses[0].data.brands);
       setSupplier(responses[0].data.suppliers);
       setModelos(responses[0].data.models);
     });
@@ -93,6 +94,17 @@ const ImportForm = () => {
       setUnits([]);
     }
   }, [selectedEntity]);
+
+  useEffect(() => {
+    {
+      setLoading(true);
+      axiosClient.get(`/category-brands`).then((response) => {
+        setLoading(false);
+        setCatBr(response.data);
+      });
+    }
+  }, []);
+  console.log(catBr);
 
   useEffect(() => {
     if (successMessage || errorMessage) {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\BrandResource;
 use App\Models\Brand;
+use App\Models\CategoryBrand;
 use Illuminate\Http\Request;
 
 class BrandController extends Controller
@@ -29,6 +30,13 @@ class BrandController extends Controller
     public function indexSig()
     {
         $brands = Brand::all(['id', 'name']);
+        return response()->json($brands);
+    }
+
+    public function getBrandsByCategory($categoryId)
+    {
+        $brands = CategoryBrand::where('category_id', $categoryId)->pluck('brand_id')->toArray();
+
         return response()->json($brands);
     }
 }
