@@ -62,7 +62,7 @@ export default function AssetForm() {
       setCats(responses[0].data.cats);
       setEnts(responses[0].data.ents);
       setUnits(responses[0].data.units);
-      setBrands(responses[0].data.brands);
+      //setBrands(responses[0].data.brands);
       setModelos(responses[0].data.models);
       setSupplier(responses[0].data.suppliers);
     });
@@ -222,6 +222,26 @@ export default function AssetForm() {
     setAsset(newAsset);
   }
 
+  const handleCategoryChange = (event) => {
+    const selectedCategory = event.target.value;
+
+    setAsset({ ...asset, cat_id: selectedCategory });
+
+    setLoading(true);
+    axiosClient
+      .get(`/brands/category/${selectedCategory}`)
+      .then((response) => {
+        setLoading(false);
+        setBrands(response.data);
+        console.log(selectedCategory);
+        console.log(brands);
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.error(error);
+      });
+  };
+
   const resetFilter = () => {
     // Reset all the values to empty or default
     setAsset({
@@ -304,9 +324,7 @@ export default function AssetForm() {
                 name="category"
                 id="category"
                 value={asset.cat_id}
-                onChange={(event) =>
-                  setAsset({ ...asset, cat_id: event.target.value })
-                }
+                onChange={handleCategoryChange}
                 required
               >
                 <option value=""></option>
