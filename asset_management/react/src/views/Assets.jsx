@@ -170,7 +170,7 @@ export default function Assets() {
       (row) =>
         (selectedCategory === "" || row.category.name === selectedCategory) &&
         (selectedFloor === "" || row.floor === selectedFloor) &&
-        (selectedBrand === "" || row.brand.sig === selectedBrand) &&
+        (selectedBrand === "" || row.brand.name === selectedBrand) &&
         (selectedModel === "" || row.modelo.name === selectedModel) &&
         (selectedEnt === "" || row.entity.ent_name === selectedEnt)
     );
@@ -185,7 +185,7 @@ export default function Assets() {
   const sortingFilter = (col) => {
     const columnMapping = {
       Categoria: "category.name",
-      Marca: "brand.sig",
+      Marca: "brand.name",
       Modelo: "modelo.name",
       Piso: "floor",
       Entidade: "entity.ent_name",
@@ -240,36 +240,6 @@ export default function Assets() {
     const url = "/assets/new";
     navigate(url);
   };
-
-  /*------------Button Apagar------------------------------*/
-  /*   const onDeleteClick = () => {
-    setShow(true); // Close the modal
-
-    // Get the IDs of all the checked assets
-    const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
-
-    // If no assets are checked, return
-    if (checkedAssetIds.length === 0) {
-      return;
-    }
-
-    // Create the URL with the asset IDs
-    const url = `/assets/${checkedAssetIds.join(",")}`;
-
-    // Send the DELETE request
-    axiosClient
-      .delete(url)
-      .then(() => {
-        setNotification("Ativo(s) apagado(s) com sucesso!");
-        // Fetch assets again to update the UI
-        getAssets();
-      })
-      .catch((error) => {
-        console.error("Erro ao apagar ativo(s):", error);
-
-        // Handle error if necessary...
-      });
-  }; */
 
   //-----------Handle click to edit an asset-----------------------------
   const onEditClick = () => {
@@ -363,7 +333,7 @@ export default function Assets() {
   const sorting = (col) => {
     const columnMapping = {
       Categoria: "category.name",
-      Marca: "brand.sig",
+      Marca: "brand.name",
       Modelo: "modelo.name",
       Piso: "floor",
       NºSerie: "numb_ser",
@@ -417,10 +387,7 @@ export default function Assets() {
     setDropdownOpen(!dropdownOpen);
   };
 
-  /*   const handleClose = () => {
-    setShow(false);
-  }; */
-
+  /*------------Button Apagar------------------------------*/
   const onDeleteClick = () => {
     setShow(true); // Show the modal
   };
@@ -520,6 +487,8 @@ export default function Assets() {
                     data={brands}
                     title={"Marca:"}
                   />
+                  {console.log("brands", brands)}
+                  {console.log("selectedBrand", selectedBrand)}
                   <SelectFilter
                     handleFunc={handleModelChange}
                     selectedF={selectedModel}
