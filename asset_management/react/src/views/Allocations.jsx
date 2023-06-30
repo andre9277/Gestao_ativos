@@ -185,17 +185,9 @@ export default function Allocations() {
       );
     });
 
-    // Handle case when the selected range is the same day
-    if (startDate.toDateString() === endDate.toDateString()) {
-      filtered = filtered.filter((allocation) => {
-        const allocationDate = new Date(allocation.allocation_date);
-        allocationDate.setHours(0, 0, 0, 0);
-        return allocationDate.getTime() === startDate.getTime();
-      });
-    }
-
     setAllocations(filtered);
-
+    /*  console.log("startDate", selectionRange.startDate);
+    console.log("endDate", selectionRange.endDate); */
     setError(false);
     setErrorMsg("");
   };
@@ -260,6 +252,10 @@ export default function Allocations() {
     setErrorMsg("");
   };
 
+  function isValidDate(date) {
+    return date instanceof Date && !isNaN(date);
+  }
+
   return (
     <div id="content">
       <div
@@ -288,14 +284,22 @@ export default function Allocations() {
                 type="date"
                 value={startDate ? startDate.toISOString().split("T")[0] : ""}
                 onChange={(e) => {
-                  setStartDate(new Date(e.target.value));
-                  handleSelect(); // Call handleSelect on date change
+                  const selectedDate = new Date(e.target.value);
+                  if (isValidDate(selectedDate)) {
+                    setStartDate(selectedDate);
+                    handleSelect();
+                  } else {
+                    // Handle the error when an invalid date is selected
+                    console.error("Data início inválida!");
+                  }
                 }}
                 min="YYYY-MM-DD"
                 max="YYYY-MM-DD"
                 className="dt-inpt-allo"
               />
+              {console.log("startDate", startDate)}
               <p></p>
+
               <label className="lb-allo-dt">
                 Data fim:<label className="cmp-obg">*</label>
               </label>
@@ -304,14 +308,21 @@ export default function Allocations() {
                 type="date"
                 value={endDate ? endDate.toISOString().split("T")[0] : ""}
                 onChange={(e) => {
-                  setEndDate(new Date(e.target.value));
-                  handleSelect(); // Call handleSelect on date change
+                  const selectedDate = new Date(e.target.value);
+                  if (isValidDate(selectedDate)) {
+                    selectedDate.setHours(23, 59, 0, 0);
+                    setEndDate(selectedDate);
+                    handleSelect();
+                  } else {
+                    // Handle the error when an invalid date is selected
+                    console.error("Data fim inválida!");
+                  }
                 }}
-                min="YYYY-MM-DD"
+                min={startDate ? startDate.toISOString().split("T")[0] : ""}
                 max="YYYY-MM-DD"
                 className="dt-inpt-allo"
               />
-
+              {console.log("endDate", endDate)}
               {error && startDate > endDate && (
                 <p className="err-allo-dt">{errorMsg}</p>
               )}

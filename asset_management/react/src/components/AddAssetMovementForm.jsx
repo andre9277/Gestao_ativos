@@ -81,19 +81,6 @@ const AddAssetMovementForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    //For the format Data: YYYY-MM-DD HH:MM:SS
-    /*    const currentDate = new Date();
-    let allocationDate = currentDate.toLocaleString();
-
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-    const day = String(currentDate.getDate()).padStart(2, "0");
-    const hours = String(currentDate.getHours()).padStart(2, "0");
-    const minutes = String(currentDate.getMinutes()).padStart(2, "0");
-    const seconds = String(currentDate.getSeconds()).padStart(2, "0");
-
-    allocationDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`; */
-
     const data = {
       allocation_date: assetDate,
       ser_number: matchingInv ? matchingInv.numb_ser : serNumber,
@@ -111,8 +98,7 @@ const AddAssetMovementForm = () => {
       reason: reason,
     };
 
-    // Perform the POST request using a library like Axios or fetch
-    // Example using Axios:
+    // Perform the POST request
     axiosClient
       .post("/assetMovement", data)
       .then(() => {
@@ -158,13 +144,7 @@ const AddAssetMovementForm = () => {
             });
         }
       })
-      .catch(() => {
-        // Handle the error
-        /*  const response = err.response;
-        if (response && response.status === 422) {
-          setErrors(response.data.errors);
-        } */
-      });
+      .catch(() => {});
   };
 
   //Reset of the filters implemented
