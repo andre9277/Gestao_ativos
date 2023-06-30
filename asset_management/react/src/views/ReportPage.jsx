@@ -157,12 +157,13 @@ const ReportPage = () => {
     for (let i = 0; i < array1.length; i++) {
       const item1 = array1[i];
       const commonNumber = item1.numb_ser;
-
+      console.log(array2);
       // Find matching items in the second array based on the common number
-      const matchingItems = array2.filter(
-        (item2) =>
-          item2.assets.numb_ser === commonNumber &&
-          item2.action_type === "Atualiza"
+      const matchingItems = array2.filter((item2) =>
+        item2.assets === null
+          ? ""
+          : item2.assets.numb_ser === commonNumber &&
+            item2.action_type === "Atualiza"
       );
 
       // If matching items are found, join the data
