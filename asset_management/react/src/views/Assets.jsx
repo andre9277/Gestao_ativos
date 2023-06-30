@@ -611,7 +611,7 @@ export default function Assets() {
                 assets.map((a) => (
                   <tr key={a.id}>
                     <td>{a.category.name}</td>
-                    <td>{a.brand.sig}</td>
+                    <td>{a.brand.name}</td>
                     <td>{a.modelo.name}</td>
                     <td>{a.numb_inv}</td>
                     <td>{a.numb_ser}</td>
@@ -652,8 +652,9 @@ export default function Assets() {
               ) : (
                 filteredAllocations.slice(startIndex, endIndex).map((asset) => (
                   <tr key={asset.id}>
+                    {console.log(asset)}
                     <td>{asset.category.name}</td>
-                    <td>{asset.brand.sig}</td>
+                    <td>{asset.brand.name}</td>
                     <td>{asset.modelo.name}</td>
                     <td>{asset.numb_inv}</td>
                     <td>{asset.numb_ser}</td>
