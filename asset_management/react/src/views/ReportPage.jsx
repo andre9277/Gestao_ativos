@@ -654,7 +654,7 @@ const ReportPage = () => {
                       : null; */
                   return (
                     <tr key={`${asset.id}-${index}`}>
-                      <td className="table-numb-r">{asset.numb_inv}</td>
+                      <td>{asset.numb_inv}</td>
                       <td className="table-words-l">{asset.numb_ser}</td>
                       <td className="table-words-l">{asset.category.name}</td>
 
@@ -743,7 +743,7 @@ const ReportPage = () => {
                     const allocationData = getAllocationData(asset.id);
                     return (
                       <tr key={`${asset.id}-${index}`}>
-                        <td className="table-numb-r">{asset.numb_inv}</td>
+                        <td>{asset.numb_inv}</td>
                         <td className="table-words-l">{asset.numb_ser}</td>
                         <td className="table-words-l">{asset.category.name}</td>
 

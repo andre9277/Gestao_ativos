@@ -37,7 +37,7 @@ export default function AssetForm() {
 
   //Meanwhile the table isnt loading we show a loading string
   const [loading, setLoading] = useState(false);
-  const { setNotification } = useStateContext();
+  const { user, setNotification } = useStateContext();
 
   //States to get the list of selected options
   const [cats, setCats] = useState([]);
@@ -154,26 +154,45 @@ export default function AssetForm() {
   const onSubmit = (ev) => {
     ev.preventDefault();
 
+    const data = {
+      allocation_date: asset.created_at,
+      ser_number: asset.numb_ser,
+      action_type: "Atualiza",
+      user_id: user.id,
+      asset_id: asset.id,
+      other: null,
+      reason: null,
+    };
+
+    //if asset id exists: it updates
     //if asset id exists: it updates
     if (asset.id) {
-      setLoading(true);
       axiosClient
-        .put(`/assets/${asset.id}`, asset)
+        .post("/assetMovement", data)
         .then(() => {
-          setLoading(false);
-          //update with good outcome
-          setNotification("Ativo atualizado com sucesso!");
-          //redirect to the page with assets
-          navigate("/assets");
+          setLoading(true);
+          axiosClient
+            .put(`/assets/${asset.id}`, asset)
+            .then(() => {
+              setLoading(false);
+              //update with good outcome
+              setNotification("Ativo atualizado com sucesso!");
+              //redirect to the page with assets
+              navigate("/assets");
+            })
+            .catch((err) => {
+              setLoading(false);
+              const response = err.response;
+              if (response && response.status === 422) {
+                setErrors(response.data.errors);
+              }
+            });
         })
         .catch((err) => {
-          setLoading(false);
-          const response = err.response;
-          if (response && response.status === 422) {
-            setErrors(response.data.errors);
-          }
+          // Handle error for the first axiosClient.post() request
         });
     }
+
     //or it will create a new asset
     else {
       axiosClient

@@ -613,7 +613,7 @@ export default function Assets() {
                     <td className="table-words-l">{a.category.name}</td>
                     <td className="table-words-l">{a.brand.name}</td>
                     <td className="table-words-l">{a.modelo.name}</td>
-                    <td className="table-numb-r">{a.numb_inv}</td>
+                    <td>{a.numb_inv}</td>
                     <td className="table-words-l">{a.numb_ser}</td>
                     <td className="table-words-l">{a.entity.ent_name}</td>
                     <td className="table-words-l">
@@ -657,7 +657,7 @@ export default function Assets() {
                     <td className="table-words-l">{asset.category.name}</td>
                     <td className="table-words-l">{asset.brand.name}</td>
                     <td className="table-words-l">{asset.modelo.name}</td>
-                    <td className="table-numb-r">{asset.numb_inv}</td>
+                    <td>{asset.numb_inv}</td>
                     <td className="table-words-l">{asset.numb_ser}</td>
                     <td className="table-words-l">{asset.entity.ent_name}</td>
                     <td className="table-words-l">
