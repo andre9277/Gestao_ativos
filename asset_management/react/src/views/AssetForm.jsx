@@ -167,6 +167,13 @@ export default function AssetForm() {
     //if asset id exists: it updates
     //if asset id exists: it updates
     if (asset.id) {
+      if (
+        !window.confirm(
+          "Tem a certeza que pretende guardar as alterações realizadas no ativo?"
+        )
+      ) {
+        return;
+      }
       axiosClient
         .post("/assetMovement", data)
         .then(() => {
@@ -195,6 +202,10 @@ export default function AssetForm() {
 
     //or it will create a new asset
     else {
+      if (!window.confirm("Tem a certeza que pretende adicionar o ativo?")) {
+        return;
+      }
+
       axiosClient
         .post("/assets", asset)
         .then(() => {

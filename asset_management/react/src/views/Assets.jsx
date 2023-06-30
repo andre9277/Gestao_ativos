@@ -36,6 +36,7 @@ import "../styles/Dashboard.css";
 import ColumnMenuFilter from "../components/ColumnMenuFilter.jsx";
 import PaginationFilter from "../components/PaginationFilter.jsx";
 import SelectFilter from "../components/SelectFilter.jsx";
+import { Modal, Button } from "react-bootstrap";
 
 export default function Assets() {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ export default function Assets() {
   const [loading, setLoading] = useState(false);
   //const [loadingAll, setLoadingAll] = useState(false);
   const [meta, setMeta] = useState({});
-  const { user } = useStateContext();
+  const { user, setNotification } = useStateContext();
 
   const [cats, setCats] = useState([]);
   const [brands, setBrands] = useState([]);
@@ -71,6 +72,10 @@ export default function Assets() {
 
   const abortControllerRef = useRef(null);
   const abortControllerrRef = useRef(null);
+
+  const [show, setShow] = useState(false);
+
+  const [deleteConfirmed, setDeleteConfirmed] = useState(false);
 
   useEffect(() => {
     getAssets();
@@ -237,21 +242,14 @@ export default function Assets() {
   };
 
   /*------------Button Apagar------------------------------*/
-  const onDeleteClick = () => {
+  /*   const onDeleteClick = () => {
+    setShow(true); // Close the modal
+
     // Get the IDs of all the checked assets
     const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
 
     // If no assets are checked, return
     if (checkedAssetIds.length === 0) {
-      return;
-    }
-
-    // Confirmation of asset deletion
-    if (
-      !window.confirm(
-        "Tem a certeza que pretende eliminar o(s) ativo(s) selecionado(s)?"
-      )
-    ) {
       return;
     }
 
@@ -271,7 +269,7 @@ export default function Assets() {
 
         // Handle error if necessary...
       });
-  };
+  }; */
 
   //-----------Handle click to edit an asset-----------------------------
   const onEditClick = () => {
@@ -419,8 +417,74 @@ export default function Assets() {
     setDropdownOpen(!dropdownOpen);
   };
 
+  /*   const handleClose = () => {
+    setShow(false);
+  }; */
+
+  const onDeleteClick = () => {
+    setShow(true); // Show the modal
+  };
+
+  const handleDeleteConfirm = () => {
+    setDeleteConfirmed(true);
+    setShow(false); // Close the modal
+  };
+
+  const handleClose = () => {
+    setShow(false);
+  };
+
+  // Execute the delete operation when deleteConfirmed is true
+  useEffect(() => {
+    if (deleteConfirmed) {
+      // Get the IDs of all the checked assets
+      const checkedAssetIds = assets
+        .filter((a) => a.checked)
+        .map((as) => as.id);
+
+      // If no assets are checked, return
+      if (checkedAssetIds.length === 0) {
+        return;
+      }
+
+      // Create the URL with the asset IDs
+      const url = `/assets/${checkedAssetIds.join(",")}`;
+
+      // Send the DELETE request
+      axiosClient
+        .delete(url)
+        .then(() => {
+          setNotification("Ativo(s) apagado(s) com sucesso!");
+          // Fetch assets again to update the UI
+          getAssets();
+        })
+        .catch((error) => {
+          console.error("Erro ao apagar ativo(s):", error);
+
+          // Handle error if necessary...
+        });
+
+      // Reset deleteConfirmed to false
+      setDeleteConfirmed(false);
+    }
+  }, [deleteConfirmed]);
+
   return (
     <div id="content">
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmação</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Deseja apagar o(s) ativo(s) selecionado(s)!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleDeleteConfirm}>
+            Apagar
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Cancelar
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div
         style={{
           display: "flex",
