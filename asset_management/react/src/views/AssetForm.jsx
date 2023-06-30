@@ -369,12 +369,16 @@ export default function AssetForm() {
                 className="infoInp-select"
                 required
               >
-                <option value=""></option>
-                {brands.map((brand) => (
-                  <option key={brand.id} value={brand.id}>
-                    {brand.name}
-                  </option>
-                ))}
+                {brands.length != 0 ? <option value=""></option> : ""}
+                {brands.length === 0 ? (
+                  <option>{asset.brand.name}</option>
+                ) : (
+                  brands.map((brand) => (
+                    <option key={brand.id} value={brand.id}>
+                      {brand.name}
+                    </option>
+                  ))
+                )}
               </select>
             </label>
 

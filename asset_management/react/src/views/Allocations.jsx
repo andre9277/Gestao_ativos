@@ -297,7 +297,7 @@ export default function Allocations() {
                 max="YYYY-MM-DD"
                 className="dt-inpt-allo"
               />
-              {console.log("startDate", startDate)}
+
               <p></p>
 
               <label className="lb-allo-dt">
@@ -322,7 +322,7 @@ export default function Allocations() {
                 max="YYYY-MM-DD"
                 className="dt-inpt-allo"
               />
-              {console.log("endDate", endDate)}
+
               {error && startDate > endDate && (
                 <p className="err-allo-dt">{errorMsg}</p>
               )}
