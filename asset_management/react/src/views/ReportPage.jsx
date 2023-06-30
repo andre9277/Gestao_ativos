@@ -654,30 +654,30 @@ const ReportPage = () => {
                       : null; */
                   return (
                     <tr key={`${asset.id}-${index}`}>
-                      <td>{asset.numb_inv}</td>
-                      <td>{asset.numb_ser}</td>
-                      <td>{asset.category.name}</td>
+                      <td className="table-numb-r">{asset.numb_inv}</td>
+                      <td className="table-words-l">{asset.numb_ser}</td>
+                      <td className="table-words-l">{asset.category.name}</td>
 
-                      <td>
+                      <td className="table-words-l">
                         {asset.previous_unit_id === null
                           ? filtered_entities(asset.previous_ent_id)
                           : filtered_units(asset.previous_unit_id)}
                       </td>
 
-                      <td>
+                      <td className="table-words-l">
                         {asset.units === null
                           ? asset.entity.ent_name
                           : asset.units.name}
                       </td>
-                      <td>{asset.previous_ci}</td>
-                      <td>{asset.ci}</td>
+                      <td className="table-words-l">{asset.previous_ci}</td>
+                      <td className="table-words-l">{asset.ci}</td>
 
-                      <td>
+                      <td className="table-words-l">
                         {asset.user === undefined
                           ? allocationData.user
                           : asset.user}
                       </td>
-                      <td>
+                      <td className="table-numb-r">
                         {asset.allocation_date === undefined
                           ? allocationData.date
                           : asset.allocation_date}
@@ -743,30 +743,30 @@ const ReportPage = () => {
                     const allocationData = getAllocationData(asset.id);
                     return (
                       <tr key={`${asset.id}-${index}`}>
-                        <td>{asset.numb_inv}</td>
-                        <td>{asset.numb_ser}</td>
-                        <td>{asset.category.name}</td>
+                        <td className="table-numb-r">{asset.numb_inv}</td>
+                        <td className="table-words-l">{asset.numb_ser}</td>
+                        <td className="table-words-l">{asset.category.name}</td>
 
-                        <td>
+                        <td className="table-words-l">
                           {asset.previous_unit_id === null
                             ? filtered_entities(asset.previous_ent_id)
                             : filtered_units(asset.previous_unit_id)}
                         </td>
 
-                        <td>
+                        <td className="table-words-l">
                           {asset.units === null
                             ? asset.entity.ent_name
                             : asset.units.name}
                         </td>
-                        <td>{asset.previous_ci}</td>
-                        <td>{asset.ci}</td>
+                        <td className="table-words-l">{asset.previous_ci}</td>
+                        <td className="table-words-l">{asset.ci}</td>
 
-                        <td>
+                        <td className="table-words-l">
                           {asset.user === null
                             ? allocationData.user
                             : asset.user}
                         </td>
-                        <td>{allocationData.date}</td>
+                        <td className="table-numb-r">{allocationData.date}</td>
                         <td>
                           <i
                             className="fa fa-info-circle"

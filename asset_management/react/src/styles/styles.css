@@ -13691,3 +13691,11 @@ button {
 .paginator-btn {
     margin-top: auto;
 }
+
+.table-words-l {
+    text-align: left;
+}
+
+.table-numb-r {
+    text-align: right;
+}

@@ -610,16 +610,18 @@ export default function Assets() {
               {!isButtonClicked && filteredAllocations.length === 0 ? (
                 assets.map((a) => (
                   <tr key={a.id}>
-                    <td>{a.category.name}</td>
-                    <td>{a.brand.name}</td>
-                    <td>{a.modelo.name}</td>
-                    <td>{a.numb_inv}</td>
-                    <td>{a.numb_ser}</td>
-                    <td>{a.entity.ent_name}</td>
-                    <td>{a.units === null ? "" : a.units.name}</td>
+                    <td className="table-words-l">{a.category.name}</td>
+                    <td className="table-words-l">{a.brand.name}</td>
+                    <td className="table-words-l">{a.modelo.name}</td>
+                    <td className="table-numb-r">{a.numb_inv}</td>
+                    <td className="table-words-l">{a.numb_ser}</td>
+                    <td className="table-words-l">{a.entity.ent_name}</td>
+                    <td className="table-words-l">
+                      {a.units === null ? "" : a.units.name}
+                    </td>
                     <td>{a.floor}</td>
                     <td>{a.ala}</td>
-                    <td>{a.ci}</td>
+                    <td className="table-words-l">{a.ci}</td>
                     <td>
                       {a.state === "Ativo" ? (
                         <div className="circle active"></div>
@@ -627,7 +629,7 @@ export default function Assets() {
                         <div className="circle inactive"></div>
                       )}
                     </td>
-                    <td>{a.created_at}</td>
+                    <td className="table-numb-r">{a.created_at}</td>
 
                     {user.role_id === 3 ? null : (
                       <td>
@@ -652,17 +654,18 @@ export default function Assets() {
               ) : (
                 filteredAllocations.slice(startIndex, endIndex).map((asset) => (
                   <tr key={asset.id}>
-                    {console.log(asset)}
-                    <td>{asset.category.name}</td>
-                    <td>{asset.brand.name}</td>
-                    <td>{asset.modelo.name}</td>
-                    <td>{asset.numb_inv}</td>
-                    <td>{asset.numb_ser}</td>
-                    <td>{asset.entity.ent_name}</td>
-                    <td>{asset.units === null ? "" : asset.units.name}</td>
+                    <td className="table-words-l">{asset.category.name}</td>
+                    <td className="table-words-l">{asset.brand.name}</td>
+                    <td className="table-words-l">{asset.modelo.name}</td>
+                    <td className="table-numb-r">{asset.numb_inv}</td>
+                    <td className="table-words-l">{asset.numb_ser}</td>
+                    <td className="table-words-l">{asset.entity.ent_name}</td>
+                    <td className="table-words-l">
+                      {asset.units === null ? "" : asset.units.name}
+                    </td>
                     <td>{asset.floor}</td>
                     <td>{asset.ala}</td>
-                    <td>{asset.ci}</td>
+                    <td className="table-words-l">{asset.ci}</td>
                     <td>
                       {asset.state === "Ativo" ? (
                         <div className="circle active"></div>
@@ -670,7 +673,7 @@ export default function Assets() {
                         <div className="circle inactive"></div>
                       )}
                     </td>
-                    <td>{asset.created_at}</td>
+                    <td className="table-numb-r">{asset.created_at}</td>
 
                     {user.role_id === 3 ? null : (
                       <td>
