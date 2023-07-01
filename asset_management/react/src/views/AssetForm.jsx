@@ -31,6 +31,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import { useStateContext } from "../context/ContextProvider.jsx";
+import { Modal, Button } from "react-bootstrap";
 
 export default function AssetForm() {
   const [errors, setErrors] = useState(null);
@@ -150,62 +151,35 @@ export default function AssetForm() {
     import_type: "",
   });
 
-  //When the user submits the request
   const onSubmit = (ev) => {
     ev.preventDefault();
 
-    const data = {
-      allocation_date: asset.created_at,
-      ser_number: asset.numb_ser,
-      action_type: "Atualiza",
-      user_id: user.id,
-      asset_id: asset.id,
-      other: null,
-      reason: null,
-    };
+    // Open the confirmation modal
+    setShowConfirmModal(true);
+  };
+  //When the user submits the request
 
-    //if asset id exists: it updates
-    //if asset id exists: it updates
+  const handleConfirmSave = () => {
+    setShowConfirmModal(false); // Close the confirmation modal
     if (asset.id) {
-      if (
-        !window.confirm(
-          "Tem a certeza que pretende guardar as alterações realizadas no ativo?"
-        )
-      ) {
-        return;
-      }
+      // Update existing asset
+      setLoading(true);
       axiosClient
-        .post("/assetMovement", data)
+        .put(`/assets/${asset.id}`, asset)
         .then(() => {
-          setLoading(true);
-          axiosClient
-            .put(`/assets/${asset.id}`, asset)
-            .then(() => {
-              setLoading(false);
-              //update with good outcome
-              setNotification("Ativo atualizado com sucesso!");
-              //redirect to the page with assets
-              navigate("/assets");
-            })
-            .catch((err) => {
-              setLoading(false);
-              const response = err.response;
-              if (response && response.status === 422) {
-                setErrors(response.data.errors);
-              }
-            });
+          setLoading(false);
+          setNotification("Ativo atualizado com sucesso!");
+          navigate("/assets");
         })
         .catch((err) => {
-          // Handle error for the first axiosClient.post() request
+          setLoading(false);
+          const response = err.response;
+          if (response && response.status === 422) {
+            setErrors(response.data.errors);
+          }
         });
-    }
-
-    //or it will create a new asset
-    else {
-      if (!window.confirm("Tem a certeza que pretende adicionar o ativo?")) {
-        return;
-      }
-
+    } else {
+      // Add new asset
       axiosClient
         .post("/assets", asset)
         .then(() => {
@@ -221,6 +195,15 @@ export default function AssetForm() {
     }
   };
 
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  const handleCancelSave = () => {
+    setShowConfirmModal(false); // Close the confirmation modal
+  };
+
+  const handleSave = () => {
+    setShowConfirmModal(true); // Open the confirmation modal
+  };
   //---------Functions that allow the change of some values-------------
   const handleEntityChange = (event) => {
     const selectedEntity = event.target.value;
@@ -295,6 +278,25 @@ export default function AssetForm() {
 
   return (
     <>
+      {" "}
+      <Modal show={showConfirmModal} onHide={handleCancelSave}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmação</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {asset.id
+            ? "Deseja atualizar o ativo selecionado?"
+            : "Deseja adicionar o ativo?"}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleConfirmSave}>
+            Confirmar
+          </Button>
+          <Button variant="primary" onClick={handleCancelSave}>
+            Cancelar
+          </Button>
+        </Modal.Footer>
+      </Modal>
       {asset.id && (
         <h1 className="title-page-all">Atualizar Ativo: {asset.numb_inv}</h1>
       )}
@@ -619,7 +621,12 @@ export default function AssetForm() {
                   value="Limpar"
                   className="btn-cleanfilter-assett"
                 />
-                <button className="btn-adicionar-assetFormm">Guardar</button>
+                <button
+                  className="btn-adicionar-assetFormm"
+                  onClick={handleSave}
+                >
+                  Guardar
+                </button>
               </label>
             </div>
           </form>
