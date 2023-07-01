@@ -12843,6 +12843,7 @@ select {
     padding: 2em;
     font-size: revert;
     padding-left: 115px;
+    margin-bottom: 40px;
 }
 
 .assetForm-assett {

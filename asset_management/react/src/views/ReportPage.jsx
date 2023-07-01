@@ -506,6 +506,7 @@ const ReportPage = () => {
                 <button
                   className="btn-filter text-link"
                   onClick={toggleDropdown}
+                  title="Filtro"
                 >
                   <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
                 </button>
@@ -518,6 +519,7 @@ const ReportPage = () => {
                     <i
                       className="fa fa-exchange-alt fa-lg"
                       aria-hidden="true"
+                      title="Movimento de um ativo"
                     ></i>
                   </button>
                 )}
@@ -596,7 +598,12 @@ const ReportPage = () => {
                 </div>
               </div>
               {/* ------------Button download------------ */}
-              <button onClick={downloadCSV} className="btn-dwl">
+              <button
+                onClick={downloadCSV}
+                className="btn-dwl"
+                alt="Download CSV"
+                title="Download CSV"
+              >
                 <i className="fa fa-download fa-lg" aria-hidden="true"></i>
               </button>
             </>
@@ -610,10 +617,10 @@ const ReportPage = () => {
               <th>Nº Inventário</th>
               <th>Nº Série</th>
               <th>Categoria</th>
-              <th>Local(Anterior)</th>
-              <th>Local(Atual)</th>
-              <th>CI(Anterior)</th>
-              <th>CI(Atual)</th>
+              <th>Local (Anterior)</th>
+              <th>Local (Atual)</th>
+              <th>CI (Anterior)</th>
+              <th>CI (Atual)</th>
               <th>Utilizador</th>
               <th>Movido em</th>
               <th></th>

@@ -81,10 +81,10 @@ const Filter = ({
       </div>
       <div className="alloca-icons">
         <button onClick={handleDwl} className="btn-dwl">
-          <i className="fa fa-download fa-lg" aria-hidden="true"></i>
+          Download
         </button>
         <button onClick={resetFilter} className="btn-filter">
-          <i className="fa fa-eraser fa-lg" aria-hidden="true"></i>
+          Limpar
         </button>
       </div>
     </div>

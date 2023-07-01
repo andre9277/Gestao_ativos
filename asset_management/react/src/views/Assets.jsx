@@ -469,7 +469,11 @@ export default function Assets() {
                   className="btn-filter text-link"
                   onClick={toggleDropdown}
                 >
-                  <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
+                  <i
+                    className="fa fa-filter fa-lg"
+                    aria-hidden="true"
+                    title="Filtro"
+                  ></i>
                 </button>
                 <div
                   className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
@@ -530,14 +534,22 @@ export default function Assets() {
                 className="btn-add text-link"
                 onClick={(ev) => onAddClick()}
               >
-                <i className="fa fa-plus fa-lg" aria-hidden="true"></i>
+                <i
+                  className="fa fa-plus fa-lg"
+                  aria-hidden="true"
+                  title="Adicionar"
+                ></i>
               </button>
               {/* ----------Edit button ----------*/}
               <button
                 className=" btn-edit text-link"
                 onClick={(ev) => onEditClick()}
               >
-                <i className="fa fa-pencil-alt fa-lg" aria-hidden="true"></i>
+                <i
+                  className="fa fa-pencil-alt fa-lg"
+                  aria-hidden="true"
+                  title="Editar"
+                ></i>
               </button>
               &nbsp;
               {/* ----------Delete button ----------*/}
@@ -545,7 +557,11 @@ export default function Assets() {
                 className="btn-delete text-link"
                 onClick={(ev) => onDeleteClick()}
               >
-                <i className="fa fa-trash fa-lg" aria-hidden="true"></i>
+                <i
+                  className="fa fa-trash fa-lg"
+                  aria-hidden="true"
+                  title="Apagar"
+                ></i>
               </button>
             </>
           )}

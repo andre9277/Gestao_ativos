@@ -284,8 +284,9 @@ const ImportForm = () => {
       {!loading && (
         <div>
           <p></p>
+          <p></p>
           <label htmlFor="fileInput" className="impLab">
-            <h5>Preencha os campos dos ativos a inserir:</h5>
+            <h4>Dados dos ativos:</h4>
           </label>
           <p className="camp-obs-mov">*Campo Obrigatório</p>
           <p></p>
@@ -404,7 +405,11 @@ const ImportForm = () => {
           </label>
           <p></p>
           <p></p>
-
+          <div>
+            <button onClick={handleDownload} className="dwlTemp">
+              Download Template
+            </button>
+          </div>
           {/*------Ficheiro upload de ativos------*/}
           <h5 htmlFor="fileInput" className="impLab">
             <p></p>
@@ -427,11 +432,6 @@ const ImportForm = () => {
           {errorMessage && <p className="errMess">{errorMessage}</p>}
 
           <div className="impt-temp">
-            <div>
-              <button onClick={handleDownload} className="dwlTemp">
-                Download Template
-              </button>
-            </div>
             <p></p>
             <div className="asset-importt">
               <ul>

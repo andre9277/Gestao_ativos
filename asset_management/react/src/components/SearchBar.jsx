@@ -172,6 +172,7 @@ const Search = () => {
           <button
             type="submit"
             className="botaosearch fas fa-search fa-sm"
+            title={"Procurar"}
           ></button>
           {/*Icon bar code for users to scan */}
           <Link to="/scan">
