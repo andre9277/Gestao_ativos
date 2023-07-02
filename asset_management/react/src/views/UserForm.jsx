@@ -148,7 +148,7 @@ export default function UserForm() {
               {" "}
               <label className="labelofLabel">
                 {" "}
-                Nome<label className="cmp-obg">*</label>:{" "}
+                Nome:<label className="cmp-obg">*</label>{" "}
               </label>
               <input
                 value={user.name}
@@ -158,7 +158,7 @@ export default function UserForm() {
             </label>
             <label className="lb-info">
               <label className="labelofLabel">
-                Email<label className="cmp-obg">*</label>:{" "}
+                Email:<label className="cmp-obg">*</label>{" "}
               </label>
               <input
                 type="email"
@@ -170,7 +170,7 @@ export default function UserForm() {
 
             <label className="lb-info">
               <label className="labelofLabel">
-                Nº Mec.<label className="cmp-obg">*</label>:{" "}
+                Nº Mec.:<label className="cmp-obg">*</label>{" "}
               </label>
               <input
                 value={user.mec}
@@ -178,26 +178,10 @@ export default function UserForm() {
                 className="infoInp"
               />
             </label>
-
-            <label className="lb-info">
-              <label className="labelofLabel">
-                {" "}
-                Password<label className="cmp-obg">*</label>:{" "}
-              </label>
-              <input
-                value={user.password}
-                type="password"
-                onChange={(ev) =>
-                  setUser({ ...user, password: ev.target.value })
-                }
-                className="infoInp"
-              />
-            </label>
-
             <label htmlFor="role" className="lb-info">
               <label className="labelofLabel">
                 {" "}
-                Função<label className="cmp-obg">*</label>:{" "}
+                Função:<label className="cmp-obg">*</label>{" "}
               </label>
               <select
                 className="infoInp-select"
@@ -213,6 +197,33 @@ export default function UserForm() {
                 <option value="2">Sistemas de Informação</option>
                 <option value="3">Manutenção</option>
               </select>
+            </label>
+
+            <label className="lb-info">
+              <label className="labelofLabel">
+                {" "}
+                Password:<label className="cmp-obg">*</label>{" "}
+              </label>
+              <input
+                value={user.password}
+                type="password"
+                onChange={(ev) =>
+                  setUser({ ...user, password: ev.target.value })
+                }
+                className="infoInp"
+              />
+            </label>
+            <label className="lb-info"></label>
+            <label className="lb-info">
+              Confirmação Password:<label className="cmp-obg">*</label>
+              <input
+                value={user.password_confirmation}
+                type="password"
+                onChange={(ev) =>
+                  setUser({ ...user, password_confirmation: ev.target.value })
+                }
+                className="infoInp"
+              />
             </label>
 
             <label className="lb-info-btn">
