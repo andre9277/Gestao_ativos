@@ -141,7 +141,7 @@ const router = createBrowserRouter([
     element: <ForgotPassword />,
   },
   {
-    path: "/forgotPasswordForm",
+    path: "/forgotPasswordForm/:token",
     element: <PasswordResetForm />,
   },
   {

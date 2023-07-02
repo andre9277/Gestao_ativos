@@ -51,13 +51,13 @@ const PasswordResetForm = () => {
           onChange={handleEmailChange}
           required
         />
-        <label>Token:</label>
+        {/*         <label>Token:</label>
         <input
           type="text"
           value={token}
           onChange={handleTokenChange}
           required
-        />
+        /> */}
         <label>New Password:</label>
         <input
           type="password"

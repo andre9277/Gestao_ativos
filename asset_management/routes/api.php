@@ -32,8 +32,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 // routes/api.php
+//Sends the link for the password
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
-Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
+
+Route::post('/reset-password', [ForgotPasswordController::class, 'reset']);
 
 
 
