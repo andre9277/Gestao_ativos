@@ -36,7 +36,7 @@ const Footer = () => {
         <div className="container-fluid px-4">
           <div className="d-flex align-items-center justify-content-between small">
             <div className="text-muted">
-              Copyright &copy; Hospital de Braga 2023
+              &copy; 2023 Todos os direitos reservados
             </div>
           </div>
         </div>
