@@ -175,9 +175,9 @@ const Search = () => {
             title={"Procurar"}
           ></button>
           {/*Icon bar code for users to scan */}
-          <Link to="/scan">
+          {/* <Link to="/scan">
             <i className="fa fa-barcode fa-2x" aria-hidden="true"></i>
-          </Link>
+          </Link> */}
         </div>
       </form>
       <div className="error-search">
