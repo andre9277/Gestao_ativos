@@ -24,7 +24,7 @@ class StoreAssetRequest extends FormRequest
     public function rules()
     {
         return [
-            'numb_ser' => ['required', 'size:25', 'unique:assets,numb_ser',],
+            'numb_ser' => ['required', 'max:25', 'unique:assets,numb_ser',],
             'cond' => 'required',
             'state' => 'required',
             'cat_id' => 'required',
@@ -50,7 +50,7 @@ class StoreAssetRequest extends FormRequest
             'numb_inv.size' => 'Atenção! O Número de Inventário deve ter exatamente 6 algarismos.',
             'numb_inv.regex' => 'Atenção! O Número de Inventário deve ter 0 como primeiro algarismo.',
             'numb_inv.unique' => 'Atenção! O Número de Inventário já foi adicionado.',
-            'numb_ser.size' => 'Atenção! O Número de Série não pode ter maid de 25 caracteres.',
+            'numb_ser.max' => 'Atenção! O Número de Série não pode ter mais de 25 caracteres.',
 
             'ent_id' => 'Atenção! É necessário indicar a entidade.',
             'numb_ser' => 'Atenção! É necessário indicar o número de série.',
