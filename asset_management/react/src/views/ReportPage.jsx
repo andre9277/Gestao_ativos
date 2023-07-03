@@ -700,6 +700,7 @@ const ReportPage = () => {
                               className="fa fa-info-circle"
                               aria-hidden="true"
                               onClick={() => handleDropdownToggle(asset.id)}
+                              title="Observação"
                             ></i>
                             {selectedAsset === asset.id && showDropdown && (
                               <div
@@ -780,6 +781,7 @@ const ReportPage = () => {
                             className="fa fa-info-circle"
                             aria-hidden="true"
                             onClick={() => handleDropdownToggle(asset.id)}
+                            title="Observação"
                           ></i>
                           {selectedAsset === asset.id && showDropdown && (
                             <div
