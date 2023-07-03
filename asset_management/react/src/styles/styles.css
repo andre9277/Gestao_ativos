@@ -7898,7 +7898,7 @@ fieldset:disabled .btn {
 .back-col-login {
     min-height: "100vh";
     padding: 10rem;
-    background: rgb(37, 97, 5);
+
     background: linear-gradient(
         135deg,
         rgba(37, 97, 5, 1) 0%,
@@ -12238,7 +12238,11 @@ body {
 #layoutAuthentication #layoutAuthentication_content {
     min-width: 0;
     flex-grow: 1;
-    background-color: #007840;
+    background: linear-gradient(
+        135deg,
+        rgba(37, 97, 5, 1) 0%,
+        rgba(106, 170, 71, 1) 100%
+    );
 }
 #layoutAuthentication #layoutAuthentication_footer {
     min-width: 0;
