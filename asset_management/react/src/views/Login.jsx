@@ -128,11 +128,6 @@ export default function Login() {
                         Esqueceu-se da password?
                       </Link>
                     </p>
-                    <p className="small mb-5 pb-lg-3 ms-5">
-                      <Link to="/forgotPasswordForm" className="small">
-                        Reset
-                      </Link>
-                    </p>
                   </div>
                 </form>
                 <div className="footer-copyR">

@@ -13699,3 +13699,42 @@ button {
 .table-numb-r {
     text-align: right;
 }
+
+.rec-pass {
+    width: auto;
+    margin-bottom: auto;
+}
+
+.inp-res-pass {
+    width: auto;
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.btn-rec-pass {
+    background-color: #00a762;
+    padding: 0.5rem 0.75rem;
+    font-size: 20px;
+    border-radius: 4px;
+    color: white;
+}
+
+.ms-rec-pass {
+    color: #d8000c;
+    background-color: #ffbaba;
+    text-align: center;
+    width: inherit;
+    padding: 0.5rem;
+}
+
+.reset-pass-forms {
+    align-items: center;
+}
+
+.ms-rec-pass-conf {
+    color: var(--bs-green);
+    background-color: #119d21;
+    text-align: center;
+    width: inherit;
+    padding: 0.5rem;
+}

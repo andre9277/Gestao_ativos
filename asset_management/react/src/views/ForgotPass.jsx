@@ -27,17 +27,42 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/styles.css";
 import { Link } from "react-router-dom";
+import axiosClient from "../axios-client.js";
 
 const ForgotPass = () => {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axiosClient.post("/forgot-password", { email });
+      setMessage("Verifique o seu email");
+    } catch (error) {
+      setMessage("Erro!");
+    }
+  };
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage("");
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
+
   return (
     <div id="layoutAuthentication">
       <div id="layoutAuthentication_content">
         <main>
           <div className="container">
-            <div className="row justify-content-center">
+            <div className="justify-content-center">
               <div className="col-lg-5">
                 <div className="card shadow-lg border-0 rounded-lg mt-5">
                   <div className="card-header">
@@ -50,25 +75,38 @@ const ForgotPass = () => {
                       Insira o seu endereço de email. Um link será enviado para
                       recuperar a sua password.
                     </div>
-                    <form>
-                      <div className="form-floating mb-3">
+                    <form onSubmit={handleSubmit} className="reset-pass-forms">
+                      <div className=" mb-3">
+                        <label className="rec-pass">Endereço de email:</label>
+                      </div>
+                      <div>
                         <input
-                          className="form-control"
-                          id="inputEmail"
+                          className="inp-res-pass"
                           type="email"
-                          placeholder="name@example.com"
+                          placeholder="Insira o seu email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
                         />
-                        <label htmlFor="inputEmail">Endereço de email</label>
+
+                        <button type="submit" className="btn-rec-pass">
+                          Recuperar Password
+                        </button>
                       </div>
                       <div className="d-flex align-items-center justify-content-between mt-4 mb-0">
                         <Link to="/" className="small">
                           Login
                         </Link>
-                        <a className="btn btn-primary" href="login.html">
-                          Recuperar Password
-                        </a>
                       </div>
                     </form>
+                    {message && (
+                      <div>
+                        {message === "Verifique o seu email" ? (
+                          <div className="ms-rec-pass-conf">{message}</div>
+                        ) : (
+                          <div className="ms-rec-pass">{message}</div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
