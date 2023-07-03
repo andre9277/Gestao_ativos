@@ -124,6 +124,11 @@ const Search = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    if (!assetNumber) {
+      setErrorMessage("Por favor, insira um valor!");
+      return;
+    }
+
     // Sort the assets array by asset number (assuming it's not already sorted)
     const sortedAssets = [...assets].sort((a, b) => {
       if (a.numb_ser === null && b.numb_ser === null) {
@@ -148,7 +153,7 @@ const Search = () => {
     if (matchedAsset) {
       navigate(`/infoasset/${matchedAsset.id}`);
     } else {
-      setErrorMessage("Ativo não existe!");
+      setErrorMessage("Não encontrado, tente novamente!");
     }
 
     setAssetNumber("");
