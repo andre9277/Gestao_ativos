@@ -109,8 +109,10 @@ export default function Login() {
                       ref={passwordRef}
                       autoComplete="false"
                     />
+                    <div className="space"></div>
 
                     <button className="btn-login-main ">Log in</button>
+                    <div className="space"></div>
                     <p className="small mb-5 pb-lg-3 ms-5">
                       <Link to="/forgotPassword" className="small">
                         Esqueceu-se da password?
