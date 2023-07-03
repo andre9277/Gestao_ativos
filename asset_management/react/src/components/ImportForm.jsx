@@ -30,7 +30,6 @@ All the changes made to enable the implementation of the desired development too
 import React from "react";
 import axiosClient from "../axios-client.js";
 import { useState, useEffect } from "react";
-import { FaCircle } from "react-icons/fa";
 
 const ImportForm = () => {
   const [loading, setLoading] = useState(false);
@@ -286,7 +285,8 @@ const ImportForm = () => {
           <p></p>
           <p></p>
           <label htmlFor="fileInput" className="impLab">
-            <h4>Dados dos ativos:</h4>
+            <p></p>
+            <h2>Dados dos ativos:</h2>
           </label>
           <p className="camp-obs-mov">*Campo Obrigatório</p>
           <p></p>
