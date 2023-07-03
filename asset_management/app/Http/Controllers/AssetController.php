@@ -103,7 +103,10 @@ class AssetController extends Controller
     {
         $this->authorize('create-edit');
 
-        $asset = Asset::create($request->all());
+        $data = $request->all();
+        $data['import_type'] = 'bulk'; // Set the import_type field to "bulk"
+
+        $asset = Asset::create($data);
 
         // Create a new allocation record for the asset with action type "create"
         $allocation = new Allocation([
@@ -111,7 +114,6 @@ class AssetController extends Controller
             'action_type' => 'Adiciona',
             'ser_number' => $asset->numb_ser,
             'user_id' => auth()->user()->id
-
         ]);
 
         // Associate the new allocation record with the asset
@@ -119,6 +121,7 @@ class AssetController extends Controller
 
         return $asset;
     }
+
 
     //For the dashboard statistics
     public function count(Asset $asset)
