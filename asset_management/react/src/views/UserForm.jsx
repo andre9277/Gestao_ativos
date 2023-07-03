@@ -215,7 +215,7 @@ export default function UserForm() {
             </label>
             <label className="lb-info"></label>
             <label className="lb-info">
-              Confirmação Password:<label className="cmp-obg">*</label>
+              Confirmar Password:<label className="cmp-obg">*</label>
               <input
                 value={user.password_confirmation}
                 type="password"
