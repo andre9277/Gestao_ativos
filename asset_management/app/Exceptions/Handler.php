@@ -52,7 +52,7 @@ class Handler extends ExceptionHandler
     protected function invalidJson($request, ValidationException $exception)
     {
         return response()->json([
-            'message' => __('Alguns campos não são válidos.'),
+            'message' => __('Atenção! Email ou password incorreto(s), tente novamente!'),
             'errors' => $exception->errors(),
         ], $exception->status);
     }

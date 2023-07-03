@@ -91,13 +91,7 @@ export default function Login() {
                       <p>{message}</p>
                     </div>
                   )}
-                  <div className="d-flex flex-column justify-content-center h-custom-2 w-75 pt-4">
-                    <h3
-                      className="fw-normal mb-3 ps-5 pb-3"
-                      style={{ letterSpacing: "1px" }}
-                    >
-                      Log in
-                    </h3>
+                  <div className="login-main-box">
                     <MDBInput
                       wrapperClass="mb-4 mx-5 w-100"
                       label="Endereço de email"

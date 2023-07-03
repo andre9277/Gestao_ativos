@@ -13744,3 +13744,12 @@ button {
     width: inherit;
     padding: 0.5rem;
 }
+
+.btn-login-main {
+    width: auto;
+}
+
+.login-main-box {
+    width: auto;
+    padding-top: 5rem;
+}
