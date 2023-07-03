@@ -58,7 +58,7 @@ export default function Assets() {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedEnt, setSelectedEnt] = useState("");
-
+  const [originalModels, setOriginalModels] = useState([]);
   const [allDados, setAllDados] = useState([]);
 
   const [isButtonClicked, setIsButtonClicked] = useState(false);
@@ -119,6 +119,7 @@ export default function Assets() {
         setLoading(false);
         setCats(responses[0].data.cats);
         setBrands(responses[0].data.brands);
+        setOriginalModels(responses[0].data.models);
         setModelos(responses[0].data.models);
         setFloor(responses[0].data.floor);
         setAllDados(responses[0].data.assets); //Gets all data from the assets
@@ -261,8 +262,28 @@ export default function Assets() {
 
   //-------------Handle change of the columns----------------------------
   const handleCategoryChange = (event) => {
-    const selectedCategory = event.target.value;
-    setSelectedCategory(selectedCategory);
+    const selectedCategoryName = event.target.value;
+
+    // Find the category object based on the selected name
+    const selectedCategory = cats.find(
+      (category) => category.name === selectedCategoryName
+    );
+
+    if (selectedCategory) {
+      setSelectedCategory(selectedCategoryName);
+
+      setLoading(true);
+      axiosClient
+        .get(`/brands/category/${selectedCategory.id}`)
+        .then((response) => {
+          setLoading(false);
+          setBrands(response.data);
+        })
+        .catch((error) => {
+          setLoading(false);
+          console.error(error);
+        });
+    }
   };
 
   const handleFloorChange = (event) => {
@@ -271,8 +292,25 @@ export default function Assets() {
   };
 
   const handleBrandChange = (event) => {
-    const selectedBrand = event.target.value;
-    setSelectedBrand(selectedBrand);
+    const selectedBrandName = event.target.value;
+
+    // Find the brand object with the selected name
+    const selectedBrand = brands.find(
+      (brand) => brand.name === selectedBrandName
+    );
+
+    if (selectedBrand) {
+      const selectedBrandId = selectedBrand.id;
+      setSelectedBrand(selectedBrandName);
+
+      // Filter the models based on the selected brand ID
+      const filteredModels = modelos.filter(
+        (model) => model.brand_id === selectedBrandId
+      );
+
+      // Update the modelos state with the filtered models
+      setModelos(filteredModels);
+    }
   };
 
   const handleModelChange = (event) => {
@@ -300,6 +338,7 @@ export default function Assets() {
     setFilteredAllocations([]);
     setIsButtonClicked(false);
     setDropdownOpen(false);
+    setModelos(originalModels); // gets back all the models in the modelos array
   };
 
   //For the checkbox, if the value of the filter is empty, then uses the assets array of the current page.
@@ -491,8 +530,8 @@ export default function Assets() {
                     data={brands}
                     title={"Marca:"}
                   />
-                  {console.log("brands", brands)}
-                  {console.log("selectedBrand", selectedBrand)}
+                  {/* {console.log("brands", brands)}
+                  {console.log("selectedBrand", selectedBrand)} */}
                   <SelectFilter
                     handleFunc={handleModelChange}
                     selectedF={selectedModel}

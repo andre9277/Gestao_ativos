@@ -246,8 +246,8 @@ export default function AssetForm() {
       .then((response) => {
         setLoading(false);
         setBrands(response.data);
-        console.log(selectedCategory);
-        console.log(brands);
+        /*  console.log(selectedCategory);
+        console.log(brands); */
       })
       .catch((error) => {
         setLoading(false);

@@ -8,6 +8,7 @@ const SelectFilter = ({ data, handleFunc, selectedF, title }) => {
       <label className="titleFiltAsset">{title}</label>
       <select className="filtAsset-tab" onChange={handleFunc} value={selectedF}>
         <option value=""></option>
+
         {data.map((dat) => (
           <option key={`${dat}+${i++}`} value={dat.name}>
             {dat.name}

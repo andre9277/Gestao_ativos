@@ -23,13 +23,13 @@ class ModeloController extends Controller
 
     public function index()
     {
-        $modelos = Modelo::all(['id', 'name']);
+        $modelos = Modelo::all(['id', 'name', 'brand_id']);
         return response()->json($modelos);
     }
 
     public function indexName()
     {
-        $modelos = Modelo::all(['id', 'name'])->toArray();
+        $modelos = Modelo::all(['id', 'name', 'brand_id'])->toArray();
         return response()->json($modelos);
     }
 
