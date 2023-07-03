@@ -24,7 +24,7 @@ class StoreAssetRequest extends FormRequest
     public function rules()
     {
         return [
-            'numb_ser' => 'required',
+            'numb_ser' => ['required', 'size:25', 'unique:assets,numb_ser',],
             'cond' => 'required',
             'state' => 'required',
             'cat_id' => 'required',
@@ -38,6 +38,9 @@ class StoreAssetRequest extends FormRequest
                 'unique:assets,numb_inv',
                 'regex:/^0/',
             ],
+            'date_purch' => 'required',
+            'model_id' => 'required',
+            'supplier_id' => 'required',
         ];
     }
 
@@ -47,14 +50,17 @@ class StoreAssetRequest extends FormRequest
             'numb_inv.size' => 'Atenção! O Número de Inventário deve ter exatamente 6 algarismos.',
             'numb_inv.regex' => 'Atenção! O Número de Inventário deve ter 0 como primeiro algarismo.',
             'numb_inv.unique' => 'Atenção! O Número de Inventário já foi adicionado.',
-            'numb_ser.size' => 'Atenção! O Número de Série pode ter até 25 caracteres.',
+            'numb_ser.size' => 'Atenção! O Número de Série não pode ter maid de 25 caracteres.',
 
-            'ent_id' => 'Atenção! É necessário indicar a entidade do ativo.',
-            'numb_ser' => 'Atenção! É necessário indicar o número de série do ativo.',
+            'ent_id' => 'Atenção! É necessário indicar a entidade.',
+            'numb_ser' => 'Atenção! É necessário indicar o número de série.',
             'cat_id' => 'Atenção! É necessário indicar a categoria.',
             'cond' => 'Atenção! É necessário indicar a condição.',
             'brand_id' => 'Atenção! É necessário indicar a marca.',
             'state' => 'Atenção! É necessário indicar o estado.',
+            'date_purch' => 'Atenção! É necessário indicar a data de compra.',
+            'model_id' => 'Atenção! É necessário indicar o modelo.',
+            'supplier_id' => 'Atenção! É necessário indicar o fornecedor.',
         ];
     }
 }
