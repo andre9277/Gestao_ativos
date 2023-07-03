@@ -105,6 +105,9 @@
         
         npm i mdb-react-ui-kit
 
+      ______________________________________________________
+        npm i react-bootstrap
+
 
 -   Link to the document with all the documentation developed for the project so far:
     > https://snspt-my.sharepoint.com/:w:/g/personal/andre_ferreira_hb_min-saude_pt/EaPPFEDaia1Eqkbc_J05rZ8BWTfoXG6505iV5Qu2XWF4qQ?e=hgIZ96
