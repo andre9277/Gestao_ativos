@@ -110,13 +110,7 @@ export default function Login() {
                       autoComplete="false"
                     />
 
-                    <MDBBtn
-                      className="mb-4 px-5 mx-5 w-101"
-                      color="info"
-                      size="lg"
-                    >
-                      Log in
-                    </MDBBtn>
+                    <button className="btn-login-main ">Log in</button>
                     <p className="small mb-5 pb-lg-3 ms-5">
                       <Link to="/forgotPassword" className="small">
                         Esqueceu-se da password?
