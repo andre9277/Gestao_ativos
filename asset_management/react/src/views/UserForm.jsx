@@ -130,7 +130,7 @@ export default function UserForm() {
       )}
       {!user.id && <h1 className="title-page-all">Novo Utilizador</h1>}
       <div className="card animated fadeInDown">
-        {loading && <div className="caprr-re">A Carregar...</div>}
+        {loading && <div className="caprr-re">A carregar...</div>}
         {errors && (
           <div className="alert">
             {Object.keys(errors).map((key) => (
@@ -138,11 +138,18 @@ export default function UserForm() {
             ))}
           </div>
         )}
+
         {!loading && (
           <form onSubmit={onSubmit} className="assetForm-assett">
+            <h1 className="title-page-all-sub">Dados Gerais: </h1>
+            <p></p>
+            <p className="camp-obs">*Campo Obrigatório</p>
             <label className="lb-info">
               {" "}
-              Nome:
+              <label className="labelofLabel">
+                {" "}
+                Nome:<label className="cmp-obg">*</label>{" "}
+              </label>
               <input
                 value={user.name}
                 onChange={(ev) => setUser({ ...user, name: ev.target.value })}
@@ -150,7 +157,9 @@ export default function UserForm() {
               />
             </label>
             <label className="lb-info">
-              Email:
+              <label className="labelofLabel">
+                Email:<label className="cmp-obg">*</label>{" "}
+              </label>
               <input
                 type="email"
                 value={user.email}
@@ -160,41 +169,22 @@ export default function UserForm() {
             </label>
 
             <label className="lb-info">
-              Número Mecanográfico:
+              <label className="labelofLabel">
+                Nº Mec.:<label className="cmp-obg">*</label>{" "}
+              </label>
               <input
                 value={user.mec}
                 onChange={(ev) => setUser({ ...user, mec: ev.target.value })}
                 className="infoInp"
               />
             </label>
-
-            <label className="lb-info">
-              Password:
-              <input
-                value={user.password}
-                type="password"
-                onChange={(ev) =>
-                  setUser({ ...user, password: ev.target.value })
-                }
-                className="infoInp"
-              />
-            </label>
-            {/* <label className="lb-info">
-              Confirmação da Password:
-              <input
-                value={user.password_confirmation}
-                type="password"
-                onChange={(ev) =>
-                  setUser({ ...user, password_confirmation: ev.target.value })
-                }
-                className="infoInp"
-              />
-            </label> */}
-
             <label htmlFor="role" className="lb-info">
-              Função:
+              <label className="labelofLabel">
+                {" "}
+                Função:<label className="cmp-obg">*</label>{" "}
+              </label>
               <select
-                className="infoInp"
+                className="infoInp-select"
                 name="role"
                 id="role"
                 value={user.role_id}
@@ -208,10 +198,40 @@ export default function UserForm() {
                 <option value="3">Manutenção</option>
               </select>
             </label>
-            <label onClick={resetFilter} className="btn-cleanfilter-asset">
-              Limpar
+
+            <label className="lb-info">
+              <label className="labelofLabel">
+                {" "}
+                Password:<label className="cmp-obg">*</label>{" "}
+              </label>
+              <input
+                value={user.password}
+                type="password"
+                onChange={(ev) =>
+                  setUser({ ...user, password: ev.target.value })
+                }
+                className="infoInp"
+              />
             </label>
-            <button className="btn-adicionar-userForm"> Guardar</button>
+            <label className="lb-info"></label>
+            <label className="lb-info">
+              Confirmação Password:<label className="cmp-obg">*</label>
+              <input
+                value={user.password_confirmation}
+                type="password"
+                onChange={(ev) =>
+                  setUser({ ...user, password_confirmation: ev.target.value })
+                }
+                className="infoInp"
+              />
+            </label>
+
+            <label className="lb-info-btn">
+              <label onClick={resetFilter} className="btn-cleanfilter-asset">
+                Limpar
+              </label>
+              <button className="btn-adicionar-userForm"> Guardar</button>
+            </label>
           </form>
         )}
       </div>

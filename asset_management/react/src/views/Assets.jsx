@@ -36,6 +36,7 @@ import "../styles/Dashboard.css";
 import ColumnMenuFilter from "../components/ColumnMenuFilter.jsx";
 import PaginationFilter from "../components/PaginationFilter.jsx";
 import SelectFilter from "../components/SelectFilter.jsx";
+import { Modal, Button } from "react-bootstrap";
 
 export default function Assets() {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ export default function Assets() {
   const [loading, setLoading] = useState(false);
   //const [loadingAll, setLoadingAll] = useState(false);
   const [meta, setMeta] = useState({});
-  const { user } = useStateContext();
+  const { user, setNotification } = useStateContext();
 
   const [cats, setCats] = useState([]);
   const [brands, setBrands] = useState([]);
@@ -71,6 +72,10 @@ export default function Assets() {
 
   const abortControllerRef = useRef(null);
   const abortControllerrRef = useRef(null);
+
+  const [show, setShow] = useState(false);
+
+  const [deleteConfirmed, setDeleteConfirmed] = useState(false);
 
   useEffect(() => {
     getAssets();
@@ -165,7 +170,7 @@ export default function Assets() {
       (row) =>
         (selectedCategory === "" || row.category.name === selectedCategory) &&
         (selectedFloor === "" || row.floor === selectedFloor) &&
-        (selectedBrand === "" || row.brand.sig === selectedBrand) &&
+        (selectedBrand === "" || row.brand.name === selectedBrand) &&
         (selectedModel === "" || row.modelo.name === selectedModel) &&
         (selectedEnt === "" || row.entity.ent_name === selectedEnt)
     );
@@ -180,7 +185,7 @@ export default function Assets() {
   const sortingFilter = (col) => {
     const columnMapping = {
       Categoria: "category.name",
-      Marca: "brand.sig",
+      Marca: "brand.name",
       Modelo: "modelo.name",
       Piso: "floor",
       Entidade: "entity.ent_name",
@@ -234,43 +239,6 @@ export default function Assets() {
   const onAddClick = () => {
     const url = "/assets/new";
     navigate(url);
-  };
-
-  /*------------Button Apagar------------------------------*/
-  const onDeleteClick = () => {
-    // Get the IDs of all the checked assets
-    const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
-
-    // If no assets are checked, return
-    if (checkedAssetIds.length === 0) {
-      return;
-    }
-
-    // Confirmation of asset deletion
-    if (
-      !window.confirm(
-        "Tem a certeza que pretende eliminar o(s) ativo(s) selecionado(s)?"
-      )
-    ) {
-      return;
-    }
-
-    // Create the URL with the asset IDs
-    const url = `/assets/${checkedAssetIds.join(",")}`;
-
-    // Send the DELETE request
-    axiosClient
-      .delete(url)
-      .then(() => {
-        setNotification("Ativo(s) apagado(s) com sucesso!");
-        // Fetch assets again to update the UI
-        getAssets();
-      })
-      .catch((error) => {
-        console.error("Erro ao apagar ativo(s):", error);
-
-        // Handle error if necessary...
-      });
   };
 
   //-----------Handle click to edit an asset-----------------------------
@@ -365,7 +333,7 @@ export default function Assets() {
   const sorting = (col) => {
     const columnMapping = {
       Categoria: "category.name",
-      Marca: "brand.sig",
+      Marca: "brand.name",
       Modelo: "modelo.name",
       Piso: "floor",
       NºSerie: "numb_ser",
@@ -419,8 +387,71 @@ export default function Assets() {
     setDropdownOpen(!dropdownOpen);
   };
 
+  /*------------Button Apagar------------------------------*/
+  const onDeleteClick = () => {
+    setShow(true); // Show the modal
+  };
+
+  const handleDeleteConfirm = () => {
+    setDeleteConfirmed(true);
+    setShow(false); // Close the modal
+  };
+
+  const handleClose = () => {
+    setShow(false);
+  };
+
+  // Execute the delete operation when deleteConfirmed is true
+  useEffect(() => {
+    if (deleteConfirmed) {
+      // Get the IDs of all the checked assets
+      const checkedAssetIds = assets
+        .filter((a) => a.checked)
+        .map((as) => as.id);
+
+      // If no assets are checked, return
+      if (checkedAssetIds.length === 0) {
+        return;
+      }
+
+      // Create the URL with the asset IDs
+      const url = `/assets/${checkedAssetIds.join(",")}`;
+
+      // Send the DELETE request
+      axiosClient
+        .delete(url)
+        .then(() => {
+          setNotification("Ativo(s) apagado(s) com sucesso!");
+          // Fetch assets again to update the UI
+          getAssets();
+        })
+        .catch((error) => {
+          console.error("Erro ao apagar ativo(s):", error);
+
+          // Handle error if necessary...
+        });
+
+      // Reset deleteConfirmed to false
+      setDeleteConfirmed(false);
+    }
+  }, [deleteConfirmed]);
+
   return (
     <div id="content">
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmação</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Deseja apagar o(s) ativo(s) selecionado(s)!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleDeleteConfirm}>
+            Apagar
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Cancelar
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div
         style={{
           display: "flex",
@@ -438,7 +469,11 @@ export default function Assets() {
                   className="btn-filter text-link"
                   onClick={toggleDropdown}
                 >
-                  <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
+                  <i
+                    className="fa fa-filter fa-lg"
+                    aria-hidden="true"
+                    title="Filtro"
+                  ></i>
                 </button>
                 <div
                   className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
@@ -456,6 +491,8 @@ export default function Assets() {
                     data={brands}
                     title={"Marca:"}
                   />
+                  {console.log("brands", brands)}
+                  {console.log("selectedBrand", selectedBrand)}
                   <SelectFilter
                     handleFunc={handleModelChange}
                     selectedF={selectedModel}
@@ -474,13 +511,12 @@ export default function Assets() {
                     data={ent}
                     title={"Localização:"}
                   />
-
                   {
                     <button
                       onClick={resetFilter}
                       className="btn-cleanfilter text-link-a"
                     >
-                      Limpar Filtro
+                      Limpar
                     </button>
                   }
                   {
@@ -498,14 +534,22 @@ export default function Assets() {
                 className="btn-add text-link"
                 onClick={(ev) => onAddClick()}
               >
-                <i className="fa fa-plus fa-lg" aria-hidden="true"></i>
+                <i
+                  className="fa fa-plus fa-lg"
+                  aria-hidden="true"
+                  title="Adicionar"
+                ></i>
               </button>
               {/* ----------Edit button ----------*/}
               <button
                 className=" btn-edit text-link"
                 onClick={(ev) => onEditClick()}
               >
-                <i className="fa fa-pencil-alt fa-lg" aria-hidden="true"></i>
+                <i
+                  className="fa fa-pencil-alt fa-lg"
+                  aria-hidden="true"
+                  title="Editar"
+                ></i>
               </button>
               &nbsp;
               {/* ----------Delete button ----------*/}
@@ -513,7 +557,11 @@ export default function Assets() {
                 className="btn-delete text-link"
                 onClick={(ev) => onDeleteClick()}
               >
-                <i className="fa fa-trash fa-lg" aria-hidden="true"></i>
+                <i
+                  className="fa fa-trash fa-lg"
+                  aria-hidden="true"
+                  title="Apagar"
+                ></i>
               </button>
             </>
           )}
@@ -611,16 +659,18 @@ export default function Assets() {
               {!isButtonClicked && filteredAllocations.length === 0 ? (
                 assets.map((a) => (
                   <tr key={a.id}>
-                    <td>{a.category.name}</td>
-                    <td>{a.brand.sig}</td>
-                    <td>{a.modelo.name}</td>
+                    <td className="table-words-l">{a.category.name}</td>
+                    <td className="table-words-l">{a.brand.name}</td>
+                    <td className="table-words-l">{a.modelo.name}</td>
                     <td>{a.numb_inv}</td>
-                    <td>{a.numb_ser}</td>
-                    <td>{a.entity.ent_name}</td>
-                    <td>{a.units === null ? "" : a.units.name}</td>
+                    <td className="table-words-l">{a.numb_ser}</td>
+                    <td className="table-words-l">{a.entity.ent_name}</td>
+                    <td className="table-words-l">
+                      {a.units === null ? "" : a.units.name}
+                    </td>
                     <td>{a.floor}</td>
                     <td>{a.ala}</td>
-                    <td>{a.ci}</td>
+                    <td className="table-words-l">{a.ci}</td>
                     <td>
                       {a.state === "Ativo" ? (
                         <div className="circle active"></div>
@@ -628,7 +678,7 @@ export default function Assets() {
                         <div className="circle inactive"></div>
                       )}
                     </td>
-                    <td>{a.created_at}</td>
+                    <td className="table-numb-r">{a.created_at}</td>
 
                     {user.role_id === 3 ? null : (
                       <td>
@@ -653,16 +703,18 @@ export default function Assets() {
               ) : (
                 filteredAllocations.slice(startIndex, endIndex).map((asset) => (
                   <tr key={asset.id}>
-                    <td>{asset.category.name}</td>
-                    <td>{asset.brand.sig}</td>
-                    <td>{asset.modelo.name}</td>
+                    <td className="table-words-l">{asset.category.name}</td>
+                    <td className="table-words-l">{asset.brand.name}</td>
+                    <td className="table-words-l">{asset.modelo.name}</td>
                     <td>{asset.numb_inv}</td>
-                    <td>{asset.numb_ser}</td>
-                    <td>{asset.entity.ent_name}</td>
-                    <td>{asset.units === null ? "" : asset.units.name}</td>
+                    <td className="table-words-l">{asset.numb_ser}</td>
+                    <td className="table-words-l">{asset.entity.ent_name}</td>
+                    <td className="table-words-l">
+                      {asset.units === null ? "" : asset.units.name}
+                    </td>
                     <td>{asset.floor}</td>
                     <td>{asset.ala}</td>
-                    <td>{asset.ci}</td>
+                    <td className="table-words-l">{asset.ci}</td>
                     <td>
                       {asset.state === "Ativo" ? (
                         <div className="circle active"></div>
@@ -670,7 +722,7 @@ export default function Assets() {
                         <div className="circle inactive"></div>
                       )}
                     </td>
-                    <td>{asset.created_at}</td>
+                    <td className="table-numb-r">{asset.created_at}</td>
 
                     {user.role_id === 3 ? null : (
                       <td>

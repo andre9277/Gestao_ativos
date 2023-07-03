@@ -1,81 +1,77 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axiosClient from "../axios-client.js";
+import { useParams } from "react-router-dom";
 
 const PasswordResetForm = () => {
+  const { token } = useParams();
   const [email, setEmail] = useState("");
-  const [token, setToken] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleTokenChange = (e) => {
-    setToken(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      setMessage("Passwords do not match.");
+      return;
+    }
 
     try {
       const response = await axiosClient.post("/reset-password", {
         email,
-        token,
         password,
         password_confirmation: confirmPassword,
+        token,
       });
-      setMessage(response.data.message);
+
+      if (response.data.message) {
+        setMessage(response.data.message);
+      }
+      // Handle additional logic based on the response
     } catch (error) {
-      setMessage("Unable to reset password");
+      console.error("Error:", error);
+      setMessage("An error occurred. Please try again later.");
     }
   };
 
   return (
-    <div>
-      <h2>Password Reset</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Email:</label>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="email">Email:</label>
         <input
           type="email"
+          id="email"
           value={email}
-          onChange={handleEmailChange}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <label>Token:</label>
-        <input
-          type="text"
-          value={token}
-          onChange={handleTokenChange}
-          required
-        />
-        <label>New Password:</label>
+      </div>
+
+      <div>
+        <label htmlFor="password">New Password:</label>
         <input
           type="password"
+          id="password"
           value={password}
-          onChange={handlePasswordChange}
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <label>Confirm Password:</label>
+      </div>
+
+      <div>
+        <label htmlFor="confirmPassword">Confirm Password:</label>
         <input
           type="password"
+          id="confirmPassword"
           value={confirmPassword}
-          onChange={handleConfirmPasswordChange}
+          onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
-        <button type="submit">Reset Password</button>
-      </form>
+      </div>
+
+      <button type="submit">Reset Password</button>
       {message && <p>{message}</p>}
-    </div>
+    </form>
   );
 };
 

@@ -44,12 +44,9 @@ const Filter = ({
   return (
     <div className="filter">
       <div className="filter-user">
-        <select
-          value={selectedUser}
-          onChange={filterUser}
-          className="form-select-filter"
-        >
-          <option value={null}>Selecione o utilizador...</option>
+        <label className="lb-info-allocation">Utilizador:</label>
+        <select value={selectedUser} onChange={filterUser} className="infoInp">
+          <option value=""></option>
           {users.map((user) => (
             <option key={user.id} value={user.name}>
               {" "}
@@ -59,13 +56,10 @@ const Filter = ({
         </select>
       </div>
       <div className="filter-user">
-        <select
-          value={selectedOp}
-          onChange={filterOp}
-          className="form-select-filter"
-        >
+        <label className="lb-info-allocation">Operação:</label>
+        <select value={selectedOp} onChange={filterOp} className="infoInp">
           {" "}
-          <option>Selecione a operação...</option>
+          <option value=""></option>
           <option value="Pesquisa">Pesquisa</option>
           <option value="Atualiza">Atualiza</option>
           <option value="Apaga">Apaga</option>
@@ -73,12 +67,9 @@ const Filter = ({
         </select>
       </div>
       <div className="filter-user">
-        <select
-          value={selectedSer}
-          onChange={filterSer}
-          className="form-select-filter"
-        >
-          <option value={null}>Selecione o nºsérie...</option>
+        <label className="lb-info-allocation">Nº série:</label>
+        <select value={selectedSer} onChange={filterSer} className="infoInp">
+          <option value=""></option>
 
           {assets.map((asset) => (
             <option key={asset.id} value={asset.numb_ser}>
@@ -87,15 +78,14 @@ const Filter = ({
             </option>
           ))}
         </select>
-        <div className="alloca-icons">
-          <button onClick={resetFilter} className="btn-filter">
-            <i className="fa fa-eraser fa-lg" aria-hidden="true"></i>
-          </button>
-
-          <button onClick={handleDwl} className="btn-dwl">
-            <i className="fa fa-download fa-lg" aria-hidden="true"></i>
-          </button>
-        </div>
+      </div>
+      <div className="alloca-icons">
+        <button onClick={handleDwl} className="btn-dwl">
+          Download
+        </button>
+        <button onClick={resetFilter} className="btn-filter">
+          Limpar
+        </button>
       </div>
     </div>
   );

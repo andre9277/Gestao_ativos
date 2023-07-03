@@ -31,9 +31,7 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import { DateRangePicker } from "react-date-range";
 import Papa from "papaparse"; //library to export in .csv
-import { pt } from "date-fns/locale";
 import Filter from "../components/Filter.jsx";
 
 //SideBar:-------------Reports---------------
@@ -49,12 +47,12 @@ export default function Allocations() {
       abortController.abort();
     };
   }, []);
-
+  const [showError, setShowError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [allocations, setAllocations] = useState([]);
   const [meta, setMeta] = useState({});
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [allAllocations, setAllAllocations] = useState([]);
   const [assets, setAssets] = useState([]);
   const [users, setUsers] = useState([]);
@@ -63,6 +61,9 @@ export default function Allocations() {
   const [selectedSer, setSelectedSer] = useState("");
   const [selectedOp, setSelectedOp] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
+
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   //Performs a client access request
   const getAllocations = (signal, url) => {
@@ -155,31 +156,40 @@ export default function Allocations() {
   };
 
   //------------For the Calendar---------------
-  const handleSelect = (date) => {
-    let startDate = date.selection.startDate;
-    startDate.setHours(0, 0, 0, 0); // set time to midnight
+  const handleSelect = () => {
+    const selectionRange = {
+      startDate: startDate,
+      endDate: endDate,
+      key: "selection",
+    };
 
-    let endDate = date.selection.endDate;
-    endDate.setHours(23, 59, 59, 999); // Set end date to end of day
+    if (startDate > endDate) {
+      setError(true);
+      setErrorMsg("Intervalo de Datas inválido!");
+      setAllocations([]);
+      setShowError(true);
+
+      setTimeout(() => {
+        setShowError(false);
+      }, 5000);
+      return;
+    }
 
     let filtered = allAllocations.filter((allocation) => {
       const allocationDate = new Date(allocation.allocation_date);
       allocationDate.setHours(0, 0, 0, 0);
 
-      return allocationDate >= startDate && allocationDate <= endDate;
+      return (
+        allocationDate >= selectionRange.startDate &&
+        allocationDate <= selectionRange.endDate
+      );
     });
-    setStartDate(startDate);
-    setEndDate(endDate);
-    /*  console.log("startDate:", startDate);
-    console.log("EndDate:", endDate); */
-    setAllocations(filtered);
-  };
 
-  //--------For the calendar range chosen by the user --------
-  const selectionRange = {
-    startDate: startDate,
-    endDate: endDate,
-    key: "selection",
+    setAllocations(filtered);
+    /*  console.log("startDate", selectionRange.startDate);
+    console.log("endDate", selectionRange.endDate); */
+    setError(false);
+    setErrorMsg("");
   };
 
   //--------------Filters---------------
@@ -235,9 +245,16 @@ export default function Allocations() {
     setSelectedSer("");
     setSelectedOp("");
     setSelectedUser("");
-    setStartDate(new Date());
-    setEndDate(new Date());
+    setStartDate(null);
+    setEndDate(null);
+
+    setError(false);
+    setErrorMsg("");
   };
+
+  function isValidDate(date) {
+    return date instanceof Date && !isNaN(date);
+  }
 
   return (
     <div id="content">
@@ -255,15 +272,62 @@ export default function Allocations() {
 
       {!loading && (
         <div className="card animated fadeInDown">
-          <h6>Atenção: Selecione um intervalo de datas, com ou sem filtros!</h6>
+          <p></p>
+          <p className="camp-obs">*Campo Obrigatório</p>
+          <p></p>
           <div className="headerFilter">
-            <DateRangePicker
-              ranges={[selectionRange]}
-              onChange={handleSelect}
-              locale={pt}
-              color={"#459c2c"}
-              definedRanges={[]}
-            />
+            <div className="data-allocations">
+              <label className="lb-allo-dt">
+                Data início:<label className="cmp-obg">*</label>
+              </label>
+              <input
+                type="date"
+                value={startDate ? startDate.toISOString().split("T")[0] : ""}
+                onChange={(e) => {
+                  const selectedDate = new Date(e.target.value);
+                  if (isValidDate(selectedDate)) {
+                    setStartDate(selectedDate);
+                    handleSelect();
+                  } else {
+                    // Handle the error when an invalid date is selected
+                    console.error("Data início inválida!");
+                  }
+                }}
+                min="YYYY-MM-DD"
+                max="YYYY-MM-DD"
+                className="dt-inpt-allo"
+              />
+
+              <p></p>
+
+              <label className="lb-allo-dt">
+                Data fim:<label className="cmp-obg">*</label>
+              </label>
+
+              <input
+                type="date"
+                value={endDate ? endDate.toISOString().split("T")[0] : ""}
+                onChange={(e) => {
+                  const selectedDate = new Date(e.target.value);
+                  if (isValidDate(selectedDate)) {
+                    selectedDate.setHours(23, 59, 0, 0);
+                    setEndDate(selectedDate);
+                    handleSelect();
+                  } else {
+                    // Handle the error when an invalid date is selected
+                    console.error("Data fim inválida!");
+                  }
+                }}
+                min={startDate ? startDate.toISOString().split("T")[0] : ""}
+                max="YYYY-MM-DD"
+                className="dt-inpt-allo"
+              />
+
+              {error && startDate > endDate && (
+                <p className="err-allo-dt">{errorMsg}</p>
+              )}
+            </div>
+
             <Filter
               assets={assets}
               users={users}

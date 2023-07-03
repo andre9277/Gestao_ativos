@@ -21,7 +21,7 @@ class AssetController extends Controller
      */
     public function index()
     {
-        $assets = Asset::with('entity:id,ent_name', 'brand:id,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+        $assets = Asset::with('entity:id,ent_name', 'brand:id,name', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
             ->orderBy('id', 'desc')
             ->paginate(20);
 
@@ -39,7 +39,7 @@ class AssetController extends Controller
     //Filter values for the ci, ent_id or unit_id atributes
     public function filterValues()
     {
-        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
             ->where(function ($query) {
                 $query->whereNotNull('previous_ci')
                     ->orWhereNotNull('previous_ent_id')
@@ -53,7 +53,7 @@ class AssetController extends Controller
 
     public function filterValuesNoPag()
     {
-        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
             ->where(function ($query) {
                 $query->whereNotNull('previous_ci')
                     ->orWhereNotNull('previous_ent_id')
@@ -74,7 +74,7 @@ class AssetController extends Controller
             ->get();
 
         return response()->json($assets); */
-        $assets = $assets = Asset::with('entity:id,ent_name', 'brand:id,sig', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+        $assets = $assets = Asset::with('entity:id,ent_name', 'brand:id,name', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
             ->select('id', 'numb_inv', 'created_at', 'cat_id', 'model_id', 'brand_id', 'floor', 'ent_id', 'unit_id', 'numb_ser', 'ci', 'previous_ci', 'date_purch', 'state', 'cond', 'ala', 'floor', 'previous_unit_id', 'previous_ent_id', 'supplier_id', 'obs')
             ->orderBy('id', 'desc')
             ->get();
@@ -127,7 +127,13 @@ class AssetController extends Controller
         $total = $asset::count();
 
         // Count assets changed this month
-        $countChanged = $asset::whereMonth('updated_at', '=', now()->month)->count();
+        $countChanged = $asset::whereMonth('updated_at', '=', now()->month)
+            ->where(function ($query) {
+                $query->where('import_type', '!=', 'bulk')
+                    ->orWhereNull('import_type');
+            })
+            ->count();
+
 
         $totalRep = $asset::where('cond', 'Reparação')->count();
 
@@ -191,6 +197,11 @@ class AssetController extends Controller
         // Extract the fields if the allocation exists
         $other = $lastAllocation ? $lastAllocation->other : null;
         $reason = $lastAllocation ? $lastAllocation->reason : null;
+
+
+        // Set the "import_type" column to null
+        $asset->import_type = null;
+        $asset->save();
 
 
         // create a new asset update record

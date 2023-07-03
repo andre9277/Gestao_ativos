@@ -14,6 +14,7 @@ use App\Http\Controllers\ModeloController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\CategoryBrandController;
 use App\Models\Asset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,8 +32,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 // routes/api.php
+//Sends the link for the password
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
-Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
+
+Route::post('/reset-password', [ForgotPasswordController::class, 'reset']);
 
 
 
@@ -118,6 +121,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/assetMovement', [AllocationsController::class, 'addAssetMovement']);
 
+    Route::get('/brands/category/{categoryId}', [BrandController::class, 'getBrandsByCategory']);
+
 
     //Endpoint for the AssetForm component (Joins all the calls, does one request do the server)
     Route::get('/combinedData', function () {
@@ -177,7 +182,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::delete('/assets/{ids}', [AssetController::class, 'destroy']);
 
-
+    Route::get('/category-brands', [CategoryBrandController::class, 'index']);
 
     function getCatsAll()
     {

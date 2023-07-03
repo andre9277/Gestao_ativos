@@ -2320,6 +2320,7 @@
 }
 .fa-info-circle:before {
     content: "\f05a";
+    font-size: x-large;
 }
 .fa-innosoft:before {
     content: "\e080";

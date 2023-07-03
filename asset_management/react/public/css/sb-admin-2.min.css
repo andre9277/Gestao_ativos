@@ -2135,7 +2135,7 @@ textarea.form-control.is-invalid {
     box-shadow: 0 0 0 0.2rem rgba(231, 74, 59, 0.25);
 }
 .form-inline {
-    display: flex;
+    display: flow-root;
     flex-flow: row wrap;
     align-items: center;
 }
@@ -6964,7 +6964,7 @@ button.bg-dark:hover {
     width: 75% !important;
 }
 .w-100 {
-    width: 100% !important;
+    width: 60% !important;
 }
 .w-auto {
     width: auto !important;
@@ -9463,7 +9463,7 @@ a:focus {
 
 @media (min-width: 768px) {
     .sidebar {
-        width: 19rem !important;
+        width: 17rem !important;
     }
     .sidebar .nav-item .collapse {
         position: relative;
@@ -9490,7 +9490,8 @@ a:focus {
         width: 100%;
         text-align: left;
         padding: 1.2rem;
-        width: 19rem;
+        width: 17rem;
+        background-color: #459c2c;
     }
     .sidebar .nav-item .nav-link i {
         font-size: 0.85rem;

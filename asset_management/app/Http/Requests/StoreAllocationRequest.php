@@ -27,7 +27,7 @@ class StoreAllocationRequest extends FormRequest
             'allocation_date' => 'required',
             'action_type' => 'required',
             'ser_number' => 'required',
-            'reason' => 'required',
+            'reason' => 'nullable',
             'other' => 'nullable',
             'user_id' => 'required',
             'asset_id' => 'required',

@@ -31,13 +31,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import { useStateContext } from "../context/ContextProvider.jsx";
+import { Modal, Button } from "react-bootstrap";
 
 export default function AssetForm() {
   const [errors, setErrors] = useState(null);
 
   //Meanwhile the table isnt loading we show a loading string
   const [loading, setLoading] = useState(false);
-  const { setNotification } = useStateContext();
+  const { user, setNotification } = useStateContext();
 
   //States to get the list of selected options
   const [cats, setCats] = useState([]);
@@ -62,7 +63,7 @@ export default function AssetForm() {
       setCats(responses[0].data.cats);
       setEnts(responses[0].data.ents);
       setUnits(responses[0].data.units);
-      setBrands(responses[0].data.brands);
+      //setBrands(responses[0].data.brands);
       setModelos(responses[0].data.models);
       setSupplier(responses[0].data.suppliers);
     });
@@ -147,22 +148,27 @@ export default function AssetForm() {
       ent_type: "",
     },
     units: "",
+    import_type: "",
   });
 
-  //When the user submits the request
   const onSubmit = (ev) => {
     ev.preventDefault();
 
-    //if asset id exists: it updates
+    // Open the confirmation modal
+    setShowConfirmModal(true);
+  };
+  //When the user submits the request
+
+  const handleConfirmSave = () => {
+    setShowConfirmModal(false); // Close the confirmation modal
     if (asset.id) {
+      // Update existing asset
       setLoading(true);
       axiosClient
         .put(`/assets/${asset.id}`, asset)
         .then(() => {
           setLoading(false);
-          //update with good outcome
           setNotification("Ativo atualizado com sucesso!");
-          //redirect to the page with assets
           navigate("/assets");
         })
         .catch((err) => {
@@ -172,9 +178,8 @@ export default function AssetForm() {
             setErrors(response.data.errors);
           }
         });
-    }
-    //or it will create a new asset
-    else {
+    } else {
+      // Add new asset
       axiosClient
         .post("/assets", asset)
         .then(() => {
@@ -190,6 +195,15 @@ export default function AssetForm() {
     }
   };
 
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  const handleCancelSave = () => {
+    setShowConfirmModal(false); // Close the confirmation modal
+  };
+
+  const handleSave = () => {
+    setShowConfirmModal(true); // Open the confirmation modal
+  };
   //---------Functions that allow the change of some values-------------
   const handleEntityChange = (event) => {
     const selectedEntity = event.target.value;
@@ -221,6 +235,26 @@ export default function AssetForm() {
     setAsset(newAsset);
   }
 
+  const handleCategoryChange = (event) => {
+    const selectedCategory = event.target.value;
+
+    setAsset({ ...asset, cat_id: selectedCategory });
+
+    setLoading(true);
+    axiosClient
+      .get(`/brands/category/${selectedCategory}`)
+      .then((response) => {
+        setLoading(false);
+        setBrands(response.data);
+        console.log(selectedCategory);
+        console.log(brands);
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.error(error);
+      });
+  };
+
   const resetFilter = () => {
     // Reset all the values to empty or default
     setAsset({
@@ -244,6 +278,25 @@ export default function AssetForm() {
 
   return (
     <>
+      {" "}
+      <Modal show={showConfirmModal} onHide={handleCancelSave}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmação</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {asset.id
+            ? "Deseja atualizar o ativo selecionado?"
+            : "Deseja adicionar o ativo?"}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleConfirmSave}>
+            Confirmar
+          </Button>
+          <Button variant="primary" onClick={handleCancelSave}>
+            Cancelar
+          </Button>
+        </Modal.Footer>
+      </Modal>
       {asset.id && (
         <h1 className="title-page-all">Atualizar Ativo: {asset.numb_inv}</h1>
       )}
@@ -260,11 +313,13 @@ export default function AssetForm() {
         {!loading && (
           <form onSubmit={onSubmit} className="assetForm-assett">
             {/* ---------- Inventory Number ----------*/}
-            <h1 className="title-page-all-sub">Dados do Ativo: </h1>
+            <h1 className="title-page-all-sub">Dados Gerais: </h1>
+            <p></p>
+            <p className="camp-obs">*Campo Obrigatório</p>
             <p></p>
             <label className="lb-info">
               {" "}
-              Número de inventário:
+              <label className="labelofLabel"> Nº de inventário: </label>
               <input
                 value={asset.numb_inv === null ? "" : asset.numb_inv}
                 onChange={(ev) =>
@@ -277,27 +332,32 @@ export default function AssetForm() {
             {/* ---------- Serial Number ----------*/}
             <label className="lb-info">
               {" "}
-              Número de série:
+              <label className="labelofLabel">
+                Nº de série:<label className="cmp-obg">*</label>
+              </label>
               <input
                 value={asset.numb_ser}
                 onChange={(ev) =>
                   setAsset({ ...asset, numb_ser: ev.target.value })
                 }
                 className="infoInp"
+                required
               />
             </label>
 
             {/* ---------- Category ----------*/}
             <label htmlFor="category" className="lb-info">
-              Categoria:
+              <label className="labelofLabel">
+                {" "}
+                Categoria:<label className="cmp-obg">*</label>
+              </label>
               <select
-                className="infoInp"
+                className="infoInp-select"
                 name="category"
                 id="category"
                 value={asset.cat_id}
-                onChange={(event) =>
-                  setAsset({ ...asset, cat_id: event.target.value })
-                }
+                onChange={handleCategoryChange}
+                required
               >
                 <option value=""></option>
                 {cats.map((category) => (
@@ -307,35 +367,67 @@ export default function AssetForm() {
                 ))}
               </select>
             </label>
+            {/* ---------- Status ----------*/}
+            <label htmlFor="estado" className="lb-info">
+              <label className="labelofLabel">
+                Estado:<label className="cmp-obg">*</label>
+              </label>
+              <select
+                className="infoInp-select"
+                name="estado"
+                id="estado"
+                value={asset.state}
+                onChange={(event) =>
+                  setAsset({ ...asset, state: event.target.value })
+                }
+                required
+              >
+                <option value=""></option>
+                <option value="Ativo">Ativo</option>
+                <option value="Inativo">Inativo</option>
+              </select>
+            </label>
 
             {/* ---------- Brands ----------*/}
             <label className="lb-info">
               {" "}
-              Marca*:
+              <label className="labelofLabel">
+                {" "}
+                Marca:<label className="cmp-obg">*</label>
+              </label>
               <select
                 value={asset.brand_id}
                 onChange={handleBrandChange}
-                className="infoInp"
+                className="infoInp-select"
+                required
               >
-                <option value=""></option>
-                {brands.map((brand) => (
-                  <option key={brand.id} value={brand.id}>
-                    {brand.name}
-                  </option>
-                ))}
+                {brands.length != 0 ? <option value=""></option> : ""}
+                {brands.length === 0 ? (
+                  <option>{asset.brand.name}</option>
+                ) : (
+                  brands.map((brand) => (
+                    <option key={brand.id} value={brand.id}>
+                      {brand.name}
+                    </option>
+                  ))
+                )}
               </select>
             </label>
 
             {/* ---------- Models ----------*/}
             <label className="lb-info">
               {" "}
-              Modelo*:
+              <label className="labelofLabel">
+                {" "}
+                Modelo:<label className="cmp-obg">*</label>
+              </label>
               <select
                 value={asset.model_id}
-                className="infoInp"
+                className="infoInp-select"
                 onChange={(event) =>
                   setAsset({ ...asset, model_id: event.target.value })
                 }
+                required
               >
                 <option value=""></option>
                 {modelos.map((modelo) => (
@@ -349,15 +441,18 @@ export default function AssetForm() {
             <div className="localAsset-cond">
               {/* ---------- Condition ----------*/}
               <label htmlFor="condicao" className="lb-info">
-                Condição:
+                <label className="labelofLabel">
+                  Condição:<label className="cmp-obg">*</label>
+                </label>
                 <select
-                  className="infoInp"
+                  className="infoInp-select"
                   name="condicao"
                   id="condicao"
                   value={asset.cond}
                   onChange={(event) =>
                     setAsset({ ...asset, cond: event.target.value })
                   }
+                  required
                 >
                   <option value=""></option>
                   <option value="Novo">Novo</option>
@@ -367,28 +462,12 @@ export default function AssetForm() {
                 </select>
               </label>
 
-              {/* ---------- Status ----------*/}
-              <label htmlFor="estado" className="lb-info">
-                Estado:
-                <select
-                  className="infoInp"
-                  name="estado"
-                  id="estado"
-                  value={asset.state}
-                  onChange={(event) =>
-                    setAsset({ ...asset, state: event.target.value })
-                  }
-                >
-                  <option value=""></option>
-                  <option value="Ativo">Ativo</option>
-                  <option value="Inativo">Inativo</option>
-                </select>
-              </label>
-
               {/* ---------- Date of purchase ----------*/}
               <label className="lb-info">
                 {" "}
-                Data de Compra:
+                <label className="labelofLabel">
+                  Data de Compra:<label className="cmp-obg">*</label>
+                </label>
                 <input
                   className="form-calendar-asset"
                   type="date"
@@ -402,9 +481,12 @@ export default function AssetForm() {
               {/* ---------- Supplier ----------*/}
               <label className="lb-info">
                 {" "}
-                Fornecedor*:
+                <label className="labelofLabel">
+                  {" "}
+                  Fornecedor:<label className="cmp-obg">*</label>
+                </label>
                 <select
-                  className="infoInp"
+                  className="infoInp-select"
                   value={asset.supplier_id}
                   onChange={handleSupplierChange}
                 >
@@ -417,26 +499,18 @@ export default function AssetForm() {
                 </select>
               </label>
             </div>
-
+            <div className="space-mov"></div>
             <div className="localAsset-local">
-              <p></p>
               <h1 className="title-page-all-sub">Localização: </h1>
               <p></p>
-              {/* ---------- CI ----------*/}
-              <label className="lb-info">
-                {" "}
-                CI:
-                <input
-                  value={asset.ci === null ? "" : asset.ci}
-                  onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
-                  className="infoInp"
-                />
-              </label>
+
               {/* ---------- Entities ----------*/}
               <label htmlFor="entity" className="lb-info">
-                Entidade:
+                <label className="labelofLabel">
+                  Entidade:<label className="cmp-obg">*</label>
+                </label>
                 <select
-                  className="infoInp"
+                  className="infoInp-select"
                   name="entity"
                   id="entity"
                   value={asset.ent_id}
@@ -454,7 +528,7 @@ export default function AssetForm() {
 
               {/* ---------- Units ----------*/}
               <label htmlFor="unit" className="lb-info">
-                Unidade:
+                <label className="labelofLabel">Unidade: </label>
                 <select
                   className="infoInp"
                   name="unit"
@@ -473,9 +547,20 @@ export default function AssetForm() {
                 </select>
               </label>
 
+              {/* ---------- CI ----------*/}
+              <label className="lb-info">
+                {" "}
+                <label className="labelofLabel">CI:</label>
+                <input
+                  value={asset.ci === null ? "" : asset.ci}
+                  onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
+                  className="infoInp"
+                />
+              </label>
+
               {/* ---------- Floor ----------*/}
               <label htmlFor="floor" className="lb-info">
-                Piso:
+                <label className="labelofLabel">Piso: </label>
                 <select
                   className="infoInp"
                   name="floor"
@@ -497,9 +582,9 @@ export default function AssetForm() {
               </label>
               {/* ---------- Ala ----------*/}
               <label htmlFor="ala" className="lb-info">
-                Ala:
+                <label className="labelofLabel"> Ala: </label>
                 <select
-                  className="infoInp"
+                  className="infoInp-select"
                   name="ala"
                   id="ala"
                   value={asset.ala === null ? "" : asset.ala}
@@ -514,24 +599,35 @@ export default function AssetForm() {
                   <option value="E">E</option>
                 </select>
               </label>
+              <div className="space-mov"></div>
+              <h1 className="title-page-all-sub">Outros: </h1>
+              <p></p>
+              {/* ---------- Observações ----------*/}
+              <label className="lb-info">
+                <label className="labelofLabel">Observações: </label>
+                <textarea
+                  value={asset.obs === null ? "" : asset.obs}
+                  onChange={(ev) =>
+                    setAsset({ ...asset, obs: ev.target.value })
+                  }
+                  className="obs-mov-ee"
+                />
+              </label>
 
-              <div className="localAsset">
-                {/* ---------- Observações ----------*/}
-                <label className="lb-info">
-                  Observações:
-                  <textarea
-                    value={asset.obs === null ? "" : asset.obs}
-                    onChange={(ev) =>
-                      setAsset({ ...asset, obs: ev.target.value })
-                    }
-                    className="obs-mov-e"
-                  />
-                </label>
-                <label onClick={resetFilter} className="btn-cleanfilter-assett">
-                  Limpar
-                </label>
-                <button className="btn-adicionar-assetFormm">Guardar</button>
-              </div>
+              <label className="lb-info-btn">
+                <input
+                  type="button"
+                  onClick={resetFilter}
+                  value="Limpar"
+                  className="btn-cleanfilter-assett"
+                />
+                <button
+                  className="btn-adicionar-assetFormm"
+                  onClick={handleSave}
+                >
+                  Guardar
+                </button>
+              </label>
             </div>
           </form>
         )}

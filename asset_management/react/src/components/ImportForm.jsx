@@ -30,6 +30,7 @@ All the changes made to enable the implementation of the desired development too
 import React from "react";
 import axiosClient from "../axios-client.js";
 import { useState, useEffect } from "react";
+import { FaCircle } from "react-icons/fa";
 
 const ImportForm = () => {
   const [loading, setLoading] = useState(false);
@@ -44,12 +45,13 @@ const ImportForm = () => {
   const [ents, setEnts] = useState([]);
   const [supplier, setSupplier] = useState([]);
   const [units, setUnits] = useState([]);
-
   const [supplierId, setSupplierId] = useState("");
   const [selectedEntity, setSelectedEntity] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
 
   const [showMessage, setShowMessage] = useState(false);
+
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   //returns all objects (called x2times)
   useEffect(() => {
@@ -58,7 +60,6 @@ const ImportForm = () => {
       setCats(responses[0].data.cats);
       setEnts(responses[0].data.ents);
       setUnits(responses[0].data.units);
-      setBrands(responses[0].data.brands);
       setSupplier(responses[0].data.suppliers);
       setModelos(responses[0].data.models);
     });
@@ -148,6 +149,10 @@ const ImportForm = () => {
     setSelectedFile(event.target.files[0]);
   };
 
+  const handleIconClick = () => {
+    setIsPopupVisible(!isPopupVisible);
+  };
+
   //-------Import handle-------
   const handleImport = async () => {
     const formData = new FormData();
@@ -226,6 +231,26 @@ const ImportForm = () => {
     setSelectedEntity(selectedEntity);
   };
 
+  const handleCategoryChange = (event) => {
+    const selectedCategory = event.target.value;
+
+    setAsset({ ...asset, cat_id: selectedCategory });
+
+    setLoading(true);
+    axiosClient
+      .get(`/brands/category/${selectedCategory}`)
+      .then((response) => {
+        setLoading(false);
+        setBrands(response.data);
+        /*       console.log(selectedCategory);
+        console.log(brands); */
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.error(error);
+      });
+  };
+
   //-------------Download template----------------
   const handleDownload = () => {
     axiosClient
@@ -254,28 +279,29 @@ const ImportForm = () => {
   return (
     <div className="importAsset">
       <h1 className="title-page-all">Importar Ativos</h1>
+
       {loading && <div className="caprr-re">A carregar...</div>}
       {!loading && (
         <div>
           <p></p>
+          <p></p>
           <label htmlFor="fileInput" className="impLab">
-            <h5>Preencha os campos dos ativos a inserir:</h5>
+            <h4>Dados dos ativos:</h4>
           </label>
+          <p className="camp-obs-mov">*Campo Obrigatório</p>
           <p></p>
 
           {/* ---------- Category ----------*/}
           <label htmlFor="category" className="lb-info">
-            Categoria:
+            Categoria:<label className="cmp-obg">*</label>
             <select
               className="infoInpp"
               name="category"
               id="category"
               value={asset.cat_id}
-              onChange={(event) =>
-                setAsset({ ...asset, cat_id: event.target.value })
-              }
+              onChange={handleCategoryChange}
             >
-              <option value="">Selecione a Categoria ...</option>
+              <option value=""></option>
               {cats.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.name}
@@ -286,14 +312,14 @@ const ImportForm = () => {
           {/* --------------Brands--------- */}
           <label className="lb-info">
             {" "}
-            Marca*:
+            Marca:<label className="cmp-obg">*</label>
             <select
               value={asset.brand_id}
               onChange={handleBrandChange}
               className="infoInpp"
             >
-              <option value="">Selecione uma Marca</option>
-              {brands.map((brand) => (
+              <option value=""></option>
+              {brands.map((brand, index) => (
                 <option key={brand.id} value={brand.id}>
                   {brand.name}
                 </option>
@@ -304,7 +330,7 @@ const ImportForm = () => {
           {/* ---------- Models ----------*/}
           <label className="lb-info">
             {" "}
-            Modelo*:
+            Modelo:<label className="cmp-obg">*</label>
             <select
               value={asset.model_id}
               className="infoInpp"
@@ -312,7 +338,7 @@ const ImportForm = () => {
                 setAsset({ ...asset, model_id: event.target.value })
               }
             >
-              <option value="">Selecione um Modelo</option>
+              <option value=""></option>
               {modelos.map((modelo) => (
                 <option key={modelo.id} value={modelo.id}>
                   {modelo.name}
@@ -324,13 +350,13 @@ const ImportForm = () => {
           {/* ---------- Supplier ----------*/}
           <label className="lb-info">
             {" "}
-            Fornecedor*:
+            Fornecedor:<label className="cmp-obg">*</label>
             <select
               className="infoInpp"
               value={asset.supplier_id}
               onChange={handleSupplierChange}
             >
-              <option value="">Selecione um Fornecedor</option>
+              <option value=""></option>
               {supplier.map((sup) => (
                 <option key={sup.id} value={sup.id}>
                   {sup.name}
@@ -341,7 +367,7 @@ const ImportForm = () => {
 
           {/* ---------- Entities ----------*/}
           <label htmlFor="entity" className="lb-info">
-            Entidade:
+            Entidade:<label className="cmp-obg">*</label>
             <select
               className="infoInpp"
               name="entity"
@@ -349,7 +375,7 @@ const ImportForm = () => {
               value={asset.ent_id}
               onChange={handleEntityChange}
             >
-              <option value="">Selecione a Entidade ...</option>
+              <option value=""></option>
               {ents.map((ent) => (
                 <option key={ent.id} value={ent.id}>
                   {ent.name}
@@ -369,7 +395,7 @@ const ImportForm = () => {
                 setAsset({ ...asset, unit_id: event.target.value })
               }
             >
-              <option value="">Selecione a Unidade ...</option>
+              <option value=""></option>
               {units.map((unit) => (
                 <option key={unit.id} value={unit.id}>
                   {unit.name}
@@ -379,60 +405,86 @@ const ImportForm = () => {
           </label>
           <p></p>
           <p></p>
-
+          <div>
+            <button onClick={handleDownload} className="dwlTemp">
+              Download Template
+            </button>
+          </div>
           {/*------Ficheiro upload de ativos------*/}
           <h5 htmlFor="fileInput" className="impLab">
+            <p></p>
             Selecione o Ficheiro para Upload: (Ficheiros .CSV)
           </h5>
-
-          <input
-            type="file"
-            id="fileInput"
-            className="inpImport"
-            onChange={handleFileSelect}
-          />
           <p></p>
-          <button onClick={handleImport} className="btn-dwl">
-            Importar
-          </button>
+          <div className="importing-file">
+            <input
+              type="file"
+              id="fileInput"
+              className="inpImport"
+              onChange={handleFileSelect}
+            />
+
+            <button onClick={handleImport} className="btn-dwl">
+              Importar
+            </button>
+          </div>
           {successMessage && <p className="succMess">{successMessage}</p>}
           {errorMessage && <p className="errMess">{errorMessage}</p>}
 
-          <button onClick={handleDownload} className="dwlTemp">
-            Download Template
-          </button>
-          <p></p>
-          <h6 className="asset-import">
-            Atenção! Critérios para ficheiro "Template":
-          </h6>
-          <li>
-            Campo <b>"numb_inv"</b>: Iniciar com algarismo <u>0</u>.
-          </li>
-          <li>
-            Campo <b>"date_purch"</b>: Inserir um formato de data Ano-Mês-Dia.
-          </li>
-          <li>
-            Campo <b>"state"</b>: Com valores de <u>Ativo</u> ou <u>Inativo</u>.
-          </li>
-          <li>
-            Campo <b>"numb_ser"</b>: Insira um número de série que não exista na
-            base de dados.
-          </li>
-          <li>
-            Campo <b>"cond"</b>: Com valores de <u>Novo</u>, <u>Usado</u>,{" "}
-            <u>Reparação</u> e <u>Obsoleto</u>.
-          </li>
-          <li>
-            Campo <b>"ala"</b>: Com valores de <u>B</u>, <u>C</u>, <u>D</u>,{" "}
-            <u>E</u>.
-          </li>
-          <li>
-            Campo <b>"floor"</b>: Com valores de <u>-1</u>, <u>0</u>, <u>1</u>,{" "}
-            <u>2</u>, <u>3</u>, <u>4</u>, <u>5</u>.
-          </li>
-          <li>
-            Campo <b>"ci"</b>: Inserir CI válido.
-          </li>
+          <div className="impt-temp">
+            <p></p>
+            <div className="asset-importt">
+              <ul>
+                <li>
+                  <i
+                    className="fa fa-info-circle"
+                    aria-hidden="true"
+                    onClick={handleIconClick}
+                  >
+                    Informação
+                  </i>
+                  {isPopupVisible && (
+                    <div className="popup">
+                      <h6 className="asset-import">
+                        Atenção! Critérios para ficheiro "Template":
+                      </h6>
+                      <li>
+                        Campo <b>"numb_inv"</b>: Iniciar com algarismo <u>0</u>.
+                      </li>
+                      <li>
+                        Campo <b>"date_purch"</b>: Inserir um formato de data
+                        Ano-Mês-Dia.
+                      </li>
+                      <li>
+                        Campo <b>"state"</b>: Com valores de <u>Ativo</u> ou{" "}
+                        <u>Inativo</u>.
+                      </li>
+                      <li>
+                        Campo <b>"numb_ser"</b>: Insira um número de série que
+                        não exista na base de dados.
+                      </li>
+                      <li>
+                        Campo <b>"cond"</b>: Com valores de <u>Novo</u>,{" "}
+                        <u>Usado</u>, <u>Reparação</u> e <u>Obsoleto</u>.
+                      </li>
+                      <li>
+                        Campo <b>"ala"</b>: Com valores de <u>B</u>, <u>C</u>,{" "}
+                        <u>D</u>, <u>E</u>.
+                      </li>
+                      <li>
+                        Campo <b>"floor"</b>: Com valores de <u>-1</u>, <u>0</u>
+                        , <u>1</u>, <u>2</u>, <u>3</u>, <u>4</u>, <u>5</u>.
+                      </li>
+                      <li>
+                        Campo <b>"ci"</b>: Inserir CI válido.
+                      </li>
+                    </div>
+                  )}
+                </li>
+                {/* Other list items */}
+              </ul>
+            </div>
+          </div>
         </div>
       )}
     </div>

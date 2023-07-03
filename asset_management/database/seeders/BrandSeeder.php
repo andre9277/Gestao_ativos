@@ -16,9 +16,9 @@ class BrandSeeder extends Seeder
     public function run()
     {
         Brand::insert([
-            ['name' => 'Hewlett-Packard Development Company, L.P.', 'sig' => 'HP'],
-            ['name' => 'ASUSTek Computer Inc. ', 'sig' => 'ASUS'],
-            ['name' => 'Samsung ', 'sig' => 'Samsung']
+            ['name' => 'HP'],
+            ['name' => 'ASUS'],
+            ['name' => 'Samsung ']
         ]);
     }
 }

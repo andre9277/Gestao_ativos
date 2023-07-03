@@ -34,6 +34,7 @@ import Papa from "papaparse";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 import PaginationFilter from "../components/PaginationFilter.jsx";
 import SelectFilter from "../components/SelectFilter.jsx";
+import { useStateContext } from "../context/ContextProvider.jsx";
 
 //SideBar:-------------Asset movement---------------
 const ReportPage = () => {
@@ -47,6 +48,7 @@ const ReportPage = () => {
   const [meta, setMeta] = useState({});
   const [cats, setCats] = useState([]);
   const [users, setUsers] = useState([]);
+  const { user } = useStateContext();
 
   const [isButtonClicked, setIsButtonClicked] = useState(false);
 
@@ -155,12 +157,13 @@ const ReportPage = () => {
     for (let i = 0; i < array1.length; i++) {
       const item1 = array1[i];
       const commonNumber = item1.numb_ser;
-
+      console.log(array2);
       // Find matching items in the second array based on the common number
-      const matchingItems = array2.filter(
-        (item2) =>
-          item2.assets.numb_ser === commonNumber &&
-          item2.action_type === "Atualiza"
+      const matchingItems = array2.filter((item2) =>
+        item2.assets === null
+          ? ""
+          : item2.assets.numb_ser === commonNumber &&
+            item2.action_type === "Atualiza"
       );
 
       // If matching items are found, join the data
@@ -361,7 +364,8 @@ const ReportPage = () => {
     const allocation = allocations.find((a) =>
       a.assets === null
         ? ""
-        : a.assets.id === assetId && a.action_type === "Atualiza"
+        : a.assets.id === assetId &&
+          (a.action_type === "Atualiza" || a.action_type === "Pesquisa")
     );
     /*  console.log("allcoation", allocation); */
 
@@ -494,7 +498,7 @@ const ReportPage = () => {
     <div id="content">
       <div className="container-fluid">
         <div className="tb-user">
-          <h1 className="title-page-all">Movimentação de ativos</h1>
+          <h1 className="title-page-all">Movimentos de ativos</h1>
           <div>
             <>
               <div className="dropdown">
@@ -502,10 +506,11 @@ const ReportPage = () => {
                 <button
                   className="btn-filter text-link"
                   onClick={toggleDropdown}
+                  title="Filtro"
                 >
                   <i className="fa fa-filter fa-lg" aria-hidden="true"></i>
                 </button>
-                {
+                {user.role_id === 3 ? null : (
                   /*------------ Button Trade ------------*/
                   <button
                     className="btn-add text-link"
@@ -514,9 +519,10 @@ const ReportPage = () => {
                     <i
                       className="fa fa-exchange-alt fa-lg"
                       aria-hidden="true"
+                      title="Movimento de um ativo"
                     ></i>
                   </button>
-                }
+                )}
 
                 <div
                   className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
@@ -592,7 +598,12 @@ const ReportPage = () => {
                 </div>
               </div>
               {/* ------------Button download------------ */}
-              <button onClick={downloadCSV} className="btn-dwl">
+              <button
+                onClick={downloadCSV}
+                className="btn-dwl"
+                alt="Download CSV"
+                title="Download CSV"
+              >
                 <i className="fa fa-download fa-lg" aria-hidden="true"></i>
               </button>
             </>
@@ -606,10 +617,10 @@ const ReportPage = () => {
               <th>Nº Inventário</th>
               <th>Nº Série</th>
               <th>Categoria</th>
-              <th>Local(Anterior)</th>
-              <th>Local(Atual)</th>
-              <th>CI(Anterior)</th>
-              <th>CI(Atual)</th>
+              <th>Local (Anterior)</th>
+              <th>Local (Atual)</th>
+              <th>CI (Anterior)</th>
+              <th>CI (Atual)</th>
               <th>Utilizador</th>
               <th>Movido em</th>
               <th></th>
@@ -652,29 +663,29 @@ const ReportPage = () => {
                   return (
                     <tr key={`${asset.id}-${index}`}>
                       <td>{asset.numb_inv}</td>
-                      <td>{asset.numb_ser}</td>
-                      <td>{asset.category.name}</td>
+                      <td className="table-words-l">{asset.numb_ser}</td>
+                      <td className="table-words-l">{asset.category.name}</td>
 
-                      <td>
+                      <td className="table-words-l">
                         {asset.previous_unit_id === null
                           ? filtered_entities(asset.previous_ent_id)
                           : filtered_units(asset.previous_unit_id)}
                       </td>
 
-                      <td>
+                      <td className="table-words-l">
                         {asset.units === null
                           ? asset.entity.ent_name
                           : asset.units.name}
                       </td>
-                      <td>{asset.previous_ci}</td>
-                      <td>{asset.ci}</td>
+                      <td className="table-words-l">{asset.previous_ci}</td>
+                      <td className="table-words-l">{asset.ci}</td>
 
-                      <td>
+                      <td className="table-words-l">
                         {asset.user === undefined
                           ? allocationData.user
                           : asset.user}
                       </td>
-                      <td>
+                      <td className="table-numb-r">
                         {asset.allocation_date === undefined
                           ? allocationData.date
                           : asset.allocation_date}
@@ -741,29 +752,29 @@ const ReportPage = () => {
                     return (
                       <tr key={`${asset.id}-${index}`}>
                         <td>{asset.numb_inv}</td>
-                        <td>{asset.numb_ser}</td>
-                        <td>{asset.category.name}</td>
+                        <td className="table-words-l">{asset.numb_ser}</td>
+                        <td className="table-words-l">{asset.category.name}</td>
 
-                        <td>
+                        <td className="table-words-l">
                           {asset.previous_unit_id === null
                             ? filtered_entities(asset.previous_ent_id)
                             : filtered_units(asset.previous_unit_id)}
                         </td>
 
-                        <td>
+                        <td className="table-words-l">
                           {asset.units === null
                             ? asset.entity.ent_name
                             : asset.units.name}
                         </td>
-                        <td>{asset.previous_ci}</td>
-                        <td>{asset.ci}</td>
+                        <td className="table-words-l">{asset.previous_ci}</td>
+                        <td className="table-words-l">{asset.ci}</td>
 
-                        <td>
+                        <td className="table-words-l">
                           {asset.user === null
                             ? allocationData.user
                             : asset.user}
                         </td>
-                        <td>{allocationData.date}</td>
+                        <td className="table-numb-r">{allocationData.date}</td>
                         <td>
                           <i
                             className="fa fa-info-circle"

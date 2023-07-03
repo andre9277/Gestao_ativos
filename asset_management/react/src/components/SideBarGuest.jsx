@@ -60,6 +60,12 @@ const SideBarGuest = () => {
     }
   };
 
+  const [activeOption, setActiveOption] = useState("");
+
+  const handleOptionClick = (option) => {
+    setActiveOption(option);
+  };
+
   return (
     <>
       {/*  <!-- Sidebar --> */}
@@ -84,10 +90,19 @@ const SideBarGuest = () => {
         <br></br>
 
         {/*  <!-- Nav Item - Dashboard --> */}
-        <li className="nav-item active">
-          <Link to="/dashboard" className="nav-link">
+        <p className="space-mov"></p>
+        <li
+          className={`nav-item ${activeOption === "dashboard" ? "active" : ""}`}
+        >
+          <Link
+            to="/dashboard"
+            className="nav-link"
+            onClick={() => handleOptionClick("dashboard")}
+          >
             <i className="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+            <span>
+              <h5>Dashboard</h5>
+            </span>
           </Link>
         </li>
 
@@ -95,10 +110,16 @@ const SideBarGuest = () => {
         {/*   <hr className="sidebar-divider" /> */}
         <br></br>
         {/*   <!-- Heading --> */}
-        <div className="sidebar-heading">Gestão</div>
+        <div className="sidebar-heading">Ativos</div>
 
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
-        <MenuItem titulo={"Ativos"} icon={"fa-cog"} origem={"assets"} />
+        <MenuItem
+          titulo={"Listagem"}
+          icon={"fa-cog"}
+          origem={"assets"}
+          handleOptionClick={handleOptionClick}
+          activeOption={activeOption}
+        />
 
         {/* <!-- Nav Item - Utilities Collapse Menu --> */}
         {/* <MenuItem Name="Utilities-teste" MenuId="collapseUtilities" /> */}
@@ -111,15 +132,17 @@ const SideBarGuest = () => {
           titulo={"Movimentos"}
           icon={"fa-chart-area"}
           origem={"report"}
+          handleOptionClick={handleOptionClick}
+          activeOption={activeOption}
         />
 
-        <div className="text-center d-none d-md-inline">
+        {/*  <div className="text-center d-none d-md-inline">
           <button
             className="border-0"
             id="sidebarToggle"
             onClick={changeStyle}
           ></button>
-        </div>
+        </div> */}
 
         {/*  <!-- Nav Item - Users --> */}
         {/*  <!-- Divider --> */}

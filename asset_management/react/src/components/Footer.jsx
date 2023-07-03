@@ -31,17 +31,12 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div id="layoutError_footer">
-      <footer className="py-4 bg-light mt-auto">
+    <div id="layoutError_footer" className="footer">
+      <footer className="py-4 bg-light">
         <div className="container-fluid px-4">
           <div className="d-flex align-items-center justify-content-between small">
             <div className="text-muted">
               Copyright &copy; Hospital de Braga 2023
-            </div>
-            <div>
-              <a href="#">Política de Privacidade</a>
-              &middot;
-              <a href="#">Termos &amp; Condições</a>
             </div>
           </div>
         </div>

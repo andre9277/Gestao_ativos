@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
 use App\Models\Allocation;
+use Illuminate\Auth\Notifications\ResetPassword;
+use App\Notifications\PasswordResetNotification;
 
 class User extends Authenticatable
 {
@@ -66,5 +68,13 @@ class User extends Authenticatable
     public function allocations()
     {
         return $this->hasMany(Allocation::class);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+
+        $url = 'http://127.0.0.1:3000/forgotPasswordForm/' . $token;
+
+        $this->notify(new PasswordResetNotification($url));
     }
 }

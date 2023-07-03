@@ -139,7 +139,11 @@ export default function Users() {
               className="btn-add text-link"
               onClick={(ev) => onAddClick()}
             >
-              <i className="fa fa-plus fa-lg" aria-hidden="true"></i>
+              <i
+                className="fa fa-plus fa-lg"
+                aria-hidden="true"
+                title={"Adicionar"}
+              ></i>
             </button>
           ) : null}
           <>
@@ -147,14 +151,22 @@ export default function Users() {
               className=" btn-edit text-link"
               onClick={(ev) => onEditClick()}
             >
-              <i className="fa fa-pencil-alt fa-lg" aria-hidden="true"></i>
+              <i
+                className="fa fa-pencil-alt fa-lg"
+                aria-hidden="true"
+                title={"Editar"}
+              ></i>
             </button>
             &nbsp;
             <button
               className="btn-delete text-link"
               onClick={(ev) => onDeleteClick()}
             >
-              <i className="fa fa-trash fa-lg" aria-hidden="true"></i>
+              <i
+                className="fa fa-trash fa-lg"
+                aria-hidden="true"
+                title={"Apagar"}
+              ></i>
             </button>
           </>
         </div>
