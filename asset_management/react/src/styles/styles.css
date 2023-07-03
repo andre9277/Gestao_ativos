@@ -753,6 +753,7 @@ progress {
     margin-right: calc(-0.5 * var(--bs-gutter-x));
     margin-left: calc(-0.5 * var(--bs-gutter-x));
     border: 2px solid #7e7979;
+    border-radius: 0.5rem;
 }
 
 .row-dash {
@@ -7909,6 +7910,7 @@ fieldset:disabled .btn {
 }
 .back-col-login2 {
     background-color: #ffffff;
+    border-radius: 0.5rem;
 }
 .logoDiv {
     background-color: #007840;

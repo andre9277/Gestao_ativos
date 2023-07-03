@@ -131,7 +131,7 @@ export default function Login() {
                   </div>
                 </form>
                 <div className="footer-copyR">
-                  V1.0.0 © 2023. Hospital de Braga Serviço de Sistemas de
+                  V1.0.0 © 2023. Hospital de Braga - Serviço de Sistemas de
                   Informação
                 </div>
               </MDBCol>
