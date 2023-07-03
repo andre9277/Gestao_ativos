@@ -354,6 +354,7 @@
 }
 .fa-arrow-circle-down:before {
     content: "\f0ab";
+    font-size: x-large;
 }
 .fa-arrow-circle-left:before {
     content: "\f0a8";
@@ -1492,6 +1493,7 @@
 }
 .fa-exchange-alt:before {
     content: "\f362";
+    font-size: x-large;
 }
 .fa-exclamation:before {
     content: "\f12a";
@@ -2531,9 +2533,11 @@
 }
 .fa-list:before {
     content: "\f03a";
+    font-size: x-large;
 }
 .fa-list-alt:before {
     content: "\f022";
+    font-size: x-large;
 }
 .fa-list-ol:before {
     content: "\f0cb";
@@ -4212,6 +4216,7 @@
 }
 .fa-upload:before {
     content: "\f093";
+    font-size: x-large;
 }
 .fa-ups:before {
     content: "\f7e0";
@@ -4293,6 +4298,7 @@
 }
 .fa-users:before {
     content: "\f0c0";
+    font-size: x-large;
 }
 .fa-users-cog:before {
     content: "\f509";

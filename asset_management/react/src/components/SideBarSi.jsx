@@ -83,14 +83,14 @@ const SideBarSi = () => {
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
         <MenuItem
           titulo={"Listagem"}
-          icon={"fa-cog"}
+          icon={"fa-list"}
           origem={"assets"}
           handleOptionClick={handleOptionClick}
           activeOption={activeOption}
         />
         <MenuItem
           titulo={"Movimentos"}
-          icon={"fa-plus"}
+          icon={"fa-exchange-alt"}
           origem={"report"}
           handleOptionClick={handleOptionClick}
           activeOption={activeOption}
@@ -98,7 +98,7 @@ const SideBarSi = () => {
 
         <MenuItem
           titulo={"Donwload"}
-          icon={"fa-chart-area"}
+          icon={"fa-arrow-circle-down"}
           origem={"allocations"}
           handleOptionClick={handleOptionClick}
           activeOption={activeOption}
