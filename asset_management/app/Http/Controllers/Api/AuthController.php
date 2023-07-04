@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\SignupRequest;
+use App\Models\Allocation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +63,16 @@ class AuthController extends Controller
         }
 
         $token = $user->createToken('main')->plainTextToken;
+
+        // Create a new allocation record for the user
+        $allocation = new Allocation([
+            'allocation_date' => now(),
+            'ser_number' => "",
+            'action_type' => 'Log in',
+            'user_id' => $user->id
+        ]);
+        $allocation->save();
+
         return response(compact('user', 'token'));
     }
 
@@ -71,6 +82,14 @@ class AuthController extends Controller
     {
         /** @var \App\Models\User $user */
         $user = $request->user();
+        // Create a new allocation record for the user
+        $allocation = new Allocation([
+            'allocation_date' => now(),
+            'ser_number' => "",
+            'action_type' => 'Log out',
+            'user_id' => $user->id
+        ]);
+        $allocation->save();
         $user->currentAccessToken()->delete();
         return response('', 204);
     }
