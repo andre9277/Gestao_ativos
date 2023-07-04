@@ -30,6 +30,7 @@ All the changes made to enable the implementation of the desired development too
 import React from "react";
 import axiosClient from "../axios-client.js";
 import { useState, useEffect } from "react";
+import { Modal, Button } from "react-bootstrap";
 
 const ImportForm = () => {
   const [loading, setLoading] = useState(false);
@@ -143,6 +144,16 @@ const ImportForm = () => {
     units: "",
   });
 
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  const handleCancelSave = () => {
+    setShowConfirmModal(false); // Close the confirmation modal
+  };
+
+  const handleSave = () => {
+    setShowConfirmModal(true); // Open the confirmation modal
+  };
+
   //-------File checked--------
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -154,6 +165,7 @@ const ImportForm = () => {
 
   //-------Import handle-------
   const handleImport = async () => {
+    setShowConfirmModal(false);
     const formData = new FormData();
     formData.append("brand_id", selectedBrand);
     formData.append("cat_id", asset.cat_id);
@@ -211,14 +223,14 @@ const ImportForm = () => {
     setSelectedBrand(selectedBrand);
   }
 
-  function handleSupplierChange(event) {
+  const handleSupplierChange = (event) => {
     setSupplierId(event.target.value);
     const newAsset = {
       ...asset,
       supplier_id: event.target.value,
     };
     setAsset(newAsset);
-  }
+  };
 
   const handleEntityChange = (event) => {
     const selectedEntity = event.target.value;
@@ -277,6 +289,20 @@ const ImportForm = () => {
 
   return (
     <div className="importAsset">
+      <Modal show={showConfirmModal} onHide={handleCancelSave}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmação</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{"Deseja importar o ficheiro selecionado?"}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleImport}>
+            Confirmar
+          </Button>
+          <Button variant="primary" onClick={handleCancelSave}>
+            Cancelar
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <h1 className="title-page-all">Importar Ativos</h1>
 
       {loading && <div className="caprr-re">A carregar...</div>}
@@ -424,7 +450,7 @@ const ImportForm = () => {
               onChange={handleFileSelect}
             />
 
-            <button onClick={handleImport} className="btn-dwl">
+            <button onClick={handleSave} className="btn-dwl">
               Importar
             </button>
           </div>
