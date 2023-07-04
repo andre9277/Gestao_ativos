@@ -8,8 +8,7 @@ use App\Http\Requests\SignupRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -46,25 +45,19 @@ class AuthController extends Controller
 
         if (!$user) {
             return response([
-                'message' => 'Atenção! Introduza um endereço de email ou número mec válido e a respetiva password ou PIN!'
+                'message' => 'Atenção! Introduza um endereço de email ou número mec válido!'
             ], 422);
         }
 
-        if (isset($credentials['password'])) {
-            if (!Auth::attempt(['id' => $user->id, 'password' => $credentials['password']])) {
-                return response([
-                    'message' => 'Atenção! A password não é válida!'
-                ], 422);
-            }
-        } elseif (isset($credentials['pin'])) {
-            if ($user->pin !== $credentials['pin']) {
-                return response([
-                    'message' => 'Atenção! O PIN não é válido!'
-                ], 422);
-            }
-        } else {
+        if (isset($credentials['password']) && !Hash::check($credentials['password'], $user->password)) {
             return response([
-                'message' => 'Atenção! Introduza uma password ou PIN válido!'
+                'message' => 'Atenção! A password está incorreta!'
+            ], 422);
+        }
+
+        if (isset($credentials['pin']) && !Hash::check($credentials['pin'], $user->pin)) {
+            return response([
+                'message' => 'Atenção! O PIN está incorreto!'
             ], 422);
         }
 
