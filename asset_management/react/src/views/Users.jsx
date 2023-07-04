@@ -29,9 +29,10 @@ All the changes made to enable the implementation of the desired development too
 */
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import PaginationLinks from "../components/PaginationLinks.jsx";
+import { Modal, Button } from "react-bootstrap";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
@@ -62,39 +63,59 @@ export default function Users() {
 
     //console.log(checkedUserIds);
   };
+  const [show, setShow] = useState(false);
+
+  const [deleteConfirmed, setDeleteConfirmed] = useState(false);
 
   const onDeleteClick = () => {
-    // Get the IDs of all the checked users
-    const checkedUserIds = users.filter((u) => u.checked).map((u) => u.id);
+    setShow(true); // Show the modal
+  };
 
-    // If no users are checked, return
-    if (checkedUserIds.length === 0) {
-      return;
-    }
+  const handleDeleteConfirm = () => {
+    setDeleteConfirmed(true);
+    setShow(false); // Close the modal
+  };
 
-    // Confirm that the user wants to delete the checked users
-    if (
-      !window.confirm(
-        `Tem a certeza que deseja eliminar ${checkedUserIds.length} utilizador(s) selecionado(s)?`
-      )
-    ) {
-      return;
-    }
-
-    // Delete the checked users
-    axiosClient.delete(`/users/${checkedUserIds.join(",")}`).then(() => {
-      setNotification(
-        ` ${checkedUserIds.length} utilizador(s) apagado(s) com sucesso!`
-      );
-
-      // After the users are deleted, fetch all the users again to update the table
-      getUsers();
-    });
+  const handleClose = () => {
+    setShow(false);
   };
 
   const onPageClick = (link) => {
     getUsers(link.url);
   };
+
+  // Execute the delete operation when deleteConfirmed is true
+  useEffect(() => {
+    if (deleteConfirmed) {
+      // Get the IDs of all the checked assets
+      const checkedUserIds = users.filter((u) => u.checked).map((u) => u.id);
+
+      // If no assets are checked, return
+      if (checkedUserIds.length === 0) {
+        return;
+      }
+
+      // Create the URL with the asset IDs
+      const url = `/users/${checkedUserIds.join(",")}`;
+
+      // Send the DELETE request
+      axiosClient
+        .delete(url)
+        .then(() => {
+          setNotification("Utilizador apagado com sucesso");
+          // Fetch assets again to update the UI
+          getUsers();
+        })
+        .catch((error) => {
+          console.error("Erro ao apagar utilizador:", error);
+
+          // Handle error if necessary...
+        });
+
+      // Reset deleteConfirmed to false
+      setDeleteConfirmed(false);
+    }
+  }, [deleteConfirmed]);
 
   //Performs a client access request
   const getUsers = (url) => {
@@ -131,6 +152,20 @@ export default function Users() {
 
   return (
     <div>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmação</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Deseja apagar o utilizador selecionado!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleDeleteConfirm}>
+            Apagar
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Cancelar
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div className="tb-user">
         <h1 className="title-page-all">Utilizadores</h1>
         <div className="tb-btn-user">
