@@ -34,18 +34,25 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $credentials = $request->validated();
-        if (!Auth::attempt($credentials)) {
+        $credentials = $request->only('mec', 'email', 'password');
+
+        $user = null;
+        if (isset($credentials['mec'])) {
+            $user = User::where('mec', $credentials['mec'])->first();
+        } elseif (isset($credentials['email'])) {
+            $user = User::where('email', $credentials['email'])->first();
+        }
+
+        if (!$user || !Auth::attempt(['id' => $user->id, 'password' => $credentials['password']])) {
             return response([
-                'message' => 'Atenção! Introduza um endereço de email e a respetiva password!'
+                'message' => 'Atenção! Introduza um endereço de email ou número mec válido e a respetiva password!'
             ], 422);
         }
 
-        /** @var \App\Models\User $user */
-        $user = Auth::user();
         $token = $user->createToken('main')->plainTextToken;
         return response(compact('user', 'token'));
     }
+
 
     public function logout(Request $request)
     {

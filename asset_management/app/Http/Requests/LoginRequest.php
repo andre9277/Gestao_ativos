@@ -24,7 +24,8 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|string|exists:users,email',
+            'email' => 'required_without:mec|email|string|exists:users,email',
+            'mec' => 'required_without:email|string',
             'password' => [
                 'required',
             ],
@@ -32,12 +33,12 @@ class LoginRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    /* public function messages()
     {
         return [
 
             'email.required' => 'Atenção! É necessário indicar um endereço de email!',
             'password.required' => 'Atenção! É necessário indicar uma password!.',
         ];
-    }
+    } */
 }

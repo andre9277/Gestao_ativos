@@ -54,10 +54,19 @@ export default function Login() {
   const onSubmit = (ev) => {
     ev.preventDefault();
 
-    const payload = {
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
-    };
+    const payload = {};
+    const userInput = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+    // Check if userInput matches email format
+    if (/^\S+@\S+\.\S+$/.test(userInput)) {
+      payload.email = userInput;
+    } else {
+      payload.mec = userInput;
+    }
+
+    payload.password = password;
+
     axiosClient
       .post("/login", payload)
       .then(({ data }) => {
@@ -95,9 +104,8 @@ export default function Login() {
                   <div className="login-main-box">
                     <MDBInput
                       wrapperClass="mb-4 mx-5 w-100"
-                      label="Endereço de email"
+                      label="Endereço de email ou número MEC"
                       id="formControlLg"
-                      type="email"
                       size="lg"
                       ref={emailRef}
                     />
