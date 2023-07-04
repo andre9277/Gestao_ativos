@@ -9,7 +9,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
 use App\Models\Allocation;
-use Illuminate\Auth\Notifications\ResetPassword;
 use App\Notifications\PasswordResetNotification;
 
 class User extends Authenticatable
@@ -32,12 +31,11 @@ class User extends Authenticatable
         'password',
     ];
     public static $rules = [
-        'mec' => [
+        /* 'mec' => [
             'nullable',
             'regex:/^\d{5}$/',
             'size:5'
-        ]
-    ];
+        ] */];
 
     /**
      * The attributes that should be hidden for serialization.

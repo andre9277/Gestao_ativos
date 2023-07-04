@@ -2500,7 +2500,7 @@ progress {
     /* padding: 0.5rem 1rem; */
     font-size: 1.25rem;
     border-radius: 0.3rem;
-    width: auto;
+    /* width: auto; */
 }
 .form-control-lg::-webkit-file-upload-button {
     padding: 0.5rem 1rem;

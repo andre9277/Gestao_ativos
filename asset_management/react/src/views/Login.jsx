@@ -66,8 +66,9 @@ export default function Login() {
       })
       .catch((err) => {
         const response = err.response;
+
         if (response && response.status === 422) {
-          setMessage(response.data.message);
+          setMessage("Atenção! Verifique se introduziu os dados corretamente!");
         }
       });
   };

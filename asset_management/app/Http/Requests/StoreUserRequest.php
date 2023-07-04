@@ -41,7 +41,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:55',
-            'mec' => 'required',
+            'mec' => ['required', 'size:6',],
             'email' => [
                 'required',
                 'email',
@@ -62,11 +62,12 @@ class StoreUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'mec.size' => 'Atenção! O Número Mecanográfico deve ter exatamente 5 algarismos.',
+            'mec.required' => 'Atenção! Insira o número mecanográfico.',
+            'mec.size' => 'Atenção! O Número Mecanográfico deve ter 6 algarismos.',
             'role_id.required' => 'Atenção! Deve atribuir uma função.',
             'password.required' => 'Atenção! Deve inserir uma password com pelo menos 8 caracteres, 1 letra maiuscula e símbolos.',
-            'email.required' => 'Atenção! Deve ser inserir uma password.',
-            'mec.required' => 'Atenção! Insira o número mecanográfico.',
+            'email.required' => 'Atenção! Deve inserir uma email.',
+
             'name.required' => 'Atenção! Insira o nome.',
             'name.size' => 'Atenção! Ultrapassou o limite de carateres.',
             'password.min' => 'Atenção! A password deve conter pelo menos 8 caracteres.',
