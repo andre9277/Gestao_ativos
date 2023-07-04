@@ -65,7 +65,12 @@ export default function Login() {
       payload.mec = userInput;
     }
 
-    payload.password = password;
+    // Check if the password is a 6-digit PIN
+    if (/^\d{6}$/.test(password)) {
+      payload.pin = password;
+    } else {
+      payload.password = password;
+    }
 
     axiosClient
       .post("/login", payload)

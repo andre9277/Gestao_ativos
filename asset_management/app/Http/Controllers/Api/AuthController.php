@@ -34,7 +34,7 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $credentials = $request->only('mec', 'email', 'password');
+        $credentials = $request->only('mec', 'email', 'password', 'pin');
 
         $user = null;
         if (isset($credentials['mec'])) {
@@ -43,15 +43,34 @@ class AuthController extends Controller
             $user = User::where('email', $credentials['email'])->first();
         }
 
-        if (!$user || !Auth::attempt(['id' => $user->id, 'password' => $credentials['password']])) {
+        if (!$user) {
             return response([
-                'message' => 'Atenção! Introduza um endereço de email ou número mec válido e a respetiva password!'
+                'message' => 'Atenção! Introduza um endereço de email ou número mec válido e a respetiva password ou PIN!'
+            ], 422);
+        }
+
+        if (isset($credentials['password'])) {
+            if (!Auth::attempt(['id' => $user->id, 'password' => $credentials['password']])) {
+                return response([
+                    'message' => 'Atenção! A password não é válida!'
+                ], 422);
+            }
+        } elseif (isset($credentials['pin'])) {
+            if ($user->pin !== $credentials['pin']) {
+                return response([
+                    'message' => 'Atenção! O PIN não é válido!'
+                ], 422);
+            }
+        } else {
+            return response([
+                'message' => 'Atenção! Introduza uma password ou PIN válido!'
             ], 422);
         }
 
         $token = $user->createToken('main')->plainTextToken;
         return response(compact('user', 'token'));
     }
+
 
 
     public function logout(Request $request)

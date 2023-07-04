@@ -26,9 +26,8 @@ class LoginRequest extends FormRequest
         return [
             'email' => 'required_without:mec|email|string|exists:users,email',
             'mec' => 'required_without:email|string',
-            'password' => [
-                'required',
-            ],
+            'password' => 'required_without:pin',
+            'pin' => 'required_without:password',
             'remember' => 'boolean'
         ];
     }

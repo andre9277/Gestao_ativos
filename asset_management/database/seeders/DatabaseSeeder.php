@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             'mec' => 'b00001',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('Admin@277'),
+            'pin' => '111111',
             'role_id' => 1
         ]);
     }
