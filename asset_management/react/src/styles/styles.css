@@ -13716,6 +13716,12 @@ button {
     border: 1px solid black;
     margin-bottom: 10px;
 }
+.inp-res-pass-rec {
+    border: 1px solid black;
+    margin-bottom: 10px;
+    padding: 1px;
+    float: right;
+}
 
 .btn-rec-pass {
     background-color: #00a762;
@@ -13726,7 +13732,7 @@ button {
 }
 
 .ms-rec-pass {
-    color: #d8000c;
+    color: white;
     background-color: #ffbaba;
     text-align: center;
     width: inherit;
@@ -13738,7 +13744,7 @@ button {
 }
 
 .ms-rec-pass-conf {
-    color: var(--bs-green);
+    color: white;
     background-color: #119d21;
     text-align: center;
     width: inherit;
@@ -13760,4 +13766,8 @@ button {
 .login-main-box {
     width: auto;
     padding-top: 5rem;
+}
+
+.form-group-reset {
+    display: flow-root;
 }
