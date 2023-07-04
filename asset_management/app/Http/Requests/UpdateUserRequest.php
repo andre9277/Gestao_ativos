@@ -28,7 +28,7 @@ class UpdateUserRequest extends FormRequest
         //except the id
         return [
             'name' => 'required|string|max:55',
-            'mec' => 'required|size:5',
+            'mec' => ['required', 'size:6',],
             'email' => 'required|email|unique:users,email,' . $this->id,
             'role_id' => 'required',
             'password' => [
@@ -43,15 +43,17 @@ class UpdateUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'mec.size' => 'Atenção! O Número Mecanográfico deve ter exatamente 5 algarismos.',
-            'role_id.required' => 'Atenção! Deve ser atribuída uma função ao utilizador.',
+            'mec.required' => 'Atenção! Insira o número mecanográfico.',
+            'mec.size' => 'Atenção! Introduza um número mecanográfico válido.',
+            'role_id.required' => 'Atenção! Deve atribuir uma função.',
             'password.required' => 'Atenção! Deve inserir uma password com pelo menos 8 caracteres, 1 letra maiuscula e símbolos.',
-            'email.required' => 'Atenção! Deve ser inserir uma password.',
-            'mec.required' => 'Atenção! Insira o número mecanográfico do utilizador.',
-            'name.required' => 'Atenção! Insira o nome do utilizador.',
+            'email.required' => 'Atenção! Deve inserir uma email.',
+
+            'name.required' => 'Atenção! Insira o nome.',
+            'name.size' => 'Atenção! Ultrapassou o limite de carateres.',
             'password.min' => 'Atenção! A password deve conter pelo menos 8 caracteres.',
             'password.letters' => 'Atenção! A password deve conter letras.',
-            'password.symbols' => 'Atenção! A password deve conter símbolos.'
+            'password.symbols' => 'Atenção! A password deve conter símbolos.',
         ];
     }
 }
