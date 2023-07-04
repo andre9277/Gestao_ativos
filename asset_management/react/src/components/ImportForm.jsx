@@ -335,6 +335,23 @@ const ImportForm = () => {
               ))}
             </select>
           </label>
+          {/* ---------- Supplier ----------*/}
+          <label className="lb-info">
+            {" "}
+            Fornecedor:<label className="cmp-obg">*</label>
+            <select
+              className="infoInpp"
+              value={asset.supplier_id}
+              onChange={handleSupplierChange}
+            >
+              <option value=""></option>
+              {supplier.map((sup) => (
+                <option key={sup.id} value={sup.id}>
+                  {sup.name}
+                </option>
+              ))}
+            </select>
+          </label>
           {/* --------------Brands--------- */}
           <label className="lb-info">
             {" "}
@@ -368,24 +385,6 @@ const ImportForm = () => {
               {modelos.map((modelo) => (
                 <option key={modelo.id} value={modelo.id}>
                   {modelo.name}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          {/* ---------- Supplier ----------*/}
-          <label className="lb-info">
-            {" "}
-            Fornecedor:<label className="cmp-obg">*</label>
-            <select
-              className="infoInpp"
-              value={asset.supplier_id}
-              onChange={handleSupplierChange}
-            >
-              <option value=""></option>
-              {supplier.map((sup) => (
-                <option key={sup.id} value={sup.id}>
-                  {sup.name}
                 </option>
               ))}
             </select>
