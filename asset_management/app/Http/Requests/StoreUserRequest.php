@@ -26,8 +26,12 @@ class StoreUserRequest extends FormRequest
 
     private function addLeadingZero($value)
     {
-        if (strlen($value) === 4) {
+        if (strlen($value) === 5 && substr($value, 0, 1) === 'b') {
+            $value = 'b0' . substr($value, 1);
+        } elseif (strlen($value) === 4 && !preg_match('/^b\d{5}$/', $value)) {
             $value = '0' . $value;
+        } elseif (strlen($value) === 3 && substr($value, 0, 1) === 'b' && !preg_match('/^b\d{4}$/', $value)) {
+            $value = 'b00' . substr($value, 1);
         }
         return preg_replace('/^(?!b\d{5}$)/', 'b', $value);
     }
