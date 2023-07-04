@@ -653,8 +653,8 @@ export default function Assets() {
               {/* <th>Nº Série</th> */}
               <th>
                 <ColumnMenuFilter
-                  titulo={"NºSerie"}
-                  tituloF={"NºSerie"}
+                  titulo={"Nº Série"}
+                  tituloF={"Nº Série"}
                   sorting={sorting}
                   order={order}
                   sortingFilter={sortingFilter}
