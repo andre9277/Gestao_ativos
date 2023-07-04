@@ -29,6 +29,7 @@ class User extends Authenticatable
         'email',
         'role_id',
         'password',
+        'pin',
     ];
     public static $rules = [
         /* 'mec' => [

@@ -48,6 +48,7 @@ export default function UserForm() {
     password_confirmation: "",
     role_id: "",
     mec: "",
+    pin: "",
   });
   const [errors, setErrors] = useState(null);
 
@@ -99,7 +100,7 @@ export default function UserForm() {
       axiosClient
         .post("/users", user)
         .then(() => {
-          setNotification("Utilizador Criado com sucesso!");
+          setNotification("Utilizador criado com sucesso!");
           navigate("/users");
         })
         .catch((err) => {
@@ -120,6 +121,7 @@ export default function UserForm() {
       password_confirmation: "",
       role_id: "",
       mec: "",
+      pin: "",
     });
   };
 
@@ -213,7 +215,6 @@ export default function UserForm() {
                 className="infoInp"
               />
             </label>
-            <label className="lb-info"></label>
             <label className="lb-info">
               Confirmar Password:<label className="cmp-obg">*</label>
               <input
@@ -225,7 +226,15 @@ export default function UserForm() {
                 className="infoInp"
               />
             </label>
-
+            <label className="lb-info">
+              PIN:
+              <input
+                value={user.pin}
+                type="password"
+                onChange={(ev) => setUser({ ...user, pin: ev.target.value })}
+                className="infoInp"
+              />
+            </label>
             <label className="lb-info-btn">
               <label onClick={resetFilter} className="btn-cleanfilter-asset">
                 Limpar
