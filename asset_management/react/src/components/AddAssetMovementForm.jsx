@@ -31,6 +31,7 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client";
 import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
+import { Modal, Button } from "react-bootstrap";
 
 const AddAssetMovementForm = () => {
   const [errors, setErrors] = useState(null);
@@ -78,9 +79,24 @@ const AddAssetMovementForm = () => {
     matchingInv = assetEve.find((asset) => asset.numb_inv === invNumberr);
   }
 
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  const handleCancelSave = () => {
+    setShowConfirmModal(false); // Close the confirmation modal
+  };
+
+  const handleSave = () => {
+    setShowConfirmModal(true); // Open the confirmation modal
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    // Open the confirmation modal
+    setShowConfirmModal(true);
+  };
 
+  const handleConfirmSave = () => {
+    setShowConfirmModal(false); // Close the confirmation modal
     const data = {
       allocation_date: assetDate,
       ser_number: matchingInv ? matchingInv.numb_ser : serNumber,
@@ -146,7 +162,6 @@ const AddAssetMovementForm = () => {
       })
       .catch(() => {});
   };
-
   //Reset of the filters implemented
   const resetFilter = () => {
     setAssetDate("");
@@ -157,9 +172,22 @@ const AddAssetMovementForm = () => {
     setReason("");
     setOther("");
   };
-
   return (
     <>
+      <Modal show={showConfirmModal} onHide={handleCancelSave}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmação</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{"Deseja guardar todas as alterações?"}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleConfirmSave}>
+            Confirmar
+          </Button>
+          <Button variant="primary" onClick={handleCancelSave}>
+            Cancelar
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <h1 className="title-page-all">Movimento de Ativo</h1>
       <form onSubmit={handleSubmit} className="assetForm">
         <h1 className="title-page-all-sub">Dados Gerais: </h1>

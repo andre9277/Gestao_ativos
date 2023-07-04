@@ -31,6 +31,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import { useStateContext } from "../context/ContextProvider.jsx";
+import { Modal, Button } from "react-bootstrap";
 
 export default function UserForm() {
   //Allows the navigation of users to other page
@@ -72,10 +73,18 @@ export default function UserForm() {
         });
     }, []);
   }
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-  //When submiting the update
-  const onSubmit = (ev) => {
-    ev.preventDefault();
+  const handleCancelSave = () => {
+    setShowConfirmModal(false); // Close the confirmation modal
+  };
+
+  const handleSave = () => {
+    setShowConfirmModal(true); // Open the confirmation modal
+  };
+
+  const handleConfirmSave = () => {
+    setShowConfirmModal(false); // Close the confirmation modal
 
     //if the user id exists: it makes an update
     if (user.id) {
@@ -100,7 +109,7 @@ export default function UserForm() {
       axiosClient
         .post("/users", user)
         .then(() => {
-          setNotification("Utilizador criado com sucesso!");
+          setNotification("Utilizador adicionado com sucesso!");
           navigate("/users");
         })
         .catch((err) => {
@@ -110,6 +119,13 @@ export default function UserForm() {
           }
         });
     }
+  };
+
+  //When submiting the update
+  const onSubmit = (ev) => {
+    ev.preventDefault();
+    // Open the confirmation modal
+    setShowConfirmModal(true);
   };
 
   const resetFilter = () => {
@@ -127,6 +143,25 @@ export default function UserForm() {
 
   return (
     <>
+      {" "}
+      <Modal show={showConfirmModal} onHide={handleCancelSave}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmação</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {user.id
+            ? "Deseja atualizar o utilizador selecionado?"
+            : "Deseja adicionar o utilizador?"}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleConfirmSave}>
+            Confirmar
+          </Button>
+          <Button variant="primary" onClick={handleCancelSave}>
+            Cancelar
+          </Button>
+        </Modal.Footer>
+      </Modal>
       {user.id && (
         <h1 className="title-page-all">Atualizar Utilizador: {user.name}</h1>
       )}
