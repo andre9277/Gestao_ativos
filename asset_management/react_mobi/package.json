@@ -1,0 +1,61 @@
+{
+  "name": "ionic-react-conference-app",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@capacitor/core": "^4.6.1",
+    "@capacitor/preferences": "^4.0.2",
+    "@ionic/react": "^7.0.0",
+    "@ionic/react-router": "^7.0.0",
+    "date-fns": "^2.25.0",
+    "ionicons": "^5.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router": "^5.3.4",
+    "react-router-dom": "^5.3.4",
+    "reselect": "^4.0.0",
+    "sass": "^1.59.3",
+    "swiper": "^9.1.1"
+  },
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,md}\"",
+    "precommit": "npm run format && lint-staged",
+    "prepare": "husky install"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "description": "An Ionic project",
+  "devDependencies": {
+    "@capacitor/cli": "^4.6.1",
+    "@testing-library/react": "^9.3.1",
+    "@types/googlemaps": "^3.38.0",
+    "@types/jest": "24.0.18",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@types/react-router": "^5.1.20",
+    "@types/react-router-dom": "^5.3.3",
+    "@vitejs/plugin-react": "^3.1.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.6",
+    "typescript": "^4.9.3",
+    "vite": "^4.2.0"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
