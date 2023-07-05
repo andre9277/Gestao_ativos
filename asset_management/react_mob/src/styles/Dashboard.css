@@ -29,115 +29,41 @@ All the changes made to enable the implementation of the desired development too
 */
 
 .a1 {
-    width: 50% " aria-valuenow=" 50 " aria-valuemin=" 0 " aria-valuemax=" 100
-        ";
-  }
-  .a2
-  {
-      width: 20%" aria-valuenow= "20" aria-valuemin= "0"
-        aria-valuemax= "100";
+  width: 50% " aria-valuenow=" 50 " aria-valuemin=" 0 " aria-valuemax=" 100
+    ";
+}
+.a2
+{
+    width: 20%" aria-valuenow= "20" aria-valuemin= "0" aria-valuemax=
+    "100";
 }
 .a3 {
-    width: 40% " aria-valuenow=" 40 " aria-valuemin=" 0 " aria-valuemax=" 100
-        ";
-  }
-  .a4
-  {
-      width: 80%" aria-valuenow= "80" aria-valuemin= "0"
-        aria-valuemax= "100";
+  width: 40% " aria-valuenow=" 40 " aria-valuemin=" 0 " aria-valuemax=" 100
+    ";
+}
+.a4
+{
+    width: 80%" aria-valuenow= "80" aria-valuemin= "0" aria-valuemax=
+    "100";
 }
 .a5 {
-    width: 100% " aria-valuenow=" 100 " aria-valuemin=" 0 " aria-valuemax=" 100
-        ";
-  }
-  .a6
-  {
-      width: 25rem;
-  }
-  .a7
-  {
-      width: 60%"
-        aria-valuenow= "60" aria-valuemin= "0" aria-valuemax= "100";
+  width: 100% " aria-valuenow=" 100 " aria-valuemin=" 0 " aria-valuemax=" 100
+    ";
+}
+.a6
+{
+    width: 25rem;
+}
+.a7
+{
+    width: 60%" aria-valuenow= "60"
+    aria-valuemin= "0" aria-valuemax= "100";
 }
 .toggled {
-    overflow: visible;
-    width: 6.5rem !important;
+  overflow: visible;
+  width: 6.5rem !important;
 }
 .toggled1 {
-    width: 0 !important;
-    overflow: hidden;
-}
-
-.attribute {
-    display: flex;
-    align-items: center;
-}
-
-.circle {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    margin-right: 8px;
-    align-items: center;
-    display: flex;
-}
-
-.active {
-    background-color: #007840;
-    align-items: center;
-    margin-right: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    /* margin-top: 35px; */
-}
-
-.acctive {
-    align-items: center;
-    margin-right: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    font-weight: 500;
-    border: 1px solid #dee2e6 !important;
-    font-size: 14px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    color: #61a60e !important;
-    font-family: arial;
-}
-
-.inacctive {
-    border: 1px solid #dee2e6 !important;
-    font-size: 14px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    color: #61a60e !important;
-    font-family: arial;
-}
-
-.inactive {
-    background-color: red;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-}
-
-.pageNumber {
-    border: 1px solid #dee2e6 !important;
-    font-size: 14px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    color: #61a60e !important;
-    font-family: arial;
-}
-
-.graf-dash {
-    color: #007840;
+  width: 0 !important;
+  overflow: hidden;
 }

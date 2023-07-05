@@ -31,6 +31,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import MenuItem from "./MenuItem";
 import logo_hb from "../assets/logo_hb.jpg";
+import { useMediaQuery } from "react-responsive";
 
 const SideBar = () => {
   const [style, setStyle] = useState(
@@ -59,6 +60,8 @@ const SideBar = () => {
       setStyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
     }
   };
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 });
 
   const [activeOption, setActiveOption] = useState("");
 
@@ -99,9 +102,7 @@ const SideBar = () => {
             onClick={() => handleOptionClick("dashboard")}
           >
             <i className="fas fa-fw fa-tachometer-alt"></i>
-            <span>
-              <h5>Dashboard</h5>
-            </span>
+            <span className="tlt-sidebar">Dashboard</span>
           </Link>
         </li>
         <br></br>
@@ -148,7 +149,7 @@ const SideBar = () => {
         <hr className="sidebar-divider" />
 
         {/* <!-- Heading --> */}
-        <div className="sidebar-heading"> Área do Administrador</div>
+        {/* <div className="sidebar-heading"> Área do Administrador</div> */}
 
         <MenuItem
           titulo={"Utilizadores"}

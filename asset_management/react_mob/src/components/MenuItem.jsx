@@ -47,9 +47,7 @@ const MenuItem = ({
         onClick={() => handleOptionClick(origem)}
       >
         <i className={`fas fa-fw ${icon}`}></i>
-        <span>
-          <h5>{titulo}</h5>
-        </span>
+        <span className="tlt-sidebar">{titulo}</span>
       </Link>
     </li>
   );
