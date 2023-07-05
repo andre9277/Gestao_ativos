@@ -66,15 +66,10 @@ export default function DefaultLayout() {
 
   return (
     <div id="defaultLayout">
-      {user.role_id === 3 ? (
-        <SideBarGuest />
-      ) : user.role_id === 2 ? (
-        <SideBarSi />
-      ) : (
-        <SideBar />
-      )}
+      <SideBar />
+
       <div className="content">
-        <TopBar user={user} onLogout={onLogout} />
+        {/* <TopBar user={user} onLogout={onLogout} /> */}
 
         <Outlet />
 
