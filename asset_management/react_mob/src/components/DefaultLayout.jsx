@@ -69,7 +69,7 @@ export default function DefaultLayout() {
       <SideBar />
 
       <div className="content">
-        {/* <TopBar user={user} onLogout={onLogout} /> */}
+        <TopBar user={user} onLogout={onLogout} />
 
         <Outlet />
 

@@ -32,7 +32,7 @@ import axiosClient from "../axios-client.js";
 import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import PaginationLinks from "../components/PaginationLinks.jsx";
-import "../styles/Dashboard.css";
+/* import "../styles/Dashboard.css"; */
 import ColumnMenuFilter from "../components/ColumnMenuFilter.jsx";
 import PaginationFilter from "../components/PaginationFilter.jsx";
 import SelectFilter from "../components/SelectFilter.jsx";
