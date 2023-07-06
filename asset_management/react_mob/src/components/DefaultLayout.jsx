@@ -32,11 +32,7 @@ import { useStateContext } from "../context/ContextProvider";
 import axiosClient from "../axios-client.js";
 import { useEffect } from "react";
 import SideBar from "./SideBar";
-import TopBar from "./TopBar";
-import Footer from "./Footer";
-import SideBarGuest from "./SideBarGuest";
 import ManutLayout from "./ManutLayout";
-import SideBarSi from "./SideBarSi";
 
 export default function DefaultLayout() {
   const { user, token, setUser, setToken, notification } = useStateContext();
@@ -71,7 +67,7 @@ export default function DefaultLayout() {
       <div className="content">
         {/* <TopBar user={user} onLogout={onLogout} /> */}
 
-        {/*   <Outlet /> */}
+        {/*  <Outlet /> */}
 
         {/* Notification when a user is created/updated or deleted */}
         {notification && <div className="notification">{notification}</div>}

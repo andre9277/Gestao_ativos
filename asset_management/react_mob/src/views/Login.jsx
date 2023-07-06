@@ -32,18 +32,10 @@ import axiosClient from "../axios-client.js";
 import { createRef } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { useState } from "react";
+import "../styles/Login.css";
 
 import img_logo from "../assets/hb_logo.png";
 import img_logo2 from "../assets/logo_new_hb.png";
-/* import img_log from ""; */
-
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBInput,
-} from "mdb-react-ui-kit";
 
 export default function Login() {
   const emailRef = createRef();
@@ -51,8 +43,8 @@ export default function Login() {
   const { setUser, setToken } = useStateContext();
   const [message, setMessage] = useState(null);
 
-  const onSubmit = (ev) => {
-    ev.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
     const payload = {};
     const userInput = emailRef.current.value;
@@ -87,71 +79,47 @@ export default function Login() {
       });
   };
 
+  const handleResetPassword = (e) => {
+    e.preventDefault();
+    // Implement reset password logic here
+  };
+
   return (
-    <div className="back-col-login">
-      <div className="back-col-login2">
-        <MDBContainer fluid>
-          <div className="logo-div-hb">
-            <MDBRow>
-              <MDBCol sm="4">
-                <div className="d-flex flex-row ps-5 pt-5">
-                  <h1 className="title-lg">
-                    Sistema Integrado de Gestão de Ativos
-                  </h1>
-                </div>
-
-                <form onSubmit={onSubmit} className="login-temp">
-                  {message && (
-                    <div className="alert">
-                      <p>{message}</p>
-                    </div>
-                  )}
-                  <div className="login-main-box">
-                    <MDBInput
-                      wrapperClass="mb-4 mx-5 w-100"
-                      label="Endereço de email ou número MEC"
-                      id="formControlLg"
-                      size="lg"
-                      ref={emailRef}
-                    />
-                    <MDBInput
-                      wrapperClass="mb-4 mx-5 w-100"
-                      label="Password"
-                      id="formControlLg"
-                      type="password"
-                      size="lg"
-                      ref={passwordRef}
-                      autoComplete="false"
-                    />
-                    <div className="space"></div>
-
-                    <button className="btn-login-main ">Log in</button>
-                    <div className="space"></div>
-                    <p className="small mb-5 pb-lg-3 ms-5">
-                      <Link to="/forgotPassword" className="small">
-                        Esqueceu-se da password?
-                      </Link>
-                    </p>
-                  </div>
-                </form>
-                <div className="footer-copyR">
-                  V1.0.0 © 2023. Hospital de Braga - Serviço de Sistemas de
-                  Informação
-                </div>
-              </MDBCol>
-
-              <MDBCol sm="8" className="d-none d-sm-block px-0">
-                <img
-                  src={img_logo2}
-                  alt="Login image"
-                  className="w-100-new"
-                  style={{ objectFit: "cover", objectPosition: "left" }}
-                />
-              </MDBCol>
-            </MDBRow>
-          </div>
-        </MDBContainer>
+    <form className="form-login" onSubmit={handleSubmit}>
+      {message && (
+        <div className="alert">
+          <p>{message}</p>
+        </div>
+      )}
+      <h3 className="lb-lg">Log In</h3>
+      <div className="mb-3">
+        <label className="lb-lg">Endereço de email</label>
+        <input type="email" className="form-control" />
       </div>
-    </div>
+      <div className="mb-3">
+        <label className="lb-lg">Pin</label>
+        <input type="password" className="form-control" />
+      </div>
+      <div className="mb-3">
+        <div className="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            className="custom-control-input"
+            id="customCheck1"
+          />
+        </div>
+      </div>
+      <div className="d-grid">
+        <button type="submit" className="btn-login">
+          Log in
+        </button>
+      </div>
+      <p className="lb-lg text-right">
+        Esqueceu a sua <a href="/forgotPasswordForm">password?</a>
+      </p>
+      <div className="footer-copyR">
+        V1.0.0 © 2023. Hospital de Braga Serviço de Sistemas de Informação
+      </div>
+    </form>
   );
 }
