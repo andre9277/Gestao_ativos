@@ -71,7 +71,7 @@ export default function DefaultLayout() {
       <div className="content">
         {/* <TopBar user={user} onLogout={onLogout} /> */}
 
-        {/*  <Outlet /> */}
+        {/*   <Outlet /> */}
 
         {/* Notification when a user is created/updated or deleted */}
         {notification && <div className="notification">{notification}</div>}
