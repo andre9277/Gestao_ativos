@@ -111,3 +111,14 @@ nav {
 .icon-sd {
     font-size: xx-large;
 }
+
+.log-out-sd {
+    bottom: 0;
+    color: white;
+    position: fixed;
+    display: inline-grid;
+    align-items: center;
+    font-size: 4rem;
+    margin-left: 6rem;
+    margin-bottom: 2rem;
+}

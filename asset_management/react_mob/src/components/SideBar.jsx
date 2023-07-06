@@ -62,6 +62,9 @@ const Sidebar = ({ user, onLogout }) => {
             <i class="fa fa-cog" aria-hidden="true"></i>
             <label className="lb-sd">&nbsp;&nbsp; Perfil </label>
           </li>
+          <li className="log-out-sd">
+            <i class="fa fa-sign-out-alt" aria-hidden="true"></i>
+          </li>
         </ul>
       </div>
     </div>
