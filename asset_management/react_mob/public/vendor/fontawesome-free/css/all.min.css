@@ -1047,7 +1047,6 @@
 }
 .fa-cog:before {
     content: "\f013";
-    font-size: x-large;
 }
 .fa-cogs:before {
     content: "\f085";
@@ -1493,7 +1492,6 @@
 }
 .fa-exchange-alt:before {
     content: "\f362";
-    font-size: x-large;
 }
 .fa-exclamation:before {
     content: "\f12a";
@@ -3412,7 +3410,6 @@
 }
 .fa-search:before {
     content: "\f002";
-    font-size: x-large;
 }
 .fa-search-dollar:before {
     content: "\f688";

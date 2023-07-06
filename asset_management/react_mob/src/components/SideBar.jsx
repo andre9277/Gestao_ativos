@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../styles/sidebar.css";
 import UserInfo from "./UserInfo";
+import { Link } from "react-router-dom";
 
 const Sidebar = ({ user, onLogout }) => {
   // to change burger classes
@@ -28,31 +29,38 @@ const Sidebar = ({ user, onLogout }) => {
           <div className={burger_class}></div>
           <div className={burger_class}></div>
         </div>
+        <div>
+          <h1 className="title-topbar">SIGA</h1>
+        </div>
+
         <div className="logout-div">
+          <div className="scan-asset">
+            <Link to="/scan">
+              <i className="fa fa-barcode fa-2x" aria-hidden="true"></i>
+            </Link>
+          </div>
+
           <UserInfo user={user} onLogout={onLogout} />
         </div>
       </nav>
 
       <div className={menu_class}>
-        <ul>
+        <ul className="all-sd">
           <li className="opt-sidebar">
-            {" "}
-            <i class="fa fa-search" aria-hidden="true">
-              Procurar
-            </i>
+            <i className="fa fa-search" aria-hidden="true"></i>
+            <label className="lb-sd">&nbsp;&nbsp; Pesquisar</label>
           </li>
           <li className="opt-sidebar">
-            {" "}
-            <i className="fa fa-exchange-alt" aria-hidden="true">
-              {" "}
-              Movimento{" "}
-            </i>
+            <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+            <label className="lb-sd">&nbsp;&nbsp; Registar</label>
           </li>
           <li className="opt-sidebar">
-            {" "}
-            <i class="fa fa-cog" aria-hidden="true">
-              Configurações
-            </i>
+            <i className="fa fa-exchange-alt " aria-hidden="true"></i>
+            <label className="lb-sd">&nbsp;&nbsp; Movimento</label>
+          </li>
+          <li className="opt-sidebar">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+            <label className="lb-sd">&nbsp;&nbsp; Perfil </label>
           </li>
         </ul>
       </div>
