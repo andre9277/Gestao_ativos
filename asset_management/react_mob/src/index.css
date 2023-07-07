@@ -230,8 +230,8 @@ table > tbody > tr > td {
 .content-container {
     flex: 1;
     z-index: 1;
-    position: absolute;
-    margin-top: 10rem;
+    position: fixed;
+    margin-top: 4rem;
 }
 
 .SideBar {
