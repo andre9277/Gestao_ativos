@@ -27,7 +27,6 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import { Link } from "react-router-dom";
 import axiosClient from "../axios-client.js";
 import { createRef } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
@@ -99,11 +98,11 @@ export default function Login() {
       />
       <div className="mb-3">
         <label className="lb-lg">Endereço de email / Nº mec</label>
-        <input type="email" className="form-control" />
+        <input className="form-control" ref={emailRef} />
       </div>
       <div className="mb-3">
         <label className="lb-lg">Pin</label>
-        <input type="password" className="form-control" />
+        <input type="password" className="form-control" ref={passwordRef} />
       </div>
       <div className="mb-3">
         <div className="custom-control custom-checkbox">
@@ -120,7 +119,7 @@ export default function Login() {
         </button>
       </div>
       <p className="lb-lg text-right">
-        Esqueceu a sua <a href="/forgotPasswordForm">password?</a>
+        Esqueceu a sua <a href="/forgotPassword">password?</a>
       </p>
       <div className="footer-copyR">
         V1.0.0 © 2023. Hospital de Braga
