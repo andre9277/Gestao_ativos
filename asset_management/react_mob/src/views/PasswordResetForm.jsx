@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axiosClient from "../axios-client.js";
 import { useParams } from "react-router-dom";
-import "../styles/styles.css";
-
+/* import "../styles/styles.css";
+ */
 const PasswordResetForm = () => {
   const { token } = useParams();
   const [email, setEmail] = useState("");

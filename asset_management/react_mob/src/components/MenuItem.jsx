@@ -29,7 +29,7 @@ All the changes made to enable the implementation of the desired development too
 */
 import React from "react";
 import { Link } from "react-router-dom";
-
+import "../styles/MenuItem.css";
 const MenuItem = ({
   titulo,
   icon,
@@ -40,14 +40,14 @@ const MenuItem = ({
   const isActive = activeOption === origem ? "active" : "";
 
   return (
-    <li className={`nav-item ${isActive}`}>
+    <li className="opt-sidebar">
       <Link
         to={`/${origem}`}
-        className={`nav-link ${isActive}`}
+        className="slide-lb"
         onClick={() => handleOptionClick(origem)}
       >
         <i className={`fas fa-fw ${icon}`}></i>
-        <span className="tlt-sidebar">{titulo}</span>
+        <label className="lb-sd">{titulo}</label>
       </Link>
     </li>
   );

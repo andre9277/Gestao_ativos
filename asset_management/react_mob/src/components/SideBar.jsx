@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import "../styles/sidebar.css";
 import UserInfo from "./UserInfo";
 import { Link } from "react-router-dom";
+import MenuItem from "./MenuItem";
 
 const Sidebar = ({ user, onLogout }) => {
   // to change burger classes
   const [burger_class, setBurgerClass] = useState("burger-bar unclicked");
   const [menu_class, setMenuClass] = useState("menu hidden");
   const [isMenuClicked, setIsMenuClicked] = useState(false);
+  const [activeOption, setActiveOption] = useState("");
+
+  const handleOptionClick = (option) => {
+    setActiveOption(option);
+  };
 
   // toggle burger menu change
   const updateMenu = () => {
@@ -22,7 +28,7 @@ const Sidebar = ({ user, onLogout }) => {
   };
 
   return (
-    <div style={{ /* width: "100%", */ height: "100vh" }}>
+    <div style={{ width: "100%", height: "100vh" }}>
       <nav>
         <div className="burger-menu" onClick={updateMenu}>
           <div className={burger_class}></div>
@@ -47,11 +53,16 @@ const Sidebar = ({ user, onLogout }) => {
       <div className={menu_class}>
         <ul className="all-sd">
           <li className="opt-sidebar">
-            <i className="fa fa-search" aria-hidden="true"></i>
-            <label className="lb-sd">&nbsp;&nbsp; Procurar</label>
+            <MenuItem
+              titulo={"Listagem"}
+              icon={"fa-cog"}
+              origem={"assets"}
+              handleOptionClick={handleOptionClick}
+              activeOption={activeOption}
+            />
           </li>
           <li className="opt-sidebar">
-            <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+            <i className="fa fa-pencil-alt" aria-hidden="true"></i>
             <label className="lb-sd">&nbsp;&nbsp; Registar</label>
           </li>
           <li className="opt-sidebar">
