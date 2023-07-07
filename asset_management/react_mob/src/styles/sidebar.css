@@ -11,6 +11,8 @@ nav {
     display: flex;
     justify-content: flex-start;
     padding: 1em;
+    z-index: 999;
+    position: fixed;
 }
 
 .burger-menu {
@@ -36,7 +38,7 @@ nav {
     background-color: #007840;
     position: absolute;
     top: 0;
-    z-index: -1;
+    z-index: 998;
 }
 
 /* ------------- sliding menu ------------------ */

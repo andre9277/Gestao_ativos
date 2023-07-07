@@ -34,7 +34,6 @@ import { useStateContext } from "../context/ContextProvider.jsx";
 import { useState } from "react";
 import "../styles/Login.css";
 
-import img_logo2 from "../assets/logo_hb.jpg";
 import img_logo from "../assets/hb_dc.jpg";
 
 export default function Login() {
