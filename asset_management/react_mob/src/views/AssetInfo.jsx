@@ -148,106 +148,102 @@ const AssetInfo = () => {
             <div className="containerr">
               <h2 className="headerInfoAsset">Localização: </h2>
               <p></p>
-              <ul>
-                <ol className="lb-infoAsset-informat">
-                  <label className="lb-infoAsset2-informat">
-                    Entidade:{" "}
-                    <h6 className="attrAsset-informat">
-                      {asset.entity.ent_name}
-                    </h6>
-                  </label>{" "}
-                </ol>
-                <ol className="lb-infoAsset-informat">
-                  <label className="lb-infoAsset2-informat">
-                    Unidade:{" "}
-                    <h6 className="attrAsset-informat">
-                      {asset.units === null ? "" : asset.units.name}
-                    </h6>
-                  </label>{" "}
-                </ol>
-                <ol className="lb-infoAsset-informat">
-                  <label className="lb-infoAsset2-informat">
-                    Contato:
-                    <h6 className="attrAsset-informat">
-                      {asset.units === null ? "" : asset.units.unit_contact}
-                    </h6>
-                  </label>
-                </ol>
-                <ol className="lb-infoAsset-informat">
-                  <label className="lb-infoAsset2-informat">
-                    Morada:{" "}
-                    <h6 className="attrAsset-informat">
-                      {asset.units === null ? "" : asset.units.unit_address}
-                    </h6>
-                  </label>
-                </ol>
-                <ol className="lb-infoAsset-informat">
-                  <label className="lb-infoAsset2-informat">
-                    Piso: <h6 className="attrAsset-informat">{asset.floor}</h6>
-                  </label>{" "}
-                </ol>
-                <ol className="lb-infoAsset-informat">
-                  <label className="lb-infoAsset2-informat">
-                    Ala: <h6 className="attrAsset-informat">{asset.ala}</h6>
-                  </label>{" "}
-                </ol>
-                <ol className="lb-infoAsset-informat">
-                  <label className="lb-infoAsset2-informat">
-                    CI: <h6 className="attrAsset-informat"> {asset.ci}</h6>
-                  </label>
-                </ol>
+              <ul className="lb-infoAsset-informat">
+                <label className="lb-infoAsset2-informat">
+                  Entidade:{" "}
+                  <h6 className="attrAsset-informat">
+                    {asset.entity.ent_name}
+                  </h6>
+                </label>{" "}
+              </ul>
+              <ul className="lb-infoAsset-informat">
+                <label className="lb-infoAsset2-informat">
+                  Unidade:{" "}
+                  <h6 className="attrAsset-informat">
+                    {asset.units === null ? "" : asset.units.name}
+                  </h6>
+                </label>{" "}
+              </ul>
+              <ul className="lb-infoAsset-informat">
+                <label className="lb-infoAsset2-informat">
+                  Contato:
+                  <h6 className="attrAsset-informat">
+                    {asset.units === null ? "" : asset.units.unit_contact}
+                  </h6>
+                </label>
+              </ul>
+              <ul className="lb-infoAsset-informat">
+                <label className="lb-infoAsset2-informat">
+                  Morada:{" "}
+                  <h6 className="attrAsset-informat">
+                    {asset.units === null ? "" : asset.units.unit_address}
+                  </h6>
+                </label>
+              </ul>
+              <ul className="lb-infoAsset-informat">
+                <label className="lb-infoAsset2-informat">
+                  Piso: <h6 className="attrAsset-informat">{asset.floor}</h6>
+                </label>{" "}
+              </ul>
+              <ul className="lb-infoAsset-informat">
+                <label className="lb-infoAsset2-informat">
+                  Ala: <h6 className="attrAsset-informat">{asset.ala}</h6>{" "}
+                </label>{" "}
+              </ul>
+              <ul className="lb-infoAsset-informat">
+                <label className="lb-infoAsset2-informat">
+                  CI: <h6 className="attrAsset-informat"> {asset.ci}</h6>
+                </label>
               </ul>
               <div className="space-mov"></div>
               {/* -------------Informação ativo - fornecedor------------- */}
 
               <h2 className="headerInfoAsset">Fornecedor: </h2>
               <p></p>
-              <ul>
-                <ol className="lb-infoAsset-informat">
-                  <label className="lb-infoAsset2-informat">
-                    Nome:{" "}
-                    <h6 className="attrAsset-informat">
-                      {asset.suppliers.name}{" "}
-                    </h6>
-                  </label>{" "}
-                </ol>
-                <ol className="lb-infoAsset-informat">
-                  <label className="lb-infoAsset2-informat">
-                    Email:
-                    <h6 className="attrAsset-informat">
-                      {asset.suppliers.email}
-                    </h6>
-                  </label>{" "}
-                </ol>
-                <ol className="lb-infoAsset-informat">
-                  <label className="lb-infoAsset2-informat">
-                    Contato:{" "}
-                    <h6 className="attrAsset-informat">
-                      {asset.suppliers.phone}
-                    </h6>
-                  </label>{" "}
-                </ol>
-                <ol className="lb-infoAsset-informat">
-                  <label className="lb-infoAsset2-informat">
-                    Morada:{" "}
-                    <h6 className="attrAsset-informat">
-                      {asset.suppliers.address}
-                    </h6>
-                  </label>{" "}
-                  <div></div>
-                </ol>
+              <ul className="lb-infoAsset-informat">
+                <label className="lb-infoAsset2-informat">
+                  Nome:{" "}
+                  <h6 className="attrAsset-informat">
+                    {asset.suppliers.name}{" "}
+                  </h6>
+                </label>{" "}
+              </ul>
+              <ul className="lb-infoAsset-informat">
+                <label className="lb-infoAsset2-informat">
+                  Email:
+                  <h6 className="attrAsset-informat">
+                    {asset.suppliers.email}
+                  </h6>
+                </label>{" "}
+              </ul>
+              <ul className="lb-infoAsset-informat">
+                <label className="lb-infoAsset2-informat">
+                  Contato:{" "}
+                  <h6 className="attrAsset-informat">
+                    {asset.suppliers.phone}
+                  </h6>
+                </label>{" "}
+              </ul>
+              <ul className="lb-infoAsset-informat">
+                <label className="lb-infoAsset2-informat">
+                  Morada:{" "}
+                  <h6 className="attrAsset-informat">
+                    {asset.suppliers.address}
+                  </h6>
+                </label>{" "}
+                <div></div>
               </ul>
 
               <div className="space-mov"></div>
               <h2 className="headerInfoAsset">Observações:</h2>
               <p></p>
-              <ol className="lb-infoAsset-informat">
+              <ul className="lb-infoAsset-informat">
                 <label className="lb-infoAsset2-informat">
                   <h6 className="attrAsset-informat">
                     {asset.obs === null ? "" : asset.obs}
                   </h6>
                 </label>
-              </ol>
+              </ul>
             </div>
           </div>
         ) : (
