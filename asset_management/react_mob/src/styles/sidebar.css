@@ -124,3 +124,8 @@ nav {
     margin-left: 6rem;
     margin-bottom: 2rem;
 }
+
+.fa-barcode:before {
+    content: "\f02a";
+    color: white;
+}

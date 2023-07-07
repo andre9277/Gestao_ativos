@@ -479,13 +479,14 @@ export default function Assets() {
   return (
     <div className="mn-cnt">
       <h1 className="search-tit">Procurar</h1>
-      <p></p>
-      <div>
+      <div className="space-mov"></div>
+      <div className="icon-search">
         <input className="inp-search"></input>
-        <i></i>
+        <i className="fa fa-search icon-sch" aria-hidden="true"></i>
       </div>
-      <div>
-        <i></i>
+
+      <div className="barcode-search">
+        <i className="fa fa-barcode ic-bc" aria-hidden="true"></i>
       </div>
     </div>
   );

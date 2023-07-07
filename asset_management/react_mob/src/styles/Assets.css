@@ -3,9 +3,42 @@
 }
 
 .mn-cnt {
-    margin: 7rem;
+    margin: 6rem;
 }
 
 .search-tit {
     text-align: center;
+    font-size: 3.5rem;
+}
+
+.cnt-search {
+    display: inline;
+}
+
+.icon-search {
+    display: flex;
+}
+
+.icon-sch {
+    font-size: 2rem;
+    margin-left: 1rem;
+    font-weight: 600;
+}
+
+.space-mov {
+    margin-top: 5rem;
+}
+
+.barcode-search {
+    background-color: #007840;
+    font-size: xx-large;
+    margin-top: 14rem;
+    border-radius: 50px;
+}
+
+.ic-bc {
+    font-size: 10rem;
+    align-items: center;
+    display: inline-flex;
+    margin-left: 2rem;
 }
