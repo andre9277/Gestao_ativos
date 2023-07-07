@@ -34,8 +34,8 @@ import { useStateContext } from "../context/ContextProvider.jsx";
 import { useState } from "react";
 import "../styles/Login.css";
 
-import img_logo from "../assets/hb_logo.png";
-import img_logo2 from "../assets/logo_new_hb.png";
+import img_logo2 from "../assets/logo_hb.jpg";
+import img_logo from "../assets/hb_dc.jpg";
 
 export default function Login() {
   const emailRef = createRef();
@@ -91,9 +91,15 @@ export default function Login() {
           <p>{message}</p>
         </div>
       )}
-      <h3 className="lb-lg">Log In</h3>
+      {/* <h3 className="lb-lg">Log In</h3> */}
+      <img
+        src={img_logo}
+        alt="Login image"
+        className="w-100-new"
+        style={{ objectFit: "cover", objectPosition: "left" }}
+      />
       <div className="mb-3">
-        <label className="lb-lg">Endereço de email</label>
+        <label className="lb-lg">Endereço de email / Nº mec</label>
         <input type="email" className="form-control" />
       </div>
       <div className="mb-3">
@@ -118,7 +124,8 @@ export default function Login() {
         Esqueceu a sua <a href="/forgotPasswordForm">password?</a>
       </p>
       <div className="footer-copyR">
-        V1.0.0 © 2023. Hospital de Braga Serviço de Sistemas de Informação
+        V1.0.0 © 2023. Hospital de Braga
+        <p>Serviço de Sistemas de Informação</p>
       </div>
     </form>
   );
