@@ -481,7 +481,9 @@ export default function Assets() {
       <div className="space-mov"></div>
       <h1 className="search-tit">Procurar</h1>
       <div className="space-mov"></div>
+
       <div className="icon-search">
+        <label className="lb-sch">Nº inventário/série:</label>
         <input className="inp-search"></input>
       </div>
       <div className="search-sch">
