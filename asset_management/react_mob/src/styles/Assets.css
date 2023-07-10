@@ -11,7 +11,8 @@
 
 .search-tit {
     text-align: center;
-    font-size: 3rem;
+    font-size: 36px;
+    font-weight: 700;
 }
 
 .cnt-search {
@@ -78,11 +79,13 @@
 }
 
 .lb-sch {
-    font-size: 1.5rem;
+    font-size: 28px;
+    font-weight: 700;
 }
 
 .lb-sch-bc {
-    font-size: 1.5rem;
+    font-size: 28px;
+    font-weight: 700;
 }
 
 .error-search {
