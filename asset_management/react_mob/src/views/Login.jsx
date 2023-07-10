@@ -27,13 +27,15 @@ You may obtain a copy of the license at:
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
+import { Link } from "react-router-dom";
 import axiosClient from "../axios-client.js";
 import { createRef } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { useState } from "react";
 import "../styles/Login.css";
 
-import img_logo from "../assets/hb_dc.jpg";
+import img_logo from "../assets/hb_logo.png";
+import img_logo2 from "../assets/logo_new_hb.png";
 
 export default function Login() {
   const emailRef = createRef();
@@ -89,20 +91,14 @@ export default function Login() {
           <p>{message}</p>
         </div>
       )}
-      {/* <h3 className="lb-lg">Log In</h3> */}
-      <img
-        src={img_logo}
-        alt="Login image"
-        className="w-100-new"
-        style={{ objectFit: "cover", objectPosition: "left" }}
-      />
+      <h3 className="lb-lg">Log In</h3>
       <div className="mb-3">
-        <label className="lb-lg">Endereço de email / Nº mec</label>
-        <input className="form-control" ref={emailRef} />
+        <label className="lb-lg">Endereço de email</label>
+        <input type="email" className="form-control" />
       </div>
       <div className="mb-3">
         <label className="lb-lg">Pin</label>
-        <input type="password" className="form-control" ref={passwordRef} />
+        <input type="password" className="form-control" />
       </div>
       <div className="mb-3">
         <div className="custom-control custom-checkbox">
@@ -119,11 +115,10 @@ export default function Login() {
         </button>
       </div>
       <p className="lb-lg text-right">
-        Esqueceu a sua <a href="/forgotPassword">password?</a>
+        Esqueceu a sua <a href="/forgotPasswordForm">password?</a>
       </p>
       <div className="footer-copyR">
-        V1.0.0 © 2023. Hospital de Braga
-        <p>Serviço de Sistemas de Informação</p>
+        V1.0.0 © 2023. Hospital de Braga Serviço de Sistemas de Informação
       </div>
     </form>
   );

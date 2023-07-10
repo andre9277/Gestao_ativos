@@ -22,7 +22,7 @@ const Sidebar = ({ user, onLogout }) => {
   };
 
   return (
-    <div style={{ /* width: "100%", */ height: "100vh" }}>
+    <div style={{ width: "100%", height: "100vh" }}>
       <nav>
         <div className="burger-menu" onClick={updateMenu}>
           <div className={burger_class}></div>
@@ -48,7 +48,7 @@ const Sidebar = ({ user, onLogout }) => {
         <ul className="all-sd">
           <li className="opt-sidebar">
             <i className="fa fa-search" aria-hidden="true"></i>
-            <label className="lb-sd">&nbsp;&nbsp; Procurar</label>
+            <label className="lb-sd">&nbsp;&nbsp; Pesquisar</label>
           </li>
           <li className="opt-sidebar">
             <i class="fa fa-pencil-alt" aria-hidden="true"></i>

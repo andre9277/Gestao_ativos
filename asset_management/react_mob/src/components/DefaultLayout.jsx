@@ -64,10 +64,10 @@ export default function DefaultLayout() {
     <div id="defaultLayout">
       <SideBar user={user} onLogout={onLogout} />
 
-      <div className="content-container">
+      <div className="content">
         {/* <TopBar user={user} onLogout={onLogout} /> */}
 
-        <Outlet />
+        {/*  <Outlet /> */}
 
         {/* Notification when a user is created/updated or deleted */}
         {notification && <div className="notification">{notification}</div>}
