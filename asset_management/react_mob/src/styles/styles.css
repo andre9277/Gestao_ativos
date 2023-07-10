@@ -3302,9 +3302,7 @@ textarea.is-invalid.dataTable-input {
         transition: none;
     }
 }
-.btn:hover {
-    color: #212529;
-}
+
 .btn-check:focus + .btn,
 .btn:focus {
     outline: 0;
@@ -3317,23 +3315,7 @@ fieldset:disabled .btn {
     opacity: 0.65;
 }
 
-.btn-primary {
-    color: #fff;
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-}
-.btn-primary:hover {
-    color: #fff;
-    background-color: #0b5ed7;
-    border-color: #0a58ca;
-}
 .btn-check:focus + .btn-primary,
-.btn-primary:focus {
-    color: #fff;
-    background-color: #0b5ed7;
-    border-color: #0a58ca;
-    box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
-}
 .btn-check:checked + .btn-primary,
 .btn-check:active + .btn-primary,
 .btn-primary:active,
@@ -3922,9 +3904,7 @@ fieldset:disabled .btn {
     color: #0d6efd;
     text-decoration: underline;
 }
-.btn-link:hover {
-    color: #0a58ca;
-}
+
 .btn-link:disabled,
 .btn-link.disabled {
     color: #6c757d;
@@ -12424,9 +12404,7 @@ select {
     font-weight: 600;
     color: #fff;
 }
-button:hover {
-    background: #4e73df;
-}
+
 @media (min-width: 568px) {
     .account-details > div,
     .personal-details > div {

@@ -62,8 +62,7 @@
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
     border-radius: 0.25rem;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
     color: #fff;
     background-color: #29a26b;
     border-color: #29a26b;
@@ -77,4 +76,22 @@
 
 .lb-sch {
     font-size: 1.5rem;
+}
+
+.error-search {
+    color: white;
+    margin-left: 28px;
+    margin-top: 16px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 0.9rem;
+    display: table-row-group;
+    text-align: center;
+}
+
+.err-search {
+    margin: 0.5rem;
+    background-color: #cc0000;
+    border-radius: 1rem;
+    padding: 0.5rem;
 }

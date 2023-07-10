@@ -29,479 +29,180 @@ All the changes made to enable the implementation of the desired development too
 */
 import { useEffect, useState, useRef } from "react";
 import axiosClient from "../axios-client.js";
-import { useNavigate } from "react-router-dom";
-import { useStateContext } from "../context/ContextProvider.jsx";
-import PaginationLinks from "../components/PaginationLinks.jsx";
-/* import "../styles/Dashboard.css"; */
-import ColumnMenuFilter from "../components/ColumnMenuFilter.jsx";
-import PaginationFilter from "../components/PaginationFilter.jsx";
-import SelectFilter from "../components/SelectFilter.jsx";
-import { Modal, Button } from "react-bootstrap";
 import "../styles/assets.css";
 import barcode from "../assets/barcode.png";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Assets() {
   const navigate = useNavigate();
 
+  const [assetNumber, setAssetNumber] = useState("");
   const [assets, setAssets] = useState([]);
-  const [loading, setLoading] = useState(false);
-  //const [loadingAll, setLoadingAll] = useState(false);
-  const [meta, setMeta] = useState({});
-  const { user, setNotification } = useStateContext();
 
-  const [cats, setCats] = useState([]);
-  const [brands, setBrands] = useState([]);
-  const [modelos, setModelos] = useState([]);
-  const [floor, setFloor] = useState([]);
-  const [ent, setEnt] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedFloor, setSelectedFloor] = useState("");
-  const [selectedBrand, setSelectedBrand] = useState("");
-  const [selectedModel, setSelectedModel] = useState("");
-  const [selectedEnt, setSelectedEnt] = useState("");
-  const [originalModels, setOriginalModels] = useState([]);
-  const [allDados, setAllDados] = useState([]);
-
-  const [isButtonClicked, setIsButtonClicked] = useState(false);
-  const [filteredAllocations, setFilteredAllocations] = useState([]);
-
-  //*For pagination with filters*
-  const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 20;
-  const startIndex = (currentPage - 1) * resultsPerPage;
-  const endIndex = startIndex + resultsPerPage;
-
-  const abortControllerRef = useRef(null);
-  const abortControllerrRef = useRef(null);
-
-  const [show, setShow] = useState(false);
-
-  const [deleteConfirmed, setDeleteConfirmed] = useState(false);
+  //display the error message for 2 seconds
+  useEffect(() => {
+    let timer;
+    if (errorMessage) {
+      timer = setTimeout(() => {
+        setErrorMessage("");
+      }, 2000); // Display for 2 seconds (2000 milliseconds)
+    }
+    return () => clearTimeout(timer); // Clear the timer if component unmounts or if the error message changes
+  }, [errorMessage]);
 
   useEffect(() => {
     getAssets();
   }, []);
 
-  // Performs a client access request
+  //Performs a client access request
+  useEffect(() => {
+    getAssets();
+  }, []);
   const getAssets = (url) => {
-    abortControllerrRef.current = new AbortController();
-    const { signal } = abortControllerrRef.current;
+    url = url || "/allAssets";
 
-    url = url || "/assets";
-
-    // When there is still a request, we apply loading = true
-    setLoading(true);
-    axiosClient
-      .get(url, { signal })
-      .then(({ data }) => {
-        // When the request is successful, loading=false
-        setLoading(false);
-        setAssets(data.data);
-
-        setMeta(data.meta);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
+    axiosClient.get(url).then(({ data }) => {
+      setAssets(data.data);
+    });
   };
-  /*  useEffect(() => {
-    return () => {
-      if (abortControllerrRef.current) {
-        abortControllerrRef.current.abort();
+
+  //gets the value of the input by the user
+  const handleChange = (event) => {
+    setAssetNumber(event.target.value);
+  };
+
+  //Binary Search to improve performance in search by serial number
+  const searchByNumbSer = (arr, target) => {
+    if (arr[0].numb_ser === target) {
+      return arr[0];
+    }
+
+    let left = 1;
+    let right = arr.length - 1;
+
+    while (left <= right) {
+      const mid = Math.floor((left + right) / 2);
+      const currentAsset = arr[mid];
+
+      if (currentAsset.numb_ser === target) {
+        return currentAsset;
       }
-    };
-  }, []);
- */
-  useEffect(() => {
-    abortControllerRef.current = new AbortController();
-    const { signal } = abortControllerRef.current;
-    Promise.all([axiosClient.get("/assetsDefault", { signal })])
-      .then((responses) => {
-        setLoading(false);
-        setCats(responses[0].data.cats);
-        setBrands(responses[0].data.brands);
-        setOriginalModels(responses[0].data.models);
-        setModelos(responses[0].data.models);
-        setFloor(responses[0].data.floor);
-        setAllDados(responses[0].data.assets); //Gets all data from the assets
-        setEnt(responses[0].data.localiz);
-      })
-      .catch((error) => {
-        //error;
-      });
 
-    return () => {
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
+      if (currentAsset.numb_ser < target) {
+        left = mid + 1;
+      } else {
+        right = mid - 1;
       }
-    };
-  }, []);
-
-  //returns all assets (mount hook is called 2x)
-
-  //------------------------Filter Sorting-----------------------------------------------
-  //keeps checking if there is a filter on or off:
-  const [filtered, setFiltered] = useState(false);
-  //For the all the asset data:
-  const [allDataF, setAllDataF] = useState([]);
-  const [orderFilter, setOrderFilter] = useState("ASC");
-
-  useEffect(() => {
-    const hasFilter =
-      selectedCategory !== "" ||
-      selectedFloor !== "" ||
-      selectedBrand !== "" ||
-      selectedModel !== "" ||
-      selectedEnt !== "";
-    setFiltered(hasFilter);
-    //if hasFilter = true then it gets all the assets from all the pages:
-    if (hasFilter) {
-      setAllDataF(allDados);
     }
-  }, [
-    selectedCategory,
-    selectedFloor,
-    selectedBrand,
-    selectedModel,
-    selectedEnt,
-  ]);
 
-  //use allData when filtered = true and when its false its equal to the assets object
-  const filterAsset = () => {
-    const filteredData = allDataF.filter(
-      (row) =>
-        (selectedCategory === "" || row.category.name === selectedCategory) &&
-        (selectedFloor === "" || row.floor === selectedFloor) &&
-        (selectedBrand === "" || row.brand.name === selectedBrand) &&
-        (selectedModel === "" || row.modelo.name === selectedModel) &&
-        (selectedEnt === "" || row.entity.ent_name === selectedEnt)
-    );
+    return null;
+  };
+  //Binary Search to improve performance in search by inventory number
+  const searchByNumbInv = (arr, target) => {
+    if (arr[0].numb_inv === target) {
+      return arr[0];
+    }
 
-    setFilteredAllocations(filtered ? filteredData : assets);
-    setIsButtonClicked(true);
-    setDropdownOpen(false);
+    let left = 1;
+    let right = arr.length - 1;
+
+    while (left <= right) {
+      const mid = Math.floor((left + right) / 2);
+      const currentAsset = arr[mid];
+
+      if (currentAsset.numb_inv === target) {
+        return currentAsset;
+      }
+
+      if (currentAsset.numb_inv < target) {
+        left = mid + 1;
+      } else {
+        right = mid - 1;
+      }
+    }
+
+    return null;
   };
 
-  const totalResults = filteredAllocations.length;
-  //----------------------------Sorting (with filter)----------------------
-  const sortingFilter = (col) => {
-    const columnMapping = {
-      Categoria: "category.name",
-      Marca: "brand.name",
-      Modelo: "modelo.name",
-      Piso: "floor",
-      Entidade: "entity.ent_name",
-      NºSerie: "numb_ser",
-    };
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-    const dbColumnName = columnMapping[col];
-
-    if (orderFilter === "ASC") {
-      const sorted = [...allDataF].sort((a, b) => {
-        const propA = getPropertyByPathFilter(a, dbColumnName);
-        const propB = getPropertyByPathFilter(b, dbColumnName);
-
-        if (propA === null || propB === null) {
-          //Exclude null values
-          return propA === null ? 1 : -1;
-        }
-        return propA > propB ? 1 : -1;
-      });
-      setAllDataF(sorted);
-      setOrderFilter("DSC");
-    }
-    if (orderFilter === "DSC") {
-      const sorted = [...allDataF].sort((a, b) => {
-        const propA = getPropertyByPathFilter(a, dbColumnName);
-        const propB = getPropertyByPathFilter(b, dbColumnName);
-        if (propA === null || propB === null) {
-          //Exclude null values
-          return propA === null ? -1 : 1;
-        }
-        return propA < propB ? 1 : -1;
-      });
-      setAllDataF(sorted);
-      setOrderFilter("ASC");
-    }
-  };
-
-  //auxiliar function to get the property of one array of objects of objects
-  const getPropertyByPathFilter = (obj, path) => {
-    const properties = path.split(".");
-    let value = obj;
-    for (let prop of properties) {
-      value = value[prop];
-    }
-    return value;
-  };
-
-  //------------------------------------------------------------------------
-
-  //----------Handle click to add an asset------------------------
-  const onAddClick = () => {
-    const url = "/assets/new";
-    navigate(url);
-  };
-
-  //-----------Handle click to edit an asset-----------------------------
-  const onEditClick = () => {
-    // Get the IDs of all the checked assets
-    const checkedAssetIds = assets.filter((a) => a.checked).map((as) => as.id);
-    const url = `/assets/${checkedAssetIds}`;
-
-    if (checkedAssetIds.length === 0) {
+    if (!assetNumber) {
+      setErrorMessage("Por favor insira algum valor!");
       return;
-    } else {
-      navigate(url);
     }
-  };
 
-  //OnPageClick for the pagination
-  const onPageClick = (link) => {
-    getAssets(link.url);
-  };
-
-  //-------------Handle change of the columns----------------------------
-  const handleCategoryChange = (event) => {
-    const selectedCategoryName = event.target.value;
-
-    // Find the category object based on the selected name
-    const selectedCategory = cats.find(
-      (category) => category.name === selectedCategoryName
-    );
-
-    if (selectedCategory) {
-      setSelectedCategory(selectedCategoryName);
-
-      setLoading(true);
-      axiosClient
-        .get(`/brands/category/${selectedCategory.id}`)
-        .then((response) => {
-          setLoading(false);
-          setBrands(response.data);
-        })
-        .catch((error) => {
-          setLoading(false);
-          console.error(error);
-        });
-    }
-  };
-
-  const handleFloorChange = (event) => {
-    const selectedFloor = event.target.value;
-    setSelectedFloor(selectedFloor);
-  };
-
-  const handleBrandChange = (event) => {
-    const selectedBrandName = event.target.value;
-
-    // Find the brand object with the selected name
-    const selectedBrand = brands.find(
-      (brand) => brand.name === selectedBrandName
-    );
-
-    if (selectedBrand) {
-      const selectedBrandId = selectedBrand.id;
-      setSelectedBrand(selectedBrandName);
-
-      // Filter the models based on the selected brand ID
-      const filteredModels = modelos.filter(
-        (model) => model.brand_id === selectedBrandId
-      );
-
-      // Update the modelos state with the filtered models
-      setModelos(filteredModels);
-    }
-  };
-
-  const handleModelChange = (event) => {
-    const selectedModel = event.target.value;
-    setSelectedModel(selectedModel);
-  };
-
-  const handleEntityChange = (event) => {
-    const selectedEntity = event.target.value;
-    setSelectedEnt(selectedEntity);
-  };
-
-  //Reset of the filters implemented
-  const resetFilter = () => {
-    setSelectedBrand("");
-    setSelectedFloor("");
-    setSelectedCategory("");
-    setSelectedModel("");
-    setSelectedEnt("");
-    const sortedAssets = [...assets].sort((a, b) => b.id - a.id); // Sort by the "id" column in ascending order
-    setAssets(sortedAssets);
-    setAllDataF([]);
-    setOrder("ASC"); // Reset the sorting order to "ASC"
-    setCurrentPage(1);
-    setFilteredAllocations([]);
-    setIsButtonClicked(false);
-    setDropdownOpen(false);
-    setModelos(originalModels); // gets back all the models in the modelos array
-  };
-
-  //For the checkbox, if the value of the filter is empty, then uses the assets array of the current page.
-  //if filter exists then uses the allDados array, that gives information about every assets in our database
-  const toggleCheck = (id) => {
-    if (
-      selectedBrand === "" &&
-      selectedCategory === "" &&
-      selectedFloor === "" &&
-      selectedModel === "" &&
-      selectedEnt === ""
-    ) {
-      const checkedIdx = assets.findIndex((a) => a.id === id);
-
-      if (checkedIdx === -1) return;
-      const updatedAssets = [...assets];
-      updatedAssets[checkedIdx].checked = !updatedAssets[checkedIdx].checked;
-      setAssets(updatedAssets);
-    } else {
-      const checkedIdx = allDados.findIndex((a) => a.id === id);
-      if (checkedIdx === -1) return;
-      const updatedAssets = [...allDados];
-      updatedAssets[checkedIdx].checked = !updatedAssets[checkedIdx].checked;
-      setAssets(updatedAssets);
-    }
-  };
-
-  //----------Sorting of the asset table in every column---------- (with pagination)
-  const [order, setOrder] = useState("ASC");
-
-  const sorting = (col) => {
-    const columnMapping = {
-      Categoria: "category.name",
-      Marca: "brand.name",
-      Modelo: "modelo.name",
-      Piso: "floor",
-      NºSerie: "numb_ser",
-    };
-
-    const dbColumnName = columnMapping[col];
-
-    if (order === "ASC") {
-      const sorted = [...assets].sort((a, b) => {
-        const propA = getPropertyByPath(a, dbColumnName);
-        const propB = getPropertyByPath(b, dbColumnName);
-
-        if (propA === null || propB === null) {
-          //Exclude null values
-          return propA === null ? 1 : -1;
-        }
-        return propA > propB ? 1 : -1;
-      });
-      setAssets(sorted);
-      setOrder("DSC");
-    }
-    if (order === "DSC") {
-      const sorted = [...assets].sort((a, b) => {
-        const propA = getPropertyByPath(a, dbColumnName);
-        const propB = getPropertyByPath(b, dbColumnName);
-        if (propA === null || propB === null) {
-          //Exclude null values
-          return propA === null ? -1 : 1;
-        }
-        return propA < propB ? 1 : -1;
-      });
-      setAssets(sorted);
-      setOrder("ASC");
-    }
-  };
-
-  //auxiliar function to get the property of one array of objects of objects
-  const getPropertyByPath = (obj, path) => {
-    const properties = path.split(".");
-    let value = obj;
-    for (let prop of properties) {
-      value = value[prop];
-    }
-    return value;
-  };
-  /*  console.log("data filtered:", allDataF);
-  console.log("assets", assets); */
-
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-
-  /*------------Button Apagar------------------------------*/
-  const onDeleteClick = () => {
-    setShow(true); // Show the modal
-  };
-
-  const handleDeleteConfirm = () => {
-    setDeleteConfirmed(true);
-    setShow(false); // Close the modal
-  };
-
-  const handleClose = () => {
-    setShow(false);
-  };
-
-  // Execute the delete operation when deleteConfirmed is true
-  useEffect(() => {
-    if (deleteConfirmed) {
-      // Get the IDs of all the checked assets
-      const checkedAssetIds = assets
-        .filter((a) => a.checked)
-        .map((as) => as.id);
-
-      // If no assets are checked, return
-      if (checkedAssetIds.length === 0) {
-        return;
+    // Sort the assets array by asset number (assuming it's not already sorted)
+    const sortedAssets = [...assets].sort((a, b) => {
+      if (a.numb_ser === null && b.numb_ser === null) {
+        return a.id.localeCompare(b.id); // Sort by ID if both ser are null
+      } else if (a.numb_ser === null) {
+        return 1; // Put null ser at the end
+      } else if (b.numb_ser === null) {
+        return -1; // Put null ser at the end
+      } else {
+        return a.numb_ser.localeCompare(b.numb_ser);
       }
+    });
 
-      // Create the URL with the asset IDs
-      const url = `/assets/${checkedAssetIds.join(",")}`;
+    let matchedAsset;
 
-      // Send the DELETE request
-      axiosClient
-        .delete(url)
-        .then(() => {
-          setNotification("Ativo(s) apagado(s) com sucesso!");
-          // Fetch assets again to update the UI
-          getAssets();
-        })
-        .catch((error) => {
-          console.error("Erro ao apagar ativo(s):", error);
-
-          // Handle error if necessary...
-        });
-
-      // Reset deleteConfirmed to false
-      setDeleteConfirmed(false);
+    if (assetNumber.length > 6) {
+      matchedAsset = searchByNumbSer(sortedAssets, assetNumber);
+    } else {
+      matchedAsset = searchByNumbInv(sortedAssets, assetNumber);
     }
-  }, [deleteConfirmed]);
+
+    if (matchedAsset) {
+      navigate(`/infoasset/${matchedAsset.id}`);
+    } else {
+      setErrorMessage("Não encontrado, tente novamente!");
+    }
+
+    setAssetNumber("");
+  };
 
   return (
     <div className="mn-cnt">
-      <div className="space-mov"></div>
-      <h1 className="search-tit">Procura</h1>
-      <div className="space-mov"></div>
-      <div className="icon-search">
-        <label className="lb-sch">Nº inventário/série:</label>
-        <input className="inp-search"></input>
-      </div>
-      <div className="search-sch">
-        <button className="btn-sch-mb">Procurar</button>
-      </div>
-      <div className="barcode-search">
-        <center>
-          <Link to="/scan">
-            <img
-              src={barcode}
-              alt="Barcode image"
-              className="w-100-new"
-              style={{ objectFit: "cover", objectPosition: "left" }}
-            />
-          </Link>
-        </center>
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="space-mov"></div>
+        <h1 className="search-tit">Procura</h1>
+        <div className="space-mov"></div>
+        <div className="icon-search">
+          <label className="lb-sch">Nº inventário/série:</label>
+          <input
+            className="inp-search"
+            value={assetNumber}
+            onChange={handleChange}
+          ></input>
+        </div>
+        <div className="search-sch">
+          <button className="btn-sch-mb">Procurar</button>
+        </div>
+        <div className="error-search">
+          {errorMessage && (
+            <p className="err-search">
+              <i className="fa fa-exclamation-triangle" aria-hidden="true"></i>
+              {" " + errorMessage}
+            </p>
+          )}
+        </div>
+        <div className="barcode-search">
+          <center>
+            <Link to="/scan">
+              <img
+                src={barcode}
+                alt="Barcode image"
+                className="w-100-new"
+                style={{ objectFit: "cover", objectPosition: "left" }}
+              />
+            </Link>
+          </center>
+        </div>
+      </form>
     </div>
   );
 }
