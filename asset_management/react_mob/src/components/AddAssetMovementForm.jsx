@@ -130,7 +130,7 @@ const AddAssetMovementForm = () => {
             .put(`/assets/${matchingAsset.id}`, updateAsset)
             .then(() => {
               setNotification("Ativo Movimentado com sucesso!");
-              navigate("/report");
+              navigate("/dashboard");
             })
             .catch((err) => {
               const response = err.response;
@@ -151,7 +151,7 @@ const AddAssetMovementForm = () => {
             .put(`/assets/${matchingInv.id}`, updateAsset)
             .then(() => {
               setNotification("Ativo Movimentado com sucesso!");
-              navigate("/report");
+              navigate("/dashboard");
             })
             .catch((err) => {
               const response = err.response;
@@ -190,6 +190,7 @@ const AddAssetMovementForm = () => {
         </Modal.Footer>
       </Modal>
       <h1 className="tlt-assetInfo">Movimento de Ativo</h1>
+      <div className="space-mov-add"></div>
       <form onSubmit={handleSubmit} className="assetForm">
         <h1 className="headerInfoAsset">Dados Gerais: </h1>
         <p></p>
@@ -270,7 +271,7 @@ const AddAssetMovementForm = () => {
             />
           )}
         </label>
-
+        <p></p>
         {/* ----------New Local ----------*/}
 
         <label htmlFor="entity" className="lb-info">
@@ -290,7 +291,7 @@ const AddAssetMovementForm = () => {
             ))}
           </select>
         </label>
-
+        <p></p>
         {/* ----------CI----------*/}
         <label className="lb-info">
           <label className="labelofLabel">CI origem: </label>
@@ -317,7 +318,7 @@ const AddAssetMovementForm = () => {
             />
           )}
         </label>
-
+        <p></p>
         {/* ---------- CI Now ----------*/}
         <label className="lb-info">
           <label className="labelofLabel"> CI destino: </label>
@@ -351,7 +352,7 @@ const AddAssetMovementForm = () => {
             <option value="Garantia">Garantia</option>
           </select>
         </label>
-
+        <p></p>
         <label className="lb-info">
           <label className="labelofLabel">Observações:</label>
           <textarea
@@ -360,6 +361,7 @@ const AddAssetMovementForm = () => {
             className="obs-mov-e"
           />
         </label>
+        <div className="space-mov-add"></div>
         <label className="lb-info"></label>
         <label className="lb-info">
           <button onClick={resetFilter} className="btn-cleanfilter-movAsset">

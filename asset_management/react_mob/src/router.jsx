@@ -42,7 +42,7 @@ import Assets from "./views/Assets.jsx";
 import AssetForm from "./views/AssetForm.jsx";
 import Allocations from "./views/Allocations.jsx";
 /* import ManutLayout from "./components/ManutLayout.jsx"; */
-import ReportPage from "./views/ReportPage.jsx";
+/* import ReportPage from "./views/ReportPage.jsx"; */
 import AssetInfo from "./views/AssetInfo.jsx";
 /* import Import from "./views/Import.jsx"; */
 import AddAssetMovementForm from "./components/AddAssetMovementForm.jsx";
@@ -88,10 +88,10 @@ const router = createBrowserRouter([
         path: "/allocations",
         element: <Allocations />,
       },
-      {
+      /*   {
         path: "/report",
         element: <ReportPage />,
-      },
+      }, */
       {
         path: "/infoasset/:id",
         element: <AssetInfo />,

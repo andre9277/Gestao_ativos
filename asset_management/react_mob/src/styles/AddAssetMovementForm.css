@@ -1,14 +1,16 @@
 .tlt-assetInfo {
     display: flex;
     font-weight: 700;
+    font-size: 36px;
 }
 
 .headerInfoAsset {
     font-weight: 700;
+    font-size: 34px;
 }
 
 .camp-obs-mov {
-    font-size: 16px;
+    font-size: 18px;
     bottom: 0;
     color: red;
     position: relative;
@@ -23,7 +25,7 @@
     text-align: left;
     padding: 0.5em 6.5em 0.5em 0;
     font-weight: 700;
-    font-size: 17px;
+    font-size: 26px;
 }
 
 .labelofLabel {
@@ -32,7 +34,7 @@
 }
 
 .title-page-all-sub {
-    font-size: 1.9rem;
+    font-size: 34px;
     padding: 1px;
     font-weight: 700;
 }
@@ -51,4 +53,70 @@
     margin: 2rem;
     font-size: 2rem;
     margin-top: 6rem;
+}
+
+label {
+    display: contents;
+}
+
+.space-mov-add {
+    margin-top: 35px;
+}
+
+.infoInp-select {
+    width: 100%;
+    padding: 0.1em;
+    margin-bottom: 1rem;
+    background: #fff;
+    border: 1px solid #9c9c9c;
+    float: right;
+    font-weight: 400;
+}
+
+.null-input {
+    border: 1px solid #ccc; /* Add desired border styling */
+    /* Add any other desired styling */
+}
+
+.btn-cleanfilter-movAsset {
+    background-color: #6c757d;
+    padding: 0.5rem 0.75rem;
+    font-size: 24px;
+    border-radius: 4px;
+    color: white;
+    width: auto;
+    float: right;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.btn-adicionar-movAsset {
+    background-color: #00a762;
+    padding: 0.5rem 0.75rem;
+    font-size: 24px;
+    border-radius: 4px;
+    color: white;
+    float: right;
+}
+
+.obs-mov-e {
+    border: 1px solid #9c9c9c;
+    /* margin-left: 10px; */
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 33px;
+    padding: 1px;
+    margin-left: 38px;
+    float: right;
+    resize: none;
+}
+
+.lgText-assetInfo {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+input {
+    font-weight: 400;
 }
