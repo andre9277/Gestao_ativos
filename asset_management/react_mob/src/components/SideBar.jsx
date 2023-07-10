@@ -55,19 +55,19 @@ const Sidebar = ({ user, onLogout }) => {
             </li>
           </Link>
           <Link to={"/register"}>
-            <li className="opt-sidebar">
+            <li className="opt-sidebar-r">
               <i class="fa fa-pencil-alt" aria-hidden="true"></i>
               <label className="lb-sd">&nbsp;&nbsp; Registar</label>
             </li>
           </Link>
           <Link to={"/register"}>
-            <li className="opt-sidebar">
+            <li className="opt-sidebar-m">
               <i className="fa fa-exchange-alt " aria-hidden="true"></i>
               <label className="lb-sd">&nbsp;&nbsp; Movimento</label>
             </li>
           </Link>
           <Link to={"/register"}>
-            <li className="opt-sidebar">
+            <li className="opt-sidebar-p">
               <i class="fa fa-cog" aria-hidden="true"></i>
               <label className="lb-sd">&nbsp;&nbsp; Perfil </label>
             </li>

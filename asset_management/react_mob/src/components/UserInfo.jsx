@@ -47,7 +47,7 @@ const UserInfo = ({ user, onLogout }) => {
       {isOpen && (
         <div className="dropdown-content">
           <a onClick={onLogout}>
-            <span className="logout">Logout</span>
+            <span className="logout">Logout &nbsp;&nbsp;&nbsp;</span>
           </a>
         </div>
       )}

@@ -35,7 +35,7 @@ nav {
 
 .menu {
     width: 78%;
-    height: 100vh;
+    height: 200%;
     background-color: #007840;
     position: absolute;
     top: 0;
@@ -81,6 +81,40 @@ nav {
     width: max-content;
     font-size: xx-large;
     font-weight: bold;
+    top: 4em;
+    position: fixed;
+}
+.opt-sidebar-r {
+    display: table-caption;
+    color: white;
+    margin-top: 3rem;
+    width: max-content;
+    font-size: xx-large;
+    font-weight: bold;
+    top: 7em;
+    position: fixed;
+}
+
+.opt-sidebar-m {
+    display: table-caption;
+    color: white;
+    margin-top: 3rem;
+    width: max-content;
+    font-size: xx-large;
+    font-weight: bold;
+    top: 10em;
+    position: fixed;
+}
+
+.opt-sidebar-p {
+    display: table-caption;
+    color: white;
+    margin-top: 3rem;
+    width: max-content;
+    font-size: xx-large;
+    font-weight: bold;
+    top: 13em;
+    position: fixed;
 }
 
 .logout-div {

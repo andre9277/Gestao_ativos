@@ -31,6 +31,8 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import { useParams } from "react-router-dom";
+import "../styles/AssetInfo.css";
+import "../index.css";
 
 const AssetInfo = () => {
   //We take the ID
@@ -80,10 +82,6 @@ const AssetInfo = () => {
     units: "",
   });
 
-  const handlePrint = () => {
-    window.print();
-  };
-
   return (
     <div className="asset-info">
       <div className="sub-div-info">
@@ -93,7 +91,7 @@ const AssetInfo = () => {
               Informações do ativo:{" "}
               {asset.numb_inv === null ? asset.numb_ser : asset.numb_inv}
             </h1>
-            <p></p>
+            <div className="space-mov"></div>
             <h2 className="headerInfoAsset">Dados gerais: </h2>
             <p></p>
             <ul className="lb-infoAsset-informat">
