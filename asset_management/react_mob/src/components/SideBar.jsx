@@ -8,6 +8,7 @@ const Sidebar = ({ user, onLogout }) => {
   const [burger_class, setBurgerClass] = useState("burger-bar unclicked");
   const [menu_class, setMenuClass] = useState("menu hidden");
   const [isMenuClicked, setIsMenuClicked] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null); // State variable to track the selected option
 
   // toggle burger menu change
   const updateMenu = () => {
@@ -18,6 +19,16 @@ const Sidebar = ({ user, onLogout }) => {
       setBurgerClass("burger-bar unclicked");
       setMenuClass("menu hidden");
     }
+    setIsMenuClicked(!isMenuClicked);
+  };
+
+  // Function to handle the option click and update the selected option
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    //Handles the sidebar closing when user clicks on one option
+    setMenuClass("menu hidden");
+    setBurgerClass("burger-bar unclicked");
+    setMenuClass("menu hidden");
     setIsMenuClicked(!isMenuClicked);
   };
 
@@ -53,33 +64,53 @@ const Sidebar = ({ user, onLogout }) => {
       <div className={menu_class}>
         <ul className="all-sd">
           <Link to={"/assets"}>
-            <li className="opt-sidebar">
+            <li
+              className={`opt-sidebar ${
+                selectedOption === "procurar" ? "selected" : ""
+              }`}
+              onClick={() => handleOptionClick("procurar")}
+            >
               <i className="fa fa-search" aria-hidden="true"></i>
               <label className="lb-sd">&nbsp;&nbsp; Procurar</label>
             </li>
           </Link>
-          <Link to={"/register"}>
-            <li className="opt-sidebar-r">
-              <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+          <Link to={"/infoasset/2"}>
+            <li
+              className={`opt-sidebar-r ${
+                selectedOption === "registar" ? "selected" : ""
+              }`}
+              onClick={() => handleOptionClick("registar")}
+            >
+              <i className="fa fa-pencil-alt" aria-hidden="true"></i>
               <label className="lb-sd">&nbsp;&nbsp; Registar</label>
             </li>
           </Link>
-          <Link to={"/register"}>
-            <li className="opt-sidebar-m">
-              <i className="fa fa-exchange-alt " aria-hidden="true"></i>
+          <Link to={"/infoasset/2"}>
+            <li
+              className={`opt-sidebar-m ${
+                selectedOption === "movimento" ? "selected" : ""
+              }`}
+              onClick={() => handleOptionClick("movimento")}
+            >
+              <i className="fa fa-exchange-alt" aria-hidden="true"></i>
               <label className="lb-sd">&nbsp;&nbsp; Movimento</label>
             </li>
           </Link>
-          <Link to={"/register"}>
-            <li className="opt-sidebar-p">
-              <i class="fa fa-cog" aria-hidden="true"></i>
-              <label className="lb-sd">&nbsp;&nbsp; Perfil </label>
+          <Link to={"/infoasset/2"}>
+            <li
+              className={`opt-sidebar-p ${
+                selectedOption === "perfil" ? "selected" : ""
+              }`}
+              onClick={() => handleOptionClick("perfil")}
+            >
+              <i className="fa fa-cog" aria-hidden="true"></i>
+              <label className="lb-sd">&nbsp;&nbsp; Perfil</label>
             </li>
           </Link>
           <a onClick={onLogout}>
             <li className="opt-sidebar-leave">
-              <i class="fa fa-sign-out-alt" aria-hidden="true"></i>
-              <label className="lb-sd">&nbsp;&nbsp; Sair </label>
+              <i className="fa fa-sign-out-alt" aria-hidden="true"></i>
+              <label className="lb-sd">&nbsp;&nbsp; Sair</label>
             </li>
           </a>
         </ul>

@@ -15,9 +15,10 @@
 .attrAsset-informat {
     display: inline-table;
     font-size: 1.5rem;
-    right: 0;
+    padding-left: 14px;
     position: absolute;
     margin: 4px;
+    font-weight: 400;
 }
 
 .lb-infoAsset-informat {
@@ -27,8 +28,13 @@
 
 .lb-infoAsset2-informat {
     width: auto;
+    font-weight: 700;
 }
 
 .sub-div-info {
     margin-left: 1rem;
+}
+
+.headerInfoAsset {
+    font-weight: 700;
 }

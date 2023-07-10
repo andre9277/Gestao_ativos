@@ -165,3 +165,17 @@ nav {
     position: fixed;
     margin-bottom: 2rem;
 }
+
+.opt-sidebar.selected {
+    font-weight: bold;
+}
+.opt-sidebar-r.selected {
+    font-weight: bold;
+}
+
+.opt-sidebar-m.selected {
+    font-weight: bold;
+}
+.opt-sidebar-p.selected {
+    font-weight: bold;
+}
