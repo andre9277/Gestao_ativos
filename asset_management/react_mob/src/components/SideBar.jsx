@@ -30,7 +30,9 @@ const Sidebar = ({ user, onLogout }) => {
           <div className={burger_class}></div>
         </div>
         <div>
-          <h1 className="title-topbar">SIGA</h1>
+          <Link to={"/dashboard"}>
+            <h1 className="title-topbar">SIGA</h1>
+          </Link>
         </div>
 
         <div className="logout-div">
@@ -46,26 +48,36 @@ const Sidebar = ({ user, onLogout }) => {
 
       <div className={menu_class}>
         <ul className="all-sd">
-          <li className="opt-sidebar">
-            <i className="fa fa-search" aria-hidden="true"></i>
-            <label className="lb-sd">&nbsp;&nbsp; Procurar</label>
-          </li>
-          <li className="opt-sidebar">
-            <i class="fa fa-pencil-alt" aria-hidden="true"></i>
-            <label className="lb-sd">&nbsp;&nbsp; Registar</label>
-          </li>
-          <li className="opt-sidebar">
-            <i className="fa fa-exchange-alt " aria-hidden="true"></i>
-            <label className="lb-sd">&nbsp;&nbsp; Movimento</label>
-          </li>
-          <li className="opt-sidebar">
-            <i class="fa fa-cog" aria-hidden="true"></i>
-            <label className="lb-sd">&nbsp;&nbsp; Perfil </label>
-          </li>
-          <li className="opt-sidebar-leave">
-            <i class="fa fa-sign-out-alt" aria-hidden="true"></i>
-            <label className="lb-sd">&nbsp;&nbsp; Sair </label>
-          </li>
+          <Link to={"/assets"}>
+            <li className="opt-sidebar">
+              <i className="fa fa-search" aria-hidden="true"></i>
+              <label className="lb-sd">&nbsp;&nbsp; Procurar</label>
+            </li>
+          </Link>
+          <Link to={"/register"}>
+            <li className="opt-sidebar">
+              <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+              <label className="lb-sd">&nbsp;&nbsp; Registar</label>
+            </li>
+          </Link>
+          <Link to={"/register"}>
+            <li className="opt-sidebar">
+              <i className="fa fa-exchange-alt " aria-hidden="true"></i>
+              <label className="lb-sd">&nbsp;&nbsp; Movimento</label>
+            </li>
+          </Link>
+          <Link to={"/register"}>
+            <li className="opt-sidebar">
+              <i class="fa fa-cog" aria-hidden="true"></i>
+              <label className="lb-sd">&nbsp;&nbsp; Perfil </label>
+            </li>
+          </Link>
+          <a onClick={onLogout}>
+            <li className="opt-sidebar-leave">
+              <i class="fa fa-sign-out-alt" aria-hidden="true"></i>
+              <label className="lb-sd">&nbsp;&nbsp; Sair </label>
+            </li>
+          </a>
         </ul>
       </div>
     </div>

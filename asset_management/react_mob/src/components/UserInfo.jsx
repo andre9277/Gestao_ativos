@@ -29,7 +29,7 @@ All the changes made to enable the implementation of the desired development too
 */ import React, { useState } from "react";
 import "../styles/UserInfo.css";
 
-const UserInfo = () => {
+const UserInfo = ({ user, onLogout }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -46,7 +46,9 @@ const UserInfo = () => {
       />
       {isOpen && (
         <div className="dropdown-content">
-          <span className="logout">Logout</span>
+          <a onClick={onLogout}>
+            <span className="logout">Logout</span>
+          </a>
         </div>
       )}
     </div>

@@ -39,6 +39,7 @@ import SelectFilter from "../components/SelectFilter.jsx";
 import { Modal, Button } from "react-bootstrap";
 import "../styles/assets.css";
 import barcode from "../assets/barcode.png";
+import { Link } from "react-router-dom";
 
 export default function Assets() {
   const navigate = useNavigate();
@@ -491,12 +492,14 @@ export default function Assets() {
       </div>
       <div className="barcode-search">
         <center>
-          <img
-            src={barcode}
-            alt="Barcode image"
-            className="w-100-new"
-            style={{ objectFit: "cover", objectPosition: "left" }}
-          />
+          <Link to="/scan">
+            <img
+              src={barcode}
+              alt="Barcode image"
+              className="w-100-new"
+              style={{ objectFit: "cover", objectPosition: "left" }}
+            />
+          </Link>
         </center>
       </div>
     </div>

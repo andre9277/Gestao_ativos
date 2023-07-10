@@ -28,44 +28,14 @@ You may obtain a copy of the license at:
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React from "react";
-import Card from "./components/Card";
-/* import "./styles/Dashboard.css"; */
-import AreaChart from "./components/AreaChart";
-import PieChart from "./components/PieChart";
-import { useState, useEffect } from "react";
-import axiosClient from "./axios-client.js";
+import "./styles/Dashboard.css";
 
 function Dashboard() {
-  const [assetTotal, setAssetTotal] = useState("");
-  const [assets, setAssets] = useState([]);
-
-  useEffect(() => {
-    const abortController = new AbortController();
-    getTotalAssets(abortController.signal);
-    getAssets(abortController.signal);
-
-    return () => {
-      abortController.abort();
-    };
-  }, []);
-
-  //Performs a client access request
-  const getTotalAssets = (signal, url) => {
-    url = url || "/assetsC";
-    axiosClient.get(url, { signal }).then(({ data }) => {
-      setAssetTotal(data);
-    });
-  };
-
-  const getAssets = (signal, url) => {
-    url = url || "/getDashb";
-    axiosClient.get(url, { signal }).then(({ data }) => {
-      // update the state with all the assets
-      setAssets(data);
-    });
-  };
-
-  return <h1>Dashboard</h1>;
+  return (
+    <div className="dsb-main">
+      <h1>Dashboard</h1>
+    </div>
+  );
 }
 
 export default Dashboard;
