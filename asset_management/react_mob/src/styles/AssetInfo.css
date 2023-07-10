@@ -4,7 +4,6 @@
 }
 
 .containerr {
-    display: grid;
 }
 
 .tlt-assetInfo {
@@ -12,7 +11,7 @@
 }
 
 .attrAsset-informat {
-    display: contents;
+    display: inline;
     font-size: 1.5rem;
     right: 0;
     position: absolute;
