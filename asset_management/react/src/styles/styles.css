@@ -753,6 +753,7 @@ progress {
     margin-right: calc(-0.5 * var(--bs-gutter-x));
     margin-left: calc(-0.5 * var(--bs-gutter-x));
     border: 2px solid #7e7979;
+    border-radius: 0.5rem;
 }
 
 .row-dash {
@@ -2499,7 +2500,7 @@ progress {
     /* padding: 0.5rem 1rem; */
     font-size: 1.25rem;
     border-radius: 0.3rem;
-    width: auto;
+    /* width: auto; */
 }
 .form-control-lg::-webkit-file-upload-button {
     padding: 0.5rem 1rem;
@@ -3306,8 +3307,7 @@ input::placeholder {
     background-color: #007840;
     padding: 0.5rem;
     /*  margin-left: 0.2rem */
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    border-radius: 0;
 }
 
 .valid-feedback {
@@ -7899,7 +7899,7 @@ fieldset:disabled .btn {
 .back-col-login {
     min-height: "100vh";
     padding: 10rem;
-    background: rgb(37, 97, 5);
+
     background: linear-gradient(
         135deg,
         rgba(37, 97, 5, 1) 0%,
@@ -7910,6 +7910,7 @@ fieldset:disabled .btn {
 }
 .back-col-login2 {
     background-color: #ffffff;
+    border-radius: 0.5rem;
 }
 .logoDiv {
     background-color: #007840;
@@ -12239,7 +12240,11 @@ body {
 #layoutAuthentication #layoutAuthentication_content {
     min-width: 0;
     flex-grow: 1;
-    background-color: #007840;
+    background: linear-gradient(
+        135deg,
+        rgba(37, 97, 5, 1) 0%,
+        rgba(106, 170, 71, 1) 100%
+    );
 }
 #layoutAuthentication #layoutAuthentication_footer {
     min-width: 0;
@@ -12862,7 +12867,7 @@ select {
     text-align: left;
     padding: 0.5em 6.5em 0.5em 0;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 17px;
 }
 
 .lb-info-allocation {
@@ -13631,7 +13636,7 @@ button {
 
 .lb-info-btn {
     text-align: left;
-    padding: 0.5em 6.5em 0.5em 0;
+    padding: 0.5em 5em 0.5em 0;
     font-weight: 700;
     font-size: 20px;
     margin-bottom: -32px;
@@ -13699,4 +13704,70 @@ button {
 
 .table-numb-r {
     text-align: right;
+}
+
+.rec-pass {
+    width: auto;
+    margin-bottom: auto;
+}
+
+.inp-res-pass {
+    width: auto;
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+.inp-res-pass-rec {
+    border: 1px solid black;
+    margin-bottom: 10px;
+    padding: 1px;
+    float: right;
+}
+
+.btn-rec-pass {
+    background-color: #00a762;
+    padding: 0.5rem 0.75rem;
+    font-size: 20px;
+    border-radius: 4px;
+    color: white;
+}
+
+.ms-rec-pass {
+    color: white;
+    background-color: #ffbaba;
+    text-align: center;
+    width: inherit;
+    padding: 0.5rem;
+}
+
+.reset-pass-forms {
+    align-items: center;
+}
+
+.ms-rec-pass-conf {
+    color: white;
+    background-color: #119d21;
+    text-align: center;
+    width: inherit;
+    padding: 0.5rem;
+}
+
+.btn-login-main {
+    padding: 0.5rem 1rem;
+    font-size: 20px;
+    border-radius: 0.3rem;
+    max-width: 100% !important;
+    height: auto;
+    block-size: auto;
+    color: white;
+    background-color: #007840;
+    margin-left: 122px;
+}
+
+.login-main-box {
+    width: auto;
+    padding-top: 5rem;
+}
+
+.form-group-reset {
+    display: flow-root;
 }

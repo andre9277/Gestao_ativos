@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* ---------------- Navbar and burger menu ------------------ */
+nav {
+    width: 100%;
+    height: 7em;
+    background-color: #007840;
+    display: flex;
+    justify-content: flex-start;
+    padding: 1em;
+    z-index: 999;
+    position: fixed;
+}
+
+.burger-menu {
+    height: 3em;
+    width: 4em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.burger-bar {
+    width: 2.5em;
+    height: 0.5em;
+    background-color: white;
+}
+
+.menu {
+    width: 78%;
+    height: 100vh;
+    background-color: #007840;
+    position: absolute;
+    top: 0;
+    z-index: 998;
+}
+
+/* ------------- sliding menu ------------------ */
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: inherit;
+}
+
+/* ----- animations--------- */
+/* clicked */
+.burger-bar.clicked:nth-child(1) {
+    transform: rotate(45deg) translate(0.75em, 1.25em);
+    transition: ease-out 0.5s;
+}
+
+.burger-bar.clicked:nth-child(2) {
+    transform: scale(0.1);
+    transition: ease-out 0.5s;
+}
+
+.burger-bar.clicked:nth-child(3) {
+    transform: rotate(135deg) translate(-0.5em, 1em);
+    transition: ease-out 0.5s;
+}
+
+/* unclicked */
+.burger-bar.unclicked {
+    transform: rotate(0) translate(0);
+    transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
+}
+
+.opt-sidebar {
+    display: table-caption;
+    color: white;
+    margin-top: 3rem;
+    width: max-content;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.logout-div {
+    position: fixed;
+    right: 10px;
+    width: 12%;
+    margin-top: 1rem;
+}
+
+.scan-asset {
+    right: 70px;
+    position: absolute;
+    font-size: x-large;
+}
+
+.title-topbar {
+    color: white;
+    font-weight: bold;
+    font-size: 3rem;
+    margin-top: 1rem;
+}
+
+.lb-sd {
+    display: contents;
+}
+
+.all-sd {
+    margin-top: 8rem;
+}
+
+.icon-sd {
+    font-size: xx-large;
+}
+
+.log-out-sd {
+    bottom: 0;
+    color: white;
+    position: fixed;
+    display: inline-grid;
+    align-items: center;
+    font-size: 4rem;
+    margin-left: 6rem;
+    margin-bottom: 2rem;
+}
+
+.fa-barcode:before {
+    content: "\f02a";
+    color: white;
+}

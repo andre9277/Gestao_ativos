@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'failed' => 'Atenção! Estas credenciais não estão disponíveis na nossa base de dados.',
-    'password' => 'Atenção! Password está incorreta.',
+    'failed' => 'Atenção! Dados incorrentos, volte a tentar.',
+    'password' => 'Atenção! Dados incorretos.',
     'throttle' => 'Atenção! Vários logins realizados, tente daqui a alguns segundos.',
 
 ];

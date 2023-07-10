@@ -89,7 +89,7 @@ function Dashboard() {
 
             {/*  <!-- Assets Changed --> */}
             <Card
-              Titulo="Ativos Alterados - Média Mensal"
+              Titulo="Média mensal - Ativos movimentados"
               Descricao={assetTotal.countChanged}
               Icon="fa-arrows-alt"
               Cor="text-success"
@@ -99,7 +99,7 @@ function Dashboard() {
             {/*  <!-- Assets in Repair --> */}
 
             <Card
-              Titulo="Ativos em Reparação"
+              Titulo="Ativos em reparação"
               Descricao={assetTotal.totalRep}
               Icon="fa-wrench"
               Cor="text-warning"

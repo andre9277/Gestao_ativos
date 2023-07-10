@@ -24,20 +24,20 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|string|exists:users,email',
-            'password' => [
-                'required',
-            ],
+            'email' => 'required_without:mec|email|string|exists:users,email',
+            'mec' => 'required_without:email|string',
+            'password' => 'required_without:pin',
+            'pin' => 'required_without:password',
             'remember' => 'boolean'
         ];
     }
 
-    public function messages()
+    /* public function messages()
     {
         return [
 
             'email.required' => 'Atenção! É necessário indicar um endereço de email!',
             'password.required' => 'Atenção! É necessário indicar uma password!.',
         ];
-    }
+    } */
 }

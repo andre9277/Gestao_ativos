@@ -1,0 +1,17 @@
+.lb-sd {
+    display: contents;
+}
+
+.slide-lb {
+    color: white;
+    text-decoration: none;
+}
+
+.opt-sidebar {
+    display: table-caption;
+    color: white;
+    margin-top: 3rem;
+    width: max-content;
+    font-size: xx-large;
+    font-weight: bold;
+}

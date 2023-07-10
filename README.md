@@ -90,6 +90,8 @@
      
         email: admin@gmail.com
         password: Admin@277
+
+      npm i react-papaparse
       
      ### **For pagination style install the follow commands in react folder:**
 

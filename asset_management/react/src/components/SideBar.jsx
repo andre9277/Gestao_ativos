@@ -113,14 +113,14 @@ const SideBar = () => {
         {/*  <!-- Nav Item - Pages Collapse Menu --> */}
         <MenuItem
           titulo={"Listagem"}
-          icon={"fa-cog"}
+          icon={"fa-list"}
           origem={"assets"}
           handleOptionClick={handleOptionClick}
           activeOption={activeOption}
         />
         <MenuItem
           titulo={"Movimentos"}
-          icon={"fa-plus"}
+          icon={"fa-exchange-alt"}
           origem={"report"}
           handleOptionClick={handleOptionClick}
           activeOption={activeOption}
@@ -129,7 +129,7 @@ const SideBar = () => {
         {/* <!-- Nav Item - ReportPage --> */}
         <MenuItem
           titulo={"Download"}
-          icon={"fa-chart-area"}
+          icon={"fa-arrow-circle-down"}
           origem={"allocations"}
           handleOptionClick={handleOptionClick}
           activeOption={activeOption}
@@ -137,7 +137,7 @@ const SideBar = () => {
         {/* <!-- Nav Item - ReportPage --> */}
         <MenuItem
           titulo={"Importar"}
-          icon={"fa fa-edit"}
+          icon={"fa fa-upload"}
           origem={"import"}
           handleOptionClick={handleOptionClick}
           activeOption={activeOption}
@@ -152,7 +152,7 @@ const SideBar = () => {
 
         <MenuItem
           titulo={"Utilizadores"}
-          icon={"fa-table"}
+          icon={"fa-users"}
           origem={"users"}
           handleOptionClick={handleOptionClick}
           activeOption={activeOption}

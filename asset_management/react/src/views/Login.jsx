@@ -54,10 +54,24 @@ export default function Login() {
   const onSubmit = (ev) => {
     ev.preventDefault();
 
-    const payload = {
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
-    };
+    const payload = {};
+    const userInput = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+    // Check if userInput matches email format
+    if (/^\S+@\S+\.\S+$/.test(userInput)) {
+      payload.email = userInput;
+    } else {
+      payload.mec = userInput;
+    }
+
+    // Check if the password is a 6-digit PIN
+    if (/^\d{6}$/.test(password)) {
+      payload.pin = password;
+    } else {
+      payload.password = password;
+    }
+
     axiosClient
       .post("/login", payload)
       .then(({ data }) => {
@@ -66,8 +80,9 @@ export default function Login() {
       })
       .catch((err) => {
         const response = err.response;
+
         if (response && response.status === 422) {
-          setMessage(response.data.message);
+          setMessage("Atenção! Verifique se introduziu os dados corretamente!");
         }
       });
   };
@@ -91,18 +106,11 @@ export default function Login() {
                       <p>{message}</p>
                     </div>
                   )}
-                  <div className="d-flex flex-column justify-content-center h-custom-2 w-75 pt-4">
-                    <h3
-                      className="fw-normal mb-3 ps-5 pb-3"
-                      style={{ letterSpacing: "1px" }}
-                    >
-                      Log in
-                    </h3>
+                  <div className="login-main-box">
                     <MDBInput
                       wrapperClass="mb-4 mx-5 w-100"
-                      label="Endereço de email"
+                      label="Endereço de email ou número MEC"
                       id="formControlLg"
-                      type="email"
                       size="lg"
                       ref={emailRef}
                     />
@@ -115,28 +123,19 @@ export default function Login() {
                       ref={passwordRef}
                       autoComplete="false"
                     />
+                    <div className="space"></div>
 
-                    <MDBBtn
-                      className="mb-4 px-5 mx-5 w-101"
-                      color="info"
-                      size="lg"
-                    >
-                      Log in
-                    </MDBBtn>
+                    <button className="btn-login-main ">Log in</button>
+                    <div className="space"></div>
                     <p className="small mb-5 pb-lg-3 ms-5">
                       <Link to="/forgotPassword" className="small">
                         Esqueceu-se da password?
                       </Link>
                     </p>
-                    <p className="small mb-5 pb-lg-3 ms-5">
-                      <Link to="/forgotPasswordForm" className="small">
-                        Reset
-                      </Link>
-                    </p>
                   </div>
                 </form>
                 <div className="footer-copyR">
-                  V1.0.0 © 2023. Hospital de Braga Serviço de Sistemas de
+                  V1.0.0 © 2023. Hospital de Braga - Serviço de Sistemas de
                   Informação
                 </div>
               </MDBCol>

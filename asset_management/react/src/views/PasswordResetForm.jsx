@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axiosClient from "../axios-client.js";
 import { useParams } from "react-router-dom";
+import "../styles/styles.css";
 
 const PasswordResetForm = () => {
   const { token } = useParams();
@@ -35,43 +36,79 @@ const PasswordResetForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </div>
+    <div id="layoutAuthentication">
+      <div id="layoutAuthentication_content">
+        <main>
+          <div className="container">
+            <div className="justify-content-center">
+              <div className="col-lg-5">
+                <div className="card shadow-lg border-0 rounded-lg mt-5">
+                  <div className="card-header">
+                    <h3 className="text-center font-weight-light my-4">
+                      Recuperação da Password
+                    </h3>
+                  </div>
+                  <div className="card-body">
+                    <form
+                      onSubmit={handleSubmit}
+                      className="password-reset-form"
+                    >
+                      <div className="form-group-reset">
+                        <label htmlFor="email" className="form-label">
+                          Email:
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          className="inp-res-pass-rec"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                        />
+                      </div>
 
-      <div>
-        <label htmlFor="password">New Password:</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </div>
+                      <div className="form-group-reset">
+                        <label htmlFor="password" className="form-label">
+                          Nova password:
+                        </label>
+                        <input
+                          type="password"
+                          id="password"
+                          className="inp-res-pass-rec"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                        />
+                      </div>
 
-      <div>
-        <label htmlFor="confirmPassword">Confirm Password:</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-      </div>
+                      <div className="form-group-reset">
+                        <label htmlFor="confirmPassword" className="form-label">
+                          Confirmação nova password:
+                        </label>
+                        <input
+                          type="password"
+                          id="confirmPassword"
+                          className="inp-res-pass-rec"
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          required
+                        />
+                      </div>
 
-      <button type="submit">Reset Password</button>
-      {message && <p>{message}</p>}
-    </form>
+                      <button type="submit" className="btn-rec-pass">
+                        Recuperar Password
+                      </button>
+
+                      {message && <p>{message}</p>}
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
   );
 };
 

@@ -54,6 +54,12 @@ class UserController extends Controller
         //Dados validados através do request
         $data = $request->validated();
 
+        // Verifica se foi fornecido um PIN
+        if (isset($data['pin'])) {
+            // Update a PIN encriptada
+            $data['pin'] = bcrypt($data['pin']);
+        }
+
         //Update a password encriptada
         $data['password'] = bcrypt($data['password']);
 
@@ -86,21 +92,28 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-
         $this->authorize('create-delete-users');
         $data = $request->validated();
 
-        //verifica se existe uma password disponível
-        if (isset($data['password'])) {
-            $data['password'] = bcrypt($data['password']); //e encrypt a password
+        // Verifica se foi fornecido um PIN
+        if (isset($data['pin'])) {
+            // Update a PIN encriptada
+            $data['pin'] = bcrypt($data['pin']);
         }
 
-        //realiza o update do atual user
+        // Verifica se foi fornecida uma nova password
+        if (isset($data['password'])) {
+            // Update a password encriptada
+            $data['password'] = bcrypt($data['password']);
+        }
+
+        // Realiza o update do usuário atual
         $user->update($data);
 
-        //Novo user resource 
+        // Retorna o novo UserResource 
         return new UserResource($user);
     }
+
 
     /**
      * Remove the specified resource from storage.
