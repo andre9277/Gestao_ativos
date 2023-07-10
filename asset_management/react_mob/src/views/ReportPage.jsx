@@ -31,9 +31,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client.js";
 import Papa from "papaparse";
-import PaginationLinks from "../components/PaginationLinks.jsx";
-import PaginationFilter from "../components/PaginationFilter.jsx";
-import SelectFilter from "../components/SelectFilter.jsx";
+/* import PaginationLinks from "../components/PaginationLinks.jsx";
+import PaginationFilter from "../components/PaginationFilter.jsx"; */
+/* import SelectFilter from "../components/SelectFilter.jsx"; */
 import { useStateContext } from "../context/ContextProvider.jsx";
 
 //SideBar:-------------Asset movement---------------

@@ -80,7 +80,7 @@ nav {
     margin-top: 3rem;
     width: max-content;
     font-size: xx-large;
-    font-weight: bold;
+
     top: 4em;
     position: fixed;
 }
@@ -90,7 +90,7 @@ nav {
     margin-top: 3rem;
     width: max-content;
     font-size: xx-large;
-    font-weight: bold;
+
     top: 7em;
     position: fixed;
 }
@@ -101,7 +101,7 @@ nav {
     margin-top: 3rem;
     width: max-content;
     font-size: xx-large;
-    font-weight: bold;
+
     top: 10em;
     position: fixed;
 }
@@ -112,7 +112,7 @@ nav {
     margin-top: 3rem;
     width: max-content;
     font-size: xx-large;
-    font-weight: bold;
+
     top: 13em;
     position: fixed;
 }
@@ -161,7 +161,6 @@ nav {
     margin-top: 3rem;
     width: max-content;
     font-size: xx-large;
-    font-weight: bold;
     bottom: 0;
     position: fixed;
     margin-bottom: 2rem;

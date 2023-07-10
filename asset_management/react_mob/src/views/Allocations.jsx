@@ -32,8 +32,8 @@ import axiosClient from "../axios-client.js";
 /* import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file */
 import Papa from "papaparse"; //library to export in .csv
-import Filter from "../components/Filter.jsx";
-
+/* import Filter from "../components/Filter.jsx";
+ */
 //SideBar:-------------Reports---------------
 export default function Allocations() {
   //returns all users (mount hook is called 2x)

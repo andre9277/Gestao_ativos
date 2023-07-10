@@ -191,6 +191,7 @@ export default function Assets() {
           )}
         </div>
         <div className="barcode-search">
+          <label className="lb-sch-bc">Código de barras:</label>
           <center>
             <Link to="/scan">
               <img
@@ -202,6 +203,7 @@ export default function Assets() {
             </Link>
           </center>
         </div>
+        <p></p>
       </form>
     </div>
   );

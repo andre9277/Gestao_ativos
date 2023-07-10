@@ -31,7 +31,7 @@ import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
-import PaginationLinks from "../components/PaginationLinks.jsx";
+/* import PaginationLinks from "../components/PaginationLinks.jsx"; */
 import { Modal, Button } from "react-bootstrap";
 
 export default function Users() {

@@ -32,7 +32,7 @@ import { useStateContext } from "../context/ContextProvider";
 import axiosClient from "../axios-client.js";
 import { useEffect } from "react";
 import SideBar from "./SideBar";
-import ManutLayout from "./ManutLayout";
+/* import ManutLayout from "./ManutLayout"; */
 
 export default function DefaultLayout() {
   const { user, token, setUser, setToken, notification } = useStateContext();
@@ -41,9 +41,9 @@ export default function DefaultLayout() {
     return <Navigate to="/login" />;
   }
 
-  if (user.role_id === 3) {
+  /*   if (user.role_id === 3) {
     return <ManutLayout />;
-  }
+  } */
 
   const onLogout = (ev) => {
     ev.preventDefault();
