@@ -1,0 +1,54 @@
+.tlt-assetInfo {
+    display: flex;
+    font-weight: 700;
+}
+
+.headerInfoAsset {
+    font-weight: 700;
+}
+
+.camp-obs-mov {
+    font-size: 16px;
+    bottom: 0;
+    color: red;
+    position: relative;
+}
+
+.cmp-obg {
+    color: red;
+    width: auto;
+}
+
+.lb-info {
+    text-align: left;
+    padding: 0.5em 6.5em 0.5em 0;
+    font-weight: 700;
+    font-size: 17px;
+}
+
+.labelofLabel {
+    width: 270px;
+    display: inline;
+}
+
+.title-page-all-sub {
+    font-size: 1.9rem;
+    padding: 1px;
+    font-weight: 700;
+}
+
+.attrAsset {
+    /* width: 50%; */
+    padding: 0.1rem;
+    margin-bottom: 1rem;
+    background: #f8f9fc;
+    border: 1px solid #9c9c9c;
+    display: inline-flex;
+    float: right;
+}
+
+.mn-cnt-mov {
+    margin: 2rem;
+    font-size: 2rem;
+    margin-top: 6rem;
+}

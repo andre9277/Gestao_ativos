@@ -85,7 +85,7 @@ const Sidebar = ({ user, onLogout }) => {
               <label className="lb-sd">&nbsp;&nbsp; Registar</label>
             </li>
           </Link>
-          <Link to={"/infoasset/2"}>
+          <Link to={"/addAssetMovement"}>
             <li
               className={`opt-sidebar-m ${
                 selectedOption === "movimento" ? "selected" : ""

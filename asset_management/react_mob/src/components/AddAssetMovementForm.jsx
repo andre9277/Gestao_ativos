@@ -32,6 +32,7 @@ import axiosClient from "../axios-client";
 import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { Modal, Button } from "react-bootstrap";
+import "../styles/AddAssetMovementForm.css";
 
 const AddAssetMovementForm = () => {
   const [errors, setErrors] = useState(null);
@@ -173,7 +174,7 @@ const AddAssetMovementForm = () => {
     setOther("");
   };
   return (
-    <>
+    <div className="mn-cnt-mov">
       <Modal show={showConfirmModal} onHide={handleCancelSave}>
         <Modal.Header closeButton>
           <Modal.Title>Confirmação</Modal.Title>
@@ -188,9 +189,9 @@ const AddAssetMovementForm = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <h1 className="title-page-all">Movimento de Ativo</h1>
+      <h1 className="tlt-assetInfo">Movimento de Ativo</h1>
       <form onSubmit={handleSubmit} className="assetForm">
-        <h1 className="title-page-all-sub">Dados Gerais: </h1>
+        <h1 className="headerInfoAsset">Dados Gerais: </h1>
         <p></p>
         <p></p>
         <p className="camp-obs-mov">*Campo Obrigatório</p>
@@ -369,7 +370,7 @@ const AddAssetMovementForm = () => {
           </button>
         </label>
       </form>
-    </>
+    </div>
   );
 };
 

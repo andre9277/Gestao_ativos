@@ -168,7 +168,6 @@ export default function Assets() {
   return (
     <div className="mn-cnt">
       <form onSubmit={handleSubmit}>
-        <div className="space-mov"></div>
         <h1 className="search-tit">Procurar</h1>
         <div className="space-mov"></div>
         <div className="icon-search">
