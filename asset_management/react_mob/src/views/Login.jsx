@@ -97,7 +97,7 @@ export default function Login() {
         className="w-100-new"
         style={{ objectFit: "cover", objectPosition: "left" }}
       />
-      <h3 className="lb-lg">Log In</h3>
+      <div className="space-mov"></div>
       <div className="mb-3">
         <label className="lb-lg">Endereço de email / Nº mec</label>
         <input className="form-control" ref={emailRef} />
