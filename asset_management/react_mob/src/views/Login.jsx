@@ -34,8 +34,8 @@ import { useStateContext } from "../context/ContextProvider.jsx";
 import { useState } from "react";
 import "../styles/Login.css";
 
-import img_logo from "../assets/hb_logo.png";
-import img_logo2 from "../assets/logo_new_hb.png";
+import img_logo2 from "../assets/logo_hb.jpg";
+import img_logo from "../assets/hb_dc.jpg";
 
 export default function Login() {
   const emailRef = createRef();
@@ -91,14 +91,20 @@ export default function Login() {
           <p>{message}</p>
         </div>
       )}
+      <img
+        src={img_logo}
+        alt="Login image"
+        className="w-100-new"
+        style={{ objectFit: "cover", objectPosition: "left" }}
+      />
       <h3 className="lb-lg">Log In</h3>
       <div className="mb-3">
-        <label className="lb-lg">Endereço de email</label>
-        <input type="email" className="form-control" />
+        <label className="lb-lg">Endereço de email / Nº mec</label>
+        <input className="form-control" ref={emailRef} />
       </div>
       <div className="mb-3">
         <label className="lb-lg">Pin</label>
-        <input type="password" className="form-control" />
+        <input type="password" className="form-control" ref={passwordRef} />
       </div>
       <div className="mb-3">
         <div className="custom-control custom-checkbox">
@@ -115,10 +121,11 @@ export default function Login() {
         </button>
       </div>
       <p className="lb-lg text-right">
-        Esqueceu a sua <a href="/forgotPasswordForm">password?</a>
+        Esqueceu a sua <a href="/forgotPassword">password?</a>
       </p>
       <div className="footer-copyR">
-        V1.0.0 © 2023. Hospital de Braga Serviço de Sistemas de Informação
+        V1.0.0 © 2023. Hospital de Braga
+        <p>Serviço de Sistemas de Informação</p>
       </div>
     </form>
   );

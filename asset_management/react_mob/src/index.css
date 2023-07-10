@@ -287,3 +287,21 @@ table > tbody > tr > td {
         transform: translateY(0);
     }
 }
+
+.content-container {
+    flex: 1;
+    z-index: 1;
+    position: fixed;
+    margin-top: 4rem;
+    /* position: relative; */
+}
+
+.SideBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px; /* Adjust the width according to your design */
+    height: 100vh;
+    background-color: #f1f1f1; /* Add a background color if needed */
+    z-index: 2;
+}

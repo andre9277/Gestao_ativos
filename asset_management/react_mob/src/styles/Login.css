@@ -53,8 +53,8 @@
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
         border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     color: #fff;
-    background-color: #61a60e;
-    border-color: #61a60e;
+    background-color: #29a26b;
+    border-color: #29a26b;
 }
 
 #guestLayout {

@@ -1,0 +1,33 @@
+.asset-info {
+    display: flex;
+    margin-top: 5rem;
+}
+
+.containerr {
+    display: grid;
+}
+
+.tlt-assetInfo {
+    display: flex;
+}
+
+.attrAsset-informat {
+    display: contents;
+    font-size: 1.5rem;
+    right: 0;
+    position: absolute;
+    margin-right: 1rem;
+}
+
+.lb-infoAsset-informat {
+    width: auto;
+    font-size: 1.5rem;
+}
+
+.lb-infoAsset2-informat {
+    width: auto;
+}
+
+.sub-div-info {
+    margin-left: 1rem;
+}

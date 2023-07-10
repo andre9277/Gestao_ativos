@@ -11,6 +11,8 @@ nav {
     display: flex;
     justify-content: flex-start;
     padding: 1em;
+    z-index: 999;
+    position: fixed;
 }
 
 .burger-menu {
@@ -22,6 +24,7 @@ nav {
     justify-content: space-between;
     cursor: pointer;
     margin-top: 1rem;
+    z-index: 998;
 }
 
 .burger-bar {
@@ -36,7 +39,7 @@ nav {
     background-color: #007840;
     position: absolute;
     top: 0;
-    z-index: -1;
+    z-index: 998;
 }
 
 /* ------------- sliding menu ------------------ */
@@ -121,4 +124,9 @@ nav {
     font-size: 4rem;
     margin-left: 6rem;
     margin-bottom: 2rem;
+}
+
+.fa-barcode:before {
+    content: "\f02a";
+    color: white;
 }

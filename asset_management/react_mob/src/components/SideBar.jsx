@@ -48,7 +48,7 @@ const Sidebar = ({ user, onLogout }) => {
         <ul className="all-sd">
           <li className="opt-sidebar">
             <i className="fa fa-search" aria-hidden="true"></i>
-            <label className="lb-sd">&nbsp;&nbsp; Pesquisar</label>
+            <label className="lb-sd">&nbsp;&nbsp; Procurar</label>
           </li>
           <li className="opt-sidebar">
             <i class="fa fa-pencil-alt" aria-hidden="true"></i>

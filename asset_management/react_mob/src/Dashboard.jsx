@@ -65,64 +65,7 @@ function Dashboard() {
     });
   };
 
-  return (
-    <div id="content-wrapper" className="d-flex flex-column">
-      {/*  <!-- Main Content --> */}
-      <div id="content">
-        {/* <!-- Begin Page Content --> */}
-        <div className="container-fluid">
-          {/*  <!-- Page Heading --> */}
-          <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 className="h3 mb-0 graf-dash">Dashboard</h1>
-          </div>
-
-          {/*  <!-- Content Row --> */}
-          <div className="row-dash">
-            {/*  <!-- Total of Assets --> */}
-            <Card
-              Titulo="Total de ativos"
-              Descricao={assetTotal.total}
-              Icon="fa-laptop"
-              Cor="text-primary"
-              Tipo="primary"
-            />
-
-            {/*  <!-- Assets Changed --> */}
-            <Card
-              Titulo="Média mensal - Ativos movimentados"
-              Descricao={assetTotal.countChanged}
-              Icon="fa-arrows-alt"
-              Cor="text-success"
-              Tipo="success"
-            />
-
-            {/*  <!-- Assets in Repair --> */}
-
-            <Card
-              Titulo="Ativos em reparação"
-              Descricao={assetTotal.totalRep}
-              Icon="fa-wrench"
-              Cor="text-warning"
-              Tipo="warning"
-            />
-          </div>
-
-          {/*  <!-- Content Row --> */}
-
-          <div className="row-dash">
-            {/*   <!-- Area Chart --> */}
-            <AreaChart assets={assets} />
-
-            {/*  <!-- Pie Chart --> */}
-
-            <PieChart assets={assets} />
-          </div>
-        </div>
-        {/*   <!-- /.container-fluid --> */}
-      </div>
-      {/*   <!-- End of Main Content -->*/}
-    </div>
-  );
+  return <h1>Dashboard</h1>;
 }
 
 export default Dashboard;
