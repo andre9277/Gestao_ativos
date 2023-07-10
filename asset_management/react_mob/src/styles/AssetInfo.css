@@ -38,3 +38,9 @@
 .headerInfoAsset {
     font-weight: 700;
 }
+
+.lgText-assetInfo {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: bold;
+}

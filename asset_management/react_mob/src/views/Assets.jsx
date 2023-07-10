@@ -169,7 +169,7 @@ export default function Assets() {
     <div className="mn-cnt">
       <form onSubmit={handleSubmit}>
         <div className="space-mov"></div>
-        <h1 className="search-tit">Procura</h1>
+        <h1 className="search-tit">Procurar</h1>
         <div className="space-mov"></div>
         <div className="icon-search">
           <label className="lb-sch">Nº inventário/série:</label>
