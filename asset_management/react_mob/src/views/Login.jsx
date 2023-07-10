@@ -106,15 +106,7 @@ export default function Login() {
         <label className="lb-lg">Pin</label>
         <input type="password" className="form-control" ref={passwordRef} />
       </div>
-      <div className="mb-3">
-        <div className="custom-control custom-checkbox">
-          <input
-            type="checkbox"
-            className="custom-control-input"
-            id="customCheck1"
-          />
-        </div>
-      </div>
+
       <div className="d-grid">
         <button type="submit" className="btn-login">
           Log in
