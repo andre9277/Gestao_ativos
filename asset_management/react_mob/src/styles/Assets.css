@@ -34,10 +34,8 @@
 }
 
 .barcode-search {
-    background-color: #007840;
     font-size: xx-large;
-    margin-top: 14rem;
-    border-radius: 50px;
+    margin-top: 9rem;
 }
 
 .ic-bc {
@@ -78,5 +76,5 @@
 }
 
 .lb-sch {
-    font-size: 1rem;
+    font-size: 1.5rem;
 }

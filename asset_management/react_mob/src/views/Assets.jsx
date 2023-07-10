@@ -38,6 +38,7 @@ import PaginationFilter from "../components/PaginationFilter.jsx";
 import SelectFilter from "../components/SelectFilter.jsx";
 import { Modal, Button } from "react-bootstrap";
 import "../styles/assets.css";
+import barcode from "../assets/barcode.png";
 
 export default function Assets() {
   const navigate = useNavigate();
@@ -490,7 +491,12 @@ export default function Assets() {
       </div>
       <div className="barcode-search">
         <center>
-          <i className="fa fa-barcode ic-bc" aria-hidden="true"></i>
+          <img
+            src={barcode}
+            alt="Barcode image"
+            className="w-100-new"
+            style={{ objectFit: "cover", objectPosition: "left" }}
+          />
         </center>
       </div>
     </div>

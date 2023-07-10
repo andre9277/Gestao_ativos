@@ -115,18 +115,19 @@ nav {
     font-size: xx-large;
 }
 
-.log-out-sd {
-    bottom: 0;
-    color: white;
-    position: fixed;
-    display: inline-grid;
-    align-items: center;
-    font-size: 4rem;
-    margin-left: 6rem;
-    margin-bottom: 2rem;
-}
-
 .fa-barcode:before {
     content: "\f02a";
     color: white;
+}
+
+.opt-sidebar-leave {
+    display: table-caption;
+    color: white;
+    margin-top: 3rem;
+    width: max-content;
+    font-size: xx-large;
+    font-weight: bold;
+    bottom: 0;
+    position: fixed;
+    margin-bottom: 2rem;
 }
