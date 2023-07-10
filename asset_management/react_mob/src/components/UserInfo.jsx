@@ -40,7 +40,7 @@ const UserInfo = ({ user, onLogout }) => {
     <div className="dropdown">
       <img
         src="img/undraw_profile.svg"
-        alt="Profile"
+        alt="Perfil"
         className="dropdown-trigger"
         onClick={toggleDropdown}
       />

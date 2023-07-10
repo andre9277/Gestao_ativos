@@ -38,7 +38,11 @@ const Sidebar = ({ user, onLogout }) => {
         <div className="logout-div">
           <div className="scan-asset">
             <Link to="/scan">
-              <i className="fa fa-barcode fa-2x" aria-hidden="true"></i>
+              <i
+                className="fa fa-barcode fa-2x"
+                aria-hidden="true"
+                alt="barcode"
+              ></i>
             </Link>
           </div>
 

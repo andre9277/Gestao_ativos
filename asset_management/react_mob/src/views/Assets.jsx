@@ -481,7 +481,7 @@ export default function Assets() {
   return (
     <div className="mn-cnt">
       <div className="space-mov"></div>
-      <h1 className="search-tit">Procurar</h1>
+      <h1 className="search-tit">Procura</h1>
       <div className="space-mov"></div>
       <div className="icon-search">
         <label className="lb-sch">Nº inventário/série:</label>

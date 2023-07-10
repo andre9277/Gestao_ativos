@@ -32,8 +32,11 @@ import "./styles/Dashboard.css";
 
 function Dashboard() {
   return (
-    <div className="dsb-main">
-      <h1>Dashboard</h1>
+    <div className="mn-cnt">
+      <h1 className="tlt-dashb">Dashboard</h1>
+      <div className="space-mov"></div>
+
+      <div className="tx-dashb">Bem vindo ao SIGA</div>
     </div>
   );
 }
