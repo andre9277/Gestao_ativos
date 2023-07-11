@@ -477,6 +477,7 @@ export default function AssetForm() {
                 placeholder="YYYY-MM-DD"
               />
             </label>
+            <p></p>
             {/* ---------- Supplier ----------*/}
             <label className="lb-info">
               {" "}
