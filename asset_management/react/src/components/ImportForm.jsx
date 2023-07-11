@@ -308,10 +308,10 @@ const ImportForm = () => {
         </Modal.Header>
         <Modal.Body>{"Deseja importar o ficheiro selecionado?"}</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleImport}>
+          <Button variant="primary" onClick={handleImport}>
             Confirmar
           </Button>
-          <Button variant="primary" onClick={handleCancelSave}>
+          <Button variant="secondary" onClick={handleCancelSave}>
             Cancelar
           </Button>
         </Modal.Footer>
@@ -473,7 +473,7 @@ const ImportForm = () => {
             <p></p>
             <div className="asset-importt">
               <ul>
-                <li>
+                <div>
                   <i
                     className="fa fa-info-circle"
                     aria-hidden="true"
@@ -518,7 +518,7 @@ const ImportForm = () => {
                       </li>
                     </div>
                   )}
-                </li>
+                </div>
                 {/* Other list items */}
               </ul>
             </div>

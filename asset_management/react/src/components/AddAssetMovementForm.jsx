@@ -186,10 +186,10 @@ const AddAssetMovementForm = () => {
         </Modal.Header>
         <Modal.Body>{"Deseja guardar todas as alterações?"}</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleConfirmSave}>
+          <Button variant="primary" onClick={handleConfirmSave}>
             Confirmar
           </Button>
-          <Button variant="primary" onClick={handleCancelSave}>
+          <Button variant="secondary" onClick={handleCancelSave}>
             Cancelar
           </Button>
         </Modal.Footer>
