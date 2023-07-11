@@ -31,6 +31,7 @@ import React, { useState, useEffect } from "react";
 import Quagga from "quagga";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client.js";
+import "../styles/Scan.css";
 
 const Scan = () => {
   const [barcode, setBarcode] = useState("");
@@ -90,8 +91,8 @@ const Scan = () => {
           type: "LiveStream",
           target: document.querySelector("#scanner-container"),
           constraints: {
-            width: 640, // adjust the width as needed
-            height: 480, // adjust the height as needed
+            width: 100, // adjust the width as needed
+            height: 100, // adjust the height as needed
           },
           scan: true, // added property
         },
@@ -165,7 +166,7 @@ const Scan = () => {
   }
 
   return (
-    <>
+    <div className="mn-cnt-bc">
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 className="h3 mb-0 text-gray-800">Barcode Scanner</h1>
       </div>
@@ -190,7 +191,7 @@ const Scan = () => {
 
         <p>Barcode: {barcode}</p>
       </div>
-    </>
+    </div>
   );
 };
 

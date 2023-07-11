@@ -2628,6 +2628,7 @@ textarea.form-control-lg {
     margin-bottom: 0.5rem;
     border: 1px solid #9c9c9c;
     float: right;
+    font-size: 1.2rem;
 }
 .form-select-user {
     width: 40%;
@@ -2915,7 +2916,7 @@ input::placeholder {
     float: right;
     background-color: #00a762;
     padding: 0.5rem 0.75rem;
-    font-size: 18px;
+    font-size: 1.2rem;
     border-radius: 4px;
     color: white;
     overflow: hidden;
@@ -2963,7 +2964,7 @@ input::placeholder {
 .btn-cleanfilter-assett {
     background-color: #6c757d;
     padding: 0.5rem 0.75rem;
-    font-size: 18px;
+    font-size: 1.2rem;
     border-radius: 4px;
     color: white;
     overflow: hidden;
@@ -8688,6 +8689,7 @@ fieldset:disabled .btn {
 .text-muted {
     --bs-text-opacity: 1;
     color: #61a60e !important;
+    font-size: 1.2rem;
 }
 
 .text-black-50 {
@@ -13195,6 +13197,7 @@ input::placeholder {
 .filternopag {
     color: #61a60e !important;
     text-align: center;
+    font-size: 1.2rem;
 }
 
 /* .btn-filter {
@@ -13330,7 +13333,7 @@ input::placeholder {
 
 .title-page-all-sub {
     color: #007840;
-    font-size: 2.4rem;
+    font-size: 2rem;
     padding: 1px;
 }
 
@@ -13382,6 +13385,7 @@ input::placeholder {
     background: #fff;
     border: 1px solid #9c9c9c;
     float: right;
+    font-size: 1.2rem;
 }
 .infoInp-select {
     width: 60%;
@@ -13390,7 +13394,9 @@ input::placeholder {
     background: #fff;
     border: 1px solid #9c9c9c;
     float: right;
+    font-size: 1.2rem;
 }
+
 .infoInpp {
     margin-bottom: 1rem;
     background: #fff;
@@ -13574,6 +13580,7 @@ button {
 .labelofLabel {
     width: 270px;
     display: inline;
+    font-size: 1.2rem;
 }
 
 .camp-obs {
@@ -13599,6 +13606,7 @@ button {
     margin-left: 48px;
     float: right;
     resize: none;
+    font-size: 1.2rem;
 }
 
 .space {
@@ -13700,10 +13708,16 @@ button {
 
 .table-words-l {
     text-align: left;
+    font-size: 1.2rem;
 }
 
 .table-numb-r {
     text-align: right;
+    font-size: 1.2rem;
+}
+
+.tb-normal {
+    font-size: 1.2rem;
 }
 
 .rec-pass {
@@ -13712,9 +13726,9 @@ button {
 }
 
 .inp-res-pass {
-    width: auto;
+    width: 100%;
     border: 1px solid black;
-    margin-bottom: 10px;
+    margin-bottom: 24px;
 }
 .inp-res-pass-rec {
     border: 1px solid black;
@@ -13729,6 +13743,7 @@ button {
     font-size: 20px;
     border-radius: 4px;
     color: white;
+    width: 100%;
 }
 
 .ms-rec-pass {
@@ -13770,4 +13785,9 @@ button {
 
 .form-group-reset {
     display: flow-root;
+}
+
+.header-tb {
+    font-weight: normal;
+    font-size: 1.2rem;
 }

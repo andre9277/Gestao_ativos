@@ -83,7 +83,6 @@ const ForgotPass = () => {
                         <input
                           className="inp-res-pass"
                           type="email"
-                          placeholder="Insira o seu email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                         />

@@ -109,14 +109,14 @@ export default function Login() {
                   <div className="login-main-box">
                     <MDBInput
                       wrapperClass="mb-4 mx-5 w-100"
-                      label="Endereço de email ou número MEC"
+                      label="Endereço de email / número MEC"
                       id="formControlLg"
                       size="lg"
                       ref={emailRef}
                     />
                     <MDBInput
                       wrapperClass="mb-4 mx-5 w-100"
-                      label="Password"
+                      label="Password / Pin"
                       id="formControlLg"
                       type="password"
                       size="lg"

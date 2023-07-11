@@ -210,11 +210,11 @@ export default function Users() {
         <table>
           <thead>
             <tr>
-              <th>Nº Mecanográfico</th>
-              <th>Nome</th>
-              <th>Email</th>
-              <th>Função</th>
-              <th>Criado em</th>
+              <th className="header-tb">Nº Mecanográfico</th>
+              <th className="header-tb">Nome</th>
+              <th className="header-tb">Email</th>
+              <th className="header-tb">Função</th>
+              <th className="header-tb">Criado em</th>
               <th></th>
             </tr>
           </thead>

@@ -73,7 +73,7 @@ function Dashboard() {
         <div className="container-fluid">
           {/*  <!-- Page Heading --> */}
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 className="h3 mb-0 graf-dash">Dashboard</h1>
+            <h1 className="graf-dash">Dashboard</h1>
           </div>
 
           {/*  <!-- Content Row --> */}

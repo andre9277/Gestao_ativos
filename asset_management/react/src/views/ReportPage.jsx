@@ -614,15 +614,15 @@ const ReportPage = () => {
         <table>
           <thead>
             <tr>
-              <th>Nº Inventário</th>
-              <th>Nº Série</th>
-              <th>Categoria</th>
-              <th>Local (Anterior)</th>
-              <th>Local (Atual)</th>
-              <th>CI (Anterior)</th>
-              <th>CI (Atual)</th>
-              <th>Utilizador</th>
-              <th>Movido em</th>
+              <th className="header-tb">Nº Inventário</th>
+              <th className="header-tb">Nº Série</th>
+              <th className="header-tb">Categoria</th>
+              <th className="header-tb">Local (Anterior)</th>
+              <th className="header-tb">Local (Atual)</th>
+              <th className="header-tb">CI (Anterior)</th>
+              <th className="header-tb">CI (Atual)</th>
+              <th className="header-tb">Utilizador</th>
+              <th className="header-tb">Movido em</th>
               <th></th>
             </tr>
           </thead>

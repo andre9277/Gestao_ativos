@@ -616,7 +616,7 @@ export default function Assets() {
         <table>
           <thead>
             <tr>
-              <th>
+              <th className="header-tb">
                 <ColumnMenuFilter
                   titulo={"Categoria"}
                   tituloF={"Categoria"}
@@ -627,7 +627,7 @@ export default function Assets() {
                   filtered={filtered}
                 />
               </th>
-              <th>
+              <th className="header-tb">
                 <ColumnMenuFilter
                   titulo={"Marca"}
                   tituloF={"Marca"}
@@ -638,7 +638,7 @@ export default function Assets() {
                   filtered={filtered}
                 />
               </th>
-              <th>
+              <th className="header-tb">
                 <ColumnMenuFilter
                   titulo={"Modelo"}
                   tituloF={"Modelo"}
@@ -649,9 +649,9 @@ export default function Assets() {
                   filtered={filtered}
                 />
               </th>
-              <th>Nº Inventário</th>
+              <th className="header-tb">Nº Inventário</th>
               {/* <th>Nº Série</th> */}
-              <th>
+              <th className="header-tb">
                 <ColumnMenuFilter
                   titulo={"Nº Série"}
                   tituloF={"Nº Série"}
@@ -662,9 +662,9 @@ export default function Assets() {
                   filtered={filtered}
                 />
               </th>
-              <th>Localização</th>
-              <th>Unidade</th>
-              <th>
+              <th className="header-tb">Localização</th>
+              <th className="header-tb">Unidade</th>
+              <th className="header-tb">
                 <ColumnMenuFilter
                   titulo={"Piso"}
                   tituloF={"Piso"}
@@ -675,10 +675,10 @@ export default function Assets() {
                   filtered={filtered}
                 />
               </th>
-              <th>Ala</th>
-              <th>CI</th>
-              <th>Estado</th>
-              <th>Adicionado em </th>
+              <th className="header-tb">Ala</th>
+              <th className="header-tb">CI</th>
+              <th className="header-tb">Estado</th>
+              <th className="header-tb">Adicionado em </th>
               <th></th>
             </tr>
           </thead>
@@ -701,7 +701,7 @@ export default function Assets() {
                     <td className="table-words-l">{a.category.name}</td>
                     <td className="table-words-l">{a.brand.name}</td>
                     <td className="table-words-l">{a.modelo.name}</td>
-                    <td>{a.numb_inv}</td>
+                    <td className="tb-normal">{a.numb_inv}</td>
                     <td className="table-words-l">{a.numb_ser}</td>
                     <td className="table-words-l">{a.entity.ent_name}</td>
                     <td className="table-words-l">

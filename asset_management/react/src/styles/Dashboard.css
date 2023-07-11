@@ -140,4 +140,10 @@ All the changes made to enable the implementation of the desired development too
 
 .graf-dash {
     color: #007840;
+    font-size: 2.75rem;
+}
+
+.graf-dash-gr {
+    color: #007840;
+    font-size: 1.5rem;
 }
