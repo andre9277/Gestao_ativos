@@ -227,7 +227,7 @@ const AddAssetMovementForm = () => {
             className="infoInp"
           />
         </label>
-
+        <p></p>
         {/* ---------- Num Serial ----------*/}
         <label className="lb-info">
           <label className="labelofLabel">
