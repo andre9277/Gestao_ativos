@@ -278,7 +278,7 @@ export default function AssetForm() {
   };
 
   return (
-    <>
+    <div className="mn-cnt-reg">
       {" "}
       <Modal show={showConfirmModal} onHide={handleCancelSave}>
         <Modal.Header closeButton>
@@ -298,343 +298,333 @@ export default function AssetForm() {
           </Button>
         </Modal.Footer>
       </Modal>
-      {asset.id && (
-        <h1 className="title-page-all">Atualizar Ativo: {asset.numb_inv}</h1>
+      {!loading && <h1 className="tlt-assetInfo">Novo Ativo</h1>}
+      {loading && <div className="caprr-re">A carregar...</div>}
+      {errors && (
+        <div className="alert">
+          {Object.keys(errors).map((key) => (
+            <p key={key}>{errors[key][0]}</p>
+          ))}
+        </div>
       )}
-      {!asset.id && <h1 className="title-page-all">Novo Ativo</h1>}
-      <div className="card animated fadeInDown">
-        {loading && <div className="caprr-re">A carregar...</div>}
-        {errors && (
-          <div className="alert">
-            {Object.keys(errors).map((key) => (
-              <p key={key}>{errors[key][0]}</p>
-            ))}
+      {!loading && (
+        <form onSubmit={onSubmit} className="assetForm-assett">
+          {/* ---------- Inventory Number ----------*/}
+          <h1 className="title-page-all-sub">Dados Gerais: </h1>
+          <p></p>
+          <p className="camp-obs">*Campo Obrigatório</p>
+          <p></p>
+          <label className="lb-info">
+            {" "}
+            <label className="labelofLabel"> Nº de inventário: </label>
+            <input
+              value={asset.numb_inv === null ? "" : asset.numb_inv}
+              onChange={(ev) =>
+                setAsset({ ...asset, numb_inv: ev.target.value })
+              }
+              className="infoInp"
+            />
+          </label>
+          <p></p>
+          {/* ---------- Serial Number ----------*/}
+          <label className="lb-info">
+            {" "}
+            <label className="labelofLabel">
+              Nº de série:<label className="cmp-obg">*</label>
+            </label>
+            <input
+              value={asset.numb_ser}
+              onChange={(ev) =>
+                setAsset({ ...asset, numb_ser: ev.target.value })
+              }
+              className="infoInp"
+              required
+            />
+          </label>
+          <p></p>
+          {/* ---------- Category ----------*/}
+          <label htmlFor="category" className="lb-info">
+            <label className="labelofLabel">
+              {" "}
+              Categoria:<label className="cmp-obg">*</label>
+            </label>
+            <select
+              className="infoInp-select"
+              name="category"
+              id="category"
+              value={asset.cat_id}
+              onChange={handleCategoryChange}
+              required
+            >
+              <option value=""></option>
+              {cats.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <p></p>
+          {/* ---------- Status ----------*/}
+          <label htmlFor="estado" className="lb-info">
+            <label className="labelofLabel">
+              Estado:<label className="cmp-obg">*</label>
+            </label>
+            <select
+              className="infoInp-select"
+              name="estado"
+              id="estado"
+              value={asset.state}
+              onChange={(event) =>
+                setAsset({ ...asset, state: event.target.value })
+              }
+              required
+            >
+              <option value=""></option>
+              <option value="Ativo">Ativo</option>
+              <option value="Inativo">Inativo</option>
+            </select>
+          </label>
+          <p></p>
+          {/* ---------- Brands ----------*/}
+          <label className="lb-info">
+            {" "}
+            <label className="labelofLabel">
+              {" "}
+              Marca:<label className="cmp-obg">*</label>
+            </label>
+            <select
+              value={asset.brand_id}
+              onChange={handleBrandChange}
+              className="infoInp-select"
+              required
+            >
+              {brands.length != 0 ? <option value=""></option> : ""}
+              {brands.length === 0 ? (
+                <option>{asset.brand.name}</option>
+              ) : (
+                brands.map((brand) => (
+                  <option key={brand.id} value={brand.id}>
+                    {brand.name}
+                  </option>
+                ))
+              )}
+            </select>
+          </label>
+          <p></p>
+          {/* ---------- Models ----------*/}
+          <label className="lb-info">
+            {" "}
+            <label className="labelofLabel">
+              {" "}
+              Modelo:<label className="cmp-obg">*</label>
+            </label>
+            <select
+              value={asset.model_id}
+              className="infoInp-select"
+              onChange={(event) =>
+                setAsset({ ...asset, model_id: event.target.value })
+              }
+              required
+            >
+              <option value=""></option>
+              {modelos.map((modelo) => (
+                <option key={modelo.id} value={modelo.id}>
+                  {modelo.name}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <div className="localAsset-cond">
+            {/* ---------- Condition ----------*/}
+            <label htmlFor="condicao" className="lb-info">
+              <label className="labelofLabel">
+                Condição:<label className="cmp-obg">*</label>
+              </label>
+              <select
+                className="infoInp-select"
+                name="condicao"
+                id="condicao"
+                value={asset.cond}
+                onChange={(event) =>
+                  setAsset({ ...asset, cond: event.target.value })
+                }
+                required
+              >
+                <option value=""></option>
+                <option value="Novo">Novo</option>
+                <option value="Usado">Usado</option>
+                <option value="Reparação">Reparação</option>
+                <option value="Obsoleto">Obsoleto</option>
+              </select>
+            </label>
+            <p></p>
+            {/* ---------- Date of purchase ----------*/}
+            <label className="lb-info">
+              {" "}
+              <label className="labelofLabel">
+                Data de Compra:<label className="cmp-obg">*</label>
+              </label>
+              <input
+                className="form-calendar-asset"
+                type="date"
+                value={asset.date_purch}
+                onChange={(ev) =>
+                  setAsset({ ...asset, date_purch: ev.target.value })
+                }
+                placeholder="YYYY-MM-DD"
+              />
+            </label>
+            {/* ---------- Supplier ----------*/}
+            <label className="lb-info">
+              {" "}
+              <label className="labelofLabel">
+                {" "}
+                Fornecedor:<label className="cmp-obg">*</label>
+              </label>
+              <select
+                className="infoInp-select"
+                value={asset.supplier_id}
+                onChange={handleSupplierChange}
+              >
+                <option value=""></option>
+                {supplier.map((sup) => (
+                  <option key={sup.id} value={sup.id}>
+                    {sup.name}
+                  </option>
+                ))}
+              </select>
+            </label>
           </div>
-        )}
-        {!loading && (
-          <form onSubmit={onSubmit} className="assetForm-assett">
-            {/* ---------- Inventory Number ----------*/}
-            <h1 className="title-page-all-sub">Dados Gerais: </h1>
+          <div className="space-mov"></div>
+          <div className="localAsset-local">
+            <h1 className="title-page-all-sub">Localização: </h1>
             <p></p>
-            <p className="camp-obs">*Campo Obrigatório</p>
-            <p></p>
-            <label className="lb-info">
-              {" "}
-              <label className="labelofLabel"> Nº de inventário: </label>
-              <input
-                value={asset.numb_inv === null ? "" : asset.numb_inv}
-                onChange={(ev) =>
-                  setAsset({ ...asset, numb_inv: ev.target.value })
-                }
-                className="infoInp"
-              />
-            </label>
-            <p></p>
-            {/* ---------- Serial Number ----------*/}
-            <label className="lb-info">
-              {" "}
-              <label className="labelofLabel">
-                Nº de série:<label className="cmp-obg">*</label>
-              </label>
-              <input
-                value={asset.numb_ser}
-                onChange={(ev) =>
-                  setAsset({ ...asset, numb_ser: ev.target.value })
-                }
-                className="infoInp"
-                required
-              />
-            </label>
-            <p></p>
-            {/* ---------- Category ----------*/}
-            <label htmlFor="category" className="lb-info">
-              <label className="labelofLabel">
-                {" "}
-                Categoria:<label className="cmp-obg">*</label>
-              </label>
-              <select
-                className="infoInp-select"
-                name="category"
-                id="category"
-                value={asset.cat_id}
-                onChange={handleCategoryChange}
-                required
-              >
-                <option value=""></option>
-                {cats.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <p></p>
-            {/* ---------- Status ----------*/}
-            <label htmlFor="estado" className="lb-info">
-              <label className="labelofLabel">
-                Estado:<label className="cmp-obg">*</label>
-              </label>
-              <select
-                className="infoInp-select"
-                name="estado"
-                id="estado"
-                value={asset.state}
-                onChange={(event) =>
-                  setAsset({ ...asset, state: event.target.value })
-                }
-                required
-              >
-                <option value=""></option>
-                <option value="Ativo">Ativo</option>
-                <option value="Inativo">Inativo</option>
-              </select>
-            </label>
-            <p></p>
-            {/* ---------- Brands ----------*/}
-            <label className="lb-info">
-              {" "}
-              <label className="labelofLabel">
-                {" "}
-                Marca:<label className="cmp-obg">*</label>
-              </label>
-              <select
-                value={asset.brand_id}
-                onChange={handleBrandChange}
-                className="infoInp-select"
-                required
-              >
-                {brands.length != 0 ? <option value=""></option> : ""}
-                {brands.length === 0 ? (
-                  <option>{asset.brand.name}</option>
-                ) : (
-                  brands.map((brand) => (
-                    <option key={brand.id} value={brand.id}>
-                      {brand.name}
-                    </option>
-                  ))
-                )}
-              </select>
-            </label>
-            <p></p>
-            {/* ---------- Models ----------*/}
-            <label className="lb-info">
-              {" "}
-              <label className="labelofLabel">
-                {" "}
-                Modelo:<label className="cmp-obg">*</label>
-              </label>
-              <select
-                value={asset.model_id}
-                className="infoInp-select"
-                onChange={(event) =>
-                  setAsset({ ...asset, model_id: event.target.value })
-                }
-                required
-              >
-                <option value=""></option>
-                {modelos.map((modelo) => (
-                  <option key={modelo.id} value={modelo.id}>
-                    {modelo.name}
-                  </option>
-                ))}
-              </select>
-            </label>
 
-            <div className="localAsset-cond">
-              {/* ---------- Condition ----------*/}
-              <label htmlFor="condicao" className="lb-info">
-                <label className="labelofLabel">
-                  Condição:<label className="cmp-obg">*</label>
-                </label>
-                <select
-                  className="infoInp-select"
-                  name="condicao"
-                  id="condicao"
-                  value={asset.cond}
-                  onChange={(event) =>
-                    setAsset({ ...asset, cond: event.target.value })
-                  }
-                  required
-                >
-                  <option value=""></option>
-                  <option value="Novo">Novo</option>
-                  <option value="Usado">Usado</option>
-                  <option value="Reparação">Reparação</option>
-                  <option value="Obsoleto">Obsoleto</option>
-                </select>
+            {/* ---------- Entities ----------*/}
+            <label htmlFor="entity" className="lb-info">
+              <label className="labelofLabel">
+                Entidade:<label className="cmp-obg">*</label>
               </label>
-              <p></p>
-              {/* ---------- Date of purchase ----------*/}
-              <label className="lb-info">
-                {" "}
-                <label className="labelofLabel">
-                  Data de Compra:<label className="cmp-obg">*</label>
-                </label>
-                <input
-                  className="form-calendar-asset"
-                  type="date"
-                  value={asset.date_purch}
-                  onChange={(ev) =>
-                    setAsset({ ...asset, date_purch: ev.target.value })
-                  }
-                  placeholder="YYYY-MM-DD"
-                />
-              </label>
-              {/* ---------- Supplier ----------*/}
-              <label className="lb-info">
-                {" "}
-                <label className="labelofLabel">
-                  {" "}
-                  Fornecedor:<label className="cmp-obg">*</label>
-                </label>
-                <select
-                  className="infoInp-select"
-                  value={asset.supplier_id}
-                  onChange={handleSupplierChange}
-                >
-                  <option value=""></option>
-                  {supplier.map((sup) => (
-                    <option key={sup.id} value={sup.id}>
-                      {sup.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
+              <select
+                className="infoInp-select"
+                name="entity"
+                id="entity"
+                value={asset.ent_id}
+                onChange={handleEntityChange}
+              >
+                <option value=""></option>
+
+                {ents.map((ent) => (
+                  <option key={ent.id} value={ent.id}>
+                    {ent.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <p></p>
+            {/* ---------- Units ----------*/}
+            <label htmlFor="unit" className="lb-info">
+              <label className="labelofLabel">Unidade: </label>
+              <select
+                className="infoInp-select"
+                name="unit"
+                id="unit"
+                value={asset.unit_id === null ? "" : asset.unit_id}
+                onChange={(event) =>
+                  setAsset({ ...asset, unit_id: event.target.value })
+                }
+              >
+                <option value=""></option>
+                {units.map((unit) => (
+                  <option key={unit.id} value={unit.id}>
+                    {unit.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <p></p>
+            {/* ---------- CI ----------*/}
+            <label className="lb-info">
+              {" "}
+              <label className="labelofLabel">CI:</label>
+              <input
+                value={asset.ci === null ? "" : asset.ci}
+                onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
+                className="infoInp"
+              />
+            </label>
+            <p></p>
+            {/* ---------- Floor ----------*/}
+            <label htmlFor="floor" className="lb-info">
+              <label className="labelofLabel">Piso: </label>
+              <select
+                className="infoInp-select"
+                name="floor"
+                id="floor"
+                value={asset.floor === null ? "" : asset.floor}
+                onChange={(event) =>
+                  setAsset({ ...asset, floor: event.target.value })
+                }
+              >
+                <option value=""></option>
+                <option value="-1">-1</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </label>
+            <p></p>
+            {/* ---------- Ala ----------*/}
+            <label htmlFor="ala" className="lb-info">
+              <label className="labelofLabel"> Ala: </label>
+              <select
+                className="infoInp-select"
+                name="ala"
+                id="ala"
+                value={asset.ala === null ? "" : asset.ala}
+                onChange={(event) =>
+                  setAsset({ ...asset, ala: event.target.value })
+                }
+              >
+                <option value=""></option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+              </select>
+            </label>
             <div className="space-mov"></div>
-            <div className="localAsset-local">
-              <h1 className="title-page-all-sub">Localização: </h1>
-              <p></p>
-
-              {/* ---------- Entities ----------*/}
-              <label htmlFor="entity" className="lb-info">
-                <label className="labelofLabel">
-                  Entidade:<label className="cmp-obg">*</label>
-                </label>
-                <select
-                  className="infoInp-select"
-                  name="entity"
-                  id="entity"
-                  value={asset.ent_id}
-                  onChange={handleEntityChange}
-                >
-                  <option value=""></option>
-
-                  {ents.map((ent) => (
-                    <option key={ent.id} value={ent.id}>
-                      {ent.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <p></p>
-              {/* ---------- Units ----------*/}
-              <label htmlFor="unit" className="lb-info">
-                <label className="labelofLabel">Unidade: </label>
-                <select
-                  className="infoInp-select"
-                  name="unit"
-                  id="unit"
-                  value={asset.unit_id === null ? "" : asset.unit_id}
-                  onChange={(event) =>
-                    setAsset({ ...asset, unit_id: event.target.value })
-                  }
-                >
-                  <option value=""></option>
-                  {units.map((unit) => (
-                    <option key={unit.id} value={unit.id}>
-                      {unit.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <p></p>
-              {/* ---------- CI ----------*/}
-              <label className="lb-info">
-                {" "}
-                <label className="labelofLabel">CI:</label>
-                <input
-                  value={asset.ci === null ? "" : asset.ci}
-                  onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
-                  className="infoInp"
-                />
-              </label>
-              <p></p>
-              {/* ---------- Floor ----------*/}
-              <label htmlFor="floor" className="lb-info">
-                <label className="labelofLabel">Piso: </label>
-                <select
-                  className="infoInp-select"
-                  name="floor"
-                  id="floor"
-                  value={asset.floor === null ? "" : asset.floor}
-                  onChange={(event) =>
-                    setAsset({ ...asset, floor: event.target.value })
-                  }
-                >
-                  <option value=""></option>
-                  <option value="-1">-1</option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-              </label>
-              <p></p>
-              {/* ---------- Ala ----------*/}
-              <label htmlFor="ala" className="lb-info">
-                <label className="labelofLabel"> Ala: </label>
-                <select
-                  className="infoInp-select"
-                  name="ala"
-                  id="ala"
-                  value={asset.ala === null ? "" : asset.ala}
-                  onChange={(event) =>
-                    setAsset({ ...asset, ala: event.target.value })
-                  }
-                >
-                  <option value=""></option>
-                  <option value="B">B</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                </select>
-              </label>
-              <div className="space-mov"></div>
-              <h1 className="title-page-all-sub">Outros: </h1>
-              <p></p>
-              {/* ---------- Observações ----------*/}
-              <label className="lb-info">
-                <label className="labelofLabel">Observações: </label>
-                <textarea
-                  value={asset.obs === null ? "" : asset.obs}
-                  onChange={(ev) =>
-                    setAsset({ ...asset, obs: ev.target.value })
-                  }
-                  className="obs-mov-ee"
-                />
-              </label>
-              <div className="space-mov-add"></div>
-              <label className="lb-info-btn">
-                <input
-                  type="button"
-                  onClick={resetFilter}
-                  value="Limpar"
-                  className="btn-cleanfilter-assett"
-                />
-                <button
-                  className="btn-adicionar-assetFormm"
-                  onClick={handleSave}
-                >
-                  Guardar
-                </button>
-              </label>
-            </div>
-          </form>
-        )}
-      </div>
-    </>
+            <h1 className="title-page-all-sub">Outros: </h1>
+            <p></p>
+            {/* ---------- Observações ----------*/}
+            <label className="lb-info">
+              <label className="labelofLabel">Observações: </label>
+              <textarea
+                value={asset.obs === null ? "" : asset.obs}
+                onChange={(ev) => setAsset({ ...asset, obs: ev.target.value })}
+                className="obs-mov-ee"
+              />
+            </label>
+            <div className="space-mov-add"></div>
+            <label className="lb-info-btn">
+              <input
+                type="button"
+                onClick={resetFilter}
+                value="Limpar"
+                className="btn-cleanfilter-assett"
+              />
+              <button className="btn-adicionar-assetFormm" onClick={handleSave}>
+                Guardar
+              </button>
+            </label>
+          </div>
+        </form>
+      )}
+    </div>
   );
 }

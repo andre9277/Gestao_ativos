@@ -93,3 +93,23 @@
 .space-mov-add {
     margin-top: 35px;
 }
+
+.form-calendar-asset {
+    /* width: 93%; */
+    padding: 0.1em;
+    margin-bottom: 1rem;
+    border: 1px solid #9c9c9c;
+    float: right;
+}
+
+.mn-cnt-reg {
+    margin: 2rem;
+    font-size: 2rem;
+    margin-top: 6rem;
+}
+
+.tlt-assetInfo {
+    display: flex;
+    font-weight: 700;
+    font-size: 36px;
+}

@@ -120,3 +120,11 @@ label {
 input {
     font-weight: 400;
 }
+
+.form-calendar-asset {
+    /* width: 93%; */
+    padding: 0.1em;
+    margin-bottom: 1rem;
+    border: 1px solid #9c9c9c;
+    float: right;
+}
