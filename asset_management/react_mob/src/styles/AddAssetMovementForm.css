@@ -140,4 +140,7 @@ input {
 
 .sidebar-divider {
     border-bottom: 4px solid #006a3c;
+    margin: 1rem;
+    border: 0;
+    opacity: 0.25;
 }

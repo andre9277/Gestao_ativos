@@ -501,7 +501,7 @@ export default function AssetForm() {
             </label>
           </div>
           <div className="space-mov"></div>
-          <hr className="sidebar-dividerr" />
+          <hr className="sidebar-divider" />
           <div className="localAsset-local">
             <h1 className="title-page-all-sub">Localização: </h1>
             <p></p>
