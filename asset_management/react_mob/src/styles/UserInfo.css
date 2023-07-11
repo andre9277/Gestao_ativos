@@ -18,6 +18,8 @@
     z-index: 1;
     width: 100px;
     text-align: left;
+    margin-left: -47px;
+    font-size: 19px;
 }
 
 .dropdown-content .logout {
