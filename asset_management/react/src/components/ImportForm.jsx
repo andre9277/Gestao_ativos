@@ -212,9 +212,16 @@ const ImportForm = () => {
       } else {
         setErrorMessage("Ocorreu um erro desconhecido!");
       }
-    } finally {
+
+      // Stop the import process here
       setLoading(false);
+      return;
     }
+
+    // All assets were imported successfully
+    // Clear any previous success or error messages
+    setSuccessMessage("");
+    setErrorMessage("");
   };
 
   //---------Function handlers-----------

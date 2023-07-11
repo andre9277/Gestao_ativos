@@ -39,17 +39,9 @@ import { createRef } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { useState } from "react";
 
-import img_logo from "../assets/hb_logo.png";
 import img_logo2 from "../assets/logo_new_hb.png";
-/* import img_log from ""; */
 
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBInput,
-} from "mdb-react-ui-kit";
+import { MDBContainer, MDBRow, MDBCol, MDBInput } from "mdb-react-ui-kit";
 
 export default function Login() {
   const emailRef = createRef();
