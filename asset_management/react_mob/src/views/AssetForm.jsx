@@ -32,6 +32,7 @@ import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { Modal, Button } from "react-bootstrap";
+import "../styles/AssetForm.css";
 
 export default function AssetForm() {
   const [errors, setErrors] = useState(null);
@@ -328,7 +329,7 @@ export default function AssetForm() {
                 className="infoInp"
               />
             </label>
-
+            <p></p>
             {/* ---------- Serial Number ----------*/}
             <label className="lb-info">
               {" "}
@@ -344,7 +345,7 @@ export default function AssetForm() {
                 required
               />
             </label>
-
+            <p></p>
             {/* ---------- Category ----------*/}
             <label htmlFor="category" className="lb-info">
               <label className="labelofLabel">
@@ -367,6 +368,7 @@ export default function AssetForm() {
                 ))}
               </select>
             </label>
+            <p></p>
             {/* ---------- Status ----------*/}
             <label htmlFor="estado" className="lb-info">
               <label className="labelofLabel">
@@ -387,7 +389,7 @@ export default function AssetForm() {
                 <option value="Inativo">Inativo</option>
               </select>
             </label>
-
+            <p></p>
             {/* ---------- Brands ----------*/}
             <label className="lb-info">
               {" "}
@@ -413,7 +415,7 @@ export default function AssetForm() {
                 )}
               </select>
             </label>
-
+            <p></p>
             {/* ---------- Models ----------*/}
             <label className="lb-info">
               {" "}
@@ -461,7 +463,7 @@ export default function AssetForm() {
                   <option value="Obsoleto">Obsoleto</option>
                 </select>
               </label>
-
+              <p></p>
               {/* ---------- Date of purchase ----------*/}
               <label className="lb-info">
                 {" "}
@@ -525,12 +527,12 @@ export default function AssetForm() {
                   ))}
                 </select>
               </label>
-
+              <p></p>
               {/* ---------- Units ----------*/}
               <label htmlFor="unit" className="lb-info">
                 <label className="labelofLabel">Unidade: </label>
                 <select
-                  className="infoInp"
+                  className="infoInp-select"
                   name="unit"
                   id="unit"
                   value={asset.unit_id === null ? "" : asset.unit_id}
@@ -546,7 +548,7 @@ export default function AssetForm() {
                   ))}
                 </select>
               </label>
-
+              <p></p>
               {/* ---------- CI ----------*/}
               <label className="lb-info">
                 {" "}
@@ -557,12 +559,12 @@ export default function AssetForm() {
                   className="infoInp"
                 />
               </label>
-
+              <p></p>
               {/* ---------- Floor ----------*/}
               <label htmlFor="floor" className="lb-info">
                 <label className="labelofLabel">Piso: </label>
                 <select
-                  className="infoInp"
+                  className="infoInp-select"
                   name="floor"
                   id="floor"
                   value={asset.floor === null ? "" : asset.floor}
@@ -580,6 +582,7 @@ export default function AssetForm() {
                   <option value="5">5</option>
                 </select>
               </label>
+              <p></p>
               {/* ---------- Ala ----------*/}
               <label htmlFor="ala" className="lb-info">
                 <label className="labelofLabel"> Ala: </label>
@@ -613,7 +616,7 @@ export default function AssetForm() {
                   className="obs-mov-ee"
                 />
               </label>
-
+              <div className="space-mov-add"></div>
               <label className="lb-info-btn">
                 <input
                   type="button"

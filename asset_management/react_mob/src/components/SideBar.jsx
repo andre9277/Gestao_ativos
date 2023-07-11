@@ -74,7 +74,7 @@ const Sidebar = ({ user, onLogout }) => {
               <label className="lb-sd">&nbsp;&nbsp; Procurar</label>
             </li>
           </Link>
-          <Link to={"/infoasset/2"}>
+          <Link to={"/assets/new"}>
             <li
               className={`opt-sidebar-r ${
                 selectedOption === "registar" ? "selected" : ""
