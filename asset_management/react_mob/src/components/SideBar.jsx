@@ -96,7 +96,7 @@ const Sidebar = ({ user, onLogout }) => {
               <label className="lb-sd">&nbsp;&nbsp; Movimento</label>
             </li>
           </Link>
-          <Link to={"/infoasset/2"}>
+          <Link to={"/users"}>
             <li
               className={`opt-sidebar-p ${
                 selectedOption === "perfil" ? "selected" : ""
