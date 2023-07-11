@@ -251,7 +251,7 @@ export default function UserForm() {
               />
             </label>
             <label className="lb-info">
-              Confirmar Password:<label className="cmp-obg">*</label>
+              Valida Password:<label className="cmp-obg">*</label>
               <input
                 value={user.password_confirmation}
                 type="password"

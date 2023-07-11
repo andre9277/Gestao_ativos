@@ -93,7 +93,7 @@ const PieChart = ({ assets }) => {
     maintainAspectRatio: false,
 
     legend: {
-      fontSize: 26,
+      fontSize: 56,
     },
   };
   return (

@@ -473,34 +473,34 @@ const ImportForm = () => {
                       <h6 className="asset-import">
                         Atenção! Critérios para ficheiro "Template":
                       </h6>
-                      <li>
+                      <li className="info-import-tx">
                         Campo <b>"numb_inv"</b>: Iniciar com algarismo <u>0</u>.
                       </li>
                       <li>
                         Campo <b>"date_purch"</b>: Inserir um formato de data
                         Ano-Mês-Dia.
                       </li>
-                      <li>
+                      <li className="info-import-tx">
                         Campo <b>"state"</b>: Com valores de <u>Ativo</u> ou{" "}
                         <u>Inativo</u>.
                       </li>
-                      <li>
+                      <li className="info-import-tx">
                         Campo <b>"numb_ser"</b>: Insira um número de série que
                         não exista na base de dados.
                       </li>
-                      <li>
+                      <li className="info-import-tx">
                         Campo <b>"cond"</b>: Com valores de <u>Novo</u>,{" "}
                         <u>Usado</u>, <u>Reparação</u> e <u>Obsoleto</u>.
                       </li>
-                      <li>
+                      <li className="info-import-tx">
                         Campo <b>"ala"</b>: Com valores de <u>B</u>, <u>C</u>,{" "}
                         <u>D</u>, <u>E</u>.
                       </li>
-                      <li>
+                      <li className="info-import-tx">
                         Campo <b>"floor"</b>: Com valores de <u>-1</u>, <u>0</u>
                         , <u>1</u>, <u>2</u>, <u>3</u>, <u>4</u>, <u>5</u>.
                       </li>
-                      <li>
+                      <li className="info-import-tx">
                         Campo <b>"ci"</b>: Inserir CI válido.
                       </li>
                     </div>
