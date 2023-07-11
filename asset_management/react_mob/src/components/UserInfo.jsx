@@ -50,7 +50,9 @@ const UserInfo = ({ user, onLogout }) => {
           <hr className="sidebar-divider" />
 
           <a onClick={onLogout}>
-            <span className="logout">Logout &nbsp;&nbsp;&nbsp;</span>
+            <b>
+              <span className="logout">Logout &nbsp;&nbsp;&nbsp;</span>
+            </b>
           </a>
         </div>
       )}

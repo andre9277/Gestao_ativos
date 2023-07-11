@@ -98,7 +98,7 @@ const ForgotPass = () => {
                         </button>
                       </div>
                       <div className="d-flex align-items-center justify-content-between mt-4 mb-0">
-                        <Link to="/" className="small">
+                        <Link to="/" className="link-pages">
                           Login
                         </Link>
                       </div>

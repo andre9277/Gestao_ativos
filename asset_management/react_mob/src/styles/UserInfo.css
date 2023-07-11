@@ -30,3 +30,7 @@
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+b {
+    font-weight: 600;
+}

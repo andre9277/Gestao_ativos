@@ -113,7 +113,10 @@ export default function Login() {
         </button>
       </div>
       <p className="lb-lg text-right">
-        Esqueceu a sua <a href="/forgotPassword">password?</a>
+        Esqueceu a sua{" "}
+        <a href="/forgotPassword" className="link-pages">
+          password?
+        </a>
       </p>
       <div className="footer-copyR">
         V1.0.0 © 2023. Hospital de Braga
