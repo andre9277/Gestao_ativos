@@ -300,7 +300,7 @@ export default function AssetForm() {
       </Modal>
       {!loading && <h1 className="tlt-assetInfo">Novo Ativo</h1>}
       <div className="space-mov-add"></div>
-      {loading && <div className="caprr-re">A carregar...</div>}
+      {loading && <div className="lgText-assetInfo">A carregar...</div>}
       {errors && (
         <div className="alert">
           {Object.keys(errors).map((key) => (

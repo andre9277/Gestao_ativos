@@ -113,3 +113,9 @@
     font-weight: 700;
     font-size: 36px;
 }
+
+.lgText-assetInfo {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: bold;
+}
