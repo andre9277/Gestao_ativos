@@ -18,12 +18,18 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.  
+THE SOFTWARE. 
 
 You may obtain a copy of the license at:
 
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
+
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
