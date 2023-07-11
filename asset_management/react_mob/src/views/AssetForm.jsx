@@ -33,6 +33,7 @@ import axiosClient from "../axios-client.js";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { Modal, Button } from "react-bootstrap";
 import "../styles/AssetForm.css";
+import "../index.css";
 
 export default function AssetForm() {
   const [errors, setErrors] = useState(null);
@@ -500,6 +501,7 @@ export default function AssetForm() {
             </label>
           </div>
           <div className="space-mov"></div>
+          <hr className="sidebar-dividerr" />
           <div className="localAsset-local">
             <h1 className="title-page-all-sub">Localização: </h1>
             <p></p>
@@ -601,6 +603,7 @@ export default function AssetForm() {
               </select>
             </label>
             <div className="space-mov"></div>
+            <hr className="sidebar-divider" />
             <h1 className="title-page-all-sub">Outros: </h1>
             <p></p>
             {/* ---------- Observações ----------*/}

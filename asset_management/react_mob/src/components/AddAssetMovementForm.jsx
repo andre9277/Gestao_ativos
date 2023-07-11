@@ -33,6 +33,7 @@ import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { Modal, Button } from "react-bootstrap";
 import "../styles/AddAssetMovementForm.css";
+import "../index.css";
 
 const AddAssetMovementForm = () => {
   const [errors, setErrors] = useState(null);
@@ -243,6 +244,7 @@ const AddAssetMovementForm = () => {
           />
         </label>
         <div className="space-mov"></div>
+        <hr className="sidebar-divider" />
         <h1 className="title-page-all-sub">Localização: </h1>
         <p></p>
         {/* ---------- Local Now ----------*/}
@@ -330,6 +332,7 @@ const AddAssetMovementForm = () => {
         </label>
 
         <div className="space-mov"></div>
+        <hr className="sidebar-divider" />
         <h1 className="title-page-all-sub">Outros: </h1>
         <p></p>
         {/* ---------- Reason ----------*/}

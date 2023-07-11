@@ -145,6 +145,7 @@ const AssetInfo = () => {
             </ul>
 
             <div className="space-mov"></div>
+            <hr className="sidebar-divider" />
             {/* -------------Informação ativo - localização------------- */}
             <div className="containerr">
               <h2 className="headerInfoAsset">Localização: </h2>
@@ -197,6 +198,7 @@ const AssetInfo = () => {
                 </label>
               </ul>
               <div className="space-mov"></div>
+              <hr className="sidebar-divider" />
               {/* -------------Informação ativo - fornecedor------------- */}
 
               <h2 className="headerInfoAsset">Fornecedor: </h2>
@@ -236,6 +238,7 @@ const AssetInfo = () => {
               </ul>
 
               <div className="space-mov"></div>
+              <hr className="sidebar-divider" />
               <h2 className="headerInfoAsset">Observações:</h2>
               <p></p>
               <ul className="lb-infoAsset-informat">

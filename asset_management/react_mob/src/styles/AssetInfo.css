@@ -38,3 +38,8 @@
 .headerInfoAsset {
     font-weight: 700;
 }
+
+.sidebar-divider {
+    border-bottom: 4px solid #006a3c;
+    margin-right: 1rem;
+}

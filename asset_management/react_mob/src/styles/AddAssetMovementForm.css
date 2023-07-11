@@ -1,12 +1,13 @@
 .tlt-assetInfo {
     display: flex;
     font-weight: 700;
-    font-size: 2.5rem;
+    font-size: 2.1rem;
 }
 
 .headerInfoAsset {
     font-weight: 700;
     font-size: 1.5rem;
+    color: #007840;
 }
 
 .camp-obs-mov {
@@ -38,6 +39,7 @@
     font-size: 1.5rem;
     padding: 1px;
     font-weight: 700;
+    color: #007840;
 }
 
 .attrAsset {
@@ -85,7 +87,7 @@ label {
 .btn-cleanfilter-movAsset {
     background-color: #6c757d;
     padding: 0.5rem 0.75rem;
-    font-size: 24px;
+    font-size: 1.2rem;
     border-radius: 4px;
     color: white;
     width: auto;
@@ -97,10 +99,10 @@ label {
 .btn-adicionar-movAsset {
     background-color: #00a762;
     padding: 0.5rem 0.75rem;
-    font-size: 24px;
+    font-size: 1.2rem;
     border-radius: 4px;
     color: white;
-    float: left;
+    float: right;
 }
 
 .obs-mov-e {
@@ -134,4 +136,8 @@ input {
     border: 1px solid #9c9c9c;
     float: right;
     font-size: 1.2rem;
+}
+
+.sidebar-divider {
+    border-bottom: 4px solid #006a3c;
 }

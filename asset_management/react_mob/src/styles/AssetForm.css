@@ -29,23 +29,11 @@
     font-size: 1.2rem;
 }
 
-.btn-cleanfilter-assett {
-    background-color: #6c757d;
-    padding: 0.5rem 0.75rem;
-    font-size: 18px;
-    border-radius: 4px;
-    color: white;
-    overflow: hidden;
-    width: auto;
-    float: right;
-    margin-left: 5px;
-}
-
 .btn-adicionar-assetFormm {
     float: right;
     background-color: #00a762;
     padding: 0.5rem 0.75rem;
-    font-size: 18px;
+    font-size: 1.2rem;
     border-radius: 4px;
     color: white;
     overflow: hidden;
@@ -54,7 +42,7 @@
 .btn-cleanfilter-assett {
     background-color: #6c757d;
     padding: 0.5rem 0.75rem;
-    font-size: 24px;
+    font-size: 1.2rem;
     border-radius: 4px;
     color: white;
     width: auto;
@@ -63,14 +51,6 @@
     margin-bottom: 5px;
 }
 
-.btn-adicionar-assetFormm {
-    background-color: #00a762;
-    padding: 0.5rem 0.75rem;
-    font-size: 24px;
-    border-radius: 4px;
-    color: white;
-    float: left;
-}
 .infoInp {
     /* width: 96%; */
     padding: 0.1em;
@@ -124,4 +104,20 @@
     font-size: 2rem;
     text-align: center;
     font-weight: bold;
+}
+
+.lb-info-btn {
+    text-align: left;
+    padding: 0.5em 5em 0.5em 0;
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: -32px;
+}
+
+.sidebar-divider {
+    border-bottom: 4px solid #006a3c;
+}
+
+.sidebar-dividerr {
+    border-bottom: 4px solid #006a3c;
 }
