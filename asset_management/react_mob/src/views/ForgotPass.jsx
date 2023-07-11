@@ -31,6 +31,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/styles.css";
 import { Link } from "react-router-dom";
 import axiosClient from "../axios-client.js";
+import "../styles/ForgotPass.css";
 
 const ForgotPass = () => {
   const [email, setEmail] = useState("");
@@ -72,8 +73,13 @@ const ForgotPass = () => {
                   </div>
                   <div className="card-body">
                     <div className="small mb-3 text-muted">
-                      Insira o seu endereço de email. Um link será enviado para
-                      recuperar a sua password.
+                      <p className="fg-pas-p">
+                        {" "}
+                        Introduza o seu endereço de email.
+                      </p>
+                      <p className="fg-pas-p">
+                        Siga as instruções do email enviado.
+                      </p>
                     </div>
                     <form onSubmit={handleSubmit} className="reset-pass-forms">
                       <div className=" mb-3">
@@ -83,7 +89,6 @@ const ForgotPass = () => {
                         <input
                           className="inp-res-pass"
                           type="email"
-                          placeholder="Insira o seu email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                         />

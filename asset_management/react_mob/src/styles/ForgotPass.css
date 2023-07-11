@@ -1,0 +1,55 @@
+#layoutAuthentication #layoutAuthentication_content {
+    min-width: 0;
+    flex-grow: 1;
+    background-color: #007840;
+}
+
+h3 {
+    color: #007840;
+}
+
+.inp-res-pass {
+    width: auto;
+    border: 1px solid black;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.btn-rec-pass {
+    background-color: #00a762;
+    padding: 0.5rem 0.75rem;
+    font-size: 20px;
+    border-radius: 4px;
+    color: white;
+    width: 100%;
+}
+
+small,
+.small {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.rec-pass {
+    width: auto;
+    margin-bottom: auto;
+    font-weight: 700;
+}
+
+.text-muted {
+    --bs-text-opacity: 1;
+    width: 100%;
+}
+
+.fg-pas-p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    width: 110%;
+    font-size: 18px;
+}
+
+.my-4 {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    font-size: 30px;
+}
