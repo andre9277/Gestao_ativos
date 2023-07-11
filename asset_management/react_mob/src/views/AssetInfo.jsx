@@ -116,7 +116,7 @@ const AssetInfo = () => {
             <ul className="lb-infoAsset-informat">
               <label className="lb-infoAsset2-informat">
                 Marca:
-                <h6 className="attrAsset-informat">{asset.brand.sig}</h6>
+                <h6 className="attrAsset-informat">{asset.brand.name}</h6>
               </label>{" "}
             </ul>
             <ul className="lb-infoAsset-informat">
