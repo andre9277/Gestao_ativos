@@ -90,7 +90,7 @@ label {
     font-size: 1.2rem;
     border-radius: 4px;
     color: white;
-    width: auto;
+    width: 100%;
     float: right;
     margin-left: 5px;
     margin-bottom: 5px;
@@ -102,7 +102,8 @@ label {
     font-size: 1.2rem;
     border-radius: 4px;
     color: white;
-    float: right;
+    /* float: right; */
+    width: 100%;
 }
 
 .obs-mov-e {

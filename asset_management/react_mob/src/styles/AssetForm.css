@@ -30,13 +30,14 @@
 }
 
 .btn-adicionar-assetFormm {
-    float: right;
+    /* float: right; */
     background-color: #00a762;
     padding: 0.5rem 0.75rem;
     font-size: 1.2rem;
     border-radius: 4px;
     color: white;
     overflow: hidden;
+    width: 100%;
 }
 
 .btn-cleanfilter-assett {
@@ -45,7 +46,7 @@
     font-size: 1.2rem;
     border-radius: 4px;
     color: white;
-    width: auto;
+    /* width: auto; */
     float: right;
     margin-left: 5px;
     margin-bottom: 5px;
