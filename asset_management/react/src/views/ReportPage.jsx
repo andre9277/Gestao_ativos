@@ -260,7 +260,7 @@ const ReportPage = () => {
   const filterAllocations = () => {
     setIsButtonClicked(false);
     const updatedAllocations = joinedArray.filter((row) => {
-      console.log(joinedArray);
+      /* console.log(joinedArray); */
       const rowDate = row.allocation_date.split(" ")[0];
       if (
         filtered &&
@@ -384,7 +384,7 @@ const ReportPage = () => {
     }
 
     const latestAllocation = sortedAllocations[0];
-    console.log("allocation", latestAllocation);
+    /*  console.log("allocation", latestAllocation); */
     return {
       user: latestAllocation.users.name,
       date: latestAllocation.allocation_date,
