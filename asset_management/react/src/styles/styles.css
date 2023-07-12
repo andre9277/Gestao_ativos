@@ -294,7 +294,7 @@ strong {
 
 small,
 .small {
-    font-size: 20px;
+    font-size: 1.2rem;
 }
 
 mark,
@@ -2272,7 +2272,7 @@ progress {
 .form-label {
     margin-bottom: 0.5rem;
     width: auto;
-    font-size: 20px;
+    font-size: 1.2rem;
 }
 
 .col-form-label {
@@ -13792,7 +13792,7 @@ button {
 
 .btn-login-main {
     padding: 0.5rem 1rem;
-    font-size: 20px;
+    font-size: 1.2rem;
     border-radius: 0.3rem;
     max-width: 100% !important;
     height: auto;
