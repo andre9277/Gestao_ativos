@@ -2857,7 +2857,6 @@ textarea.form-control-lg {
 .btn-filter,
 .btn-edit,
 .btn-delete {
-    font-family: "Roboto", sans-serif;
     text-decoration: none;
     color: #ffffff;
     font-size: 14px;
@@ -13747,12 +13746,14 @@ button {
 .rec-pass {
     width: auto;
     margin-bottom: auto;
+    font-size: 1.2rem;
 }
 
 .inp-res-pass {
     width: 100%;
     border: 1px solid black;
     margin-bottom: 24px;
+    font-size: 1.2rem;
 }
 .inp-res-pass-rec {
     border: 1px solid black;
@@ -13764,7 +13765,7 @@ button {
 .btn-rec-pass {
     background-color: #00a762;
     padding: 0.5rem 0.75rem;
-    font-size: 20px;
+    font-size: 1.2rem;
     border-radius: 4px;
     color: white;
     width: 100%;
