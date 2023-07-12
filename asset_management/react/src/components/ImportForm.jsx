@@ -172,6 +172,8 @@ const ImportForm = () => {
   //-------Import handle-------
   const handleImport = async () => {
     setShowConfirmModal(false);
+    setLoading(true);
+
     const formData = new FormData();
     formData.append("brand_id", selectedBrand);
     formData.append("cat_id", asset.cat_id);
@@ -179,49 +181,109 @@ const ImportForm = () => {
     formData.append("ent_id", selectedEntity);
     formData.append("unit_id", asset.unit_id);
     formData.append("model_id", asset.model_id);
-    formData.append("file", selectedFile);
 
-    try {
-      setLoading(true);
-      const response = await axiosClient.post("/import", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const csvData = e.target.result;
+      const rows = csvData.split(/\r?\n/);
+      console.log("rows", rows);
+      for (let i = 1; i < rows.length; i++) {
+        const row = rows[i].split(",");
 
-      if (response.status === 200) {
-        setSuccessMessage("Ficheiro importado com sucesso!");
-      } else {
-        throw new Error("Erro inesperado do servidor!");
-      }
-    } catch (error) {
-      if (error.response) {
-        // Server responded with an error
-        const { data } = error.response;
-
-        if (data && data.message) {
-          setErrorMessage(
-            "Verifique se o nºsérie ou nºinventário se encontra inserido na lista de ativos!"
-          );
-        } else {
-          setErrorMessage("Um erro ocorreu ao processar o pedido!");
+        /*       if (row.length !== 8) {
+          setErrorMessage(`Invalid row format at line ${i + 1}.`);
+          setLoading(false);
+          return;
         }
-      } else if (error.message) {
-        // Network or request-related error
-        setErrorMessage(error.message);
-      } else {
-        setErrorMessage("Ocorreu um erro desconhecido!");
+ */
+        const [numb_inv, date_purch, state, numb_ser, cond, ala, floor, ci] =
+          row;
+
+        // Validation for numb_inv
+        if (numb_inv && (numb_inv.length !== 6 || !numb_inv.startsWith("0"))) {
+          setErrorMessage(`Invalid numb_inv at line ${i + 1}.`);
+          setLoading(false);
+          return;
+        }
+
+        // Validation for date_purch
+        /*  if (!/^20\d{2}-\d{2}-\d{2}$/.test(date_purch)) {
+          setErrorMessage(`Invalid date_purch format at line ${i + 1}.`);
+          setLoading(false);
+          return;
+        } */
+
+        if (!date_purch) {
+          setErrorMessage(`Invalid date_purch format at line ${i + 1}.`);
+          setLoading(false);
+          return;
+        }
+
+        // Validation for state
+        if (!state) {
+          setErrorMessage(`Missing state value at line ${i + 1}.`);
+          setLoading(false);
+          return;
+        }
+
+        // Validation for numb_ser
+        if (!numb_ser) {
+          setErrorMessage(`Missing numb_ser value at line ${i + 1}.`);
+          setLoading(false);
+          return;
+        }
+
+        // Validation for cond
+        if (!cond) {
+          setErrorMessage(`Missing cond value at line ${i + 1}.`);
+          setLoading(false);
+          return;
+        }
+
+        formData.append("numb_inv", numb_inv);
+        formData.append("date_purch", date_purch);
+        formData.append("state", state);
+        formData.append("numb_ser", numb_ser);
+        formData.append("cond", cond);
+        formData.append("ala", ala || "");
+        formData.append("floor", floor || "");
+        formData.append("ci", ci || "");
       }
 
-      // Stop the import process here
-      setLoading(false);
-      return;
-    }
+      try {
+        const response = await axiosClient.post("/import", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
-    // All assets were imported successfully
-    // Clear any previous success or error messages
-    setSuccessMessage("");
-    setErrorMessage("");
+        if (response.status === 200) {
+          setSuccessMessage("Ficheiro importado com sucesso!");
+        } else {
+          throw new Error("Erro inesperado do servidor!");
+        }
+      } catch (error) {
+        if (error.response) {
+          const { data } = error.response;
+          console.log("data", data);
+          if (data && data.message) {
+            setErrorMessage(
+              "Verifique se o nºsérie ou nºinventário se encontra inserido na lista de ativos!"
+            );
+          } else {
+            setErrorMessage("Um erro ocorreu ao processar o pedido!");
+          }
+        } else if (error.message) {
+          setErrorMessage(error.message);
+        } else {
+          setErrorMessage("Ocorreu um erro desconhecido!");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    reader.readAsText(selectedFile);
   };
 
   //---------Function handlers-----------
@@ -489,7 +551,7 @@ const ImportForm = () => {
                       <li className="info-import-tx">
                         Campo <b>"numb_inv"</b>: Iniciar com algarismo <u>0</u>.
                       </li>
-                      <li>
+                      <li className="info-import-tx">
                         Campo <b>"date_purch"</b>: Inserir um formato de data
                         Ano-Mês-Dia.
                       </li>
