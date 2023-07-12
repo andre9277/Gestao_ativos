@@ -13819,3 +13819,7 @@ button {
 .info-import-tx {
     font-size: 1.2rem;
 }
+
+#print-content {
+    font-size: 3rem;
+}

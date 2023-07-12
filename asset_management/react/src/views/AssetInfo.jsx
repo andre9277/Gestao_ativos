@@ -87,7 +87,24 @@ const AssetInfo = () => {
   });
 
   const handlePrint = () => {
-    window.print();
+    const printWindow = window.open("", "_blank");
+    const contentToPrint = document.getElementById("print-content").innerHTML;
+
+    const printStyles = `
+      <link rel="stylesheet" type="text/css" href="styles.css">`;
+
+    printWindow.document.open();
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Print</title>
+          ${printStyles}
+        </head>
+        <body>${contentToPrint}</body>
+      </html>
+    `);
+    printWindow.document.close();
+    printWindow.print();
   };
 
   return (
