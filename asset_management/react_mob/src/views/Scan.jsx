@@ -97,8 +97,8 @@ const Scan = () => {
           type: "LiveStream",
           target: document.querySelector("#scanner-container"),
           constraints: {
-            width: 100, // adjust the width as needed
-            height: 100, // adjust the height as needed
+            width: window.innerWidth, // set width to screen width
+            height: window.innerHeight, // set height to screen height
           },
           scan: true, // added property
         },
@@ -172,11 +172,11 @@ const Scan = () => {
   }
 
   return (
-    <div className="mn-cnt-bc">
+    <div>
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 className="h3 mb-0 text-gray-800">Barcode Scanner</h1>
       </div>
-      <div id="scanner-container" className="row">
+      <div id="scanner-container">
         <div style={{ position: "relative", width: "100%", height: "100%" }}>
           <video
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
