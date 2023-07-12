@@ -163,7 +163,7 @@ const ReportPage = () => {
     for (let i = 0; i < array1.length; i++) {
       const item1 = array1[i];
       const commonNumber = item1.numb_ser;
-      console.log(array2);
+      /* console.log(array2); */
       // Find matching items in the second array based on the common number
       const matchingItems = array2.filter((item2) =>
         item2.assets === null
@@ -367,24 +367,27 @@ const ReportPage = () => {
 
   //Gets data of data allocation
   const getAllocationData = (assetId) => {
-    const allocation = allocations.find((a) =>
-      a.assets === null
-        ? ""
-        : a.assets.id === assetId &&
-          (a.action_type === "Atualiza" || a.action_type === "Pesquisa")
-    );
-    /*  console.log("allcoation", allocation); */
+    const sortedAllocations = allocations
+      .filter(
+        (a) =>
+          a.assets !== null &&
+          a.action_type === "Atualiza" &&
+          a.assets.id === assetId
+      )
+      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
-    if (!allocation) {
+    if (sortedAllocations.length === 0) {
       return {
         user: "",
         date: "",
       };
     }
 
+    const latestAllocation = sortedAllocations[0];
+    console.log("allocation", latestAllocation);
     return {
-      user: allocation.users.name,
-      date: allocation.allocation_date,
+      user: latestAllocation.users.name,
+      date: latestAllocation.allocation_date,
     };
   };
 
@@ -696,7 +699,7 @@ const ReportPage = () => {
                           ? allocationData.date
                           : asset.allocation_date}
                       </td>
-                      {console.log(asset)}
+                      {/* {console.log(asset)} */}
                       <td>
                         {firstOtherInfo === null ? (
                           ""
@@ -783,23 +786,32 @@ const ReportPage = () => {
                         </td>
                         <td className="table-numb-r">{allocationData.date}</td>
                         <td>
-                          <i
-                            className="fa fa-info-circle"
-                            aria-hidden="true"
-                            onClick={() => handleDropdownToggle(asset.id)}
-                            title="Observação"
-                          ></i>
-                          {selectedAsset === asset.id && showDropdown && (
-                            <div
-                              className={`dropdown-info-mov ${
-                                showDropdown ? "show" : ""
-                              }`}
-                            >
-                              {/* Dropdown content */}
-                              {/* This will be shown when the user clicks the icon */}
-                              <h6 className="titl-obs-mov">Observações</h6>
-                              <p className="obs-mov-asset"> {firstOtherInfo}</p>
-                            </div>
+                          {firstOtherInfo === null ? (
+                            ""
+                          ) : (
+                            <>
+                              <i
+                                className="fa fa-info-circle"
+                                aria-hidden="true"
+                                onClick={() => handleDropdownToggle(asset.id)}
+                                title="Observação"
+                              ></i>
+                              {selectedAsset === asset.id && showDropdown && (
+                                <div
+                                  className={`dropdown-info-mov ${
+                                    showDropdown ? "show" : ""
+                                  }`}
+                                >
+                                  {/* Dropdown content */}
+                                  {/* This will be shown when the user clicks the icon */}
+                                  <h6 className="titl-obs-mov">Observações</h6>
+                                  <p className="obs-mov-asset">
+                                    {" "}
+                                    {firstOtherInfo}
+                                  </p>
+                                </div>
+                              )}
+                            </>
                           )}
                         </td>
                         {/*  <td>{console.log(asset)}</td> */}
