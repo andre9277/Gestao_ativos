@@ -172,8 +172,6 @@ const ImportForm = () => {
   //-------Import handle-------
   const handleImport = async () => {
     setShowConfirmModal(false);
-    setLoading(true);
-
     const formData = new FormData();
     formData.append("brand_id", selectedBrand);
     formData.append("cat_id", asset.cat_id);
@@ -181,109 +179,126 @@ const ImportForm = () => {
     formData.append("ent_id", selectedEntity);
     formData.append("unit_id", asset.unit_id);
     formData.append("model_id", asset.model_id);
+    formData.append("file", selectedFile);
 
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const csvData = e.target.result;
-      const rows = csvData.split(/\r?\n/);
-      console.log("rows", rows);
-      for (let i = 1; i < rows.length; i++) {
-        const row = rows[i].split(",");
+    // Define the array to hold the validated rows
+    let validRows = [];
 
-        /*       if (row.length !== 8) {
-          setErrorMessage(`Invalid row format at line ${i + 1}.`);
-          setLoading(false);
-          return;
-        }
- */
-        const [numb_inv, date_purch, state, numb_ser, cond, ala, floor, ci] =
-          row;
+    // Flag to track file validity
+    let isValidFile = true;
 
-        // Validation for numb_inv
-        if (numb_inv && (numb_inv.length !== 6 || !numb_inv.startsWith("0"))) {
-          setErrorMessage(`Invalid numb_inv at line ${i + 1}.`);
-          setLoading(false);
-          return;
-        }
+    try {
+      setLoading(true);
 
-        // Validation for date_purch
-        /*  if (!/^20\d{2}-\d{2}-\d{2}$/.test(date_purch)) {
-          setErrorMessage(`Invalid date_purch format at line ${i + 1}.`);
-          setLoading(false);
-          return;
-        } */
+      // Read the file rows and validate them
+      const fileReader = new FileReader();
 
-        if (!date_purch) {
-          setErrorMessage(`Invalid date_purch format at line ${i + 1}.`);
-          setLoading(false);
-          return;
-        }
+      fileReader.onload = function (event) {
+        const fileContent = event.target.result;
+        const rows = fileContent.split("\n");
 
-        // Validation for state
-        if (!state) {
-          setErrorMessage(`Missing state value at line ${i + 1}.`);
-          setLoading(false);
-          return;
-        }
+        for (let i = 1; i < rows.length; i++) {
+          const row = rows[i].split(",");
+          const [numb_inv, date_purch, state, numb_ser, cond, ala, floor, ci] =
+            row;
 
-        // Validation for numb_ser
-        if (!numb_ser) {
-          setErrorMessage(`Missing numb_ser value at line ${i + 1}.`);
-          setLoading(false);
-          return;
-        }
-
-        // Validation for cond
-        if (!cond) {
-          setErrorMessage(`Missing cond value at line ${i + 1}.`);
-          setLoading(false);
-          return;
-        }
-
-        formData.append("numb_inv", numb_inv);
-        formData.append("date_purch", date_purch);
-        formData.append("state", state);
-        formData.append("numb_ser", numb_ser);
-        formData.append("cond", cond);
-        formData.append("ala", ala || "");
-        formData.append("floor", floor || "");
-        formData.append("ci", ci || "");
-      }
-
-      try {
-        const response = await axiosClient.post("/import", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-
-        if (response.status === 200) {
-          setSuccessMessage("Ficheiro importado com sucesso!");
-        } else {
-          throw new Error("Erro inesperado do servidor!");
-        }
-      } catch (error) {
-        if (error.response) {
-          const { data } = error.response;
-          console.log("data", data);
-          if (data && data.message) {
-            setErrorMessage(
-              "Verifique se o nºsérie ou nºinventário se encontra inserido na lista de ativos!"
-            );
+          // Perform your validation logic on the row values
+          if (
+            validateNumbInv(numb_inv) &&
+            validateDatePurch(date_purch) &&
+            state &&
+            numb_ser &&
+            cond
+          ) {
+            // If the row is valid, add it to the validRows array
+            validRows.push(row);
           } else {
-            setErrorMessage("Um erro ocorreu ao processar o pedido!");
+            // Set the isValidFile flag to false if there is an invalid row
+            isValidFile = false;
+            break; // Stop processing remaining rows
           }
-        } else if (error.message) {
-          setErrorMessage(error.message);
-        } else {
-          setErrorMessage("Ocorreu um erro desconhecido!");
         }
-      } finally {
-        setLoading(false);
-      }
-    };
 
-    reader.readAsText(selectedFile);
+        if (isValidFile) {
+          // Continue with the API call using the validated rows
+          formData.append("rows", JSON.stringify(validRows));
+
+          axiosClient
+            .post("/import", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then((response) => {
+              if (response.status === 200) {
+                setSuccessMessage("Ficheiro importado com sucesso!");
+              } else {
+                throw new Error("Erro inesperado do servidor!");
+              }
+            })
+            .catch((error) => {
+              if (error.response) {
+                // Server responded with an error
+                const { data } = error.response;
+
+                if (data && data.message) {
+                  setErrorMessage(
+                    "Verifique se o nºsérie ou nºinventário se encontra inserido na lista de ativos!"
+                  );
+                } else {
+                  setErrorMessage("Um erro ocorreu ao processar o pedido!");
+                }
+              } else if (error.message) {
+                // Network or request-related error
+                setErrorMessage(error.message);
+              } else {
+                setErrorMessage("Ocorreu um erro desconhecido!");
+              }
+            })
+            .finally(() => {
+              setLoading(false);
+            });
+        } else {
+          setErrorMessage(
+            "O arquivo contém linhas inválidas. A importação foi interrompida."
+          );
+          setLoading(false);
+        }
+      };
+
+      fileReader.readAsText(selectedFile);
+    } catch (error) {
+      setErrorMessage("Ocorreu um erro ao ler o arquivo!");
+      setLoading(false);
+    }
+  };
+
+  // Validation function for numb_inv
+  const validateNumbInv = (numb_inv) => {
+    if (!numb_inv) {
+      return true; // Accept null values
+    }
+
+    if (numb_inv.length === 6 && numb_inv.startsWith("0")) {
+      return true;
+    }
+
+    return false;
+  };
+
+  // Validation function for date_purch
+  const validateDatePurch = (date_purch) => {
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+
+    if (date_purch && dateRegex.test(date_purch)) {
+      const date = new Date(date_purch);
+
+      if (!isNaN(date)) {
+        return true;
+      }
+    }
+
+    return false;
   };
 
   //---------Function handlers-----------

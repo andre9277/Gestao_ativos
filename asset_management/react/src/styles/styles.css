@@ -13168,15 +13168,16 @@ input::placeholder {
     margin: 10px 0;
     padding: 10px;
     border-radius: 3px 3px 3px 3px;
+    font-size: 1.2rem;
 }
 
 .errMess {
-    color: #270;
     background-color: #dff2bf;
     margin: 10px 0;
     color: #d8000c;
     background-color: #ffbaba;
-    width: 20%;
+    width: 50%;
+    font-size: 1.2rem;
 }
 
 .pagFilter {

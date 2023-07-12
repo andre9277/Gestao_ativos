@@ -65,10 +65,11 @@ class ExcelImportController extends Controller
 
             // Perform any necessary data validation and transformation
 
-            if (substr($column1, 0, 1) !== '0') {
+            if ($column1 !== null && substr($column1, 0, 1) !== '0') {
                 // Display an error message
                 return response()->json(['error' => 'Número de inventário inválido: deve iniciar por 0!'], 400);
             }
+
 
             // Check if state is valid (either "Ativo" or "Inativo")
             if ($column3 !== 'Ativo' && $column3 !== 'Inativo') {
