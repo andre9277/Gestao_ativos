@@ -102,11 +102,9 @@ const Search = () => {
   };
 
   const searchByNumbInv = (arr, target) => {
-    if (arr[0].numb_inv === target) {
-      return arr[0];
-    }
+    arr.sort((a, b) => a.numb_inv.localeCompare(b.numb_inv));
 
-    let left = 1;
+    let left = 0;
     let right = arr.length - 1;
 
     while (left <= right) {
@@ -117,7 +115,7 @@ const Search = () => {
         return currentAsset;
       }
 
-      if (currentAsset.numb_inv < target) {
+      if (currentAsset.numb_inv.localeCompare(target) < 0) {
         left = mid + 1;
       } else {
         right = mid - 1;
@@ -126,7 +124,6 @@ const Search = () => {
 
     return null;
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
