@@ -118,6 +118,17 @@ export default function AssetForm() {
     }
   }, [selectedEntity]);
 
+  useEffect(() => {
+    if (errors) {
+      const timer = setTimeout(() => {
+        setErrors(null); // Clear the error messages after 5 seconds
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer); // Clear the timer if the component unmounts before 5 seconds
+      };
+    }
+  }, [errors]);
   //List of assets:
   const [asset, setAsset] = useState({
     id: null,
