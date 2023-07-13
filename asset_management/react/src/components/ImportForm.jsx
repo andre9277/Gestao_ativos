@@ -206,9 +206,11 @@ const ImportForm = () => {
           if (
             validateNumbInv(numb_inv) &&
             validateDatePurch(date_purch) &&
-            state &&
-            numb_ser &&
-            cond
+            validateNumbSer(numb_ser) &&
+            validateState(state) &&
+            validateCond(cond) &&
+            validateAla(ala) &&
+            validateFloor(floor)
           ) {
             // If the row is valid, create an object with the row data
             const rowData = {
@@ -309,6 +311,58 @@ const ImportForm = () => {
       }
     }
 
+    return false;
+  };
+
+  // Validation function for ala
+  const validateAla = (ala) => {
+    if (!ala || ["B", "C", "D", "E"].includes(ala)) {
+      return true;
+    }
+    return false;
+  };
+
+  // Validation function for state
+  const validateState = (state) => {
+    if (state === "Ativo" || state === "Inativo") {
+      return true;
+    }
+    return false;
+  };
+
+  // Validation function for cond
+  const validateCond = (cond) => {
+    if (
+      cond === "Novo" ||
+      cond === "Usado" ||
+      cond === "Obsoleto" ||
+      cond === "Reparação"
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const validateFloor = (floor) => {
+    if (
+      !floor ||
+      floor === "-1" ||
+      floor === "0" ||
+      floor === "1" ||
+      floor === "2" ||
+      floor === "3" ||
+      floor === "4" ||
+      floor === "5"
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const validateNumbSer = (numb_ser) => {
+    if (numb_ser !== null && numb_ser.trim() !== "") {
+      return true;
+    }
     return false;
   };
 
