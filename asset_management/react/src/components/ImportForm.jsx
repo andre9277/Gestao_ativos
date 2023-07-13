@@ -210,8 +210,19 @@ const ImportForm = () => {
             numb_ser &&
             cond
           ) {
+            // If the row is valid, create an object with the row data
+            const rowData = {
+              numb_inv,
+              date_purch,
+              state,
+              numb_ser,
+              cond,
+              ala: ala || null, // Allow null value for ala
+              floor: floor || null, // Allow null value for floor
+              ci: ci || null, // Allow null value for ci
+            };
             // If the row is valid, add it to the validRows array
-            validRows.push(row);
+            validRows.push(rowData);
           } else {
             // Set the isValidFile flag to false if there is an invalid row
             isValidFile = false;
