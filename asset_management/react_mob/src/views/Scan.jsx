@@ -150,8 +150,8 @@ const Scan = () => {
         // draw rectangle in the middle of the scanner area
         const canvasWidth = drawingCanvas.width;
         const canvasHeight = drawingCanvas.height;
-        const rectWidth = canvasWidth * 0.5; // adjust rectangle width as needed
-        const rectHeight = canvasHeight * 0.3; // adjust rectangle height as needed
+        const rectWidth = canvasWidth * 0.8; // adjust rectangle width as needed
+        const rectHeight = canvasHeight * 0.2; // adjust rectangle height as needed
         const rectX = (canvasWidth - rectWidth) / 2;
         const rectY = (canvasHeight - rectHeight) / 2;
 
