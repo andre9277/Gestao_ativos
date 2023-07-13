@@ -23,6 +23,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->singleton('translator', function ($app) {
+            $translator = new \Illuminate\Translation\Translator(
+                $app['translation.loader'],
+                $app['config']['app.locale']
+            );
+            $translator->setFallback('en'); // Set the fallback language to 'en' (English)
+            return $translator;
+        });
     }
 }

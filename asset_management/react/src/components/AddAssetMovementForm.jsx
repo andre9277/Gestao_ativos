@@ -73,6 +73,18 @@ const AddAssetMovementForm = () => {
     });
   };
 
+  useEffect(() => {
+    if (errors) {
+      const timer = setTimeout(() => {
+        setErrors(null); // Clear the error messages after 5 seconds
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer); // Clear the timer if the component unmounts before 5 seconds
+      };
+    }
+  }, [errors]);
+
   let matchingAsset = null;
   let matchingInv = null;
 
@@ -159,14 +171,26 @@ const AddAssetMovementForm = () => {
               navigate("/report");
             })
             .catch((err) => {
+              console.log("POST Request Error:", err.response);
               const response = err.response;
               if (response && response.status === 422) {
+                console.log("Validation Errors:", response.data.errors);
                 setErrors(response.data.errors);
               }
             });
         }
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.log("POST Request Error:", err.response);
+        const response = err.response;
+        if (response && response.status === 422) {
+          console.log("Validation Errors:", response.data.errors);
+          setErrors(response.data.errors);
+        } else {
+          console.log("Error Message:", response.data.message);
+          setErrorMessage(response.data.message);
+        }
+      });
   };
   //Reset of the filters implemented
   const resetFilter = () => {
@@ -194,6 +218,13 @@ const AddAssetMovementForm = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+      {errors && (
+        <div className="alert">
+          {Object.keys(errors).map((key) => (
+            <p key={key}>{errors[key][0]}</p>
+          ))}
+        </div>
+      )}
       <h1 className="title-page-all">Movimento de Ativo</h1>
       <form onSubmit={handleSubmit} className="assetForm">
         <h1 className="title-page-all-sub">Dados Gerais: </h1>
@@ -242,7 +273,6 @@ const AddAssetMovementForm = () => {
             type="text"
             value={matchingInv ? matchingInv.numb_ser : serNumber}
             onChange={(e) => setSerNumber(e.target.value)}
-            required
             className="infoInp"
           />
         </label>
@@ -347,7 +377,6 @@ const AddAssetMovementForm = () => {
             id="motivo"
             value={reason}
             onChange={(event) => setReason(event.target.value)}
-            required
           >
             <option value=""></option>
             <option value="Transferência">Transferência</option>
@@ -370,7 +399,11 @@ const AddAssetMovementForm = () => {
           <button onClick={resetFilter} className="btn-cleanfilter-movAsset">
             Limpar
           </button>
-          <button type="submit" className="btn-adicionar-movAsset">
+          <button
+            type="submit"
+            className="btn-adicionar-movAsset"
+            onClick={handleSave}
+          >
             Guardar
           </button>
         </label>

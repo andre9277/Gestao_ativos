@@ -33,4 +33,13 @@ class StoreAllocationRequest extends FormRequest
             'asset_id' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'ser_number.required' => 'Atenção! É necessário indicar o número de série.',
+            'reason.required' => 'Atenção! É necessário indicar o motivo.',
+            'date_purch.required' => 'Atenção! É necessário indicar a data de compra.',
+        ];
+    }
 }

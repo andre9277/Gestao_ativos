@@ -37,7 +37,6 @@ import React, { useState, useEffect } from "react";
 import axiosClient from "../axios-client.js";
 import "../styles/SearchBar.css";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 const Search = () => {
   const navigate = useNavigate();
