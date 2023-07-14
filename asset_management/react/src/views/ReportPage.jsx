@@ -655,9 +655,11 @@ const ReportPage = () => {
               {!isButtonClicked && filteredAllocations.length === 0 ? (
                 assets.map((asset, index) => {
                   const allocationData = getAllocationData(asset.id);
-                  const filteredTogJoin = togJoin.filter(
-                    (assetJoin) => assetJoin.asset_id === asset.id
-                  );
+                  const filteredTogJoin = togJoin
+                    .filter((assetJoin) => assetJoin.asset_id === asset.id)
+                    .sort(
+                      (a, b) => new Date(b.created_at) - new Date(a.created_at)
+                    );
                   /* console.log(filteredTogJoin); */
 
                   const firstOtherInfo =
@@ -750,9 +752,13 @@ const ReportPage = () => {
                     ) {
                       return null; // skip rendering if previous_ci is null
                     }
-                    const filteredTogJoin = togJoin.filter(
-                      (assetJoin) => assetJoin.asset_id === asset.id
-                    );
+                    const filteredTogJoin = togJoin
+                      .filter((assetJoin) => assetJoin.asset_id === asset.id)
+                      .sort(
+                        (a, b) =>
+                          new Date(b.created_at) - new Date(a.created_at)
+                      );
+
                     const firstOtherInfo =
                       filteredTogJoin.length > 0
                         ? filteredTogJoin[0].other
@@ -785,9 +791,10 @@ const ReportPage = () => {
                             : asset.user}
                         </td>
                         <td className="table-numb-r">{allocationData.date}</td>
+
                         <td>
                           {firstOtherInfo === null ? (
-                            ""
+                            " "
                           ) : (
                             <>
                               <i
