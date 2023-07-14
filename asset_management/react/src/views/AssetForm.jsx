@@ -665,13 +665,19 @@ export default function AssetForm() {
                 />
               </label>
 
+              {console.log("id", id)}
               <label className="lb-info-btn">
-                <input
-                  type="button"
-                  onClick={resetFilter}
-                  value="Limpar"
-                  className="btn-cleanfilter-assett"
-                />
+                {id === undefined ? (
+                  <input
+                    type="button"
+                    onClick={resetFilter}
+                    value="Limpar"
+                    className="btn-cleanfilter-assett"
+                  />
+                ) : (
+                  ""
+                )}
+
                 <button
                   className="btn-adicionar-assetFormm"
                   onClick={handleSave}
