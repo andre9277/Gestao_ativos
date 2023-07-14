@@ -193,7 +193,7 @@ export default function Allocations() {
       endDate: endDate,
       key: "selection",
     };
-
+    /* 
     if (startDate > endDate) {
       setError(true);
       setErrorMsg("Intervalo de Datas inválido!");
@@ -205,7 +205,7 @@ export default function Allocations() {
       }, 5000);
       return;
     }
-
+ */
     let filtered = allAllocations.filter((allocation) => {
       const allocationDate = new Date(allocation.allocation_date);
       allocationDate.setHours(0, 0, 0, 0);
@@ -328,6 +328,7 @@ export default function Allocations() {
                 min="YYYY-MM-DD"
                 max="YYYY-MM-DD"
                 className="dt-inpt-allo"
+                onKeyDown={(e) => e.preventDefault()}
               />
 
               <p></p>
@@ -353,6 +354,7 @@ export default function Allocations() {
                 min={startDate ? startDate.toISOString().split("T")[0] : ""}
                 max="YYYY-MM-DD"
                 className="dt-inpt-allo"
+                onKeyDown={(e) => e.preventDefault()}
               />
 
               {error && startDate > endDate && (
