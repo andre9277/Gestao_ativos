@@ -49,7 +49,7 @@ const ForgotPass = () => {
       await axiosClient.post("/forgot-password", { email });
       setMessage("Verifique o seu email");
     } catch (error) {
-      setMessage("Erro!");
+      setMessage("Email inválido, tente novamente!");
     }
   };
 

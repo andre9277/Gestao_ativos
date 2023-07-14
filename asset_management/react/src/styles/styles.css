@@ -13774,7 +13774,7 @@ button {
 
 .ms-rec-pass {
     color: white;
-    background-color: #ffbaba;
+    background-color: red;
     text-align: center;
     width: inherit;
     padding: 0.5rem;

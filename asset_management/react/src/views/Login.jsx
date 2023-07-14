@@ -37,7 +37,7 @@ import { Link } from "react-router-dom";
 import axiosClient from "../axios-client.js";
 import { createRef } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import img_logo2 from "../assets/logo_new_hb.png";
 
@@ -48,6 +48,18 @@ export default function Login() {
   const passwordRef = createRef();
   const { setUser, setToken } = useStateContext();
   const [message, setMessage] = useState(null);
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage("");
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [message]);
 
   const onSubmit = (ev) => {
     ev.preventDefault();
