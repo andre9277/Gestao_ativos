@@ -534,7 +534,7 @@ const ReportPage = () => {
                 )}
 
                 <div
-                  className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
+                  className={`dropdown-menuu ${dropdownOpen ? "show" : ""}`}
                   id="filterDropdown"
                 >
                   <SelectFilter

@@ -4308,8 +4308,25 @@ fieldset:disabled .btn {
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 0.25rem;
-    margin-left: -190px;
-    margin-right: 10px;
+    margin-left: -260px;
+}
+
+.dropdown-menuu {
+    position: absolute;
+    z-index: 1000;
+    display: none;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+    margin-left: -382px;
 }
 .dropdown-menu[data-bs-popper] {
     top: 100%;
@@ -4533,6 +4550,10 @@ fieldset:disabled .btn {
 }
 
 .dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-menuu.show {
     display: block;
 }
 
@@ -13280,6 +13301,17 @@ input::placeholder {
     padding: 10px;
     z-index: 1;
 }
+
+.dropdown-menuu {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1;
+}
+
 .obs-mov-asset {
     max-width: 200px;
     word-break: break-word;
@@ -13327,7 +13359,7 @@ input::placeholder {
 
 .filtAsset-tab {
     color: black;
-    width: 100px;
+    width: 130px;
     margin: 0.5px;
     cursor: pointer;
     line-height: 1.1;
