@@ -29,7 +29,7 @@ class StoreAssetRequest extends FormRequest
             'state' => 'required',
             'cat_id' => 'required',
             'brand_id' => 'required',
-            'ci' => 'sometimes|nullable',
+            'ci' => 'required',
             'ent_id' => 'required',
             'numb_inv' => [
                 'nullable',
@@ -47,11 +47,11 @@ class StoreAssetRequest extends FormRequest
     public function messages()
     {
         return [
-            'numb_inv.size' => 'Atenção! O Número de Inventário deve ter exatamente 6 algarismos.',
-            'numb_inv.regex' => 'Atenção! O Número de Inventário deve ter 0 como primeiro algarismo.',
-            'numb_inv.unique' => 'Atenção! O Número de Inventário já foi adicionado.',
-            'numb_ser.max' => 'Atenção! O Número de Série não pode ter mais de 25 caracteres.',
-
+            'numb_inv.size' => 'Atenção! O número de inventário deve ter exatamente 6 algarismos.',
+            'numb_inv.regex' => 'Atenção! O número de inventário deve ter 0 como primeiro algarismo.',
+            'numb_inv.unique' => 'Atenção! O número de inventário já foi adicionado.',
+            'numb_ser.max' => 'Atenção! O número de série não pode ter mais de 25 caracteres.',
+            'ci' => 'Atenção! É necessário indicar o ci.',
             'ent_id' => 'Atenção! É necessário indicar a entidade.',
             'numb_ser' => 'Atenção! É necessário indicar o número de série.',
             'cat_id' => 'Atenção! É necessário indicar a categoria.',

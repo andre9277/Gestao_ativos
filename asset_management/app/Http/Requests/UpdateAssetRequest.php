@@ -29,6 +29,7 @@ class UpdateAssetRequest extends FormRequest
             'state' => 'required',
             'cat_id' => 'required',
             'brand_id' => 'required',
+            'ci' => ' required',
             //'model_id' => 'required',
             'ent_id' => 'required',
             'numb_inv' => [

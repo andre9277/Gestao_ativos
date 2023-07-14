@@ -656,7 +656,8 @@ const ImportForm = () => {
                         , <u>1</u>, <u>2</u>, <u>3</u>, <u>4</u>, <u>5</u>.
                       </li>
                       <li className="info-import-tx">
-                        Campo <b>"ci"</b>: Inserir CI válido.
+                        Campo <b>"ci"</b>: Inserir CI válido ou inserir
+                        "Armazém".
                       </li>
                     </div>
                   )}
