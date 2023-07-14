@@ -489,10 +489,10 @@ export default function Assets() {
         </Modal.Header>
         <Modal.Body>Deseja apagar o(s) ativo(s) selecionado(s)!</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleDeleteConfirm}>
+          <Button variant="danger" onClick={handleDeleteConfirm}>
             Apagar
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose}>
             Cancelar
           </Button>
         </Modal.Footer>
