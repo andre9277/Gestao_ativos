@@ -172,6 +172,25 @@ const ImportForm = () => {
   //-------Import handle-------
   const handleImport = async () => {
     setShowConfirmModal(false);
+
+    // Validate file attachment
+    if (!selectedFile) {
+      setErrorMessage("Por favor, anexe um arquivo CSV.");
+      return;
+    }
+
+    // Validate required input fields
+    if (
+      !asset.cat_id ||
+      !supplierId ||
+      !selectedBrand ||
+      !asset.model_id ||
+      !selectedEntity
+    ) {
+      setErrorMessage("Atenção! Preencha todos os campos obrigatórios!");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("brand_id", selectedBrand);
     formData.append("cat_id", asset.cat_id);
@@ -656,8 +675,7 @@ const ImportForm = () => {
                         , <u>1</u>, <u>2</u>, <u>3</u>, <u>4</u>, <u>5</u>.
                       </li>
                       <li className="info-import-tx">
-                        Campo <b>"ci"</b>: Inserir CI válido ou inserir
-                        "Armazém".
+                        Campo <b>"ci"</b>: Inserir CI válido ou "Armazém".
                       </li>
                     </div>
                   )}
