@@ -41,6 +41,7 @@ import { Modal, Button } from "react-bootstrap";
 
 export default function AssetForm() {
   const [errors, setErrors] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   //Meanwhile the table isnt loading we show a loading string
   const [loading, setLoading] = useState(false);
@@ -293,6 +294,40 @@ export default function AssetForm() {
     });
   };
 
+  const handleDateChange = (ev) => {
+    const enteredDate = ev.target.value;
+
+    // Check if the entered date is valid
+    if (enteredDate && !isValidDate(enteredDate)) {
+      // Date is invalid, set the error message
+      setErrorMessage("Data inválida");
+      setAsset({ ...asset, date_purch: "" });
+
+      // Clear the error message after 5 seconds
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 5000);
+    } else {
+      // Date is valid, clear the error message and update the state
+      setErrorMessage("");
+      setAsset({ ...asset, date_purch: enteredDate });
+    }
+  };
+
+  const isValidDate = (dateString) => {
+    // Check if the input is in the format "YYYY-MM-DD"
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!regex.test(dateString)) {
+      return false;
+    }
+
+    // Check if the date is valid
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const isValid = !isNaN(date.getTime()) && year >= 2000 && year <= 2040;
+    return isValid;
+  };
+
   return (
     <>
       {" "}
@@ -489,11 +524,10 @@ export default function AssetForm() {
                   className="form-calendar-asset"
                   type="date"
                   value={asset.date_purch}
-                  onChange={(ev) =>
-                    setAsset({ ...asset, date_purch: ev.target.value })
-                  }
+                  onChange={handleDateChange}
                   placeholder="YYYY-MM-DD"
                 />
+                {errorMessage && <p className="alert">{errorMessage}</p>}
               </label>
               {/* ---------- Supplier ----------*/}
               <label className="lb-info">
