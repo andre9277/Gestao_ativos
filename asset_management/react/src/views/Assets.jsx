@@ -278,15 +278,12 @@ export default function Assets() {
     if (selectedCategory) {
       setSelectedCategory(selectedCategoryName);
 
-      setLoading(true);
       axiosClient
         .get(`/brands/category/${selectedCategory.id}`)
         .then((response) => {
-          setLoading(false);
           setBrands(response.data);
         })
         .catch((error) => {
-          setLoading(false);
           console.error(error);
         });
     }
