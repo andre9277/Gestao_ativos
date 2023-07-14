@@ -70,6 +70,7 @@ export default function Allocations() {
 
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [message, setMessage] = useState("");
 
   //Performs a client access request
   const getAllocations = (signal, url) => {
@@ -109,7 +110,6 @@ export default function Allocations() {
     });
   };
 
-  //-----------Download---------------
   const downloadCSV = async () => {
     setLoading(true);
     const allData = [];
@@ -134,7 +134,13 @@ export default function Allocations() {
       return serFilter && opFilter && userFilter && dateFilter;
     });
 
-    /* console.log(filteredData); */
+    if (!startDate || !endDate) {
+      const message = "Atenção! Selecione uma data início e/ou data fim!";
+      setMessage(message);
+      setLoading(false);
+      return;
+    }
+
     const csvData = Papa.unparse({
       fields: ["Utilizador", "Operação", "Nº Série", "Data de alteração"],
       data: filteredData.map((allocation) => {
@@ -160,6 +166,18 @@ export default function Allocations() {
     document.body.removeChild(link);
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage("");
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [message]);
 
   //------------For the Calendar---------------
   const handleSelect = () => {
@@ -278,6 +296,7 @@ export default function Allocations() {
 
       {!loading && (
         <div className="card animated fadeInDown">
+          {message && <div className="message_error">{message}</div>}
           <p></p>
           <p className="camp-obs">*Campo Obrigatório</p>
           <p></p>
@@ -296,7 +315,7 @@ export default function Allocations() {
                     handleSelect();
                   } else {
                     // Handle the error when an invalid date is selected
-                    console.error("Data início inválida!");
+                    setErrorMsg("Data início inválida!");
                   }
                 }}
                 min="YYYY-MM-DD"
@@ -321,7 +340,7 @@ export default function Allocations() {
                     handleSelect();
                   } else {
                     // Handle the error when an invalid date is selected
-                    console.error("Data fim inválida!");
+                    setErrorMsg("Data fim inválida!");
                   }
                 }}
                 min={startDate ? startDate.toISOString().split("T")[0] : ""}

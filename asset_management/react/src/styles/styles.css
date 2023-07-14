@@ -13825,3 +13825,9 @@ button {
 #print-content {
     font-size: 3rem;
 }
+
+.message_error {
+    color: white;
+    background-color: red;
+    font-size: 1.2rem;
+}
