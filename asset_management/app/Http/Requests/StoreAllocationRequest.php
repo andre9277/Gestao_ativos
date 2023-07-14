@@ -27,7 +27,7 @@ class StoreAllocationRequest extends FormRequest
             'allocation_date' => 'required',
             'action_type' => 'required',
             'ser_number' => 'required',
-            'reason' => 'nullable',
+            'reason' => 'required',
             'other' => 'nullable',
             'user_id' => 'required',
             'asset_id' => 'required',
@@ -39,7 +39,7 @@ class StoreAllocationRequest extends FormRequest
         return [
             'ser_number.required' => 'Atenção! É necessário indicar o número de série.',
             'reason.required' => 'Atenção! É necessário indicar o motivo.',
-            'date_purch.required' => 'Atenção! É necessário indicar a data de compra.',
+            'allocation_date.required' => 'Atenção! É necessário indicar a data de compra.',
         ];
     }
 }

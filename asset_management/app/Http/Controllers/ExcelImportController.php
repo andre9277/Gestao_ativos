@@ -120,6 +120,7 @@ class ExcelImportController extends Controller
                 'allocation_date' => now(),
                 'action_type' => 'Adiciona',
                 'ser_number' => $column4,
+                'reason' => "",
             ]);
 
             // Save the allocation record

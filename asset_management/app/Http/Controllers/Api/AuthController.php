@@ -8,7 +8,6 @@ use App\Http\Requests\SignupRequest;
 use App\Models\Allocation;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -69,7 +68,8 @@ class AuthController extends Controller
             'allocation_date' => now(),
             'ser_number' => "",
             'action_type' => 'Log in',
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'reason' => "",
         ]);
         $allocation->save();
 
@@ -87,7 +87,8 @@ class AuthController extends Controller
             'allocation_date' => now(),
             'ser_number' => "",
             'action_type' => 'Log out',
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'reason' => "",
         ]);
         $allocation->save();
         $user->currentAccessToken()->delete();

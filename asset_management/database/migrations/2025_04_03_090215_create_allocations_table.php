@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('action_type');
             $table->string('ser_number');
-            $table->string('reason')->nullable();
+            $table->string('reason');
 
             $table->text('other')->nullable();
 

@@ -142,7 +142,13 @@ export default function Allocations() {
     }
 
     const csvData = Papa.unparse({
-      fields: ["Utilizador", "Operação", "Nº Série", "Data de alteração"],
+      fields: [
+        "Utilizador",
+        "Operação",
+        "Nº Série",
+        "Motivo",
+        "Data de alteração",
+      ],
       data: filteredData.map((allocation) => {
         return [
           allocation.users.name,
@@ -150,6 +156,7 @@ export default function Allocations() {
           allocation.assets === null
             ? allocation.inv_number
             : allocation.assets.numb_ser,
+          allocation.reason,
           allocation.allocation_date,
         ];
       }),

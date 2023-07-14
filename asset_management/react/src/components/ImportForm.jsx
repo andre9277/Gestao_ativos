@@ -437,7 +437,7 @@ const ImportForm = () => {
         document.body.removeChild(link);
       })
       .catch((error) => {
-        console.error("Download failed:", error);
+        console.error("Download falhou:", error);
         setLoading(false);
       });
   };
@@ -609,7 +609,7 @@ const ImportForm = () => {
             </button>
           </div>
           {successMessage && <p className="succMess">{successMessage}</p>}
-          {errorMessage && <p className="errMess">{errorMessage}</p>}
+          {errorMessage && <p className="message_error">{errorMessage}</p>}
 
           <div className="impt-temp">
             <p></p>
@@ -662,7 +662,6 @@ const ImportForm = () => {
                     </div>
                   )}
                 </div>
-                {/* Other list items */}
               </ul>
             </div>
           </div>

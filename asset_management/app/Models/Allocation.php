@@ -24,6 +24,14 @@ class Allocation extends Model
         'other',
     ];
 
+    public static $rules = [
+        'allocation_date' => [
+            'required'
+        ],
+        'reason' => [
+            'required'
+        ]
+    ];
     protected $table = 'allocations';
 
     //User and Allocation have a many:many binding; can perform multiple moves
