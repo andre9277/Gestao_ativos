@@ -194,6 +194,9 @@ export default function AssetForm() {
           const response = err.response;
           if (response && response.status === 422) {
             setErrors(response.data.errors);
+
+            // Scroll to the top of the page
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }
         });
     } else {
@@ -208,6 +211,9 @@ export default function AssetForm() {
           const response = err.response;
           if (response && response.status === 422) {
             setErrors(response.data.errors);
+
+            // Scroll to the top of the page
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }
         });
     }

@@ -153,6 +153,8 @@ const AddAssetMovementForm = () => {
               const response = err.response;
               if (response && response.status === 422) {
                 setErrors(response.data.errors);
+                // Scroll to the top of the page
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }
             });
         }
@@ -176,6 +178,8 @@ const AddAssetMovementForm = () => {
               if (response && response.status === 422) {
                 console.log("Validation Errors:", response.data.errors);
                 setErrors(response.data.errors);
+                // Scroll to the top of the page
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }
             });
         }
@@ -186,9 +190,13 @@ const AddAssetMovementForm = () => {
         if (response && response.status === 422) {
           console.log("Validation Errors:", response.data.errors);
           setErrors(response.data.errors);
+          // Scroll to the top of the page
+          window.scrollTo({ top: 0, behavior: "smooth" });
         } else {
           console.log("Error Message:", response.data.message);
           setErrorMessage(response.data.message);
+          // Scroll to the top of the page
+          window.scrollTo({ top: 0, behavior: "smooth" });
         }
       });
   };
