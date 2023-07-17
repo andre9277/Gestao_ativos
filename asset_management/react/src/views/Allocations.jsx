@@ -135,7 +135,7 @@ export default function Allocations() {
     });
 
     if (!startDate || !endDate) {
-      const message = "Atenção! Selecione uma data início e/ou data fim!";
+      const message = "Atenção! Selecione uma data início e data fim!";
       setMessage(message);
       setLoading(false);
       return;

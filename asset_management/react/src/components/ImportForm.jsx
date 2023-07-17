@@ -247,8 +247,10 @@ const ImportForm = () => {
           } else {
             // Set the isValidFile flag to false if there is an invalid row
             isValidFile = false;
+
             //Console log to check what row is giving an error
             /*  console.log(row); */
+
             break; // Stop processing remaining rows
           }
         }

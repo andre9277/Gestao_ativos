@@ -144,10 +144,11 @@ body {
 
 .err-search {
     margin: 0.5rem;
-    background-color: #cc0000;
-    border-radius: 1rem;
+    background-color: red;
     padding: 0.5rem;
-    width: max-content;
+    width: fit-content;
+    font-size: 1rem;
+    font-weight: 700;
 }
 
 hr {
@@ -5749,6 +5750,11 @@ fieldset:disabled .btn {
     margin-bottom: 1rem;
     border: 1px solid transparent;
     border-radius: 0.25rem;
+    width: fit-content;
+    font-size: 1.2rem;
+    margin-left: 34px;
+    font-weight: 700;
+    margin-top: 1rem;
 }
 
 .alert-heading {
@@ -12861,7 +12867,7 @@ select {
 }
 
 .search-bar-container {
-    width: 40%;
+    width: 46%;
     position: relative;
     float: left;
     flex-direction: column;
@@ -13862,5 +13868,8 @@ button {
     color: white;
     background-color: red;
     font-size: 1.2rem;
-    width: 40%;
+    width: fit-content;
+    padding: 10px;
+    margin: 24px;
+    font-weight: 700;
 }

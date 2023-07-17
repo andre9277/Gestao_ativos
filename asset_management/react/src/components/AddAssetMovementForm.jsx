@@ -218,6 +218,8 @@ const AddAssetMovementForm = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      <h1 className="title-page-all">Movimento de Ativo</h1>
       {errors && (
         <div className="alert">
           {Object.keys(errors).map((key) => (
@@ -225,7 +227,6 @@ const AddAssetMovementForm = () => {
           ))}
         </div>
       )}
-      <h1 className="title-page-all">Movimento de Ativo</h1>
       <form onSubmit={handleSubmit} className="assetForm">
         <h1 className="title-page-all-sub">Dados Gerais: </h1>
         <p></p>
@@ -394,7 +395,7 @@ const AddAssetMovementForm = () => {
             className="obs-mov-e"
           />
         </label>
-        <label className="lb-info"></label>
+        <label className="lb-info"> </label>
         <label className="lb-info">
           <button onClick={resetFilter} className="btn-cleanfilter-movAsset">
             Limpar
