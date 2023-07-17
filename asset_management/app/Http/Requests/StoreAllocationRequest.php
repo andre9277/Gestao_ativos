@@ -39,7 +39,7 @@ class StoreAllocationRequest extends FormRequest
         return [
             'ser_number.required' => 'Atenção! É necessário indicar o número de série.',
             'reason.required' => 'Atenção! É necessário indicar o motivo.',
-            'allocation_date.required' => 'Atenção! É necessário indicar a data de compra.',
+            'allocation_date.required' => 'Atenção! É necessário indicar a data.',
         ];
     }
 }

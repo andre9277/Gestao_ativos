@@ -122,7 +122,7 @@ export default function AssetForm() {
   useEffect(() => {
     if (errors) {
       const timer = setTimeout(() => {
-        setErrors(null); // Clear the error messages after 5 seconds
+        setErrors(null); // Clear the error messages after 15 seconds
       }, 15000);
 
       return () => {

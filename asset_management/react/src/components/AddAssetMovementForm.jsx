@@ -410,7 +410,7 @@ const AddAssetMovementForm = () => {
             <div className="error">{errors.reason[0]}</div>
           )}
         </label>
-
+        {/* ---------- Obs ----------*/}
         <label className="lb-info">
           <label className="labelofLabel">Observações:</label>
           <textarea
