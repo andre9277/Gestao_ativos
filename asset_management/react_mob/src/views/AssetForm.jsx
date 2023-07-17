@@ -324,13 +324,13 @@ export default function AssetForm() {
       {!loading && <h1 className="tlt-assetInfo">Novo Ativo</h1>}
       <div className="space-mov-add"></div>
       {loading && <div className="lgText-assetInfo">A carregar...</div>}
-      {errors && (
+      {/*  {errors && (
         <div className="alert">
           {Object.keys(errors).map((key) => (
             <p key={key}>{errors[key][0]}</p>
           ))}
         </div>
-      )}
+      )} */}
       {!loading && (
         <form onSubmit={onSubmit} className="assetForm-assett">
           {/* ---------- Inventory Number ----------*/}
@@ -361,9 +361,13 @@ export default function AssetForm() {
               onChange={(ev) =>
                 setAsset({ ...asset, numb_ser: ev.target.value })
               }
-              className="infoInp"
-              required
+              className={`infoInp ${
+                errors && errors.numb_ser ? "error-input" : ""
+              }`}
             />
+            {errors && errors.numb_ser && (
+              <div className="error">{errors.numb_ser[0]}</div>
+            )}
           </label>
           <p></p>
           {/* ---------- Category ----------*/}
@@ -373,7 +377,9 @@ export default function AssetForm() {
               Categoria:<label className="cmp-obg">*</label>
             </label>
             <select
-              className="infoInp-select"
+              className={`infoInp-select ${
+                errors && errors.cat_id ? "error-input" : ""
+              }`}
               name="category"
               id="category"
               value={asset.cat_id}
@@ -387,6 +393,9 @@ export default function AssetForm() {
                 </option>
               ))}
             </select>
+            {errors && errors.cat_id && (
+              <div className="error">{errors.cat_id[0]}</div>
+            )}
           </label>
           <p></p>
           {/* ---------- Status ----------*/}
@@ -395,7 +404,9 @@ export default function AssetForm() {
               Estado:<label className="cmp-obg">*</label>
             </label>
             <select
-              className="infoInp-select"
+              className={`infoInp-select ${
+                errors && errors.state ? "error-input" : ""
+              }`}
               name="estado"
               id="estado"
               value={asset.state}
@@ -408,6 +419,9 @@ export default function AssetForm() {
               <option value="Ativo">Ativo</option>
               <option value="Inativo">Inativo</option>
             </select>
+            {errors && errors.state && (
+              <div className="error">{errors.state[0]}</div>
+            )}
           </label>
           <p></p>
           {/* ---------- Brands ----------*/}
@@ -420,8 +434,9 @@ export default function AssetForm() {
             <select
               value={asset.brand_id}
               onChange={handleBrandChange}
-              className="infoInp-select"
-              required
+              className={`infoInp-select ${
+                errors && errors.brand_id ? "error-input" : ""
+              }`}
             >
               {brands.length != 0 ? <option value=""></option> : ""}
               {brands.length === 0 ? (
@@ -434,6 +449,9 @@ export default function AssetForm() {
                 ))
               )}
             </select>
+            {errors && errors.brand_id && (
+              <div className="error">{errors.brand_id[0]}</div>
+            )}
           </label>
           <p></p>
           {/* ---------- Models ----------*/}
@@ -445,7 +463,9 @@ export default function AssetForm() {
             </label>
             <select
               value={asset.model_id}
-              className="infoInp-select"
+              className={`infoInp-select ${
+                errors && errors.model_id ? "error-input" : ""
+              }`}
               onChange={(event) =>
                 setAsset({ ...asset, model_id: event.target.value })
               }
@@ -458,6 +478,9 @@ export default function AssetForm() {
                 </option>
               ))}
             </select>
+            {errors && errors.model_id && (
+              <div className="error">{errors.model_id[0]}</div>
+            )}
           </label>
 
           <div className="localAsset-cond">
@@ -467,7 +490,9 @@ export default function AssetForm() {
                 Condição:<label className="cmp-obg">*</label>
               </label>
               <select
-                className="infoInp-select"
+                className={`infoInp-select ${
+                  errors && errors.cond ? "error-input" : ""
+                }`}
                 name="condicao"
                 id="condicao"
                 value={asset.cond}
@@ -482,6 +507,9 @@ export default function AssetForm() {
                 <option value="Reparação">Reparação</option>
                 <option value="Obsoleto">Obsoleto</option>
               </select>
+              {errors && errors.cond && (
+                <div className="error">{errors.cond[0]}</div>
+              )}
             </label>
             <p></p>
             {/* ---------- Date of purchase ----------*/}
@@ -491,7 +519,9 @@ export default function AssetForm() {
                 Data de Compra:<label className="cmp-obg">*</label>
               </label>
               <input
-                className="form-calendar-asset"
+                className={`form-calendar-asset ${
+                  errors && errors.date_purch ? "error" : ""
+                }`}
                 type="date"
                 value={asset.date_purch}
                 onChange={(ev) =>
@@ -499,6 +529,9 @@ export default function AssetForm() {
                 }
                 placeholder="YYYY-MM-DD"
               />
+              {errors && errors.date_purch && (
+                <div className="error">{errors.date_purch[0]}</div>
+              )}
             </label>
             <p></p>
             {/* ---------- Supplier ----------*/}
@@ -509,7 +542,9 @@ export default function AssetForm() {
                 Fornecedor:<label className="cmp-obg">*</label>
               </label>
               <select
-                className="infoInp-select"
+                className={`infoInp-select ${
+                  errors && errors.supplier_id ? "error-input" : ""
+                }`}
                 value={asset.supplier_id}
                 onChange={handleSupplierChange}
               >
@@ -520,6 +555,9 @@ export default function AssetForm() {
                   </option>
                 ))}
               </select>
+              {errors && errors.supplier_id && (
+                <div className="error">{errors.supplier_id[0]}</div>
+              )}
             </label>
           </div>
           <div className="space-mov"></div>
@@ -534,7 +572,9 @@ export default function AssetForm() {
                 Entidade:<label className="cmp-obg">*</label>
               </label>
               <select
-                className="infoInp-select"
+                className={`infoInp-select ${
+                  errors && errors.ent_id ? "error-input" : ""
+                }`}
                 name="entity"
                 id="entity"
                 value={asset.ent_id}
@@ -548,6 +588,9 @@ export default function AssetForm() {
                   </option>
                 ))}
               </select>
+              {errors && errors.ent_id && (
+                <div className="error">{errors.ent_id[0]}</div>
+              )}
             </label>
             <p></p>
             {/* ---------- Units ----------*/}
@@ -580,8 +623,13 @@ export default function AssetForm() {
               <input
                 value={asset.ci === null ? "" : asset.ci}
                 onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
-                className="infoInp"
+                className={`infoInp ${
+                  errors && errors.ci ? "error-input" : ""
+                }`}
               />
+              {errors && errors.ci && (
+                <div className="error">{errors.ci[0]}</div>
+              )}
             </label>
             <p></p>
             {/* ---------- Floor ----------*/}

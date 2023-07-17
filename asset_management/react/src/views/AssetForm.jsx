@@ -401,7 +401,6 @@ export default function AssetForm() {
                 className={`infoInp ${
                   errors && errors.numb_ser ? "error-input" : ""
                 }`}
-                required
               />
               {errors && errors.numb_ser && (
                 <div className="error">{errors.numb_ser[0]}</div>
@@ -666,7 +665,7 @@ export default function AssetForm() {
                   <div className="error">{errors.ci[0]}</div>
                 )}
               </label>
-              {console.log(errors)}
+              {/*  {console.log(errors)} */}
               {/* ---------- Floor ----------*/}
               <label htmlFor="floor" className="lb-info">
                 <label className="labelofLabel">Piso: </label>

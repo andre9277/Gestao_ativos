@@ -166,3 +166,27 @@ All the changes made to enable the implementation of the desired development too
     border-radius: 0.25rem;
     font-size: 1.2rem;
 }
+
+.infoInp.error-input {
+    border-color: red;
+}
+
+.infoInp-select.error-input {
+    border-color: red;
+}
+
+.error {
+    color: white;
+    float: right;
+    font-size: 1rem;
+    background-color: red;
+    padding: 0.2rem;
+    font-weight: 500;
+}
+
+.form-calendar-asset.error {
+    border-color: red;
+    background-color: white;
+    color: black;
+    font-size: 1.2rem;
+}
