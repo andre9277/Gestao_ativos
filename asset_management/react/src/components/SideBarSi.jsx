@@ -65,7 +65,7 @@ const SideBarSi = () => {
       setStyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
     }
   };
-  const [activeOption, setActiveOption] = useState("");
+  const [activeOption, setActiveOption] = useState("dashboard");
 
   const handleOptionClick = (option) => {
     setActiveOption(option);

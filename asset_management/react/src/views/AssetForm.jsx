@@ -601,7 +601,9 @@ export default function AssetForm() {
               {/* ---------- CI ----------*/}
               <label className="lb-info">
                 {" "}
-                <label className="labelofLabel">CI:</label>
+                <label className="labelofLabel">
+                  CI:<label className="cmp-obg">*</label>
+                </label>
                 <input
                   value={asset.ci === null ? "" : asset.ci}
                   onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}

@@ -66,7 +66,7 @@ const SideBarGuest = () => {
     }
   };
 
-  const [activeOption, setActiveOption] = useState("");
+  const [activeOption, setActiveOption] = useState("dashboard");
 
   const handleOptionClick = (option) => {
     setActiveOption(option);
