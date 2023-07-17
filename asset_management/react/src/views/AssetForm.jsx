@@ -667,7 +667,6 @@ export default function AssetForm() {
                 />
               </label>
 
-              {console.log("id", id)}
               <label className="lb-info-btn">
                 {id === undefined ? (
                   <input
