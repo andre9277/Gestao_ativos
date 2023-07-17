@@ -666,7 +666,7 @@ export default function AssetForm() {
                   <div className="error">{errors.ci[0]}</div>
                 )}
               </label>
-
+              {console.log(errors)}
               {/* ---------- Floor ----------*/}
               <label htmlFor="floor" className="lb-info">
                 <label className="labelofLabel">Piso: </label>

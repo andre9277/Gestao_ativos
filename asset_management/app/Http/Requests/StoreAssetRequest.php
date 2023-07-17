@@ -29,7 +29,7 @@ class StoreAssetRequest extends FormRequest
             'state' => 'required',
             'cat_id' => 'required',
             'brand_id' => 'required',
-            'ci' => 'required',
+            'ci' => ['required', 'max:7'],
             'ent_id' => 'required',
             'numb_inv' => [
                 'nullable',
@@ -52,6 +52,7 @@ class StoreAssetRequest extends FormRequest
             'numb_inv.unique' => 'Atenção! O número de inventário já foi adicionado.',
             'numb_ser.max' => 'Atenção! O número de série não pode ter mais de 25 caracteres.',
             'ci' => 'Atenção! É necessário indicar o ci.',
+            'ci.max' => 'Atenção! CI inválido.',
             'ent_id' => 'Atenção! É necessário indicar a entidade.',
             'numb_ser' => 'Atenção! É necessário indicar o número de série.',
             'cat_id' => 'Atenção! É necessário indicar a categoria.',
