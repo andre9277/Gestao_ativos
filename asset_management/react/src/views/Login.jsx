@@ -82,6 +82,16 @@ export default function Login() {
       payload.password = password;
     }
 
+    if (!payload.email && !payload.mec) {
+      setMessage("Por favor, insira o email ou número MEC");
+      return;
+    }
+
+    if (!payload.pin && !payload.password) {
+      setMessage("Por favor, insira a password ou PIN");
+      return;
+    }
+
     axiosClient
       .post("/login", payload)
       .then(({ data }) => {
