@@ -86,7 +86,7 @@ export default function UserForm() {
     if (errors) {
       timer = setTimeout(() => {
         setErrors(null);
-      }, 5000); // 5 seconds
+      }, 15000); // 15 seconds
     }
 
     return () => {
@@ -188,14 +188,14 @@ export default function UserForm() {
       {!user.id && <h1 className="title-page-all">Novo Utilizador</h1>}
       <div className="card animated fadeInDown">
         {loading && <div className="caprr-re">A carregar...</div>}
-        {errors && (
+        {/*  {errors && (
           <div className="alert">
             {Object.keys(errors).map((key) => (
               <p key={key}>{errors[key][0]}</p>
             ))}
           </div>
         )}
-
+ */}
         {!loading && (
           <form onSubmit={onSubmit} className="assetForm-assett">
             <h1 className="title-page-all-sub">Dados Gerais: </h1>
@@ -210,9 +210,15 @@ export default function UserForm() {
               <input
                 value={user.name}
                 onChange={(ev) => setUser({ ...user, name: ev.target.value })}
-                className="infoInp"
+                className={`infoInp ${
+                  errors && errors.name ? "error-input" : ""
+                }`}
               />
+              {errors && errors.name && (
+                <div className="error">{errors.name[0]}</div>
+              )}
             </label>
+
             <label className="lb-info">
               <label className="labelofLabel">
                 Email:<label className="cmp-obg">*</label>{" "}
@@ -221,8 +227,13 @@ export default function UserForm() {
                 type="email"
                 value={user.email}
                 onChange={(ev) => setUser({ ...user, email: ev.target.value })}
-                className="infoInp"
+                className={`infoInp ${
+                  errors && errors.email ? "error-input" : ""
+                }`}
               />
+              {errors && errors.email && (
+                <div className="error">{errors.email[0]}</div>
+              )}
             </label>
 
             <label className="lb-info">
@@ -232,8 +243,13 @@ export default function UserForm() {
               <input
                 value={user.mec}
                 onChange={(ev) => setUser({ ...user, mec: ev.target.value })}
-                className="infoInp"
+                className={`infoInp ${
+                  errors && errors.mec ? "error-input" : ""
+                }`}
               />
+              {errors && errors.mec && (
+                <div className="error">{errors.mec[0]}</div>
+              )}
             </label>
             <label htmlFor="role" className="lb-info">
               <label className="labelofLabel">
@@ -241,7 +257,9 @@ export default function UserForm() {
                 Função:<label className="cmp-obg">*</label>{" "}
               </label>
               <select
-                className="infoInp-select"
+                className={`infoInp-select ${
+                  errors && errors.role_id ? "error-input" : ""
+                }`}
                 name="role"
                 id="role"
                 value={user.role_id}
@@ -254,6 +272,9 @@ export default function UserForm() {
                 <option value="2">Sistemas de Informação</option>
                 <option value="3">Manutenção</option>
               </select>
+              {errors && errors.name && (
+                <div className="error">{errors.name[0]}</div>
+              )}
             </label>
 
             <label className="lb-info">
@@ -267,8 +288,13 @@ export default function UserForm() {
                 onChange={(ev) =>
                   setUser({ ...user, password: ev.target.value })
                 }
-                className="infoInp"
+                className={`infoInp ${
+                  errors && errors.password ? "error-input" : ""
+                }`}
               />
+              {errors && errors.password && (
+                <div className="error">{errors.password[0]}</div>
+              )}
             </label>
             <label className="lb-info">
               Valida Password:<label className="cmp-obg">*</label>

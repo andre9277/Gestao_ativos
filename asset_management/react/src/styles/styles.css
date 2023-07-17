@@ -12904,6 +12904,7 @@ select {
     padding: 0.5em 6.5em 0.5em 0;
     font-weight: 700;
     font-size: 1.2rem;
+    position: relative;
 }
 
 .lb-info-allocation {
@@ -13872,4 +13873,18 @@ button {
     padding: 10px;
     margin: 24px;
     font-weight: 700;
+}
+
+.error {
+    color: red;
+    float: right;
+    font-size: 1rem;
+}
+
+.infoInp.error-input {
+    border-color: red;
+}
+
+.infoInp-select.error-input {
+    border-color: red;
 }
