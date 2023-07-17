@@ -378,8 +378,9 @@ const AddAssetMovementForm = () => {
           <input
             value={assetCi}
             onChange={(e) => setAssetCi(e.target.value)}
-            className="infoInp"
+            className={`infoInp ${errors && errors.ci ? "error-input" : ""}`}
           />{" "}
+          {errors && errors.ci && <div className="error">{errors.ci[0]}</div>}
         </label>
 
         <div className="space-mov"></div>
