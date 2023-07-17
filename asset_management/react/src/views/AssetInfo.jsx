@@ -91,7 +91,7 @@ const AssetInfo = () => {
     const contentToPrint = document.getElementById("print-content").innerHTML;
 
     const printStyles = `
-      <link rel="stylesheet" type="text/css" href="styles.css">`;
+      <link rel="stylesheet" type="text/css" href="../styles/styles.css">`;
 
     printWindow.document.open();
     printWindow.document.write(`
