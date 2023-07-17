@@ -49,7 +49,7 @@ export default function Assets() {
   const [errorMessage, setErrorMessage] = useState("");
 
   //display the error message for 2 seconds
-  useEffect(() => {
+  /*  useEffect(() => {
     let timer;
     if (errorMessage) {
       timer = setTimeout(() => {
@@ -57,7 +57,7 @@ export default function Assets() {
       }, 2000); // Display for 2 seconds (2000 milliseconds)
     }
     return () => clearTimeout(timer); // Clear the timer if component unmounts or if the error message changes
-  }, [errorMessage]);
+  }, [errorMessage]); */
 
   useEffect(() => {
     getAssets();
