@@ -25,12 +25,19 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React, { useState, useEffect } from "react";
 import Quagga from "quagga";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client.js";
+import "../styles/Scan.css";
 
 const Scan = () => {
   const [barcode, setBarcode] = useState("");
@@ -90,8 +97,8 @@ const Scan = () => {
           type: "LiveStream",
           target: document.querySelector("#scanner-container"),
           constraints: {
-            width: 640, // adjust the width as needed
-            height: 480, // adjust the height as needed
+            width: window.innerWidth, // set width to screen width
+            height: window.innerHeight, // set height to screen height
           },
           scan: true, // added property
         },
@@ -143,8 +150,8 @@ const Scan = () => {
         // draw rectangle in the middle of the scanner area
         const canvasWidth = drawingCanvas.width;
         const canvasHeight = drawingCanvas.height;
-        const rectWidth = canvasWidth * 0.5; // adjust rectangle width as needed
-        const rectHeight = canvasHeight * 0.3; // adjust rectangle height as needed
+        const rectWidth = canvasWidth * 0.8; // adjust rectangle width as needed
+        const rectHeight = canvasHeight * 0.2; // adjust rectangle height as needed
         const rectX = (canvasWidth - rectWidth) / 2;
         const rectY = (canvasHeight - rectHeight) / 2;
 
@@ -165,11 +172,11 @@ const Scan = () => {
   }
 
   return (
-    <>
+    <div>
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 className="h3 mb-0 text-gray-800">Barcode Scanner</h1>
       </div>
-      <div id="scanner-container" className="row">
+      <div id="scanner-container">
         <div style={{ position: "relative", width: "100%", height: "100%" }}>
           <video
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
@@ -190,7 +197,7 @@ const Scan = () => {
 
         <p>Barcode: {barcode}</p>
       </div>
-    </>
+    </div>
   );
 };
 

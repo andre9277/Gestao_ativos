@@ -25,31 +25,41 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import { Link } from "react-router-dom";
 import axiosClient from "../axios-client.js";
 import { createRef } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import img_logo from "../assets/hb_logo.png";
 import img_logo2 from "../assets/logo_new_hb.png";
-/* import img_log from ""; */
 
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBInput,
-} from "mdb-react-ui-kit";
+import { MDBContainer, MDBRow, MDBCol, MDBInput } from "mdb-react-ui-kit";
 
 export default function Login() {
   const emailRef = createRef();
   const passwordRef = createRef();
   const { setUser, setToken } = useStateContext();
   const [message, setMessage] = useState(null);
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage("");
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [message]);
 
   const onSubmit = (ev) => {
     ev.preventDefault();
@@ -109,14 +119,14 @@ export default function Login() {
                   <div className="login-main-box">
                     <MDBInput
                       wrapperClass="mb-4 mx-5 w-100"
-                      label="Endereço de email ou número MEC"
+                      label="Endereço de email / número MEC"
                       id="formControlLg"
                       size="lg"
                       ref={emailRef}
                     />
                     <MDBInput
                       wrapperClass="mb-4 mx-5 w-100"
-                      label="Password"
+                      label="Password / Pin"
                       id="formControlLg"
                       type="password"
                       size="lg"

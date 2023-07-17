@@ -25,6 +25,12 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 @charset "UTF-8";
@@ -141,6 +147,7 @@ body {
     background-color: #cc0000;
     border-radius: 1rem;
     padding: 0.5rem;
+    width: max-content;
 }
 
 hr {
@@ -288,7 +295,7 @@ strong {
 
 small,
 .small {
-    font-size: 20px;
+    font-size: 1.2rem;
 }
 
 mark,
@@ -2266,7 +2273,7 @@ progress {
 .form-label {
     margin-bottom: 0.5rem;
     width: auto;
-    font-size: 20px;
+    font-size: 1.2rem;
 }
 
 .col-form-label {
@@ -2628,6 +2635,8 @@ textarea.form-control-lg {
     margin-bottom: 0.5rem;
     border: 1px solid #9c9c9c;
     float: right;
+    font-size: 1.2rem;
+    font-weight: normal;
 }
 .form-select-user {
     width: 40%;
@@ -2849,7 +2858,6 @@ textarea.form-control-lg {
 .btn-filter,
 .btn-edit,
 .btn-delete {
-    font-family: "Roboto", sans-serif;
     text-decoration: none;
     color: #ffffff;
     font-size: 14px;
@@ -2870,7 +2878,7 @@ textarea.form-control-lg {
     float: right;
     background-color: #00a762;
     padding: 0.5rem 0.75rem;
-    font-size: 18px;
+    font-size: 1.2rem;
     border-radius: 4px;
     color: white;
     overflow: hidden;
@@ -2915,7 +2923,7 @@ input::placeholder {
     float: right;
     background-color: #00a762;
     padding: 0.5rem 0.75rem;
-    font-size: 18px;
+    font-size: 1.2rem;
     border-radius: 4px;
     color: white;
     overflow: hidden;
@@ -2936,7 +2944,7 @@ input::placeholder {
     padding: 0.5rem 0.75rem;
     font-size: 14px;
     border-radius: 4px;
-    font-size: 20px;
+    font-size: 1.2rem;
 }
 .btn-cleanfilter {
     background-color: #6c757d;
@@ -2952,7 +2960,7 @@ input::placeholder {
     float: right;
     background-color: #6c757d;
     padding: 0.5rem 0.75rem;
-    font-size: 18px;
+    font-size: 1.2rem;
     border-radius: 4px;
     color: white;
     overflow: hidden;
@@ -2963,7 +2971,7 @@ input::placeholder {
 .btn-cleanfilter-assett {
     background-color: #6c757d;
     padding: 0.5rem 0.75rem;
-    font-size: 18px;
+    font-size: 1.2rem;
     border-radius: 4px;
     color: white;
     overflow: hidden;
@@ -2974,7 +2982,7 @@ input::placeholder {
 .btn-dwl {
     background-color: #0a58ca;
     padding: 0.5rem 0.75rem;
-    font-size: 20px;
+    font-size: 1.2rem;
     border-radius: 4px;
     color: white;
     margin: 3px;
@@ -3000,27 +3008,27 @@ input::placeholder {
 }
 .text-link-f {
     color: white;
-    font-size: 14px;
+    font-size: 1.2rem;
     float: right;
     margin-right: 50px;
 }
 .text-link-ff {
     color: white;
     background-color: #007840;
-    font-size: 14px;
+    font-size: 1.2rem;
     float: right;
 }
 
 .text-link-a {
     color: white;
-    font-size: 14px;
+    font-size: 1.2rem;
     float: right;
 }
 
 .text-link-aa {
     color: white;
     background-color: #007840;
-    font-size: 14px;
+    font-size: 1.2rem;
     float: right;
 }
 
@@ -4300,8 +4308,25 @@ fieldset:disabled .btn {
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 0.25rem;
-    margin-left: -190px;
-    margin-right: 10px;
+    margin-left: -260px;
+}
+
+.dropdown-menuu {
+    position: absolute;
+    z-index: 1000;
+    display: none;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+    margin-left: -382px;
 }
 .dropdown-menu[data-bs-popper] {
     top: 100%;
@@ -4525,6 +4550,10 @@ fieldset:disabled .btn {
 }
 
 .dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-menuu.show {
     display: block;
 }
 
@@ -8688,6 +8717,7 @@ fieldset:disabled .btn {
 .text-muted {
     --bs-text-opacity: 1;
     color: #61a60e !important;
+    font-size: 1.2rem;
 }
 
 .text-black-50 {
@@ -12867,13 +12897,13 @@ select {
     text-align: left;
     padding: 0.5em 6.5em 0.5em 0;
     font-weight: 700;
-    font-size: 17px;
+    font-size: 1.2rem;
 }
 
 .lb-info-allocation {
     text-align: left;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 1.2rem;
     margin-right: 40px;
 }
 @media (max-width: 768px) {
@@ -12921,12 +12951,13 @@ select {
     border: 1px solid #9c9c9c;
     display: inline-flex;
     float: right;
+    font-size: 1.2rem;
 }
 .attrAsset-informat {
     /* width: 50%; */
     padding: 0.1rem;
     margin-bottom: 1rem;
-    background: #e0e3e9;
+    /* background: #e0e3e9; */
     border: 1px solid #9c9c9c;
     display: inline-flex;
     float: right;
@@ -13006,9 +13037,10 @@ select {
 .ssBar {
     background-color: #69b155;
     border: 1px solid black;
+    font-size: 1.2rem;
 }
 .ssBar::placeholder {
-    font-size: 20px;
+    font-size: 1.2rem;
 }
 
 .headerInfoAsset {
@@ -13025,11 +13057,12 @@ select {
 .impLab {
     width: 30%;
     color: #007840;
+    font-size: 1.2rem;
 }
 
 .inpImport {
     width: auto;
-    font-size: larger;
+    font-size: 1.2rem;
     border: 1px solid black;
     border-radius: 4px;
     display: flex;
@@ -13147,7 +13180,7 @@ input::placeholder {
 .dwlTemp {
     color: blue;
     text-decoration: underline;
-    font-size: larger;
+    font-size: 1.2rem;
 }
 
 .succMess {
@@ -13156,15 +13189,16 @@ input::placeholder {
     margin: 10px 0;
     padding: 10px;
     border-radius: 3px 3px 3px 3px;
+    font-size: 1.2rem;
 }
 
 .errMess {
-    color: #270;
     background-color: #dff2bf;
     margin: 10px 0;
     color: #d8000c;
     background-color: #ffbaba;
-    width: 20%;
+    width: 50%;
+    font-size: 1.2rem;
 }
 
 .pagFilter {
@@ -13195,6 +13229,7 @@ input::placeholder {
 .filternopag {
     color: #61a60e !important;
     text-align: center;
+    font-size: 1.2rem;
 }
 
 /* .btn-filter {
@@ -13266,6 +13301,17 @@ input::placeholder {
     padding: 10px;
     z-index: 1;
 }
+
+.dropdown-menuu {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1;
+}
+
 .obs-mov-asset {
     max-width: 200px;
     word-break: break-word;
@@ -13306,18 +13352,18 @@ input::placeholder {
     margin-right: 5px; /* Optional: Add some space between the label and select */
     color: #459c2c;
     font-weight: bold;
-    font-size: 14px;
-    margin-right: 10px;
+    font-size: 1.2rem;
+    margin-right: 35px;
     margin-bottom: 0.1px;
 }
 
 .filtAsset-tab {
     color: black;
-    width: 100px;
+    width: 130px;
     margin: 0.5px;
     cursor: pointer;
     line-height: 1.1;
-    font-size: 14px;
+    font-size: 1.2rem;
     align-items: center;
     text-align: left;
     border: 2px solid #459c2c;
@@ -13330,12 +13376,13 @@ input::placeholder {
 
 .title-page-all-sub {
     color: #007840;
-    font-size: 2.4rem;
+    font-size: 2rem;
     padding: 1px;
 }
 
 .asset-import {
     color: #007840;
+    font-size: 1.2rem;
 }
 .asset-importt {
     font-size: 22px;
@@ -13351,6 +13398,7 @@ input::placeholder {
     margin-left: 8%;
     margin-top: 1%;
     color: var(--bs-gray-600);
+    font-size: 1.2rem;
 }
 
 .cal-filt {
@@ -13360,6 +13408,8 @@ input::placeholder {
     padding: 1px;
     text-align: center;
     color: var(--bs-gray-600);
+    font-size: 1.2rem;
+    margin-bottom: 9px;
 }
 
 .form-filt {
@@ -13370,7 +13420,7 @@ input::placeholder {
 .titleFiltDataMov {
     color: #459c2c;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 1.2rem;
     margin-bottom: 0.1px;
     text-align: center;
 }
@@ -13382,6 +13432,8 @@ input::placeholder {
     background: #fff;
     border: 1px solid #9c9c9c;
     float: right;
+    font-size: 1.2rem;
+    font-weight: normal;
 }
 .infoInp-select {
     width: 60%;
@@ -13390,13 +13442,18 @@ input::placeholder {
     background: #fff;
     border: 1px solid #9c9c9c;
     float: right;
+    font-size: 1.2rem;
+    font-weight: normal;
 }
+
 .infoInpp {
     margin-bottom: 1rem;
     background: #fff;
     border: 1px solid #9c9c9c;
     float: right;
     padding: 0.1em;
+    font-size: 1.2rem;
+    font-weight: normal;
 }
 .infoInp-new {
     /* border: 1px solid #007840;
@@ -13431,6 +13488,8 @@ input::placeholder {
     margin-left: 38px;
     float: right;
     resize: none;
+    font-weight: normal;
+    font-size: 1.2rem;
 }
 .obs-mov-et {
     /* border: 1px solid #007840;
@@ -13574,6 +13633,7 @@ button {
 .labelofLabel {
     width: 270px;
     display: inline;
+    font-size: 1.2rem;
 }
 
 .camp-obs {
@@ -13599,6 +13659,8 @@ button {
     margin-left: 48px;
     float: right;
     resize: none;
+    font-size: 1.2rem;
+    font-weight: normal;
 }
 
 .space {
@@ -13681,12 +13743,14 @@ button {
 .lb-allo-dt {
     width: auto;
     font-weight: 700;
+    font-size: 1.2rem;
 }
 
 .dt-inpt-allo {
     border: 1px solid black;
     padding: 0.1em;
     float: right;
+    font-size: 1.2rem;
 }
 
 .err-allo-dt {
@@ -13700,21 +13764,29 @@ button {
 
 .table-words-l {
     text-align: left;
+    font-size: 1.2rem;
 }
 
 .table-numb-r {
     text-align: right;
+    font-size: 1.2rem;
+}
+
+.tb-normal {
+    font-size: 1.2rem;
 }
 
 .rec-pass {
     width: auto;
     margin-bottom: auto;
+    font-size: 1.2rem;
 }
 
 .inp-res-pass {
-    width: auto;
+    width: 100%;
     border: 1px solid black;
-    margin-bottom: 10px;
+    margin-bottom: 24px;
+    font-size: 1.2rem;
 }
 .inp-res-pass-rec {
     border: 1px solid black;
@@ -13726,14 +13798,15 @@ button {
 .btn-rec-pass {
     background-color: #00a762;
     padding: 0.5rem 0.75rem;
-    font-size: 20px;
+    font-size: 1.2rem;
     border-radius: 4px;
     color: white;
+    width: 100%;
 }
 
 .ms-rec-pass {
     color: white;
-    background-color: #ffbaba;
+    background-color: red;
     text-align: center;
     width: inherit;
     padding: 0.5rem;
@@ -13753,7 +13826,7 @@ button {
 
 .btn-login-main {
     padding: 0.5rem 1rem;
-    font-size: 20px;
+    font-size: 1.2rem;
     border-radius: 0.3rem;
     max-width: 100% !important;
     height: auto;
@@ -13770,4 +13843,24 @@ button {
 
 .form-group-reset {
     display: flow-root;
+}
+
+.header-tb {
+    font-weight: normal;
+    font-size: 1.2rem;
+}
+
+.info-import-tx {
+    font-size: 1.2rem;
+}
+
+#print-content {
+    font-size: 3rem;
+}
+
+.message_error {
+    color: white;
+    background-color: red;
+    font-size: 1.2rem;
+    width: 40%;
 }

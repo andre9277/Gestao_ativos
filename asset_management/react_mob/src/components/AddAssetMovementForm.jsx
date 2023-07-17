@@ -25,6 +25,12 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React, { useEffect, useState } from "react";
@@ -32,6 +38,8 @@ import axiosClient from "../axios-client";
 import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { Modal, Button } from "react-bootstrap";
+import "../styles/AddAssetMovementForm.css";
+import "../index.css";
 
 const AddAssetMovementForm = () => {
   const [errors, setErrors] = useState(null);
@@ -129,7 +137,7 @@ const AddAssetMovementForm = () => {
             .put(`/assets/${matchingAsset.id}`, updateAsset)
             .then(() => {
               setNotification("Ativo Movimentado com sucesso!");
-              navigate("/report");
+              navigate("/dashboard");
             })
             .catch((err) => {
               const response = err.response;
@@ -150,7 +158,7 @@ const AddAssetMovementForm = () => {
             .put(`/assets/${matchingInv.id}`, updateAsset)
             .then(() => {
               setNotification("Ativo Movimentado com sucesso!");
-              navigate("/report");
+              navigate("/dashboard");
             })
             .catch((err) => {
               const response = err.response;
@@ -173,7 +181,7 @@ const AddAssetMovementForm = () => {
     setOther("");
   };
   return (
-    <>
+    <div className="mn-cnt-mov">
       <Modal show={showConfirmModal} onHide={handleCancelSave}>
         <Modal.Header closeButton>
           <Modal.Title>Confirmação</Modal.Title>
@@ -188,9 +196,10 @@ const AddAssetMovementForm = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <h1 className="title-page-all">Movimento de Ativo</h1>
+      <h1 className="tlt-assetInfo">Movimento de Ativo</h1>
+      <div className="space-mov-add"></div>
       <form onSubmit={handleSubmit} className="assetForm">
-        <h1 className="title-page-all-sub">Dados Gerais: </h1>
+        <h1 className="headerInfoAsset">Dados Gerais: </h1>
         <p></p>
         <p></p>
         <p className="camp-obs-mov">*Campo Obrigatório</p>
@@ -225,7 +234,7 @@ const AddAssetMovementForm = () => {
             className="infoInp"
           />
         </label>
-
+        <p></p>
         {/* ---------- Num Serial ----------*/}
         <label className="lb-info">
           <label className="labelofLabel">
@@ -241,6 +250,7 @@ const AddAssetMovementForm = () => {
           />
         </label>
         <div className="space-mov"></div>
+        <hr className="sidebar-divider" />
         <h1 className="title-page-all-sub">Localização: </h1>
         <p></p>
         {/* ---------- Local Now ----------*/}
@@ -269,7 +279,7 @@ const AddAssetMovementForm = () => {
             />
           )}
         </label>
-
+        <p></p>
         {/* ----------New Local ----------*/}
 
         <label htmlFor="entity" className="lb-info">
@@ -289,7 +299,7 @@ const AddAssetMovementForm = () => {
             ))}
           </select>
         </label>
-
+        <p></p>
         {/* ----------CI----------*/}
         <label className="lb-info">
           <label className="labelofLabel">CI origem: </label>
@@ -316,7 +326,7 @@ const AddAssetMovementForm = () => {
             />
           )}
         </label>
-
+        <p></p>
         {/* ---------- CI Now ----------*/}
         <label className="lb-info">
           <label className="labelofLabel"> CI destino: </label>
@@ -328,6 +338,7 @@ const AddAssetMovementForm = () => {
         </label>
 
         <div className="space-mov"></div>
+        <hr className="sidebar-divider" />
         <h1 className="title-page-all-sub">Outros: </h1>
         <p></p>
         {/* ---------- Reason ----------*/}
@@ -350,7 +361,7 @@ const AddAssetMovementForm = () => {
             <option value="Garantia">Garantia</option>
           </select>
         </label>
-
+        <p></p>
         <label className="lb-info">
           <label className="labelofLabel">Observações:</label>
           <textarea
@@ -359,6 +370,7 @@ const AddAssetMovementForm = () => {
             className="obs-mov-e"
           />
         </label>
+        <div className="space-mov-add"></div>
         <label className="lb-info"></label>
         <label className="lb-info">
           <button onClick={resetFilter} className="btn-cleanfilter-movAsset">
@@ -369,7 +381,7 @@ const AddAssetMovementForm = () => {
           </button>
         </label>
       </form>
-    </>
+    </div>
   );
 };
 

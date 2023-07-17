@@ -25,6 +25,12 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import axiosClient from "../axios-client.js";
@@ -89,13 +95,13 @@ export default function Login() {
           <p>{message}</p>
         </div>
       )}
-      {/* <h3 className="lb-lg">Log In</h3> */}
       <img
         src={img_logo}
         alt="Login image"
         className="w-100-new"
         style={{ objectFit: "cover", objectPosition: "left" }}
       />
+      <div className="space-mov"></div>
       <div className="mb-3">
         <label className="lb-lg">Endereço de email / Nº mec</label>
         <input className="form-control" ref={emailRef} />
@@ -104,22 +110,17 @@ export default function Login() {
         <label className="lb-lg">Pin</label>
         <input type="password" className="form-control" ref={passwordRef} />
       </div>
-      <div className="mb-3">
-        <div className="custom-control custom-checkbox">
-          <input
-            type="checkbox"
-            className="custom-control-input"
-            id="customCheck1"
-          />
-        </div>
-      </div>
+
       <div className="d-grid">
         <button type="submit" className="btn-login">
           Log in
         </button>
       </div>
       <p className="lb-lg text-right">
-        Esqueceu a sua <a href="/forgotPassword">password?</a>
+        Esqueceu a sua{" "}
+        <a href="/forgotPassword" className="link-pages">
+          password?
+        </a>
       </p>
       <div className="footer-copyR">
         V1.0.0 © 2023. Hospital de Braga

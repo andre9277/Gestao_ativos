@@ -25,6 +25,12 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React from "react";
@@ -32,6 +38,7 @@ import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import { useParams } from "react-router-dom";
 import "../styles/AssetInfo.css";
+import "../index.css";
 
 const AssetInfo = () => {
   //We take the ID
@@ -90,7 +97,7 @@ const AssetInfo = () => {
               Informações do ativo:{" "}
               {asset.numb_inv === null ? asset.numb_ser : asset.numb_inv}
             </h1>
-            <p></p>
+            <div className="space-mov"></div>
             <h2 className="headerInfoAsset">Dados gerais: </h2>
             <p></p>
             <ul className="lb-infoAsset-informat">
@@ -115,7 +122,7 @@ const AssetInfo = () => {
             <ul className="lb-infoAsset-informat">
               <label className="lb-infoAsset2-informat">
                 Marca:
-                <h6 className="attrAsset-informat">{asset.brand.sig}</h6>
+                <h6 className="attrAsset-informat">{asset.brand.name}</h6>
               </label>{" "}
             </ul>
             <ul className="lb-infoAsset-informat">
@@ -144,6 +151,7 @@ const AssetInfo = () => {
             </ul>
 
             <div className="space-mov"></div>
+            <hr className="sidebar-divider" />
             {/* -------------Informação ativo - localização------------- */}
             <div className="containerr">
               <h2 className="headerInfoAsset">Localização: </h2>
@@ -196,6 +204,7 @@ const AssetInfo = () => {
                 </label>
               </ul>
               <div className="space-mov"></div>
+              <hr className="sidebar-divider" />
               {/* -------------Informação ativo - fornecedor------------- */}
 
               <h2 className="headerInfoAsset">Fornecedor: </h2>
@@ -235,6 +244,7 @@ const AssetInfo = () => {
               </ul>
 
               <div className="space-mov"></div>
+              <hr className="sidebar-divider" />
               <h2 className="headerInfoAsset">Observações:</h2>
               <p></p>
               <ul className="lb-infoAsset-informat">

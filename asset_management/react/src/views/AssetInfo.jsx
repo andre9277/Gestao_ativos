@@ -25,6 +25,12 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React from "react";
@@ -81,7 +87,24 @@ const AssetInfo = () => {
   });
 
   const handlePrint = () => {
-    window.print();
+    const printWindow = window.open("", "_blank");
+    const contentToPrint = document.getElementById("print-content").innerHTML;
+
+    const printStyles = `
+      <link rel="stylesheet" type="text/css" href="styles.css">`;
+
+    printWindow.document.open();
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Print</title>
+          ${printStyles}
+        </head>
+        <body>${contentToPrint}</body>
+      </html>
+    `);
+    printWindow.document.close();
+    printWindow.print();
   };
 
   return (
@@ -127,7 +150,7 @@ const AssetInfo = () => {
                   <ul className="lb-infoAsset-informat">
                     <label className="lb-infoAsset2-informat">
                       Marca:
-                      <h6 className="attrAsset-informat">{asset.brand.sig}</h6>
+                      <h6 className="attrAsset-informat">{asset.brand.name}</h6>
                     </label>{" "}
                   </ul>
                   <ul className="lb-infoAsset-informat">

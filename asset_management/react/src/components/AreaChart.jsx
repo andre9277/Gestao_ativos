@@ -25,6 +25,12 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React from "react";
@@ -111,7 +117,7 @@ const AreaChart = ({ assets }) => {
       <div className="card shadow mb-4">
         {/*  <!-- Card Header - Dropdown --> */}
         <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h5 className="m-0 font-weight-bold graf-dash">
+          <h5 className="m-0 font-weight-bold graf-dash-gr">
             Total de Ativos/Entidade
           </h5>
         </div>

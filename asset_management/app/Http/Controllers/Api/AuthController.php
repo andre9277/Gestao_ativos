@@ -8,8 +8,8 @@ use App\Http\Requests\SignupRequest;
 use App\Models\Allocation;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+
 
 class AuthController extends Controller
 {
@@ -33,6 +33,7 @@ class AuthController extends Controller
         return response(compact('user', 'token'));
     }
 
+
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('mec', 'email', 'password', 'pin');
@@ -50,16 +51,42 @@ class AuthController extends Controller
             ], 422);
         }
 
-        if (isset($credentials['password']) && !Hash::check($credentials['password'], $user->password)) {
+        if ($user->blocked) {
             return response([
-                'message' => 'Atenção! A password está incorreta!'
+                'message' => 'Atenção! A sua conta está bloqueada!'
             ], 422);
         }
 
-        if (isset($credentials['pin']) && !Hash::check($credentials['pin'], $user->pin)) {
-            return response([
-                'message' => 'Atenção! O PIN está incorreto!'
-            ], 422);
+        $isPasswordCorrect = isset($credentials['password']) && Hash::check($credentials['password'], $user->password);
+        $isPinCorrect = isset($credentials['pin']) && Hash::check($credentials['pin'], $user->pin);
+
+        if (!$isPasswordCorrect && !$isPinCorrect) {
+            $user->login_attempts++;
+            $user->save();
+
+            // Check if the user account should be blocked
+            if ($this->hasExceededMaxLoginAttempts($user)) {
+                $this->blockUserAccount($user);
+                return response([
+                    'message' => 'Atenção! A sua conta foi bloqueada devido a múltiplas tentativas de login falhadas.'
+                ], 422);
+            }
+
+            if (!$isPasswordCorrect) {
+                return response([
+                    'message' => 'Atenção! A password está incorreta!'
+                ], 422);
+            }
+
+            if (!$isPinCorrect) {
+                return response([
+                    'message' => 'Atenção! O PIN está incorreto!'
+                ], 422);
+            }
+        } else {
+            // Reset login attempts if login is successful
+            $user->login_attempts = 0;
+            $user->save();
         }
 
         $token = $user->createToken('main')->plainTextToken;
@@ -69,13 +96,23 @@ class AuthController extends Controller
             'allocation_date' => now(),
             'ser_number' => "",
             'action_type' => 'Log in',
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'reason' => "",
         ]);
         $allocation->save();
 
         return response(compact('user', 'token'));
     }
 
+    protected function hasExceededMaxLoginAttempts(User $user)
+    {
+        return $user->login_attempts >= 5;
+    }
+
+    protected function blockUserAccount(User $user)
+    {
+        $user->update(['blocked' => true]);
+    }
 
 
     public function logout(Request $request)
@@ -87,7 +124,8 @@ class AuthController extends Controller
             'allocation_date' => now(),
             'ser_number' => "",
             'action_type' => 'Log out',
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'reason' => "",
         ]);
         $allocation->save();
         $user->currentAccessToken()->delete();

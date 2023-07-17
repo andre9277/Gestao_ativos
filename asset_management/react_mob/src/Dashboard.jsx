@@ -25,102 +25,24 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React from "react";
-import Card from "./components/Card";
-/* import "./styles/Dashboard.css"; */
-import AreaChart from "./components/AreaChart";
-import PieChart from "./components/PieChart";
-import { useState, useEffect } from "react";
-import axiosClient from "./axios-client.js";
+import "./styles/Dashboard.css";
 
 function Dashboard() {
-  const [assetTotal, setAssetTotal] = useState("");
-  const [assets, setAssets] = useState([]);
-
-  useEffect(() => {
-    const abortController = new AbortController();
-    getTotalAssets(abortController.signal);
-    getAssets(abortController.signal);
-
-    return () => {
-      abortController.abort();
-    };
-  }, []);
-
-  //Performs a client access request
-  const getTotalAssets = (signal, url) => {
-    url = url || "/assetsC";
-    axiosClient.get(url, { signal }).then(({ data }) => {
-      setAssetTotal(data);
-    });
-  };
-
-  const getAssets = (signal, url) => {
-    url = url || "/getDashb";
-    axiosClient.get(url, { signal }).then(({ data }) => {
-      // update the state with all the assets
-      setAssets(data);
-    });
-  };
-
   return (
-    <div id="content-wrapper" className="d-flex flex-column">
-      {/*  <!-- Main Content --> */}
-      <div id="content">
-        {/* <!-- Begin Page Content --> */}
-        <div className="container-fluid">
-          {/*  <!-- Page Heading --> */}
-          <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 className="h3 mb-0 graf-dash">Dashboard</h1>
-          </div>
+    <div className="mn-cnt">
+      <h1 className="tlt-dashb">Dashboard</h1>
+      <div className="space-mov"></div>
 
-          {/*  <!-- Content Row --> */}
-          <div className="row-dash">
-            {/*  <!-- Total of Assets --> */}
-            <Card
-              Titulo="Total de ativos"
-              Descricao={assetTotal.total}
-              Icon="fa-laptop"
-              Cor="text-primary"
-              Tipo="primary"
-            />
-
-            {/*  <!-- Assets Changed --> */}
-            <Card
-              Titulo="Média mensal - Ativos movimentados"
-              Descricao={assetTotal.countChanged}
-              Icon="fa-arrows-alt"
-              Cor="text-success"
-              Tipo="success"
-            />
-
-            {/*  <!-- Assets in Repair --> */}
-
-            <Card
-              Titulo="Ativos em reparação"
-              Descricao={assetTotal.totalRep}
-              Icon="fa-wrench"
-              Cor="text-warning"
-              Tipo="warning"
-            />
-          </div>
-
-          {/*  <!-- Content Row --> */}
-
-          <div className="row-dash">
-            {/*   <!-- Area Chart --> */}
-            <AreaChart assets={assets} />
-
-            {/*  <!-- Pie Chart --> */}
-
-            <PieChart assets={assets} />
-          </div>
-        </div>
-        {/*   <!-- /.container-fluid --> */}
-      </div>
-      {/*   <!-- End of Main Content -->*/}
+      <div className="tx-dashb">Bem vindo ao SIGA</div>
     </div>
   );
 }

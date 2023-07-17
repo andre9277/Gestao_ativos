@@ -18,12 +18,18 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.  
+THE SOFTWARE. 
 
 You may obtain a copy of the license at:
 
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
+
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
@@ -35,6 +41,7 @@ import { Modal, Button } from "react-bootstrap";
 
 export default function AssetForm() {
   const [errors, setErrors] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   //Meanwhile the table isnt loading we show a loading string
   const [loading, setLoading] = useState(false);
@@ -112,6 +119,17 @@ export default function AssetForm() {
     }
   }, [selectedEntity]);
 
+  useEffect(() => {
+    if (errors) {
+      const timer = setTimeout(() => {
+        setErrors(null); // Clear the error messages after 5 seconds
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer); // Clear the timer if the component unmounts before 5 seconds
+      };
+    }
+  }, [errors]);
   //List of assets:
   const [asset, setAsset] = useState({
     id: null,
@@ -276,6 +294,40 @@ export default function AssetForm() {
     });
   };
 
+  const handleDateChange = (ev) => {
+    const enteredDate = ev.target.value;
+
+    // Check if the entered date is valid
+    if (enteredDate && !isValidDate(enteredDate)) {
+      // Date is invalid, set the error message
+      setErrorMessage("Data inválida");
+      setAsset({ ...asset, date_purch: "" });
+
+      // Clear the error message after 5 seconds
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 5000);
+    } else {
+      // Date is valid, clear the error message and update the state
+      setErrorMessage("");
+      setAsset({ ...asset, date_purch: enteredDate });
+    }
+  };
+
+  const isValidDate = (dateString) => {
+    // Check if the input is in the format "YYYY-MM-DD"
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!regex.test(dateString)) {
+      return false;
+    }
+
+    // Check if the date is valid
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const isValid = !isNaN(date.getTime()) && year >= 2000 && year <= 2040;
+    return isValid;
+  };
+
   return (
     <>
       {" "}
@@ -289,10 +341,10 @@ export default function AssetForm() {
             : "Deseja adicionar o ativo?"}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleConfirmSave}>
+          <Button variant="primary" onClick={handleConfirmSave}>
             Confirmar
           </Button>
-          <Button variant="primary" onClick={handleCancelSave}>
+          <Button variant="secondary" onClick={handleCancelSave}>
             Cancelar
           </Button>
         </Modal.Footer>
@@ -472,11 +524,10 @@ export default function AssetForm() {
                   className="form-calendar-asset"
                   type="date"
                   value={asset.date_purch}
-                  onChange={(ev) =>
-                    setAsset({ ...asset, date_purch: ev.target.value })
-                  }
+                  onChange={handleDateChange}
                   placeholder="YYYY-MM-DD"
                 />
+                {errorMessage && <p className="alert">{errorMessage}</p>}
               </label>
               {/* ---------- Supplier ----------*/}
               <label className="lb-info">
@@ -614,13 +665,19 @@ export default function AssetForm() {
                 />
               </label>
 
+              {console.log("id", id)}
               <label className="lb-info-btn">
-                <input
-                  type="button"
-                  onClick={resetFilter}
-                  value="Limpar"
-                  className="btn-cleanfilter-assett"
-                />
+                {id === undefined ? (
+                  <input
+                    type="button"
+                    onClick={resetFilter}
+                    value="Limpar"
+                    className="btn-cleanfilter-assett"
+                  />
+                ) : (
+                  ""
+                )}
+
                 <button
                   className="btn-adicionar-assetFormm"
                   onClick={handleSave}

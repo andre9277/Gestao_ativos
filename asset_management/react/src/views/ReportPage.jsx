@@ -25,6 +25,12 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React, { useEffect, useState } from "react";
@@ -157,7 +163,7 @@ const ReportPage = () => {
     for (let i = 0; i < array1.length; i++) {
       const item1 = array1[i];
       const commonNumber = item1.numb_ser;
-      console.log(array2);
+      /* console.log(array2); */
       // Find matching items in the second array based on the common number
       const matchingItems = array2.filter((item2) =>
         item2.assets === null
@@ -254,7 +260,7 @@ const ReportPage = () => {
   const filterAllocations = () => {
     setIsButtonClicked(false);
     const updatedAllocations = joinedArray.filter((row) => {
-      console.log(joinedArray);
+      /* console.log(joinedArray); */
       const rowDate = row.allocation_date.split(" ")[0];
       if (
         filtered &&
@@ -361,24 +367,27 @@ const ReportPage = () => {
 
   //Gets data of data allocation
   const getAllocationData = (assetId) => {
-    const allocation = allocations.find((a) =>
-      a.assets === null
-        ? ""
-        : a.assets.id === assetId &&
-          (a.action_type === "Atualiza" || a.action_type === "Pesquisa")
-    );
-    /*  console.log("allcoation", allocation); */
+    const sortedAllocations = allocations
+      .filter(
+        (a) =>
+          a.assets !== null &&
+          a.action_type === "Atualiza" &&
+          a.assets.id === assetId
+      )
+      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
-    if (!allocation) {
+    if (sortedAllocations.length === 0) {
       return {
         user: "",
         date: "",
       };
     }
 
+    const latestAllocation = sortedAllocations[0];
+    /*  console.log("allocation", latestAllocation); */
     return {
-      user: allocation.users.name,
-      date: allocation.allocation_date,
+      user: latestAllocation.users.name,
+      date: latestAllocation.allocation_date,
     };
   };
 
@@ -525,7 +534,7 @@ const ReportPage = () => {
                 )}
 
                 <div
-                  className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
+                  className={`dropdown-menuu ${dropdownOpen ? "show" : ""}`}
                   id="filterDropdown"
                 >
                   <SelectFilter
@@ -614,15 +623,15 @@ const ReportPage = () => {
         <table>
           <thead>
             <tr>
-              <th>Nº Inventário</th>
-              <th>Nº Série</th>
-              <th>Categoria</th>
-              <th>Local (Anterior)</th>
-              <th>Local (Atual)</th>
-              <th>CI (Anterior)</th>
-              <th>CI (Atual)</th>
-              <th>Utilizador</th>
-              <th>Movido em</th>
+              <th className="header-tb">Nº Inventário</th>
+              <th className="header-tb">Nº Série</th>
+              <th className="header-tb">Categoria</th>
+              <th className="header-tb">Local (Anterior)</th>
+              <th className="header-tb">Local (Atual)</th>
+              <th className="header-tb">CI (Anterior)</th>
+              <th className="header-tb">CI (Atual)</th>
+              <th className="header-tb">Utilizador</th>
+              <th className="header-tb">Movido em</th>
               <th></th>
             </tr>
           </thead>
@@ -646,9 +655,11 @@ const ReportPage = () => {
               {!isButtonClicked && filteredAllocations.length === 0 ? (
                 assets.map((asset, index) => {
                   const allocationData = getAllocationData(asset.id);
-                  const filteredTogJoin = togJoin.filter(
-                    (assetJoin) => assetJoin.asset_id === asset.id
-                  );
+                  const filteredTogJoin = togJoin
+                    .filter((assetJoin) => assetJoin.asset_id === asset.id)
+                    .sort(
+                      (a, b) => new Date(b.created_at) - new Date(a.created_at)
+                    );
                   /* console.log(filteredTogJoin); */
 
                   const firstOtherInfo =
@@ -690,7 +701,7 @@ const ReportPage = () => {
                           ? allocationData.date
                           : asset.allocation_date}
                       </td>
-                      {console.log(asset)}
+                      {/* {console.log(asset)} */}
                       <td>
                         {firstOtherInfo === null ? (
                           ""
@@ -741,9 +752,13 @@ const ReportPage = () => {
                     ) {
                       return null; // skip rendering if previous_ci is null
                     }
-                    const filteredTogJoin = togJoin.filter(
-                      (assetJoin) => assetJoin.asset_id === asset.id
-                    );
+                    const filteredTogJoin = togJoin
+                      .filter((assetJoin) => assetJoin.asset_id === asset.id)
+                      .sort(
+                        (a, b) =>
+                          new Date(b.created_at) - new Date(a.created_at)
+                      );
+
                     const firstOtherInfo =
                       filteredTogJoin.length > 0
                         ? filteredTogJoin[0].other
@@ -776,24 +791,34 @@ const ReportPage = () => {
                             : asset.user}
                         </td>
                         <td className="table-numb-r">{allocationData.date}</td>
+
                         <td>
-                          <i
-                            className="fa fa-info-circle"
-                            aria-hidden="true"
-                            onClick={() => handleDropdownToggle(asset.id)}
-                            title="Observação"
-                          ></i>
-                          {selectedAsset === asset.id && showDropdown && (
-                            <div
-                              className={`dropdown-info-mov ${
-                                showDropdown ? "show" : ""
-                              }`}
-                            >
-                              {/* Dropdown content */}
-                              {/* This will be shown when the user clicks the icon */}
-                              <h6 className="titl-obs-mov">Observações</h6>
-                              <p className="obs-mov-asset"> {firstOtherInfo}</p>
-                            </div>
+                          {firstOtherInfo === null ? (
+                            " "
+                          ) : (
+                            <>
+                              <i
+                                className="fa fa-info-circle"
+                                aria-hidden="true"
+                                onClick={() => handleDropdownToggle(asset.id)}
+                                title="Observação"
+                              ></i>
+                              {selectedAsset === asset.id && showDropdown && (
+                                <div
+                                  className={`dropdown-info-mov ${
+                                    showDropdown ? "show" : ""
+                                  }`}
+                                >
+                                  {/* Dropdown content */}
+                                  {/* This will be shown when the user clicks the icon */}
+                                  <h6 className="titl-obs-mov">Observações</h6>
+                                  <p className="obs-mov-asset">
+                                    {" "}
+                                    {firstOtherInfo}
+                                  </p>
+                                </div>
+                              )}
+                            </>
                           )}
                         </td>
                         {/*  <td>{console.log(asset)}</td> */}

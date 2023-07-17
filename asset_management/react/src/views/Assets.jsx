@@ -25,6 +25,12 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import { useEffect, useState, useRef } from "react";
@@ -272,15 +278,12 @@ export default function Assets() {
     if (selectedCategory) {
       setSelectedCategory(selectedCategoryName);
 
-      setLoading(true);
       axiosClient
         .get(`/brands/category/${selectedCategory.id}`)
         .then((response) => {
-          setLoading(false);
           setBrands(response.data);
         })
         .catch((error) => {
-          setLoading(false);
           console.error(error);
         });
     }
@@ -483,10 +486,10 @@ export default function Assets() {
         </Modal.Header>
         <Modal.Body>Deseja apagar o(s) ativo(s) selecionado(s)!</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleDeleteConfirm}>
+          <Button variant="danger" onClick={handleDeleteConfirm}>
             Apagar
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose}>
             Cancelar
           </Button>
         </Modal.Footer>
@@ -616,7 +619,7 @@ export default function Assets() {
         <table>
           <thead>
             <tr>
-              <th>
+              <th className="header-tb">
                 <ColumnMenuFilter
                   titulo={"Categoria"}
                   tituloF={"Categoria"}
@@ -627,7 +630,7 @@ export default function Assets() {
                   filtered={filtered}
                 />
               </th>
-              <th>
+              <th className="header-tb">
                 <ColumnMenuFilter
                   titulo={"Marca"}
                   tituloF={"Marca"}
@@ -638,7 +641,7 @@ export default function Assets() {
                   filtered={filtered}
                 />
               </th>
-              <th>
+              <th className="header-tb">
                 <ColumnMenuFilter
                   titulo={"Modelo"}
                   tituloF={"Modelo"}
@@ -649,9 +652,9 @@ export default function Assets() {
                   filtered={filtered}
                 />
               </th>
-              <th>Nº Inventário</th>
+              <th className="header-tb">Nº Inventário</th>
               {/* <th>Nº Série</th> */}
-              <th>
+              <th className="header-tb">
                 <ColumnMenuFilter
                   titulo={"Nº Série"}
                   tituloF={"Nº Série"}
@@ -662,9 +665,9 @@ export default function Assets() {
                   filtered={filtered}
                 />
               </th>
-              <th>Localização</th>
-              <th>Unidade</th>
-              <th>
+              <th className="header-tb">Localização</th>
+              <th className="header-tb">Unidade</th>
+              <th className="header-tb">
                 <ColumnMenuFilter
                   titulo={"Piso"}
                   tituloF={"Piso"}
@@ -675,10 +678,10 @@ export default function Assets() {
                   filtered={filtered}
                 />
               </th>
-              <th>Ala</th>
-              <th>CI</th>
-              <th>Estado</th>
-              <th>Adicionado em </th>
+              <th className="header-tb">Ala</th>
+              <th className="header-tb">CI</th>
+              <th className="header-tb">Estado</th>
+              <th className="header-tb">Adicionado em </th>
               <th></th>
             </tr>
           </thead>
@@ -701,7 +704,7 @@ export default function Assets() {
                     <td className="table-words-l">{a.category.name}</td>
                     <td className="table-words-l">{a.brand.name}</td>
                     <td className="table-words-l">{a.modelo.name}</td>
-                    <td>{a.numb_inv}</td>
+                    <td className="tb-normal">{a.numb_inv}</td>
                     <td className="table-words-l">{a.numb_ser}</td>
                     <td className="table-words-l">{a.entity.ent_name}</td>
                     <td className="table-words-l">

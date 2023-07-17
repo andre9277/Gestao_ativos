@@ -25,6 +25,12 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React, { useState, useEffect } from "react";
@@ -43,7 +49,7 @@ const ForgotPass = () => {
       await axiosClient.post("/forgot-password", { email });
       setMessage("Verifique o seu email");
     } catch (error) {
-      setMessage("Erro!");
+      setMessage("Email inválido, tente novamente!");
     }
   };
 
@@ -83,7 +89,6 @@ const ForgotPass = () => {
                         <input
                           className="inp-res-pass"
                           type="email"
-                          placeholder="Insira o seu email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                         />

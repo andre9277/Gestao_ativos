@@ -1,0 +1,90 @@
+/* The MIT License (MIT)
+
+Copyright (c) 2013-2023 Start Bootstrap LLC
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. 
+
+You may obtain a copy of the license at:
+
+      https://github.com/StartBootstrap/startbootstrap-sb-admin-2
+
+
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
+All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
+*/
+#layoutAuthentication #layoutAuthentication_content {
+    min-width: 0;
+    flex-grow: 1;
+    background-color: #007840;
+}
+
+h3 {
+    color: #007840;
+}
+
+.inp-res-pass {
+    width: auto;
+    border: 1px solid black;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.btn-rec-pass {
+    background-color: #00a762;
+    padding: 0.5rem 0.75rem;
+    font-size: 20px;
+    border-radius: 4px;
+    color: white;
+    width: 100%;
+}
+
+small,
+.small {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.rec-pass {
+    width: auto;
+    margin-bottom: auto;
+    font-weight: 700;
+}
+
+.text-muted {
+    --bs-text-opacity: 1;
+    width: 100%;
+}
+
+.fg-pas-p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    width: 110%;
+    font-size: 18px;
+}
+
+.my-4 {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    font-size: 30px;
+}

@@ -113,7 +113,8 @@ class AssetController extends Controller
             'allocation_date' => now(),
             'action_type' => 'Adiciona',
             'ser_number' => $asset->numb_ser,
-            'user_id' => auth()->user()->id
+            'user_id' => auth()->user()->id,
+            'reason' => "",
         ]);
 
         // Associate the new allocation record with the asset
@@ -163,6 +164,7 @@ class AssetController extends Controller
             'allocation_date' => now(),
             'action_type' => 'Pesquisa',
             'ser_number' => $asset->numb_ser,
+            'reason' => "",
         ]);
         $update->save();
         return new AssetResource($asset);
@@ -249,6 +251,7 @@ class AssetController extends Controller
                 'action_type' => 'Apaga',
                 'user_id' => Auth::id(),
                 'allocation_date' => now(),
+                'reason' => "",
             ]);
             $allocation->save();
         }

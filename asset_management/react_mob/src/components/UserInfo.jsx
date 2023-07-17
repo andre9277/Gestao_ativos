@@ -25,11 +25,18 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
-*/ import React, { useState } from "react";
+*/
+import React, { useState } from "react";
 import "../styles/UserInfo.css";
 
-const UserInfo = () => {
+const UserInfo = ({ user, onLogout }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -40,13 +47,20 @@ const UserInfo = () => {
     <div className="dropdown">
       <img
         src="img/undraw_profile.svg"
-        alt="Profile"
+        alt="Perfil"
         className="dropdown-trigger"
         onClick={toggleDropdown}
       />
       {isOpen && (
         <div className="dropdown-content">
-          <span className="logout">Logout</span>
+          <span>{user.name}</span>
+          <hr className="sidebar-divider" />
+
+          <a onClick={onLogout}>
+            <b>
+              <span className="logout">Logout &nbsp;&nbsp;&nbsp;</span>
+            </b>
+          </a>
         </div>
       )}
     </div>

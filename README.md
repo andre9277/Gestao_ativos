@@ -73,8 +73,14 @@
 
          npm install chart.js
 
+      
+      **17- Import  csv library**
 
-       **17- Run:**
+         npm i react-papaparse
+      
+
+
+       **18- Run:**
 
         npm i react-router-dom
       ______________________________________________________
@@ -84,15 +90,12 @@
 
          npm run dev
          
-     
 
-     **18- Login information:**
+     **19- Login information:**
      
         email: admin@gmail.com
         password: Admin@277
-
-      npm i react-papaparse
-      
+    
      ### **For pagination style install the follow commands in react folder:**
 
         npm install -D tailwindcss postcss autoprefixer

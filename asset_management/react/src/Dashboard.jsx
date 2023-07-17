@@ -25,6 +25,12 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React from "react";
@@ -73,7 +79,7 @@ function Dashboard() {
         <div className="container-fluid">
           {/*  <!-- Page Heading --> */}
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 className="h3 mb-0 graf-dash">Dashboard</h1>
+            <h1 className="graf-dash">Dashboard</h1>
           </div>
 
           {/*  <!-- Content Row --> */}

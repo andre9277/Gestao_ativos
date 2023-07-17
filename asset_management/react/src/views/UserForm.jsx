@@ -25,6 +25,12 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import { useNavigate, useParams } from "react-router-dom";
@@ -154,10 +160,10 @@ export default function UserForm() {
             : "Deseja adicionar o utilizador?"}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleConfirmSave}>
+          <Button variant="primary" onClick={handleConfirmSave}>
             Confirmar
           </Button>
-          <Button variant="primary" onClick={handleCancelSave}>
+          <Button variant="secondary" onClick={handleCancelSave}>
             Cancelar
           </Button>
         </Modal.Footer>
@@ -251,7 +257,7 @@ export default function UserForm() {
               />
             </label>
             <label className="lb-info">
-              Confirmar Password:<label className="cmp-obg">*</label>
+              Valida Password:<label className="cmp-obg">*</label>
               <input
                 value={user.password_confirmation}
                 type="password"

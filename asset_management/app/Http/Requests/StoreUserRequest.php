@@ -54,7 +54,10 @@ class StoreUserRequest extends FormRequest
             ],
 
             'role_id' => 'required',
-            'pin' => 'size:6',
+            'pin' => [
+                'size:6',
+                'nullable',
+            ],
             'password' => [
                 'required',
                 Password::min(8)
@@ -67,17 +70,17 @@ class StoreUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'mec.required' => 'Atenção! Insira o número mecanográfico.',
-            'mec.size' => 'Atenção! O Número Mecanográfico deve ter 6 algarismos.',
-            'role_id.required' => 'Atenção! Deve atribuir uma função.',
+            'mec.required' => 'Atenção! Deve inserir o número mecanográfico.',
+            'mec.size' => 'Atenção! O número mecanográfico deve ter 6 algarismos.',
+            'role_id.required' => 'Atenção! Deve inserir uma função.',
             'password.required' => 'Atenção! Deve inserir uma password com pelo menos 8 caracteres, 1 letra maiuscula e símbolos.',
-            'email.required' => 'Atenção! Deve inserir uma email.',
+            'email.required' => 'Atenção! Deve introduzir um email.',
             'pin.size' => 'Atenção! O pin deve ter 6 algarismos',
-            'name.required' => 'Atenção! Insira o nome.',
+            'name.required' => 'Atenção! Deve introduzir um nome.',
             'name.size' => 'Atenção! Ultrapassou o limite de carateres.',
             'password.min' => 'Atenção! A password deve conter pelo menos 8 caracteres.',
             'password.letters' => 'Atenção! A password deve conter letras.',
-            'password.symbols' => 'Atenção! A password deve conter símbolos.',
+            'password.symbols' => 'Atenção! A password deve conter símbolo(s).',
         ];
     }
 }

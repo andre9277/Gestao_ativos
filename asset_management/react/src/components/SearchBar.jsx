@@ -25,13 +25,18 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React, { useState, useEffect } from "react";
 import axiosClient from "../axios-client.js";
 import "../styles/SearchBar.css";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -96,11 +101,9 @@ const Search = () => {
   };
 
   const searchByNumbInv = (arr, target) => {
-    if (arr[0].numb_inv === target) {
-      return arr[0];
-    }
+    arr.sort((a, b) => (a.numb_inv || "").localeCompare(b.numb_inv || ""));
 
-    let left = 1;
+    let left = 0;
     let right = arr.length - 1;
 
     while (left <= right) {
@@ -111,7 +114,7 @@ const Search = () => {
         return currentAsset;
       }
 
-      if (currentAsset.numb_inv < target) {
+      if ((currentAsset.numb_inv || "").localeCompare(target) < 0) {
         left = mid + 1;
       } else {
         right = mid - 1;

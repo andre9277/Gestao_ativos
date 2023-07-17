@@ -25,6 +25,12 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import { useEffect, useState } from "react";
@@ -158,10 +164,10 @@ export default function Users() {
         </Modal.Header>
         <Modal.Body>Deseja apagar o utilizador selecionado!</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleDeleteConfirm}>
+          <Button variant="danger" onClick={handleDeleteConfirm}>
             Apagar
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose}>
             Cancelar
           </Button>
         </Modal.Footer>
@@ -210,11 +216,11 @@ export default function Users() {
         <table>
           <thead>
             <tr>
-              <th>Nº Mecanográfico</th>
-              <th>Nome</th>
-              <th>Email</th>
-              <th>Função</th>
-              <th>Criado em</th>
+              <th className="header-tb">Nº Mecanográfico</th>
+              <th className="header-tb">Nome</th>
+              <th className="header-tb">Email</th>
+              <th className="header-tb">Função</th>
+              <th className="header-tb">Criado em</th>
               <th></th>
             </tr>
           </thead>

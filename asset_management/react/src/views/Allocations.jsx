@@ -25,6 +25,12 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React, { useEffect, useState } from "react";
@@ -64,6 +70,7 @@ export default function Allocations() {
 
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [message, setMessage] = useState("");
 
   //Performs a client access request
   const getAllocations = (signal, url) => {
@@ -103,7 +110,6 @@ export default function Allocations() {
     });
   };
 
-  //-----------Download---------------
   const downloadCSV = async () => {
     setLoading(true);
     const allData = [];
@@ -128,9 +134,21 @@ export default function Allocations() {
       return serFilter && opFilter && userFilter && dateFilter;
     });
 
-    /* console.log(filteredData); */
+    if (!startDate || !endDate) {
+      const message = "Atenção! Selecione uma data início e/ou data fim!";
+      setMessage(message);
+      setLoading(false);
+      return;
+    }
+
     const csvData = Papa.unparse({
-      fields: ["Utilizador", "Operação", "Nº Série", "Data de alteração"],
+      fields: [
+        "Utilizador",
+        "Operação",
+        "Nº Série",
+        "Motivo",
+        "Data de alteração",
+      ],
       data: filteredData.map((allocation) => {
         return [
           allocation.users.name,
@@ -138,6 +156,7 @@ export default function Allocations() {
           allocation.assets === null
             ? allocation.inv_number
             : allocation.assets.numb_ser,
+          allocation.reason,
           allocation.allocation_date,
         ];
       }),
@@ -155,6 +174,18 @@ export default function Allocations() {
     setLoading(false);
   };
 
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage("");
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [message]);
+
   //------------For the Calendar---------------
   const handleSelect = () => {
     const selectionRange = {
@@ -162,7 +193,7 @@ export default function Allocations() {
       endDate: endDate,
       key: "selection",
     };
-
+    /* 
     if (startDate > endDate) {
       setError(true);
       setErrorMsg("Intervalo de Datas inválido!");
@@ -174,7 +205,7 @@ export default function Allocations() {
       }, 5000);
       return;
     }
-
+ */
     let filtered = allAllocations.filter((allocation) => {
       const allocationDate = new Date(allocation.allocation_date);
       allocationDate.setHours(0, 0, 0, 0);
@@ -272,6 +303,7 @@ export default function Allocations() {
 
       {!loading && (
         <div className="card animated fadeInDown">
+          {message && <div className="message_error">{message}</div>}
           <p></p>
           <p className="camp-obs">*Campo Obrigatório</p>
           <p></p>
@@ -290,12 +322,13 @@ export default function Allocations() {
                     handleSelect();
                   } else {
                     // Handle the error when an invalid date is selected
-                    console.error("Data início inválida!");
+                    setErrorMsg("Data início inválida!");
                   }
                 }}
                 min="YYYY-MM-DD"
                 max="YYYY-MM-DD"
                 className="dt-inpt-allo"
+                onKeyDown={(e) => e.preventDefault()}
               />
 
               <p></p>
@@ -315,12 +348,13 @@ export default function Allocations() {
                     handleSelect();
                   } else {
                     // Handle the error when an invalid date is selected
-                    console.error("Data fim inválida!");
+                    setErrorMsg("Data fim inválida!");
                   }
                 }}
                 min={startDate ? startDate.toISOString().split("T")[0] : ""}
                 max="YYYY-MM-DD"
                 className="dt-inpt-allo"
+                onKeyDown={(e) => e.preventDefault()}
               />
 
               {error && startDate > endDate && (

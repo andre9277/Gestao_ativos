@@ -25,6 +25,12 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import { Navigate, Outlet } from "react-router-dom";
@@ -32,7 +38,7 @@ import { useStateContext } from "../context/ContextProvider";
 import axiosClient from "../axios-client.js";
 import { useEffect } from "react";
 import SideBar from "./SideBar";
-import ManutLayout from "./ManutLayout";
+/* import ManutLayout from "./ManutLayout"; */
 
 export default function DefaultLayout() {
   const { user, token, setUser, setToken, notification } = useStateContext();
@@ -41,9 +47,9 @@ export default function DefaultLayout() {
     return <Navigate to="/login" />;
   }
 
-  if (user.role_id === 3) {
+  /*   if (user.role_id === 3) {
     return <ManutLayout />;
-  }
+  } */
 
   const onLogout = (ev) => {
     ev.preventDefault();
@@ -71,7 +77,6 @@ export default function DefaultLayout() {
 
         {/* Notification when a user is created/updated or deleted */}
         {notification && <div className="notification">{notification}</div>}
-        {/* <Footer /> */}
       </div>
     </div>
   );

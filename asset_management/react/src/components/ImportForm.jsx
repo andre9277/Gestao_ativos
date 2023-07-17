@@ -25,6 +25,12 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React from "react";
@@ -166,6 +172,25 @@ const ImportForm = () => {
   //-------Import handle-------
   const handleImport = async () => {
     setShowConfirmModal(false);
+
+    // Validate file attachment
+    if (!selectedFile) {
+      setErrorMessage("Por favor, anexe um arquivo CSV.");
+      return;
+    }
+
+    // Validate required input fields
+    if (
+      !asset.cat_id ||
+      !supplierId ||
+      !selectedBrand ||
+      !asset.model_id ||
+      !selectedEntity
+    ) {
+      setErrorMessage("Atenção! Preencha todos os campos obrigatórios!");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("brand_id", selectedBrand);
     formData.append("cat_id", asset.cat_id);
@@ -175,40 +200,189 @@ const ImportForm = () => {
     formData.append("model_id", asset.model_id);
     formData.append("file", selectedFile);
 
+    // Define the array to hold the validated rows
+    let validRows = [];
+
+    // Flag to track file validity
+    let isValidFile = true;
+
     try {
       setLoading(true);
-      const response = await axiosClient.post("/import", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
 
-      if (response.status === 200) {
-        setSuccessMessage("Ficheiro importado com sucesso!");
-      } else {
-        throw new Error("Erro inesperado do servidor!");
-      }
-    } catch (error) {
-      if (error.response) {
-        // Server responded with an error
-        const { data } = error.response;
+      // Read the file rows and validate them
+      const fileReader = new FileReader();
 
-        if (data && data.message) {
-          setErrorMessage(
-            "Verifique se o nºsérie ou nºinventário se encontra inserido na lista de ativos!"
-          );
-        } else {
-          setErrorMessage("Um erro ocorreu ao processar o pedido!");
+      fileReader.onload = function (event) {
+        const fileContent = event.target.result;
+        const rows = fileContent.split("\n");
+
+        for (let i = 1; i < rows.length; i++) {
+          const row = rows[i].split(",");
+          const [numb_inv, date_purch, state, numb_ser, cond, ala, floor, ci] =
+            row;
+
+          // Perform your validation logic on the row values
+          if (
+            validateNumbInv(numb_inv) &&
+            validateDatePurch(date_purch) &&
+            validateNumbSer(numb_ser) &&
+            validateState(state) &&
+            validateCond(cond) &&
+            validateAla(ala) &&
+            validateFloor(floor)
+          ) {
+            // If the row is valid, create an object with the row data
+            const rowData = {
+              numb_inv,
+              date_purch,
+              state,
+              numb_ser,
+              cond,
+              ala: ala || null, // Allow null value for ala
+              floor: floor || null, // Allow null value for floor
+              ci: ci || null, // Allow null value for ci
+            };
+            // If the row is valid, add it to the validRows array
+            validRows.push(rowData);
+          } else {
+            // Set the isValidFile flag to false if there is an invalid row
+            isValidFile = false;
+            break; // Stop processing remaining rows
+          }
         }
-      } else if (error.message) {
-        // Network or request-related error
-        setErrorMessage(error.message);
-      } else {
-        setErrorMessage("Ocorreu um erro desconhecido!");
-      }
-    } finally {
+
+        if (isValidFile) {
+          // Continue with the API call using the validated rows
+          formData.append("rows", JSON.stringify(validRows));
+
+          axiosClient
+            .post("/import", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then((response) => {
+              if (response.status === 200) {
+                setSuccessMessage("Ficheiro importado com sucesso!");
+              } else {
+                throw new Error("Erro inesperado do servidor!");
+              }
+            })
+            .catch((error) => {
+              if (error.response) {
+                // Server responded with an error
+                const { data } = error.response;
+
+                if (data && data.message) {
+                  setErrorMessage(
+                    "Verifique se o nºsérie ou nºinventário se encontra inserido na lista de ativos!"
+                  );
+                } else {
+                  setErrorMessage("Um erro ocorreu ao processar o pedido!");
+                }
+              } else if (error.message) {
+                // Network or request-related error
+                setErrorMessage(error.message);
+              } else {
+                setErrorMessage("Ocorreu um erro desconhecido!");
+              }
+            })
+            .finally(() => {
+              setLoading(false);
+            });
+        } else {
+          setErrorMessage(
+            "O arquivo contém linhas inválidas. A importação foi interrompida."
+          );
+          setLoading(false);
+        }
+      };
+
+      fileReader.readAsText(selectedFile);
+    } catch (error) {
+      setErrorMessage("Ocorreu um erro ao ler o arquivo!");
       setLoading(false);
     }
+  };
+
+  // Validation function for numb_inv
+  const validateNumbInv = (numb_inv) => {
+    if (!numb_inv) {
+      return true; // Accept null values
+    }
+
+    if (numb_inv.length === 6 && numb_inv.startsWith("0")) {
+      return true;
+    }
+
+    return false;
+  };
+
+  // Validation function for date_purch
+  const validateDatePurch = (date_purch) => {
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+
+    if (date_purch && dateRegex.test(date_purch)) {
+      const date = new Date(date_purch);
+
+      if (!isNaN(date)) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  // Validation function for ala
+  const validateAla = (ala) => {
+    if (!ala || ["B", "C", "D", "E"].includes(ala)) {
+      return true;
+    }
+    return false;
+  };
+
+  // Validation function for state
+  const validateState = (state) => {
+    if (state === "Ativo" || state === "Inativo") {
+      return true;
+    }
+    return false;
+  };
+
+  // Validation function for cond
+  const validateCond = (cond) => {
+    if (
+      cond === "Novo" ||
+      cond === "Usado" ||
+      cond === "Obsoleto" ||
+      cond === "Reparação"
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const validateFloor = (floor) => {
+    if (
+      !floor ||
+      floor === "-1" ||
+      floor === "0" ||
+      floor === "1" ||
+      floor === "2" ||
+      floor === "3" ||
+      floor === "4" ||
+      floor === "5"
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const validateNumbSer = (numb_ser) => {
+    if (numb_ser !== null && numb_ser.trim() !== "") {
+      return true;
+    }
+    return false;
   };
 
   //---------Function handlers-----------
@@ -282,7 +456,7 @@ const ImportForm = () => {
         document.body.removeChild(link);
       })
       .catch((error) => {
-        console.error("Download failed:", error);
+        console.error("Download falhou:", error);
         setLoading(false);
       });
   };
@@ -295,10 +469,10 @@ const ImportForm = () => {
         </Modal.Header>
         <Modal.Body>{"Deseja importar o ficheiro selecionado?"}</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleImport}>
+          <Button variant="primary" onClick={handleImport}>
             Confirmar
           </Button>
-          <Button variant="primary" onClick={handleCancelSave}>
+          <Button variant="secondary" onClick={handleCancelSave}>
             Cancelar
           </Button>
         </Modal.Footer>
@@ -454,13 +628,13 @@ const ImportForm = () => {
             </button>
           </div>
           {successMessage && <p className="succMess">{successMessage}</p>}
-          {errorMessage && <p className="errMess">{errorMessage}</p>}
+          {errorMessage && <p className="message_error">{errorMessage}</p>}
 
           <div className="impt-temp">
             <p></p>
             <div className="asset-importt">
               <ul>
-                <li>
+                <div>
                   <i
                     className="fa fa-info-circle"
                     aria-hidden="true"
@@ -473,40 +647,39 @@ const ImportForm = () => {
                       <h6 className="asset-import">
                         Atenção! Critérios para ficheiro "Template":
                       </h6>
-                      <li>
+                      <li className="info-import-tx">
                         Campo <b>"numb_inv"</b>: Iniciar com algarismo <u>0</u>.
                       </li>
-                      <li>
+                      <li className="info-import-tx">
                         Campo <b>"date_purch"</b>: Inserir um formato de data
                         Ano-Mês-Dia.
                       </li>
-                      <li>
+                      <li className="info-import-tx">
                         Campo <b>"state"</b>: Com valores de <u>Ativo</u> ou{" "}
                         <u>Inativo</u>.
                       </li>
-                      <li>
+                      <li className="info-import-tx">
                         Campo <b>"numb_ser"</b>: Insira um número de série que
                         não exista na base de dados.
                       </li>
-                      <li>
+                      <li className="info-import-tx">
                         Campo <b>"cond"</b>: Com valores de <u>Novo</u>,{" "}
                         <u>Usado</u>, <u>Reparação</u> e <u>Obsoleto</u>.
                       </li>
-                      <li>
+                      <li className="info-import-tx">
                         Campo <b>"ala"</b>: Com valores de <u>B</u>, <u>C</u>,{" "}
                         <u>D</u>, <u>E</u>.
                       </li>
-                      <li>
+                      <li className="info-import-tx">
                         Campo <b>"floor"</b>: Com valores de <u>-1</u>, <u>0</u>
                         , <u>1</u>, <u>2</u>, <u>3</u>, <u>4</u>, <u>5</u>.
                       </li>
-                      <li>
-                        Campo <b>"ci"</b>: Inserir CI válido.
+                      <li className="info-import-tx">
+                        Campo <b>"ci"</b>: Inserir CI válido ou "Armazém".
                       </li>
                     </div>
                   )}
-                </li>
-                {/* Other list items */}
+                </div>
               </ul>
             </div>
           </div>

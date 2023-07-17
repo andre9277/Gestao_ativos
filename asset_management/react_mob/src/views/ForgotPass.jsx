@@ -25,12 +25,19 @@ You may obtain a copy of the license at:
       https://github.com/StartBootstrap/startbootstrap-sb-admin-2
 
 
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React, { useState, useEffect } from "react";
-/* import "../styles/styles.css"; */
+import "../styles/styles.css";
 import { Link } from "react-router-dom";
 import axiosClient from "../axios-client.js";
+import "../styles/ForgotPass.css";
 
 const ForgotPass = () => {
   const [email, setEmail] = useState("");
@@ -72,8 +79,13 @@ const ForgotPass = () => {
                   </div>
                   <div className="card-body">
                     <div className="small mb-3 text-muted">
-                      Insira o seu endereço de email. Um link será enviado para
-                      recuperar a sua password.
+                      <p className="fg-pas-p">
+                        {" "}
+                        Introduza o seu endereço de email.
+                      </p>
+                      <p className="fg-pas-p">
+                        Siga as instruções do email enviado.
+                      </p>
                     </div>
                     <form onSubmit={handleSubmit} className="reset-pass-forms">
                       <div className=" mb-3">
@@ -83,7 +95,6 @@ const ForgotPass = () => {
                         <input
                           className="inp-res-pass"
                           type="email"
-                          placeholder="Insira o seu email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                         />
@@ -93,7 +104,7 @@ const ForgotPass = () => {
                         </button>
                       </div>
                       <div className="d-flex align-items-center justify-content-between mt-4 mb-0">
-                        <Link to="/" className="small">
+                        <Link to="/" className="link-pages">
                           Login
                         </Link>
                       </div>
