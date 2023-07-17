@@ -120,6 +120,18 @@ export default function AssetForm() {
     }
   }, [selectedEntity]);
 
+  useEffect(() => {
+    if (errors) {
+      const timer = setTimeout(() => {
+        setErrors(null); // Clear the error messages after 5 seconds
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer); // Clear the timer if the component unmounts before 5 seconds
+      };
+    }
+  }, [errors]);
+
   //List of assets:
   const [asset, setAsset] = useState({
     id: null,
@@ -184,6 +196,8 @@ export default function AssetForm() {
           const response = err.response;
           if (response && response.status === 422) {
             setErrors(response.data.errors);
+            // Scroll to the top of the page
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }
         });
     } else {
@@ -198,6 +212,8 @@ export default function AssetForm() {
           const response = err.response;
           if (response && response.status === 422) {
             setErrors(response.data.errors);
+            // Scroll to the top of the page
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }
         });
     }
@@ -297,10 +313,10 @@ export default function AssetForm() {
             : "Deseja adicionar o ativo?"}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleConfirmSave}>
+          <Button variant="primary" onClick={handleConfirmSave}>
             Confirmar
           </Button>
-          <Button variant="primary" onClick={handleCancelSave}>
+          <Button variant="secondary" onClick={handleCancelSave}>
             Cancelar
           </Button>
         </Modal.Footer>
@@ -558,7 +574,9 @@ export default function AssetForm() {
             {/* ---------- CI ----------*/}
             <label className="lb-info">
               {" "}
-              <label className="labelofLabel">CI:</label>
+              <label className="labelofLabel">
+                CI:<label className="cmp-obg">*</label>
+              </label>
               <input
                 value={asset.ci === null ? "" : asset.ci}
                 onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}

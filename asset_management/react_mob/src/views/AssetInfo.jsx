@@ -97,7 +97,7 @@ const AssetInfo = () => {
               Informações do ativo:{" "}
               {asset.numb_inv === null ? asset.numb_ser : asset.numb_inv}
             </h1>
-            <div className="space-mov"></div>
+            <div className="space-mov-info"></div>
             <h2 className="headerInfoAsset">Dados gerais: </h2>
             <p></p>
             <ul className="lb-infoAsset-informat">
@@ -150,7 +150,7 @@ const AssetInfo = () => {
               </label>
             </ul>
 
-            <div className="space-mov"></div>
+            <div className="space-mov-info"></div>
             <hr className="sidebar-divider" />
             {/* -------------Informação ativo - localização------------- */}
             <div className="containerr">
@@ -203,7 +203,7 @@ const AssetInfo = () => {
                   CI: <h6 className="attrAsset-informat"> {asset.ci}</h6>
                 </label>
               </ul>
-              <div className="space-mov"></div>
+              <div className="space-mov-info"></div>
               <hr className="sidebar-divider" />
               {/* -------------Informação ativo - fornecedor------------- */}
 
@@ -243,7 +243,7 @@ const AssetInfo = () => {
                 <div></div>
               </ul>
 
-              <div className="space-mov"></div>
+              <div className="space-mov-info"></div>
               <hr className="sidebar-divider" />
               <h2 className="headerInfoAsset">Observações:</h2>
               <p></p>

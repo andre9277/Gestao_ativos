@@ -138,9 +138,9 @@ All the changes made to enable the implementation of the desired development too
 
 .err-search {
     margin: 0.5rem;
-    background-color: #cc0000;
-    border-radius: 1rem;
+    background-color: red;
     padding: 0.5rem;
+    font-weight: 700;
 }
 
 .w-100-new {
