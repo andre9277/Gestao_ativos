@@ -70,6 +70,10 @@ All the changes made to enable the implementation of the desired development too
     margin-top: 2rem;
 }
 
+.space-mov-dash {
+    margin-top: 8rem;
+}
+
 .barcode-search {
     font-size: xx-large;
     margin-top: 6rem;
