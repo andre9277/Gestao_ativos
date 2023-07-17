@@ -296,7 +296,7 @@ export default function UserForm() {
                 <div className="error">{errors.password[0]}</div>
               )}
             </label>
-            <label className="lb-info">
+            {/* <label className="lb-info">
               Valida Password:<label className="cmp-obg">*</label>
               <input
                 value={user.password_confirmation}
@@ -306,16 +306,23 @@ export default function UserForm() {
                 }
                 className="infoInp"
               />
-            </label>
+            </label> */}
+
             <label className="lb-info">
               PIN:
               <input
-                value={user.pin}
+                value={user.pin || ""} // Initialize with an empty string
                 type="password"
                 onChange={(ev) => setUser({ ...user, pin: ev.target.value })}
-                className="infoInp"
+                className={`infoInp ${
+                  errors && errors.pin ? "error-input" : ""
+                }`}
               />
+              {errors && errors.pin && (
+                <div className="error">{errors.pin[0]}</div>
+              )}
             </label>
+            <label className="lb-info"></label>
             <label className="lb-info-btn">
               <label onClick={resetFilter} className="btn-cleanfilter-asset">
                 Limpar

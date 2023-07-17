@@ -45,7 +45,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:55',
-            'mec' => ['required', 'size:6',],
+            'mec' => ['required', 'regex:/^(b\d{5}|\d{6})$/',],
             'email' => [
                 'required',
                 'email',
@@ -55,6 +55,7 @@ class StoreUserRequest extends FormRequest
 
             'role_id' => 'required',
             'pin' => [
+                'numeric',
                 'size:6',
                 'nullable',
             ],
@@ -71,16 +72,18 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'mec.required' => 'Atenção! Deve inserir o número mecanográfico.',
-            'mec.size' => 'Atenção! O número mecanográfico deve ter 6 algarismos.',
+            'mec.size' => 'Atenção! Introduza um número mecanográfico válido.',
             'role_id.required' => 'Atenção! Deve inserir uma função.',
             'password.required' => 'Atenção! Deve inserir uma password com pelo menos 8 caracteres, 1 letra maiuscula e símbolos.',
             'email.required' => 'Atenção! Deve introduzir um email.',
-            'pin.size' => 'Atenção! O pin deve ter 6 algarismos',
+            'pin.size' => 'Atenção! O pin deve ter 6 algarismos.',
+            'pin.numeric' => 'O pin só pode conter algarismos.',
             'name.required' => 'Atenção! Deve introduzir um nome.',
             'name.size' => 'Atenção! Ultrapassou o limite de carateres.',
             'password.min' => 'Atenção! A password deve conter pelo menos 8 caracteres.',
             'password.letters' => 'Atenção! A password deve conter letras.',
             'password.symbols' => 'Atenção! A password deve conter símbolo(s).',
+
         ];
     }
 }
