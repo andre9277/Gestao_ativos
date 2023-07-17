@@ -12905,6 +12905,7 @@ select {
     font-weight: 700;
     font-size: 1.2rem;
     position: relative;
+    margin: 1rem;
 }
 
 .lb-info-allocation {
@@ -13876,9 +13877,12 @@ button {
 }
 
 .error {
-    color: red;
+    color: white;
     float: right;
     font-size: 1rem;
+    background-color: red;
+    padding: 0.2rem;
+    font-weight: 500;
 }
 
 .infoInp.error-input {
@@ -13887,4 +13891,11 @@ button {
 
 .infoInp-select.error-input {
     border-color: red;
+}
+
+.form-calendar-asset.error {
+    border-color: red;
+    background-color: white;
+    color: black;
+    font-size: 1.2rem;
 }
