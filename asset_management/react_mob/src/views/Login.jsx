@@ -36,7 +36,7 @@ All the changes made to enable the implementation of the desired development too
 import axiosClient from "../axios-client.js";
 import { createRef } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/Login.css";
 
 import img_logo from "../assets/hb_dc.jpg";
@@ -46,6 +46,18 @@ export default function Login() {
   const passwordRef = createRef();
   const { setUser, setToken } = useStateContext();
   const [message, setMessage] = useState(null);
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage("");
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [message]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,6 +78,16 @@ export default function Login() {
       payload.pin = password;
     } else {
       payload.password = password;
+    }
+
+    if (!payload.email && !payload.mec) {
+      setMessage("Por favor, insira o email ou número MEC");
+      return;
+    }
+
+    if (!payload.pin && !payload.password) {
+      setMessage("Por favor, insira a password ou PIN");
+      return;
     }
 
     axiosClient
@@ -90,11 +112,6 @@ export default function Login() {
 
   return (
     <form className="form-login" onSubmit={handleSubmit}>
-      {message && (
-        <div className="alert">
-          <p>{message}</p>
-        </div>
-      )}
       <img
         src={img_logo}
         alt="Login image"
@@ -122,6 +139,11 @@ export default function Login() {
           password?
         </a>
       </p>
+      {message && (
+        <div className="alert">
+          <p>{message}</p>
+        </div>
+      )}
       <div className="footer-copyR">
         V1.0.0 © 2023. Hospital de Braga
         <p>Serviço de Sistemas de Informação</p>
