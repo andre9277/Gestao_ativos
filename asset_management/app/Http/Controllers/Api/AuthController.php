@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 
 class AuthController extends Controller
@@ -38,6 +39,8 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
 
+        $version = DB::select('SELECT version()')[0]->{'version()'};
+        echo "Version MySQL: " . $version;
 
         $credentials = $request->only('mec', 'email', 'password', 'pin');
 
