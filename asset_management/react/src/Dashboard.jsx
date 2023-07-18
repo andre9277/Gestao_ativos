@@ -46,26 +46,26 @@ function Dashboard() {
   const [assets, setAssets] = useState([]);
 
   useEffect(() => {
-    const abortController = new AbortController();
-    getTotalAssets(abortController.signal);
-    getAssets(abortController.signal);
+    /* const abortController = new AbortController(); */
+    getTotalAssets();
+    getAssets();
 
-    return () => {
+    /*   return () => {
       abortController.abort();
-    };
+    }; */
   }, []);
 
   //Performs a client access request
-  const getTotalAssets = (signal, url) => {
+  const getTotalAssets = (url) => {
     url = url || "/assetsC";
-    axiosClient.get(url, { signal }).then(({ data }) => {
+    axiosClient.get(url).then(({ data }) => {
       setAssetTotal(data);
     });
   };
 
-  const getAssets = (signal, url) => {
+  const getAssets = (url) => {
     url = url || "/getDashb";
-    axiosClient.get(url, { signal }).then(({ data }) => {
+    axiosClient.get(url).then(({ data }) => {
       // update the state with all the assets
       setAssets(data);
     });

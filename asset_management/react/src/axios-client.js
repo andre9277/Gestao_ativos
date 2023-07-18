@@ -58,10 +58,10 @@ axiosClient.interceptors.response.use(
   (error) => {
     const { response } = error;
 
-    if (response.status === 401) {
+    if (response && response.status === 401) {
       localStorage.removeItem("ACCESS_TOKEN");
       // window.location.reload();
-    } else if (response.status === 404) {
+    } else if (response && response.status === 404) {
       //Show not found
     }
 
