@@ -91,7 +91,18 @@ const AssetInfo = () => {
     const contentToPrint = document.getElementById("print-content").innerHTML;
 
     const printStyles = `
-      <link rel="stylesheet" type="text/css" href="../styles/styles.css">`;
+      <style>
+    body {
+      font-size: 18px;
+      
+    }
+    .lb-infoAsset-informat{
+      display: inline-block;
+    }
+    .btn-primary{
+      display:none;
+    }
+  </style>`;
 
     printWindow.document.open();
     printWindow.document.write(`
