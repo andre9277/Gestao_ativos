@@ -10,6 +10,7 @@ use App\Models\Allocation;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AssetController extends Controller
 {
@@ -127,7 +128,6 @@ class AssetController extends Controller
     //For the dashboard statistics
     public function count(Asset $asset)
     {
-
         $total = $asset::count();
 
         // Count assets changed this month
@@ -138,16 +138,15 @@ class AssetController extends Controller
             })
             ->count();
 
-
         $totalRep = $asset::where('cond', 'Reparação')->count();
 
-        $totalArmazem = $asset::whereIn('ci', ['Armazem', 'Armazém', 'armazem', 'armazém'])->count();
+        $allocationCounts = Allocation::where('reason', 'Obsoleto')->count();
 
         return [
             'total' => $total,
             'countChanged' => $countChanged,
             'totalRep' => $totalRep,
-            'totalArmazem' => $totalArmazem,
+            'allocationCounts' => $allocationCounts,
         ];
     }
 

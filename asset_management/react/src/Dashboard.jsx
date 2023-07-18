@@ -112,9 +112,9 @@ function Dashboard() {
               Tipo="warning"
             />
             <Card
-              Titulo="Ativos em armazém"
-              Descricao={assetTotal.totalArmazem}
-              Icon="fa-home"
+              Titulo="Ativos obsoletos"
+              Descricao={assetTotal.allocationCounts}
+              Icon="fa-warehouse"
               Cor="text-info"
               Tipo="info"
             />
