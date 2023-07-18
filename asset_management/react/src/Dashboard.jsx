@@ -86,7 +86,7 @@ function Dashboard() {
           <div className="row-dash">
             {/*  <!-- Total of Assets --> */}
             <Card
-              Titulo="Total de ativos"
+              Titulo="Total de Ativos"
               Descricao={assetTotal.total}
               Icon="fa-laptop"
               Cor="text-primary"
@@ -110,6 +110,13 @@ function Dashboard() {
               Icon="fa-wrench"
               Cor="text-warning"
               Tipo="warning"
+            />
+            <Card
+              Titulo="Ativos em armazém"
+              Descricao={assetTotal.totalArmazem}
+              Icon="fa-home"
+              Cor="text-info"
+              Tipo="info"
             />
           </div>
 

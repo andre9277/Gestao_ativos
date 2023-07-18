@@ -38,9 +38,9 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-
-        $version = DB::select('SELECT version()')[0]->{'version()'};
-        echo "Version MySQL: " . $version;
+        //---------Version of MySQL:---------
+        /* $version = DB::select('SELECT version()')[0]->{'version()'};
+        echo "Version MySQL: " . $version; */
 
         $credentials = $request->only('mec', 'email', 'password', 'pin');
 

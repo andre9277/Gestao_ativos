@@ -141,10 +141,13 @@ class AssetController extends Controller
 
         $totalRep = $asset::where('cond', 'Reparação')->count();
 
+        $totalArmazem = $asset::whereIn('ci', ['Armazem', 'Armazém', 'armazem', 'armazém'])->count();
+
         return [
             'total' => $total,
             'countChanged' => $countChanged,
-            'totalRep' => $totalRep
+            'totalRep' => $totalRep,
+            'totalArmazem' => $totalArmazem,
         ];
     }
 
