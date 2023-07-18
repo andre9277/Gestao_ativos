@@ -43,7 +43,6 @@ import Signup from "./views/Signup";
 import Users from "./views/Users";
 import UserForm from "./views/UserForm";
 import ForgotPass from "./views/ForgotPass.jsx";
-import Scan from "./views/Scan.jsx";
 import Assets from "./views/Assets.jsx";
 import AssetForm from "./views/AssetForm.jsx";
 import Allocations from "./views/Allocations.jsx";
@@ -81,10 +80,7 @@ const router = createBrowserRouter([
         path: "/users/:id",
         element: <UserForm key="userUpdate" />,
       },
-      {
-        path: "/scan",
-        element: <Scan />,
-      },
+
       {
         path: "/assets",
         element: <Assets />,
