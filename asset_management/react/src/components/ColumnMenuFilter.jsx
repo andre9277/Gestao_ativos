@@ -55,12 +55,12 @@ const ColumnMenuFilter = ({
   return (
     <div>
       {filtered === true ? (
-        <span onClick={handleSortFilter}>
+        <span onClick={handleSortFilter} className="simb-tb">
           {tituloF}
           {orderFilter === "ASC" ? " ▲" : " ▼"}{" "}
         </span>
       ) : (
-        <span onClick={handleSort}>
+        <span onClick={handleSort} className="simb-tb">
           {titulo}
           {order === "ASC" ? " ▲" : " ▼"}{" "}
         </span>

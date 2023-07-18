@@ -1700,6 +1700,7 @@ progress {
     .col-xl-4 {
         flex: 0 0 auto;
         width: 33.33333333%;
+        margin-bottom: 4rem;
     }
 
     .col-xl-5 {
@@ -13306,7 +13307,7 @@ input::placeholder {
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    padding: 10px;
+    padding: 20px;
     z-index: 1;
 }
 
@@ -13431,6 +13432,7 @@ input::placeholder {
     font-size: 1.2rem;
     margin-bottom: 0.1px;
     text-align: center;
+    padding: 13px;
 }
 
 .infoInp {
@@ -13898,4 +13900,13 @@ button {
     background-color: white;
     color: black;
     font-size: 1.2rem;
+}
+
+.simb-tb {
+    /*  width: max-content;
+    display: inline-flex; */
+}
+
+.data-filter-container {
+    padding: 1px;
 }
