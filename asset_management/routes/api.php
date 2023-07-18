@@ -268,3 +268,5 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/signup', [AuthController::class, 'signup'])->middleware('auth:sanctum');
 
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/log', [AuthController::class, 'log']);

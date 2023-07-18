@@ -105,6 +105,8 @@ export default function Login() {
           setMessage("Atenção! Verifique se introduziu os dados corretamente!");
         }
       });
+
+    axiosClient.post("/log", { message: "Record created" });
   };
 
   return (

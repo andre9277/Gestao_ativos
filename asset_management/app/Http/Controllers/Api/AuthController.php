@@ -9,6 +9,7 @@ use App\Models\Allocation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 
 class AuthController extends Controller
@@ -36,6 +37,8 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
+
+
         $credentials = $request->only('mec', 'email', 'password', 'pin');
 
         $user = null;
@@ -101,6 +104,9 @@ class AuthController extends Controller
         ]);
         $allocation->save();
 
+        // Log the CRUD operation
+        Log::channel('custom')->info('Record created: ' . $user->id);
+
         return response(compact('user', 'token'));
     }
 
@@ -117,6 +123,8 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+
+
         /** @var \App\Models\User $user */
         $user = $request->user();
         // Create a new allocation record for the user
@@ -129,6 +137,19 @@ class AuthController extends Controller
         ]);
         $allocation->save();
         $user->currentAccessToken()->delete();
+
+        // Log the CRUD operation
+        Log::channel('custom')->info('Record created: ' . $user->id);
+
         return response('', 204);
+    }
+
+    //Takes care of the log information
+    public function log(Request $request)
+    {
+        $message = $request->input('message');
+        Log::info($message);
+
+        return response()->json(['message' => 'Log entry created'], 200);
     }
 }
