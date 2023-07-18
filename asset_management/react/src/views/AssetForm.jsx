@@ -281,6 +281,7 @@ export default function AssetForm() {
 
   const resetFilter = () => {
     // Reset all the values to empty or default
+
     setAsset({
       numb_inv: "",
       numb_ser: "",
@@ -343,8 +344,8 @@ export default function AssetForm() {
         </Modal.Header>
         <Modal.Body>
           {asset.id
-            ? "Deseja atualizar o ativo selecionado?"
-            : "Deseja adicionar o ativo?"}
+            ? "Deseja atualizar o Ativo selecionado?"
+            : "Deseja adicionar o Ativo?"}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleConfirmSave}>
@@ -477,7 +478,7 @@ export default function AssetForm() {
               >
                 {brands.length != 0 ? <option value=""></option> : ""}
                 {brands.length === 0 ? (
-                  <option>{asset.brand.name}</option>
+                  <option>{asset.brand && asset.brand.name}</option> // Add null check for asset.brand
                 ) : (
                   brands.map((brand) => (
                     <option key={brand.id} value={brand.id}>
