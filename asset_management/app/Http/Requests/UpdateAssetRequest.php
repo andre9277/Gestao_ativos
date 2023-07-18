@@ -24,7 +24,7 @@ class UpdateAssetRequest extends FormRequest
     public function rules()
     {
         return [
-            'numb_ser' => 'required',
+            'numb_ser' => 'nullable',
             'cond' => 'required',
             'state' => 'required',
             'cat_id' => 'required',
@@ -33,7 +33,7 @@ class UpdateAssetRequest extends FormRequest
             //'model_id' => 'required',
             'ent_id' => 'required',
             'numb_inv' => [
-                'nullable',
+                'required',
                 'string',
                 'digits:6',
                 'regex:/^0/',

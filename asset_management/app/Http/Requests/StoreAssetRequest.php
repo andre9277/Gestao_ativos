@@ -24,7 +24,7 @@ class StoreAssetRequest extends FormRequest
     public function rules()
     {
         return [
-            'numb_ser' => ['required', 'max:25', 'unique:assets,numb_ser',],
+            'numb_ser' => ['nullable', 'max:25', 'unique:assets,numb_ser',],
             'cond' => 'required',
             'state' => 'required',
             'cat_id' => 'required',
@@ -32,7 +32,7 @@ class StoreAssetRequest extends FormRequest
             'ci' => ['required', 'max:7'],
             'ent_id' => 'required',
             'numb_inv' => [
-                'nullable',
+                'required',
                 'string',
                 'size:6',
                 'unique:assets,numb_inv',
