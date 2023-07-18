@@ -37,8 +37,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import MenuItem from "./MenuItem";
 import logo_hb from "../assets/logo_hb.jpg";
+import { useStateContext } from "../context/ContextProvider";
 
 const SideBar = () => {
+  const { activeOption, setActiveOption } = useStateContext();
+
   const [style, setStyle] = useState(
     "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
   );
@@ -66,7 +69,7 @@ const SideBar = () => {
     }
   };
 
-  const [activeOption, setActiveOption] = useState("dashboard");
+  /*  const [activeOption, setActiveOption] = useState("dashboard"); ------------------*/
 
   const handleOptionClick = (option) => {
     setActiveOption(option);

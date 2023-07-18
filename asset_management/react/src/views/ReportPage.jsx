@@ -54,7 +54,8 @@ const ReportPage = () => {
   const [meta, setMeta] = useState({});
   const [cats, setCats] = useState([]);
   const [users, setUsers] = useState([]);
-  const { user } = useStateContext();
+  const { user, setActiveOption } = useStateContext();
+  setActiveOption("report");
 
   const [isButtonClicked, setIsButtonClicked] = useState(false);
 
