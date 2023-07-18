@@ -140,7 +140,7 @@ class AssetController extends Controller
 
         $totalRep = $asset::where('cond', 'Reparação')->count();
 
-        $allocationCounts = Allocation::where('reason', 'Obsoleto')->count();
+        $allocationCounts = Asset::where('cond', 'Obsoleto')->count();
 
         return [
             'total' => $total,

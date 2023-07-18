@@ -34,20 +34,24 @@ Department: Serviço de Sistema de Informação
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React from "react";
+import { Link } from "react-router-dom";
 
-const Card = ({ Titulo, Descricao, Icon, Cor, Tipo }) => {
+const Card = ({ Titulo, Descricao, Icon, Cor, Tipo, LinkCard }) => {
   return (
     <div className="col-xl-3 col-md-6 mb-4">
       <div className={`cardd border-left-${Tipo} shadow h-100 py-2`}>
         <div className="card-body">
           <div className="row-dash no-gutters align-items-center">
             <div className="col mr-2">
-              <div className={`text-xs font-weight-bold ${Cor} mb-1`}>
-                <h5>{Titulo}</h5>
-              </div>
-              <div className="h1 mb-0 font-weight-bold text-gray-800">
-                {Descricao}
-              </div>
+              <Link to={`/${LinkCard}`}>
+                <div className={`text-xs font-weight-bold ${Cor} mb-1`}>
+                  <h5>{Titulo}</h5>
+                </div>
+
+                <div className="h1 mb-0 font-weight-bold text-gray-800">
+                  {Descricao}
+                </div>
+              </Link>
             </div>
             <div className="col-auto">
               <i className={`fas ${Icon} fa-2x text-gray-300`}></i>

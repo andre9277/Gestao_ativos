@@ -71,6 +71,14 @@ function Dashboard() {
     });
   };
 
+  /*   const handleCardClick = () => {
+    // Handle any additional logic you want to perform before redirecting, if needed
+    // For example, you can execute some code or set state variables here
+
+    // Redirect to the desired page
+    window.location.href = "/assets"; // Replace '/other-page' with your desired route
+  }; */
+
   return (
     <div id="content-wrapper" className="d-flex flex-column">
       {/*  <!-- Main Content --> */}
@@ -85,12 +93,14 @@ function Dashboard() {
           {/*  <!-- Content Row --> */}
           <div className="row-dash">
             {/*  <!-- Total of Assets --> */}
+
             <Card
               Titulo="Total de Ativos"
               Descricao={assetTotal.total}
               Icon="fa-laptop"
               Cor="text-primary"
               Tipo="primary"
+              LinkCard="assets"
             />
 
             {/*  <!-- Assets Changed --> */}
@@ -100,6 +110,7 @@ function Dashboard() {
               Icon="fa-arrows-alt"
               Cor="text-success"
               Tipo="success"
+              LinkCard="report"
             />
 
             {/*  <!-- Assets in Repair --> */}
@@ -110,6 +121,7 @@ function Dashboard() {
               Icon="fa-wrench"
               Cor="text-warning"
               Tipo="warning"
+              LinkCard="assets"
             />
             <Card
               Titulo="Ativos obsoletos"
@@ -117,6 +129,7 @@ function Dashboard() {
               Icon="fa-warehouse"
               Cor="text-info"
               Tipo="info"
+              LinkCard="assets"
             />
           </div>
 
