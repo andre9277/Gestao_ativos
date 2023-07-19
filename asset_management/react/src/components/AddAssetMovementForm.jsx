@@ -141,6 +141,7 @@ const AddAssetMovementForm = () => {
             ...matchingAsset,
             ci: assetCi !== "" ? assetCi : matchingAsset.ci, // Update asset CI only if there is a new value
             ent_id: assetEnt !== "" ? assetEnt : matchingAsset.ent_id,
+            cond: reason !== "" ? reason : matchingAsset.cond,
           };
 
           axiosClient
@@ -164,6 +165,7 @@ const AddAssetMovementForm = () => {
             ...matchingInv,
             ci: assetCi !== "" ? assetCi : matchingInv.ci, // Update asset CI only if there is a new value
             ent_id: assetEnt !== "" ? assetEnt : matchingInv.ent_id,
+            cond: reason !== "" ? reason : matchingAsset.cond,
           };
 
           axiosClient

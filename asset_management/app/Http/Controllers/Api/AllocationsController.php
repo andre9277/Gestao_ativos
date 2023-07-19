@@ -60,9 +60,6 @@ class AllocationsController extends Controller
 
     public function addAssetMovement(StoreAllocationRequest $request)
     {
-
-        /* $asset = Asset::where('numb_ser', $request->ser_number)->first(); */
-
         // Access the values from the request
         $allocationDate = $request->input('allocation_date');
         $reason = $request->input('reason');
@@ -83,6 +80,7 @@ class AllocationsController extends Controller
         $move->asset_id = $assetId;
 
         $move->save();
+
         return response()->json(['message' => 'Data stored successfully']);
     }
 }
