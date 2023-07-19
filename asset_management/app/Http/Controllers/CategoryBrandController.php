@@ -14,4 +14,16 @@ class CategoryBrandController extends Controller
 
         return response()->json($categoryBrands);
     }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'category_id' => 'required|integer',
+            'brand_id' => 'required|integer',
+        ]);
+
+        $categoryBrand = CategoryBrand::create($data);
+
+        return response()->json($categoryBrand, 201);
+    }
 }

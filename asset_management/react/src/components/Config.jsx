@@ -5,6 +5,7 @@ import axiosClient from "../axios-client";
 const Config = () => {
   const [nameBrand, setNameBrand] = useState("");
   const [nameModel, setNameModel] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [cats, setCats] = useState([]);
   const [errors, setErrors] = useState([]);
   const [notification, setNotification] = useState("");
@@ -25,6 +26,15 @@ const Config = () => {
 
     try {
       const response = await axiosClient.post("/brandsAdd", brand);
+      const brandId = response.data.id;
+
+      const categoryBrand = {
+        category_id: selectedCategory,
+        brand_id: brandId,
+      };
+
+      await axiosClient.post("/categoryBrands", categoryBrand);
+
       setNotification("Marca adicionado com sucesso!");
       // Handle success or navigate to a different page
     } catch (err) {
@@ -46,8 +56,9 @@ const Config = () => {
       <select
         name="category"
         id="category"
-        value={cats.id}
+        value={selectedCategory}
         className="configSelect"
+        onChange={(e) => setSelectedCategory(e.target.value)}
       >
         <option value=""></option>
         {cats.map((category) => (
