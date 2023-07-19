@@ -255,10 +255,10 @@ const AddAssetMovementForm = () => {
             className={`form-calendar-asset ${
               errors && errors.allocation_date ? "error" : ""
             }`}
-            type="date"
+            type="datetime-local"
             value={assetDate}
             onChange={(e) => setAssetDate(e.target.value)}
-            placeholder="YYYY-MM-DD"
+            placeholder="YYYY-MM-DD HH:MM"
           />
           {errors && errors.allocation_date && (
             <div className="error">{errors.allocation_date[0]}</div>
