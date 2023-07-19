@@ -405,7 +405,7 @@ const AddAssetMovementForm = () => {
             <option value="Transferência">Transferência</option>
             <option value="Reparação">Reparação</option>
             <option value="Obsoleto">Obsoleto</option>
-            <option value="Garantia">Garantia</option>
+            {/* <option value="Garantia">Garantia</option> */}
           </select>
           {errors && errors.reason && (
             <div className="error">{errors.reason[0]}</div>
