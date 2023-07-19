@@ -436,6 +436,7 @@ const ReportPage = () => {
 
           return [
             asset.numb_inv,
+            //`'${asset.numb_inv}`, // Add a single quote before the value
             asset.numb_ser,
             asset.category.name,
             asset.previous_unit_id === null
