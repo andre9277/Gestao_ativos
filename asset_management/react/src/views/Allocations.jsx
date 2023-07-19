@@ -145,7 +145,7 @@ export default function Allocations() {
       fields: [
         "Utilizador",
         "Operação",
-        "Nº Série",
+        "Nº Inventário",
         "Motivo",
         "Data de alteração",
       ],
@@ -155,7 +155,7 @@ export default function Allocations() {
           allocation.action_type,
           allocation.assets === null
             ? allocation.inv_number
-            : allocation.assets.numb_ser,
+            : allocation.assets.numb_inv,
           allocation.reason,
           allocation.allocation_date,
         ];
