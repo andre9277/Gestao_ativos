@@ -100,7 +100,7 @@ class AuthController extends Controller
         // Create a new allocation record for the user
         $allocation = new Allocation([
             'allocation_date' => now(),
-            'ser_number' => "",
+            'inv_number' => " ",
             'action_type' => 'Log in',
             'user_id' => $user->id,
             'reason' => "",
@@ -133,7 +133,7 @@ class AuthController extends Controller
         // Create a new allocation record for the user
         $allocation = new Allocation([
             'allocation_date' => now(),
-            'ser_number' => "",
+            'inv_number' => " ",
             'action_type' => 'Log out',
             'user_id' => $user->id,
             'reason' => "",

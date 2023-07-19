@@ -26,7 +26,7 @@ class StoreAllocationRequest extends FormRequest
         return [
             'allocation_date' => 'required',
             'action_type' => 'required',
-            'ser_number' => 'required',
+            'inv_number' => 'required',
             'reason' => 'required',
             'other' => 'nullable',
             'user_id' => 'required',
@@ -37,7 +37,7 @@ class StoreAllocationRequest extends FormRequest
     public function messages()
     {
         return [
-            'ser_number.required' => 'Atenção! É necessário indicar o número de série.',
+            'inv_number.required' => 'Atenção! É necessário indicar o número de inventário.',
             'reason.required' => 'Atenção! É necessário indicar o motivo.',
             'allocation_date.required' => 'Atenção! É necessário indicar a data.',
         ];

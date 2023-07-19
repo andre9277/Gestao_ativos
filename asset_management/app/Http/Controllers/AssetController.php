@@ -10,7 +10,6 @@ use App\Models\Allocation;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class AssetController extends Controller
 {
@@ -113,7 +112,7 @@ class AssetController extends Controller
         $allocation = new Allocation([
             'allocation_date' => now(),
             'action_type' => 'Adiciona',
-            'ser_number' => $asset->numb_ser,
+            'inv_number' => $asset->numb_inv,
             'user_id' => auth()->user()->id,
             'reason' => "",
         ]);
@@ -165,7 +164,7 @@ class AssetController extends Controller
             'user_id' => Auth::id(),
             'allocation_date' => now(),
             'action_type' => 'Pesquisa',
-            'ser_number' => $asset->numb_ser,
+            'inv_number' => $asset->numb_inv,
             'reason' => "",
         ]);
         $update->save();
@@ -249,7 +248,7 @@ class AssetController extends Controller
         // Create allocation records for the deleted assets
         foreach ($assets as $asset) {
             $allocation = new Allocation([
-                'ser_number' => $asset->numb_ser,
+                'inv_number' => $asset->numb_inv,
                 'action_type' => 'Apaga',
                 'user_id' => Auth::id(),
                 'allocation_date' => now(),

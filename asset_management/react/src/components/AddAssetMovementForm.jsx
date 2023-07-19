@@ -196,7 +196,7 @@ const AddAssetMovementForm = () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         } else {
           /* console.log("Error Message:", response.data.message); */
-          setErrorMessage(response.data.message);
+          setErrors(response.data.message);
           // Scroll to the top of the page
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
@@ -270,32 +270,31 @@ const AddAssetMovementForm = () => {
         {/* ---------- Num Inv ----------*/}
 
         <label className="lb-info">
-          <label className="labelofLabel">Nº de Inventário:</label>
+          <label className="labelofLabel">
+            Nº de Inventário:<label className="cmp-obg">*</label>
+          </label>
           <input
             type="text"
             value={matchingAsset ? matchingAsset.numb_inv : invNumber}
             onChange={(e) => setInvNumber(e.target.value)}
-            className="infoInp"
+            className={`infoInp ${
+              errors && errors.inv_number ? "error-input" : ""
+            }`}
           />
+          {errors && errors.inv_number && (
+            <div className="error">{errors.inv_number[0]}</div>
+          )}
         </label>
 
         {/* ---------- Num Serial ----------*/}
         <label className="lb-info">
-          <label className="labelofLabel">
-            {" "}
-            Nº de Série:<label className="cmp-obg">*</label>
-          </label>
+          <label className="labelofLabel"> Nº de Série:</label>
           <input
             type="text"
             value={matchingInv ? matchingInv.numb_ser : serNumber}
             onChange={(e) => setSerNumber(e.target.value)}
-            className={`infoInp ${
-              errors && errors.ser_number ? "error-input" : ""
-            }`}
+            className="infoInp"
           />
-          {errors && errors.ser_number && (
-            <div className="error">{errors.ser_number[0]}</div>
-          )}
         </label>
         <div className="space-mov"></div>
         <h1 className="title-page-all-sub">Localização: </h1>

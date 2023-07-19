@@ -54,7 +54,7 @@ class StoreAssetRequest extends FormRequest
             'ci' => 'Atenção! É necessário indicar o ci.',
             'ci.max' => 'Atenção! CI inválido.',
             'ent_id' => 'Atenção! É necessário indicar a entidade.',
-            'numb_ser' => 'Atenção! É necessário indicar o número de série.',
+            'numb_inv' => 'Atenção! É necessário indicar o número de inventário.',
             'cat_id' => 'Atenção! É necessário indicar a categoria.',
             'cond' => 'Atenção! É necessário indicar a condição.',
             'brand_id' => 'Atenção! É necessário indicar a marca.',

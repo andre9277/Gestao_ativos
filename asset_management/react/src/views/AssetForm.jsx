@@ -378,34 +378,35 @@ export default function AssetForm() {
             <p></p>
             <label className="lb-info">
               {" "}
-              <label className="labelofLabel"> Nº de inventário: </label>
+              <label className="labelofLabel">
+                {" "}
+                Nº de inventário:<label className="cmp-obg">*</label>
+              </label>
               <input
                 value={asset.numb_inv === null ? "" : asset.numb_inv}
                 onChange={(ev) =>
                   setAsset({ ...asset, numb_inv: ev.target.value })
                 }
-                className="infoInp"
+                className={`infoInp ${
+                  errors && errors.numb_inv ? "error-input" : ""
+                }`}
               />
+              {errors && errors.numb_inv && (
+                <div className="error">{errors.numb_inv[0]}</div>
+              )}
             </label>
 
             {/* ---------- Serial Number ----------*/}
             <label className="lb-info">
               {" "}
-              <label className="labelofLabel">
-                Nº de série:<label className="cmp-obg">*</label>
-              </label>
+              <label className="labelofLabel">Nº de série:</label>
               <input
                 value={asset.numb_ser}
                 onChange={(ev) =>
                   setAsset({ ...asset, numb_ser: ev.target.value })
                 }
-                className={`infoInp ${
-                  errors && errors.numb_ser ? "error-input" : ""
-                }`}
+                className="infoInp"
               />
-              {errors && errors.numb_ser && (
-                <div className="error">{errors.numb_ser[0]}</div>
-              )}
             </label>
 
             {/* ---------- Category ----------*/}
