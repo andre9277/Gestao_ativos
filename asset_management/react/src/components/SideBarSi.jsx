@@ -141,7 +141,7 @@ const SideBarSi = () => {
         />
 
         <MenuItem
-          titulo={"Donwload"}
+          titulo={"Relatório"}
           icon={"fa-arrow-circle-down"}
           origem={"allocations"}
           handleOptionClick={handleOptionClick}

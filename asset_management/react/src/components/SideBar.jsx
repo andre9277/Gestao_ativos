@@ -146,7 +146,7 @@ const SideBar = () => {
 
         {/* <!-- Nav Item - ReportPage --> */}
         <MenuItem
-          titulo={"Download"}
+          titulo={"Relatório"}
           icon={"fa-arrow-circle-down"}
           origem={"allocations"}
           handleOptionClick={handleOptionClick}
