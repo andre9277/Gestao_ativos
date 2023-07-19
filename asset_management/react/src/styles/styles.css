@@ -297,6 +297,7 @@ strong {
 small,
 .small {
     font-size: 1.2rem;
+    color: white;
 }
 
 mark,
@@ -2276,6 +2277,7 @@ progress {
     margin-bottom: 0.5rem;
     width: auto;
     font-size: 1.2rem;
+    color: white;
 }
 
 .col-form-label {
@@ -7936,18 +7938,23 @@ fieldset:disabled .btn {
     min-height: "100vh";
     padding: 10rem;
 
+    /*  background: linear-gradient(
+        135deg,
+        rgba(37, 97, 5, 1) 0%,
+        rgba(106, 170, 71, 1) 100%
+    ); */
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+.back-col-login2 {
     background: linear-gradient(
         135deg,
         rgba(37, 97, 5, 1) 0%,
         rgba(106, 170, 71, 1) 100%
     );
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-}
-.back-col-login2 {
-    background-color: #ffffff;
     border-radius: 0.5rem;
 }
+
 .logoDiv {
     background-color: #007840;
     padding: 50px;
@@ -8723,7 +8730,7 @@ fieldset:disabled .btn {
 
 .text-muted {
     --bs-text-opacity: 1;
-    color: #61a60e !important;
+    color: white !important;
     font-size: 1.2rem;
 }
 
@@ -12277,11 +12284,11 @@ body {
 #layoutAuthentication #layoutAuthentication_content {
     min-width: 0;
     flex-grow: 1;
-    background: linear-gradient(
+    /*  background: linear-gradient(
         135deg,
         rgba(37, 97, 5, 1) 0%,
         rgba(106, 170, 71, 1) 100%
-    );
+    ); */
 }
 #layoutAuthentication #layoutAuthentication_footer {
     min-width: 0;
@@ -12673,7 +12680,11 @@ body {
 }
 
 .card {
-    background-color: #fff;
+    background: linear-gradient(
+        135deg,
+        rgba(37, 97, 5, 1) 0%,
+        rgba(106, 170, 71, 1) 100%
+    );
     border-radius: 0.5rem;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     padding: 1.25rem 1.5rem;
@@ -12697,7 +12708,7 @@ h1 {
 }
 h3 {
     margin: 12px 0;
-    color: #007840;
+    color: white;
 }
 .main-block {
     display: flex;
@@ -12849,7 +12860,7 @@ select {
 }
 
 .title-lg {
-    color: #007840;
+    color: white;
     text-align: center;
     display: flex;
 }
@@ -13584,6 +13595,7 @@ input::placeholder {
     bottom: 0;
     width: 100%;
     height: 50px;
+    color: white;
 }
 
 .container-assetMov {
@@ -13792,6 +13804,7 @@ button {
     width: auto;
     margin-bottom: auto;
     font-size: 1.2rem;
+    color: white;
 }
 
 .inp-res-pass {
@@ -13799,6 +13812,7 @@ button {
     border: 1px solid black;
     margin-bottom: 24px;
     font-size: 1.2rem;
+    background-color: white;
 }
 .inp-res-pass-rec {
     border: 1px solid black;
@@ -13808,12 +13822,13 @@ button {
 }
 
 .btn-rec-pass {
-    background-color: #00a762;
+    background-color: white;
     padding: 0.5rem 0.75rem;
     font-size: 1.2rem;
     border-radius: 4px;
-    color: white;
+    color: #007840;
     width: 100%;
+    font-weight: 700;
 }
 
 .ms-rec-pass {
@@ -13844,13 +13859,15 @@ button {
     height: auto;
     block-size: auto;
     color: white;
-    background-color: #007840;
+    background-color: white;
     margin-left: 122px;
+    color: #007840;
+    font-weight: 800;
 }
 
 .login-main-box {
     width: auto;
-    padding-top: 5rem;
+    padding-top: 2rem;
 }
 
 .form-group-reset {
@@ -13914,4 +13931,8 @@ button {
 
 .data-filter-container {
     padding: 1px;
+}
+
+.logo-whbg {
+    width: inherit;
 }
