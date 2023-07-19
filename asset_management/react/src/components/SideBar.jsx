@@ -176,6 +176,14 @@ const SideBar = () => {
           activeOption={activeOption}
         />
 
+        <MenuItem
+          titulo={"Configurações"}
+          icon={"fa-circle"}
+          origem={"config"}
+          handleOptionClick={handleOptionClick}
+          activeOption={activeOption}
+        />
+
         {/*   <div className="text-center d-none d-md-inline">
           <button
             className="border-0"
