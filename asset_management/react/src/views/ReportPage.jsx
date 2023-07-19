@@ -55,7 +55,10 @@ const ReportPage = () => {
   const [cats, setCats] = useState([]);
   const [users, setUsers] = useState([]);
   const { user, setActiveOption } = useStateContext();
-  setActiveOption("report");
+
+  useEffect(() => {
+    setActiveOption("report");
+  }, []);
 
   const [isButtonClicked, setIsButtonClicked] = useState(false);
 

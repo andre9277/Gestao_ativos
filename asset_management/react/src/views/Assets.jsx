@@ -53,7 +53,9 @@ export default function Assets() {
   const [meta, setMeta] = useState({});
   const { user, setNotification, setActiveOption } = useStateContext();
 
-  setActiveOption("assets");
+  useEffect(() => {
+    setActiveOption("assets");
+  }, []);
 
   const [cats, setCats] = useState([]);
   const [brands, setBrands] = useState([]);
