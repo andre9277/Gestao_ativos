@@ -2962,7 +2962,7 @@ input::placeholder {
     float: right;
     background-color: #6c757d;
     padding: 0.5rem 0.75rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     border-radius: 4px;
     color: white;
     overflow: hidden;
@@ -13444,7 +13444,9 @@ input::placeholder {
     float: right;
     font-size: 1.2rem;
     font-weight: normal;
+    position: relative;
 }
+
 .infoInp-select {
     width: 60%;
     padding: 0.1em;
@@ -13879,8 +13881,10 @@ button {
 }
 
 .error {
+    position: absolute;
+    top: 80%;
+    /*  right: 0; */
     color: white;
-    float: right;
     font-size: 1rem;
     background-color: red;
     padding: 0.2rem;
@@ -13900,6 +13904,7 @@ button {
     background-color: white;
     color: black;
     font-size: 1.2rem;
+    position: relative;
 }
 
 .simb-tb {
