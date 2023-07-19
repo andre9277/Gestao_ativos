@@ -118,7 +118,8 @@ export default function Login() {
         className="w-100-new"
         style={{ objectFit: "cover", objectPosition: "left" }}
       />
-      <div className="space-mov"></div>
+      <h1 className="title-lg">Sistema Integrado de Gestão de Ativos</h1>
+      <div className="space-mov-login"></div>
       <div className="mb-3">
         <label className="lb-lg">Endereço de email / Nº mec</label>
         <input className="form-control" ref={emailRef} />
