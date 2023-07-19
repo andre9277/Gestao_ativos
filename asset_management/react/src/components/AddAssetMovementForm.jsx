@@ -422,9 +422,12 @@ const AddAssetMovementForm = () => {
         </label>
         <label className="lb-info"> </label>
         <label className="lb-info">
-          <button onClick={resetFilter} className="btn-cleanfilter-movAsset">
-            Limpar
-          </button>
+          <input
+            type="button"
+            onClick={resetFilter}
+            value="Limpar"
+            className="btn-cleanfilter-asset"
+          />
           <button
             type="submit"
             className="btn-adicionar-movAsset"
