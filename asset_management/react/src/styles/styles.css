@@ -12679,12 +12679,20 @@ body {
     border-radius: 0.25rem !important;
 }
 
-.card {
+.carddd {
     background: linear-gradient(
         135deg,
         rgba(37, 97, 5, 1) 0%,
         rgba(106, 170, 71, 1) 100%
     );
+    border-radius: 0.5rem;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 7rem;
+    margin-top: 0.5rem;
+}
+
+.card {
     border-radius: 0.5rem;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     padding: 1.25rem 1.5rem;
