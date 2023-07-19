@@ -119,7 +119,7 @@ class ExcelImportController extends Controller
                 'user_id' => Auth::id(),
                 'allocation_date' => now(),
                 'action_type' => 'Adiciona',
-                'ser_number' => $column4,
+                'inv_number' => $column1,
                 'reason' => "",
             ]);
 
