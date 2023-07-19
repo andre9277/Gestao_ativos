@@ -462,10 +462,8 @@ export default function AssetForm() {
                 <div className="error">{errors.state[0]}</div>
               )}
             </label>
-
             {/* ---------- Brands ----------*/}
             <label className="lb-info">
-              {" "}
               <label className="labelofLabel">
                 {" "}
                 Marca:<label className="cmp-obg">*</label>
@@ -495,7 +493,6 @@ export default function AssetForm() {
 
             {/* ---------- Models ----------*/}
             <label className="lb-info">
-              {" "}
               <label className="labelofLabel">
                 {" "}
                 Modelo:<label className="cmp-obg">*</label>
@@ -511,11 +508,19 @@ export default function AssetForm() {
                 required
               >
                 <option value=""></option>
-                {modelos.map((modelo) => (
-                  <option key={modelo.id} value={modelo.id}>
-                    {modelo.name}
-                  </option>
-                ))}
+                {id && asset.brand_id
+                  ? modelos
+                      .filter((modelo) => modelo.brand_id === asset.brand_id) // Filter models based on selected brand
+                      .map((modelo) => (
+                        <option key={modelo.id} value={modelo.id}>
+                          {modelo.name}
+                        </option>
+                      ))
+                  : modelos.map((modelo) => (
+                      <option key={modelo.id} value={modelo.id}>
+                        {modelo.name}
+                      </option>
+                    ))}
               </select>
               {errors && errors.model_id && (
                 <div className="error">{errors.model_id[0]}</div>
