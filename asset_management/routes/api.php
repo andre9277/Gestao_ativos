@@ -129,6 +129,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/categoryBrands', [CategoryBrandController::class, 'store']);
     Route::post('/modelsAdd', [ModeloController::class, 'store']);
 
+    //Delete and add one category
+    Route::post('/categoriesAdd', [CategoryController::class, 'store']);
+    Route::delete('/categoriesDel/{cat}',  [CategoryController::class, 'destroy']);
+
     //Endpoint for the AssetForm component (Joins all the calls, does one request do the server)
     Route::get('/combinedData', function () {
 

@@ -26,7 +26,7 @@
     border-radius: 4px;
     color: white;
     overflow: hidden;
-    margin-top: 6rem;
+    margin-top: 1rem;
 }
 
 .configSelect {
@@ -46,4 +46,34 @@
 
 .titleconfig {
     display: flex;
+}
+
+.form-brd-mdl {
+    margin-bottom: 10rem;
+}
+
+.addConfig-cat {
+    display: inherit;
+
+    background-color: #00a762;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    color: white;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.deleteConfig-cat {
+    display: inherit;
+
+    background-color: red;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    color: white;
+    overflow: hidden;
+    margin-top: 1rem;
+    position: absolute;
+    margin-left: 8rem;
 }

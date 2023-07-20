@@ -31,4 +31,22 @@ class CategoryController extends Controller
         $categories = Category::all(['name']);
         return response()->json($categories);
     }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|unique:categories,name',
+        ]);
+
+        $category = Category::create($data);
+
+        return response()->json($category, 201);
+    }
+
+    public function destroy(Category $cat)
+    {
+        $cat->delete();
+
+        return response()->json(['message' => 'Category deleted successfully']);
+    }
 }
