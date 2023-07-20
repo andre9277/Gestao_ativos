@@ -9,6 +9,13 @@ class CategoryBrand extends Model
 {
     protected $table = 'category_brand';
 
+    protected $fillable = [
+        'id',
+        'category_id',
+        'brand_id',
+
+    ];
+
     // Define the relationships with other models
     public function category()
     {
