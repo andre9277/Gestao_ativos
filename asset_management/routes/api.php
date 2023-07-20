@@ -127,7 +127,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/brandsAdd', [BrandController::class, 'store']);
 
     Route::post('/categoryBrands', [CategoryBrandController::class, 'store']);
-
+    Route::post('/modelsAdd', [ModeloController::class, 'store']);
 
     //Endpoint for the AssetForm component (Joins all the calls, does one request do the server)
     Route::get('/combinedData', function () {

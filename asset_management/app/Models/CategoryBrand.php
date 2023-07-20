@@ -13,7 +13,6 @@ class CategoryBrand extends Model
         'id',
         'category_id',
         'brand_id',
-
     ];
 
     // Define the relationships with other models

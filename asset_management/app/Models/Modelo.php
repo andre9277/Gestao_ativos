@@ -10,6 +10,12 @@ class Modelo extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'name',
+        'brand_id',
+    ];
+
 
     protected $table = 'modelo';
 
