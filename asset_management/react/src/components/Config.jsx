@@ -358,117 +358,67 @@ const Config = () => {
   return (
     <div className="form-brd-mdl">
       <h1>Configurações</h1>
+      <div className="config-gp-one">
+        {/*----------------- Add a new Category only------------------- */}
+        <ConfigDropdown
+          Title="Categoria"
+          id="category"
+          setData={newCategory}
+          setNewData={setNewCategory}
+          handleAdd={handleAddCategory}
+          tag="list"
+          datas={cats}
+          handleDel={handleRemoveCategory}
+        />
+        {/*----------------- Add a new Brand only------------------- */}
+        <ConfigDropdown
+          Title={"Marcas"}
+          id="brand"
+          setData={newBrand}
+          setNewData={setNewBrand}
+          handleAdd={handleAddBrand}
+          tag="brand"
+          datas={brands}
+          handleDel={handleRemoveBrand}
+        />
 
-      {/*----------------- Add a new Category only------------------- */}
-      <ConfigDropdown
-        Title="Categoria"
-        id="category"
-        setData={newCategory}
-        setNewData={setNewCategory}
-        handleAdd={handleAddCategory}
-        tag="list"
-        datas={cats}
-        handleDel={handleRemoveCategory}
-      />
-      {/*----------------- Add a new Brand only------------------- */}
-      <ConfigDropdown
-        Title={"Marcas"}
-        id="brand"
-        setData={newBrand}
-        setNewData={setNewBrand}
-        handleAdd={handleAddBrand}
-        tag="brand"
-        datas={brands}
-        handleDel={handleRemoveBrand}
-      />
-
-      {/*----------------- Add a new Model only------------------- */}
-      <div id="container-config">
-        <form className="frm-cats">
-          <label htmlFor="model">Modelo:</label>
-          <input
-            type="text"
-            value={newModel}
-            onChange={(e) => setNewModel(e.target.value)}
-            autoComplete="off"
-          />
-          <button id="btnAdd" onClick={handleAddModel}>
-            Adicionar
-          </button>
-
-          <label htmlFor="model">Lista de modelos:</label>
-          <select id="model" name="model" multiple>
-            {models.map((model) => (
-              <option key={model.id} value={model.id}>
-                {model.name}
-              </option>
-            ))}
-          </select>
-
-          <button id="btnRemove" onClick={handleRemoveModel}>
-            Remover Modelo Selecionado
-          </button>
-        </form>
+        {/*----------------- Add a new Model only------------------- */}
+        <ConfigDropdown
+          Title="Modelos"
+          id="model"
+          setData={newModel}
+          setNewData={setNewModel}
+          handleAdd={handleAddModel}
+          tag="model"
+          datas={models}
+          handleDel={handleRemoveModel}
+        />
       </div>
+      <div className="config-gp-two">
+        {/*----------------- Add a new Supplier only------------------- */}
+        <ConfigDropdown
+          Title="Fornecedores"
+          id="sup"
+          setData={newSupplier}
+          setNewData={setNewSupplier}
+          handleAdd={handleAddSupplier}
+          tag="sup"
+          datas={suppliers}
+          handleDel={handleRemoveSupplier}
+        />
 
-      {/*----------------- Add a new Supplier only------------------- */}
-      <div id="container-config">
-        <form className="frm-cats">
-          <label htmlFor="sup">Fornecedor:</label>
-          <input
-            type="text"
-            value={newSupplier}
-            onChange={(e) => setNewSupplier(e.target.value)}
-            autoComplete="off"
-          />
-          <button id="btnAdd" onClick={handleAddSupplier}>
-            Adicionar
-          </button>
-
-          <label htmlFor="sup">Lista de fornecedores:</label>
-          <select id="sup" name="sup" multiple>
-            {suppliers.map((sup) => (
-              <option key={sup.id} value={sup.id}>
-                {sup.name}
-              </option>
-            ))}
-          </select>
-
-          <button id="btnRemove" onClick={handleRemoveSupplier}>
-            Remover Fornecedor Selecionado
-          </button>
-        </form>
+        {/*----------------- Add a new Entity only------------------- */}
+        <ConfigDropdown
+          Title="Entidade"
+          id="entidades"
+          setData={newEntity}
+          setNewData={setNewEntity}
+          handleAdd={handleAddEntity}
+          tag="ent"
+          datas={ents}
+          handleDel={handleRemoveEntity}
+        />
       </div>
-
-      {/*----------------- Add a new Entity only------------------- */}
-      <div id="container-config">
-        <form className="frm-cats">
-          <label htmlFor="ent">Entidade:</label>
-          <input
-            type="text"
-            value={newEntity}
-            onChange={(e) => setNewEntity(e.target.value)}
-            autoComplete="off"
-          />
-          <button id="btnAdd" onClick={handleAddEntity}>
-            Adicionar
-          </button>
-
-          <label htmlFor="ent">Lista de entidades:</label>
-          <select id="ent" name="ent" multiple>
-            {ents.map((ent) => (
-              <option key={ent.id} value={ent.id}>
-                {ent.name}
-              </option>
-            ))}
-          </select>
-
-          <button id="btnRemove" onClick={handleRemoveEntity}>
-            Remover Entidade Selecionada
-          </button>
-        </form>
-      </div>
-
       {/* ---------Add a Category, Brand, Model--------- */}
       <form onSubmit={handleSubmit}>
         <h2 className="titleconfig">

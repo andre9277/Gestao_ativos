@@ -84,7 +84,8 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     width: 400px;
     font-size: 1.2rem;
-    display: table-cell;
+    /* display: table-cell; */
+    margin: 4rem;
 }
 
 #btnAdd {
@@ -144,4 +145,12 @@ button:hover {
 .lb-cats {
     display: contents;
     margin: 10px;
+}
+
+.config-gp-one {
+    display: flex;
+}
+
+.config-gp-two {
+    display: flex;
 }

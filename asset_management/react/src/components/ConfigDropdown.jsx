@@ -13,7 +13,9 @@ const ConfigDropdown = ({
   return (
     <div id="container-config">
       <form className="frm-cats">
-        <label htmlFor={id}>{Title}</label>
+        <label htmlFor={id} className="lb-cats">
+          {Title}
+        </label>
         <input
           type="text"
           value={setData}
@@ -24,8 +26,10 @@ const ConfigDropdown = ({
           Adicionar
         </button>
 
-        <label htmlFor={tag}>Lista de {id}:</label>
-        <select id={tag} name={tag} multiple>
+        <label htmlFor={tag} className="lb-cats">
+          Lista de {id}:
+        </label>
+        <select id={tag} name={tag} multiple className="slc-cat">
           {datas.map((data) => (
             <option key={data.name} value={data.id}>
               {data.name}
