@@ -128,11 +128,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/brandsDel/{brd}', [BrandController::class, 'destroy']);
 
     Route::post('/categoryBrands', [CategoryBrandController::class, 'store']);
-    Route::post('/modelsAdd', [ModeloController::class, 'store']);
 
-    //Delete and add one category
+    //Add and delete one model:
+    Route::post('/modelsAdd', [ModeloController::class, 'store']);
+    Route::delete('/modelsDel/{mdl}',  [ModeloController::class, 'destroy']);
+
+    //Add and delete one category:
     Route::post('/categoriesAdd', [CategoryController::class, 'store']);
     Route::delete('/categoriesDel/{cat}',  [CategoryController::class, 'destroy']);
+
+    //Add and delete one supplier:
+    Route::post('/supplierAdd', [SupplierController::class, 'store']);
+    Route::delete('/supplierAdd/{supplier}',  [SupplierController::class, 'destroy']);
 
     //Endpoint for the AssetForm component (Joins all the calls, does one request do the server)
     Route::get('/combinedData', function () {
@@ -194,7 +201,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/category-brands', [CategoryBrandController::class, 'index']);
 
-    Route::post('/brandsAdd', [BrandController::class, 'store']);
+
 
     function getCatsAll()
     {

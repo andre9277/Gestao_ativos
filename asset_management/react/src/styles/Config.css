@@ -84,6 +84,7 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     width: 400px;
     font-size: 1.2rem;
+    display: table-cell;
 }
 
 #btnAdd {

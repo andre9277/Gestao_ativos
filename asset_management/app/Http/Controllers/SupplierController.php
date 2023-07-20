@@ -31,4 +31,26 @@ class SupplierController extends Controller
         $suppliers = Supplier::all(['id', 'name']);
         return response()->json($suppliers);
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:suppliers',
+        ]);
+
+        $supplier = Supplier::create([
+            'name' => $request->input('name'),
+        ]);
+
+        return response()->json($supplier, 201);
+    }
+
+    public function destroy(Supplier $supplier)
+    {
+        // Implement logic to delete the supplier
+        // Don't forget to handle any related dependencies, if any
+        $supplier->delete();
+
+        return response()->json(null, 204);
+    }
 }

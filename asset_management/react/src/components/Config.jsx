@@ -16,14 +16,22 @@ const Config = () => {
   const [brands, setBrands] = useState([]);
   const [newBrand, setNewBrand] = useState("");
 
+  //for the models
+  const [models, setModels] = useState([]);
+  const [newModel, setNewModel] = useState("");
+
+  //for the suppliers
+  const [suppliers, setSuppliers] = useState([]);
+  const [newSupplier, setNewSupplier] = useState("");
+
   useEffect(() => {
     Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
       setCats(responses[0].data.cats);
       //setEnts(responses[0].data.ents);
       //setUnits(responses[0].data.units);
       setBrands(responses[0].data.brands);
-      //setModelos(responses[0].data.models);
-      //setSupplier(responses[0].data.suppliers);
+      setModels(responses[0].data.models);
+      setSuppliers(responses[0].data.suppliers);
     });
   }, []);
 
@@ -185,11 +193,116 @@ const Config = () => {
     }
   };
 
+  //--------------------------Add Model-------------------------
+  const handleAddModel = async (event) => {
+    event.preventDefault();
+    if (newModel.trim() === "") {
+      return;
+    }
+
+    // Check if the model already exists in the list
+    if (models.some((model) => model.name === newModel.trim())) {
+      alert("Model already exists.");
+      return;
+    }
+
+    try {
+      // Make a POST request to your backend API to add a new model
+      const response = await axiosClient.post("/modelsAdd", {
+        name: newModel.trim(),
+      });
+
+      // Add the new model to the state
+      setModels((prevModels) => [...prevModels, response.data]);
+      setNewModel("");
+    } catch (err) {
+      console.error("Error adding model", err);
+    }
+  };
+  //--------------------------Delete Model-------------------------
+  const handleRemoveModel = async (event) => {
+    event.preventDefault();
+    const selectElement = document.getElementById("model");
+    const selectedOptions = Array.from(selectElement.selectedOptions);
+    const modelToRemove = selectedOptions.map((option) => option.value);
+
+    if (modelToRemove.length === 0) {
+      alert("Please select a model to remove.");
+      return;
+    }
+
+    try {
+      // Make a DELETE request to your backend API for model removal
+      await Promise.all(
+        modelToRemove.map((modelId) =>
+          axiosClient.delete(`/modelsDel/${modelId}`)
+        )
+      );
+
+      axiosClient.get("/modelos").then((response) => {
+        setModels(response.data);
+      });
+    } catch (err) {
+      console.error("Error removing model", err);
+    }
+  };
+  //--------------------------Add Supplier-------------------------
+  const handleAddSupplier = async (event) => {
+    event.preventDefault();
+    if (newSupplier.trim() === "") {
+      return;
+    }
+
+    // Check if the supplier already exists in the list
+    if (suppliers.some((supplier) => supplier.name === newSupplier.trim())) {
+      alert("Supplier already exists.");
+      return;
+    }
+
+    try {
+      // Make a POST request to your backend API to add a new supplier
+      const response = await axiosClient.post("/supplierAdd", {
+        name: newSupplier.trim(),
+      });
+
+      // Add the new supplier to the state
+      setSuppliers((prevSuppliers) => [...prevSuppliers, response.data]);
+      setNewSupplier("");
+    } catch (err) {
+      console.error("Error adding supplier", err);
+    }
+  };
+  //--------------------------Delete Supplier-------------------------
+  const handleRemoveSupplier = async (event) => {
+    event.preventDefault();
+    const selectElement = document.getElementById("sup");
+    const selectedOptions = Array.from(selectElement.selectedOptions);
+    const supToRemove = selectedOptions.map((option) => option.value);
+
+    if (supToRemove.length === 0) {
+      alert("Please select a supplier to remove.");
+      return;
+    }
+
+    try {
+      // Make a DELETE request to your backend API for model removal
+      await Promise.all(
+        supToRemove.map((supId) => axiosClient.delete(`/supplierAdd/${supId}`))
+      );
+
+      axiosClient.get("/supplier").then((response) => {
+        setSuppliers(response.data);
+      });
+    } catch (err) {
+      console.error("Error removing supplier", err);
+    }
+  };
+
   return (
     <div className="form-brd-mdl">
       <h1>Configurações</h1>
 
-      {/* Add a new Category only */}
+      {/*----------------- Add a new Category only------------------- */}
       <div id="container-config">
         <form className="frm-cats">
           <label htmlFor="category" className="lb-cats">
@@ -222,7 +335,7 @@ const Config = () => {
           </button>
         </form>
       </div>
-
+      {/*----------------- Add a new Brand only------------------- */}
       <div id="container-config">
         <form className="frm-cats">
           <label htmlFor="brand">Marca:</label>
@@ -247,6 +360,64 @@ const Config = () => {
 
           <button id="btnRemove" onClick={handleRemoveBrand}>
             Remover Marca Selecionada
+          </button>
+        </form>
+      </div>
+
+      {/*----------------- Add a new Model only------------------- */}
+      <div id="container-config">
+        <form className="frm-cats">
+          <label htmlFor="model">Modelo:</label>
+          <input
+            type="text"
+            value={newModel}
+            onChange={(e) => setNewModel(e.target.value)}
+            autoComplete="off"
+          />
+          <button id="btnAdd" onClick={handleAddModel}>
+            Adicionar
+          </button>
+
+          <label htmlFor="model">Lista de modelos:</label>
+          <select id="model" name="model" multiple>
+            {models.map((model) => (
+              <option key={model.id} value={model.id}>
+                {model.name}
+              </option>
+            ))}
+          </select>
+
+          <button id="btnRemove" onClick={handleRemoveModel}>
+            Remover Modelo Selecionado
+          </button>
+        </form>
+      </div>
+
+      {/*----------------- Add a new Supplier only------------------- */}
+      <div id="container-config">
+        <form className="frm-cats">
+          <label htmlFor="sup">Fornecedor:</label>
+          <input
+            type="text"
+            value={newSupplier}
+            onChange={(e) => setNewSupplier(e.target.value)}
+            autoComplete="off"
+          />
+          <button id="btnAdd" onClick={handleAddSupplier}>
+            Adicionar
+          </button>
+
+          <label htmlFor="sup">Lista de fornecedores:</label>
+          <select id="sup" name="sup" multiple>
+            {suppliers.map((sup) => (
+              <option key={sup.id} value={sup.id}>
+                {sup.name}
+              </option>
+            ))}
+          </select>
+
+          <button id="btnRemove" onClick={handleRemoveSupplier}>
+            Remover Fornecedor Selecionado
           </button>
         </form>
       </div>
