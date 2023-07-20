@@ -15,8 +15,8 @@ class Entity extends Model
 
     protected $fillable = [
         'id',
-        'ent_name',
-        'ent_type'
+        'name',
+        /*      'ent_type' */
     ];
 
     public function assets()

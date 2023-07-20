@@ -24,10 +24,14 @@ const Config = () => {
   const [suppliers, setSuppliers] = useState([]);
   const [newSupplier, setNewSupplier] = useState("");
 
+  //for entities
+  const [ents, setEnts] = useState([]);
+  const [newEntity, setNewEntity] = useState("");
+
   useEffect(() => {
     Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
       setCats(responses[0].data.cats);
-      //setEnts(responses[0].data.ents);
+      setEnts(responses[0].data.ents);
       //setUnits(responses[0].data.units);
       setBrands(responses[0].data.brands);
       setModels(responses[0].data.models);
@@ -287,7 +291,7 @@ const Config = () => {
     try {
       // Make a DELETE request to your backend API for model removal
       await Promise.all(
-        supToRemove.map((supId) => axiosClient.delete(`/supplierAdd/${supId}`))
+        supToRemove.map((supId) => axiosClient.delete(`/supplierDel/${supId}`))
       );
 
       axiosClient.get("/supplier").then((response) => {
@@ -295,6 +299,58 @@ const Config = () => {
       });
     } catch (err) {
       console.error("Error removing supplier", err);
+    }
+  };
+
+  //--------------------------Add Entity-------------------------
+  const handleAddEntity = async (event) => {
+    event.preventDefault();
+    if (newEntity.trim() === "") {
+      return;
+    }
+
+    // Check if the entity already exists in the list
+    if (ents.some((ent) => ent.name === newEntity.trim())) {
+      alert("Entity already exists.");
+      return;
+    }
+    try {
+      // Make a POST request to your backend API to add a new entity
+      const response = await axiosClient.post("/entAdd", {
+        name: newEntity.trim(), // Use the correct field name for the backend
+      });
+
+      // Add the new entity to the state
+      setEnts((prevEnts) => [...prevEnts, response.data]);
+      setNewEntity("");
+    } catch (err) {
+      console.error("Error adding entity", err);
+    }
+  };
+
+  //--------------------------Delete Entity-------------------------
+  const handleRemoveEntity = async (event) => {
+    event.preventDefault();
+    const selectElement = document.getElementById("ent");
+    const selectedOptions = Array.from(selectElement.selectedOptions);
+    const entToRemove = selectedOptions.map((option) => option.value);
+
+    if (entToRemove.length === 0) {
+      alert("Please select a supplier to remove.");
+      return;
+    }
+
+    try {
+      // Make a DELETE request to your backend API for model removal
+      await Promise.all(
+        entToRemove.map((entId) => axiosClient.delete(`/entDel/${entId}`))
+      );
+
+      axiosClient.get("/entities").then((response) => {
+        setEnts(response.data);
+      });
+    } catch (err) {
+      console.error("Error removing entity", err);
     }
   };
 
@@ -418,6 +474,35 @@ const Config = () => {
 
           <button id="btnRemove" onClick={handleRemoveSupplier}>
             Remover Fornecedor Selecionado
+          </button>
+        </form>
+      </div>
+
+      {/*----------------- Add a new Entity only------------------- */}
+      <div id="container-config">
+        <form className="frm-cats">
+          <label htmlFor="ent">Entidade:</label>
+          <input
+            type="text"
+            value={newEntity}
+            onChange={(e) => setNewEntity(e.target.value)}
+            autoComplete="off"
+          />
+          <button id="btnAdd" onClick={handleAddEntity}>
+            Adicionar
+          </button>
+
+          <label htmlFor="ent">Lista de entidades:</label>
+          <select id="ent" name="ent" multiple>
+            {ents.map((ent) => (
+              <option key={ent.id} value={ent.id}>
+                {ent.name}
+              </option>
+            ))}
+          </select>
+
+          <button id="btnRemove" onClick={handleRemoveEntity}>
+            Remover Entidade Selecionada
           </button>
         </form>
       </div>
