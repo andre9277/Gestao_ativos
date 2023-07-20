@@ -20,6 +20,7 @@ const Config = () => {
     });
   }, []);
 
+  //handle the submit of the category/brand/model relation
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -59,42 +60,7 @@ const Config = () => {
     }
   };
 
-  /*   //Add a new category to the database
-  const handleAddNewCategory = async (event) => {
-    event.preventDefault();
-    if (newCategory.trim() === "") {
-      return;
-    }
-
-    try {
-      const response = await axiosClient.post("/categoriesAdd", {
-        name: newCategory.trim(),
-      });
-
-      setCats([...cats, response.data]);
-      setNotification("Categoria Adicionada com sucesso!");
-      setNewCategory("");
-    } catch (err) {
-      if (err.response && err.response.status === 422) {
-        setErrors(err.response.data.errors);
-      } else {
-        console.error("Erro ao adicionar a categoria", err);
-      }
-    }
-  };
-
-  const handleDeleteCategory = async (categoryId) => {
-    try {
-      await axiosClient.delete(`/categoriesDel/${categoryId}`);
-      // Optionally, you can refresh the category list after deletion:
-      axiosClient.get("/categories").then((response) => {
-        setCats(response.data);
-      });
-    } catch (err) {
-      console.error("Erro ao apgar a categoria", err);
-    }
-  }; */
-
+  //------Add new category
   const handleAddCategory = async (event) => {
     event.preventDefault();
     if (newCategory.trim() === "") {
@@ -160,7 +126,9 @@ const Config = () => {
       {/* Add a new Category only */}
       <div id="container-config">
         <form className="frm-cats">
-          <label htmlFor="category">Categoria:</label>
+          <label htmlFor="category" className="lb-cats">
+            Categoria:
+          </label>
           <input
             type="text"
             id="category"
@@ -172,7 +140,9 @@ const Config = () => {
             Adicionar
           </button>
 
-          <label htmlFor="list">Lista de categorias:</label>
+          <label htmlFor="list" className="lb-cats">
+            Lista de categorias:
+          </label>
           <select id="list" name="list" multiple className="slc-cat">
             {cats.map((category) => (
               <option key={category.name} value={category.id}>
@@ -243,15 +213,6 @@ const Config = () => {
           className="configInp"
         />
 
-        {/* -----------Supplier----------- */}
-        <label className="configlb">Fornecedor:</label>
-        <input
-          type="text"
-          /*  value={nameModel} */
-          onChange={(e) => setNameModel(e.target.value)}
-          className="configInp"
-        />
-
         {/* -----------Button Add----------- */}
         <button type="submit" className="addConfig">
           Adicionar
@@ -261,7 +222,7 @@ const Config = () => {
       </form>
       <form>
         <div className="localDiv">
-          <h2 className="titleconfig">Localização:</h2>
+          <h2 className="titleconfig">Adicionar relação Entidade/Unidade:</h2>
           {/* -----------Entity----------- */}
           <label className="configlb">Entidade:</label>
           <input
