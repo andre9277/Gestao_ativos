@@ -95,23 +95,34 @@ const Config = () => {
     }
   }; */
 
-  const handleAddCategory = (event) => {
+  const handleAddCategory = async (event) => {
     event.preventDefault();
     if (newCategory.trim() === "") {
       return;
     }
 
     // Check if the category already exists in the list
-    if (categories.some((category) => category === newCategory.trim())) {
+    if (cats.some((category) => category.name === newCategory.trim())) {
       alert("Category already exists.");
       return;
     }
 
-    setCategories((prevCategories) => [...prevCategories, newCategory.trim()]);
-    setNewCategory("");
+    try {
+      // Make a POST request to your backend API
+      const response = await axiosClient.post("/categoriesAdd", {
+        name: newCategory.trim(),
+      });
+
+      // Add the new category to the state
+      setCats((prevCategories) => [...prevCategories, response.data]);
+      setNewCategory("");
+    } catch (err) {
+      console.error("Erro ao adicionar categoria", err);
+    }
   };
 
-  const handleRemoveCategory = () => {
+  const handleRemoveCategory = async (event) => {
+    event.preventDefault();
     const selectedOptions = document.getElementById("list").selectedOptions;
     const categoryToRemove = [...selectedOptions].map((option) => option.value);
 
@@ -120,9 +131,26 @@ const Config = () => {
       return;
     }
 
-    setCategories((prevCategories) =>
-      prevCategories.filter((category) => !categoryToRemove.includes(category))
-    );
+    try {
+      // Make a DELETE request to your backend API for category removal
+      await Promise.all(
+        categoryToRemove.map((categoryId) =>
+          axiosClient.delete(`/categoriesDel/${categoryId}`)
+        )
+      );
+      axiosClient.get("/categories").then((response) => {
+        setCats(response.data);
+      });
+
+      // Remove the deleted categories from the state
+      setCats((prevCategories) =>
+        prevCategories.filter(
+          (category) => !categoryToRemove.includes(category.id)
+        )
+      );
+    } catch (err) {
+      console.error("Error removing category", err);
+    }
   };
 
   return (
@@ -130,35 +158,35 @@ const Config = () => {
       <h1>Configurações</h1>
 
       {/* Add a new Category only */}
-      <div id="container">
-        <form>
-          <label htmlFor="category">Category:</label>
+      <div id="container-config">
+        <form className="frm-cats">
+          <label htmlFor="category">Categoria:</label>
           <input
             type="text"
             id="category"
-            placeholder="Enter a category"
             value={newCategory}
             onChange={(e) => setNewCategory(e.target.value)}
             autoComplete="off"
           />
           <button id="btnAdd" onClick={handleAddCategory}>
-            Add
+            Adicionar
           </button>
 
-          <label htmlFor="list">Category List:</label>
-          <select id="list" name="list" multiple>
-            {categories.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
+          <label htmlFor="list">Lista de categorias:</label>
+          <select id="list" name="list" multiple className="slc-cat">
+            {cats.map((category) => (
+              <option key={category.name} value={category.id}>
+                {category.name}
               </option>
             ))}
           </select>
 
           <button id="btnRemove" onClick={handleRemoveCategory}>
-            Remove Selected Category
+            Remover Categoria Selecionada
           </button>
         </form>
       </div>
+
       {/* ---------Add a Category, Brand, Model--------- */}
       <form onSubmit={handleSubmit}>
         <h2 className="titleconfig">

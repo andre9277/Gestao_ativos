@@ -77,3 +77,64 @@
     position: absolute;
     margin-left: 8rem;
 }
+
+#container-config {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    width: 400px;
+}
+
+#btnAdd {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 3%;
+    background: #007bff;
+    border-bottom: 2px solid #007bff;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    color: #fff;
+    font-size: 14px;
+}
+
+#btnRemove {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 3%;
+    background: #007bff;
+    border-bottom: 2px solid #007bff;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    color: #fff;
+    font-size: 14px;
+}
+button:hover {
+    cursor: pointer;
+}
+
+.frm-cats input[type="text"] {
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    margin-bottom: 2%;
+    border: 1px solid #ccc;
+    padding: 3%;
+    color: #555;
+    font-size: 1em;
+}
+
+.frm-cats input[type="text"]:focus {
+    box-shadow: 0 0 5px #f0db4f;
+    padding: 3%;
+    border: 1px solid #f0db4f;
+}
+
+.slc-cat {
+    width: 100%;
+    font-size: 1em;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
