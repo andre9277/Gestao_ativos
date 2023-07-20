@@ -54,4 +54,11 @@ class ModeloController extends Controller
 
         return response()->json($model, 201);
     }
+
+    public function destroy(Modelo $mdl)
+    {
+        $mdl->delete();
+
+        return response()->json(['message' => 'Modelo eliminado com sucesso!']);
+    }
 }

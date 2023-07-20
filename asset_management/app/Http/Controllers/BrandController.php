@@ -54,4 +54,11 @@ class BrandController extends Controller
 
         return response()->json($brand, 201);
     }
+
+    public function destroy(Brand $brd)
+    {
+        $brd->delete();
+
+        return response()->json(['message' => 'Marca eliminada com sucesso!']);
+    }
 }

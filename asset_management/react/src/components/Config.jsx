@@ -12,11 +12,18 @@ const Config = () => {
   const [errors, setErrors] = useState([]);
   const [notification, setNotification] = useState("");
 
-  //Gets the categories for the user to add
+  //for the brands
+  const [brands, setBrands] = useState([]);
+  const [newBrand, setNewBrand] = useState("");
+
   useEffect(() => {
-    axiosClient.get("/categories").then((response) => {
-      setCats(response.data);
-      /* console.log(response); */
+    Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
+      setCats(responses[0].data.cats);
+      //setEnts(responses[0].data.ents);
+      //setUnits(responses[0].data.units);
+      setBrands(responses[0].data.brands);
+      //setModelos(responses[0].data.models);
+      //setSupplier(responses[0].data.suppliers);
     });
   }, []);
 
@@ -87,6 +94,7 @@ const Config = () => {
     }
   };
 
+  //------Remove a category
   const handleRemoveCategory = async (event) => {
     event.preventDefault();
     const selectedOptions = document.getElementById("list").selectedOptions;
@@ -116,6 +124,64 @@ const Config = () => {
       );
     } catch (err) {
       console.error("Error removing category", err);
+    }
+  };
+
+  //Add a new brand
+  const handleAddBrand = async (event) => {
+    event.preventDefault();
+    if (newBrand.trim() === "") {
+      return;
+    }
+
+    // Check if the brand already exists in the list
+    if (brands.some((brand) => brand.name === newBrand.trim())) {
+      alert("Marca já existe!");
+      return;
+    }
+
+    try {
+      // Make a POST request to your backend API to add a new brand
+      const response = await axiosClient.post("/brandsAdd", {
+        name: newBrand.trim(),
+      });
+
+      // Add the new brand to the state
+      setBrands((prevBrands) => [...prevBrands, response.data]);
+      setNewBrand("");
+    } catch (err) {
+      console.error("Erro ao adicionar a marca!", err);
+    }
+  };
+
+  //Remove a brand
+  const handleRemoveBrand = async (event) => {
+    event.preventDefault();
+    const selectElement = document.getElementById("brand");
+    console.log("selectElement", selectElement);
+    const selectedOptions = [...selectElement.selectedOptions];
+    const brandToRemove = selectedOptions.map((option) => option.value);
+
+    console.log("selectedOptions", selectedOptions);
+    console.log("brandToRemove", brandToRemove);
+    if (brandToRemove.length === 0) {
+      alert("Please select a brand to remove.");
+      return;
+    }
+
+    try {
+      // Make a DELETE request to your backend API for brand removal
+      await Promise.all(
+        brandToRemove.map((brandId) =>
+          axiosClient.delete(`/brandsDel/${brandId}`)
+        )
+      );
+
+      axiosClient.get("/brands").then((response) => {
+        setBrands(response.data);
+      });
+    } catch (err) {
+      console.error("Error removing brand", err);
     }
   };
 
@@ -153,6 +219,34 @@ const Config = () => {
 
           <button id="btnRemove" onClick={handleRemoveCategory}>
             Remover Categoria Selecionada
+          </button>
+        </form>
+      </div>
+
+      <div id="container-config">
+        <form className="frm-cats">
+          <label htmlFor="brand">Marca:</label>
+          <input
+            type="text"
+            value={newBrand}
+            onChange={(e) => setNewBrand(e.target.value)}
+            autoComplete="off"
+          />
+          <button id="btnAdd" onClick={handleAddBrand}>
+            Adicionar
+          </button>
+
+          <label htmlFor="brand">Lista de marcas:</label>
+          <select id="brand" name="brand" multiple>
+            {brands.map((brand) => (
+              <option key={brand.id} value={brand.id}>
+                {brand.name}
+              </option>
+            ))}
+          </select>
+
+          <button id="btnRemove" onClick={handleRemoveBrand}>
+            Remover Marca Selecionada
           </button>
         </form>
       </div>
