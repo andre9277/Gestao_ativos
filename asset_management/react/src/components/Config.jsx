@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Config.css";
 import axiosClient from "../axios-client";
+import ConfigDropdown from "./ConfigDropdown";
 
 const Config = () => {
   const [nameBrand, setNameBrand] = useState("");
@@ -359,66 +360,27 @@ const Config = () => {
       <h1>Configurações</h1>
 
       {/*----------------- Add a new Category only------------------- */}
-      <div id="container-config">
-        <form className="frm-cats">
-          <label htmlFor="category" className="lb-cats">
-            Categoria:
-          </label>
-          <input
-            type="text"
-            id="category"
-            value={newCategory}
-            onChange={(e) => setNewCategory(e.target.value)}
-            autoComplete="off"
-          />
-          <button id="btnAdd" onClick={handleAddCategory}>
-            Adicionar
-          </button>
-
-          <label htmlFor="list" className="lb-cats">
-            Lista de categorias:
-          </label>
-          <select id="list" name="list" multiple className="slc-cat">
-            {cats.map((category) => (
-              <option key={category.name} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-
-          <button id="btnRemove" onClick={handleRemoveCategory}>
-            Remover Categoria Selecionada
-          </button>
-        </form>
-      </div>
+      <ConfigDropdown
+        Title="Categoria"
+        id="category"
+        setData={newCategory}
+        setNewData={setNewCategory}
+        handleAdd={handleAddCategory}
+        tag="list"
+        datas={cats}
+        handleDel={handleRemoveCategory}
+      />
       {/*----------------- Add a new Brand only------------------- */}
-      <div id="container-config">
-        <form className="frm-cats">
-          <label htmlFor="brand">Marca:</label>
-          <input
-            type="text"
-            value={newBrand}
-            onChange={(e) => setNewBrand(e.target.value)}
-            autoComplete="off"
-          />
-          <button id="btnAdd" onClick={handleAddBrand}>
-            Adicionar
-          </button>
-
-          <label htmlFor="brand">Lista de marcas:</label>
-          <select id="brand" name="brand" multiple>
-            {brands.map((brand) => (
-              <option key={brand.id} value={brand.id}>
-                {brand.name}
-              </option>
-            ))}
-          </select>
-
-          <button id="btnRemove" onClick={handleRemoveBrand}>
-            Remover Marca Selecionada
-          </button>
-        </form>
-      </div>
+      <ConfigDropdown
+        Title={"Marcas"}
+        id="brand"
+        setData={newBrand}
+        setNewData={setNewBrand}
+        handleAdd={handleAddBrand}
+        tag="brand"
+        datas={brands}
+        handleDel={handleRemoveBrand}
+      />
 
       {/*----------------- Add a new Model only------------------- */}
       <div id="container-config">
