@@ -136,6 +136,8 @@ Route::middleware('auth:sanctum')->group(function () {
     //Add and delete one category:
     Route::post('/categoriesAdd', [CategoryController::class, 'store']);
     Route::delete('/categoriesDel/{cat}',  [CategoryController::class, 'destroy']);
+    Route::put('/categoriesUpdate/{category}',  [CategoryController::class, 'update']);
+
 
     //Add and delete one supplier:
     Route::post('/supplierAdd', [SupplierController::class, 'store']);
