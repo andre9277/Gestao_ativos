@@ -18,9 +18,9 @@ const Configuration = ({ selectedOption }) => {
 
   return (
     <div>
-      <button onClick={handleAdd}>Adicionar {selectedOption}</button>
-      <button onClick={handleEdit}>Editar {selectedOption}</button>
-      <button onClick={handleDelete}>Apagar {selectedOption}</button>
+      <button onClick={handleAdd}>Adicionar</button>
+      <button onClick={handleEdit}>Editar</button>
+      <button onClick={handleDelete}>Apagar</button>
     </div>
   );
 };

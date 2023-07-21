@@ -12,15 +12,22 @@ const SidebarConfig = () => {
   return (
     <div className="sidebar-config">
       <div>
-        <button onClick={() => handleOptionClick("Categorias")}>
-          Categorias
+        <button onClick={() => handleOptionClick("Categorias")} className="">
+          Categoria
         </button>
-        <button onClick={() => handleOptionClick("Marcas")}>Marcas</button>
-        <button onClick={() => handleOptionClick("Modelos")}>Modelos</button>
+        <button onClick={() => handleOptionClick("Marcas")}>Marca</button>
+        <button onClick={() => handleOptionClick("Modelos")}>Modelo</button>
+        <button onClick={() => handleOptionClick("Modelos")}>Fornecedor</button>
+        <button onClick={() => handleOptionClick("Modelos")}>Entidade</button>
+        <button onClick={() => handleOptionClick("Modelos")}>Unidade</button>
       </div>
-      {selectedOption && <Configuration selectedOption={selectedOption} />}
+      <div className="sid-cnf">
+        {selectedOption && <Configuration selectedOption={selectedOption} />}
+      </div>
     </div>
   );
 };
 
 export default SidebarConfig;
+
+//https://stackblitz.com/edit/react-simple-crud?file=index.js

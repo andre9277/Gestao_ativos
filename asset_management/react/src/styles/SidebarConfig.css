@@ -1,19 +1,24 @@
 .sidebar-config {
-    width: 200px;
     background-color: #f0f0f0;
     padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    float: left;
 }
 
 .sidebar-config button {
-    display: block;
-    width: 100%;
+    display: inline-block; /* Display buttons in a line */
     padding: 10px;
-    margin-bottom: 5px;
+    margin-left: 10px; /* Add some spacing between buttons */
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+.sidebar-config button:first-child {
+    margin-left: 0; /* Remove margin from the first button */
 }
 
 .sidebar-config button:hover {
