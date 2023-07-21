@@ -10,6 +10,13 @@ class Unit extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'name',
+        'ent_id',
+    ];
+
+
 
     protected $table = 'units';
     public function entity()

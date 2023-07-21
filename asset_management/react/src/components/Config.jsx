@@ -8,8 +8,7 @@ const Config = () => {
   const [nameBrand, setNameBrand] = useState("");
   const [nameModel, setNameModel] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedCategoryOnly, setSelectedCategoryOnly] = useState("");
-  const [selectedRelations, setSelectedRelations] = useState([]);
+
   const [newCategory, setNewCategory] = useState("");
   const [cats, setCats] = useState([]);
   const [errors, setErrors] = useState([]);
@@ -33,7 +32,12 @@ const Config = () => {
   const [ents, setEnts] = useState([]);
   const [newEntity, setNewEntity] = useState("");
 
+  //for the units
+  const [units, setUnits] = useState([]);
+  const [newUnit, setNewUnit] = useState("");
+
   const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedEnt, setSelectedEnt] = useState("");
 
   const showNotification = (message, duration = 5000) => {
     setNotification(message);
@@ -46,7 +50,7 @@ const Config = () => {
     Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
       setCats(responses[0].data.cats);
       setEnts(responses[0].data.ents);
-      //setUnits(responses[0].data.units);
+      setUnits(responses[0].data.units);
       setBrands(responses[0].data.brands);
       setModels(responses[0].data.models);
       setSuppliers(responses[0].data.suppliers);
@@ -60,6 +64,11 @@ const Config = () => {
   // Function to handle brand selection
   const handleBrandChange = (e) => {
     setSelectedBrand(e.target.value);
+  };
+
+  // Function to handle ent selection
+  const handleEntChange = (e) => {
+    setSelectedEnt(e.target.value);
   };
   /* 
   #---------------------------------------# */
@@ -407,6 +416,60 @@ const Config = () => {
       console.error("Error removing entity", err);
     }
   };
+  //--------------------------Add Unit-------------------------
+  const handleAddUnit = async (event) => {
+    event.preventDefault();
+    if (newUnit.trim() === "" || selectedEnt === "") {
+      return;
+    }
+
+    // Check if the unit already exists in the list
+    if (units.some((unit) => unit.name === newUnit.trim())) {
+      alert("Unit already exists.");
+      return;
+    }
+
+    try {
+      // Make a POST request to your backend API
+      const response = await axiosClient.post("/unitAdd", {
+        name: newUnit.trim(),
+        ent_id: selectedEnt,
+      });
+
+      // Add the new unit to the state
+      setUnits((prevUnits) => [...prevUnits, response.data]);
+      setNewUnit("");
+      setSelectedEnt("");
+    } catch (err) {
+      console.error("Error adding unit", err);
+    }
+  };
+  //--------------------------Delete Unit-------------------------
+  const handleRemoveUnit = async (event) => {
+    event.preventDefault();
+    const selectedOptions = document.getElementById("unit").selectedOptions;
+    const unitToRemove = [...selectedOptions].map((option) => option.value);
+
+    if (unitToRemove.length === 0) {
+      alert("Please select a unit to remove.");
+      return;
+    }
+
+    try {
+      // Make a DELETE request to your backend API for unit removal
+      await Promise.all(
+        unitToRemove.map((unitId) => axiosClient.delete(`/unitDel/${unitId}`))
+      );
+
+      // Fetch the updated units list after deletion
+
+      axiosClient.get("/units").then((response) => {
+        setUnits(response.data);
+      });
+    } catch (err) {
+      console.error("Error removing unit", err);
+    }
+  };
 
   return (
     <div className="form-brd-mdl">
@@ -437,7 +500,7 @@ const Config = () => {
 
         {/*----------------- Add a new Model only------------------- */}
         <ConfigDropMdl
-          Title="Modelos"
+          Title="Modelo"
           id="model"
           setData={newModel}
           setNewData={setNewModel}
@@ -448,6 +511,7 @@ const Config = () => {
           brands={brands}
           selectedBrand={selectedBrand}
           handleBrandChange={handleBrandChange}
+          maintb="Marca"
         />
       </div>
       <div className="config-gp-two">
@@ -473,6 +537,21 @@ const Config = () => {
           tag="ent"
           datas={ents}
           handleDel={handleRemoveEntity}
+        />
+        {/*----------------- Add a new Unit only------------------- */}
+        <ConfigDropMdl
+          Title="Unidade"
+          id="unit"
+          setData={newUnit}
+          setNewData={setNewUnit}
+          handleAdd={handleAddUnit}
+          tag="unit"
+          datas={units}
+          handleDel={handleRemoveUnit}
+          brands={ents}
+          selectedBrand={selectedEnt}
+          handleBrandChange={handleEntChange}
+          maintb="Entidade"
         />
       </div>
       {/* ---------Add a Category, Brand--------- */}

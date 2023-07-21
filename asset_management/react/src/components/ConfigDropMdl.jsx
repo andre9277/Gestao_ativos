@@ -12,6 +12,7 @@ const ConfigDropMdl = ({
   brands, // Array of brands
   selectedBrand, // Currently selected brand
   handleBrandChange, // Function to handle brand selection
+  maintb,
 }) => {
   return (
     <div id="container-config">
@@ -27,7 +28,7 @@ const ConfigDropMdl = ({
         />
         {/* Brand selection dropdown */}
         <label htmlFor="brandSelect" className="lb-cats">
-          Selecione a marca:
+          Selecione {maintb}:
         </label>
         <select
           id="brandSelect"
@@ -36,7 +37,7 @@ const ConfigDropMdl = ({
           onChange={handleBrandChange}
           className="configSelect"
         >
-          <option value="">Selecione a Marca</option>
+          <option value=""></option>
           {brands.map((brand) => (
             <option key={brand.id} value={brand.id}>
               {brand.name}
@@ -60,7 +61,7 @@ const ConfigDropMdl = ({
         </select>
 
         <button id="btnRemove" onClick={handleDel}>
-          Remover {id} selecionada
+          Remover {Title} selecionado
         </button>
       </form>
     </div>

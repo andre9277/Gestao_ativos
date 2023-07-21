@@ -41,4 +41,28 @@ class UnitController extends Controller
 
         return response()->json($units);
     }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255|unique:units',
+            'ent_id' => 'required|integer',
+        ]);
+
+        $unit = Unit::create(
+            $data
+        );
+
+        return response()->json($unit, 201);
+    }
+
+    public function destroy(Unit $unit)
+    {
+        try {
+            $unit->delete();
+            return response()->json(['message' => 'Unit deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error deleting unit'], 500);
+        }
+    }
 }

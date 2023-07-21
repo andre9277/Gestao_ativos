@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('units', function (Blueprint $table) {
             $table->id();
             $table->text('name');
-            $table->string('unit_contact');
-            $table->string('unit_address');
+            $table->string('unit_contact')->nullable();
+            $table->string('unit_address')->nullable();
 
             $table->unsignedBigInteger('ent_id');
             $table->foreign('ent_id')->references('id')->on('entity')->onDelete('cascade');
