@@ -14,6 +14,8 @@ const Config = () => {
   const [errors, setErrors] = useState([]);
   const [notification, setNotification] = useState("");
 
+  const [relations, setRelations] = useState([]);
+
   //for the brands
   const [brands, setBrands] = useState([]);
   const [newBrand, setNewBrand] = useState("");
@@ -50,12 +52,16 @@ const Config = () => {
     });
   }, []);
 
+  useEffect(() => {
+    fetchRelations();
+  }, []);
+
   // Function to handle brand selection
   const handleBrandChange = (e) => {
     setSelectedBrand(e.target.value);
   };
 
-  //handle the submit of the category/brand/model relation
+  //handle the submit of the category/brand relation
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -82,6 +88,7 @@ const Config = () => {
 
       setNotification("Relação categoria/marca adicionados com sucesso!");
       // Handle success or navigate to a different page
+      fetchRelations();
     } catch (err) {
       if (err.response && err.response.status === 422) {
         setErrors(err.response.data.errors);
@@ -91,6 +98,26 @@ const Config = () => {
     }
   };
 
+  // Fetch the relations between category and brand from the backend API
+  const fetchRelations = async () => {
+    try {
+      const response = await axiosClient.get("/category-brands");
+      setRelations(response.data);
+    } catch (error) {
+      console.error("Error fetching relations", error);
+    }
+  };
+
+  // Combine the data to display relations between categories and brands
+  /*  const getRelationData = (category_id, brand_id) => {
+    const category = categories.find((c) => c.id === category_id);
+    const brand = brands.find((b) => b.id === brand_id);
+    return {
+      category: category ? category.name : "Categoria desconhecida!",
+      brand: brand ? brand.name : "Marca desconhecida!",
+    };
+  };
+ */
   //------Add new category
   const handleAddCategory = async (event) => {
     event.preventDefault();
@@ -436,11 +463,11 @@ const Config = () => {
           handleDel={handleRemoveEntity}
         />
       </div>
-      {/* ---------Add a Category, Brand, Model--------- */}
+      {/* ---------Add a Category, Brand--------- */}
       <form onSubmit={handleSubmit}>
         <h2 className="titleconfig">Adicionar relação Categoria/Marca:</h2>
 
-        {/* -----------Category----------- */}
+        {/* Category*/}
         <label className="configlb">
           Categoria:<label className="cmp-obg">*</label>
         </label>
@@ -459,7 +486,7 @@ const Config = () => {
           ))}
         </select>
 
-        {/* -----------Brand----------- */}
+        {/*Brand*/}
         <label className="configlb">Marca:</label>
         <select
           name="brand"
@@ -475,13 +502,40 @@ const Config = () => {
             </option>
           ))}
         </select>
-        {/* -----------Button Add----------- */}
+        {/*Button Add */}
         <button type="submit" className="addConfig">
           Adicionar
         </button>
 
+        {/* Table to display relations between category and brand */}
+        <h2 className="titleconfig">Relações entre Categoria/Marca:</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Categoria</th>
+              <th>Marca</th>
+            </tr>
+          </thead>
+          <tbody>
+            {relations.map((relation) => (
+              <tr key={relation.id}>
+                <td>
+                  {cats.find((cat) => cat.id === relation.category_id)?.name ||
+                    "Unknown Category"}
+                </td>
+                <td>
+                  {brands.find((brand) => brand.id === relation.brand_id)
+                    ?.name || "Unknown Brand"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
         {notification && <p>{notification}</p>}
       </form>
+
+      {/* ----------------Entity and unit ---------------- */}
       <form>
         <div className="localDiv">
           <h2 className="titleconfig">Adicionar relação Entidade/Unidade:</h2>
