@@ -32,6 +32,13 @@ const Config = () => {
 
   const [selectedBrand, setSelectedBrand] = useState("");
 
+  const showNotification = (message, duration = 5000) => {
+    setNotification(message);
+    setTimeout(() => {
+      setNotification("");
+    }, duration);
+  };
+
   useEffect(() => {
     Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
       setCats(responses[0].data.cats);
@@ -73,13 +80,13 @@ const Config = () => {
       };
       await axiosClient.post("/categoryBrands", categoryBrand);
 
-      setNotification("Category and Brand relation added successfully!");
+      setNotification("Relação categoria/marca adicionados com sucesso!");
       // Handle success or navigate to a different page
     } catch (err) {
       if (err.response && err.response.status === 422) {
         setErrors(err.response.data.errors);
       } else {
-        console.error("Error adding category and brand relation", err);
+        console.error("Erro! Verifique os campos preenchidos!", err);
       }
     }
   };
