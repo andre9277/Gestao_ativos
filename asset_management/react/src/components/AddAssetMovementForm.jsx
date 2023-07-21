@@ -305,14 +305,14 @@ const AddAssetMovementForm = () => {
           {matchingAsset ? (
             <input
               type="text"
-              value={matchingAsset.entity.ent_name}
+              value={matchingAsset.entity.name}
               readOnly
               className="attrAsset"
             />
           ) : matchingInv ? (
             <input
               type="text"
-              value={matchingInv.entity.ent_name}
+              value={matchingInv.entity.name}
               readOnly
               className="attrAsset"
             />
@@ -340,7 +340,7 @@ const AddAssetMovementForm = () => {
             <option value=""></option>
             {ents.map((ent) => (
               <option key={ent.id} value={ent.id}>
-                {ent.ent_name}
+                {ent.name}
               </option>
             ))}
           </select>

@@ -144,7 +144,7 @@ const ImportForm = () => {
     unit_id: "",
     entity: {
       id: "",
-      ent_name: "",
+      name: "",
       ent_type: "",
     },
     units: "",

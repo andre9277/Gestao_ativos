@@ -43,7 +43,7 @@ class AssetResource extends JsonResource
             'import_type' => $this->import_type,
             'entity' => $this->entity ? [
                 'id' => $this->entity->id,
-                'ent_name' => $this->entity->ent_name,
+                'name' => $this->entity->name,
                 'ent_type' => $this->entity->ent_type,
             ] : null,
             'brand' => $this->brand ? [
