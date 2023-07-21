@@ -1,6 +1,6 @@
 import React from "react";
 
-const ConfigDropdown = ({
+const ConfigDropMdl = ({
   Title,
   id,
   setData,
@@ -9,6 +9,9 @@ const ConfigDropdown = ({
   datas,
   tag,
   handleDel,
+  brands, // Array of brands
+  selectedBrand, // Currently selected brand
+  handleBrandChange, // Function to handle brand selection
 }) => {
   return (
     <div id="container-config">
@@ -22,6 +25,25 @@ const ConfigDropdown = ({
           onChange={(e) => setNewData(e.target.value)}
           autoComplete="off"
         />
+        {/* Brand selection dropdown */}
+        <label htmlFor="brandSelect" className="lb-cats">
+          Selecione a marca:
+        </label>
+        <select
+          id="brandSelect"
+          name="brandSelect"
+          value={selectedBrand}
+          onChange={handleBrandChange}
+          className="configSelect"
+        >
+          <option value="">Selecione a Marca</option>
+          {brands.map((brand) => (
+            <option key={brand.id} value={brand.id}>
+              {brand.name}
+            </option>
+          ))}
+        </select>
+        {/* End of Brand selection dropdown */}
         <button id="btnAdd" onClick={handleAdd}>
           Adicionar
         </button>
@@ -45,4 +67,4 @@ const ConfigDropdown = ({
   );
 };
 
-export default ConfigDropdown;
+export default ConfigDropMdl;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/Config.css";
 import axiosClient from "../axios-client";
 import ConfigDropdown from "./ConfigDropdown";
+import ConfigDropMdl from "./ConfigDropMdl";
 
 const Config = () => {
   const [nameBrand, setNameBrand] = useState("");
@@ -29,6 +30,8 @@ const Config = () => {
   const [ents, setEnts] = useState([]);
   const [newEntity, setNewEntity] = useState("");
 
+  const [selectedBrand, setSelectedBrand] = useState("");
+
   useEffect(() => {
     Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
       setCats(responses[0].data.cats);
@@ -40,42 +43,43 @@ const Config = () => {
     });
   }, []);
 
+  // Function to handle brand selection
+  const handleBrandChange = (e) => {
+    setSelectedBrand(e.target.value);
+  };
+
   //handle the submit of the category/brand/model relation
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      // Step 1: Add the brand
-      const brand = {
-        name: nameBrand,
-      };
+      // Check if a brand is selected from the dropdown or if a new brand name is provided
+      let brandId;
+      if (selectedBrand) {
+        brandId = selectedBrand;
+      } else {
+        // Add the new brand
+        const brand = {
+          name: nameBrand,
+        };
+        const brandResponse = await axiosClient.post("/brandsAdd", brand);
+        brandId = brandResponse.data.id;
+      }
 
-      const brandResponse = await axiosClient.post("/brandsAdd", brand);
-      const brandId = brandResponse.data.id;
-
-      // Step 2: Add the model associated with the brand
-      const model = {
-        name: nameModel,
-        brand_id: brandId,
-      };
-
-      const modelResponse = await axiosClient.post("/modelsAdd", model);
-      const modelId = modelResponse.data.id;
-
+      // Add the category-brand relation
       const categoryBrand = {
         category_id: selectedCategory,
         brand_id: brandId,
       };
-
       await axiosClient.post("/categoryBrands", categoryBrand);
 
-      setNotification("Brand and Model added successfully!");
+      setNotification("Category and Brand relation added successfully!");
       // Handle success or navigate to a different page
     } catch (err) {
       if (err.response && err.response.status === 422) {
         setErrors(err.response.data.errors);
       } else {
-        console.error("Error adding brand and model", err);
+        console.error("Error adding category and brand relation", err);
       }
     }
   };
@@ -199,9 +203,10 @@ const Config = () => {
   };
 
   //--------------------------Add Model-------------------------
+  // Function to add a new model with the selected brand
   const handleAddModel = async (event) => {
     event.preventDefault();
-    if (newModel.trim() === "") {
+    if (newModel.trim() === "" || selectedBrand === "") {
       return;
     }
 
@@ -215,11 +220,13 @@ const Config = () => {
       // Make a POST request to your backend API to add a new model
       const response = await axiosClient.post("/modelsAdd", {
         name: newModel.trim(),
+        brand_id: selectedBrand, // Include the selected brand ID in the request body
       });
 
       // Add the new model to the state
       setModels((prevModels) => [...prevModels, response.data]);
       setNewModel("");
+      setSelectedBrand(""); // Reset selectedBrand after adding the model
     } catch (err) {
       console.error("Error adding model", err);
     }
@@ -383,7 +390,7 @@ const Config = () => {
         />
 
         {/*----------------- Add a new Model only------------------- */}
-        <ConfigDropdown
+        <ConfigDropMdl
           Title="Modelos"
           id="model"
           setData={newModel}
@@ -392,6 +399,9 @@ const Config = () => {
           tag="model"
           datas={models}
           handleDel={handleRemoveModel}
+          brands={brands}
+          selectedBrand={selectedBrand}
+          handleBrandChange={handleBrandChange}
         />
       </div>
       <div className="config-gp-two">
@@ -421,12 +431,10 @@ const Config = () => {
       </div>
       {/* ---------Add a Category, Brand, Model--------- */}
       <form onSubmit={handleSubmit}>
-        <h2 className="titleconfig">
-          Adicionar relação Categoria/Marca/Modelo:
-        </h2>
+        <h2 className="titleconfig">Adicionar relação Categoria/Marca:</h2>
+
         {/* -----------Category----------- */}
         <label className="configlb">
-          {" "}
           Categoria:<label className="cmp-obg">*</label>
         </label>
         <select
@@ -444,37 +452,22 @@ const Config = () => {
           ))}
         </select>
 
-        {/* Input field for new category */}
-        {selectedCategory === "add_new" && (
-          <div>
-            <label className="configlb">Nova Categoria:</label>
-            <input
-              type="text"
-              value={newCategory}
-              onChange={(e) => setNewCategory(e.target.value)}
-              className="configInp"
-            />
-          </div>
-        )}
-
         {/* -----------Brand----------- */}
         <label className="configlb">Marca:</label>
-        <input
-          type="text"
-          value={nameBrand}
-          onChange={(e) => setNameBrand(e.target.value)}
-          className="configInp"
-        />
-
-        {/* -----------Model----------- */}
-        <label className="configlb">Modelo:</label>
-        <input
-          type="text"
-          value={nameModel}
-          onChange={(e) => setNameModel(e.target.value)}
-          className="configInp"
-        />
-
+        <select
+          name="brand"
+          id="brand"
+          value={selectedBrand}
+          className="configSelect"
+          onChange={(e) => setSelectedBrand(e.target.value)}
+        >
+          <option value=""></option>
+          {brands.map((brand) => (
+            <option key={brand.id} value={brand.id}>
+              {brand.name}
+            </option>
+          ))}
+        </select>
         {/* -----------Button Add----------- */}
         <button type="submit" className="addConfig">
           Adicionar
