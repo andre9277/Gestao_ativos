@@ -134,8 +134,11 @@ const Search = () => {
 
     // Sort the assets array by asset number (assuming it's not already sorted)
     const sortedAssets = [...assets].sort((a, b) => {
+      const aId = a.id ? a.id.toString() : ""; // Convert to string or use an empty string if a.id is falsy
+      const bId = b.id ? b.id.toString() : ""; // Convert to string or use an empty string if b.id is falsy
+
       if (a.numb_ser === null && b.numb_ser === null) {
-        return a.id.localeCompare(b.id); // Sort by ID if both ser are null
+        return aId.localeCompare(bId); // Sort by ID if both ser are null
       } else if (a.numb_ser === null) {
         return 1; // Put null ser at the end
       } else if (b.numb_ser === null) {

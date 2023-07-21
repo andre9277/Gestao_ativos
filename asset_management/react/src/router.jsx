@@ -54,6 +54,8 @@ import AddAssetMovementForm from "./components/AddAssetMovementForm.jsx";
 import PasswordResetForm from "./views/PasswordResetForm.jsx";
 import Config from "./components/Config.jsx";
 
+import SidebarConfig from "./components/SidebarConfig.jsx";
+
 //The router object defines the routes and components that should be rendered when a user navigates to a specific path.
 
 const router = createBrowserRouter([
@@ -74,7 +76,7 @@ const router = createBrowserRouter([
         element: <Users />,
       },
       {
-        path: "/config",
+        path: "/configg",
         element: <Config />,
       },
       {
@@ -117,6 +119,10 @@ const router = createBrowserRouter([
       {
         path: "/addAssetMovement",
         element: <AddAssetMovementForm />,
+      },
+      {
+        path: "config",
+        element: <SidebarConfig />,
       },
     ],
   },
