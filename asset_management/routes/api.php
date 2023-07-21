@@ -203,8 +203,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::delete('/assets/{ids}', [AssetController::class, 'destroy']);
 
+    //show the category and brands relationship
     Route::get('/category-brands', [CategoryBrandController::class, 'index']);
-
+    Route::delete('/category-brandsDel/{id}', [CategoryBrandController::class, 'destroy']);
 
 
     function getCatsAll()

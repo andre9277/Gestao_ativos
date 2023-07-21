@@ -9,6 +9,7 @@ const Config = () => {
   const [nameModel, setNameModel] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCategoryOnly, setSelectedCategoryOnly] = useState("");
+  const [selectedRelations, setSelectedRelations] = useState([]);
   const [newCategory, setNewCategory] = useState("");
   const [cats, setCats] = useState([]);
   const [errors, setErrors] = useState([]);
@@ -60,8 +61,9 @@ const Config = () => {
   const handleBrandChange = (e) => {
     setSelectedBrand(e.target.value);
   };
-
-  //handle the submit of the category/brand relation
+  /* 
+  #---------------------------------------# */
+  //---------------handle the submit of the category/brand relation
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -86,7 +88,7 @@ const Config = () => {
       };
       await axiosClient.post("/categoryBrands", categoryBrand);
 
-      setNotification("Relação categoria/marca adicionados com sucesso!");
+      showNotification("Relação categoria/marca adicionados com sucesso!");
       // Handle success or navigate to a different page
       fetchRelations();
     } catch (err) {
@@ -108,16 +110,26 @@ const Config = () => {
     }
   };
 
-  // Combine the data to display relations between categories and brands
-  /*  const getRelationData = (category_id, brand_id) => {
-    const category = categories.find((c) => c.id === category_id);
-    const brand = brands.find((b) => b.id === brand_id);
-    return {
-      category: category ? category.name : "Categoria desconhecida!",
-      brand: brand ? brand.name : "Marca desconhecida!",
-    };
+  // Function to handle the removal of a relation
+  const handleRemoveRelation = async (relationId) => {
+    try {
+      // Make a DELETE request to your backend API for relation removal
+      await axiosClient.delete(`/category-brandsDel/${relationId}`);
+
+      // Fetch the updated relations data and update the list
+      fetchRelations();
+    } catch (err) {
+      console.error("Error removing relation", err);
+    }
+  };
+
+  /*   // Function to handle the removal of a relation by relationId
+  const handleRemove = (relationId) => {
+    handleRemoveRelation(relationId);
   };
  */
+  /* 
+  #---------------------------------------# */
   //------Add new category
   const handleAddCategory = async (event) => {
     event.preventDefault();
@@ -464,76 +476,78 @@ const Config = () => {
         />
       </div>
       {/* ---------Add a Category, Brand--------- */}
-      <form onSubmit={handleSubmit}>
-        <h2 className="titleconfig">Adicionar relação Categoria/Marca:</h2>
 
-        {/* Category*/}
-        <label className="configlb">
-          Categoria:<label className="cmp-obg">*</label>
-        </label>
-        <select
-          name="category"
-          id="category"
-          value={selectedCategory}
-          className="configSelect"
-          onChange={(e) => setSelectedCategory(e.target.value)}
-        >
-          <option value=""></option>
-          {cats.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
+      {/* -------------------------------------------------------------- */}
+      <div id="container-config">
+        <form onSubmit={handleSubmit}>
+          <h2 className="titleconfig">Adicionar relação Categoria/Marca:</h2>
 
-        {/*Brand*/}
-        <label className="configlb">Marca:</label>
-        <select
-          name="brand"
-          id="brand"
-          value={selectedBrand}
-          className="configSelect"
-          onChange={(e) => setSelectedBrand(e.target.value)}
-        >
-          <option value=""></option>
-          {brands.map((brand) => (
-            <option key={brand.id} value={brand.id}>
-              {brand.name}
-            </option>
-          ))}
-        </select>
-        {/*Button Add */}
-        <button type="submit" className="addConfig">
-          Adicionar
-        </button>
-
-        {/* Table to display relations between category and brand */}
-        <h2 className="titleconfig">Relações entre Categoria/Marca:</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Categoria</th>
-              <th>Marca</th>
-            </tr>
-          </thead>
-          <tbody>
-            {relations.map((relation) => (
-              <tr key={relation.id}>
-                <td>
-                  {cats.find((cat) => cat.id === relation.category_id)?.name ||
-                    "Unknown Category"}
-                </td>
-                <td>
-                  {brands.find((brand) => brand.id === relation.brand_id)
-                    ?.name || "Unknown Brand"}
-                </td>
-              </tr>
+          {/* Category*/}
+          <label className="configlb">Categoria:</label>
+          <select
+            name="category"
+            id="category"
+            value={selectedCategory}
+            className="configSelect"
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
+            <option value=""></option>
+            {cats.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
             ))}
-          </tbody>
-        </table>
+          </select>
+
+          {/* Brand*/}
+          <label className="configlb">Marca:</label>
+          <select
+            name="brand"
+            id="brand"
+            value={selectedBrand}
+            className="configSelect"
+            onChange={(e) => setSelectedBrand(e.target.value)}
+          >
+            <option value=""></option>
+            {brands.map((brand) => (
+              <option key={brand.id} value={brand.id}>
+                {brand.name}
+              </option>
+            ))}
+          </select>
+
+          <button type="submit" className="addConfig">
+            Adicionar
+          </button>
+
+          {/* List of relations */}
+          <div id="container-config-rel">
+            <h2>Relações Categoria - Marca</h2>
+            <ul className="relations-list">
+              {relations.map((relation) => (
+                <li key={relation.id}>
+                  {`${
+                    cats.find((cat) => cat.id === relation.category_id)?.name ||
+                    "Categoria desconhecida"
+                  } - ${
+                    brands.find((brand) => brand.id === relation.brand_id)
+                      ?.name || "Marca desconhecida"
+                  }`}
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveRelation(relation.id)}
+                    className="btn-rel-br"
+                  >
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </form>
 
         {notification && <p>{notification}</p>}
-      </form>
+      </div>
 
       {/* ----------------Entity and unit ---------------- */}
       <form>
