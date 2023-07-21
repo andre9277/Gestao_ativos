@@ -6,7 +6,6 @@ import ConfigDropMdl from "./ConfigDropMdl";
 
 const Config = () => {
   const [nameBrand, setNameBrand] = useState("");
-  const [nameModel, setNameModel] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const [newCategory, setNewCategory] = useState("");
@@ -38,6 +37,9 @@ const Config = () => {
 
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedEnt, setSelectedEnt] = useState("");
+
+  const [selectedEntity, setSelectedEntity] = useState(""); // Selected entity
+  const [selectedUnit, setSelectedUnit] = useState(""); // Selected unit
 
   const showNotification = (message, duration = 5000) => {
     setNotification(message);
@@ -132,13 +134,7 @@ const Config = () => {
     }
   };
 
-  /*   // Function to handle the removal of a relation by relationId
-  const handleRemove = (relationId) => {
-    handleRemoveRelation(relationId);
-  };
- */
-  /* 
-  #---------------------------------------# */
+  /*#---------------------------------------# */
   //------Add new category
   const handleAddCategory = async (event) => {
     event.preventDefault();
@@ -476,6 +472,7 @@ const Config = () => {
       <h1>Configurações</h1>
       <div className="config-gp-one">
         {/*----------------- Add a new Category only------------------- */}
+
         <ConfigDropdown
           Title="Categoria"
           id="category"
@@ -488,7 +485,7 @@ const Config = () => {
         />
         {/*----------------- Add a new Brand only------------------- */}
         <ConfigDropdown
-          Title={"Marcas"}
+          Title={"Marca"}
           id="brand"
           setData={newBrand}
           setNewData={setNewBrand}
@@ -517,7 +514,7 @@ const Config = () => {
       <div className="config-gp-two">
         {/*----------------- Add a new Supplier only------------------- */}
         <ConfigDropdown
-          Title="Fornecedores"
+          Title="Fornecedor"
           id="sup"
           setData={newSupplier}
           setNewData={setNewSupplier}
@@ -556,100 +553,150 @@ const Config = () => {
       </div>
       {/* ---------Add a Category, Brand--------- */}
 
-      {/* -------------------------------------------------------------- */}
-      <div id="container-config">
-        <form onSubmit={handleSubmit}>
-          <h2 className="titleconfig">Adicionar relação Categoria/Marca:</h2>
+      <div className="config-ss">
+        {/* -------------------------------------------------------------- */}
+        <div id="container-config">
+          <form onSubmit={handleSubmit}>
+            <h4 className="titleconfig">Adicionar relação Categoria/Marca:</h4>
 
-          {/* Category*/}
-          <label className="configlb">Categoria:</label>
-          <select
-            name="category"
-            id="category"
-            value={selectedCategory}
-            className="configSelect"
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
-            <option value=""></option>
-            {cats.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-
-          {/* Brand*/}
-          <label className="configlb">Marca:</label>
-          <select
-            name="brand"
-            id="brand"
-            value={selectedBrand}
-            className="configSelect"
-            onChange={(e) => setSelectedBrand(e.target.value)}
-          >
-            <option value=""></option>
-            {brands.map((brand) => (
-              <option key={brand.id} value={brand.id}>
-                {brand.name}
-              </option>
-            ))}
-          </select>
-
-          <button type="submit" className="addConfig">
-            Adicionar
-          </button>
-
-          {/* List of relations */}
-          <div id="container-config-rel">
-            <h2>Relações Categoria - Marca</h2>
-            <ul className="relations-list">
-              {relations.map((relation) => (
-                <li key={relation.id}>
-                  {`${
-                    cats.find((cat) => cat.id === relation.category_id)?.name ||
-                    "Categoria desconhecida"
-                  } - ${
-                    brands.find((brand) => brand.id === relation.brand_id)
-                      ?.name || "Marca desconhecida"
-                  }`}
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveRelation(relation.id)}
-                    className="btn-rel-br"
-                  >
-                    Remove
-                  </button>
-                </li>
+            {/* Category*/}
+            <label className="configlb">Categoria:</label>
+            <select
+              name="category"
+              id="category"
+              value={selectedCategory}
+              className="configSelect"
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              <option value=""></option>
+              {cats.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
               ))}
-            </ul>
-          </div>
-        </form>
+            </select>
 
-        {notification && <p>{notification}</p>}
-      </div>
+            {/* Brand*/}
+            <label className="configlb">Marca:</label>
+            <select
+              name="brand"
+              id="brand"
+              value={selectedBrand}
+              className="configSelect"
+              onChange={(e) => setSelectedBrand(e.target.value)}
+            >
+              <option value=""></option>
+              {brands.map((brand) => (
+                <option key={brand.id} value={brand.id}>
+                  {brand.name}
+                </option>
+              ))}
+            </select>
 
-      {/* ----------------Entity and unit ---------------- */}
-      <form>
-        <div className="localDiv">
-          <h2 className="titleconfig">Adicionar relação Entidade/Unidade:</h2>
-          {/* -----------Entity----------- */}
-          <label className="configlb">Entidade:</label>
-          <input
-            type="text"
-            /* value={nameModel} */
-            onChange={(e) => setNameModel(e.target.value)}
-            className="configInp"
-          />
-          {/* -----------Unit----------- */}
-          <label className="configlb">Unidade:</label>
-          <input
-            type="text"
-            /* value={nameModel} */
-            onChange={(e) => setNameModel(e.target.value)}
-            className="configInp"
-          />
+            <button type="submit" className="addConfig">
+              Adicionar
+            </button>
+
+            {/* List of relations */}
+            <div id="container-config-rel">
+              <h5>Relações Categoria - Marca</h5>
+              <ul className="relations-list">
+                {relations.map((relation) => (
+                  <li key={relation.id}>
+                    {`${
+                      cats.find((cat) => cat.id === relation.category_id)
+                        ?.name || "Categoria desconhecida"
+                    } - ${
+                      brands.find((brand) => brand.id === relation.brand_id)
+                        ?.name || "Marca desconhecida"
+                    }`}
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveRelation(relation.id)}
+                      className="btn-rel-br"
+                    >
+                      Remover
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </form>
+
+          {notification && <p>{notification}</p>}
         </div>
-      </form>
+        {/* -------------------------------------------------------------- */}
+        {/* ---------Add a Entity, Unit--------- */}
+
+        <div id="container-config">
+          <form onSubmit={handleSubmit}>
+            <h4 className="titleconfig">Adicionar relação Entidade/Unidade:</h4>
+
+            {/* Entity */}
+            <label className="configlb">Entidade:</label>
+            <select
+              name="entity"
+              id="entity"
+              value={selectedEntity}
+              className="configSelect"
+              onChange={(e) => setSelectedEntity(e.target.value)}
+            >
+              <option value=""></option>
+              {ents.map((entity) => (
+                <option key={entity.id} value={entity.id}>
+                  {entity.name}
+                </option>
+              ))}
+            </select>
+
+            {/* Unit */}
+            <label className="configlb">Unidade:</label>
+            <select
+              name="unit"
+              id="unit"
+              value={selectedUnit}
+              className="configSelect"
+              onChange={(e) => setSelectedUnit(e.target.value)}
+            >
+              <option value=""></option>
+              {units.map((unit) => (
+                <option key={unit.id} value={unit.id}>
+                  {unit.name}
+                </option>
+              ))}
+            </select>
+
+            <button type="submit" className="addConfig">
+              Adicionar
+            </button>
+
+            {/* List of relations */}
+            <div id="container-config-rel">
+              <h5>Relações Entidade - Unidade</h5>
+              <ul className="relations-list">
+                {relations.map((relation) => (
+                  <li key={relation.id}>
+                    {`${
+                      ents.find((entity) => entity.id === relation.entity_id)
+                        ?.name || "Entidade desconhecida"
+                    } - ${
+                      units.find((unit) => unit.id === relation.unit_id)
+                        ?.name || "Unidade desconhecida"
+                    }`}
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveRelation(relation.id)}
+                      className="btn-rel-br"
+                    >
+                      Remover
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

@@ -30,6 +30,7 @@ const ConfigDropMdl = ({
         <label htmlFor="brandSelect" className="lb-cats">
           Selecione {maintb}:
         </label>
+
         <select
           id="brandSelect"
           name="brandSelect"
@@ -45,10 +46,7 @@ const ConfigDropMdl = ({
           ))}
         </select>
         {/* End of Brand selection dropdown */}
-        <button id="btnAdd" onClick={handleAdd}>
-          Adicionar
-        </button>
-
+        <p></p>
         <label htmlFor={tag} className="lb-cats">
           Lista de {Title}:
         </label>
@@ -59,9 +57,11 @@ const ConfigDropMdl = ({
             </option>
           ))}
         </select>
-
-        <button id="btnRemove" onClick={handleDel}>
-          Remover {Title} selecionado
+        <button id="btnAddd" onClick={handleAdd}>
+          Adicionar
+        </button>
+        <button id="btnRemove-rel" onClick={handleDel}>
+          Remover
         </button>
       </form>
     </div>

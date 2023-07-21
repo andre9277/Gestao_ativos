@@ -22,9 +22,6 @@ const ConfigDropdown = ({
           onChange={(e) => setNewData(e.target.value)}
           autoComplete="off"
         />
-        <button id="btnAdd" onClick={handleAdd}>
-          Adicionar
-        </button>
 
         <label htmlFor={tag} className="lb-cats">
           Lista de {Title}:
@@ -37,8 +34,12 @@ const ConfigDropdown = ({
           ))}
         </select>
 
+        <button id="btnAdd" onClick={handleAdd}>
+          Adicionar
+        </button>
+
         <button id="btnRemove" onClick={handleDel}>
-          Remover {id} selecionada
+          Remover
         </button>
       </form>
     </div>
