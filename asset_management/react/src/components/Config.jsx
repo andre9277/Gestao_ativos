@@ -169,11 +169,14 @@ const Config = () => {
     setShowNextOptionsSecondSet(false);
   };
 
-  const additionalOptions = ["add", "edit", "delete"];
+  const additionalOptions = ["Adicionar", "Editar", "Apagar"];
 
   return (
     <div className="form-brd-mdl">
       <h1>Configurações</h1>
+      <p className="fr-ini">
+        Selecione uma das opções para realizar a configuração
+      </p>
       {!showNextOptions && (
         <div className="checkbox-dropdown-container">
           {options.map((option, index) => (
@@ -182,6 +185,7 @@ const Config = () => {
                 type="checkbox"
                 checked={selectedOption === option}
                 onChange={() => handleOptionToggle(option)}
+                className="chcb_inpt"
               />
               {option}
             </label>
@@ -196,6 +200,7 @@ const Config = () => {
                 type="checkbox"
                 checked={selectedOption === option}
                 onChange={() => handleOptionToggle(option)}
+                className="chcb_inpt"
               />
               {option}
             </label>
@@ -205,7 +210,7 @@ const Config = () => {
       {showNextOptionsSecondSet && showNextOptions ? (
         <div>
           {selectedFirstOption === "Categoria" &&
-            selectedNextOption === "add" && (
+            selectedNextOption === "Adicionar" && (
               <ConfigDropAdd
                 Title={selectedFirstOption}
                 id="category"
@@ -215,7 +220,7 @@ const Config = () => {
               />
             )}
           {selectedFirstOption === "Categoria" &&
-            selectedNextOption === "delete" && (
+            selectedNextOption === "Apagar" && (
               <ConfigDropdown
                 Title={selectedFirstOption}
                 id="category"
@@ -225,7 +230,7 @@ const Config = () => {
               />
             )}
           {selectedFirstOption === "Categoria" &&
-            selectedNextOption === "edit" && (
+            selectedNextOption === "Editar" && (
               <ConfigDropEdit
                 Title={selectedOption}
                 tag="list"
@@ -238,12 +243,19 @@ const Config = () => {
               />
             )}
           <div>
-            <button onClick={handleBackButtonClick}>Back</button>
-            <button onClick={handleCloseButtonClick}>Close</button>
+            <button onClick={handleBackButtonClick} className="vl-btn">
+              Voltar
+            </button>
+            <p></p>
+            <button onClick={handleCloseButtonClick} className="ini-btn">
+              Início
+            </button>
           </div>
         </div>
       ) : (
-        <button onClick={handleNextButtonClick}>Next</button>
+        <button onClick={handleNextButtonClick} className="next-conf">
+          Próximo
+        </button>
       )}
     </div>
   );
