@@ -4,9 +4,11 @@ import "../styles/SidebarConfig.css";
 
 const SidebarConfig = () => {
   const [selectedOption, setSelectedOption] = useState(null);
+  const [currentModal, setCurrentModal] = useState(null); // New state to manage modals
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
+    setCurrentModal(null); // Close the modal when switching between options
   };
 
   return (
@@ -16,13 +18,22 @@ const SidebarConfig = () => {
           Categoria
         </button>
         <button onClick={() => handleOptionClick("Marcas")}>Marca</button>
-        <button onClick={() => handleOptionClick("Modelos")}>Modelo</button>
-        <button onClick={() => handleOptionClick("Modelos")}>Fornecedor</button>
-        <button onClick={() => handleOptionClick("Modelos")}>Entidade</button>
-        <button onClick={() => handleOptionClick("Modelos")}>Unidade</button>
+        {/*  <button onClick={() => handleOptionClick("Modelos")}>Modelo</button> */}
+        <button onClick={() => handleOptionClick("Fornecedor")}>
+          Fornecedor
+        </button>
+        <button onClick={() => handleOptionClick("Entidade")}>Entidade</button>
+        {/*  <button onClick={() => handleOptionClick("Unidade")}>Unidade</button> */}
       </div>
       <div className="sid-cnf">
-        {selectedOption && <Configuration selectedOption={selectedOption} />}
+        {/* Pass the selectedOption and currentModal to the Configuration component */}
+        {selectedOption && (
+          <Configuration
+            selectedOption={selectedOption}
+            currentModal={currentModal}
+            setCurrentModal={setCurrentModal}
+          />
+        )}
       </div>
     </div>
   );

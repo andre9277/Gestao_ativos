@@ -1,7 +1,7 @@
 .sidebar-config {
     background-color: #f0f0f0;
     padding: 10px;
-    display: flex;
+
     justify-content: flex-end;
     float: left;
 }
@@ -23,4 +23,8 @@
 
 .sidebar-config button:hover {
     background-color: #e0e0e0;
+}
+
+.sid-cnf {
+    float: right;
 }
