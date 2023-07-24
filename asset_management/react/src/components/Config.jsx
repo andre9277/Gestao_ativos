@@ -3,6 +3,8 @@ import "../styles/Config.css";
 import ConfigDropdown from "./ConfigDropdown";
 import "../styles/Config.css"; // Create a CSS file to style the dropdown
 import axiosClient from "../axios-client";
+import ConfigDropAdd from "./ConfigDropAdd";
+import ConfigDropEdit from "./ConfigDropEdit";
 
 const options = ["Categoria", "Marca", "Entidade", "Fornecedor"];
 
@@ -19,6 +21,46 @@ const Config = () => {
       setSuppliers(responses[0].data.suppliers); */
     });
   }, []);
+
+  const [selectedData, setSelectedData] = useState(null);
+  const [editedValue, setEditedValue] = useState("");
+
+  const handleDataSelection = () => {
+    const selectedDataName = event.target.value;
+    const selectedDataObject = cats.find(
+      (data) => data.name === selectedDataName
+    );
+    setSelectedData(selectedDataObject);
+    setEditedValue(selectedDataObject.name);
+  };
+
+  const handleDataUpdate = async () => {
+    if (editedValue.trim() === "") {
+      return;
+    }
+    console.log("selectedData", selectedData);
+    try {
+      // Make a PUT request to update the data on the server
+      await axiosClient.put(`/categoriesUpdate/${selectedData.id}`, {
+        name: editedValue.trim(),
+      });
+
+      // Update the data in the state
+      setCats((prevData) =>
+        prevData.map((data) =>
+          data.id === selectedData.id
+            ? { ...data, name: editedValue.trim() }
+            : data
+        )
+      );
+
+      // Clear the selected data and edited value
+      setSelectedData(null);
+      setEditedValue("");
+    } catch (err) {
+      console.error("Error updating data", err);
+    }
+  };
 
   //------Add new category
   const handleAddCategory = async (event) => {
@@ -164,15 +206,35 @@ const Config = () => {
         <div>
           {selectedFirstOption === "Categoria" &&
             selectedNextOption === "add" && (
-              <ConfigDropdown
+              <ConfigDropAdd
                 Title={selectedFirstOption}
                 id="category"
                 setData={newCategory}
                 setNewData={setNewCategory}
                 handleAdd={handleAddCategory}
+              />
+            )}
+          {selectedFirstOption === "Categoria" &&
+            selectedNextOption === "delete" && (
+              <ConfigDropdown
+                Title={selectedFirstOption}
+                id="category"
                 tag="list"
                 datas={cats}
                 handleDel={handleRemoveCategory}
+              />
+            )}
+          {selectedFirstOption === "Categoria" &&
+            selectedNextOption === "edit" && (
+              <ConfigDropEdit
+                Title={selectedOption}
+                tag="list"
+                datas={cats}
+                selectedData={selectedData}
+                handleDataSelection={handleDataSelection}
+                editedValue={editedValue}
+                setEditedValue={setEditedValue}
+                handleDataUpdate={handleDataUpdate}
               />
             )}
           <div>

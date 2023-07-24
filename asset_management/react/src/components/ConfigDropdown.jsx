@@ -3,9 +3,7 @@ import React from "react";
 const ConfigDropdown = ({
   Title,
   id,
-  setData,
-  setNewData,
-  handleAdd,
+
   datas,
   tag,
   handleDel,
@@ -16,12 +14,6 @@ const ConfigDropdown = ({
         <label htmlFor={id} className="lb-cats">
           {Title}
         </label>
-        <input
-          type="text"
-          value={setData}
-          onChange={(e) => setNewData(e.target.value)}
-          autoComplete="off"
-        />
 
         <label htmlFor={tag} className="lb-cats">
           Lista de {Title}:
@@ -33,10 +25,6 @@ const ConfigDropdown = ({
             </option>
           ))}
         </select>
-
-        <button id="btnAdd" onClick={handleAdd}>
-          Adicionar
-        </button>
 
         <button id="btnRemove" onClick={handleDel}>
           Remover

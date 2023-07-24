@@ -10,9 +10,14 @@ const ConfigDropEdit = ({
   setEditedValue, // Function to update the edited value
   handleDataUpdate, // Function to handle the data update on the server
 }) => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleDataUpdate(); // Call the handleDataUpdate function on form submission
+  };
+
   return (
     <div id="container-config">
-      <form className="frm-cats">
+      <form className="frm-cats" onSubmit={handleSubmit}>
         <label htmlFor={tag} className="lb-cats">
           Lista de {Title}:
         </label>
@@ -21,7 +26,7 @@ const ConfigDropEdit = ({
           name={tag}
           multiple
           className="slc-cat"
-          onChange={handleDataSelection} // Make sure the event handler is correctly set
+          onChange={handleDataSelection}
         >
           {datas.map((data) => (
             <option key={data.id} value={data.name}>
@@ -39,7 +44,7 @@ const ConfigDropEdit = ({
               value={editedValue}
               onChange={(e) => setEditedValue(e.target.value)}
             />
-            <button onClick={() => handleDataUpdate}>Salvar</button>
+            <button type="submit">Salvar</button>
           </div>
         )}
       </form>
