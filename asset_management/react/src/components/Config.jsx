@@ -9,8 +9,16 @@ import ConfigDropEdit from "./ConfigDropEdit";
 const options = ["Categoria", "Marca", "Entidade", "Fornecedor"];
 
 const Config = () => {
+  //for the new category add:
   const [newCategory, setNewCategory] = useState("");
+
+  //to store data from the api call:
   const [cats, setCats] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [ents, setEnts] = useState([]);
+  const [suppliers, setSuppliers] = useState([]);
+
+  //Gets all data from the entity,unit, brands and categories (also for unit and model)
   useEffect(() => {
     Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
       setCats(responses[0].data.cats);
@@ -174,7 +182,6 @@ const Config = () => {
   };
 
   //--------------Brand---------------------------------
-  const [brands, setBrands] = useState([]);
   const [newBrand, setNewBrand] = useState("");
 
   //Add a new brand
@@ -239,7 +246,6 @@ const Config = () => {
   //TODOOOOOOOOOOOOO
 
   //--------------Entity---------------------------------
-  const [ents, setEnts] = useState([]);
   const [newEntity, setNewEntity] = useState("");
 
   //Add Entity-------------------------
@@ -298,7 +304,6 @@ const Config = () => {
   //TODOOOOOOOOOOOOO
 
   //--------------Supplier---------------------------------
-  const [suppliers, setSuppliers] = useState([]);
   const [newSupplier, setNewSupplier] = useState("");
 
   //Add Supplier
