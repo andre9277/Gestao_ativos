@@ -35,13 +35,19 @@ All the changes made to enable the implementation of the desired development too
 */
 import React from "react";
 import "./styles/Dashboard.css";
+import img_logo from "./assets/hb_dc.jpg";
 
 function Dashboard() {
   return (
     <div className="mn-cnt">
-      <h1 className="tlt-dashb">Dashboard</h1>
+      <div className="space-mov-dash"></div>
+      <img
+        src={img_logo}
+        alt="Login image"
+        className="w-100-new"
+        style={{ objectFit: "cover", objectPosition: "left" }}
+      />
       <div className="space-mov"></div>
-
       <div className="tx-dashb">Bem vindo ao SIGA</div>
     </div>
   );

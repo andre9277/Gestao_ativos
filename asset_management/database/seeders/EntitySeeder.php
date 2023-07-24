@@ -15,10 +15,10 @@ class EntitySeeder extends Seeder
     public function run()
     {
         Entity::insert([
-            ['ent_name' => 'Hospital de Braga', 'ent_type' => 'Interno'],
-            ['ent_name' => 'ACeS Cávado I - Braga', 'ent_type' => 'Externo'],
-            ['ent_name' => 'ACeS Cávado II - Gerês / Cabreira', 'ent_type' => 'Externo'],
-            ['ent_name' => 'Unidade de Cirurgia Externa', 'ent_type' => 'Externo']
+            ['name' => 'Hospital de Braga', 'ent_type' => 'Interno'],
+            ['name' => 'ACeS Cávado I - Braga', 'ent_type' => 'Externo'],
+            ['name' => 'ACeS Cávado II - Gerês / Cabreira', 'ent_type' => 'Externo'],
+            ['name' => 'Unidade de Cirurgia Externa', 'ent_type' => 'Externo']
         ]);
     }
 }

@@ -65,10 +65,14 @@ const SideBarSi = () => {
       setStyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
     }
   };
-  const [activeOption, setActiveOption] = useState("");
+  const [activeOption, setActiveOption] = useState("dashboard");
 
   const handleOptionClick = (option) => {
     setActiveOption(option);
+  };
+
+  const handleImageClick = () => {
+    window.location.href = "/dashboard";
   };
 
   return (
@@ -83,7 +87,12 @@ const SideBarSi = () => {
           href="#"
         >
           <div className="sidebar-brand-icon ">
-            <img src={logo_hb} alt="HB logo" className="img-sb" />
+            <img
+              src={logo_hb}
+              alt="HB logo"
+              className="img-sb"
+              onClick={handleImageClick}
+            />
           </div>
         </a>
 
@@ -132,7 +141,7 @@ const SideBarSi = () => {
         />
 
         <MenuItem
-          titulo={"Donwload"}
+          titulo={"Relatório"}
           icon={"fa-arrow-circle-down"}
           origem={"allocations"}
           handleOptionClick={handleOptionClick}

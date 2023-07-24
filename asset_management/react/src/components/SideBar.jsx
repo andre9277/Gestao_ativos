@@ -37,8 +37,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import MenuItem from "./MenuItem";
 import logo_hb from "../assets/logo_hb.jpg";
+import { useStateContext } from "../context/ContextProvider";
 
 const SideBar = () => {
+  const { activeOption, setActiveOption } = useStateContext();
+
   const [style, setStyle] = useState(
     "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
   );
@@ -66,10 +69,14 @@ const SideBar = () => {
     }
   };
 
-  const [activeOption, setActiveOption] = useState("");
+  /*  const [activeOption, setActiveOption] = useState("dashboard"); ------------------*/
 
   const handleOptionClick = (option) => {
     setActiveOption(option);
+  };
+
+  const handleImageClick = () => {
+    window.location.href = "/dashboard";
   };
 
   return (
@@ -84,7 +91,12 @@ const SideBar = () => {
           href="#"
         >
           <div className="sidebar-brand-icon ">
-            <img src={logo_hb} alt="HB logo" className="img-sb" />
+            <img
+              src={logo_hb}
+              alt="HB logo"
+              className="img-sb"
+              onClick={handleImageClick}
+            />
           </div>
         </a>
 
@@ -134,7 +146,7 @@ const SideBar = () => {
 
         {/* <!-- Nav Item - ReportPage --> */}
         <MenuItem
-          titulo={"Download"}
+          titulo={"Relatório"}
           icon={"fa-arrow-circle-down"}
           origem={"allocations"}
           handleOptionClick={handleOptionClick}
@@ -160,6 +172,22 @@ const SideBar = () => {
           titulo={"Utilizadores"}
           icon={"fa-users"}
           origem={"users"}
+          handleOptionClick={handleOptionClick}
+          activeOption={activeOption}
+        />
+
+        <MenuItem
+          titulo={"Configurações"}
+          icon={"fa-circle"}
+          origem={"configg"}
+          handleOptionClick={handleOptionClick}
+          activeOption={activeOption}
+        />
+
+        <MenuItem
+          titulo={"Configuration"}
+          icon={"fa-circle"}
+          origem={"config"}
           handleOptionClick={handleOptionClick}
           activeOption={activeOption}
         />

@@ -51,7 +51,11 @@ export default function Assets() {
   const [loading, setLoading] = useState(false);
   //const [loadingAll, setLoadingAll] = useState(false);
   const [meta, setMeta] = useState({});
-  const { user, setNotification } = useStateContext();
+  const { user, setNotification, setActiveOption } = useStateContext();
+
+  useEffect(() => {
+    setActiveOption("assets");
+  }, []);
 
   const [cats, setCats] = useState([]);
   const [brands, setBrands] = useState([]);
@@ -179,7 +183,7 @@ export default function Assets() {
         (selectedFloor === "" || row.floor === selectedFloor) &&
         (selectedBrand === "" || row.brand.name === selectedBrand) &&
         (selectedModel === "" || row.modelo.name === selectedModel) &&
-        (selectedEnt === "" || row.entity.ent_name === selectedEnt)
+        (selectedEnt === "" || row.entity.name === selectedEnt)
     );
 
     setFilteredAllocations(filtered ? filteredData : assets);
@@ -195,7 +199,7 @@ export default function Assets() {
       Marca: "brand.name",
       Modelo: "modelo.name",
       Piso: "floor",
-      Entidade: "entity.ent_name",
+      Entidade: "entity.name",
       NºSerie: "numb_ser",
     };
 
@@ -706,7 +710,7 @@ export default function Assets() {
                     <td className="table-words-l">{a.modelo.name}</td>
                     <td className="tb-normal">{a.numb_inv}</td>
                     <td className="table-words-l">{a.numb_ser}</td>
-                    <td className="table-words-l">{a.entity.ent_name}</td>
+                    <td className="table-words-l">{a.entity.name}</td>
                     <td className="table-words-l">
                       {a.units === null ? "" : a.units.name}
                     </td>
@@ -750,7 +754,7 @@ export default function Assets() {
                     <td className="table-words-l">{asset.modelo.name}</td>
                     <td>{asset.numb_inv}</td>
                     <td className="table-words-l">{asset.numb_ser}</td>
-                    <td className="table-words-l">{asset.entity.ent_name}</td>
+                    <td className="table-words-l">{asset.entity.name}</td>
                     <td className="table-words-l">
                       {asset.units === null ? "" : asset.units.name}
                     </td>

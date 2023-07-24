@@ -135,7 +135,7 @@ export default function Allocations() {
     });
 
     if (!startDate || !endDate) {
-      const message = "Atenção! Selecione uma data início e/ou data fim!";
+      const message = "Atenção! Selecione uma data início e data fim!";
       setMessage(message);
       setLoading(false);
       return;
@@ -145,7 +145,7 @@ export default function Allocations() {
       fields: [
         "Utilizador",
         "Operação",
-        "Nº Série",
+        "Nº Inventário",
         "Motivo",
         "Data de alteração",
       ],
@@ -155,7 +155,7 @@ export default function Allocations() {
           allocation.action_type,
           allocation.assets === null
             ? allocation.inv_number
-            : allocation.assets.numb_ser,
+            : allocation.assets.numb_inv,
           allocation.reason,
           allocation.allocation_date,
         ];
@@ -297,7 +297,7 @@ export default function Allocations() {
         }}
         className="container-fluid"
       >
-        <h1 className="title-page-all">Download de Ativos</h1>
+        <h1 className="title-page-all">Relatório de Ativos</h1>
       </div>
       {loading && <div className="caprr-re">A carregar...</div>}
 

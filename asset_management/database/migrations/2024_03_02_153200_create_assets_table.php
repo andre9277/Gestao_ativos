@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('assets', function (Blueprint $table) {
             $table->id()->unique();
-            $table->string('numb_inv', 6)->unique()->nullable();
+            $table->string('numb_inv', 6)->unique();
             $table->date('date_purch');
             $table->string('state');
-            $table->string('numb_ser', 25)->unique();
+            $table->string('numb_ser', 25)->unique()->nullable();
             $table->string('cond');
             $table->string('ala', 100)->nullable();
             $table->string('floor', 100)->nullable();

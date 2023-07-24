@@ -19,7 +19,7 @@ class Allocation extends Model
         'user_id',
         'allocation_date',
         'action_type',
-        'ser_number',
+        'inv_number',
         'reason',
         'other',
     ];

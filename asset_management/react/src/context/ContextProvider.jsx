@@ -53,6 +53,7 @@ export const ContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [token, _setToken] = useState(localStorage.getItem("ACCESS_TOKEN")); //When user updates, it saves the session
   const [notification, _setNotification] = useState("");
+  const [activeOption, setActiveOption] = useState("dashboard");
 
   //Save the token in the localstorage of the browser, so when the user refresh it saves the token
   const setToken = (token) => {
@@ -84,6 +85,8 @@ export const ContextProvider = ({ children }) => {
         setToken,
         notification,
         setNotification,
+        activeOption,
+        setActiveOption,
       }}
     >
       {children}

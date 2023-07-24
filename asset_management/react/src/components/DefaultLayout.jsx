@@ -62,6 +62,8 @@ export default function DefaultLayout() {
       setUser({});
       setToken(null);
     });
+
+    axiosClient.post("/log", { message: "Record created" });
   };
 
   useEffect(() => {

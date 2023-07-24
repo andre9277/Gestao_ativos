@@ -39,7 +39,9 @@ import { createRef } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { useState, useEffect } from "react";
 
-import img_logo2 from "../assets/logo_new_hb.png";
+/* import img_logo2 from "../assets/logo_new_hb.png"; */
+import img_logo2 from "../assets/hbb_braga.jpg";
+import img_logo from "../assets/logo_wh-rebg.png";
 
 import { MDBContainer, MDBRow, MDBCol, MDBInput } from "mdb-react-ui-kit";
 
@@ -82,6 +84,16 @@ export default function Login() {
       payload.password = password;
     }
 
+    if (!payload.email && !payload.mec) {
+      setMessage("Por favor, insira o email ou número MEC");
+      return;
+    }
+
+    if (!payload.pin && !payload.password) {
+      setMessage("Por favor, insira a password ou PIN");
+      return;
+    }
+
     axiosClient
       .post("/login", payload)
       .then(({ data }) => {
@@ -95,6 +107,8 @@ export default function Login() {
           setMessage("Atenção! Verifique se introduziu os dados corretamente!");
         }
       });
+
+    axiosClient.post("/log", { message: "Record created" });
   };
 
   return (
@@ -104,6 +118,11 @@ export default function Login() {
           <div className="logo-div-hb">
             <MDBRow>
               <MDBCol sm="4">
+                <img
+                  src={img_logo}
+                  alt="Login image logo"
+                  className="logo-whbg"
+                />
                 <div className="d-flex flex-row ps-5 pt-5">
                   <h1 className="title-lg">
                     Sistema Integrado de Gestão de Ativos

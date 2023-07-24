@@ -65,7 +65,7 @@ const AreaChart = ({ assets }) => {
 
   //Chart (bar):
   var data = {
-    labels: charts.map((x) => x.ent_name),
+    labels: charts.map((x) => x.name),
     datasets: [
       {
         label: "Total de ativos",

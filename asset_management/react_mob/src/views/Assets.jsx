@@ -48,13 +48,13 @@ export default function Assets() {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  //display the error message for 2 seconds
+  //display the error message for 5 seconds
   useEffect(() => {
     let timer;
     if (errorMessage) {
       timer = setTimeout(() => {
         setErrorMessage("");
-      }, 2000); // Display for 2 seconds (2000 milliseconds)
+      }, 5000); // Display for 5 seconds (5000 milliseconds)
     }
     return () => clearTimeout(timer); // Clear the timer if component unmounts or if the error message changes
   }, [errorMessage]);
@@ -108,11 +108,9 @@ export default function Assets() {
   };
   //Binary Search to improve performance in search by inventory number
   const searchByNumbInv = (arr, target) => {
-    if (arr[0].numb_inv === target) {
-      return arr[0];
-    }
+    arr.sort((a, b) => (a.numb_inv || "").localeCompare(b.numb_inv || ""));
 
-    let left = 1;
+    let left = 0;
     let right = arr.length - 1;
 
     while (left <= right) {
@@ -123,7 +121,7 @@ export default function Assets() {
         return currentAsset;
       }
 
-      if (currentAsset.numb_inv < target) {
+      if ((currentAsset.numb_inv || "").localeCompare(target) < 0) {
         left = mid + 1;
       } else {
         right = mid - 1;

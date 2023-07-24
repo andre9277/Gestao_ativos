@@ -66,10 +66,14 @@ const SideBarGuest = () => {
     }
   };
 
-  const [activeOption, setActiveOption] = useState("");
+  const [activeOption, setActiveOption] = useState("dashboard");
 
   const handleOptionClick = (option) => {
     setActiveOption(option);
+  };
+
+  const handleImageClick = () => {
+    window.location.href = "/dashboard";
   };
 
   return (
@@ -85,7 +89,12 @@ const SideBarGuest = () => {
           href="#"
         >
           <div className="sidebar-brand-icon ">
-            <img src={logo_hb} alt="HB logo" className="img-sb" />
+            <img
+              src={logo_hb}
+              alt="HB logo"
+              className="img-sb"
+              onClick={handleImageClick}
+            />
           </div>
         </a>
 

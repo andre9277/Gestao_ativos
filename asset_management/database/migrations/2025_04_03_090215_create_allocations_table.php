@@ -19,7 +19,7 @@ return new class extends Migration
             $table->dateTime('allocation_date');
             $table->timestamps();
             $table->string('action_type');
-            $table->string('ser_number');
+            $table->string('inv_number');
             $table->string('reason');
 
             $table->text('other')->nullable();

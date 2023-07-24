@@ -144,10 +144,11 @@ body {
 
 .err-search {
     margin: 0.5rem;
-    background-color: #cc0000;
-    border-radius: 1rem;
+    background-color: red;
     padding: 0.5rem;
-    width: max-content;
+    width: fit-content;
+    font-size: 1rem;
+    font-weight: 700;
 }
 
 hr {
@@ -296,6 +297,7 @@ strong {
 small,
 .small {
     font-size: 1.2rem;
+    color: white;
 }
 
 mark,
@@ -1699,6 +1701,7 @@ progress {
     .col-xl-4 {
         flex: 0 0 auto;
         width: 33.33333333%;
+        margin-bottom: 4rem;
     }
 
     .col-xl-5 {
@@ -2274,6 +2277,7 @@ progress {
     margin-bottom: 0.5rem;
     width: auto;
     font-size: 1.2rem;
+    color: white;
 }
 
 .col-form-label {
@@ -2960,7 +2964,7 @@ input::placeholder {
     float: right;
     background-color: #6c757d;
     padding: 0.5rem 0.75rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     border-radius: 4px;
     color: white;
     overflow: hidden;
@@ -5749,6 +5753,11 @@ fieldset:disabled .btn {
     margin-bottom: 1rem;
     border: 1px solid transparent;
     border-radius: 0.25rem;
+    width: fit-content;
+    font-size: 1.2rem;
+    margin-left: 34px;
+    font-weight: 700;
+    margin-top: 1rem;
 }
 
 .alert-heading {
@@ -7929,18 +7938,23 @@ fieldset:disabled .btn {
     min-height: "100vh";
     padding: 10rem;
 
+    /*  background: linear-gradient(
+        135deg,
+        rgba(37, 97, 5, 1) 0%,
+        rgba(106, 170, 71, 1) 100%
+    ); */
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+.back-col-login2 {
     background: linear-gradient(
         135deg,
         rgba(37, 97, 5, 1) 0%,
         rgba(106, 170, 71, 1) 100%
     );
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-}
-.back-col-login2 {
-    background-color: #ffffff;
     border-radius: 0.5rem;
 }
+
 .logoDiv {
     background-color: #007840;
     padding: 50px;
@@ -8716,7 +8730,7 @@ fieldset:disabled .btn {
 
 .text-muted {
     --bs-text-opacity: 1;
-    color: #61a60e !important;
+    color: white !important;
     font-size: 1.2rem;
 }
 
@@ -12270,11 +12284,11 @@ body {
 #layoutAuthentication #layoutAuthentication_content {
     min-width: 0;
     flex-grow: 1;
-    background: linear-gradient(
+    /*  background: linear-gradient(
         135deg,
         rgba(37, 97, 5, 1) 0%,
         rgba(106, 170, 71, 1) 100%
-    );
+    ); */
 }
 #layoutAuthentication #layoutAuthentication_footer {
     min-width: 0;
@@ -12665,8 +12679,20 @@ body {
     border-radius: 0.25rem !important;
 }
 
+.carddd {
+    background: linear-gradient(
+        135deg,
+        rgba(37, 97, 5, 1) 0%,
+        rgba(106, 170, 71, 1) 100%
+    );
+    border-radius: 0.5rem;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 7rem;
+    margin-top: 0.5rem;
+}
+
 .card {
-    background-color: #fff;
     border-radius: 0.5rem;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     padding: 1.25rem 1.5rem;
@@ -12690,7 +12716,7 @@ h1 {
 }
 h3 {
     margin: 12px 0;
-    color: #007840;
+    color: white;
 }
 .main-block {
     display: flex;
@@ -12842,7 +12868,7 @@ select {
 }
 
 .title-lg {
-    color: #007840;
+    color: white;
     text-align: center;
     display: flex;
 }
@@ -12861,7 +12887,7 @@ select {
 }
 
 .search-bar-container {
-    width: 40%;
+    width: 46%;
     position: relative;
     float: left;
     flex-direction: column;
@@ -12898,6 +12924,8 @@ select {
     padding: 0.5em 6.5em 0.5em 0;
     font-weight: 700;
     font-size: 1.2rem;
+    position: relative;
+    margin: 1rem;
 }
 
 .lb-info-allocation {
@@ -12945,6 +12973,7 @@ select {
 
 .attrAsset {
     /* width: 50%; */
+    font-weight: 400;
     padding: 0.1rem;
     margin-bottom: 1rem;
     background: #f8f9fc;
@@ -13167,7 +13196,7 @@ input::placeholder {
     font-size: 1.1rem;
     padding: 15px;
     position: absolute;
-    top: 46%;
+    top: 80%;
     left: 50%;
     -ms-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translate(-50%, -50%);
@@ -13298,7 +13327,7 @@ input::placeholder {
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    padding: 10px;
+    padding: 20px;
     z-index: 1;
 }
 
@@ -13423,6 +13452,7 @@ input::placeholder {
     font-size: 1.2rem;
     margin-bottom: 0.1px;
     text-align: center;
+    padding: 13px;
 }
 
 .infoInp {
@@ -13434,7 +13464,9 @@ input::placeholder {
     float: right;
     font-size: 1.2rem;
     font-weight: normal;
+    position: relative;
 }
+
 .infoInp-select {
     width: 60%;
     padding: 0.1em;
@@ -13572,6 +13604,7 @@ input::placeholder {
     bottom: 0;
     width: 100%;
     height: 50px;
+    color: white;
 }
 
 .container-assetMov {
@@ -13780,6 +13813,7 @@ button {
     width: auto;
     margin-bottom: auto;
     font-size: 1.2rem;
+    color: white;
 }
 
 .inp-res-pass {
@@ -13787,6 +13821,7 @@ button {
     border: 1px solid black;
     margin-bottom: 24px;
     font-size: 1.2rem;
+    background-color: white;
 }
 .inp-res-pass-rec {
     border: 1px solid black;
@@ -13796,12 +13831,13 @@ button {
 }
 
 .btn-rec-pass {
-    background-color: #00a762;
+    background-color: white;
     padding: 0.5rem 0.75rem;
     font-size: 1.2rem;
     border-radius: 4px;
-    color: white;
+    color: #007840;
     width: 100%;
+    font-weight: 700;
 }
 
 .ms-rec-pass {
@@ -13832,13 +13868,15 @@ button {
     height: auto;
     block-size: auto;
     color: white;
-    background-color: #007840;
+    background-color: white;
     margin-left: 122px;
+    color: #007840;
+    font-weight: 800;
 }
 
 .login-main-box {
     width: auto;
-    padding-top: 5rem;
+    padding-top: 2rem;
 }
 
 .form-group-reset {
@@ -13862,5 +13900,48 @@ button {
     color: white;
     background-color: red;
     font-size: 1.2rem;
-    width: 40%;
+    width: fit-content;
+    padding: 10px;
+    margin: 24px;
+    font-weight: 700;
+}
+
+.error {
+    position: absolute;
+    top: 80%;
+    /*  right: 0; */
+    color: white;
+    font-size: 1rem;
+    background-color: red;
+    padding: 0.2rem;
+    font-weight: 500;
+}
+
+.infoInp.error-input {
+    border-color: red;
+}
+
+.infoInp-select.error-input {
+    border-color: red;
+}
+
+.form-calendar-asset.error {
+    border-color: red;
+    background-color: white;
+    color: black;
+    font-size: 1.2rem;
+    position: relative;
+}
+
+.simb-tb {
+    /*  width: max-content;
+    display: inline-flex; */
+}
+
+.data-filter-container {
+    padding: 1px;
+}
+
+.logo-whbg {
+    width: inherit;
 }

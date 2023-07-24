@@ -123,6 +123,34 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/brands/category/{categoryId}', [BrandController::class, 'getBrandsByCategory']);
 
+    //Adds values to the brands table
+    Route::post('/brandsAdd', [BrandController::class, 'store']);
+    Route::delete('/brandsDel/{brd}', [BrandController::class, 'destroy']);
+
+    Route::post('/categoryBrands', [CategoryBrandController::class, 'store']);
+
+    //Add and delete one model:
+    Route::post('/modelsAdd', [ModeloController::class, 'store']);
+    Route::delete('/modelsDel/{mdl}',  [ModeloController::class, 'destroy']);
+
+    //Add and delete one category:
+    Route::post('/categoriesAdd', [CategoryController::class, 'store']);
+    Route::delete('/categoriesDel/{cat}',  [CategoryController::class, 'destroy']);
+    Route::put('/categoriesUpdate/{category}',  [CategoryController::class, 'update']);
+
+
+    //Add and delete one supplier:
+    Route::post('/supplierAdd', [SupplierController::class, 'store']);
+    Route::delete('/supplierDel/{supplier}',  [SupplierController::class, 'destroy']);
+
+    //Add and delete one entity:
+    Route::post('/entAdd', [EntityController::class, 'store']);
+    Route::delete('/entDel/{ent}',  [EntityController::class, 'destroy']);
+
+    //Add and delete one unit:
+    Route::post('/unitAdd', [UnitController::class, 'store']);
+    Route::delete('/unitDel/{unit}',  [UnitController::class, 'destroy']);
+
 
     //Endpoint for the AssetForm component (Joins all the calls, does one request do the server)
     Route::get('/combinedData', function () {
@@ -182,7 +210,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::delete('/assets/{ids}', [AssetController::class, 'destroy']);
 
+    //show the category and brands relationship
     Route::get('/category-brands', [CategoryBrandController::class, 'index']);
+    Route::delete('/category-brandsDel/{id}', [CategoryBrandController::class, 'destroy']);
+
 
     function getCatsAll()
     {
@@ -268,3 +299,5 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/signup', [AuthController::class, 'signup'])->middleware('auth:sanctum');
 
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/log', [AuthController::class, 'log']);

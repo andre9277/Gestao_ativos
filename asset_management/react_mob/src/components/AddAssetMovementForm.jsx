@@ -57,6 +57,18 @@ const AddAssetMovementForm = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (errors) {
+      const timer = setTimeout(() => {
+        setErrors(null); // Clear the error messages after 15 seconds
+      }, 15000);
+
+      return () => {
+        clearTimeout(timer); // Clear the timer if the component unmounts before 5 seconds
+      };
+    }
+  }, [errors]);
+
+  useEffect(() => {
     getTotalAssetsEve();
     getEnts();
   }, []);
@@ -143,6 +155,8 @@ const AddAssetMovementForm = () => {
               const response = err.response;
               if (response && response.status === 422) {
                 setErrors(response.data.errors);
+                // Scroll to the top of the page
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }
             });
         }
@@ -164,11 +178,27 @@ const AddAssetMovementForm = () => {
               const response = err.response;
               if (response && response.status === 422) {
                 setErrors(response.data.errors);
+                // Scroll to the top of the page
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }
             });
         }
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.log("POST Request Error:", err.response);
+        const response = err.response;
+        if (response && response.status === 422) {
+          console.log("Validation Errors:", response.data.errors);
+          setErrors(response.data.errors);
+          // Scroll to the top of the page
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          console.log("Error Message:", response.data.message);
+          setErrorMessage(response.data.message);
+          // Scroll to the top of the page
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
   };
   //Reset of the filters implemented
   const resetFilter = () => {
@@ -188,15 +218,22 @@ const AddAssetMovementForm = () => {
         </Modal.Header>
         <Modal.Body>{"Deseja guardar todas as alterações?"}</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleConfirmSave}>
+          <Button variant="primary" onClick={handleConfirmSave}>
             Confirmar
           </Button>
-          <Button variant="primary" onClick={handleCancelSave}>
+          <Button variant="secondary" onClick={handleCancelSave}>
             Cancelar
           </Button>
         </Modal.Footer>
       </Modal>
       <h1 className="tlt-assetInfo">Movimento de Ativo</h1>
+      {/*   {errors && (
+        <div className="alert">
+          {Object.keys(errors).map((key) => (
+            <p key={key}>{errors[key][0]}</p>
+          ))}
+        </div>
+      )} */}
       <div className="space-mov-add"></div>
       <form onSubmit={handleSubmit} className="assetForm">
         <h1 className="headerInfoAsset">Dados Gerais: </h1>
@@ -213,12 +250,18 @@ const AddAssetMovementForm = () => {
             Data:<label className="cmp-obg">*</label>
           </label>
           <input
-            className="form-calendar-asset"
+            className={`form-calendar-asset ${
+              errors && errors.allocation_date ? "error" : ""
+            }`}
             type="date"
             value={assetDate}
             onChange={(e) => setAssetDate(e.target.value)}
             placeholder="YYYY-MM-DD"
           />
+          {errors && errors.allocation_date && (
+            <div className="error">{errors.allocation_date[0]}</div>
+          )}
+          <p></p>
         </label>
 
         {/*  {console.log(assetDate)} */}
@@ -245,9 +288,13 @@ const AddAssetMovementForm = () => {
             type="text"
             value={matchingInv ? matchingInv.numb_ser : serNumber}
             onChange={(e) => setSerNumber(e.target.value)}
-            required
-            className="infoInp"
+            className={`infoInp ${
+              errors && errors.ser_number ? "error-input" : ""
+            }`}
           />
+          {errors && errors.ser_number && (
+            <div className="error">{errors.ser_number[0]}</div>
+          )}
         </label>
         <div className="space-mov"></div>
         <hr className="sidebar-divider" />
@@ -347,12 +394,13 @@ const AddAssetMovementForm = () => {
             Motivo:<label className="cmp-obg">*</label>
           </label>
           <select
-            className="infoInp-select"
+            className={`infoInp-select ${
+              errors && errors.reason ? "error-input" : ""
+            }`}
             name="motivo"
             id="motivo"
             value={reason}
             onChange={(event) => setReason(event.target.value)}
-            required
           >
             <option value=""></option>
             <option value="Transferência">Transferência</option>
@@ -360,8 +408,12 @@ const AddAssetMovementForm = () => {
             <option value="Obsoleto">Obsoleto</option>
             <option value="Garantia">Garantia</option>
           </select>
+          {errors && errors.reason && (
+            <div className="error">{errors.reason[0]}</div>
+          )}
         </label>
         <p></p>
+        {/* ---------- Obs ----------*/}
         <label className="lb-info">
           <label className="labelofLabel">Observações:</label>
           <textarea
@@ -376,7 +428,11 @@ const AddAssetMovementForm = () => {
           <button onClick={resetFilter} className="btn-cleanfilter-movAsset">
             Limpar
           </button>
-          <button type="submit" className="btn-adicionar-movAsset">
+          <button
+            type="submit"
+            className="btn-adicionar-movAsset"
+            onClick={handleSave}
+          >
             Guardar
           </button>
         </label>

@@ -41,4 +41,24 @@ class ModeloController extends Controller
 
         return response()->json($models_hb);
     }
+
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|string',
+            'brand_id' => 'required|integer',
+        ]);
+
+        $model = Modelo::create($data);
+
+        return response()->json($model, 201);
+    }
+
+    public function destroy(Modelo $mdl)
+    {
+        $mdl->delete();
+
+        return response()->json(['message' => 'Modelo eliminado com sucesso!']);
+    }
 }

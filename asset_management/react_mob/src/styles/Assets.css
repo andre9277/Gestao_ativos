@@ -67,7 +67,11 @@ All the changes made to enable the implementation of the desired development too
 }
 
 .space-mov {
-    margin-top: 2rem;
+    margin-top: 5rem;
+}
+
+.space-mov-dash {
+    margin-top: 8rem;
 }
 
 .barcode-search {
@@ -123,7 +127,7 @@ All the changes made to enable the implementation of the desired development too
 
 .error-search {
     color: white;
-    margin-left: 28px;
+    /*  margin-left: 28px; */
     margin-top: 16px;
     font-size: 1.3rem;
     font-weight: bold;
@@ -138,9 +142,10 @@ All the changes made to enable the implementation of the desired development too
 
 .err-search {
     margin: 0.5rem;
-    background-color: #cc0000;
-    border-radius: 1rem;
+    background-color: red;
     padding: 0.5rem;
+    font-weight: 700;
+    margin-bottom: 246px;
 }
 
 .w-100-new {

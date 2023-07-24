@@ -24,15 +24,15 @@ class StoreAssetRequest extends FormRequest
     public function rules()
     {
         return [
-            'numb_ser' => ['required', 'max:25', 'unique:assets,numb_ser',],
+            'numb_ser' => ['nullable', 'max:25', 'unique:assets,numb_ser',],
             'cond' => 'required',
             'state' => 'required',
             'cat_id' => 'required',
             'brand_id' => 'required',
-            'ci' => 'required',
+            'ci' => ['required', 'max:7'],
             'ent_id' => 'required',
             'numb_inv' => [
-                'nullable',
+                'required',
                 'string',
                 'size:6',
                 'unique:assets,numb_inv',
@@ -52,8 +52,9 @@ class StoreAssetRequest extends FormRequest
             'numb_inv.unique' => 'Atenção! O número de inventário já foi adicionado.',
             'numb_ser.max' => 'Atenção! O número de série não pode ter mais de 25 caracteres.',
             'ci' => 'Atenção! É necessário indicar o ci.',
+            'ci.max' => 'Atenção! CI inválido.',
             'ent_id' => 'Atenção! É necessário indicar a entidade.',
-            'numb_ser' => 'Atenção! É necessário indicar o número de série.',
+            'numb_inv' => 'Atenção! É necessário indicar o número de inventário.',
             'cat_id' => 'Atenção! É necessário indicar a categoria.',
             'cond' => 'Atenção! É necessário indicar a condição.',
             'brand_id' => 'Atenção! É necessário indicar a marca.',

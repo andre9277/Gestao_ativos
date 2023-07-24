@@ -54,7 +54,11 @@ const ReportPage = () => {
   const [meta, setMeta] = useState({});
   const [cats, setCats] = useState([]);
   const [users, setUsers] = useState([]);
-  const { user } = useStateContext();
+  const { user, setActiveOption } = useStateContext();
+
+  useEffect(() => {
+    setActiveOption("report");
+  }, []);
 
   const [isButtonClicked, setIsButtonClicked] = useState(false);
 
@@ -271,7 +275,7 @@ const ReportPage = () => {
         (selectedCategory === "" ||
           row.category.name !== selectedCategory ||
           row.user !== selectedUser ||
-          row.entity.ent_name !== selectedEnt ||
+          row.entity.name !== selectedEnt ||
           rowDate < selectedDateFrom ||
           rowDate > selectedDateTo)
       ) {
@@ -293,7 +297,7 @@ const ReportPage = () => {
       if (
         filteredEnt &&
         selectedEnt !== "" &&
-        row.entity.ent_name !== selectedEnt
+        row.entity.name !== selectedEnt
       ) {
         return false;
       }
@@ -432,12 +436,13 @@ const ReportPage = () => {
 
           return [
             asset.numb_inv,
+            //`'${asset.numb_inv}`, // Add a single quote before the value
             asset.numb_ser,
             asset.category.name,
             asset.previous_unit_id === null
               ? filtered_entities(asset.previous_ent_id)
               : filtered_units(asset.previous_unit_id),
-            asset.units === null ? asset.entity.ent_name : asset.units.name,
+            asset.units === null ? asset.entity.name : asset.units.name,
             asset.previous_ci,
             asset.ci,
             allocationData.user,
@@ -685,7 +690,7 @@ const ReportPage = () => {
 
                       <td className="table-words-l">
                         {asset.units === null
-                          ? asset.entity.ent_name
+                          ? asset.entity.name
                           : asset.units.name}
                       </td>
                       <td className="table-words-l">{asset.previous_ci}</td>
@@ -779,7 +784,7 @@ const ReportPage = () => {
 
                         <td className="table-words-l">
                           {asset.units === null
-                            ? asset.entity.ent_name
+                            ? asset.entity.name
                             : asset.units.name}
                         </td>
                         <td className="table-words-l">{asset.previous_ci}</td>

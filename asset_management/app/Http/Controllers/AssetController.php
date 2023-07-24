@@ -21,7 +21,7 @@ class AssetController extends Controller
      */
     public function index()
     {
-        $assets = Asset::with('entity:id,ent_name', 'brand:id,name', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+        $assets = Asset::with('entity:id,name', 'brand:id,name', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
             ->orderBy('id', 'desc')
             ->paginate(20);
 
@@ -39,7 +39,7 @@ class AssetController extends Controller
     //Filter values for the ci, ent_id or unit_id atributes
     public function filterValues()
     {
-        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+        $assets = Asset::with('entity:id,name,ent_type', 'brand:id,name', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
             ->where(function ($query) {
                 $query->whereNotNull('previous_ci')
                     ->orWhereNotNull('previous_ent_id')
@@ -53,7 +53,7 @@ class AssetController extends Controller
 
     public function filterValuesNoPag()
     {
-        $assets = Asset::with('entity:id,ent_name,ent_type', 'brand:id,name', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+        $assets = Asset::with('entity:id,name,ent_type', 'brand:id,name', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
             ->where(function ($query) {
                 $query->whereNotNull('previous_ci')
                     ->orWhereNotNull('previous_ent_id')
@@ -74,7 +74,7 @@ class AssetController extends Controller
             ->get();
 
         return response()->json($assets); */
-        $assets = $assets = Asset::with('entity:id,ent_name', 'brand:id,name', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+        $assets = $assets = Asset::with('entity:id,name', 'brand:id,name', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
             ->select('id', 'numb_inv', 'created_at', 'cat_id', 'model_id', 'brand_id', 'floor', 'ent_id', 'unit_id', 'numb_ser', 'ci', 'previous_ci', 'date_purch', 'state', 'cond', 'ala', 'floor', 'previous_unit_id', 'previous_ent_id', 'supplier_id', 'obs')
             ->orderBy('id', 'desc')
             ->get();
@@ -112,7 +112,7 @@ class AssetController extends Controller
         $allocation = new Allocation([
             'allocation_date' => now(),
             'action_type' => 'Adiciona',
-            'ser_number' => $asset->numb_ser,
+            'inv_number' => $asset->numb_inv,
             'user_id' => auth()->user()->id,
             'reason' => "",
         ]);
@@ -127,7 +127,6 @@ class AssetController extends Controller
     //For the dashboard statistics
     public function count(Asset $asset)
     {
-
         $total = $asset::count();
 
         // Count assets changed this month
@@ -138,13 +137,15 @@ class AssetController extends Controller
             })
             ->count();
 
-
         $totalRep = $asset::where('cond', 'Reparação')->count();
+
+        $allocationCounts = Asset::where('cond', 'Obsoleto')->count();
 
         return [
             'total' => $total,
             'countChanged' => $countChanged,
-            'totalRep' => $totalRep
+            'totalRep' => $totalRep,
+            'allocationCounts' => $allocationCounts,
         ];
     }
 
@@ -163,7 +164,7 @@ class AssetController extends Controller
             'user_id' => Auth::id(),
             'allocation_date' => now(),
             'action_type' => 'Pesquisa',
-            'ser_number' => $asset->numb_ser,
+            'inv_number' => $asset->numb_inv,
             'reason' => "",
         ]);
         $update->save();
@@ -247,7 +248,7 @@ class AssetController extends Controller
         // Create allocation records for the deleted assets
         foreach ($assets as $asset) {
             $allocation = new Allocation([
-                'ser_number' => $asset->numb_ser,
+                'inv_number' => $asset->numb_inv,
                 'action_type' => 'Apaga',
                 'user_id' => Auth::id(),
                 'allocation_date' => now(),

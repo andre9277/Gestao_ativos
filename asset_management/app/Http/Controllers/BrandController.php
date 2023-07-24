@@ -43,4 +43,22 @@ class BrandController extends Controller
 
         return response()->json($brands);
     }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|string',
+        ]);
+
+        $brand = Brand::create($data);
+
+        return response()->json($brand, 201);
+    }
+
+    public function destroy(Brand $brd)
+    {
+        $brd->delete();
+
+        return response()->json(['message' => 'Marca eliminada com sucesso!']);
+    }
 }

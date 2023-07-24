@@ -77,7 +77,7 @@ const AddAssetMovementForm = () => {
     if (errors) {
       const timer = setTimeout(() => {
         setErrors(null); // Clear the error messages after 5 seconds
-      }, 5000);
+      }, 15000);
 
       return () => {
         clearTimeout(timer); // Clear the timer if the component unmounts before 5 seconds
@@ -141,6 +141,7 @@ const AddAssetMovementForm = () => {
             ...matchingAsset,
             ci: assetCi !== "" ? assetCi : matchingAsset.ci, // Update asset CI only if there is a new value
             ent_id: assetEnt !== "" ? assetEnt : matchingAsset.ent_id,
+            cond: reason !== "" ? reason : matchingAsset.cond,
           };
 
           axiosClient
@@ -153,6 +154,8 @@ const AddAssetMovementForm = () => {
               const response = err.response;
               if (response && response.status === 422) {
                 setErrors(response.data.errors);
+                // Scroll to the top of the page
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }
             });
         }
@@ -162,6 +165,7 @@ const AddAssetMovementForm = () => {
             ...matchingInv,
             ci: assetCi !== "" ? assetCi : matchingInv.ci, // Update asset CI only if there is a new value
             ent_id: assetEnt !== "" ? assetEnt : matchingInv.ent_id,
+            cond: reason !== "" ? reason : matchingAsset.cond,
           };
 
           axiosClient
@@ -171,24 +175,30 @@ const AddAssetMovementForm = () => {
               navigate("/report");
             })
             .catch((err) => {
-              console.log("POST Request Error:", err.response);
+              /* console.log("POST Request Error:", err.response); */
               const response = err.response;
               if (response && response.status === 422) {
-                console.log("Validation Errors:", response.data.errors);
+                /* console.log("Validation Errors:", response.data.errors); */
                 setErrors(response.data.errors);
+                // Scroll to the top of the page
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }
             });
         }
       })
       .catch((err) => {
-        console.log("POST Request Error:", err.response);
+        /*  console.log("POST Request Error:", err.response); */
         const response = err.response;
         if (response && response.status === 422) {
-          console.log("Validation Errors:", response.data.errors);
+          /*  console.log("Validation Errors:", response.data.errors); */
           setErrors(response.data.errors);
+          // Scroll to the top of the page
+          window.scrollTo({ top: 0, behavior: "smooth" });
         } else {
-          console.log("Error Message:", response.data.message);
-          setErrorMessage(response.data.message);
+          /* console.log("Error Message:", response.data.message); */
+          setErrors(response.data.message);
+          // Scroll to the top of the page
+          window.scrollTo({ top: 0, behavior: "smooth" });
         }
       });
   };
@@ -218,14 +228,15 @@ const AddAssetMovementForm = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      {errors && (
+
+      <h1 className="title-page-all">Movimento de Ativo</h1>
+      {/*  {errors && (
         <div className="alert">
           {Object.keys(errors).map((key) => (
             <p key={key}>{errors[key][0]}</p>
           ))}
         </div>
-      )}
-      <h1 className="title-page-all">Movimento de Ativo</h1>
+      )} */}
       <form onSubmit={handleSubmit} className="assetForm">
         <h1 className="title-page-all-sub">Dados Gerais: </h1>
         <p></p>
@@ -241,12 +252,17 @@ const AddAssetMovementForm = () => {
             Data:<label className="cmp-obg">*</label>
           </label>
           <input
-            className="form-calendar-asset"
-            type="date"
+            className={`form-calendar-asset ${
+              errors && errors.allocation_date ? "error" : ""
+            }`}
+            type="datetime-local"
             value={assetDate}
             onChange={(e) => setAssetDate(e.target.value)}
-            placeholder="YYYY-MM-DD"
+            placeholder="YYYY-MM-DD HH:MM"
           />
+          {errors && errors.allocation_date && (
+            <div className="error">{errors.allocation_date[0]}</div>
+          )}
         </label>
 
         {/*  {console.log(assetDate)} */}
@@ -254,21 +270,25 @@ const AddAssetMovementForm = () => {
         {/* ---------- Num Inv ----------*/}
 
         <label className="lb-info">
-          <label className="labelofLabel">Nº de Inventário:</label>
+          <label className="labelofLabel">
+            Nº de Inventário:<label className="cmp-obg">*</label>
+          </label>
           <input
             type="text"
             value={matchingAsset ? matchingAsset.numb_inv : invNumber}
             onChange={(e) => setInvNumber(e.target.value)}
-            className="infoInp"
+            className={`infoInp ${
+              errors && errors.inv_number ? "error-input" : ""
+            }`}
           />
+          {errors && errors.inv_number && (
+            <div className="error">{errors.inv_number[0]}</div>
+          )}
         </label>
 
         {/* ---------- Num Serial ----------*/}
         <label className="lb-info">
-          <label className="labelofLabel">
-            {" "}
-            Nº de Série:<label className="cmp-obg">*</label>
-          </label>
+          <label className="labelofLabel"> Nº de Série:</label>
           <input
             type="text"
             value={matchingInv ? matchingInv.numb_ser : serNumber}
@@ -285,14 +305,14 @@ const AddAssetMovementForm = () => {
           {matchingAsset ? (
             <input
               type="text"
-              value={matchingAsset.entity.ent_name}
+              value={matchingAsset.entity.name}
               readOnly
               className="attrAsset"
             />
           ) : matchingInv ? (
             <input
               type="text"
-              value={matchingInv.entity.ent_name}
+              value={matchingInv.entity.name}
               readOnly
               className="attrAsset"
             />
@@ -320,7 +340,7 @@ const AddAssetMovementForm = () => {
             <option value=""></option>
             {ents.map((ent) => (
               <option key={ent.id} value={ent.id}>
-                {ent.ent_name}
+                {ent.name}
               </option>
             ))}
           </select>
@@ -359,8 +379,9 @@ const AddAssetMovementForm = () => {
           <input
             value={assetCi}
             onChange={(e) => setAssetCi(e.target.value)}
-            className="infoInp"
+            className={`infoInp ${errors && errors.ci ? "error-input" : ""}`}
           />{" "}
+          {errors && errors.ci && <div className="error">{errors.ci[0]}</div>}
         </label>
 
         <div className="space-mov"></div>
@@ -372,7 +393,9 @@ const AddAssetMovementForm = () => {
             Motivo:<label className="cmp-obg">*</label>
           </label>
           <select
-            className="infoInp-select"
+            className={`infoInp-select ${
+              errors && errors.reason ? "error-input" : ""
+            }`}
             name="motivo"
             id="motivo"
             value={reason}
@@ -382,10 +405,13 @@ const AddAssetMovementForm = () => {
             <option value="Transferência">Transferência</option>
             <option value="Reparação">Reparação</option>
             <option value="Obsoleto">Obsoleto</option>
-            <option value="Garantia">Garantia</option>
+            {/* <option value="Garantia">Garantia</option> */}
           </select>
+          {errors && errors.reason && (
+            <div className="error">{errors.reason[0]}</div>
+          )}
         </label>
-
+        {/* ---------- Obs ----------*/}
         <label className="lb-info">
           <label className="labelofLabel">Observações:</label>
           <textarea
@@ -394,11 +420,14 @@ const AddAssetMovementForm = () => {
             className="obs-mov-e"
           />
         </label>
-        <label className="lb-info"></label>
+        <label className="lb-info"> </label>
         <label className="lb-info">
-          <button onClick={resetFilter} className="btn-cleanfilter-movAsset">
-            Limpar
-          </button>
+          <input
+            type="button"
+            onClick={resetFilter}
+            value="Limpar"
+            className="btn-cleanfilter-asset"
+          />
           <button
             type="submit"
             className="btn-adicionar-movAsset"

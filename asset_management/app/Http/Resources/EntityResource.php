@@ -16,8 +16,8 @@ class EntityResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'ent_name' => $this->ent_name,
-            'ent_type' => $this->ent_type,
+            'name' => $this->name,
+            /* 'ent_type' => $this->ent_type, */
         ];
     }
 }

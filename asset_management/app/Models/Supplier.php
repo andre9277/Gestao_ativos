@@ -17,9 +17,9 @@ class Supplier extends Model
     protected $fillable = [
         'supplier_id',
         'name',
-        'email',
+        /* 'email',
         'phone',
-        'address',
+        'address', */
     ];
 
     public function assets()

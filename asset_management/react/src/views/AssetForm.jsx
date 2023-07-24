@@ -122,8 +122,8 @@ export default function AssetForm() {
   useEffect(() => {
     if (errors) {
       const timer = setTimeout(() => {
-        setErrors(null); // Clear the error messages after 5 seconds
-      }, 5000);
+        setErrors(null); // Clear the error messages after 15 seconds
+      }, 15000);
 
       return () => {
         clearTimeout(timer); // Clear the timer if the component unmounts before 5 seconds
@@ -194,6 +194,9 @@ export default function AssetForm() {
           const response = err.response;
           if (response && response.status === 422) {
             setErrors(response.data.errors);
+
+            // Scroll to the top of the page
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }
         });
     } else {
@@ -208,6 +211,9 @@ export default function AssetForm() {
           const response = err.response;
           if (response && response.status === 422) {
             setErrors(response.data.errors);
+
+            // Scroll to the top of the page
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }
         });
     }
@@ -275,6 +281,7 @@ export default function AssetForm() {
 
   const resetFilter = () => {
     // Reset all the values to empty or default
+
     setAsset({
       numb_inv: "",
       numb_ser: "",
@@ -337,8 +344,8 @@ export default function AssetForm() {
         </Modal.Header>
         <Modal.Body>
           {asset.id
-            ? "Deseja atualizar o ativo selecionado?"
-            : "Deseja adicionar o ativo?"}
+            ? "Deseja atualizar o Ativo selecionado?"
+            : "Deseja adicionar o Ativo?"}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleConfirmSave}>
@@ -355,13 +362,13 @@ export default function AssetForm() {
       {!asset.id && <h1 className="title-page-all">Novo Ativo</h1>}
       <div className="card animated fadeInDown">
         {loading && <div className="caprr-re">A carregar...</div>}
-        {errors && (
+        {/* {errors && (
           <div className="alert">
             {Object.keys(errors).map((key) => (
               <p key={key}>{errors[key][0]}</p>
             ))}
           </div>
-        )}
+        )} */}
         {!loading && (
           <form onSubmit={onSubmit} className="assetForm-assett">
             {/* ---------- Inventory Number ----------*/}
@@ -371,29 +378,34 @@ export default function AssetForm() {
             <p></p>
             <label className="lb-info">
               {" "}
-              <label className="labelofLabel"> Nº de inventário: </label>
+              <label className="labelofLabel">
+                {" "}
+                Nº de inventário:<label className="cmp-obg">*</label>
+              </label>
               <input
                 value={asset.numb_inv === null ? "" : asset.numb_inv}
                 onChange={(ev) =>
                   setAsset({ ...asset, numb_inv: ev.target.value })
                 }
-                className="infoInp"
+                className={`infoInp ${
+                  errors && errors.numb_inv ? "error-input" : ""
+                }`}
               />
+              {errors && errors.numb_inv && (
+                <div className="error">{errors.numb_inv[0]}</div>
+              )}
             </label>
 
             {/* ---------- Serial Number ----------*/}
             <label className="lb-info">
               {" "}
-              <label className="labelofLabel">
-                Nº de série:<label className="cmp-obg">*</label>
-              </label>
+              <label className="labelofLabel">Nº de série:</label>
               <input
                 value={asset.numb_ser}
                 onChange={(ev) =>
                   setAsset({ ...asset, numb_ser: ev.target.value })
                 }
                 className="infoInp"
-                required
               />
             </label>
 
@@ -404,7 +416,9 @@ export default function AssetForm() {
                 Categoria:<label className="cmp-obg">*</label>
               </label>
               <select
-                className="infoInp-select"
+                className={`infoInp-select ${
+                  errors && errors.cat_id ? "error-input" : ""
+                }`}
                 name="category"
                 id="category"
                 value={asset.cat_id}
@@ -418,6 +432,9 @@ export default function AssetForm() {
                   </option>
                 ))}
               </select>
+              {errors && errors.cat_id && (
+                <div className="error">{errors.cat_id[0]}</div>
+              )}
             </label>
             {/* ---------- Status ----------*/}
             <label htmlFor="estado" className="lb-info">
@@ -425,7 +442,9 @@ export default function AssetForm() {
                 Estado:<label className="cmp-obg">*</label>
               </label>
               <select
-                className="infoInp-select"
+                className={`infoInp-select ${
+                  errors && errors.state ? "error-input" : ""
+                }`}
                 name="estado"
                 id="estado"
                 value={asset.state}
@@ -438,11 +457,13 @@ export default function AssetForm() {
                 <option value="Ativo">Ativo</option>
                 <option value="Inativo">Inativo</option>
               </select>
-            </label>
 
+              {errors && errors.state && (
+                <div className="error">{errors.state[0]}</div>
+              )}
+            </label>
             {/* ---------- Brands ----------*/}
             <label className="lb-info">
-              {" "}
               <label className="labelofLabel">
                 {" "}
                 Marca:<label className="cmp-obg">*</label>
@@ -450,12 +471,13 @@ export default function AssetForm() {
               <select
                 value={asset.brand_id}
                 onChange={handleBrandChange}
-                className="infoInp-select"
-                required
+                className={`infoInp-select ${
+                  errors && errors.brand_id ? "error-input" : ""
+                }`}
               >
                 {brands.length != 0 ? <option value=""></option> : ""}
                 {brands.length === 0 ? (
-                  <option>{asset.brand.name}</option>
+                  <option>{asset.brand && asset.brand.name}</option> // Add null check for asset.brand
                 ) : (
                   brands.map((brand) => (
                     <option key={brand.id} value={brand.id}>
@@ -464,30 +486,45 @@ export default function AssetForm() {
                   ))
                 )}
               </select>
+              {errors && errors.brand_id && (
+                <div className="error">{errors.brand_id[0]}</div>
+              )}
             </label>
 
             {/* ---------- Models ----------*/}
             <label className="lb-info">
-              {" "}
               <label className="labelofLabel">
                 {" "}
                 Modelo:<label className="cmp-obg">*</label>
               </label>
               <select
                 value={asset.model_id}
-                className="infoInp-select"
+                className={`infoInp-select ${
+                  errors && errors.model_id ? "error-input" : ""
+                }`}
                 onChange={(event) =>
                   setAsset({ ...asset, model_id: event.target.value })
                 }
                 required
               >
                 <option value=""></option>
-                {modelos.map((modelo) => (
-                  <option key={modelo.id} value={modelo.id}>
-                    {modelo.name}
-                  </option>
-                ))}
+                {id && asset.brand_id
+                  ? modelos
+                      .filter((modelo) => modelo.brand_id === asset.brand_id) // Filter models based on selected brand
+                      .map((modelo) => (
+                        <option key={modelo.id} value={modelo.id}>
+                          {modelo.name}
+                        </option>
+                      ))
+                  : modelos.map((modelo) => (
+                      <option key={modelo.id} value={modelo.id}>
+                        {modelo.name}
+                      </option>
+                    ))}
               </select>
+              {errors && errors.model_id && (
+                <div className="error">{errors.model_id[0]}</div>
+              )}
             </label>
 
             <div className="localAsset-cond">
@@ -497,7 +534,9 @@ export default function AssetForm() {
                   Condição:<label className="cmp-obg">*</label>
                 </label>
                 <select
-                  className="infoInp-select"
+                  className={`infoInp-select ${
+                    errors && errors.cond ? "error-input" : ""
+                  }`}
                   name="condicao"
                   id="condicao"
                   value={asset.cond}
@@ -512,6 +551,9 @@ export default function AssetForm() {
                   <option value="Reparação">Reparação</option>
                   <option value="Obsoleto">Obsoleto</option>
                 </select>
+                {errors && errors.cond && (
+                  <div className="error">{errors.cond[0]}</div>
+                )}
               </label>
 
               {/* ---------- Date of purchase ----------*/}
@@ -521,13 +563,18 @@ export default function AssetForm() {
                   Data de Compra:<label className="cmp-obg">*</label>
                 </label>
                 <input
-                  className="form-calendar-asset"
+                  className={`form-calendar-asset ${
+                    errors && errors.date_purch ? "error" : ""
+                  }`}
                   type="date"
                   value={asset.date_purch}
                   onChange={handleDateChange}
                   placeholder="YYYY-MM-DD"
                 />
                 {errorMessage && <p className="alert">{errorMessage}</p>}
+                {errors && errors.date_purch && (
+                  <div className="error">{errors.date_purch[0]}</div>
+                )}
               </label>
               {/* ---------- Supplier ----------*/}
               <label className="lb-info">
@@ -537,7 +584,9 @@ export default function AssetForm() {
                   Fornecedor:<label className="cmp-obg">*</label>
                 </label>
                 <select
-                  className="infoInp-select"
+                  className={`infoInp-select ${
+                    errors && errors.supplier_id ? "error-input" : ""
+                  }`}
                   value={asset.supplier_id}
                   onChange={handleSupplierChange}
                 >
@@ -548,6 +597,9 @@ export default function AssetForm() {
                     </option>
                   ))}
                 </select>
+                {errors && errors.supplier_id && (
+                  <div className="error">{errors.supplier_id[0]}</div>
+                )}
               </label>
             </div>
             <div className="space-mov"></div>
@@ -561,7 +613,9 @@ export default function AssetForm() {
                   Entidade:<label className="cmp-obg">*</label>
                 </label>
                 <select
-                  className="infoInp-select"
+                  className={`infoInp-select ${
+                    errors && errors.ent_id ? "error-input" : ""
+                  }`}
                   name="entity"
                   id="entity"
                   value={asset.ent_id}
@@ -575,6 +629,9 @@ export default function AssetForm() {
                     </option>
                   ))}
                 </select>
+                {errors && errors.ent_id && (
+                  <div className="error">{errors.ent_id[0]}</div>
+                )}
               </label>
 
               {/* ---------- Units ----------*/}
@@ -601,14 +658,21 @@ export default function AssetForm() {
               {/* ---------- CI ----------*/}
               <label className="lb-info">
                 {" "}
-                <label className="labelofLabel">CI:</label>
+                <label className="labelofLabel">
+                  CI:<label className="cmp-obg">*</label>
+                </label>
                 <input
                   value={asset.ci === null ? "" : asset.ci}
                   onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
-                  className="infoInp"
+                  className={`infoInp ${
+                    errors && errors.ci ? "error-input" : ""
+                  }`}
                 />
+                {errors && errors.ci && (
+                  <div className="error">{errors.ci[0]}</div>
+                )}
               </label>
-
+              {/*  {console.log(errors)} */}
               {/* ---------- Floor ----------*/}
               <label htmlFor="floor" className="lb-info">
                 <label className="labelofLabel">Piso: </label>
@@ -665,7 +729,6 @@ export default function AssetForm() {
                 />
               </label>
 
-              {console.log("id", id)}
               <label className="lb-info-btn">
                 {id === undefined ? (
                   <input

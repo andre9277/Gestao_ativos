@@ -144,7 +144,7 @@ const ImportForm = () => {
     unit_id: "",
     entity: {
       id: "",
-      ent_name: "",
+      name: "",
       ent_type: "",
     },
     units: "",
@@ -247,6 +247,10 @@ const ImportForm = () => {
           } else {
             // Set the isValidFile flag to false if there is an invalid row
             isValidFile = false;
+
+            //Console log to check what row is giving an error
+            /*  console.log(row); */
+
             break; // Stop processing remaining rows
           }
         }
@@ -307,10 +311,6 @@ const ImportForm = () => {
 
   // Validation function for numb_inv
   const validateNumbInv = (numb_inv) => {
-    if (!numb_inv) {
-      return true; // Accept null values
-    }
-
     if (numb_inv.length === 6 && numb_inv.startsWith("0")) {
       return true;
     }
@@ -379,6 +379,10 @@ const ImportForm = () => {
   };
 
   const validateNumbSer = (numb_ser) => {
+    if (!numb_ser) {
+      return true; // Accept null values
+    }
+
     if (numb_ser !== null && numb_ser.trim() !== "") {
       return true;
     }

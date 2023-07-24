@@ -1,0 +1,227 @@
+.configInp {
+    padding: 0.1em;
+    margin-bottom: 1rem;
+    background: #fff;
+    border: 1px solid #9c9c9c;
+
+    font-size: 1.2rem;
+    font-weight: normal;
+    position: relative;
+    width: auto;
+    margin-right: 1rem;
+}
+
+.configlb {
+    width: auto;
+    font-size: 1.2rem;
+    padding-right: 2rem;
+}
+
+.addConfig {
+    display: inherit;
+
+    background-color: #00a762;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    color: white;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.configSelect {
+    width: 100%;
+    padding: 0.1em;
+    margin-bottom: 1rem;
+    background: #fff;
+    border: 1px solid #9c9c9c;
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin-right: 1rem;
+}
+
+.localDiv {
+    margin-top: 3rem;
+}
+
+.titleconfig {
+    display: flex;
+}
+
+.form-brd-mdl {
+    margin-bottom: 10rem;
+}
+
+.addConfig-cat {
+    display: inherit;
+
+    background-color: #00a762;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    color: white;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.deleteConfig-cat {
+    display: inherit;
+
+    background-color: red;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    color: white;
+    overflow: hidden;
+    margin-top: 1rem;
+    position: absolute;
+    margin-left: 8rem;
+}
+
+#container-config {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    width: 400px;
+    font-size: 1.2rem;
+    /* display: table-cell; */
+    margin: 4rem;
+}
+
+#btnAdd {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1%;
+    background: #00a762;
+    border-bottom: 2px solid #00a762;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    color: #fff;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    bottom: -95px;
+    position: relative;
+}
+
+#btnAddd {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1%;
+    background: #00a762;
+    border-bottom: 2px solid #00a762;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    color: #fff;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+#btnRemove {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1%;
+    background: #b72424;
+    border-bottom: 2px solid #b72424;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    color: #fff;
+    font-size: 1.2rem;
+    margin-top: 7rem;
+    bottom: 0;
+}
+
+#btnRemove-rel {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1%;
+    background: #b72424;
+    border-bottom: 2px solid #b72424;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    color: #fff;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+button:hover {
+    cursor: pointer;
+}
+
+.frm-cats input[type="text"] {
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    margin-bottom: 2%;
+    border: 1px solid #ccc;
+    padding: 1%;
+    color: #555;
+    font-size: 1em;
+}
+
+.frm-cats input[type="text"]:focus {
+    box-shadow: 0 0 5px #f0db4f;
+    padding: 1%;
+    border: 1px solid #f0db4f;
+}
+
+.slc-cat {
+    width: 100%;
+    font-size: 1em;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.lb-cats {
+    display: contents;
+    margin: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.config-gp-one {
+    display: flex;
+}
+
+.config-gp-two {
+    display: flex;
+}
+
+.tab-br-cat {
+    display: inline;
+}
+
+#container-config-rel {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+
+    font-size: 1.2rem;
+    /* display: table-cell; */
+}
+
+.btn-rel-br {
+    float: right;
+    margin-right: 11px;
+
+    box-sizing: border-box;
+    padding: 1px;
+    background: #b72424;
+    border-bottom: 2px solid #b72424;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.config-ss {
+    display: flex;
+}
+
+.tlt-main-conf {
+    margin-top: 1rem;
+}
