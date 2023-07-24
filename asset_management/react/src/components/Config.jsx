@@ -17,8 +17,8 @@ const Config = () => {
       setEnts(responses[0].data.ents);
       /*   setUnits(responses[0].data.units);*/
       setBrands(responses[0].data.brands);
-      /* setModels(responses[0].data.models);
-      setSuppliers(responses[0].data.suppliers);  */
+      /* setModels(responses[0].data.models);*/
+      setSuppliers(responses[0].data.suppliers);
     });
   }, []);
 
@@ -297,6 +297,65 @@ const Config = () => {
   //Edit entity
   //TODOOOOOOOOOOOOO
 
+  //--------------Supplier---------------------------------
+  const [suppliers, setSuppliers] = useState([]);
+  const [newSupplier, setNewSupplier] = useState("");
+
+  //Add Supplier
+  const handleAddSupplier = async (event) => {
+    event.preventDefault();
+    if (newSupplier.trim() === "") {
+      return;
+    }
+
+    // Check if the supplier already exists in the list
+    if (suppliers.some((supplier) => supplier.name === newSupplier.trim())) {
+      alert("Supplier already exists.");
+      return;
+    }
+
+    try {
+      // Make a POST request to your backend API to add a new supplier
+      const response = await axiosClient.post("/supplierAdd", {
+        name: newSupplier.trim(),
+      });
+
+      // Add the new supplier to the state
+      setSuppliers((prevSuppliers) => [...prevSuppliers, response.data]);
+      setNewSupplier("");
+    } catch (err) {
+      console.error("Error adding supplier", err);
+    }
+  };
+  //Delete Supplier
+  const handleRemoveSupplier = async (event) => {
+    event.preventDefault();
+    const selectElement = document.getElementById("sup");
+    const selectedOptions = Array.from(selectElement.selectedOptions);
+    const supToRemove = selectedOptions.map((option) => option.value);
+
+    if (supToRemove.length === 0) {
+      alert("Please select a supplier to remove.");
+      return;
+    }
+
+    try {
+      // Make a DELETE request to your backend API for model removal
+      await Promise.all(
+        supToRemove.map((supId) => axiosClient.delete(`/supplierDel/${supId}`))
+      );
+
+      axiosClient.get("/supplier").then((response) => {
+        setSuppliers(response.data);
+      });
+    } catch (err) {
+      console.error("Error removing supplier", err);
+    }
+  };
+
+  //Edit Supplier
+  //TODOOOOOOOOOOOOO
+
   return (
     <div className="form-brd-mdl">
       <h1>Configurações</h1>
@@ -411,6 +470,28 @@ const Config = () => {
                 tag="ent"
                 datas={ents}
                 handleDel={handleRemoveEntity}
+              />
+            )}
+
+          {/** -----Supplier------ */}
+          {selectedFirstOption === "Fornecedor" &&
+            selectedNextOption === "Adicionar" && (
+              <ConfigDropAdd
+                Title={selectedFirstOption}
+                id="sup"
+                setData={newSupplier}
+                setNewData={setNewSupplier}
+                handleAdd={handleAddSupplier}
+              />
+            )}
+          {selectedFirstOption === "Fornecedor" &&
+            selectedNextOption === "Apagar" && (
+              <ConfigDropdown
+                Title={selectedFirstOption}
+                id="sup"
+                tag="sup"
+                datas={suppliers}
+                handleDel={handleRemoveSupplier}
               />
             )}
           <div>
