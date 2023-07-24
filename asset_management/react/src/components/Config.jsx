@@ -243,7 +243,46 @@ const Config = () => {
   };
 
   //Edit a brand
-  //TODOOOOOOOOOOOOO
+  //-----------Edit a category-------------------------
+  const [selectedBrData, setSelectedBrData] = useState(null);
+  const [editedBrValue, setEditedBrValue] = useState("");
+
+  const handleDataBrSelection = () => {
+    const selectedDataName = event.target.value;
+    const selectedDataObject = brands.find(
+      (data) => data.name === selectedDataName
+    );
+    setSelectedData(selectedDataObject);
+    setEditedValue(selectedDataObject.name);
+  };
+
+  const handleDataBrUpdate = async () => {
+    if (editedBrValue.trim() === "") {
+      return;
+    }
+    console.log("selectedData", selectedBrData);
+    try {
+      // Make a PUT request to update the data on the server
+      await axiosClient.put(`/brandUpdate/${selectedBrData.id}`, {
+        name: editedBrValue.trim(),
+      });
+
+      // Update the data in the state
+      setBrands((prevData) =>
+        prevData.map((data) =>
+          data.id === selectedData.id
+            ? { ...data, name: editedBrValue.trim() }
+            : data
+        )
+      );
+
+      // Clear the selected data and edited value
+      setSelectedBrData(null);
+      setEditedBrValue("");
+    } catch (err) {
+      console.error("Error updating data", err);
+    }
+  };
 
   //--------------Entity---------------------------------
   const [newEntity, setNewEntity] = useState("");
@@ -453,6 +492,20 @@ const Config = () => {
                 tag="brand"
                 datas={brands}
                 handleDel={handleRemoveBrand}
+              />
+            )}
+
+          {selectedFirstOption === "Marca" &&
+            selectedNextOption === "Editar" && (
+              <ConfigDropEdit
+                Title={selectedOption}
+                tag="list"
+                datas={brands}
+                selectedData={selectedBrData}
+                handleDataSelection={handleDataBrSelection}
+                editedValue={editedBrValue}
+                setEditedValue={setEditedBrValue}
+                handleDataUpdate={handleDataBrUpdate}
               />
             )}
 

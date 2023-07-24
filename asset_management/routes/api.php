@@ -123,9 +123,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/brands/category/{categoryId}', [BrandController::class, 'getBrandsByCategory']);
 
-    //Adds values to the brands table
+    //Adds/delete/edit values to the brands table
     Route::post('/brandsAdd', [BrandController::class, 'store']);
     Route::delete('/brandsDel/{brd}', [BrandController::class, 'destroy']);
+    Route::put('/brandUpdate/{brand}',  [BrandController::class, 'update']);
+
 
     Route::post('/categoryBrands', [CategoryBrandController::class, 'store']);
 
