@@ -15,13 +15,124 @@ const Config = () => {
     Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
       setCats(responses[0].data.cats);
       /*   setEnts(responses[0].data.ents);
-      setUnits(responses[0].data.units);
+      setUnits(responses[0].data.units);*/
       setBrands(responses[0].data.brands);
-      setModels(responses[0].data.models);
-      setSuppliers(responses[0].data.suppliers); */
+      /* setModels(responses[0].data.models);
+      setSuppliers(responses[0].data.suppliers);  */
     });
   }, []);
 
+  //-------------Options for Configuration------------------------
+  // Previous state variables
+  const [selectedOption, setSelectedOption] = useState("");
+  const [showNextOptions, setShowNextOptions] = useState(false);
+  const [showNextOptionsSecondSet, setShowNextOptionsSecondSet] =
+    useState(false);
+
+  // New state variables to save user selections
+  const [selectedFirstOption, setSelectedFirstOption] = useState("");
+  const [selectedNextOption, setSelectedNextOption] = useState("");
+  const additionalOptions = ["Adicionar", "Editar", "Apagar"];
+
+  const handleOptionToggle = (option) => {
+    if (selectedOption === option) {
+      setSelectedOption("");
+    } else {
+      setSelectedOption(option);
+    }
+  };
+
+  const handleNextButtonClick = () => {
+    if (!showNextOptions) {
+      setShowNextOptions(true);
+      setSelectedOption(""); // Clear the selected option when "Next" is clicked
+
+      // Save the first option chosen
+      setSelectedFirstOption(selectedOption);
+    } else if (!showNextOptionsSecondSet) {
+      setShowNextOptionsSecondSet(true);
+
+      // Save the next option (add/edit/delete) chosen
+      setSelectedNextOption(selectedOption);
+    }
+  };
+
+  const handleBackButtonClick = () => {
+    if (showNextOptionsSecondSet) {
+      setShowNextOptionsSecondSet(false);
+    } else if (showNextOptions) {
+      setShowNextOptions(false);
+    }
+  };
+
+  const handleCloseButtonClick = () => {
+    setSelectedOption("");
+    setShowNextOptions(false);
+    setShowNextOptionsSecondSet(false);
+  };
+
+  //--------------Category---------------------------------
+  //---------------Add new category------------------
+  const handleAddCategory = async (event) => {
+    event.preventDefault();
+    if (newCategory.trim() === "") {
+      return;
+    }
+
+    // Check if the category already exists in the list
+    if (cats.some((category) => category.name === newCategory.trim())) {
+      alert("Category already exists.");
+      return;
+    }
+
+    try {
+      // Make a POST request to your backend API
+      const response = await axiosClient.post("/categoriesAdd", {
+        name: newCategory.trim(),
+      });
+
+      // Add the new category to the state
+      setCats((prevCategories) => [...prevCategories, response.data]);
+      setNewCategory("");
+    } catch (err) {
+      console.error("Erro ao adicionar categoria", err);
+    }
+  };
+
+  //---------------Remove a category------------------
+  const handleRemoveCategory = async (event) => {
+    event.preventDefault();
+    const selectedOptions = document.getElementById("list").selectedOptions;
+    const categoryToRemove = [...selectedOptions].map((option) => option.value);
+
+    if (categoryToRemove.length === 0) {
+      alert("Please select a category to remove.");
+      return;
+    }
+
+    try {
+      // Make a DELETE request to your backend API for category removal
+      await Promise.all(
+        categoryToRemove.map((categoryId) =>
+          axiosClient.delete(`/categoriesDel/${categoryId}`)
+        )
+      );
+      axiosClient.get("/categories").then((response) => {
+        setCats(response.data);
+      });
+
+      // Remove the deleted categories from the state
+      setCats((prevCategories) =>
+        prevCategories.filter(
+          (category) => !categoryToRemove.includes(category.id)
+        )
+      );
+    } catch (err) {
+      console.error("Error removing category", err);
+    }
+  };
+
+  //-----------Edit a category-------------------------
   const [selectedData, setSelectedData] = useState(null);
   const [editedValue, setEditedValue] = useState("");
 
@@ -62,114 +173,69 @@ const Config = () => {
     }
   };
 
-  //------Add new category
-  const handleAddCategory = async (event) => {
+  //--------------Brand---------------------------------
+  const [brands, setBrands] = useState([]);
+  const [newBrand, setNewBrand] = useState("");
+
+  //Add a new brand
+  const handleAddBrand = async (event) => {
     event.preventDefault();
-    if (newCategory.trim() === "") {
+    if (newBrand.trim() === "") {
       return;
     }
 
-    // Check if the category already exists in the list
-    if (cats.some((category) => category.name === newCategory.trim())) {
-      alert("Category already exists.");
+    // Check if the brand already exists in the list
+    if (brands.some((brand) => brand.name === newBrand.trim())) {
+      alert("Marca já existe!");
       return;
     }
 
     try {
-      // Make a POST request to your backend API
-      const response = await axiosClient.post("/categoriesAdd", {
-        name: newCategory.trim(),
+      // Make a POST request to your backend API to add a new brand
+      const response = await axiosClient.post("/brandsAdd", {
+        name: newBrand.trim(),
       });
 
-      // Add the new category to the state
-      setCats((prevCategories) => [...prevCategories, response.data]);
-      setNewCategory("");
+      // Add the new brand to the state
+      setBrands((prevBrands) => [...prevBrands, response.data]);
+      setNewBrand("");
     } catch (err) {
-      console.error("Erro ao adicionar categoria", err);
+      console.error("Erro ao adicionar a marca!", err);
     }
   };
 
-  //------Remove a category
-  const handleRemoveCategory = async (event) => {
+  //Remove a brand
+  const handleRemoveBrand = async (event) => {
     event.preventDefault();
-    const selectedOptions = document.getElementById("list").selectedOptions;
-    const categoryToRemove = [...selectedOptions].map((option) => option.value);
+    const selectElement = document.getElementById("brand");
+    console.log("selectElement", selectElement);
+    const selectedOptions = [...selectElement.selectedOptions];
+    const brandToRemove = selectedOptions.map((option) => option.value);
 
-    if (categoryToRemove.length === 0) {
-      alert("Please select a category to remove.");
+    console.log("selectedOptions", selectedOptions);
+    console.log("brandToRemove", brandToRemove);
+    if (brandToRemove.length === 0) {
+      alert("Please select a brand to remove.");
       return;
     }
 
     try {
-      // Make a DELETE request to your backend API for category removal
+      // Make a DELETE request to your backend API for brand removal
       await Promise.all(
-        categoryToRemove.map((categoryId) =>
-          axiosClient.delete(`/categoriesDel/${categoryId}`)
+        brandToRemove.map((brandId) =>
+          axiosClient.delete(`/brandsDel/${brandId}`)
         )
       );
-      axiosClient.get("/categories").then((response) => {
-        setCats(response.data);
+
+      axiosClient.get("/brands").then((response) => {
+        setBrands(response.data);
       });
-
-      // Remove the deleted categories from the state
-      setCats((prevCategories) =>
-        prevCategories.filter(
-          (category) => !categoryToRemove.includes(category.id)
-        )
-      );
     } catch (err) {
-      console.error("Error removing category", err);
+      console.error("Error removing brand", err);
     }
   };
 
-  // Previous state variables
-  const [selectedOption, setSelectedOption] = useState("");
-  const [showNextOptions, setShowNextOptions] = useState(false);
-  const [showNextOptionsSecondSet, setShowNextOptionsSecondSet] =
-    useState(false);
-
-  // New state variables to save user selections
-  const [selectedFirstOption, setSelectedFirstOption] = useState("");
-  const [selectedNextOption, setSelectedNextOption] = useState("");
-
-  const handleOptionToggle = (option) => {
-    if (selectedOption === option) {
-      setSelectedOption("");
-    } else {
-      setSelectedOption(option);
-    }
-  };
-
-  const handleNextButtonClick = () => {
-    if (!showNextOptions) {
-      setShowNextOptions(true);
-      setSelectedOption(""); // Clear the selected option when "Next" is clicked
-
-      // Save the first option chosen
-      setSelectedFirstOption(selectedOption);
-    } else if (!showNextOptionsSecondSet) {
-      setShowNextOptionsSecondSet(true);
-
-      // Save the next option (add/edit/delete) chosen
-      setSelectedNextOption(selectedOption);
-    }
-  };
-
-  const handleBackButtonClick = () => {
-    if (showNextOptionsSecondSet) {
-      setShowNextOptionsSecondSet(false);
-    } else if (showNextOptions) {
-      setShowNextOptions(false);
-    }
-  };
-
-  const handleCloseButtonClick = () => {
-    setSelectedOption("");
-    setShowNextOptions(false);
-    setShowNextOptionsSecondSet(false);
-  };
-
-  const additionalOptions = ["Adicionar", "Editar", "Apagar"];
+  //Edit a brand
 
   return (
     <div className="form-brd-mdl">
@@ -209,6 +275,7 @@ const Config = () => {
       )}
       {showNextOptionsSecondSet && showNextOptions ? (
         <div>
+          {/* -----Categories----- */}
           {selectedFirstOption === "Categoria" &&
             selectedNextOption === "Adicionar" && (
               <ConfigDropAdd
@@ -240,6 +307,28 @@ const Config = () => {
                 editedValue={editedValue}
                 setEditedValue={setEditedValue}
                 handleDataUpdate={handleDataUpdate}
+              />
+            )}
+
+          {/** -----Brands------ */}
+          {selectedFirstOption === "Marca" &&
+            selectedNextOption === "Adicionar" && (
+              <ConfigDropAdd
+                Title={selectedFirstOption}
+                id="category"
+                setData={newBrand}
+                setNewData={setNewBrand}
+                handleAdd={handleAddBrand}
+              />
+            )}
+          {selectedFirstOption === "Marca" &&
+            selectedNextOption === "Apagar" && (
+              <ConfigDropdown
+                Title={selectedFirstOption}
+                id="brand"
+                tag="brand"
+                datas={brands}
+                handleDel={handleRemoveBrand}
               />
             )}
           <div>
