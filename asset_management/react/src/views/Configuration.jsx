@@ -3,12 +3,50 @@ import { Modal, Button, Form } from "react-bootstrap";
 import ConfigDropdown from "../components/ConfigDropdown";
 import axiosClient from "../axios-client";
 import ConfigDropAdd from "../components/ConfigDropAdd";
+import ConfigDropEdit from "../components/ConfigDropEdit";
 
 const Configuration = ({ selectedOption, currentModal, setCurrentModal }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const [showAddForm, setShowAddForm] = useState(false); // State to control showing the add form
   const [showDelForm, setShowDelForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
+
+  //for the edit
+  const [selectedData, setSelectedData] = useState(null); // State to hold the selected data for editing
+  const [editedValue, setEditedValue] = useState(""); // State to hold the edited value
+
+  const handleEdit = (event) => {
+    event.preventDefault();
+    // Implement the edit functionality here
+    console.log("Edit button clicked for", selectedOption);
+
+    // Call the appropriate handleEdit function based on the selected option
+    switch (selectedOption) {
+      case "Categorias":
+        handleDataUpdate(event);
+        break;
+      case "Marcas":
+        handleEditBrand(event);
+        break;
+      case "Fornecedor":
+        handleEditSupplier(event);
+        break;
+      case "Entidade":
+        handleEditEntity(event);
+        break;
+      // Add other cases for different options if needed
+      default:
+        console.warn(
+          "No specific handleEdit function found for:",
+          selectedOption
+        );
+    }
+
+    setShowEditForm(true); // Show the edit form when clicking the "Editar" button
+    setModalIsOpen(true);
+  };
+
   const handleAdd = (event) => {
     // Implement the add functionality here
     console.log("Add button clicked for", selectedOption);
@@ -65,22 +103,12 @@ const Configuration = ({ selectedOption, currentModal, setCurrentModal }) => {
     setShowDelForm(true); // Show the add form when clicking the "Adicionar" button
   };
 
-  const handleEdit = () => {
-    // Implement the edit functionality here
-    console.log("Edit button clicked for", selectedOption);
-    setModalIsOpen(true);
-  };
-
-  /*  const handleDelete = () => {
-    // Implement the delete functionality here
-    console.log("Delete button clicked for", selectedOption);
-    setModalIsOpen(true);
-  }; */
-
+  //Closes de modal window
   const closeModal = () => {
     setModalIsOpen(false);
     setShowAddForm(false); // Hide the add form when closing the modal
     setShowDelForm(false);
+    setEditedValue(""); // Reset the edited value when the modal is closed
   };
 
   //----------------------------------------------------
@@ -155,6 +183,50 @@ const Configuration = ({ selectedOption, currentModal, setCurrentModal }) => {
       );
     } catch (err) {
       console.error("Error removing category", err);
+    }
+  };
+
+  const handleDataSelection = (event) => {
+    event.preventDefault();
+    const selectedValue = event.target.value;
+    console.log("selectedValue", selectedValue);
+    // Find the selected data object from the cats array using the selectedValue
+    const selectedDataObject = cats.find((data) => data.name === selectedValue);
+    console.log("selectedDataObject", selectedDataObject);
+    if (selectedDataObject) {
+      setSelectedData(selectedDataObject); // Set the selected data object to state
+      setEditedValue(selectedDataObject.name); // Set the current name to editedValue state
+    } else {
+      // If no matching data object is found, reset the state to empty values
+      setSelectedData(null);
+      setEditedValue("");
+    }
+  };
+
+  const handleDataUpdate = async (event) => {
+    event.preventDefault();
+    console.log("selectedData", selectedData);
+
+    try {
+      // Make a PUT request to your backend API to update the data
+      await axiosClient.put(`/categoriesUpdate/${selectedData.name}`, {
+        name: editedValue,
+      });
+
+      // If the API call is successful, update the datas state with the updated value
+      // You can use the state setter function (e.g., setCats) to update the state in the parent component
+      setCats((prevCats) =>
+        prevCats.map((cat) =>
+          cat.id === selectedData.id ? { ...cat, name: editedValue } : cat
+        )
+      );
+
+      // Close the modal or reset the editedValue state as needed
+      setEditedValue("");
+      setSelectedData(null);
+      setModalIsOpen(false);
+    } catch (err) {
+      console.error("Error updating data", err);
     }
   };
 
@@ -343,12 +415,15 @@ const Configuration = ({ selectedOption, currentModal, setCurrentModal }) => {
           {showAddForm && (
             <Modal.Title>{`Adicionar ${selectedOption}`}</Modal.Title>
           )}
-          {showDelForm && (
+          {!showEditForm && showDelForm && (
             <Modal.Title>{`Remover ${selectedOption}`}</Modal.Title>
+          )}
+          {!showAddForm && showEditForm && (
+            <Modal.Title>{`Editar ${selectedOption}`}</Modal.Title>
           )}
         </Modal.Header>
         <Modal.Body>
-          {/* Categories */}
+          {/* ----------------Categories ----------------------*/}
           {selectedOption === "Categorias" &&
             showAddForm && ( // Conditionally render the ConfigDropdown when showAddForm is true
               <ConfigDropAdd
@@ -357,14 +432,27 @@ const Configuration = ({ selectedOption, currentModal, setCurrentModal }) => {
                 setNewData={setNewCategory}
               />
             )}
-          {showDelForm && selectedOption === "Categorias" && (
+
+          {!showAddForm && showEditForm && selectedOption === "Categorias" && (
+            <ConfigDropEdit
+              Title={selectedOption}
+              tag="list" // Change this if needed based on your data
+              datas={cats} // Pass the data array to the component
+              selectedData={selectedData} // Pass the currently selected data object
+              handleDataSelection={handleDataSelection} // Pass the function to handle data selection
+              editedValue={editedValue} // Pass the editedValue state
+              setEditedValue={setEditedValue} // Pass the setEditedValue function
+              handleDataUpdate={handleDataUpdate} // Pass the function to handle data update on the server
+            />
+          )}
+          {!showEditForm && showDelForm && selectedOption === "Categorias" && (
             <ConfigDropdown
               Title={selectedOption} // Use selectedOption as the Title
               tag="list"
               datas={cats}
             />
           )}
-          {/*Brands*/}
+          {/*----------------Brands--------------------*/}
           {selectedOption === "Marcas" &&
             showAddForm && ( // Conditionally render the ConfigDropdown when showAddForm is true
               <ConfigDropAdd
@@ -377,7 +465,7 @@ const Configuration = ({ selectedOption, currentModal, setCurrentModal }) => {
             <ConfigDropdown Title={selectedOption} tag="brand" datas={brands} />
           )}
 
-          {/*Supplier*/}
+          {/*------------------Supplier-------------*/}
           {selectedOption === "Fornecedor" &&
             showAddForm && ( // Conditionally render the ConfigDropdown when showAddForm is true
               <ConfigDropAdd
@@ -393,7 +481,7 @@ const Configuration = ({ selectedOption, currentModal, setCurrentModal }) => {
               datas={suppliers}
             />
           )}
-          {/*Entituty*/}
+          {/*--------------Entituty-------------------*/}
           {selectedOption === "Entidade" &&
             showAddForm && ( // Conditionally render the ConfigDropdown when showAddForm is true
               <ConfigDropAdd

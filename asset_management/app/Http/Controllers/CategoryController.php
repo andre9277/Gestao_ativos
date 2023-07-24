@@ -43,6 +43,7 @@ class CategoryController extends Controller
         return response()->json($category, 201);
     }
 
+    //Delete Category
     public function destroy(Category $cat)
     {
         $cat->delete();
@@ -50,6 +51,7 @@ class CategoryController extends Controller
         return response()->json(['message' => 'Category deleted successfully']);
     }
 
+    //Update Category
     public function update(Request $request, Category $category)
     {
         $request->validate([
