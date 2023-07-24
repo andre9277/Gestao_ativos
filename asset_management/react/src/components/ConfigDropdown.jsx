@@ -1,21 +1,9 @@
 import React from "react";
 
-const ConfigDropdown = ({
-  Title,
-  id,
-  setData,
-  setNewData,
-  datas,
-  tag,
-  handleDel,
-}) => {
+const ConfigDropdown = ({ Title, datas, tag }) => {
   return (
     <div id="container-config">
       <form className="frm-cats">
-        <label htmlFor={id} className="lb-cats">
-          {Title}
-        </label>
-
         <label htmlFor={tag} className="lb-cats">
           Lista de {Title}:
         </label>
@@ -26,10 +14,6 @@ const ConfigDropdown = ({
             </option>
           ))}
         </select>
-
-        <button id="btnRemove" onClick={handleDel}>
-          Remover
-        </button>
       </form>
     </div>
   );

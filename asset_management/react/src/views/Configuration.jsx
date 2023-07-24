@@ -6,9 +6,9 @@ import ConfigDropAdd from "../components/ConfigDropAdd";
 
 const Configuration = ({ selectedOption, currentModal, setCurrentModal }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "" });
-  const [showAddForm, setShowAddForm] = useState(false); // State to control showing the add form
 
+  const [showAddForm, setShowAddForm] = useState(false); // State to control showing the add form
+  const [showDelForm, setShowDelForm] = useState(false);
   const handleAdd = (event) => {
     // Implement the add functionality here
     console.log("Add button clicked for", selectedOption);
@@ -37,21 +37,50 @@ const Configuration = ({ selectedOption, currentModal, setCurrentModal }) => {
     setModalIsOpen(true);
   };
 
+  const handleDel = (event) => {
+    console.log("Delete button clicked for", selectedOption);
+
+    // Call the appropriate handleDelete function based on the selected option
+    switch (selectedOption) {
+      case "Categorias":
+        handleRemoveCategory(event);
+        break;
+      case "Marcas":
+        handleRemoveBrand(event);
+        break;
+      case "Fornecedor":
+        handleRemoveSupplier(event);
+        break;
+      case "Entidade":
+        handleRemoveEntity(event);
+        break;
+      default:
+        console.warn(
+          "No specific handleDelete function found for:",
+          selectedOption
+        );
+    }
+
+    setModalIsOpen(true);
+    setShowDelForm(true); // Show the add form when clicking the "Adicionar" button
+  };
+
   const handleEdit = () => {
     // Implement the edit functionality here
     console.log("Edit button clicked for", selectedOption);
     setModalIsOpen(true);
   };
 
-  const handleDelete = () => {
+  /*  const handleDelete = () => {
     // Implement the delete functionality here
     console.log("Delete button clicked for", selectedOption);
     setModalIsOpen(true);
-  };
+  }; */
 
   const closeModal = () => {
     setModalIsOpen(false);
     setShowAddForm(false); // Hide the add form when closing the modal
+    setShowDelForm(false);
   };
 
   //----------------------------------------------------
@@ -96,6 +125,7 @@ const Configuration = ({ selectedOption, currentModal, setCurrentModal }) => {
       console.error("Erro ao adicionar categoria", err);
     }
   };
+
   const handleRemoveCategory = async (event) => {
     event.preventDefault();
     const selectedOptions = document.getElementById("list").selectedOptions;
@@ -305,12 +335,17 @@ const Configuration = ({ selectedOption, currentModal, setCurrentModal }) => {
     <div>
       <button onClick={handleAdd}>Adicionar</button>
       <button onClick={handleEdit}>Editar</button>
-      <button onClick={handleDelete}>Apagar</button>
+      <button onClick={handleDel}>Apagar</button>
 
       {/* Add Modal */}
       <Modal show={modalIsOpen} onHide={closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title>{`Adicionar ${selectedOption}`}</Modal.Title>
+          {showAddForm && (
+            <Modal.Title>{`Adicionar ${selectedOption}`}</Modal.Title>
+          )}
+          {showDelForm && (
+            <Modal.Title>{`Remover ${selectedOption}`}</Modal.Title>
+          )}
         </Modal.Header>
         <Modal.Body>
           {/* Categories */}
@@ -322,15 +357,11 @@ const Configuration = ({ selectedOption, currentModal, setCurrentModal }) => {
                 setNewData={setNewCategory}
               />
             )}
-          {!showAddForm && selectedOption === "Categorias" && (
+          {showDelForm && selectedOption === "Categorias" && (
             <ConfigDropdown
               Title={selectedOption} // Use selectedOption as the Title
-              id="category" // You can change this based on the selectedOption if needed
-              setData={newCategory}
-              setNewData={setNewCategory}
               tag="list"
               datas={cats}
-              handleDel={handleRemoveCategory}
             />
           )}
           {/*Brands*/}
@@ -342,16 +373,8 @@ const Configuration = ({ selectedOption, currentModal, setCurrentModal }) => {
                 setNewData={setNewBrand}
               />
             )}
-          {!showAddForm && selectedOption === "Marcas" && (
-            <ConfigDropdown
-              Title={selectedOption}
-              id="brand"
-              setData={newBrand}
-              setNewData={setNewBrand}
-              tag="brand"
-              datas={brands}
-              handleDel={handleRemoveBrand}
-            />
+          {showDelForm && selectedOption === "Marcas" && (
+            <ConfigDropdown Title={selectedOption} tag="brand" datas={brands} />
           )}
 
           {/*Supplier*/}
@@ -363,15 +386,11 @@ const Configuration = ({ selectedOption, currentModal, setCurrentModal }) => {
                 setNewData={setNewSupplier}
               />
             )}
-          {!showAddForm && selectedOption === "Fornecedor" && (
+          {showDelForm && selectedOption === "Fornecedor" && (
             <ConfigDropdown
               Title={selectedOption}
-              id="sup"
-              setData={newSupplier}
-              setNewData={setNewSupplier}
               tag="sup"
               datas={suppliers}
-              handleDel={handleRemoveSupplier}
             />
           )}
           {/*Entituty*/}
@@ -383,16 +402,8 @@ const Configuration = ({ selectedOption, currentModal, setCurrentModal }) => {
                 setNewData={setNewEntity}
               />
             )}
-          {!showAddForm && selectedOption === "Entidade" && (
-            <ConfigDropdown
-              Title={selectedOption}
-              id="entidades"
-              setData={newEntity}
-              setNewData={setNewEntity}
-              tag="ent"
-              datas={ents}
-              handleDel={handleRemoveEntity}
-            />
+          {showDelForm && selectedOption === "Entidade" && (
+            <ConfigDropdown Title={selectedOption} tag="ent" datas={ents} />
           )}
         </Modal.Body>
         <Modal.Footer>
@@ -402,6 +413,11 @@ const Configuration = ({ selectedOption, currentModal, setCurrentModal }) => {
           {showAddForm && (
             <Button variant="primary" onClick={(e) => handleAdd(e)}>
               Adicionar
+            </Button>
+          )}
+          {!showAddForm && showDelForm && (
+            <Button variant="danger" onClick={(e) => handleDel(e)}>
+              Eliminar
             </Button>
           )}
         </Modal.Footer>
