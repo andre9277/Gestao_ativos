@@ -14,8 +14,8 @@ const Config = () => {
   useEffect(() => {
     Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
       setCats(responses[0].data.cats);
-      /*   setEnts(responses[0].data.ents);
-      setUnits(responses[0].data.units);*/
+      setEnts(responses[0].data.ents);
+      /*   setUnits(responses[0].data.units);*/
       setBrands(responses[0].data.brands);
       /* setModels(responses[0].data.models);
       setSuppliers(responses[0].data.suppliers);  */
@@ -236,6 +236,66 @@ const Config = () => {
   };
 
   //Edit a brand
+  //TODOOOOOOOOOOOOO
+
+  //--------------Entity---------------------------------
+  const [ents, setEnts] = useState([]);
+  const [newEntity, setNewEntity] = useState("");
+
+  //Add Entity-------------------------
+  const handleAddEntity = async (event) => {
+    event.preventDefault();
+    if (newEntity.trim() === "") {
+      return;
+    }
+
+    // Check if the entity already exists in the list
+    if (ents.some((ent) => ent.name === newEntity.trim())) {
+      alert("Entity already exists.");
+      return;
+    }
+    try {
+      // Make a POST request to your backend API to add a new entity
+      const response = await axiosClient.post("/entAdd", {
+        name: newEntity.trim(), // Use the correct field name for the backend
+      });
+
+      // Add the new entity to the state
+      setEnts((prevEnts) => [...prevEnts, response.data]);
+      setNewEntity("");
+    } catch (err) {
+      console.error("Error adding entity", err);
+    }
+  };
+
+  //Delete Entity-------------------------
+  const handleRemoveEntity = async (event) => {
+    event.preventDefault();
+    const selectElement = document.getElementById("ent");
+    const selectedOptions = Array.from(selectElement.selectedOptions);
+    const entToRemove = selectedOptions.map((option) => option.value);
+
+    if (entToRemove.length === 0) {
+      alert("Please select a supplier to remove.");
+      return;
+    }
+
+    try {
+      // Make a DELETE request to your backend API for model removal
+      await Promise.all(
+        entToRemove.map((entId) => axiosClient.delete(`/entDel/${entId}`))
+      );
+
+      axiosClient.get("/entities").then((response) => {
+        setEnts(response.data);
+      });
+    } catch (err) {
+      console.error("Error removing entity", err);
+    }
+  };
+
+  //Edit entity
+  //TODOOOOOOOOOOOOO
 
   return (
     <div className="form-brd-mdl">
@@ -329,6 +389,28 @@ const Config = () => {
                 tag="brand"
                 datas={brands}
                 handleDel={handleRemoveBrand}
+              />
+            )}
+
+          {/** -----Entity------ */}
+          {selectedFirstOption === "Entidade" &&
+            selectedNextOption === "Adicionar" && (
+              <ConfigDropAdd
+                Title={selectedFirstOption}
+                id="entidades"
+                setData={newEntity}
+                setNewData={setNewEntity}
+                handleAdd={handleAddEntity}
+              />
+            )}
+          {selectedFirstOption === "Entidade" &&
+            selectedNextOption === "Apagar" && (
+              <ConfigDropdown
+                Title={selectedFirstOption}
+                id="entidades"
+                tag="ent"
+                datas={ents}
+                handleDel={handleRemoveEntity}
               />
             )}
           <div>
