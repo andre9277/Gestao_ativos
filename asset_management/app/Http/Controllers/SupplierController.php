@@ -57,7 +57,7 @@ class SupplierController extends Controller
     public function update(Request $request, Supplier $sup)
     {
         $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name,' . $sup->id,
+            'name' => 'required|string|max:255' . $sup->id,
         ]);
 
         $sup->update([

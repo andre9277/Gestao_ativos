@@ -61,4 +61,17 @@ class ModeloController extends Controller
 
         return response()->json(['message' => 'Modelo eliminado com sucesso!']);
     }
+
+    public function update(Request $request, Modelo $mdl)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255' . $mdl->id,
+        ]);
+
+        $mdl->update([
+            'name' => $request->input('name'),
+        ]);
+
+        return response()->json($mdl, 200);
+    } 
 }

@@ -134,6 +134,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //Add and delete one model:
     Route::post('/modelsAdd', [ModeloController::class, 'store']);
     Route::delete('/modelsDel/{mdl}',  [ModeloController::class, 'destroy']);
+    Route::put('/mdlUpdate/{mdl}',  [ModeloController::class, 'update']);
 
     //Add and delete one category:
     Route::post('/categoriesAdd', [CategoryController::class, 'store']);

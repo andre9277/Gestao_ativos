@@ -555,6 +555,48 @@ const Config = () => {
     }
   };
 
+  //---------Edit Model
+  //Edit Supplier
+  const [selectedMdlData, setSelectedMdlData] = useState(null);
+  const [editedMdlValue, setEditedMdlValue] = useState("");
+
+  const handleDataMdlSelection = () => {
+    const selectedDataName = event.target.value;
+    const selectedDataObject = models.find(
+      (data) => data.name === selectedDataName
+    );
+    setSelectedMdlData(selectedDataObject);
+    setEditedMdlValue(selectedDataObject.name);
+  };
+
+  const handleDataMdlUpdate = async () => {
+    if (editedMdlValue.trim() === "") {
+      return;
+    }
+    console.log("selectedData", selectedMdlData);
+    try {
+      // Make a PUT request to update the data on the server
+      await axiosClient.put(`/mdlUpdate/${selectedMdlData.id}`, {
+        name: editedMdlValue.trim(),
+      });
+
+      // Update the data in the state
+      setModels((prevData) =>
+        prevData.map((data) =>
+          data.id === selectedMdlData.id
+            ? { ...data, name: editedMdlValue.trim() }
+            : data
+        )
+      );
+
+      // Clear the selected data and edited value
+      setSelectedMdlData(null);
+      setEditedMdlValue("");
+    } catch (err) {
+      console.error("Error updating data", err);
+    }
+  };
+
   return (
     <div className="form-brd-mdl">
       <h1>Configurações</h1>
@@ -762,7 +804,23 @@ const Config = () => {
                 handleDel={handleRemoveModel}
               />
             )}
+
+          {selectedFirstOption === "Modelo" &&
+            selectedNextOption === "Editar" && (
+              <ConfigDropEdit
+                Title={selectedOption}
+                tag="list"
+                datas={models}
+                selectedData={selectedMdlData}
+                handleDataSelection={handleDataMdlSelection}
+                editedValue={editedMdlValue}
+                setEditedValue={setEditedMdlValue}
+                handleDataUpdate={handleDataMdlUpdate}
+              />
+            )}
+
           {/** ----Unidade------ */}
+          {/* todo */}
           <div>
             <button onClick={handleBackButtonClick} className="vl-btn">
               Voltar
