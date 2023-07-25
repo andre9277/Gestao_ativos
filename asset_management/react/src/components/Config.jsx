@@ -6,6 +6,7 @@ import axiosClient from "../axios-client";
 import ConfigDropAdd from "./ConfigDropAdd";
 import ConfigDropEdit from "./ConfigDropEdit";
 import ConfigDropMdlAdd from "./ConfigDropMdlAdd";
+import ConfigDropMdlDel from "./ConfigDropMdlDel";
 
 const options = [
   "Categoria",
@@ -749,6 +750,16 @@ const Config = () => {
                 selectedBrand={selectedBrand}
                 handleBrandChange={handleBrandChange}
                 maintb="Marca"
+              />
+            )}
+          {selectedFirstOption === "Modelo" &&
+            selectedNextOption === "Apagar" && (
+              <ConfigDropMdlDel
+                Title="Modelo"
+                id="model"
+                tag="model"
+                datas={models}
+                handleDel={handleRemoveModel}
               />
             )}
           {/** ----Unidade------ */}
