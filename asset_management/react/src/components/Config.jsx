@@ -922,6 +922,11 @@ const Config = () => {
 
   const handleRemoveSelectedRelations = async () => {
     try {
+      if (selectedRelations.length === 0) {
+        setError("Atenção! Selecione pelo menos uma relação para remover.");
+        clearErrorAfterTimeout(5000);
+        return;
+      }
       // Iterate over selected relation IDs and remove them one by one
       for (const relationId of selectedRelations) {
         await handleRemoveRelation(relationId);
@@ -938,6 +943,7 @@ const Config = () => {
 
   const handleCheckboxChange = (event, relationId) => {
     const isChecked = event.target.checked;
+
     if (isChecked) {
       setSelectedRelations((prevSelected) => [...prevSelected, relationId]);
     } else {

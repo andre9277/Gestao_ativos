@@ -26,8 +26,12 @@ const ConfigDropMdlDel = ({
             </option>
           ))}
         </select>
-        <button id="btnRemove-rel" onClick={handleDel}>
-          Remover
+        <button id="btnRemove" onClick={handleDel}>
+          <i
+            className="fa fa-trash fa-lg"
+            aria-hidden="true"
+            title="Apagar"
+          ></i>
         </button>
       </form>
       {error && <p style={{ color: "red" }}>{error}</p>}
