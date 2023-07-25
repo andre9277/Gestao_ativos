@@ -15,6 +15,7 @@ const options = [
   "Fornecedor",
   "Categoria/Marca",
   "Modelo",
+  "Unidade",
 ];
 
 const Config = () => {
@@ -31,14 +32,19 @@ const Config = () => {
   const [models, setModels] = useState([]);
   const [newModel, setNewModel] = useState("");
 
+  //for the units
+  const [units, setUnits] = useState([]);
+  const [newUnit, setNewUnit] = useState("");
+
   const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedEnt, setSelectedEnt] = useState("");
 
   //Gets all data from the entity,unit, brands and categories (also for unit and model)
   useEffect(() => {
     Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
       setCats(responses[0].data.cats);
       setEnts(responses[0].data.ents);
-      /*   setUnits(responses[0].data.units);*/
+      setUnits(responses[0].data.units);
       setBrands(responses[0].data.brands);
       setModels(responses[0].data.models);
       setSuppliers(responses[0].data.suppliers);
@@ -48,6 +54,11 @@ const Config = () => {
   // Function to handle brand selection
   const handleBrandChange = (e) => {
     setSelectedBrand(e.target.value);
+  };
+
+  // Function to handle ent selection
+  const handleEntChange = (e) => {
+    setSelectedEnt(e.target.value);
   };
 
   //-------------Options for Configuration------------------------
@@ -597,6 +608,62 @@ const Config = () => {
     }
   };
 
+  //-------------------Units-------------------
+  //--------------------------Add Unit-------------------------
+  const handleAddUnit = async (event) => {
+    event.preventDefault();
+    if (newUnit.trim() === "" || selectedEnt === "") {
+      return;
+    }
+
+    // Check if the unit already exists in the list
+    if (units.some((unit) => unit.name === newUnit.trim())) {
+      alert("Unit already exists.");
+      return;
+    }
+
+    try {
+      // Make a POST request to your backend API
+      const response = await axiosClient.post("/unitAdd", {
+        name: newUnit.trim(),
+        ent_id: selectedEnt,
+      });
+
+      // Add the new unit to the state
+      setUnits((prevUnits) => [...prevUnits, response.data]);
+      setNewUnit("");
+      setSelectedEnt("");
+    } catch (err) {
+      console.error("Error adding unit", err);
+    }
+  };
+  //--------------------------Delete Unit-------------------------
+  const handleRemoveUnit = async (event) => {
+    event.preventDefault();
+    const selectedOptions = document.getElementById("unit").selectedOptions;
+    const unitToRemove = [...selectedOptions].map((option) => option.value);
+
+    if (unitToRemove.length === 0) {
+      alert("Please select a unit to remove.");
+      return;
+    }
+
+    try {
+      // Make a DELETE request to your backend API for unit removal
+      await Promise.all(
+        unitToRemove.map((unitId) => axiosClient.delete(`/unitDel/${unitId}`))
+      );
+
+      // Fetch the updated units list after deletion
+
+      axiosClient.get("/units").then((response) => {
+        setUnits(response.data);
+      });
+    } catch (err) {
+      console.error("Error removing unit", err);
+    }
+  };
+
   return (
     <div className="form-brd-mdl">
       <h1>Configurações</h1>
@@ -820,6 +887,21 @@ const Config = () => {
             )}
 
           {/** ----Unidade------ */}
+
+          {selectedFirstOption === "Unidade" &&
+            selectedNextOption === "Adicionar" && (
+              <ConfigDropMdlAdd
+                Title="Unidade"
+                id="unit"
+                setData={newUnit}
+                setNewData={setNewUnit}
+                handleAdd={handleAddUnit}
+                brands={ents}
+                selectedBrand={selectedEnt}
+                handleBrandChange={handleEntChange}
+                maintb="Entidade"
+              />
+            )}
           {/* todo */}
           <div>
             <button onClick={handleBackButtonClick} className="vl-btn">
