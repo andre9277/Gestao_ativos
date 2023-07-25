@@ -131,8 +131,7 @@
 #container-config {
     background-color: #fff;
     border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    width: 400px;
+    width: 35%;
     font-size: 1.2rem;
     /* display: table-cell; */
     margin: 4rem;
@@ -140,18 +139,19 @@
 
 #btnAdd {
     box-sizing: border-box;
-    width: 100%;
-    padding: 1%;
+    padding: 2%;
     background: #00a762;
     border-bottom: 2px solid #00a762;
     border-top-style: none;
     border-right-style: none;
     border-left-style: none;
     color: #fff;
-    font-size: 1.2rem;
-    margin-top: 1rem;
-    bottom: -95px;
+    /* font-size: 1.8rem; */
+    /*  margin-top: 1rem; */
+    /* bottom: -95px; */
     position: relative;
+    border-radius: 4px;
+    margin-left: 1rem;
 }
 
 #btnAddd {
@@ -160,12 +160,10 @@
     padding: 1%;
     background: #00a762;
     border-bottom: 2px solid #00a762;
-    border-top-style: none;
-    border-right-style: none;
-    border-left-style: none;
     color: #fff;
     font-size: 1.2rem;
     margin-top: 1rem;
+    border-radius: 4px;
 }
 
 #btnRemove {
@@ -228,7 +226,7 @@ button:hover {
 .lb-cats {
     display: contents;
     margin: 10px;
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     font-weight: 700;
 }
 
@@ -305,27 +303,27 @@ button:hover {
 .vl-btn {
     background-color: #6c757d;
     padding: 0.5rem 0.75rem;
-    font-size: 2rem;
+    font-size: 1.8rem;
     border-radius: 4px;
     color: white;
     overflow: hidden;
     width: auto;
     margin-top: 105px;
-    margin-left: 1rem;
-    width: 70%;
+    margin-left: 6rem;
+    width: 88%;
 }
 
 .ini-btn {
     background-color: #e2c639;
     padding: 0.5rem 0.75rem;
-    font-size: 2rem;
+    font-size: 1.8rem;
     border-radius: 4px;
     color: white;
     overflow: hidden;
     width: auto;
     margin-top: 10px;
-    margin-left: 1rem;
-    width: 70%;
+    margin-left: 6rem;
+    width: 88%;
 }
 
 .checkbox-dropdown-container {
@@ -334,4 +332,12 @@ button:hover {
 
 label {
     width: 33%;
+}
+
+.addLbBtn {
+    display: flex;
+}
+
+.inpt-configs {
+    font-size: 1.8rem;
 }

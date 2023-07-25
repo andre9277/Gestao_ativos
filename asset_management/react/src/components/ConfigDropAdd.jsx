@@ -7,15 +7,22 @@ const ConfigDropAdd = ({ Title, id, setData, setNewData, handleAdd }) => {
         <label htmlFor={id} className="lb-cats">
           {Title}
         </label>
-        <input
-          type="text"
-          value={setData}
-          onChange={(e) => setNewData(e.target.value)}
-          autoComplete="off"
-        />
-        <button id="btnAdd" onClick={handleAdd}>
-          Adicionar
-        </button>
+        <div className="addLbBtn">
+          <input
+            type="text"
+            value={setData}
+            onChange={(e) => setNewData(e.target.value)}
+            autoComplete="off"
+            className="inpt-configs"
+          />
+          <button id="btnAdd" onClick={handleAdd}>
+            <i
+              class="fa fa-plus fa-lg"
+              aria-hidden="true"
+              title="Adicionar"
+            ></i>
+          </button>
+        </div>
       </form>
     </div>
   );
