@@ -10,6 +10,8 @@ const ConfigDropMdlAdd = ({
   selectedBrand, // Currently selected brand
   handleBrandChange, // Function to handle brand selection
   maintb,
+  error,
+  successMessage,
 }) => {
   return (
     <div id="container-config">
@@ -56,6 +58,8 @@ const ConfigDropMdlAdd = ({
           ></i>
         </button>
       </form>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
     </div>
   );
 };

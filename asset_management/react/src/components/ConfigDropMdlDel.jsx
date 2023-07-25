@@ -1,6 +1,14 @@
 import React from "react";
 
-const ConfigDropMdlDel = ({ Title, id, datas, tag, handleDel }) => {
+const ConfigDropMdlDel = ({
+  Title,
+  id,
+  datas,
+  tag,
+  handleDel,
+  error,
+  successMessage,
+}) => {
   return (
     <div id="container-config">
       <form className="frm-cats">
@@ -22,6 +30,8 @@ const ConfigDropMdlDel = ({ Title, id, datas, tag, handleDel }) => {
           Remover
         </button>
       </form>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
     </div>
   );
 };

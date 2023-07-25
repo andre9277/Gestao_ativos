@@ -167,7 +167,7 @@ const Config = () => {
       // Add the new category to the state
       setCats((prevCategories) => [...prevCategories, response.data]);
       setNewCategory("");
-      setSuccessMessage("Category added successfully!");
+      setSuccessMessage("Categoria adicionada com sucesso!");
       clearSuccessMessageAfterTimeout(5000);
     } catch (err) {
       setError("Erro ao adicionar categoria. Por favor tente outra vez.");
@@ -265,13 +265,17 @@ const Config = () => {
   //Add a new brand
   const handleAddBrand = async (event) => {
     event.preventDefault();
+    setError(null); // Clear any previous errors
     if (newBrand.trim() === "") {
+      setError("Atenção! Introduza uma marca.");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
       return;
     }
 
     // Check if the brand already exists in the list
     if (brands.some((brand) => brand.name === newBrand.trim())) {
-      alert("Marca já existe!");
+      setError("Atenção! Marca já existe!");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
       return;
     }
 
@@ -284,8 +288,12 @@ const Config = () => {
       // Add the new brand to the state
       setBrands((prevBrands) => [...prevBrands, response.data]);
       setNewBrand("");
+
+      setSuccessMessage("Marca adicionada com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
     } catch (err) {
-      console.error("Erro ao adicionar a marca!", err);
+      setError("Erro ao adicionar marca. Por favor tente outra vez.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
@@ -293,14 +301,13 @@ const Config = () => {
   const handleRemoveBrand = async (event) => {
     event.preventDefault();
     const selectElement = document.getElementById("brand");
-    console.log("selectElement", selectElement);
+
     const selectedOptions = [...selectElement.selectedOptions];
     const brandToRemove = selectedOptions.map((option) => option.value);
 
-    console.log("selectedOptions", selectedOptions);
-    console.log("brandToRemove", brandToRemove);
     if (brandToRemove.length === 0) {
-      alert("Please select a brand to remove.");
+      setError("Por favor, selecione uma marca para remover.");
+      clearErrorAfterTimeout(5000);
       return;
     }
 
@@ -315,8 +322,12 @@ const Config = () => {
       axiosClient.get("/brands").then((response) => {
         setBrands(response.data);
       });
+
+      setSuccessMessage("Marca removida com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
     } catch (err) {
-      console.error("Error removing brand", err);
+      setError("Erro ao remover a marca. Por favor tente outra vez.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
@@ -336,14 +347,19 @@ const Config = () => {
 
   const handleDataBrUpdate = async () => {
     if (editedBrValue.trim() === "") {
+      setError("Atenção! Não pode guardar uma marca com valor nulo.");
+      clearErrorAfterTimeout(5000);
       return;
     }
-    console.log("selectedData", selectedBrData);
+
     try {
       // Make a PUT request to update the data on the server
       await axiosClient.put(`/brandUpdate/${selectedBrData.id}`, {
         name: editedBrValue.trim(),
       });
+
+      setSuccessMessage("Marca editada com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
 
       // Update the data in the state
       setBrands((prevData) =>
@@ -358,7 +374,8 @@ const Config = () => {
       setSelectedBrData(null);
       setEditedBrValue("");
     } catch (err) {
-      console.error("Error updating data", err);
+      setError("Atenção! Erro ao editar, tente novamente.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
@@ -903,6 +920,8 @@ const Config = () => {
                 setData={newBrand}
                 setNewData={setNewBrand}
                 handleAdd={handleAddBrand}
+                error={error}
+                successMessage={successMessage}
               />
             )}
           {selectedFirstOption === "Marca" &&
@@ -913,6 +932,8 @@ const Config = () => {
                 tag="brand"
                 datas={brands}
                 handleDel={handleRemoveBrand}
+                error={error}
+                successMessage={successMessage}
               />
             )}
 
@@ -927,6 +948,8 @@ const Config = () => {
                 editedValue={editedBrValue}
                 setEditedValue={setEditedBrValue}
                 handleDataUpdate={handleDataBrUpdate}
+                error={error}
+                successMessage={successMessage}
               />
             )}
 
@@ -939,6 +962,8 @@ const Config = () => {
                 setData={newEntity}
                 setNewData={setNewEntity}
                 handleAdd={handleAddEntity}
+                error={error}
+                successMessage={successMessage}
               />
             )}
           {selectedFirstOption === "Entidade" &&
@@ -949,6 +974,8 @@ const Config = () => {
                 tag="ent"
                 datas={ents}
                 handleDel={handleRemoveEntity}
+                error={error}
+                successMessage={successMessage}
               />
             )}
 
@@ -963,6 +990,8 @@ const Config = () => {
                 editedValue={editedEntValue}
                 setEditedValue={setEditedEntValue}
                 handleDataUpdate={handleDataEntUpdate}
+                error={error}
+                successMessage={successMessage}
               />
             )}
 
@@ -975,6 +1004,8 @@ const Config = () => {
                 setData={newSupplier}
                 setNewData={setNewSupplier}
                 handleAdd={handleAddSupplier}
+                error={error}
+                successMessage={successMessage}
               />
             )}
           {selectedFirstOption === "Fornecedor" &&
@@ -985,6 +1016,8 @@ const Config = () => {
                 tag="sup"
                 datas={suppliers}
                 handleDel={handleRemoveSupplier}
+                error={error}
+                successMessage={successMessage}
               />
             )}
           {selectedFirstOption === "Fornecedor" &&
@@ -998,6 +1031,8 @@ const Config = () => {
                 editedValue={editedSupValue}
                 setEditedValue={setEditedSupValue}
                 handleDataUpdate={handleDataSupUpdate}
+                error={error}
+                successMessage={successMessage}
               />
             )}
 
@@ -1016,6 +1051,8 @@ const Config = () => {
                 selectedBrand={selectedBrand}
                 handleBrandChange={handleBrandChange}
                 maintb="Marca"
+                error={error}
+                successMessage={successMessage}
               />
             )}
           {selectedFirstOption === "Modelo" &&
@@ -1026,6 +1063,8 @@ const Config = () => {
                 tag="model"
                 datas={models}
                 handleDel={handleRemoveModel}
+                error={error}
+                successMessage={successMessage}
               />
             )}
 
@@ -1040,6 +1079,8 @@ const Config = () => {
                 editedValue={editedMdlValue}
                 setEditedValue={setEditedMdlValue}
                 handleDataUpdate={handleDataMdlUpdate}
+                error={error}
+                successMessage={successMessage}
               />
             )}
 
@@ -1057,6 +1098,8 @@ const Config = () => {
                 selectedBrand={selectedEnt}
                 handleBrandChange={handleEntChange}
                 maintb="Entidade"
+                error={error}
+                successMessage={successMessage}
               />
             )}
           {selectedFirstOption === "Unidade" &&
@@ -1067,6 +1110,8 @@ const Config = () => {
                 tag="unit"
                 datas={units}
                 handleDel={handleRemoveUnit}
+                error={error}
+                successMessage={successMessage}
               />
             )}
           {selectedFirstOption === "Unidade" &&
@@ -1080,6 +1125,8 @@ const Config = () => {
                 editedValue={editedUntValue}
                 setEditedValue={setEditedUntValue}
                 handleDataUpdate={handleDataUntUpdate}
+                error={error}
+                successMessage={successMessage}
               />
             )}
           {/* ------------Categoria/Marca------------------ */}
