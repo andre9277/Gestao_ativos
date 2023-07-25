@@ -77,6 +77,7 @@
     color: white;
     overflow: hidden;
     margin-top: 1rem;
+    margin-left: 14rem;
 }
 
 .configSelect {
@@ -156,7 +157,6 @@
 
 #btnAddd {
     box-sizing: border-box;
-
     padding: 2%;
     background: #00a762;
     border-bottom: 2px solid #00a762;
@@ -164,6 +164,7 @@
     font-size: 1.2rem;
     margin-top: 1rem;
     border-radius: 4px;
+    margin-left: 14rem;
 }
 
 #btnRemove {
@@ -179,6 +180,7 @@
     color: #fff;
     font-size: 1.6rem;
     margin-top: 3rem;
+    margin-left: 14rem;
 }
 
 #btnRemove-rel {
@@ -307,7 +309,7 @@ button:hover {
     width: 88%;
     background-color: #00a762;
     padding: 0.5rem 0.75rem;
-    font-size: 2rem;
+    font-size: 1.6rem;
     border-radius: 4px;
     color: white;
     overflow: hidden;
@@ -348,6 +350,11 @@ button:hover {
 .checkbox-dropdown-container {
     display: block;
 }
+.checkbox-dropdown-containerr {
+    display: grid;
+    /* margin-bottom: 18rem; */
+    margin-left: 35rem;
+}
 
 label {
     width: 33%;
@@ -355,6 +362,7 @@ label {
 
 .addLbBtn {
     display: flex;
+    align-items: flex-start;
 }
 
 .inpt-configs {

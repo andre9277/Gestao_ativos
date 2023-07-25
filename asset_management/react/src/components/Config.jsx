@@ -10,12 +10,10 @@ import ConfigDropMdlDel from "./ConfigDropMdlDel";
 
 const options = [
   "Categoria",
-
   "Marca",
   "Modelo",
   "Entidade",
   "Unidade",
-
   "Fornecedor",
   "Categoria/Marca",
 ];
@@ -24,24 +22,25 @@ const Config = () => {
   //for the new category add:
   const [newCategory, setNewCategory] = useState("");
 
-  //to store data from the api call:
+  //store data from the api call:
   const [cats, setCats] = useState([]);
   const [brands, setBrands] = useState([]);
   const [ents, setEnts] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
 
-  //for the models
+  //For the models
   const [models, setModels] = useState([]);
   const [newModel, setNewModel] = useState("");
 
-  //for the units
+  //For the units
   const [units, setUnits] = useState([]);
   const [newUnit, setNewUnit] = useState("");
 
+  //Values to keep track of Entity and Brand values:
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedEnt, setSelectedEnt] = useState("");
 
-  const [notification, setNotification] = useState("");
+  //Error and success message to display validation messages
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
 
@@ -60,13 +59,6 @@ const Config = () => {
   useEffect(() => {
     fetchRelations();
   }, []);
-
-  const showNotification = (message, duration = 5000) => {
-    setNotification(message);
-    setTimeout(() => {
-      setNotification("");
-    }, duration);
-  };
 
   // Function to handle brand selection
   const handleBrandChange = (e) => {
@@ -941,6 +933,7 @@ const Config = () => {
     setSelectedRelations([]);
   };
 
+  //handles the selection of the Category/Brands
   const handleCheckboxChange = (event, relationId) => {
     const isChecked = event.target.checked;
 
@@ -976,7 +969,7 @@ const Config = () => {
       )}
 
       {showNextOptions && !showNextOptionsSecondSet && (
-        <div className="checkbox-dropdown-container">
+        <div className="checkbox-dropdown-containerr">
           {additionalOptions.map((option, index) => (
             <label key={index} className="checkbox-label">
               <input
@@ -1313,7 +1306,7 @@ const Config = () => {
             {selectedFirstOption === "Categoria/Marca" &&
               selectedNextOption === "Editar" && (
                 <h4>
-                  Atençã! De momento não é possível editar uma relação
+                  Atenção! De momento não é possível editar uma relação
                   Categoria/Marca
                 </h4>
               )}
