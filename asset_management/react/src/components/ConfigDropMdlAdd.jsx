@@ -1,14 +1,11 @@
 import React from "react";
 
-const ConfigDropMdl = ({
+const ConfigDropMdlAdd = ({
   Title,
   id,
   setData,
   setNewData,
   handleAdd,
-  datas,
-  tag,
-  handleDel,
   brands, // Array of brands
   selectedBrand, // Currently selected brand
   handleBrandChange, // Function to handle brand selection
@@ -45,27 +42,13 @@ const ConfigDropMdl = ({
             </option>
           ))}
         </select>
-        {/* End of Brand selection dropdown */}
-        <p></p>
-        <label htmlFor={tag} className="lb-cats">
-          Lista de {Title}:
-        </label>
-        <select id={tag} name={tag} multiple className="slc-cat">
-          {datas.map((data) => (
-            <option key={data.name} value={data.id}>
-              {data.name}
-            </option>
-          ))}
-        </select>
+
         <button id="btnAddd" onClick={handleAdd}>
           Adicionar
-        </button>
-        <button id="btnRemove-rel" onClick={handleDel}>
-          Remover
         </button>
       </form>
     </div>
   );
 };
 
-export default ConfigDropMdl;
+export default ConfigDropMdlAdd;

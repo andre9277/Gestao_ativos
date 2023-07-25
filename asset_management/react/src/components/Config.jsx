@@ -5,8 +5,16 @@ import "../styles/Config.css"; // Create a CSS file to style the dropdown
 import axiosClient from "../axios-client";
 import ConfigDropAdd from "./ConfigDropAdd";
 import ConfigDropEdit from "./ConfigDropEdit";
+import ConfigDropMdlAdd from "./ConfigDropMdlAdd";
 
-const options = ["Categoria", "Marca", "Entidade", "Fornecedor"];
+const options = [
+  "Categoria",
+  "Marca",
+  "Entidade",
+  "Fornecedor",
+  "Categoria/Marca",
+  "Modelo",
+];
 
 const Config = () => {
   //for the new category add:
@@ -18,6 +26,12 @@ const Config = () => {
   const [ents, setEnts] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
 
+  //for the models
+  const [models, setModels] = useState([]);
+  const [newModel, setNewModel] = useState("");
+
+  const [selectedBrand, setSelectedBrand] = useState("");
+
   //Gets all data from the entity,unit, brands and categories (also for unit and model)
   useEffect(() => {
     Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
@@ -25,10 +39,15 @@ const Config = () => {
       setEnts(responses[0].data.ents);
       /*   setUnits(responses[0].data.units);*/
       setBrands(responses[0].data.brands);
-      /* setModels(responses[0].data.models);*/
+      setModels(responses[0].data.models);
       setSuppliers(responses[0].data.suppliers);
     });
   }, []);
+
+  // Function to handle brand selection
+  const handleBrandChange = (e) => {
+    setSelectedBrand(e.target.value);
+  };
 
   //-------------Options for Configuration------------------------
   // Previous state variables
@@ -409,6 +428,7 @@ const Config = () => {
       console.error("Error adding supplier", err);
     }
   };
+
   //Delete Supplier
   const handleRemoveSupplier = async (event) => {
     event.preventDefault();
@@ -473,6 +493,64 @@ const Config = () => {
       setEditedSupValue("");
     } catch (err) {
       console.error("Error updating data", err);
+    }
+  };
+
+  //----------------------Models-------------------
+  //--------------------------Add Model-------------------------
+  // Function to add a new model with the selected brand
+  const handleAddModel = async (event) => {
+    event.preventDefault();
+    if (newModel.trim() === "" || selectedBrand === "") {
+      return;
+    }
+
+    // Check if the model already exists in the list
+    if (models.some((model) => model.name === newModel.trim())) {
+      alert("Model already exists.");
+      return;
+    }
+
+    try {
+      // Make a POST request to your backend API to add a new model
+      const response = await axiosClient.post("/modelsAdd", {
+        name: newModel.trim(),
+        brand_id: selectedBrand, // Include the selected brand ID in the request body
+      });
+
+      // Add the new model to the state
+      setModels((prevModels) => [...prevModels, response.data]);
+      setNewModel("");
+      setSelectedBrand(""); // Reset selectedBrand after adding the model
+    } catch (err) {
+      console.error("Error adding model", err);
+    }
+  };
+  //--------------------------Delete Model-------------------------
+  const handleRemoveModel = async (event) => {
+    event.preventDefault();
+    const selectElement = document.getElementById("model");
+    const selectedOptions = Array.from(selectElement.selectedOptions);
+    const modelToRemove = selectedOptions.map((option) => option.value);
+
+    if (modelToRemove.length === 0) {
+      alert("Please select a model to remove.");
+      return;
+    }
+
+    try {
+      // Make a DELETE request to your backend API for model removal
+      await Promise.all(
+        modelToRemove.map((modelId) =>
+          axiosClient.delete(`/modelsDel/${modelId}`)
+        )
+      );
+
+      axiosClient.get("/modelos").then((response) => {
+        setModels(response.data);
+      });
+    } catch (err) {
+      console.error("Error removing model", err);
     }
   };
 
@@ -655,6 +733,25 @@ const Config = () => {
                 handleDataUpdate={handleDataSupUpdate}
               />
             )}
+
+          {/** -----Categories/Brands------ */}
+
+          {/** -----Models------ */}
+          {selectedFirstOption === "Modelo" &&
+            selectedNextOption === "Adicionar" && (
+              <ConfigDropMdlAdd
+                Title="Modelo"
+                id="model"
+                setData={newModel}
+                setNewData={setNewModel}
+                handleAdd={handleAddModel}
+                brands={brands}
+                selectedBrand={selectedBrand}
+                handleBrandChange={handleBrandChange}
+                maintb="Marca"
+              />
+            )}
+          {/** ----Unidade------ */}
           <div>
             <button onClick={handleBackButtonClick} className="vl-btn">
               Voltar
