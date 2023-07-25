@@ -63,7 +63,7 @@
 
 .configlb {
     width: auto;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     padding-right: 2rem;
 }
 
@@ -276,11 +276,11 @@ button:hover {
     margin-right: 11px;
     margin-top: 1rem;
     box-sizing: border-box;
-    padding: 1px;
+    padding: 2%;
     background: #b72424;
     border-bottom: 2px solid #b72424;
     border-radius: 4px;
-    padding: 1%;
+    padding: 1.5%;
     color: #fff;
     font-size: 1.6rem;
 }
@@ -370,6 +370,9 @@ label {
     display: flex;
     width: 1000px;
     flex-direction: row-reverse;
+    flex-wrap: wrap;
+    align-content: stretch;
+    justify-content: space-between;
 }
 
 .check-cats-br {

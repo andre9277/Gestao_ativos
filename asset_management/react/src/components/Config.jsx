@@ -1290,7 +1290,11 @@ const Config = () => {
                     </select>
 
                     <button type="submit" className="addConfig">
-                      Adicionar
+                      <i
+                        className="fa fa-plus fa-lg"
+                        aria-hidden="true"
+                        title="Adicionar"
+                      ></i>
                     </button>
                   </form>
 
@@ -1311,12 +1315,6 @@ const Config = () => {
               selectedNextOption === "Apagar" && (
                 <div id="container-config">
                   <form onSubmit={handleSubmit}>
-                    <h4 className="titleconfig">
-                      Remover relação Categoria/Marca:
-                    </h4>
-                    <label className="sub-title">
-                      Selecione e de seguida remova o pretendido:
-                    </label>
                     {/* List of relations */}
                     <div id="container-config-rel">
                       <h4>Relações Categoria - Marca</h4>
@@ -1353,7 +1351,11 @@ const Config = () => {
                       onClick={handleRemoveSelectedRelations}
                       className="btn-rel-br"
                     >
-                      Remover
+                      <i
+                        className="fa fa-trash fa-lg"
+                        aria-hidden="true"
+                        title="Apagar"
+                      ></i>
                     </button>
                   </form>
                   {error && <p style={{ color: "red" }}>{error}</p>}
