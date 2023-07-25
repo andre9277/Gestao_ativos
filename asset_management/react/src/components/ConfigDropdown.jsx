@@ -3,7 +3,8 @@ import React from "react";
 const ConfigDropdown = ({
   Title,
   id,
-
+  error,
+  successMessage,
   datas,
   tag,
   handleDel,
@@ -23,9 +24,15 @@ const ConfigDropdown = ({
         </select>
 
         <button id="btnRemove" onClick={handleDel}>
-          <i class="fa fa-trash fa-lg" aria-hidden="true" title="Apagar"></i>
+          <i
+            className="fa fa-trash fa-lg"
+            aria-hidden="true"
+            title="Apagar"
+          ></i>
         </button>
       </form>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
     </div>
   );
 };

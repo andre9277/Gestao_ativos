@@ -1,6 +1,14 @@
 import React from "react";
 
-const ConfigDropAdd = ({ Title, id, setData, setNewData, handleAdd }) => {
+const ConfigDropAdd = ({
+  Title,
+  id,
+  setData,
+  setNewData,
+  handleAdd,
+  error,
+  successMessage,
+}) => {
   return (
     <div id="container-config">
       <form className="frm-cats">
@@ -28,6 +36,8 @@ const ConfigDropAdd = ({ Title, id, setData, setNewData, handleAdd }) => {
           </button>
         </div>
       </form>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
     </div>
   );
 };

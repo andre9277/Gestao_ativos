@@ -10,6 +10,8 @@ const ConfigDropEdit = ({
   editedValue, // The edited value in the input field
   setEditedValue, // Function to update the edited value
   handleDataUpdate, // Function to handle the data update on the server
+  error,
+  successMessage,
 }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -64,6 +66,8 @@ const ConfigDropEdit = ({
           </div>
         )}
       </form>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
     </div>
   );
 };

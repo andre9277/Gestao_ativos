@@ -42,6 +42,8 @@ const Config = () => {
   const [selectedEnt, setSelectedEnt] = useState("");
 
   const [notification, setNotification] = useState("");
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   //Gets all data from the entity,unit, brands and categories (also for unit and model)
   useEffect(() => {
@@ -125,17 +127,34 @@ const Config = () => {
     setShowNextOptionsSecondSet(false);
   };
 
+  //for timing the erros
+  const clearErrorAfterTimeout = (timeout) => {
+    setTimeout(() => {
+      setError(null);
+    }, timeout);
+  };
+
+  const clearSuccessMessageAfterTimeout = (timeout) => {
+    setTimeout(() => {
+      setSuccessMessage(null);
+    }, timeout);
+  };
+
   //--------------Category---------------------------------
   //---------------Add new category------------------
   const handleAddCategory = async (event) => {
     event.preventDefault();
+    setError(null); // Clear any previous errors
     if (newCategory.trim() === "") {
+      setError("Atenção! Introduza uma categoria.");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
       return;
     }
 
     // Check if the category already exists in the list
     if (cats.some((category) => category.name === newCategory.trim())) {
-      alert("Category already exists.");
+      setError("Atenção! Categoria já existe!");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
       return;
     }
 
@@ -148,19 +167,24 @@ const Config = () => {
       // Add the new category to the state
       setCats((prevCategories) => [...prevCategories, response.data]);
       setNewCategory("");
+      setSuccessMessage("Category added successfully!");
+      clearSuccessMessageAfterTimeout(5000);
     } catch (err) {
-      console.error("Erro ao adicionar categoria", err);
+      setError("Erro ao adicionar categoria. Por favor tente outra vez.");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
     }
   };
 
   //---------------Remove a category------------------
   const handleRemoveCategory = async (event) => {
     event.preventDefault();
+    setError(null); // Clear any previous errors
     const selectedOptions = document.getElementById("list").selectedOptions;
     const categoryToRemove = [...selectedOptions].map((option) => option.value);
 
     if (categoryToRemove.length === 0) {
-      alert("Please select a category to remove.");
+      setError("Por favor, selecione uma categoria para remover.");
+      clearErrorAfterTimeout(5000);
       return;
     }
 
@@ -171,10 +195,13 @@ const Config = () => {
           axiosClient.delete(`/categoriesDel/${categoryId}`)
         )
       );
+
       axiosClient.get("/categories").then((response) => {
         setCats(response.data);
       });
 
+      setSuccessMessage("Categoria removida com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
       // Remove the deleted categories from the state
       setCats((prevCategories) =>
         prevCategories.filter(
@@ -182,7 +209,8 @@ const Config = () => {
         )
       );
     } catch (err) {
-      console.error("Error removing category", err);
+      setError("Erro ao remover a categoria. Por favor tente outra vez.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
@@ -201,15 +229,18 @@ const Config = () => {
 
   const handleDataUpdate = async () => {
     if (editedValue.trim() === "") {
+      setError("Atenção! Não pode guardar uma categoria com valor nulo.");
+      clearErrorAfterTimeout(5000);
       return;
     }
-    console.log("selectedData", selectedData);
+
     try {
       // Make a PUT request to update the data on the server
       await axiosClient.put(`/categoriesUpdate/${selectedData.id}`, {
         name: editedValue.trim(),
       });
-
+      setSuccessMessage("Categoria editada com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
       // Update the data in the state
       setCats((prevData) =>
         prevData.map((data) =>
@@ -223,7 +254,8 @@ const Config = () => {
       setSelectedData(null);
       setEditedValue("");
     } catch (err) {
-      console.error("Error updating data", err);
+      setError("Atenção! Erro ao editar, tente novamente.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
@@ -803,6 +835,7 @@ const Config = () => {
           ))}
         </div>
       )}
+
       {showNextOptions && !showNextOptionsSecondSet && (
         <div className="checkbox-dropdown-container">
           {additionalOptions.map((option, index) => (
@@ -829,6 +862,8 @@ const Config = () => {
                 setData={newCategory}
                 setNewData={setNewCategory}
                 handleAdd={handleAddCategory}
+                error={error}
+                successMessage={successMessage}
               />
             )}
           {selectedFirstOption === "Categoria" &&
@@ -839,6 +874,8 @@ const Config = () => {
                 tag="list"
                 datas={cats}
                 handleDel={handleRemoveCategory}
+                error={error}
+                successMessage={successMessage}
               />
             )}
           {selectedFirstOption === "Categoria" &&
@@ -852,6 +889,8 @@ const Config = () => {
                 editedValue={editedValue}
                 setEditedValue={setEditedValue}
                 handleDataUpdate={handleDataUpdate}
+                error={error}
+                successMessage={successMessage}
               />
             )}
 
