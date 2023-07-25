@@ -10,12 +10,14 @@ import ConfigDropMdlDel from "./ConfigDropMdlDel";
 
 const options = [
   "Categoria",
+
   "Marca",
+  "Modelo",
   "Entidade",
+  "Unidade",
+
   "Fornecedor",
   "Categoria/Marca",
-  "Modelo",
-  "Unidade",
 ];
 
 const Config = () => {
