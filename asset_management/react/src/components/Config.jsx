@@ -902,7 +902,16 @@ const Config = () => {
                 maintb="Entidade"
               />
             )}
-          {/* todo */}
+          {selectedFirstOption === "Unidade" &&
+            selectedNextOption === "Apagar" && (
+              <ConfigDropMdlDel
+                Title="Unidade"
+                id="unit"
+                tag="unit"
+                datas={units}
+                handleDel={handleRemoveUnit}
+              />
+            )}
           <div>
             <button onClick={handleBackButtonClick} className="vl-btn">
               Voltar
