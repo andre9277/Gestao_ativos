@@ -39,6 +39,8 @@ const Config = () => {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedEnt, setSelectedEnt] = useState("");
 
+  const [notification, setNotification] = useState("");
+
   //Gets all data from the entity,unit, brands and categories (also for unit and model)
   useEffect(() => {
     Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
@@ -50,6 +52,13 @@ const Config = () => {
       setSuppliers(responses[0].data.suppliers);
     });
   }, []);
+
+  const showNotification = (message, duration = 5000) => {
+    setNotification(message);
+    setTimeout(() => {
+      setNotification("");
+    }, duration);
+  };
 
   // Function to handle brand selection
   const handleBrandChange = (e) => {
@@ -704,6 +713,69 @@ const Config = () => {
     }
   };
 
+  const [relations, setRelations] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  //----------------For the category and brand---------------------
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      // Check if a brand is selected from the dropdown or if a new brand name is provided
+      let brandId;
+      if (selectedBrand) {
+        brandId = selectedBrand;
+      } else {
+        // Add the new brand
+        const brand = {
+          name: nameBrand,
+        };
+        const brandResponse = await axiosClient.post("/brandsAdd", brand);
+        brandId = brandResponse.data.id;
+      }
+
+      // Add the category-brand relation
+      const categoryBrand = {
+        category_id: selectedCategory,
+        brand_id: brandId,
+      };
+      await axiosClient.post("/categoryBrands", categoryBrand);
+
+      showNotification("Relação categoria/marca adicionados com sucesso!");
+      // Handle success or navigate to a different page
+      fetchRelations();
+    } catch (err) {
+      if (err.response && err.response.status === 422) {
+        setErrors(err.response.data.errors);
+      } else {
+        console.error("Erro! Verifique os campos preenchidos!", err);
+      }
+    }
+  };
+
+  // Fetch the relations between category and brand from the backend API
+  const fetchRelations = async () => {
+    try {
+      const response = await axiosClient.get("/category-brands");
+      setRelations(response.data);
+    } catch (error) {
+      console.error("Error fetching relations", error);
+    }
+  };
+
+  // Function to handle the removal of a relation
+  const handleRemoveRelation = async (relationId) => {
+    try {
+      // Make a DELETE request to your backend API for relation removal
+      await axiosClient.delete(`/category-brandsDel/${relationId}`);
+
+      // Fetch the updated relations data and update the list
+      fetchRelations();
+    } catch (err) {
+      console.error("Error removing relation", err);
+    }
+  };
+
   return (
     <div className="form-brd-mdl">
       <h1>Configurações</h1>
@@ -965,7 +1037,59 @@ const Config = () => {
                 handleDataUpdate={handleDataUntUpdate}
               />
             )}
+          {/* ------------Categoria/Marca------------------ */}
           <div>
+            {selectedFirstOption === "Categoria/Marca" &&
+              selectedNextOption === "Adicionar" && (
+                <div id="container-config">
+                  <form onSubmit={handleSubmit}>
+                    <h4 className="titleconfig">
+                      Adicionar relação Categoria/Marca:
+                    </h4>
+
+                    {/* Category*/}
+                    <label className="configlb">Categoria:</label>
+                    <select
+                      name="category"
+                      id="category"
+                      value={selectedCategory}
+                      className="configSelect"
+                      onChange={(e) => setSelectedCategory(e.target.value)}
+                    >
+                      <option value=""></option>
+                      {cats.map((category) => (
+                        <option key={category.id} value={category.id}>
+                          {category.name}
+                        </option>
+                      ))}
+                    </select>
+
+                    {/* Brand*/}
+                    <label className="configlb">Marca:</label>
+                    <select
+                      name="brand"
+                      id="brand"
+                      value={selectedBrand}
+                      className="configSelect"
+                      onChange={(e) => setSelectedBrand(e.target.value)}
+                    >
+                      <option value=""></option>
+                      {brands.map((brand) => (
+                        <option key={brand.id} value={brand.id}>
+                          {brand.name}
+                        </option>
+                      ))}
+                    </select>
+
+                    <button type="submit" className="addConfig">
+                      Adicionar
+                    </button>
+                  </form>
+
+                  {notification && <p>{notification}</p>}
+                </div>
+              )}
+
             <button onClick={handleBackButtonClick} className="vl-btn">
               Voltar
             </button>
