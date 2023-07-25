@@ -53,4 +53,18 @@ class EntityController extends Controller
 
         return response()->json(null, 204);
     }
+
+    //Update entity
+    public function update(Request $request, Entity $ent)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name,' . $ent->id,
+        ]);
+
+        $ent->update([
+            'name' => $request->input('name'),
+        ]);
+
+        return response()->json($ent, 200);
+    }
 }

@@ -148,6 +148,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //Add and delete one entity:
     Route::post('/entAdd', [EntityController::class, 'store']);
     Route::delete('/entDel/{ent}',  [EntityController::class, 'destroy']);
+    Route::put('/entsUpdate/{ent}', [EntityController::class, 'update']);
 
     //Add and delete one unit:
     Route::post('/unitAdd', [UnitController::class, 'store']);

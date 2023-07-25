@@ -340,7 +340,45 @@ const Config = () => {
   };
 
   //Edit entity
-  //TODOOOOOOOOOOOOO
+  const [selectedEntData, setSelectedEntData] = useState(null);
+  const [editedEntValue, setEditedEntValue] = useState("");
+
+  const handleDataEntSelection = () => {
+    const selectedDataName = event.target.value;
+    const selectedDataObject = ents.find(
+      (data) => data.name === selectedDataName
+    );
+    setSelectedEntData(selectedDataObject);
+    setEditedEntValue(selectedDataObject.name);
+  };
+
+  const handleDataEntUpdate = async () => {
+    if (editedEntValue.trim() === "") {
+      return;
+    }
+    console.log("selectedData", selectedEntData);
+    try {
+      // Make a PUT request to update the data on the server
+      await axiosClient.put(`/entsUpdate/${selectedEntData.id}`, {
+        name: editedEntValue.trim(),
+      });
+
+      // Update the data in the state
+      setEnts((prevData) =>
+        prevData.map((data) =>
+          data.id === selectedEntData.id
+            ? { ...data, name: editedEntValue.trim() }
+            : data
+        )
+      );
+
+      // Clear the selected data and edited value
+      setSelectedEntData(null);
+      setEditedEntValue("");
+    } catch (err) {
+      console.error("Error updating data", err);
+    }
+  };
 
   //--------------Supplier---------------------------------
   const [newSupplier, setNewSupplier] = useState("");
@@ -528,6 +566,20 @@ const Config = () => {
                 tag="ent"
                 datas={ents}
                 handleDel={handleRemoveEntity}
+              />
+            )}
+
+          {selectedFirstOption === "Entidade" &&
+            selectedNextOption === "Editar" && (
+              <ConfigDropEdit
+                Title={selectedOption}
+                tag="list"
+                datas={ents}
+                selectedData={selectedEntData}
+                handleDataSelection={handleDataEntSelection}
+                editedValue={editedEntValue}
+                setEditedValue={setEditedEntValue}
+                handleDataUpdate={handleDataEntUpdate}
               />
             )}
 

@@ -26,4 +26,18 @@ class Supplier extends Model
     {
         return $this->hasMany(Asset::class);
     }
+
+    //Update supplier
+    /*     public function update(Request $request, Supplier $sup)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name,' . $sup->id,
+        ]);
+
+        $sup->update([
+            'name' => $request->input('name'),
+        ]);
+
+        return response()->json($sup, 200);
+    } */
 }
