@@ -1297,9 +1297,9 @@ const Config = () => {
                     </button>
                   </form>
 
-                  {error && <p style={{ color: "red" }}>{error}</p>}
+                  {error && <p className="errorMessag">{error}</p>}
                   {successMessage && (
-                    <p style={{ color: "green" }}>{successMessage}</p>
+                    <p className="successMessag">{successMessage}</p>
                   )}
                 </div>
               )}
@@ -1357,9 +1357,9 @@ const Config = () => {
                       ></i>
                     </button>
                   </form>
-                  {error && <p style={{ color: "red" }}>{error}</p>}
+                  {error && <p className="errorMessag">{error}</p>}
                   {successMessage && (
-                    <p style={{ color: "green" }}>{successMessage}</p>
+                    <p className="successMessag">{successMessage}</p>
                   )}
                 </div>
               )}

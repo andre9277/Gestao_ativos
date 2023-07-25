@@ -388,3 +388,15 @@ label {
     display: inline;
     margin-top: 1rem;
 }
+
+.errorMessag {
+    color: red;
+    margin-left: 2rem;
+    font-size: 1.6rem;
+}
+
+.successMessag {
+    color: green;
+    margin-left: 2rem;
+    font-size: 1.6rem;
+}

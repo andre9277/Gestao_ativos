@@ -31,8 +31,8 @@ const ConfigDropdown = ({
           ></i>
         </button>
       </form>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
+      {error && <p className="errorMessag">{error}</p>}
+      {successMessage && <p className="successMessag">{successMessage}</p>}
     </div>
   );
 };
