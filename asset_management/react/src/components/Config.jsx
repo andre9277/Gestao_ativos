@@ -243,7 +243,7 @@ const Config = () => {
   };
 
   //Edit a brand
-  //-----------Edit a category-------------------------
+  //-----------Edit a brand-------------------------
   const [selectedBrData, setSelectedBrData] = useState(null);
   const [editedBrValue, setEditedBrValue] = useState("");
 
@@ -252,8 +252,8 @@ const Config = () => {
     const selectedDataObject = brands.find(
       (data) => data.name === selectedDataName
     );
-    setSelectedData(selectedDataObject);
-    setEditedValue(selectedDataObject.name);
+    setSelectedBrData(selectedDataObject);
+    setEditedBrValue(selectedDataObject.name);
   };
 
   const handleDataBrUpdate = async () => {
@@ -270,7 +270,7 @@ const Config = () => {
       // Update the data in the state
       setBrands((prevData) =>
         prevData.map((data) =>
-          data.id === selectedData.id
+          data.id === selectedBrData.id
             ? { ...data, name: editedBrValue.trim() }
             : data
         )
