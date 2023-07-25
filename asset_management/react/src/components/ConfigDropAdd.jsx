@@ -17,7 +17,7 @@ const ConfigDropAdd = ({ Title, id, setData, setNewData, handleAdd }) => {
           />
           <button id="btnAdd" onClick={handleAdd}>
             <i
-              class="fa fa-plus fa-lg"
+              className="fa fa-plus fa-lg"
               aria-hidden="true"
               title="Adicionar"
             ></i>

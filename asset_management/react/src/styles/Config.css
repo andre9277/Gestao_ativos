@@ -207,7 +207,18 @@ button:hover {
     border: 1px solid #ccc;
     padding: 1%;
     color: #555;
-    font-size: 1em;
+    font-size: 1.6rem;
+}
+.frm-cats-edit input[type="text"] {
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    margin-bottom: 2%;
+    border: 1px solid #ccc;
+    padding: 1%;
+    color: #555;
+    font-size: 1.6rem;
 }
 
 .frm-cats input[type="text"]:focus {
@@ -218,12 +229,19 @@ button:hover {
 
 .slc-cat {
     width: 100%;
-    font-size: 1em;
+    font-size: 1.6rem;
     padding: 5px;
     border: 1px solid #ccc;
 }
 
 .lb-cats {
+    display: contents;
+    margin: 10px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.lb-cats-edit {
     display: contents;
     margin: 10px;
     font-size: 1.8rem;
@@ -308,7 +326,7 @@ button:hover {
     color: white;
     overflow: hidden;
     width: auto;
-    margin-top: 105px;
+    margin-top: 40px;
     margin-left: 6rem;
     width: 88%;
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/Config.css";
 
 const ConfigDropEdit = ({
   Title,
@@ -17,7 +18,7 @@ const ConfigDropEdit = ({
 
   return (
     <div id="container-config">
-      <form className="frm-cats" onSubmit={handleSubmit}>
+      <form className="frm-cats-edit" onSubmit={handleSubmit}>
         <label htmlFor={tag} className="lb-cats">
           Lista de {Title}:
         </label>
@@ -37,14 +38,25 @@ const ConfigDropEdit = ({
 
         {selectedData && (
           <div>
-            <label htmlFor="editValue">Editar valor:</label>
-            <input
-              type="text"
-              id="editValue"
-              value={editedValue}
-              onChange={(e) => setEditedValue(e.target.value)}
-            />
-            <button type="submit">Salvar</button>
+            <label htmlFor="editValue" className="lb-cats-edit">
+              Editar valor:
+            </label>
+            <div className="addLbBtn">
+              <input
+                type="text"
+                id="editValue"
+                value={editedValue}
+                onChange={(e) => setEditedValue(e.target.value)}
+                className="slc-cat-edit"
+              />
+              <button type="submit" id="btnAdd">
+                <i
+                  className="fa fa-plus fa-lg"
+                  aria-hidden="true"
+                  title="Adicionar"
+                ></i>
+              </button>
+            </div>
           </div>
         )}
       </form>
