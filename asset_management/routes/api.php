@@ -155,6 +155,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //Add and delete one unit:
     Route::post('/unitAdd', [UnitController::class, 'store']);
     Route::delete('/unitDel/{unit}',  [UnitController::class, 'destroy']);
+    Route::put('/unitUpdate/{unt}', [UnitController::class, 'update']);
 
 
     //Endpoint for the AssetForm component (Joins all the calls, does one request do the server)

@@ -65,4 +65,16 @@ class UnitController extends Controller
             return response()->json(['message' => 'Error deleting unit'], 500);
         }
     }
+    public function update(Request $request, Unit $unt)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255' . $unt->id,
+        ]);
+
+        $unt->update([
+            'name' => $request->input('name'),
+        ]);
+
+        return response()->json($unt, 200);
+    } 
 }

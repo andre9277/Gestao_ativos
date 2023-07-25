@@ -567,7 +567,6 @@ const Config = () => {
   };
 
   //---------Edit Model
-  //Edit Supplier
   const [selectedMdlData, setSelectedMdlData] = useState(null);
   const [editedMdlValue, setEditedMdlValue] = useState("");
 
@@ -661,6 +660,47 @@ const Config = () => {
       });
     } catch (err) {
       console.error("Error removing unit", err);
+    }
+  };
+
+  //Edit Unit
+  const [selectedUntData, setSelectedUntData] = useState(null);
+  const [editedUntValue, setEditedUntValue] = useState("");
+
+  const handleDataUntSelection = () => {
+    const selectedDataName = event.target.value;
+    const selectedDataObject = units.find(
+      (data) => data.name === selectedDataName
+    );
+    setSelectedUntData(selectedDataObject);
+    setEditedUntValue(selectedDataObject.name);
+  };
+
+  const handleDataUntUpdate = async () => {
+    if (editedUntValue.trim() === "") {
+      return;
+    }
+    console.log("selectedData", selectedUntData);
+    try {
+      // Make a PUT request to update the data on the server
+      await axiosClient.put(`/unitUpdate/${selectedUntData.id}`, {
+        name: editedUntValue.trim(),
+      });
+
+      // Update the data in the state
+      setUnits((prevData) =>
+        prevData.map((data) =>
+          data.id === selectedUntData.id
+            ? { ...data, name: editedUntValue.trim() }
+            : data
+        )
+      );
+
+      // Clear the selected data and edited value
+      setSelectedUntData(null);
+      setEditedUntValue("");
+    } catch (err) {
+      console.error("Error updating data", err);
     }
   };
 
@@ -910,6 +950,19 @@ const Config = () => {
                 tag="unit"
                 datas={units}
                 handleDel={handleRemoveUnit}
+              />
+            )}
+          {selectedFirstOption === "Unidade" &&
+            selectedNextOption === "Editar" && (
+              <ConfigDropEdit
+                Title={selectedOption}
+                tag="list"
+                datas={units}
+                selectedData={selectedUntData}
+                handleDataSelection={handleDataUntSelection}
+                editedValue={editedUntValue}
+                setEditedValue={setEditedUntValue}
+                handleDataUpdate={handleDataUntUpdate}
               />
             )}
           <div>
