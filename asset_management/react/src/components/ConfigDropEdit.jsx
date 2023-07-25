@@ -22,6 +22,10 @@ const ConfigDropEdit = ({
         <label htmlFor={tag} className="lb-cats">
           Lista de {Title}:
         </label>
+        <p></p>
+        <label className="sub-title">
+          Selecione um(a) {Title} para editar:
+        </label>
         <select
           id={tag}
           name={tag}

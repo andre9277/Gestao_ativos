@@ -85,7 +85,7 @@
     margin-bottom: 1rem;
     background: #fff;
     border: 1px solid #9c9c9c;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     font-weight: normal;
     margin-right: 1rem;
 }
@@ -156,8 +156,8 @@
 
 #btnAddd {
     box-sizing: border-box;
-    width: 100%;
-    padding: 1%;
+
+    padding: 2%;
     background: #00a762;
     border-bottom: 2px solid #00a762;
     color: #fff;
@@ -168,7 +168,8 @@
 
 #btnRemove {
     box-sizing: border-box;
-    width: 100%;
+    width: 10%;
+    border-radius: 4px;
     padding: 1%;
     background: #b72424;
     border-bottom: 2px solid #b72424;
@@ -176,9 +177,8 @@
     border-right-style: none;
     border-left-style: none;
     color: #fff;
-    font-size: 1.2rem;
-    margin-top: 7rem;
-    bottom: 0;
+    font-size: 1.6rem;
+    margin-top: 3rem;
 }
 
 #btnRemove-rel {
@@ -208,7 +208,9 @@ button:hover {
     padding: 1%;
     color: #555;
     font-size: 1.6rem;
+    margin-bottom: 2rem;
 }
+
 .frm-cats-edit input[type="text"] {
     outline: none;
     box-sizing: border-box;
@@ -358,4 +360,9 @@ label {
 
 .inpt-configs {
     font-size: 1.8rem;
+}
+
+.sub-title {
+    width: auto;
+    font-size: 1.3rem;
 }

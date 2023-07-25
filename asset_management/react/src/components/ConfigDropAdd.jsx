@@ -7,6 +7,10 @@ const ConfigDropAdd = ({ Title, id, setData, setNewData, handleAdd }) => {
         <label htmlFor={id} className="lb-cats">
           {Title}
         </label>
+        <p></p>
+        <label className="sub-title">
+          Introduza o nome da(o) {Title} que deseja adicionar:
+        </label>
         <div className="addLbBtn">
           <input
             type="text"

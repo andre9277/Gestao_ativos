@@ -11,10 +11,6 @@ const ConfigDropdown = ({
   return (
     <div id="container-config">
       <form className="frm-cats">
-        <label htmlFor={id} className="lb-cats">
-          {Title}
-        </label>
-
         <label htmlFor={tag} className="lb-cats">
           Lista de {Title}:
         </label>
@@ -27,7 +23,7 @@ const ConfigDropdown = ({
         </select>
 
         <button id="btnRemove" onClick={handleDel}>
-          Remover
+          <i class="fa fa-trash fa-lg" aria-hidden="true" title="Apagar"></i>
         </button>
       </form>
     </div>

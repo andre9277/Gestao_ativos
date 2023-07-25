@@ -844,7 +844,7 @@ const Config = () => {
           {selectedFirstOption === "Categoria" &&
             selectedNextOption === "Editar" && (
               <ConfigDropEdit
-                Title={selectedOption}
+                Title={selectedFirstOption}
                 tag="list"
                 datas={cats}
                 selectedData={selectedData}
@@ -880,7 +880,7 @@ const Config = () => {
           {selectedFirstOption === "Marca" &&
             selectedNextOption === "Editar" && (
               <ConfigDropEdit
-                Title={selectedOption}
+                Title={selectedFirstOption}
                 tag="list"
                 datas={brands}
                 selectedData={selectedBrData}
@@ -916,7 +916,7 @@ const Config = () => {
           {selectedFirstOption === "Entidade" &&
             selectedNextOption === "Editar" && (
               <ConfigDropEdit
-                Title={selectedOption}
+                Title={selectedFirstOption}
                 tag="list"
                 datas={ents}
                 selectedData={selectedEntData}
@@ -951,7 +951,7 @@ const Config = () => {
           {selectedFirstOption === "Fornecedor" &&
             selectedNextOption === "Editar" && (
               <ConfigDropEdit
-                Title={selectedOption}
+                Title={selectedFirstOption}
                 tag="list"
                 datas={suppliers}
                 selectedData={selectedSupData}
@@ -993,7 +993,7 @@ const Config = () => {
           {selectedFirstOption === "Modelo" &&
             selectedNextOption === "Editar" && (
               <ConfigDropEdit
-                Title={selectedOption}
+                Title={selectedFirstOption}
                 tag="list"
                 datas={models}
                 selectedData={selectedMdlData}
@@ -1033,7 +1033,7 @@ const Config = () => {
           {selectedFirstOption === "Unidade" &&
             selectedNextOption === "Editar" && (
               <ConfigDropEdit
-                Title={selectedOption}
+                Title={selectedFirstOption}
                 tag="list"
                 datas={units}
                 selectedData={selectedUntData}

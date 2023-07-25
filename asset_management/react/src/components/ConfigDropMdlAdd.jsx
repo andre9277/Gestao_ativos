@@ -17,6 +17,11 @@ const ConfigDropMdlAdd = ({
         <label htmlFor={id} className="lb-cats">
           {Title}
         </label>
+        <p></p>
+        <label className="sub-title">
+          {" "}
+          Introduza o nome da(o) {Title} que deseja adicionar:
+        </label>
         <input
           type="text"
           value={setData}
@@ -44,7 +49,11 @@ const ConfigDropMdlAdd = ({
         </select>
 
         <button id="btnAddd" onClick={handleAdd}>
-          Adicionar
+          <i
+            className="fa fa-plus fa-lg"
+            aria-hidden="true"
+            title="Adicionar"
+          ></i>
         </button>
       </form>
     </div>
