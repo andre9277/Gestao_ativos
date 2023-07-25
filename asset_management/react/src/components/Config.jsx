@@ -53,6 +53,10 @@ const Config = () => {
     });
   }, []);
 
+  useEffect(() => {
+    fetchRelations();
+  }, []);
+
   const showNotification = (message, duration = 5000) => {
     setNotification(message);
     setTimeout(() => {
@@ -1084,6 +1088,51 @@ const Config = () => {
                     <button type="submit" className="addConfig">
                       Adicionar
                     </button>
+                  </form>
+
+                  {notification && <p>{notification}</p>}
+                </div>
+              )}
+            {selectedFirstOption === "Categoria/Marca" &&
+              selectedNextOption === "Editar" && (
+                <h4>
+                  Atençã! De momento não é possível editar uma relação
+                  Categoria/Marca
+                </h4>
+              )}
+            {selectedFirstOption === "Categoria/Marca" &&
+              selectedNextOption === "Apagar" && (
+                <div id="container-config">
+                  <form onSubmit={handleSubmit}>
+                    <h4 className="titleconfig">
+                      Remover relação Categoria/Marca:
+                    </h4>
+                    {/* List of relations */}
+                    <div id="container-config-rel">
+                      <h5>Relações Categoria - Marca</h5>
+                      <ul className="relations-list">
+                        {relations.map((relation) => (
+                          <li key={relation.id}>
+                            {`${
+                              cats.find(
+                                (cat) => cat.id === relation.category_id
+                              )?.name || "Categoria desconhecida"
+                            } - ${
+                              brands.find(
+                                (brand) => brand.id === relation.brand_id
+                              )?.name || "Marca desconhecida"
+                            }`}
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveRelation(relation.id)}
+                              className="btn-rel-br"
+                            >
+                              Remover
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </form>
 
                   {notification && <p>{notification}</p>}
