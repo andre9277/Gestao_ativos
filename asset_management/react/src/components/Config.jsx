@@ -90,6 +90,8 @@ const Config = () => {
   const [selectedNextOption, setSelectedNextOption] = useState("");
   const additionalOptions = ["Adicionar", "Editar", "Apagar"];
 
+  const [selectedRelations, setSelectedRelations] = useState([]);
+
   const handleOptionToggle = (option) => {
     if (selectedOption === option) {
       setSelectedOption("");
@@ -918,6 +920,33 @@ const Config = () => {
     }
   };
 
+  const handleRemoveSelectedRelations = async () => {
+    try {
+      // Iterate over selected relation IDs and remove them one by one
+      for (const relationId of selectedRelations) {
+        await handleRemoveRelation(relationId);
+      }
+      // Fetch the updated relations data after removing the selected relations
+      fetchRelations();
+    } catch (err) {
+      setError("Atenção! Erro ao remover as relações selecionadas.");
+      clearErrorAfterTimeout(5000);
+    }
+    // Clear the selection after removing the relations
+    setSelectedRelations([]);
+  };
+
+  const handleCheckboxChange = (event, relationId) => {
+    const isChecked = event.target.checked;
+    if (isChecked) {
+      setSelectedRelations((prevSelected) => [...prevSelected, relationId]);
+    } else {
+      setSelectedRelations((prevSelected) =>
+        prevSelected.filter((id) => id !== relationId)
+      );
+    }
+  };
+
   return (
     <div className="form-brd-mdl">
       <h1>Configurações</h1>
@@ -1285,34 +1314,48 @@ const Config = () => {
                     <h4 className="titleconfig">
                       Remover relação Categoria/Marca:
                     </h4>
+                    <label className="sub-title">
+                      Selecione e de seguida remova o pretendido:
+                    </label>
                     {/* List of relations */}
                     <div id="container-config-rel">
-                      <h5>Relações Categoria - Marca</h5>
+                      <h4>Relações Categoria - Marca</h4>
                       <ul className="relations-list">
                         {relations.map((relation) => (
                           <li key={relation.id}>
-                            {`${
-                              cats.find(
-                                (cat) => cat.id === relation.category_id
-                              )?.name || "Categoria desconhecida"
-                            } - ${
-                              brands.find(
-                                (brand) => brand.id === relation.brand_id
-                              )?.name || "Marca desconhecida"
-                            }`}
-                            <button
-                              type="button"
-                              onClick={() => handleRemoveRelation(relation.id)}
-                              className="btn-rel-br"
-                            >
-                              Remover
-                            </button>
+                            <label className="lbs-cats-brs">
+                              <input
+                                type="checkbox"
+                                checked={selectedRelations.includes(
+                                  relation.id
+                                )}
+                                onChange={(e) =>
+                                  handleCheckboxChange(e, relation.id)
+                                }
+                                className="check-cats-br"
+                              />
+                              {`${
+                                cats.find(
+                                  (cat) => cat.id === relation.category_id
+                                )?.name || "Categoria desconhecida"
+                              } - ${
+                                brands.find(
+                                  (brand) => brand.id === relation.brand_id
+                                )?.name || "Marca desconhecida"
+                              }`}
+                            </label>
                           </li>
                         ))}
                       </ul>
                     </div>
+                    <button
+                      type="button"
+                      onClick={handleRemoveSelectedRelations}
+                      className="btn-rel-br"
+                    >
+                      Remover
+                    </button>
                   </form>
-
                   {error && <p style={{ color: "red" }}>{error}</p>}
                   {successMessage && (
                     <p style={{ color: "green" }}>{successMessage}</p>
