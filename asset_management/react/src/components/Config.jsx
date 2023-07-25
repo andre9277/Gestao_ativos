@@ -385,13 +385,18 @@ const Config = () => {
   //Add Entity-------------------------
   const handleAddEntity = async (event) => {
     event.preventDefault();
+    setError(null);
+
     if (newEntity.trim() === "") {
+      setError("Atenção! Introduza uma entidade.");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
       return;
     }
 
     // Check if the entity already exists in the list
     if (ents.some((ent) => ent.name === newEntity.trim())) {
-      alert("Entity already exists.");
+      setError("Atenção! Entidade já existe!");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds;
       return;
     }
     try {
@@ -403,20 +408,26 @@ const Config = () => {
       // Add the new entity to the state
       setEnts((prevEnts) => [...prevEnts, response.data]);
       setNewEntity("");
+      setSuccessMessage("Entidade adicionada com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
     } catch (err) {
-      console.error("Error adding entity", err);
+      setError("Erro ao adicionar categoria. Por favor tente outra vez.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
   //Delete Entity-------------------------
   const handleRemoveEntity = async (event) => {
     event.preventDefault();
+    setError(null);
+
     const selectElement = document.getElementById("ent");
     const selectedOptions = Array.from(selectElement.selectedOptions);
     const entToRemove = selectedOptions.map((option) => option.value);
 
     if (entToRemove.length === 0) {
-      alert("Please select a supplier to remove.");
+      setError("Por favor, selecione uma entidade para remover.");
+      clearErrorAfterTimeout(5000);
       return;
     }
 
@@ -429,8 +440,11 @@ const Config = () => {
       axiosClient.get("/entities").then((response) => {
         setEnts(response.data);
       });
+      setSuccessMessage("Entidade removida com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
     } catch (err) {
-      console.error("Error removing entity", err);
+      setError("Erro ao remover a entidade. Por favor tente outra vez.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
@@ -449,15 +463,18 @@ const Config = () => {
 
   const handleDataEntUpdate = async () => {
     if (editedEntValue.trim() === "") {
+      setError("Atenção! Não pode guardar uma entidade com valor nulo.");
+      clearErrorAfterTimeout(5000);
       return;
     }
-    console.log("selectedData", selectedEntData);
+
     try {
       // Make a PUT request to update the data on the server
       await axiosClient.put(`/entsUpdate/${selectedEntData.id}`, {
         name: editedEntValue.trim(),
       });
-
+      setSuccessMessage("Entidade editada com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
       // Update the data in the state
       setEnts((prevData) =>
         prevData.map((data) =>
@@ -471,7 +488,8 @@ const Config = () => {
       setSelectedEntData(null);
       setEditedEntValue("");
     } catch (err) {
-      console.error("Error updating data", err);
+      setError("Atenção! Erro ao editar, tente novamente.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
@@ -481,13 +499,17 @@ const Config = () => {
   //Add Supplier
   const handleAddSupplier = async (event) => {
     event.preventDefault();
+    setError(null);
     if (newSupplier.trim() === "") {
+      setError("Atenção! Introduza um fornecedor.");
+      clearErrorAfterTimeout(5000);
       return;
     }
 
     // Check if the supplier already exists in the list
     if (suppliers.some((supplier) => supplier.name === newSupplier.trim())) {
-      alert("Supplier already exists.");
+      setError("Atenção! Fornecedor já existe!");
+      clearErrorAfterTimeout(5000);
       return;
     }
 
@@ -500,20 +522,25 @@ const Config = () => {
       // Add the new supplier to the state
       setSuppliers((prevSuppliers) => [...prevSuppliers, response.data]);
       setNewSupplier("");
+      setSuccessMessage("Fornecedor adicionado com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
     } catch (err) {
-      console.error("Error adding supplier", err);
+      setError("Erro ao adicionar fornecedor. Por favor tente outra vez.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
   //Delete Supplier
   const handleRemoveSupplier = async (event) => {
     event.preventDefault();
+    setError(null);
     const selectElement = document.getElementById("sup");
     const selectedOptions = Array.from(selectElement.selectedOptions);
     const supToRemove = selectedOptions.map((option) => option.value);
 
     if (supToRemove.length === 0) {
-      alert("Please select a supplier to remove.");
+      setError("Por favor, selecione um fornecedor para remover.");
+      clearErrorAfterTimeout(5000);
       return;
     }
 
@@ -526,8 +553,11 @@ const Config = () => {
       axiosClient.get("/supplier").then((response) => {
         setSuppliers(response.data);
       });
+      setSuccessMessage("Fornecedor removido com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
     } catch (err) {
-      console.error("Error removing supplier", err);
+      setError("Erro ao remover o fornecedor. Por favor tente outra vez.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
@@ -546,14 +576,19 @@ const Config = () => {
 
   const handleDataSupUpdate = async () => {
     if (editedSupValue.trim() === "") {
+      setError("Atenção! Não pode guardar um fornecedor com valor nulo.");
+      clearErrorAfterTimeout(5000);
       return;
     }
-    console.log("selectedData", selectedSupData);
+
     try {
       // Make a PUT request to update the data on the server
       await axiosClient.put(`/supUpdate/${selectedSupData.id}`, {
         name: editedSupValue.trim(),
       });
+
+      setSuccessMessage("Fornecedor editado com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
 
       // Update the data in the state
       setSuppliers((prevData) =>
@@ -568,7 +603,8 @@ const Config = () => {
       setSelectedSupData(null);
       setEditedSupValue("");
     } catch (err) {
-      console.error("Error updating data", err);
+      setError("Atenção! Erro ao editar, tente novamente.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
