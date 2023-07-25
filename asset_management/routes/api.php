@@ -144,6 +144,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //Add and delete one supplier:
     Route::post('/supplierAdd', [SupplierController::class, 'store']);
     Route::delete('/supplierDel/{supplier}',  [SupplierController::class, 'destroy']);
+    Route::put('/supUpdate/{sup}', [SupplierController::class, 'update']);
 
     //Add and delete one entity:
     Route::post('/entAdd', [EntityController::class, 'store']);

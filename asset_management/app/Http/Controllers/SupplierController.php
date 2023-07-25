@@ -53,4 +53,17 @@ class SupplierController extends Controller
 
         return response()->json(null, 204);
     }
+
+    public function update(Request $request, Supplier $sup)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name,' . $sup->id,
+        ]);
+
+        $sup->update([
+            'name' => $request->input('name'),
+        ]);
+
+        return response()->json($sup, 200);
+    } 
 }

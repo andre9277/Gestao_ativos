@@ -436,7 +436,45 @@ const Config = () => {
   };
 
   //Edit Supplier
-  //TODOOOOOOOOOOOOO
+  const [selectedSupData, setSelectedSupData] = useState(null);
+  const [editedSupValue, setEditedSupValue] = useState("");
+
+  const handleDataSupSelection = () => {
+    const selectedDataName = event.target.value;
+    const selectedDataObject = suppliers.find(
+      (data) => data.name === selectedDataName
+    );
+    setSelectedSupData(selectedDataObject);
+    setEditedSupValue(selectedDataObject.name);
+  };
+
+  const handleDataSupUpdate = async () => {
+    if (editedSupValue.trim() === "") {
+      return;
+    }
+    console.log("selectedData", selectedSupData);
+    try {
+      // Make a PUT request to update the data on the server
+      await axiosClient.put(`/supUpdate/${selectedSupData.id}`, {
+        name: editedSupValue.trim(),
+      });
+
+      // Update the data in the state
+      setSuppliers((prevData) =>
+        prevData.map((data) =>
+          data.id === selectedSupData.id
+            ? { ...data, name: editedSupValue.trim() }
+            : data
+        )
+      );
+
+      // Clear the selected data and edited value
+      setSelectedSupData(null);
+      setEditedSupValue("");
+    } catch (err) {
+      console.error("Error updating data", err);
+    }
+  };
 
   return (
     <div className="form-brd-mdl">
@@ -602,6 +640,19 @@ const Config = () => {
                 tag="sup"
                 datas={suppliers}
                 handleDel={handleRemoveSupplier}
+              />
+            )}
+          {selectedFirstOption === "Fornecedor" &&
+            selectedNextOption === "Editar" && (
+              <ConfigDropEdit
+                Title={selectedOption}
+                tag="list"
+                datas={suppliers}
+                selectedData={selectedSupData}
+                handleDataSelection={handleDataSupSelection}
+                editedValue={editedSupValue}
+                setEditedValue={setEditedSupValue}
+                handleDataUpdate={handleDataSupUpdate}
               />
             )}
           <div>
