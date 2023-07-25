@@ -613,13 +613,23 @@ const Config = () => {
   // Function to add a new model with the selected brand
   const handleAddModel = async (event) => {
     event.preventDefault();
-    if (newModel.trim() === "" || selectedBrand === "") {
+    setError(null);
+    if (newModel.trim() === "") {
+      setError("Atenção! Introduza um modelo.");
+      clearErrorAfterTimeout(5000);
+      return;
+    }
+
+    if (selectedBrand === "") {
+      setError("Atenção! Selecione uma marca.");
+      clearErrorAfterTimeout(5000);
       return;
     }
 
     // Check if the model already exists in the list
     if (models.some((model) => model.name === newModel.trim())) {
-      alert("Model already exists.");
+      setError("Atenção! Modelo já existe!");
+      clearErrorAfterTimeout(5000);
       return;
     }
 
@@ -634,8 +644,11 @@ const Config = () => {
       setModels((prevModels) => [...prevModels, response.data]);
       setNewModel("");
       setSelectedBrand(""); // Reset selectedBrand after adding the model
+      setSuccessMessage("Modelo adicionado com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
     } catch (err) {
-      console.error("Error adding model", err);
+      setError("Erro ao adicionar modelo. Por favor tente outra vez.");
+      clearErrorAfterTimeout(5000);
     }
   };
   //--------------------------Delete Model-------------------------
@@ -646,7 +659,8 @@ const Config = () => {
     const modelToRemove = selectedOptions.map((option) => option.value);
 
     if (modelToRemove.length === 0) {
-      alert("Please select a model to remove.");
+      setError("Atenção! Selecione um modelo para remover.");
+      clearErrorAfterTimeout(5000);
       return;
     }
 
@@ -661,8 +675,11 @@ const Config = () => {
       axiosClient.get("/modelos").then((response) => {
         setModels(response.data);
       });
+      setSuccessMessage("Modelo removido com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
     } catch (err) {
-      console.error("Error removing model", err);
+      setError("Erro ao remover o modelo. Por favor tente outra vez.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
@@ -681,15 +698,18 @@ const Config = () => {
 
   const handleDataMdlUpdate = async () => {
     if (editedMdlValue.trim() === "") {
+      setError("Atenção! Não pode guardar um modelo com valor nulo.");
+      clearErrorAfterTimeout(5000);
       return;
     }
-    console.log("selectedData", selectedMdlData);
+
     try {
       // Make a PUT request to update the data on the server
       await axiosClient.put(`/mdlUpdate/${selectedMdlData.id}`, {
         name: editedMdlValue.trim(),
       });
-
+      setSuccessMessage("Modelo editado com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
       // Update the data in the state
       setModels((prevData) =>
         prevData.map((data) =>
@@ -703,7 +723,8 @@ const Config = () => {
       setSelectedMdlData(null);
       setEditedMdlValue("");
     } catch (err) {
-      console.error("Error updating data", err);
+      setError("Atenção! Erro ao editar, tente novamente.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
@@ -711,13 +732,22 @@ const Config = () => {
   //--------------------------Add Unit-------------------------
   const handleAddUnit = async (event) => {
     event.preventDefault();
-    if (newUnit.trim() === "" || selectedEnt === "") {
+    setError(null);
+    if (newUnit.trim() === "") {
+      setError("Atenção! Introduza uma unidade.");
+      clearErrorAfterTimeout(5000);
+      return;
+    }
+    if (selectedEnt === "") {
+      setError("Atenção! Selecione uma entidade.");
+      clearErrorAfterTimeout(5000);
       return;
     }
 
     // Check if the unit already exists in the list
     if (units.some((unit) => unit.name === newUnit.trim())) {
-      alert("Unit already exists.");
+      setError("Atenção! Unidade já existe!");
+      clearErrorAfterTimeout(5000);
       return;
     }
 
@@ -732,8 +762,11 @@ const Config = () => {
       setUnits((prevUnits) => [...prevUnits, response.data]);
       setNewUnit("");
       setSelectedEnt("");
+      setSuccessMessage("Unidade adicionada com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
     } catch (err) {
-      console.error("Error adding unit", err);
+      setError("Erro ao adicionar unidade. Por favor tente outra vez.");
+      clearErrorAfterTimeout(5000);
     }
   };
   //--------------------------Delete Unit-------------------------
@@ -743,7 +776,8 @@ const Config = () => {
     const unitToRemove = [...selectedOptions].map((option) => option.value);
 
     if (unitToRemove.length === 0) {
-      alert("Please select a unit to remove.");
+      setError("Atenção! Selecione uma unidade para remover.");
+      clearErrorAfterTimeout(5000);
       return;
     }
 
@@ -758,8 +792,11 @@ const Config = () => {
       axiosClient.get("/units").then((response) => {
         setUnits(response.data);
       });
+      setSuccessMessage("Unidade removida com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
     } catch (err) {
-      console.error("Error removing unit", err);
+      setError("Erro ao remover a unidade. Por favor tente outra vez.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
@@ -778,15 +815,18 @@ const Config = () => {
 
   const handleDataUntUpdate = async () => {
     if (editedUntValue.trim() === "") {
+      setError("Atenção! Não pode guardar uma unidade com valor nulo.");
+      clearErrorAfterTimeout(5000);
       return;
     }
-    console.log("selectedData", selectedUntData);
+
     try {
       // Make a PUT request to update the data on the server
       await axiosClient.put(`/unitUpdate/${selectedUntData.id}`, {
         name: editedUntValue.trim(),
       });
-
+      setSuccessMessage("Unidade editada com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
       // Update the data in the state
       setUnits((prevData) =>
         prevData.map((data) =>
@@ -800,7 +840,8 @@ const Config = () => {
       setSelectedUntData(null);
       setEditedUntValue("");
     } catch (err) {
-      console.error("Error updating data", err);
+      setError("Atenção! Erro ao editar, tente novamente.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
@@ -817,12 +858,16 @@ const Config = () => {
       if (selectedBrand) {
         brandId = selectedBrand;
       } else {
-        // Add the new brand
-        const brand = {
-          name: nameBrand,
-        };
-        const brandResponse = await axiosClient.post("/brandsAdd", brand);
-        brandId = brandResponse.data.id;
+        setError(
+          "Atenção! Necessita de selecionar um valor da Categoria e/ou Marca."
+        );
+        clearErrorAfterTimeout(5000);
+        return;
+      }
+      console.log(selectedBrand);
+      if (selectedBrand === "") {
+        setError("Atenção! Selecione uma marca.");
+        clearErrorAfterTimeout(5000);
       }
 
       // Add the category-brand relation
@@ -832,14 +877,16 @@ const Config = () => {
       };
       await axiosClient.post("/categoryBrands", categoryBrand);
 
-      showNotification("Relação categoria/marca adicionados com sucesso!");
-      // Handle success or navigate to a different page
+      setSuccessMessage("Relação Categoria/Marca adicionada com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
+
       fetchRelations();
     } catch (err) {
       if (err.response && err.response.status === 422) {
-        setErrors(err.response.data.errors);
+        setError(err.response.data.errors);
       } else {
-        console.error("Erro! Verifique os campos preenchidos!", err);
+        setError("Atenção! Necessita de selecionar alguns valores.");
+        clearErrorAfterTimeout(5000);
       }
     }
   };
@@ -850,7 +897,8 @@ const Config = () => {
       const response = await axiosClient.get("/category-brands");
       setRelations(response.data);
     } catch (error) {
-      console.error("Error fetching relations", error);
+      setError("Atenção! Erro ao carregar todas as relações.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
@@ -859,11 +907,14 @@ const Config = () => {
     try {
       // Make a DELETE request to your backend API for relation removal
       await axiosClient.delete(`/category-brandsDel/${relationId}`);
+      setSuccessMessage("Relação Categoria/Marca removida com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
 
       // Fetch the updated relations data and update the list
       fetchRelations();
     } catch (err) {
-      console.error("Error removing relation", err);
+      setError("Atenção! Erro ao remover a relação selecionada.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
@@ -1214,7 +1265,10 @@ const Config = () => {
                     </button>
                   </form>
 
-                  {notification && <p>{notification}</p>}
+                  {error && <p style={{ color: "red" }}>{error}</p>}
+                  {successMessage && (
+                    <p style={{ color: "green" }}>{successMessage}</p>
+                  )}
                 </div>
               )}
             {selectedFirstOption === "Categoria/Marca" &&
@@ -1259,7 +1313,10 @@ const Config = () => {
                     </div>
                   </form>
 
-                  {notification && <p>{notification}</p>}
+                  {error && <p style={{ color: "red" }}>{error}</p>}
+                  {successMessage && (
+                    <p style={{ color: "green" }}>{successMessage}</p>
+                  )}
                 </div>
               )}
 
