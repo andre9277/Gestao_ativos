@@ -239,14 +239,14 @@ button:hover {
 .lb-cats {
     display: contents;
     margin: 10px;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 700;
 }
 
 .lb-cats-edit {
     display: contents;
     margin: 10px;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 700;
 }
 
@@ -295,7 +295,7 @@ button:hover {
 }
 
 .checkbox-label {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
 }
 
 .chcb_inpt {
@@ -323,7 +323,7 @@ button:hover {
 .vl-btn {
     background-color: #6c757d;
     padding: 0.5rem 0.75rem;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     border-radius: 4px;
     color: white;
     overflow: hidden;
@@ -336,7 +336,7 @@ button:hover {
 .ini-btn {
     background-color: #e2c639;
     padding: 0.5rem 0.75rem;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     border-radius: 4px;
     color: white;
     overflow: hidden;
@@ -359,7 +359,7 @@ label {
 }
 
 .inpt-configs {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
 }
 
 .sub-title {
