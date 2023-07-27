@@ -45,6 +45,7 @@ class ModeloController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create-delete-users');
         $data = $request->validate([
             'name' => 'required|string',
             'brand_id' => 'required|integer',
@@ -57,8 +58,23 @@ class ModeloController extends Controller
 
     public function destroy(Modelo $mdl)
     {
+        $this->authorize('create-delete-users');
         $mdl->delete();
 
         return response()->json(['message' => 'Modelo eliminado com sucesso!']);
     }
+
+    public function update(Request $request, Modelo $mdl)
+    {
+        $this->authorize('create-delete-users');
+        $request->validate([
+            'name' => 'required|string|max:255' . $mdl->id,
+        ]);
+
+        $mdl->update([
+            'name' => $request->input('name'),
+        ]);
+
+        return response()->json($mdl, 200);
+    } 
 }

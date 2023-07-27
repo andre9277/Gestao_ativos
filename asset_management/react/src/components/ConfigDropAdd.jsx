@@ -33,33 +33,48 @@ Department: Serviço de Sistema de Informação
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-.sidebar-config {
-    background-color: #f0f0f0;
-    padding: 10px;
+import React from "react";
 
-    justify-content: flex-end;
-    float: left;
-}
+const ConfigDropAdd = ({
+  Title,
+  id,
+  setData,
+  setNewData,
+  handleAdd,
+  error,
+  successMessage,
+}) => {
+  return (
+    <div id="container-config">
+      <form className="frm-cats">
+        <label htmlFor={id} className="lb-cats">
+          {Title}
+        </label>
+        <p></p>
+        <label className="sub-title">
+          Introduza o nome da(o) {Title} que deseja adicionar:
+        </label>
+        <div className="addLbBtn">
+          <input
+            type="text"
+            value={setData}
+            onChange={(e) => setNewData(e.target.value)}
+            autoComplete="off"
+            className="inpt-configs"
+          />
+          <button id="btnAdd" onClick={handleAdd}>
+            <i
+              className="fa fa-plus fa-lg"
+              aria-hidden="true"
+              title="Adicionar"
+            ></i>
+          </button>
+        </div>
+      </form>
+      {error && <p className="errorMessag">{error}</p>}
+      {successMessage && <p className="successMessag">{successMessage}</p>}
+    </div>
+  );
+};
 
-.sidebar-config button {
-    display: inline-block; /* Display buttons in a line */
-    padding: 10px;
-    margin-left: 10px; /* Add some spacing between buttons */
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.sidebar-config button:first-child {
-    margin-left: 0; /* Remove margin from the first button */
-}
-
-.sidebar-config button:hover {
-    background-color: #e0e0e0;
-}
-
-.sid-cnf {
-    float: right;
-}
+export default ConfigDropAdd;

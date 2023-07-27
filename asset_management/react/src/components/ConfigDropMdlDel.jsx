@@ -33,33 +33,46 @@ Department: Serviço de Sistema de Informação
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-.sidebar-config {
-    background-color: #f0f0f0;
-    padding: 10px;
+import React from "react";
 
-    justify-content: flex-end;
-    float: left;
-}
+const ConfigDropMdlDel = ({
+  Title,
+  id,
+  datas,
+  tag,
+  handleDel,
+  error,
+  successMessage,
+}) => {
+  return (
+    <div id="container-config">
+      <form className="frm-cats">
+        <label htmlFor={id} className="lb-cats">
+          {Title}
+        </label>
+        <p></p>
+        <label htmlFor={tag} className="lb-cats">
+          Lista de {Title}:
+        </label>
+        <select id={tag} name={tag} multiple className="slc-cat">
+          {datas.map((data) => (
+            <option key={data.name} value={data.id}>
+              {data.name}
+            </option>
+          ))}
+        </select>
+        <button id="btnRemove" onClick={handleDel}>
+          <i
+            className="fa fa-trash fa-lg"
+            aria-hidden="true"
+            title="Apagar"
+          ></i>
+        </button>
+      </form>
+      {error && <p className="errorMessag">{error}</p>}
+      {successMessage && <p className="successMessag">{successMessage}</p>}
+    </div>
+  );
+};
 
-.sidebar-config button {
-    display: inline-block; /* Display buttons in a line */
-    padding: 10px;
-    margin-left: 10px; /* Add some spacing between buttons */
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.sidebar-config button:first-child {
-    margin-left: 0; /* Remove margin from the first button */
-}
-
-.sidebar-config button:hover {
-    background-color: #e0e0e0;
-}
-
-.sid-cnf {
-    float: right;
-}
+export default ConfigDropMdlDel;

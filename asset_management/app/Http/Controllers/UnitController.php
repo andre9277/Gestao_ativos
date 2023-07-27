@@ -44,6 +44,7 @@ class UnitController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create-delete-users');
         $data = $request->validate([
             'name' => 'required|string|max:255|unique:units',
             'ent_id' => 'required|integer',
@@ -58,6 +59,7 @@ class UnitController extends Controller
 
     public function destroy(Unit $unit)
     {
+        $this->authorize('create-delete-users');
         try {
             $unit->delete();
             return response()->json(['message' => 'Unit deleted successfully']);
@@ -65,4 +67,17 @@ class UnitController extends Controller
             return response()->json(['message' => 'Error deleting unit'], 500);
         }
     }
+    public function update(Request $request, Unit $unt)
+    {
+        $this->authorize('create-delete-users');
+        $request->validate([
+            'name' => 'required|string|max:255' . $unt->id,
+        ]);
+
+        $unt->update([
+            'name' => $request->input('name'),
+        ]);
+
+        return response()->json($unt, 200);
+    } 
 }

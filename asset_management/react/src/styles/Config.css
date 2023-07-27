@@ -1,3 +1,87 @@
+/* The MIT License (MIT)
+
+Copyright (c) 2013-2023 Start Bootstrap LLC
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. 
+
+You may obtain a copy of the license at:
+
+      https://github.com/StartBootstrap/startbootstrap-sb-admin-2
+
+
+Project developed under the EstágiAP XXI Program.
+Advisor: Emanuel Gonçalves
+Autor: André Ferreira
+Local: Hospital de Braga, EPE
+Department: Serviço de Sistema de Informação
+
+All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
+*/
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.selected-option {
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.arrow {
+    margin-left: 5px;
+    border: solid #333;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    transition: transform 0.2s;
+}
+
+.arrow.up {
+    transform: rotate(-135deg);
+}
+
+.options {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.options li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.options li:hover {
+    background-color: #e5e5e5;
+}
+
 .configInp {
     padding: 0.1em;
     margin-bottom: 1rem;
@@ -13,7 +97,7 @@
 
 .configlb {
     width: auto;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     padding-right: 2rem;
 }
 
@@ -27,6 +111,7 @@
     color: white;
     overflow: hidden;
     margin-top: 1rem;
+    margin-left: 14rem;
 }
 
 .configSelect {
@@ -35,7 +120,7 @@
     margin-bottom: 1rem;
     background: #fff;
     border: 1px solid #9c9c9c;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     font-weight: normal;
     margin-right: 1rem;
 }
@@ -81,46 +166,45 @@
 #container-config {
     background-color: #fff;
     border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    width: 400px;
+    width: 35%;
     font-size: 1.2rem;
     /* display: table-cell; */
-    margin: 4rem;
+    margin-left: 4rem;
 }
 
 #btnAdd {
     box-sizing: border-box;
-    width: 100%;
-    padding: 1%;
+    padding: 2%;
     background: #00a762;
     border-bottom: 2px solid #00a762;
     border-top-style: none;
     border-right-style: none;
     border-left-style: none;
     color: #fff;
-    font-size: 1.2rem;
-    margin-top: 1rem;
-    bottom: -95px;
+    /* font-size: 1.8rem; */
+    /*  margin-top: 1rem; */
+    /* bottom: -95px; */
     position: relative;
+    border-radius: 4px;
+    margin-left: 1rem;
 }
 
 #btnAddd {
     box-sizing: border-box;
-    width: 100%;
-    padding: 1%;
+    padding: 2%;
     background: #00a762;
     border-bottom: 2px solid #00a762;
-    border-top-style: none;
-    border-right-style: none;
-    border-left-style: none;
     color: #fff;
     font-size: 1.2rem;
     margin-top: 1rem;
+    border-radius: 4px;
+    margin-left: 14rem;
 }
 
 #btnRemove {
     box-sizing: border-box;
-    width: 100%;
+    width: 10%;
+    border-radius: 4px;
     padding: 1%;
     background: #b72424;
     border-bottom: 2px solid #b72424;
@@ -128,9 +212,9 @@
     border-right-style: none;
     border-left-style: none;
     color: #fff;
-    font-size: 1.2rem;
-    margin-top: 7rem;
-    bottom: 0;
+    font-size: 1.6rem;
+    margin-top: 3rem;
+    margin-left: 14rem;
 }
 
 #btnRemove-rel {
@@ -159,7 +243,20 @@ button:hover {
     border: 1px solid #ccc;
     padding: 1%;
     color: #555;
-    font-size: 1em;
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+}
+
+.frm-cats-edit input[type="text"] {
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    margin-bottom: 2%;
+    border: 1px solid #ccc;
+    padding: 1%;
+    color: #555;
+    font-size: 1.6rem;
 }
 
 .frm-cats input[type="text"]:focus {
@@ -170,7 +267,7 @@ button:hover {
 
 .slc-cat {
     width: 100%;
-    font-size: 1em;
+    font-size: 1.6rem;
     padding: 5px;
     border: 1px solid #ccc;
 }
@@ -178,7 +275,14 @@ button:hover {
 .lb-cats {
     display: contents;
     margin: 10px;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.lb-cats-edit {
+    display: contents;
+    margin: 10px;
+    font-size: 1.6rem;
     font-weight: 700;
 }
 
@@ -197,25 +301,24 @@ button:hover {
 #container-config-rel {
     background-color: #fff;
     border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); */
 
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     /* display: table-cell; */
 }
 
 .btn-rel-br {
     float: right;
     margin-right: 11px;
-
+    margin-top: 1rem;
     box-sizing: border-box;
-    padding: 1px;
+    padding: 2%;
     background: #b72424;
     border-bottom: 2px solid #b72424;
-    border-top-style: none;
-    border-right-style: none;
-    border-left-style: none;
+    border-radius: 4px;
+    padding: 1.5%;
     color: #fff;
-    font-size: 1rem;
+    font-size: 1.6rem;
 }
 
 .config-ss {
@@ -224,4 +327,110 @@ button:hover {
 
 .tlt-main-conf {
     margin-top: 1rem;
+}
+
+.checkbox-label {
+    font-size: 1.6rem;
+}
+
+.chcb_inpt {
+    width: 40px;
+    height: 40px;
+    margin: 3rem;
+}
+
+.next-conf {
+    width: 88%;
+    background-color: #00a762;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.6rem;
+    border-radius: 4px;
+    color: white;
+    overflow: hidden;
+    margin-left: 6rem;
+}
+
+.fr-ini {
+    font-size: 1.5rem;
+    margin: 1rem;
+}
+
+.vl-btn {
+    background-color: #6c757d;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.6rem;
+    border-radius: 4px;
+    color: white;
+    overflow: hidden;
+    width: auto;
+    margin-top: 40px;
+    margin-left: 6rem;
+    width: 88%;
+}
+
+.ini-btn {
+    background-color: #e2c639;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.6rem;
+    border-radius: 4px;
+    color: white;
+    overflow: hidden;
+    width: auto;
+    margin-top: 10px;
+    margin-left: 6rem;
+    width: 88%;
+}
+
+.checkbox-dropdown-container {
+    display: block;
+}
+.checkbox-dropdown-containerr {
+    display: grid;
+    /* margin-bottom: 18rem; */
+    margin-left: 35rem;
+}
+
+label {
+    width: 33%;
+}
+
+.addLbBtn {
+    display: flex;
+    align-items: flex-start;
+}
+
+.inpt-configs {
+    font-size: 1.6rem;
+}
+
+.sub-title {
+    width: auto;
+    font-size: 1.3rem;
+}
+
+.lbs-cats-brs {
+    display: flex;
+    width: 1000px;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    align-content: stretch;
+    justify-content: space-between;
+}
+
+.check-cats-br {
+    float: left;
+    display: inline;
+    margin-top: 1rem;
+}
+
+.errorMessag {
+    color: red;
+    margin-left: 2rem;
+    font-size: 1.6rem;
+}
+
+.successMessag {
+    color: green;
+    margin-left: 2rem;
+    font-size: 1.6rem;
 }

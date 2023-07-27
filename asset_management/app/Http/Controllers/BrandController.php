@@ -61,4 +61,19 @@ class BrandController extends Controller
 
         return response()->json(['message' => 'Marca eliminada com sucesso!']);
     }
+
+
+    //Update brand
+    public function update(Request $request, Brand $brand)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name,' . $brand->id,
+        ]);
+
+        $brand->update([
+            'name' => $request->input('name'),
+        ]);
+
+        return response()->json($brand, 200);
+    }
 }

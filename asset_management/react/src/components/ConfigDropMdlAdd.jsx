@@ -35,34 +35,61 @@ All the changes made to enable the implementation of the desired development too
 */
 import React from "react";
 
-const ConfigDropdown = ({
+const ConfigDropMdlAdd = ({
   Title,
   id,
+  setData,
+  setNewData,
+  handleAdd,
+  brands, // Array of brands
+  selectedBrand, // Currently selected brand
+  handleBrandChange, // Function to handle brand selection
+  maintb,
   error,
   successMessage,
-  datas,
-  tag,
-  handleDel,
 }) => {
   return (
     <div id="container-config">
       <form className="frm-cats">
-        <label htmlFor={tag} className="lb-cats">
-          Lista de {Title}:
+        <label htmlFor={id} className="lb-cats">
+          {Title}
         </label>
-        <select id={tag} name={tag} multiple className="slc-cat">
-          {datas.map((data) => (
-            <option key={data.name} value={data.id}>
-              {data.name}
+        <p></p>
+        <label className="sub-title">
+          {" "}
+          Introduza o nome da(o) {Title} que deseja adicionar:
+        </label>
+        <input
+          type="text"
+          value={setData}
+          onChange={(e) => setNewData(e.target.value)}
+          autoComplete="off"
+        />
+        {/* Brand selection dropdown */}
+        <label htmlFor="brandSelect" className="lb-cats">
+          Selecione {maintb}:
+        </label>
+
+        <select
+          id="brandSelect"
+          name="brandSelect"
+          value={selectedBrand}
+          onChange={handleBrandChange}
+          className="configSelect"
+        >
+          <option value=""></option>
+          {brands.map((brand) => (
+            <option key={brand.id} value={brand.id}>
+              {brand.name}
             </option>
           ))}
         </select>
 
-        <button id="btnRemove" onClick={handleDel}>
+        <button id="btnAddd" onClick={handleAdd}>
           <i
-            className="fa fa-trash fa-lg"
+            className="fa fa-plus fa-lg"
             aria-hidden="true"
-            title="Apagar"
+            title="Adicionar"
           ></i>
         </button>
       </form>
@@ -72,4 +99,4 @@ const ConfigDropdown = ({
   );
 };
 
-export default ConfigDropdown;
+export default ConfigDropMdlAdd;

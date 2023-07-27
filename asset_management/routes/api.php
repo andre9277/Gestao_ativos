@@ -123,15 +123,18 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/brands/category/{categoryId}', [BrandController::class, 'getBrandsByCategory']);
 
-    //Adds values to the brands table
+    //Adds/delete/edit values to the brands table
     Route::post('/brandsAdd', [BrandController::class, 'store']);
     Route::delete('/brandsDel/{brd}', [BrandController::class, 'destroy']);
+    Route::put('/brandUpdate/{brand}',  [BrandController::class, 'update']);
+
 
     Route::post('/categoryBrands', [CategoryBrandController::class, 'store']);
 
     //Add and delete one model:
     Route::post('/modelsAdd', [ModeloController::class, 'store']);
     Route::delete('/modelsDel/{mdl}',  [ModeloController::class, 'destroy']);
+    Route::put('/mdlUpdate/{mdl}',  [ModeloController::class, 'update']);
 
     //Add and delete one category:
     Route::post('/categoriesAdd', [CategoryController::class, 'store']);
@@ -142,14 +145,17 @@ Route::middleware('auth:sanctum')->group(function () {
     //Add and delete one supplier:
     Route::post('/supplierAdd', [SupplierController::class, 'store']);
     Route::delete('/supplierDel/{supplier}',  [SupplierController::class, 'destroy']);
+    Route::put('/supUpdate/{sup}', [SupplierController::class, 'update']);
 
     //Add and delete one entity:
     Route::post('/entAdd', [EntityController::class, 'store']);
     Route::delete('/entDel/{ent}',  [EntityController::class, 'destroy']);
+    Route::put('/entsUpdate/{ent}', [EntityController::class, 'update']);
 
     //Add and delete one unit:
     Route::post('/unitAdd', [UnitController::class, 'store']);
     Route::delete('/unitDel/{unit}',  [UnitController::class, 'destroy']);
+    Route::put('/unitUpdate/{unt}', [UnitController::class, 'update']);
 
 
     //Endpoint for the AssetForm component (Joins all the calls, does one request do the server)

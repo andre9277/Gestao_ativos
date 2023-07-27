@@ -34,6 +34,7 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create-delete-users');
         $data = $request->validate([
             'name' => 'required|string|unique:categories,name',
         ]);
@@ -43,15 +44,20 @@ class CategoryController extends Controller
         return response()->json($category, 201);
     }
 
+    //Delete Category
     public function destroy(Category $cat)
     {
+        $this->authorize('create-delete-users');
         $cat->delete();
 
         return response()->json(['message' => 'Category deleted successfully']);
     }
 
+    //Update Category
     public function update(Request $request, Category $category)
     {
+        $this->authorize('create-delete-users');
+
         $request->validate([
             'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
         ]);

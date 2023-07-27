@@ -34,6 +34,7 @@ class EntityController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create-delete-users');
         $request->validate([
             'name' => 'required|string|max:255|unique:suppliers',
         ]);
@@ -47,10 +48,26 @@ class EntityController extends Controller
 
     public function destroy(Entity $ent)
     {
+        $this->authorize('create-delete-users');
         // Implement logic to delete the supplier
         // Don't forget to handle any related dependencies, if any
         $ent->delete();
 
         return response()->json(null, 204);
+    }
+
+    //Update entity
+    public function update(Request $request, Entity $ent)
+    {
+        $this->authorize('create-delete-users');
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name,' . $ent->id,
+        ]);
+
+        $ent->update([
+            'name' => $request->input('name'),
+        ]);
+
+        return response()->json($ent, 200);
     }
 }
