@@ -34,6 +34,7 @@ class SupplierController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create-delete-users');
         $request->validate([
             'name' => 'required|string|max:255|unique:suppliers',
         ]);
@@ -47,6 +48,7 @@ class SupplierController extends Controller
 
     public function destroy(Supplier $supplier)
     {
+        $this->authorize('create-delete-users');
         // Implement logic to delete the supplier
         // Don't forget to handle any related dependencies, if any
         $supplier->delete();
@@ -56,6 +58,7 @@ class SupplierController extends Controller
 
     public function update(Request $request, Supplier $sup)
     {
+        $this->authorize('create-delete-users');
         $request->validate([
             'name' => 'required|string|max:255' . $sup->id,
         ]);
