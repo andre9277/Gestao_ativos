@@ -55,7 +55,6 @@ class StoreUserRequest extends FormRequest
 
             'role_id' => 'required',
             'pin' => [
-                'numeric',
                 'size:6',
                 'nullable',
             ],

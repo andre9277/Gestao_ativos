@@ -60,7 +60,6 @@ class User extends Authenticatable
     //Relationship between Role and User tables. Each user has a role and multiple roles can have multiple users
     public function roles()
     {
-
         return $this->belongsTo(Role::class, 'role_id');
     }
 
