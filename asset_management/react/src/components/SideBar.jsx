@@ -178,7 +178,7 @@ const SideBar = () => {
 
         <MenuItem
           titulo={"Configurações"}
-          icon={"fa-circle"}
+          icon={"fa-cog"}
           origem={"config"}
           handleOptionClick={handleOptionClick}
           activeOption={activeOption}
