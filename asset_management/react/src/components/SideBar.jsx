@@ -184,14 +184,6 @@ const SideBar = () => {
           activeOption={activeOption}
         />
 
-        {/*   <div className="text-center d-none d-md-inline">
-          <button
-            className="border-0"
-            id="sidebarToggle"
-            onClick={changeStyle}
-          ></button>
-        </div> */}
-
         <li className="nav-item dropdown no-arrow d-sm-none">
           <a
             className="nav-link dropdown-toggle"

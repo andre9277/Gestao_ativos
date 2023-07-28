@@ -33,7 +33,8 @@ Department: Serviço de Sistema de Informação
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import React from "react";
+import React, { useState } from "react";
+import { Modal, Button } from "react-bootstrap";
 
 const ConfigDropAdd = ({
   Title,
@@ -44,6 +45,17 @@ const ConfigDropAdd = ({
   error,
   successMessage,
 }) => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true);
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault(); // Prevent form submission and page refresh
+    handleAdd(); // Trigger the handleAdd function to save the data
+    handleCloseModal(); // Close the modal after saving data
+  };
+
   return (
     <div id="container-config">
       <form className="frm-cats">
@@ -62,7 +74,8 @@ const ConfigDropAdd = ({
             autoComplete="off"
             className="inpt-configs"
           />
-          <button id="btnAdd" onClick={handleAdd}>
+          <button id="btnAdd" type="button" onClick={handleShowModal}>
+            {/* Open the modal when the user clicks this button */}
             <i
               className="fa fa-plus fa-lg"
               aria-hidden="true"
@@ -70,9 +83,28 @@ const ConfigDropAdd = ({
             ></i>
           </button>
         </div>
+        {error && <p className="errorMessag">{error}</p>}
+        {successMessage && <p className="successMessag">{successMessage}</p>}
       </form>
-      {error && <p className="errorMessag">{error}</p>}
-      {successMessage && <p className="successMessag">{successMessage}</p>}
+      {/* The Modal */}
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>{Title} Modal</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {/* Add content inside the modal here */}
+          {/* For example, you can display some information related to the Title */}
+          <p>Modal Content for {Title}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={(e) => handleFormSubmit(e)}>
+            Save changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

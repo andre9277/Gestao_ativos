@@ -391,7 +391,7 @@ button:hover {
 }
 
 label {
-    width: 33%;
+    width: 33% !important;
 }
 
 .addLbBtn {

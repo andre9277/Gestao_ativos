@@ -34,7 +34,6 @@ Department: Serviço de Sistema de Informação
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React, { useState, useEffect } from "react";
-import "../styles/Config.css";
 import ConfigDropdown from "./ConfigDropdown";
 import "../styles/Config.css"; // Create a CSS file to style the dropdown
 import axiosClient from "../axios-client";
@@ -817,7 +816,6 @@ const Config = () => {
       );
 
       // Fetch the updated units list after deletion
-
       axiosClient.get("/units").then((response) => {
         setUnits(response.data);
       });
@@ -1234,7 +1232,7 @@ const Config = () => {
               />
             )}
 
-          {/** ----Unidade------ */}
+          {/** ----Unit------ */}
 
           {selectedFirstOption === "Unidade" &&
             selectedNextOption === "Adicionar" && (
@@ -1279,7 +1277,7 @@ const Config = () => {
                 successMessage={successMessage}
               />
             )}
-          {/* ------------Categoria/Marca------------------ */}
+          {/* ------------Category/Brand------------------ */}
           <div>
             {selectedFirstOption === "Categoria/Marca" &&
               selectedNextOption === "Adicionar" && (
