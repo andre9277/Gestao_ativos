@@ -12933,6 +12933,7 @@ select {
     font-weight: 700;
     font-size: 1.2rem;
     margin-right: 40px;
+    width: 100%;
 }
 @media (max-width: 768px) {
     .lb-info {
