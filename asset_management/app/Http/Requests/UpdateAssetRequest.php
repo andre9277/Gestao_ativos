@@ -24,7 +24,7 @@ class UpdateAssetRequest extends FormRequest
     public function rules()
     {
         return [
-            'numb_ser' => 'nullable',
+            'numb_ser' => ['nullable', 'min:7', 'max:25'],
             'cond' => 'required',
             'state' => 'required',
             'cat_id' => 'required',
@@ -48,6 +48,7 @@ class UpdateAssetRequest extends FormRequest
             'numb_inv.regex' => 'Atenção! O número de inventário deve ter 0 como primeiro algarismo.',
             'numb_inv.unique' => 'Atenção! O número de inventário já foi adicionado.',
             'numb_ser.max' => 'Atenção! O número de série não pode ter mais de 25 caracteres.',
+            'numb_ser.min' => 'Atenção! O número de série tem de ter mais de 6 carateres.',
             'ci' => 'Atenção! É necessário indicar o ci.',
             'ci.max' => 'Atenção! CI inválido.',
             'ent_id' => 'Atenção! É necessário indicar a entidade.',

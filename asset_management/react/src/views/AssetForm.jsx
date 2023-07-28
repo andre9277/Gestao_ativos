@@ -38,6 +38,7 @@ import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { Modal, Button } from "react-bootstrap";
+import "../styles/Assets.css";
 
 export default function AssetForm() {
   const [errors, setErrors] = useState(null);
@@ -405,8 +406,13 @@ export default function AssetForm() {
                 onChange={(ev) =>
                   setAsset({ ...asset, numb_ser: ev.target.value })
                 }
-                className="infoInp"
+                className={`infoInp ${
+                  errors && errors.numb_ser ? "error-input" : ""
+                }`}
               />
+              {errors && errors.numb_ser && (
+                <div className="error">{errors.numb_ser[0]}</div>
+              )}
             </label>
 
             {/* ---------- Category ----------*/}
