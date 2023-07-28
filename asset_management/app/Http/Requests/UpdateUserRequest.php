@@ -56,12 +56,11 @@ class UpdateUserRequest extends FormRequest
             ],
             'role_id' => 'required',
             'pin' => [
-                'numeric',
+            
                 'size:6',
                 'nullable',
             ],
             'password' => [
-                'confirmed',
                 Password::min(8)
                     ->letters()
                     ->symbols(),
