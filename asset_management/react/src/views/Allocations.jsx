@@ -35,8 +35,6 @@ All the changes made to enable the implementation of the desired development too
 */
 import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
 import Papa from "papaparse"; //library to export in .csv
 import Filter from "../components/Filter.jsx";
 
