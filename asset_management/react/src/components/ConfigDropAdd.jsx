@@ -89,19 +89,19 @@ const ConfigDropAdd = ({
       {/* The Modal */}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>{Title} Modal</Modal.Title>
+          <Modal.Title> Confirmação</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {/* Add content inside the modal here */}
           {/* For example, you can display some information related to the Title */}
-          <p>Modal Content for {Title}</p>
+          <p> Tem a certeza que pretende adicionar a {Title} ?</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
           <Button variant="primary" onClick={(e) => handleFormSubmit(e)}>
-            Save changes
+            Confirmar
+          </Button>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Cancelar
           </Button>
         </Modal.Footer>
       </Modal>

@@ -170,8 +170,7 @@ const Config = () => {
 
   //--------------Category---------------------------------
   //---------------Add new category------------------
-  const handleAddCategory = async (event) => {
-    event.preventDefault();
+  const handleAddCategory = async () => {
     setError(null); // Clear any previous errors
     if (newCategory.trim() === "") {
       setError("Atenção! Introduza uma categoria.");

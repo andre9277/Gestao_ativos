@@ -38,7 +38,6 @@ import { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { Modal, Button } from "react-bootstrap";
-import "../styles/Assets.css";
 
 export default function AssetForm() {
   const [errors, setErrors] = useState(null);

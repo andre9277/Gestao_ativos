@@ -38,7 +38,6 @@ import axiosClient from "../axios-client";
 import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { Modal, Button } from "react-bootstrap";
-import "../styles/Assets.css";
 
 const AddAssetMovementForm = () => {
   const [errors, setErrors] = useState(null);
