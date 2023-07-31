@@ -302,23 +302,30 @@ button:hover {
     background-color: #fff;
     border-radius: 5px;
     /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); */
-
+    margin-left: 50%;
+    font-size: 1.6rem;
+    /* display: table-cell; */
+}
+#container-config-rel-edit {
+    background-color: #fff;
+    border-radius: 5px;
+    /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); */
+    margin-left: 25%;
     font-size: 1.6rem;
     /* display: table-cell; */
 }
 
 .btn-rel-br {
-    float: right;
     margin-right: 11px;
     margin-top: 1rem;
     box-sizing: border-box;
-    padding: 2%;
+    padding: 0.5rem 0.75rem;
     background: #b72424;
     border-bottom: 2px solid #b72424;
     border-radius: 4px;
-    padding: 1.5%;
     color: #fff;
     font-size: 1.6rem;
+    margin-left: 192%;
 }
 
 .config-ss {
@@ -445,7 +452,7 @@ button:hover {
     font-size: 20px;
     padding: 0.5rem 0.75rem;
     border-radius: 4px;
-    margin-left: 20%;
+    margin-right: 38%;
 }
 
 .mdl-cats-brds {
@@ -457,4 +464,19 @@ button:hover {
 .slc-cats-brds {
     float: right;
     margin-left: 10%;
+}
+
+.rel-cat {
+    width: 100%;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.tlt-cats-del {
+    display: flex;
+    align-items: center;
+}
+.tlt-cats-edit {
+    display: flex;
+    align-items: center;
 }

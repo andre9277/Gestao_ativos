@@ -1440,7 +1440,24 @@ const Config = () => {
             */}
             {selectedFirstOption === "Categoria/Marca" &&
               selectedNextOption === "Editar" && (
-                <div>
+                <div id="container-config-rel-edit">
+                  <div className="tlt-cats-edit">
+                    {/* Edit button */}
+                    <p className="rel-cat">Categoria - Marca</p>
+                    <button
+                      onClick={handleEditRelation}
+                      disabled={!selectedRelationId}
+                      className="edit-btn-rel"
+                    >
+                      <i
+                        className="fa fa-pencil-alt fa-lg"
+                        aria-hidden="true"
+                        title="Editar"
+                      ></i>
+                    </button>
+                  </div>
+                  <p></p>
+
                   {/* List of relations */}
                   <ul className="relations-list">
                     {relations.map((relation) => (
@@ -1467,19 +1484,6 @@ const Config = () => {
                       </li>
                     ))}
                   </ul>
-
-                  {/* Edit button */}
-                  <button
-                    onClick={handleEditRelation}
-                    disabled={!selectedRelationId}
-                    className="edit-btn-rel"
-                  >
-                    <i
-                      className="fa fa-pencil-alt fa-lg"
-                      aria-hidden="true"
-                      title="Editar"
-                    ></i>
-                  </button>
 
                   {/* Modal for editing the selected relation */}
                   {editedRelation && (
@@ -1553,9 +1557,26 @@ const Config = () => {
               selectedNextOption === "Apagar" && (
                 <div id="container-config">
                   <form>
+                    <p></p>
                     {/* List of relations */}
                     <div id="container-config-rel">
-                      <h4>Relações Categoria - Marca</h4>
+                      <div className="tlt-cats-del">
+                        <p className="rel-cat">Categoria</p>
+                        <p className="rel-cat">-</p>
+                        <p className="rel-cat">Marca</p>
+                        <button
+                          type="button"
+                          onClick={handleShowModal}
+                          className="btn-rel-br"
+                        >
+                          <i
+                            className="fa fa-trash fa-lg"
+                            aria-hidden="true"
+                            title="Apagar"
+                          ></i>
+                        </button>
+                      </div>
+                      <p></p>
                       <ul className="relations-list">
                         {relations.map((relation) => (
                           <li key={relation.id}>
@@ -1584,17 +1605,6 @@ const Config = () => {
                         ))}
                       </ul>
                     </div>
-                    <button
-                      type="button"
-                      onClick={handleShowModal}
-                      className="btn-rel-br"
-                    >
-                      <i
-                        className="fa fa-trash fa-lg"
-                        aria-hidden="true"
-                        title="Apagar"
-                      ></i>
-                    </button>
                   </form>
                   {error && <p className="errorMessag">{error}</p>}
                   {successMessage && (
