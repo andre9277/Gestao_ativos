@@ -43,4 +43,18 @@ class CategoryBrandController extends Controller
             return response()->json(['error' => 'Failed to delete category and brand relation'], 500);
         }
     }
+
+     //Update Function
+     public function update(Request $request, $id)
+     {
+         $data = $request->validate([
+             'category_id' => 'required|integer',
+             'brand_id' => 'required|integer',
+         ]);
+ 
+         $categoryBrand = CategoryBrand::findOrFail($id);
+         $categoryBrand->update($data);
+ 
+         return response()->json($categoryBrand, 200);
+     }
 }

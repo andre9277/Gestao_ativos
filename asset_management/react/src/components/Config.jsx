@@ -127,6 +127,34 @@ const Config = () => {
 
   const [selectedRelations, setSelectedRelations] = useState([]);
 
+  //Keep track of edited relation of Brand/Categ
+  const [selectedRelationForEdit, setSelectedRelationForEdit] = useState(null);
+
+  const [editedRelation, setEditedRelation] = useState(null);
+
+  const handleEditRelation = (relation) => {
+    setEditedRelation(relation);
+    handleShowModal(); // Show the modal for editing the relation
+  };
+
+  const handleUpdateRelation = async (e) => {
+    e.preventDefault();
+    try {
+      // Make an API call to update the relation on the server
+      await axiosClient.put(`/catgBrd/${editedRelation.id}`, editedRelation);
+      setSuccessMessage("Relação Categoria/Marca atualizada com sucesso!");
+      clearSuccessMessageAfterTimeout(5000);
+
+      // Fetch the updated relations data and update the list
+      fetchRelations();
+    } catch (err) {
+      setError("Atenção! Erro ao atualizar a relação.");
+      clearErrorAfterTimeout(5000);
+    }
+    handleCloseModal();
+  };
+
+  //-------------------------------------------------
   const handleOptionToggle = (option) => {
     if (selectedOption === option) {
       setSelectedOption("");
@@ -1278,6 +1306,7 @@ const Config = () => {
               />
             )}
           {/* ------------Category/Brand------------------ */}
+          {/*-------------Adicionar Categoria/Marca-------------*/}
           <div>
             {selectedFirstOption === "Categoria/Marca" &&
               selectedNextOption === "Adicionar" && (
@@ -1364,13 +1393,157 @@ const Config = () => {
                   </Modal>
                 </div>
               )}
+            {/*-------------Editar Categoria/Marca-------------*/}
             {selectedFirstOption === "Categoria/Marca" &&
               selectedNextOption === "Editar" && (
-                <h4>
-                  Atenção! De momento não é possível editar uma relação
-                  Categoria/Marca
-                </h4>
+                <div id="container-config">
+                  <form>
+                    {/* List of relations */}
+                    <div id="container-config-rel">
+                      <h4>Relações Categoria - Marca</h4>
+                      <ul className="relations-list">
+                        {relations.map((relation) => (
+                          <li key={relation.id}>
+                            <label className="lbs-cats-brs">
+                              <input
+                                type="checkbox"
+                                checked={selectedRelations.includes(
+                                  relation.id
+                                )}
+                                onChange={(e) =>
+                                  handleCheckboxChange(e, relation.id)
+                                }
+                                className="check-cats-br"
+                              />
+                              {`${
+                                cats.find(
+                                  (cat) => cat.id === relation.category_id
+                                )?.name || "Categoria desconhecida"
+                              } - ${
+                                brands.find(
+                                  (brand) => brand.id === relation.brand_id
+                                )?.name || "Marca desconhecida"
+                              }`}
+                            </label>
+                            <button
+                              onClick={() => handleEditRelation(relation)}
+                            >
+                              Editar
+                            </button>{" "}
+                            {/* Edit button */}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleShowModal}
+                      className="btn-rel-br"
+                    >
+                      <i
+                        className="fa fa-trash fa-lg"
+                        aria-hidden="true"
+                        title="Apagar"
+                      ></i>
+                    </button>
+                  </form>
+                  {error && <p className="errorMessag">{error}</p>}
+                  {successMessage && (
+                    <p className="successMessag">{successMessage}</p>
+                  )}
+
+                  {/* Step 4: Display a modal or form for editing the selected relation */}
+                  <Modal show={showModal} onHide={handleCloseModal}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>
+                        {selectedRelationForEdit
+                          ? "Editar Relação"
+                          : "Confirmação"}
+                      </Modal.Title>
+                    </Modal.Header>
+                    {selectedRelationForEdit ? (
+                      // Render the form or modal content for editing the relation
+                      <Modal.Body>
+                        <form onSubmit={handleUpdateRelation}>
+                          {/* Your form fields for editing relation details */}
+                          {/* For example, you can have dropdowns for category and brand selection */}
+                          {/* Make sure to update the state with the edited details */}
+                          {/* For instance, if you have dropdowns for selecting categories and brands: */}
+                          <label>
+                            Categoria:
+                            <select
+                              value={editedRelation.category_id}
+                              onChange={(e) =>
+                                setEditedRelation({
+                                  ...editedRelation,
+                                  category_id: e.target.value,
+                                })
+                              }
+                            >
+                              {cats.map((cat) => (
+                                <option key={cat.id} value={cat.id}>
+                                  {cat.name}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                          <label>
+                            Marca:
+                            <select
+                              value={editedRelation.brand_id}
+                              onChange={(e) =>
+                                setEditedRelation({
+                                  ...editedRelation,
+                                  brand_id: e.target.value,
+                                })
+                              }
+                            >
+                              {brands.map((brand) => (
+                                <option key={brand.id} value={brand.id}>
+                                  {brand.name}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                          <button type="submit">Atualizar</button>{" "}
+                          {/* Update button */}
+                        </form>
+                      </Modal.Body>
+                    ) : (
+                      // Render the delete confirmation modal content
+                      <Modal.Body>
+                        <p>
+                          Tem a certeza que pretende eliminar Categoria/Marca?
+                        </p>
+                      </Modal.Body>
+                    )}
+                    <Modal.Footer>
+                      {selectedRelationForEdit ? (
+                        // If editing, show the "Update" button
+                        <Button
+                          variant="primary"
+                          onClick={handleUpdateRelation}
+                        >
+                          Atualizar
+                        </Button>
+                      ) : (
+                        // If not editing, show the "Confirm" button
+                        <Button
+                          variant="primary"
+                          onClick={(e) => handleRemoveSelectedRelations(e)}
+                        >
+                          Confirmar
+                        </Button>
+                      )}
+                      <Button variant="secondary" onClick={handleCloseModal}>
+                        Cancelar
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+                </div>
               )}
+
+            {/*-------------Delete Categoria/Marca-------------*/}
             {selectedFirstOption === "Categoria/Marca" &&
               selectedNextOption === "Apagar" && (
                 <div id="container-config">

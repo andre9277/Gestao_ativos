@@ -219,7 +219,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //show the category and brands relationship
     Route::get('/category-brands', [CategoryBrandController::class, 'index']);
     Route::delete('/category-brandsDel/{id}', [CategoryBrandController::class, 'destroy']);
-
+    Route::put('/catgBrd/{id}', [CategoryBrandController::class, 'update' ]);
 
     function getCatsAll()
     {
