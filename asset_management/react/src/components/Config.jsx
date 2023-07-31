@@ -41,6 +41,7 @@ import ConfigDropAdd from "./ConfigDropAdd";
 import ConfigDropEdit from "./ConfigDropEdit";
 import ConfigDropMdlAdd from "./ConfigDropMdlAdd";
 import ConfigDropMdlDel from "./ConfigDropMdlDel";
+import { Modal, Button } from "react-bootstrap";
 
 const options = [
   "Categoria",
@@ -77,6 +78,14 @@ const Config = () => {
   //Error and success message to display validation messages
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+
+  //-----------------------------------------------------
+  //For the Category/Brand Modal
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true);
+  //-----------------------------------------------------
 
   //Gets all data from the entity,unit, brands and categories (also for unit and model)
   useEffect(() => {
@@ -637,8 +646,7 @@ const Config = () => {
   //----------------------Models-------------------
   //--------------------------Add Model-------------------------
   // Function to add a new model with the selected brand
-  const handleAddModel = async (event) => {
-    event.preventDefault();
+  const handleAddModel = async () => {
     setError(null);
     if (newModel.trim() === "") {
       setError("Atenção! Introduza um modelo.");
@@ -678,8 +686,7 @@ const Config = () => {
     }
   };
   //--------------------------Delete Model-------------------------
-  const handleRemoveModel = async (event) => {
-    event.preventDefault();
+  const handleRemoveModel = async () => {
     const selectElement = document.getElementById("model");
     const selectedOptions = Array.from(selectElement.selectedOptions);
     const modelToRemove = selectedOptions.map((option) => option.value);
@@ -914,6 +921,7 @@ const Config = () => {
         clearErrorAfterTimeout(5000);
       }
     }
+    handleCloseModal();
   };
 
   // Fetch the relations between category and brand from the backend API
@@ -928,7 +936,8 @@ const Config = () => {
   };
 
   // Function to handle the removal of a relation
-  const handleRemoveRelation = async (relationId) => {
+  const handleRemoveRelation = async (relationId, event) => {
+    event.preventDefault();
     try {
       // Make a DELETE request to your backend API for relation removal
       await axiosClient.delete(`/category-brandsDel/${relationId}`);
@@ -941,6 +950,7 @@ const Config = () => {
       setError("Atenção! Erro ao remover a relação selecionada.");
       clearErrorAfterTimeout(5000);
     }
+    handleCloseModal();
   };
 
   const handleRemoveSelectedRelations = async () => {
@@ -952,7 +962,7 @@ const Config = () => {
       }
       // Iterate over selected relation IDs and remove them one by one
       for (const relationId of selectedRelations) {
-        await handleRemoveRelation(relationId);
+        await handleRemoveRelation(relationId, event);
       }
       // Fetch the updated relations data after removing the selected relations
       fetchRelations();
@@ -1280,7 +1290,7 @@ const Config = () => {
             {selectedFirstOption === "Categoria/Marca" &&
               selectedNextOption === "Adicionar" && (
                 <div id="container-config">
-                  <form onSubmit={handleSubmit}>
+                  <form>
                     <h4 className="titleconfig">
                       Adicionar relação Categoria/Marca:
                     </h4>
@@ -1319,7 +1329,11 @@ const Config = () => {
                       ))}
                     </select>
 
-                    <button type="submit" className="addConfig">
+                    <button
+                      type="button"
+                      className="addConfig"
+                      onClick={handleShowModal}
+                    >
                       <i
                         className="fa fa-plus fa-lg"
                         aria-hidden="true"
@@ -1332,6 +1346,30 @@ const Config = () => {
                   {successMessage && (
                     <p className="successMessag">{successMessage}</p>
                   )}
+                  <Modal show={showModal} onHide={handleCloseModal}>
+                    <Modal.Header closeButton>
+                      <Modal.Title> Confirmação</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      {/* Add content inside the modal here */}
+                      {/* For example, you can display some information related to the Title */}
+                      <p>
+                        {" "}
+                        Tem a certeza que pretende adicionar Categoria/Marca?
+                      </p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button
+                        variant="primary"
+                        onClick={(e) => handleSubmit(e)}
+                      >
+                        Confirmar
+                      </Button>
+                      <Button variant="secondary" onClick={handleCloseModal}>
+                        Cancelar
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
                 </div>
               )}
             {selectedFirstOption === "Categoria/Marca" &&
@@ -1344,7 +1382,7 @@ const Config = () => {
             {selectedFirstOption === "Categoria/Marca" &&
               selectedNextOption === "Apagar" && (
                 <div id="container-config">
-                  <form onSubmit={handleSubmit}>
+                  <form>
                     {/* List of relations */}
                     <div id="container-config-rel">
                       <h4>Relações Categoria - Marca</h4>
@@ -1378,7 +1416,7 @@ const Config = () => {
                     </div>
                     <button
                       type="button"
-                      onClick={handleRemoveSelectedRelations}
+                      onClick={handleShowModal}
                       className="btn-rel-br"
                     >
                       <i
@@ -1392,6 +1430,31 @@ const Config = () => {
                   {successMessage && (
                     <p className="successMessag">{successMessage}</p>
                   )}
+
+                  <Modal show={showModal} onHide={handleCloseModal}>
+                    <Modal.Header closeButton>
+                      <Modal.Title> Confirmação</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      {/* Add content inside the modal here */}
+                      {/* For example, you can display some information related to the Title */}
+                      <p>
+                        {" "}
+                        Tem a certeza que pretende eliminar Categoria/Marca?
+                      </p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button
+                        variant="primary"
+                        onClick={(e) => handleRemoveSelectedRelations(e)}
+                      >
+                        Confirmar
+                      </Button>
+                      <Button variant="secondary" onClick={handleCloseModal}>
+                        Cancelar
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
                 </div>
               )}
 

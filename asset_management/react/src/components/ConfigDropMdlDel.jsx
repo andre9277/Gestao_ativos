@@ -33,7 +33,8 @@ Department: Serviço de Sistema de Informação
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import React from "react";
+import React, { useState } from "react";
+import { Modal, Button } from "react-bootstrap";
 
 const ConfigDropMdlDel = ({
   Title,
@@ -44,6 +45,17 @@ const ConfigDropMdlDel = ({
   error,
   successMessage,
 }) => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleDel(); // Call the handleDataUpdate function on form submission
+    handleCloseModal();
+  };
+
   return (
     <div id="container-config">
       <form className="frm-cats">
@@ -61,7 +73,7 @@ const ConfigDropMdlDel = ({
             </option>
           ))}
         </select>
-        <button id="btnRemove" onClick={handleDel}>
+        <button id="btnRemove" type="button" onClick={handleShowModal}>
           <i
             className="fa fa-trash fa-lg"
             aria-hidden="true"
@@ -71,6 +83,26 @@ const ConfigDropMdlDel = ({
       </form>
       {error && <p className="errorMessag">{error}</p>}
       {successMessage && <p className="successMessag">{successMessage}</p>}
+
+      {/* The Modal */}
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title> Confirmação</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {/* Add content inside the modal here */}
+          {/* For example, you can display some information related to the Title */}
+          <p> Tem a certeza que pretende eliminar o {Title}?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={(e) => handleSubmit(e)}>
+            Confirmar
+          </Button>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Cancelar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
