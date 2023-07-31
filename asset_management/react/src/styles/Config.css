@@ -331,6 +331,7 @@ button:hover {
 
 .checkbox-label {
     font-size: 1.6rem;
+    width: 33%;
 }
 
 .chcb_inpt {
@@ -390,9 +391,9 @@ button:hover {
     margin-left: 35rem;
 }
 
-label {
+/* label {
     width: 33% !important;
-}
+} */
 
 .addLbBtn {
     display: flex;
