@@ -135,12 +135,6 @@ const Config = () => {
   const [editedRelation, setEditedRelation] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
 
-  const handleOpenEditModal = (relation) => {
-    setSelectedRelationForEdit(relation);
-    setEditedRelation({ ...relation });
-    setShowEditModal(true);
-  };
-
   const handleEditRelation = () => {
     const selectedRelation = relations.find(
       (relation) => relation.id === selectedRelationId
@@ -1456,8 +1450,8 @@ const Config = () => {
                       ></i>
                     </button>
                   </div>
-                  <p></p>
 
+                  <p className="sidebar-divider"> </p>
                   {/* List of relations */}
                   <ul className="relations-list">
                     {relations.map((relation) => (
