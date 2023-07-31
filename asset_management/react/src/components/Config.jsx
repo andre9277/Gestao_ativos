@@ -203,8 +203,7 @@ const Config = () => {
   };
 
   //---------------Remove a category------------------
-  const handleRemoveCategory = async (event) => {
-    event.preventDefault();
+  const handleRemoveCategory = async () => {
     setError(null); // Clear any previous errors
     const selectedOptions = document.getElementById("list").selectedOptions;
     const categoryToRemove = [...selectedOptions].map((option) => option.value);
