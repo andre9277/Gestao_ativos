@@ -1415,8 +1415,6 @@ const Config = () => {
                       <Modal.Title> Confirmação</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                      {/* Add content inside the modal here */}
-                      {/* For example, you can display some information related to the Title */}
                       <p>
                         {" "}
                         Tem a certeza que pretende adicionar Categoria/Marca?
@@ -1491,8 +1489,6 @@ const Config = () => {
                       </Modal.Header>
                       <Modal.Body>
                         <form>
-                          {/* Your form fields for editing the selected relation */}
-                          {/* For example, you can have dropdowns for category and brand selection */}
                           <label className="mdl-cats-brds">
                             Categoria:
                             <select
@@ -1547,8 +1543,6 @@ const Config = () => {
                       </Modal.Footer>
                     </Modal>
                   )}
-
-                  {/* ... Rest of your code ... */}
                 </div>
               )}
 
@@ -1612,7 +1606,6 @@ const Config = () => {
                       <Modal.Title> Confirmação</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                      {/* Add content inside the modal here */}
                       <p>
                         {" "}
                         Tem a certeza que pretende eliminar Categoria/Marca?
