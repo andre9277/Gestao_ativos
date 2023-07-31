@@ -92,7 +92,7 @@ const ConfigDropMdlDel = ({
         <Modal.Body>
           {/* Add content inside the modal here */}
           {/* For example, you can display some information related to the Title */}
-          <p> Tem a certeza que pretende eliminar o {Title}?</p>
+          <p> Tem a certeza que pretende eliminar o/a {Title}?</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={(e) => handleSubmit(e)}>

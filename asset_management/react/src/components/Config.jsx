@@ -298,8 +298,7 @@ const Config = () => {
   const [newBrand, setNewBrand] = useState("");
 
   //Add a new brand
-  const handleAddBrand = async (event) => {
-    event.preventDefault();
+  const handleAddBrand = async () => {
     setError(null); // Clear any previous errors
     if (newBrand.trim() === "") {
       setError("Atenção! Introduza uma marca.");
@@ -333,8 +332,7 @@ const Config = () => {
   };
 
   //Remove a brand
-  const handleRemoveBrand = async (event) => {
-    event.preventDefault();
+  const handleRemoveBrand = async () => {
     const selectElement = document.getElementById("brand");
 
     const selectedOptions = [...selectElement.selectedOptions];
@@ -418,8 +416,7 @@ const Config = () => {
   const [newEntity, setNewEntity] = useState("");
 
   //Add Entity-------------------------
-  const handleAddEntity = async (event) => {
-    event.preventDefault();
+  const handleAddEntity = async () => {
     setError(null);
 
     if (newEntity.trim() === "") {
@@ -452,8 +449,7 @@ const Config = () => {
   };
 
   //Delete Entity-------------------------
-  const handleRemoveEntity = async (event) => {
-    event.preventDefault();
+  const handleRemoveEntity = async () => {
     setError(null);
 
     const selectElement = document.getElementById("ent");
@@ -532,8 +528,7 @@ const Config = () => {
   const [newSupplier, setNewSupplier] = useState("");
 
   //Add Supplier
-  const handleAddSupplier = async (event) => {
-    event.preventDefault();
+  const handleAddSupplier = async () => {
     setError(null);
     if (newSupplier.trim() === "") {
       setError("Atenção! Introduza um fornecedor.");
@@ -566,8 +561,7 @@ const Config = () => {
   };
 
   //Delete Supplier
-  const handleRemoveSupplier = async (event) => {
-    event.preventDefault();
+  const handleRemoveSupplier = async () => {
     setError(null);
     const selectElement = document.getElementById("sup");
     const selectedOptions = Array.from(selectElement.selectedOptions);
@@ -763,8 +757,7 @@ const Config = () => {
 
   //-------------------Units-------------------
   //--------------------------Add Unit-------------------------
-  const handleAddUnit = async (event) => {
-    event.preventDefault();
+  const handleAddUnit = async () => {
     setError(null);
     if (newUnit.trim() === "") {
       setError("Atenção! Introduza uma unidade.");
@@ -803,8 +796,7 @@ const Config = () => {
     }
   };
   //--------------------------Delete Unit-------------------------
-  const handleRemoveUnit = async (event) => {
-    event.preventDefault();
+  const handleRemoveUnit = async () => {
     const selectedOptions = document.getElementById("unit").selectedOptions;
     const unitToRemove = [...selectedOptions].map((option) => option.value);
 
