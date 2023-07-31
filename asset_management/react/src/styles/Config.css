@@ -416,6 +416,7 @@ button:hover {
     flex-wrap: wrap;
     align-content: stretch;
     justify-content: space-between;
+    font-size: 1.6rem;
 }
 
 .check-cats-br {
@@ -434,4 +435,26 @@ button:hover {
     color: green;
     margin-left: 2rem;
     font-size: 1.6rem;
+}
+
+.edit-btn-rel {
+    color: white;
+    text-decoration: none;
+    margin: 3px;
+    background: #5b08a7;
+    font-size: 20px;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    margin-left: 20%;
+}
+
+.mdl-cats-brds {
+    width: 100%;
+    font-size: 1.2rem;
+    margin-bottom: 6%;
+}
+
+.slc-cats-brds {
+    float: right;
+    margin-left: 10%;
 }

@@ -127,14 +127,28 @@ const Config = () => {
 
   const [selectedRelations, setSelectedRelations] = useState([]);
 
-  //Keep track of edited relation of Brand/Categ
+  //-----------------------Keep track of edited relation of Brand/Categ
+
+  const [selectedRelationId, setSelectedRelationId] = useState(null);
+
   const [selectedRelationForEdit, setSelectedRelationForEdit] = useState(null);
-
   const [editedRelation, setEditedRelation] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
 
-  const handleEditRelation = (relation) => {
-    setEditedRelation(relation);
-    handleShowModal(); // Show the modal for editing the relation
+  const handleOpenEditModal = (relation) => {
+    setSelectedRelationForEdit(relation);
+    setEditedRelation({ ...relation });
+    setShowEditModal(true);
+  };
+
+  const handleEditRelation = () => {
+    const selectedRelation = relations.find(
+      (relation) => relation.id === selectedRelationId
+    );
+    if (selectedRelation) {
+      setEditedRelation(selectedRelation);
+      handleShowModal();
+    }
   };
 
   const handleUpdateRelation = async (e) => {
@@ -151,7 +165,21 @@ const Config = () => {
       setError("Atenção! Erro ao atualizar a relação.");
       clearErrorAfterTimeout(5000);
     }
-    handleCloseModal();
+    handleCloseEditModal(); // Close the modal after updating the relation
+  };
+
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
+    setSelectedRelationForEdit(null);
+    setEditedRelation(null);
+  };
+
+  const handleCheckboxChangeCatBr = (e, relationId) => {
+    if (e.target.checked) {
+      setSelectedRelationId(relationId);
+    } else {
+      setSelectedRelationId(null);
+    }
   };
 
   //-------------------------------------------------
@@ -1047,6 +1075,7 @@ const Config = () => {
       {showNextOptionsSecondSet && showNextOptions ? (
         <div>
           {/* -----Categories----- */}
+          {/* Category Add*/}
           {selectedFirstOption === "Categoria" &&
             selectedNextOption === "Adicionar" && (
               <ConfigDropAdd
@@ -1059,6 +1088,7 @@ const Config = () => {
                 successMessage={successMessage}
               />
             )}
+          {/* Category Delete*/}
           {selectedFirstOption === "Categoria" &&
             selectedNextOption === "Apagar" && (
               <ConfigDropdown
@@ -1071,6 +1101,7 @@ const Config = () => {
                 successMessage={successMessage}
               />
             )}
+          {/* Category edit */}
           {selectedFirstOption === "Categoria" &&
             selectedNextOption === "Editar" && (
               <ConfigDropEdit
@@ -1088,6 +1119,7 @@ const Config = () => {
             )}
 
           {/** -----Brands------ */}
+          {/* Brand add*/}
           {selectedFirstOption === "Marca" &&
             selectedNextOption === "Adicionar" && (
               <ConfigDropAdd
@@ -1100,6 +1132,7 @@ const Config = () => {
                 successMessage={successMessage}
               />
             )}
+          {/* Brand delete */}
           {selectedFirstOption === "Marca" &&
             selectedNextOption === "Apagar" && (
               <ConfigDropdown
@@ -1112,7 +1145,7 @@ const Config = () => {
                 successMessage={successMessage}
               />
             )}
-
+          {/* Brand edit */}
           {selectedFirstOption === "Marca" &&
             selectedNextOption === "Editar" && (
               <ConfigDropEdit
@@ -1130,6 +1163,7 @@ const Config = () => {
             )}
 
           {/** -----Entity------ */}
+          {/* Entity Add */}
           {selectedFirstOption === "Entidade" &&
             selectedNextOption === "Adicionar" && (
               <ConfigDropAdd
@@ -1142,6 +1176,7 @@ const Config = () => {
                 successMessage={successMessage}
               />
             )}
+          {/* Entity delete */}
           {selectedFirstOption === "Entidade" &&
             selectedNextOption === "Apagar" && (
               <ConfigDropdown
@@ -1154,7 +1189,7 @@ const Config = () => {
                 successMessage={successMessage}
               />
             )}
-
+          {/* Entity delete */}
           {selectedFirstOption === "Entidade" &&
             selectedNextOption === "Editar" && (
               <ConfigDropEdit
@@ -1172,6 +1207,7 @@ const Config = () => {
             )}
 
           {/** -----Supplier------ */}
+          {/* Supplier add */}
           {selectedFirstOption === "Fornecedor" &&
             selectedNextOption === "Adicionar" && (
               <ConfigDropAdd
@@ -1184,6 +1220,7 @@ const Config = () => {
                 successMessage={successMessage}
               />
             )}
+          {/* Supplier delete */}
           {selectedFirstOption === "Fornecedor" &&
             selectedNextOption === "Apagar" && (
               <ConfigDropdown
@@ -1196,6 +1233,7 @@ const Config = () => {
                 successMessage={successMessage}
               />
             )}
+          {/* Supplier Edit */}
           {selectedFirstOption === "Fornecedor" &&
             selectedNextOption === "Editar" && (
               <ConfigDropEdit
@@ -1211,8 +1249,6 @@ const Config = () => {
                 successMessage={successMessage}
               />
             )}
-
-          {/** -----Categories/Brands------ */}
 
           {/** -----Models------ */}
           {selectedFirstOption === "Modelo" &&
@@ -1231,6 +1267,8 @@ const Config = () => {
                 successMessage={successMessage}
               />
             )}
+
+          {/* Model delete */}
           {selectedFirstOption === "Modelo" &&
             selectedNextOption === "Apagar" && (
               <ConfigDropMdlDel
@@ -1243,7 +1281,7 @@ const Config = () => {
                 successMessage={successMessage}
               />
             )}
-
+          {/* Model edit */}
           {selectedFirstOption === "Modelo" &&
             selectedNextOption === "Editar" && (
               <ConfigDropEdit
@@ -1261,7 +1299,7 @@ const Config = () => {
             )}
 
           {/** ----Unit------ */}
-
+          {/* Unit Add */}
           {selectedFirstOption === "Unidade" &&
             selectedNextOption === "Adicionar" && (
               <ConfigDropMdlAdd
@@ -1278,6 +1316,7 @@ const Config = () => {
                 successMessage={successMessage}
               />
             )}
+          {/* Unit delete */}
           {selectedFirstOption === "Unidade" &&
             selectedNextOption === "Apagar" && (
               <ConfigDropMdlDel
@@ -1290,6 +1329,8 @@ const Config = () => {
                 successMessage={successMessage}
               />
             )}
+
+          {/* Unit edit */}
           {selectedFirstOption === "Unidade" &&
             selectedNextOption === "Editar" && (
               <ConfigDropEdit
@@ -1306,7 +1347,9 @@ const Config = () => {
               />
             )}
           {/* ------------Category/Brand------------------ */}
-          {/*-------------Adicionar Categoria/Marca-------------*/}
+          {/*
+          -------------Adicionar Categoria/Marca-------------
+          */}
           <div>
             {selectedFirstOption === "Categoria/Marca" &&
               selectedNextOption === "Adicionar" && (
@@ -1393,83 +1436,64 @@ const Config = () => {
                   </Modal>
                 </div>
               )}
-            {/*-------------Editar Categoria/Marca-------------*/}
+
+            {/*
+            -------------Editar Categoria/Marca-------------
+            */}
             {selectedFirstOption === "Categoria/Marca" &&
               selectedNextOption === "Editar" && (
-                <div id="container-config">
-                  <form>
-                    {/* List of relations */}
-                    <div id="container-config-rel">
-                      <h4>Relações Categoria - Marca</h4>
-                      <ul className="relations-list">
-                        {relations.map((relation) => (
-                          <li key={relation.id}>
-                            <label className="lbs-cats-brs">
-                              <input
-                                type="checkbox"
-                                checked={selectedRelations.includes(
-                                  relation.id
-                                )}
-                                onChange={(e) =>
-                                  handleCheckboxChange(e, relation.id)
-                                }
-                                className="check-cats-br"
-                              />
-                              {`${
-                                cats.find(
-                                  (cat) => cat.id === relation.category_id
-                                )?.name || "Categoria desconhecida"
-                              } - ${
-                                brands.find(
-                                  (brand) => brand.id === relation.brand_id
-                                )?.name || "Marca desconhecida"
-                              }`}
-                            </label>
-                            <button
-                              onClick={() => handleEditRelation(relation)}
-                            >
-                              Editar
-                            </button>{" "}
-                            {/* Edit button */}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={handleShowModal}
-                      className="btn-rel-br"
-                    >
-                      <i
-                        className="fa fa-trash fa-lg"
-                        aria-hidden="true"
-                        title="Apagar"
-                      ></i>
-                    </button>
-                  </form>
-                  {error && <p className="errorMessag">{error}</p>}
-                  {successMessage && (
-                    <p className="successMessag">{successMessage}</p>
-                  )}
+                <div>
+                  {/* List of relations */}
+                  <ul className="relations-list">
+                    {relations.map((relation) => (
+                      <li key={relation.id}>
+                        <label className="lbs-cats-brs">
+                          <input
+                            type="checkbox"
+                            checked={selectedRelationId === relation.id}
+                            onChange={(e) =>
+                              handleCheckboxChangeCatBr(e, relation.id)
+                            }
+                            className="check-cats-br"
+                          />
+                          {/* Your relation display */}
+                          {`${
+                            cats.find((cat) => cat.id === relation.category_id)
+                              ?.name || "Categoria desconhecida"
+                          } - ${
+                            brands.find(
+                              (brand) => brand.id === relation.brand_id
+                            )?.name || "Marca desconhecida"
+                          }`}
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
 
-                  {/* Step 4: Display a modal or form for editing the selected relation */}
-                  <Modal show={showModal} onHide={handleCloseModal}>
-                    <Modal.Header closeButton>
-                      <Modal.Title>
-                        {selectedRelationForEdit
-                          ? "Editar Relação"
-                          : "Confirmação"}
-                      </Modal.Title>
-                    </Modal.Header>
-                    {selectedRelationForEdit ? (
-                      // Render the form or modal content for editing the relation
+                  {/* Edit button */}
+                  <button
+                    onClick={handleEditRelation}
+                    disabled={!selectedRelationId}
+                    className="edit-btn-rel"
+                  >
+                    <i
+                      className="fa fa-pencil-alt fa-lg"
+                      aria-hidden="true"
+                      title="Editar"
+                    ></i>
+                  </button>
+
+                  {/* Modal for editing the selected relation */}
+                  {editedRelation && (
+                    <Modal show={showModal} onHide={handleCloseModal}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Editar Relação</Modal.Title>
+                      </Modal.Header>
                       <Modal.Body>
-                        <form onSubmit={handleUpdateRelation}>
-                          {/* Your form fields for editing relation details */}
+                        <form>
+                          {/* Your form fields for editing the selected relation */}
                           {/* For example, you can have dropdowns for category and brand selection */}
-                          {/* Make sure to update the state with the edited details */}
-                          {/* For instance, if you have dropdowns for selecting categories and brands: */}
-                          <label>
+                          <label className="mdl-cats-brds">
                             Categoria:
                             <select
                               value={editedRelation.category_id}
@@ -1479,15 +1503,16 @@ const Config = () => {
                                   category_id: e.target.value,
                                 })
                               }
+                              className="slc-cats-brds"
                             >
-                              {cats.map((cat) => (
-                                <option key={cat.id} value={cat.id}>
-                                  {cat.name}
+                              {cats.map((category) => (
+                                <option key={category.id} value={category.id}>
+                                  {category.name}
                                 </option>
                               ))}
                             </select>
                           </label>
-                          <label>
+                          <label className="mdl-cats-brds">
                             Marca:
                             <select
                               value={editedRelation.brand_id}
@@ -1497,7 +1522,9 @@ const Config = () => {
                                   brand_id: e.target.value,
                                 })
                               }
+                              className="slc-cats-brds"
                             >
+                              {/* Options for brands */}
                               {brands.map((brand) => (
                                 <option key={brand.id} value={brand.id}>
                                   {brand.name}
@@ -1505,45 +1532,29 @@ const Config = () => {
                               ))}
                             </select>
                           </label>
-                          <button type="submit">Atualizar</button>{" "}
-                          {/* Update button */}
                         </form>
                       </Modal.Body>
-                    ) : (
-                      // Render the delete confirmation modal content
-                      <Modal.Body>
-                        <p>
-                          Tem a certeza que pretende eliminar Categoria/Marca?
-                        </p>
-                      </Modal.Body>
-                    )}
-                    <Modal.Footer>
-                      {selectedRelationForEdit ? (
-                        // If editing, show the "Update" button
+                      <Modal.Footer>
                         <Button
                           variant="primary"
                           onClick={handleUpdateRelation}
                         >
                           Atualizar
                         </Button>
-                      ) : (
-                        // If not editing, show the "Confirm" button
-                        <Button
-                          variant="primary"
-                          onClick={(e) => handleRemoveSelectedRelations(e)}
-                        >
-                          Confirmar
+                        <Button variant="secondary" onClick={handleCloseModal}>
+                          Cancelar
                         </Button>
-                      )}
-                      <Button variant="secondary" onClick={handleCloseModal}>
-                        Cancelar
-                      </Button>
-                    </Modal.Footer>
-                  </Modal>
+                      </Modal.Footer>
+                    </Modal>
+                  )}
+
+                  {/* ... Rest of your code ... */}
                 </div>
               )}
 
-            {/*-------------Delete Categoria/Marca-------------*/}
+            {/*
+            -------------Delete Categoria/Marca-------------
+            */}
             {selectedFirstOption === "Categoria/Marca" &&
               selectedNextOption === "Apagar" && (
                 <div id="container-config">
@@ -1602,7 +1613,6 @@ const Config = () => {
                     </Modal.Header>
                     <Modal.Body>
                       {/* Add content inside the modal here */}
-                      {/* For example, you can display some information related to the Title */}
                       <p>
                         {" "}
                         Tem a certeza que pretende eliminar Categoria/Marca?
