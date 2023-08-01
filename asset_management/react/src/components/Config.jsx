@@ -119,7 +119,12 @@ const Config = () => {
   //-------------Options for Configuration------------------------
   // Previous state variables
   const [selectedOption, setSelectedOption] = useState("");
+
+  //Tracking of options selected:
   const [hasSelectedOption, setHasSelectedOption] = useState(false);
+  const [showFirstSetMessage, setShowFirstSetMessage] = useState(false);
+  const [showSecondSetMessage, setShowSecondSetMessage] = useState(false);
+
   const [showNextOptions, setShowNextOptions] = useState(false);
   const [showNextOptionsSecondSet, setShowNextOptionsSecondSet] =
     useState(false);
@@ -192,20 +197,33 @@ const Config = () => {
   };
 
   const handleNextButtonClick = () => {
+    // Reset hasSelectedOption to false when moving to the second set
+    setHasSelectedOption(false);
+
     if (!showNextOptions) {
       if (!hasSelectedOption) {
+        setShowFirstSetMessage(true);
+        setTimeout(() => {
+          setShowFirstSetMessage(false);
+        }, 3000); // Hide the message after 3000 milliseconds (3 seconds)
         return; // Abort the function and prevent further actions
       }
       setShowNextOptions(true);
       setSelectedOption(""); // Clear the selected option when "Next" is clicked
+      setShowFirstSetMessage(false); // Hide the message for the first set
 
       // Save the first option chosen
       setSelectedFirstOption(selectedOption);
     } else if (!showNextOptionsSecondSet) {
       if (!hasSelectedOption) {
+        setShowSecondSetMessage(true);
+        setTimeout(() => {
+          setShowSecondSetMessage(false);
+        }, 3000); // Hide the message after 3000 milliseconds (3 seconds)
         return; // Abort the function and prevent further actions
       }
       setShowNextOptionsSecondSet(true);
+      setShowSecondSetMessage(false); // Hide the message for the second set
 
       // Save the next option (add/edit/delete) chosen
       setSelectedNextOption(selectedOption);
@@ -1049,12 +1067,22 @@ const Config = () => {
 
   return (
     <div className="form-brd-mdl">
-      <h1>Configurações</h1>
+      <h1 className="mn-config">Configurações</h1>
       <p className="fr-ini">
         Selecione uma das opções para realizar a configuração
       </p>
-      {!hasSelectedOption && <NoOptionMessage />}
-      {console.log("hasSelectedOption", hasSelectedOption)}
+      {showFirstSetMessage && (
+        <div className="message">
+          Não selecionou nenhuma opção. Por favor, selecione uma opção!
+        </div>
+      )}
+
+      {showSecondSetMessage && (
+        <div className="message">
+          Não selecionou nenhuma operação. Por favor, selecione uma operação!
+        </div>
+      )}
+
       {!showNextOptions && (
         <div className="checkbox-dropdown-container">
           {options.map((option, index) => (
