@@ -134,7 +134,7 @@ const Config = () => {
   const [selectedNextOption, setSelectedNextOption] = useState("");
   const additionalOptions = ["Adicionar", "Editar", "Apagar"];
 
-  const [selectedRelations, setSelectedRelations] = useState([]);
+
 
   //-----------------------Keep track of edited relation of Brand/Categ
 
