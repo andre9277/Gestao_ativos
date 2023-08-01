@@ -135,6 +135,23 @@ const Config = () => {
   const [selectedNextOption, setSelectedNextOption] = useState("");
   const additionalOptions = ["Adicionar", "Editar", "Apagar"];
 
+const getOptionExplanation = (option) => {
+  // Define explanations for each option here
+  const explanations = {
+    "Categoria": "Esta opção permite configurar as categorias.",
+    "Marca": "Esta opção permite configurar as marcas.",
+    "Modelo": "Esta opção permite configurar as modelos.",
+    "Entidade": "Esta opção permite configurar as entidades.",
+    "Unidade": "Esta opção permite configurar as unidades.",
+    "Fornecedor": "Esta opção permite configurar os fornecedores.",
+    "Categoria/Marca": "Esta opção permite configurar as relações categoria/marca.",
+    "Adicionar": "Esta operação permite adicionar.",
+    "Editar": "Esta operação permite editar.",
+    "Apagar": "Esta operação permite apgar.",
+  };
+
+  return explanations[option] ? <p className="option-explanation">{explanations[option]}</p> : null;
+};
 
 
   //-----------------------Keep track of edited relation of Brand/Categ
@@ -1045,40 +1062,49 @@ const Config = () => {
         </Modal.Footer>
       </Modal>
       {!showNextOptions && (
-        <div className="checkbox-dropdown-container">
-          <p className="fr-ini">
-            Selecione uma das opções para realizar a configuração.
-          </p>
-          {options.map((option, index) => (
-            <label key={index} className="checkbox-label">
-              <input
-                type="checkbox"
-                checked={selectedOption === option}
-                onChange={() => handleOptionToggle(option)}
-                className="chcb_inpt"
-              />
-              {option}
-            </label>
-          ))}
-        </div>
-      )}
+  <div className="checkbox-dropdown-container">
+    <p className="fr-ini">
+      Selecione uma das opções para realizar a configuração.
+    </p>
+    {options.map((option, index) => (
+      <div key={index}>
+        <label className="checkbox-label">
+          <input
+            type="checkbox"
+            checked={selectedOption === option}
+            onChange={() => handleOptionToggle(option)}
+            className="chcb_inpt"
+          />
+          {option}
+          {getOptionExplanation(option)} {/* Render explanation for each option */}
+        </label>
+        
+      </div>
+    ))}
+  </div>
+)}
 
-      {showNextOptions && !showNextOptionsSecondSet && (
-        <div className="checkbox-dropdown-containerr">
-          <p className="fr-ini-op">Selecione uma das operações:</p>
-          {additionalOptions.map((option, index) => (
-            <label key={index} className="checkbox-label">
-              <input
-                type="checkbox"
-                checked={selectedOption === option}
-                onChange={() => handleOptionToggle(option)}
-                className="chcb_inpt"
-              />
-              {option}
-            </label>
-          ))}
-        </div>
-      )}
+{showNextOptions && !showNextOptionsSecondSet && (
+  <div className="checkbox-dropdown-containerr">
+    <p className="fr-ini-op">Selecione uma das operações:</p>
+    {additionalOptions.map((option, index) => (
+      <div key={index}>
+        <label className="checkbox-label">
+          <input
+            type="checkbox"
+            checked={selectedOption === option}
+            onChange={() => handleOptionToggle(option)}
+            className="chcb_inpt"
+          />
+          {option}
+          {getOptionExplanation(option)} {/* Render explanation for each option */}
+        </label>
+        
+      </div>
+    ))}
+  </div>
+)}
+
       {showNextOptionsSecondSet && showNextOptions ? (
         <div>
           {/* -----Categories----- */}
