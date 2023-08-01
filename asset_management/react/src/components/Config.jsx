@@ -239,6 +239,11 @@ const Config = () => {
 
     // Reset the hasSelectedOption state to false when going back to the initial menu
     setHasSelectedOption(false);
+
+    // Clear the selected options for both sets
+    setSelectedOption("");
+    setSelectedNextOption("");
+    setEditedValue("");
   };
 
   const handleCloseButtonClick = () => {

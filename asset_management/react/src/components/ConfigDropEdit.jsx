@@ -58,6 +58,7 @@ const ConfigDropEdit = ({
     event.preventDefault();
     handleDataUpdate(); // Call the handleDataUpdate function on form submission
     handleCloseModal();
+    setEditedValue("");
   };
 
   return (
