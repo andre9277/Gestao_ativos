@@ -522,3 +522,7 @@ button:hover {
     display: flex;
     align-items: baseline;
 }
+
+.inp-mdl{
+    width: 100% !important;
+}

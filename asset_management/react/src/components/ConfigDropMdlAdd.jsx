@@ -63,22 +63,9 @@ const ConfigDropMdlAdd = ({
   return (
     <div id="container-config">
       <form className="frm-cats">
-        <label htmlFor={id} className="lb-cats">
-          {Title}
-        </label>
-        <p></p>
-        <label className="sub-title">
-          {" "}
-          Introduza o nome da(o) {Title} que deseja adicionar:
-        </label>
-        <input
-          type="text"
-          value={setData}
-          onChange={(e) => setNewData(e.target.value)}
-          autoComplete="off"
-        />
-        {/* Brand selection dropdown */}
-        <label htmlFor="brandSelect" className="lb-cats">
+
+         {/* Brand selection dropdown */}
+         <label htmlFor="brandSelect" className="lb-cats">
           Selecione {maintb}:
         </label>
 
@@ -96,6 +83,23 @@ const ConfigDropMdlAdd = ({
             </option>
           ))}
         </select>
+        <label htmlFor={id} className="lb-cats">
+          {Title}
+        </label>
+        <p></p>
+        <label className="sub-title">
+          {" "}
+          Introduza o nome da(o) {Title} que deseja adicionar:
+        </label>
+        <div className="brd-cat-delete">
+        <input
+          type="text"
+          value={setData}
+          onChange={(e) => setNewData(e.target.value)}
+          autoComplete="off"
+          className="inp-mdl"
+        />
+       
 
         <button type="button" id="btnAddd" onClick={handleShowModal}>
           <i
@@ -104,6 +108,7 @@ const ConfigDropMdlAdd = ({
             title="Adicionar"
           ></i>
         </button>
+        </div>
       </form>
       {error && <p className="errorMessag">{error}</p>}
       {successMessage && <p className="successMessag">{successMessage}</p>}
