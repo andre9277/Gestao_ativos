@@ -111,7 +111,7 @@ const DeleteRelationConfig = ({
               </option>
             ))}
           </select>
-          {console.log("aaa", selectedValue)}
+
           {selectedValue.length !== 0 && (
             <div>
               <label htmlFor="selected-value" className="lb-cats">

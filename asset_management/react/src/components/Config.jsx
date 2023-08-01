@@ -177,14 +177,6 @@ const Config = () => {
     setEditedRelation(null);
   };
 
-  const handleCheckboxChangeCatBr = (e, relationId) => {
-    if (e.target.checked) {
-      setSelectedRelationId(relationId);
-    } else {
-      setSelectedRelationId(null);
-    }
-  };
-
   // Fetch the relations between category and brand from the backend API
   const fetchRelationss = async () => {
     try {
@@ -1367,7 +1359,6 @@ const Config = () => {
                   handleEditRelation={handleEditRelation}
                   selectedRelationId={selectedRelationId}
                   relations={relations}
-                  handleCheckbox={handleCheckboxChangeCatBr}
                   array1={cats}
                   array2={brands}
                   editedRelation={editedRelation}
@@ -1375,6 +1366,7 @@ const Config = () => {
                   handleCloseModal={handleCloseModal}
                   setEditedRelation={setEditedRelation}
                   handleUpdateRelation={handleUpdateRelation}
+                  handleShowModal={handleShowModal}
                 />
               )}
 
