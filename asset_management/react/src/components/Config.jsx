@@ -45,6 +45,7 @@ import AddRelationConfig from "./AddRelationConfig";
 import EditRelationConfig from "./EditRelationConfig";
 import DeleteRelationConfig from "./DeleteRelationConfig";
 import NoOptionMessage from "./NoOptionMessage";
+import { Modal, Button } from "react-bootstrap";
 
 const options = [
   "Categoria",
@@ -1010,20 +1011,39 @@ const Config = () => {
     handleCloseModal();
   };
 
+  const handleClose = () => {
+    setShowFirstSetMessage(false);
+    setShowSecondSetMessage(false);
+  };
+
   return (
     <div className="form-brd-mdl">
       <h1 className="mn-config">Configurações</h1>
-      {showFirstSetMessage && (
-        <div className="message">
-          Não selecionou nenhuma opção. Por favor, selecione uma opção!
-        </div>
-      )}
+     {/* Render the modal conditionally */}
+     <Modal show={showFirstSetMessage || showSecondSetMessage} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Erro!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {showFirstSetMessage && (
+            <div className="message">
+              Não selecionou nenhuma opção. 
+              <p>Por favor, selecione uma opção!</p>
+            </div>
+          )}
 
-      {showSecondSetMessage && (
-        <div className="message">
-          Não selecionou nenhuma operação. Por favor, selecione uma operação!
-        </div>
-      )}
+          {showSecondSetMessage && (
+            <div className="message">
+              Não selecionou nenhuma operação. Por favor, selecione uma operação!
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            OK
+          </Button>
+        </Modal.Footer>
+      </Modal>
       {!showNextOptions && (
         <div className="checkbox-dropdown-container">
           <p className="fr-ini">
