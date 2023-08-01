@@ -317,6 +317,7 @@ button:hover {
 
 .btn-rel-br {
     margin-right: 11px;
+    margin-left: 11px;
     margin-top: 1rem;
     box-sizing: border-box;
     padding: 0.5rem 0.75rem;
@@ -514,4 +515,14 @@ button:hover {
 
 .relations-list {
     width: 100%;
+}
+
+#selected-value {
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+.brd-cat-delete {
+    display: flex;
+    align-items: baseline;
 }

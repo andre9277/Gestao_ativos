@@ -103,7 +103,7 @@ const Config = () => {
   }, []);
 
   useEffect(() => {
-    fetchRelations();
+    fetchRelationss();
   }, []);
 
   // Function to handle brand selection
@@ -163,7 +163,7 @@ const Config = () => {
       clearSuccessMessageAfterTimeout(5000);
 
       // Fetch the updated relations data and update the list
-      fetchRelations();
+      fetchRelationss();
     } catch (err) {
       setError("Atenção! Erro ao atualizar a relação.");
       clearErrorAfterTimeout(5000);
@@ -182,6 +182,17 @@ const Config = () => {
       setSelectedRelationId(relationId);
     } else {
       setSelectedRelationId(null);
+    }
+  };
+
+  // Fetch the relations between category and brand from the backend API
+  const fetchRelationss = async () => {
+    try {
+      const response = await axiosClient.get("/category-brands");
+      setRelations(response.data);
+    } catch (error) {
+      setError("Atenção! Erro ao carregar todas as relações.");
+      clearErrorAfterTimeout(5000);
     }
   };
 
@@ -995,7 +1006,7 @@ const Config = () => {
       setSuccessMessage("Relação Categoria/Marca adicionada com sucesso!");
       clearSuccessMessageAfterTimeout(5000);
 
-      fetchRelations();
+      fetchRelationss();
     } catch (err) {
       if (err.response && err.response.status === 422) {
         setError(err.response.data.errors);
@@ -1005,69 +1016,6 @@ const Config = () => {
       }
     }
     handleCloseModal();
-  };
-
-  // Fetch the relations between category and brand from the backend API
-  const fetchRelations = async () => {
-    try {
-      const response = await axiosClient.get("/category-brands");
-      setRelations(response.data);
-    } catch (error) {
-      setError("Atenção! Erro ao carregar todas as relações.");
-      clearErrorAfterTimeout(5000);
-    }
-  };
-
-  // Function to handle the removal of a relation
-  const handleRemoveRelation = async (relationId, event) => {
-    event.preventDefault();
-    try {
-      // Make a DELETE request to your backend API for relation removal
-      await axiosClient.delete(`/category-brandsDel/${relationId}`);
-      setSuccessMessage("Relação Categoria/Marca removida com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
-
-      // Fetch the updated relations data and update the list
-      fetchRelations();
-    } catch (err) {
-      setError("Atenção! Erro ao remover a relação selecionada.");
-      clearErrorAfterTimeout(5000);
-    }
-    handleCloseModal();
-  };
-
-  const handleRemoveSelectedRelations = async () => {
-    try {
-      if (selectedRelations.length === 0) {
-        setError("Atenção! Selecione pelo menos uma relação para remover.");
-        clearErrorAfterTimeout(5000);
-        return;
-      }
-      // Iterate over selected relation IDs and remove them one by one
-      for (const relationId of selectedRelations) {
-        await handleRemoveRelation(relationId, event);
-      }
-      // Fetch the updated relations data after removing the selected relations
-      fetchRelations();
-    } catch (err) {
-      setError("Atenção! Erro ao remover as relações selecionadas.");
-      clearErrorAfterTimeout(5000);
-    }
-    // Clear the selection after removing the relations
-    setSelectedRelations([]);
-  };
-
-  //handles the selection of the Category/Brands
-  const handleCheckboxChange = (event, relationId) => {
-    const isChecked = event.target.checked;
-
-    if (isChecked) {
-      setSelectedRelations((prevSelected) => [...prevSelected, relationId]);
-    } else {
-      setSelectedRelations((prevSelected) =>
-        prevSelected.filter((id) => id !== relationId)
-      );
-    }
   };
 
   return (
@@ -1451,16 +1399,18 @@ const Config = () => {
                   rel1={"Categoria"}
                   rel2={"Marca"}
                   handleShowModal={handleShowModal}
-                  relations={relations}
-                  selectedRelations={selectedRelations}
-                  handleCheckbox={handleCheckboxChange}
                   array1={cats}
                   array2={brands}
                   error={error}
                   successMessage={successMessage}
                   showModal={showModal}
                   handleCloseModal={handleCloseModal}
-                  handleRemoveSelectedRelations={handleRemoveSelectedRelations}
+                  setError={setError}
+                  clearErrorAfterTimeout={clearErrorAfterTimeout}
+                  setSuccessMessage={setSuccessMessage}
+                  clearSuccessMessageAfterTimeout={
+                    clearSuccessMessageAfterTimeout
+                  }
                 />
               )}
 
