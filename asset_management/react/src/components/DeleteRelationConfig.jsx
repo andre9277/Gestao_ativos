@@ -21,7 +21,7 @@ const DeleteRelationConfig = ({
       <form>
         <p></p>
         {/* List of relations */}
-        <div id="container-config-rel">
+        <div id="container-config-rel" className="relations-container">
           <div className="tlt-cats-del">
             <p className="rel-cat">{rel1}</p>
             <p className="rel-cat">-</p>

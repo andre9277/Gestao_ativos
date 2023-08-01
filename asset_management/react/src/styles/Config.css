@@ -302,7 +302,7 @@ button:hover {
     background-color: #fff;
     border-radius: 5px;
     /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); */
-    margin-left: 50%;
+
     font-size: 1.6rem;
     /* display: table-cell; */
 }
@@ -325,7 +325,7 @@ button:hover {
     border-radius: 4px;
     color: #fff;
     font-size: 1.6rem;
-    margin-left: 192%;
+    /*  margin-left: 192%; */
 }
 
 .config-ss {
@@ -495,4 +495,17 @@ button:hover {
 
 .mn-config {
     margin-left: 4rem;
+}
+
+.relations-container {
+    max-height: 600px; /* Set the desired height for the container */
+    overflow-y: auto; /* Add a vertical scrollbar when content overflows */
+    border: 1px solid #ccc; /* Optional: Add a border for visual distinction */
+    padding: 10px; /* Optional: Add some padding for better spacing */
+    background-color: #f7f7f7; /* Optional: Set the background color */
+    width: 200%;
+}
+
+.relations-list {
+    width: 100%;
 }
