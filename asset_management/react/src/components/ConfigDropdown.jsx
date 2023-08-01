@@ -32,8 +32,7 @@ Local: Hospital de Braga, EPE
 Department: Serviço de Sistema de Informação
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
-*/
-import React, { useState } from "react";
+*/ import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 
 const ConfigDropdown = ({
@@ -46,6 +45,7 @@ const ConfigDropdown = ({
   handleDel,
 }) => {
   const [showModal, setShowModal] = useState(false);
+  const [selectedValue, setSelectedValue] = useState(""); // New state to store the selected value
 
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
@@ -56,39 +56,65 @@ const ConfigDropdown = ({
     handleCloseModal(); // Close the modal after saving data
   };
 
+  const handleSelectChange = (event) => {
+    const selectedId = event.target.value;
+    const selectedData = datas.find(
+      (data) => data.id === parseInt(selectedId, 10)
+    );
+    setSelectedValue(selectedData ? selectedData.name : "");
+  };
+
   return (
     <div id="container-config">
       <form className="frm-cats">
         <label htmlFor={tag} className="lb-cats">
           Lista de {Title}:
         </label>
-        <select id={tag} name={tag} multiple className="slc-cat">
+        <select
+          id={tag}
+          name={tag}
+          multiple
+          className="slc-cat"
+          onChange={handleSelectChange} // Call handleSelectChange when the selection changes
+        >
           {datas.map((data) => (
-            <option key={data.name} value={data.id}>
+            <option key={data.id} value={data.id}>
               {data.name}
             </option>
           ))}
         </select>
 
-        <button type="button" id="btnRemove" onClick={handleShowModal}>
-          <i
-            className="fa fa-trash fa-lg"
-            aria-hidden="true"
-            title="Apagar"
-          ></i>
-        </button>
+        {/* Display the selected value inside a label tag */}
+        {selectedValue && (
+          <div>
+            <label htmlFor="selectedValue" className="lb-cats">
+              Apagar valor:
+            </label>
+            <div className="brd-cat-delete">
+              <p id="selected-value">{selectedValue}</p>
+              <button type="button" id="btnRemove" onClick={handleShowModal}>
+                <i
+                  className="fa fa-trash fa-lg"
+                  aria-hidden="true"
+                  title="Apagar"
+                ></i>
+              </button>
+            </div>
+          </div>
+        )}
       </form>
       {error && <p className="errorMessag">{error}</p>}
       {successMessage && <p className="successMessag">{successMessage}</p>}
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title> Confirmação</Modal.Title>
+          <Modal.Title>Confirmação</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Add content inside the modal here */}
-          {/* For example, you can display some information related to the Title */}
-          <p> Tem a certeza que pretende eliminar a {Title} ?</p>
+          <p>
+            Tem a certeza que pretende eliminar a {Title}
+            <strong> {selectedValue}</strong>?
+          </p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={(e) => handleFormSubmit(e)}>

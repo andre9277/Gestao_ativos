@@ -1022,18 +1022,6 @@ const Config = () => {
     <div className="form-brd-mdl">
       <h1 className="mn-config">Configurações</h1>
 
-      {showFirstSetMessage && (
-        <div className="message">
-          Não selecionou nenhuma opção. Por favor, selecione uma opção!
-        </div>
-      )}
-
-      {showSecondSetMessage && (
-        <div className="message">
-          Não selecionou nenhuma operação. Por favor, selecione uma operação!
-        </div>
-      )}
-
       {!showNextOptions && (
         <div className="checkbox-dropdown-container">
           <p className="fr-ini">
@@ -1055,7 +1043,7 @@ const Config = () => {
 
       {showNextOptions && !showNextOptionsSecondSet && (
         <div className="checkbox-dropdown-containerr">
-          <p className="fr-ini-op">Selecione uma das operações.</p>
+          <p className="fr-ini-op">Selecione uma das operações:</p>
           {additionalOptions.map((option, index) => (
             <label key={index} className="checkbox-label">
               <input
@@ -1427,6 +1415,18 @@ const Config = () => {
         <button onClick={handleNextButtonClick} className="next-conf">
           Próximo
         </button>
+      )}
+
+      {showFirstSetMessage && (
+        <div className="message">
+          Não selecionou nenhuma opção. Por favor, selecione uma opção!
+        </div>
+      )}
+
+      {showSecondSetMessage && (
+        <div className="message">
+          Não selecionou nenhuma operação. Por favor, selecione uma operação!
+        </div>
       )}
     </div>
   );

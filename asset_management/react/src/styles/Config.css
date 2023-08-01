@@ -186,7 +186,7 @@ All the changes made to enable the implementation of the desired development too
     /* bottom: -95px; */
     position: relative;
     border-radius: 4px;
-    margin-left: 1rem;
+    margin-left: 2rem;
 }
 
 #btnAddd {
@@ -213,8 +213,8 @@ All the changes made to enable the implementation of the desired development too
     border-left-style: none;
     color: #fff;
     font-size: 1.6rem;
-    margin-top: 3rem;
-    margin-left: 14rem;
+    font-size: 1.6rem;
+    margin-left: 2rem;
 }
 
 #btnRemove-rel {
@@ -520,6 +520,7 @@ button:hover {
 #selected-value {
     border: 1px solid #ccc;
     width: 100%;
+    font-size: 1.6rem;
 }
 
 .brd-cat-delete {
