@@ -364,6 +364,12 @@ button:hover {
     margin-left: 5rem;
 }
 
+.fr-ini-op {
+    font-size: 1.5rem;
+    margin: 1rem;
+    /* margin-left: 5rem; */
+}
+
 .vl-btn {
     background-color: #6c757d;
     padding: 0.5rem 0.75rem;

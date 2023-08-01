@@ -1073,9 +1073,7 @@ const Config = () => {
   return (
     <div className="form-brd-mdl">
       <h1 className="mn-config">Configurações</h1>
-      <p className="fr-ini">
-        Selecione uma das opções para realizar a configuração
-      </p>
+
       {showFirstSetMessage && (
         <div className="message">
           Não selecionou nenhuma opção. Por favor, selecione uma opção!
@@ -1090,6 +1088,9 @@ const Config = () => {
 
       {!showNextOptions && (
         <div className="checkbox-dropdown-container">
+          <p className="fr-ini">
+            Selecione uma das opções para realizar a configuração.
+          </p>
           {options.map((option, index) => (
             <label key={index} className="checkbox-label">
               <input
@@ -1106,6 +1107,7 @@ const Config = () => {
 
       {showNextOptions && !showNextOptionsSecondSet && (
         <div className="checkbox-dropdown-containerr">
+          <p className="fr-ini-op">Selecione uma das operações.</p>
           {additionalOptions.map((option, index) => (
             <label key={index} className="checkbox-label">
               <input
