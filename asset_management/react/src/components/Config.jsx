@@ -44,6 +44,7 @@ import ConfigDropMdlDel from "./ConfigDropMdlDel";
 import AddRelationConfig from "./AddRelationConfig";
 import EditRelationConfig from "./EditRelationConfig";
 import DeleteRelationConfig from "./DeleteRelationConfig";
+import NoOptionMessage from "./NoOptionMessage";
 
 const options = [
   "Categoria",
@@ -118,6 +119,7 @@ const Config = () => {
   //-------------Options for Configuration------------------------
   // Previous state variables
   const [selectedOption, setSelectedOption] = useState("");
+  const [hasSelectedOption, setHasSelectedOption] = useState(false);
   const [showNextOptions, setShowNextOptions] = useState(false);
   const [showNextOptionsSecondSet, setShowNextOptionsSecondSet] =
     useState(false);
@@ -182,19 +184,27 @@ const Config = () => {
   const handleOptionToggle = (option) => {
     if (selectedOption === option) {
       setSelectedOption("");
+      setHasSelectedOption(false);
     } else {
       setSelectedOption(option);
+      setHasSelectedOption(true);
     }
   };
 
   const handleNextButtonClick = () => {
     if (!showNextOptions) {
+      if (!hasSelectedOption) {
+        return; // Abort the function and prevent further actions
+      }
       setShowNextOptions(true);
       setSelectedOption(""); // Clear the selected option when "Next" is clicked
 
       // Save the first option chosen
       setSelectedFirstOption(selectedOption);
     } else if (!showNextOptionsSecondSet) {
+      if (!hasSelectedOption) {
+        return; // Abort the function and prevent further actions
+      }
       setShowNextOptionsSecondSet(true);
 
       // Save the next option (add/edit/delete) chosen
@@ -208,12 +218,18 @@ const Config = () => {
     } else if (showNextOptions) {
       setShowNextOptions(false);
     }
+
+    // Reset the hasSelectedOption state to false when going back to the initial menu
+    setHasSelectedOption(false);
   };
 
   const handleCloseButtonClick = () => {
     setSelectedOption("");
     setShowNextOptions(false);
     setShowNextOptionsSecondSet(false);
+
+    // Reset the hasSelectedOption state to false when closing the menu
+    setHasSelectedOption(false);
   };
 
   //for timing the erros
@@ -1037,6 +1053,8 @@ const Config = () => {
       <p className="fr-ini">
         Selecione uma das opções para realizar a configuração
       </p>
+      {!hasSelectedOption && <NoOptionMessage />}
+      {console.log("hasSelectedOption", hasSelectedOption)}
       {!showNextOptions && (
         <div className="checkbox-dropdown-container">
           {options.map((option, index) => (
