@@ -510,7 +510,7 @@ button:hover {
     border: 1px solid #ccc; /* Optional: Add a border for visual distinction */
     padding: 10px; /* Optional: Add some padding for better spacing */
     background-color: #f7f7f7; /* Optional: Set the background color */
-    width: 200%;
+    width: 100%;
 }
 
 .relations-list {

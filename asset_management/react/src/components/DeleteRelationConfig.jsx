@@ -111,24 +111,28 @@ const DeleteRelationConfig = ({
               </option>
             ))}
           </select>
-
-          <label htmlFor="selected-value" className="lb-cats">
-            Apagar valor:
-          </label>
-          <div className="brd-cat-delete">
-            <p id="selected-value">{selectedValue}</p>
-            <button
-              type="button"
-              onClick={handleShowModal}
-              className="btn-rel-br"
-            >
-              <i
-                className="fa fa-trash fa-lg"
-                aria-hidden="true"
-                title="Apagar"
-              ></i>
-            </button>
-          </div>
+          {console.log("aaa", selectedValue)}
+          {selectedValue.length !== 0 && (
+            <div>
+              <label htmlFor="selected-value" className="lb-cats">
+                Apagar valor:
+              </label>
+              <div className="brd-cat-delete">
+                <p id="selected-value">{selectedValue}</p>
+                <button
+                  type="button"
+                  onClick={handleShowModal}
+                  className="btn-rel-br"
+                >
+                  <i
+                    className="fa fa-trash fa-lg"
+                    aria-hidden="true"
+                    title="Apagar"
+                  ></i>
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </form>
       {error && <p className="errorMessag">{error}</p>}
