@@ -11,6 +11,7 @@ const EditRelationConfig = ({
   array2,
   editedRelation,
   setEditedRelation,
+  handleUpdateRelation,
 }) => {
   const [selectedValue, setSelectedValue] = useState([]);
 
@@ -20,20 +21,9 @@ const EditRelationConfig = ({
     // You may also consider resetting the editedRelation here to ensure it doesn't show outdated data
   };
 
-  const handleStartEdit = () => {
-    const selectedRelation = relations.find(
-      (relation) => relation.id === selectedValue
-    );
-    if (selectedRelation) {
-      setEditedRelation(selectedRelation);
-      handleEditRelation(selectedRelation); // Pass the selected relation for editing directly to the parent component
-    }
-  };
-
   return (
     <div id="container-config-rel-edit">
       <div className="tlt-cats-edit">
-        {/* Edit button */}
         <p className="rel-cat">
           {rel1}/{rel2}
         </p>
@@ -75,7 +65,7 @@ const EditRelationConfig = ({
             <div className="brd-cat-delete">
               <p id="selected-value">{selectedValue}</p>
               <button
-                onClick={handleStartEdit} // Now, this button triggers the editing directly without the modal
+                onClick={handleUpdateRelation}
                 disabled={!selectedRelationId}
                 className="edit-btn-rel"
               >
@@ -86,54 +76,49 @@ const EditRelationConfig = ({
                 ></i>
               </button>
             </div>
-          </div>
-        )}
-
-        {/* Conditionally render the form fields for editing */}
-        {selectedValue.length !== 0 && editedRelation && (
-          <div>
-            <label htmlFor="category-select" className="lb-cats">
-              Editar categoria:
-            </label>
-            <select
-              id="category-select"
-              value={editedRelation.category_id}
-              onChange={(e) =>
-                setEditedRelation({
-                  ...editedRelation,
-                  category_id: e.target.value,
-                })
-              }
-              className="slc-cats-brds"
-            >
-              {array1.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-
-            <label htmlFor="brand-select" className="lb-cats">
-              Editar marca:
-            </label>
-            <select
-              id="brand-select"
-              value={editedRelation.brand_id}
-              onChange={(e) =>
-                setEditedRelation({
-                  ...editedRelation,
-                  brand_id: e.target.value,
-                })
-              }
-              className="slc-cats-brds"
-            >
-              {/* Options for brands */}
-              {array2.map((brand) => (
-                <option key={brand.id} value={brand.id}>
-                  {brand.name}
-                </option>
-              ))}
-            </select>
+            <form>
+              {console.log("editedRelation", editedRelation)}
+              <label className="mdl-cats-brds">
+                Categoria:
+                <select
+                  value={editedRelation.category_id}
+                  onChange={(e) =>
+                    setEditedRelation({
+                      ...editedRelation,
+                      category_id: e.target.value,
+                    })
+                  }
+                  className="slc-cats-brds"
+                >
+                  <option value="">Select a category</option>
+                  {array1.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="mdl-cats-brds">
+                Marca:
+                <select
+                  value={editedRelation.brand_id}
+                  onChange={(e) =>
+                    setEditedRelation({
+                      ...editedRelation,
+                      brand_id: e.target.value,
+                    })
+                  }
+                  className="slc-cats-brds"
+                >
+                  <option value="">Select a brand</option>
+                  {array2.map((brand) => (
+                    <option key={brand.id} value={brand.id}>
+                      {brand.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </form>
           </div>
         )}
       </div>
