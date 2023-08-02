@@ -47,15 +47,27 @@ const ReportPage = () => {
   const navigate = useNavigate();
 
   //All the data from an asset (not the user) - Filtered!
+  //Array to save assets
   const [assets, setAssets] = useState([]);
+
+  //To display loading option when waiting for the requested data from the server
   const [loading, setLoading] = useState(false);
+
+  //Array to save units
   const [units, setUnits] = useState([]);
+  //Array to save entitys
   const [ents, setEnts] = useState([]);
+  //Array to save pagination status
   const [meta, setMeta] = useState({});
+  //Array to save categorys
   const [cats, setCats] = useState([]);
+  //Array to save users
   const [users, setUsers] = useState([]);
+
+  //Gets the data from the current logged in user and the activeOption for the sidebar
   const { user, setActiveOption } = useStateContext();
 
+  //To manage state of the sidebar highlight
   useEffect(() => {
     setActiveOption("report");
   }, []);
@@ -313,8 +325,11 @@ const ReportPage = () => {
       return true; // Include rows that match both filters or don't have any filters
     });
 
-    setFilteredAllocations(updatedAllocations); // Update the filteredAllocations state
+    // Update the filteredAllocations state
+    setFilteredAllocations(updatedAllocations);
+
     setIsButtonClicked(true);
+
     setDropdownOpen(false);
   };
   //Handles Category Change on the filter menu
