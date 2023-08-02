@@ -574,6 +574,15 @@ const Config = () => {
   const handleAddEntity = async () => {
     setError(null);
 
+    //Validate the entity name:
+    const entRegex = /^[A-Za-z]+$/;
+
+    if (!entRegex.test(newEntity.trim())) {
+      setError("Atenção! A entidade só pode conter letras.");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
+      return;
+    }
+
     if (newEntity.trim() === "") {
       setError("Atenção! Introduza uma entidade.");
       clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
@@ -648,8 +657,19 @@ const Config = () => {
   };
 
   const handleDataEntUpdate = async () => {
+    setError(null);
+
+    // Define a regular expression to validate the category name
+    const entRegex = /^[A-Za-z]+$/;
+
     if (editedEntValue.trim() === "") {
       setError("Atenção! Não pode guardar uma entidade com valor nulo.");
+      clearErrorAfterTimeout(5000);
+      return;
+    }
+
+    if (!entRegex.test(editedEntValue.trim())) {
+      setError("Atenção! A entidade só pode conter letras.");
       clearErrorAfterTimeout(5000);
       return;
     }
