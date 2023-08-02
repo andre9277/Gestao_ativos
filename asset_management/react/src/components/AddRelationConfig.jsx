@@ -43,28 +43,34 @@ const AddRelationConfig = ({
 
         {/* Brand*/}
         <label className="configlb">Marca:</label>
-        <select
-          name="brand"
-          id="brand"
-          value={selectedAttriSec}
-          className="configSelect"
-          onChange={(e) => setSelectedAttriSec(e.target.value)}
-        >
-          <option value=""></option>
-          {array2.map((brand) => (
-            <option key={brand.id} value={brand.id}>
-              {brand.name}
-            </option>
-          ))}
-        </select>
+        <div className="brd-cat-add">
+          <select
+            name="brand"
+            id="brand"
+            value={selectedAttriSec}
+            className="configSelect"
+            onChange={(e) => setSelectedAttriSec(e.target.value)}
+          >
+            <option value=""></option>
+            {array2.map((brand) => (
+              <option key={brand.id} value={brand.id}>
+                {brand.name}
+              </option>
+            ))}
+          </select>
 
-        <button type="button" className="addConfig" onClick={handleShowModal}>
-          <i
-            className="fa fa-plus fa-lg"
-            aria-hidden="true"
-            title="Adicionar"
-          ></i>
-        </button>
+          <button
+            type="button"
+            className="addConfig-cat-br"
+            onClick={handleShowModal}
+          >
+            <i
+              className="fa fa-plus fa-lg"
+              aria-hidden="true"
+              title="Adicionar"
+            ></i>
+          </button>
+        </div>
       </form>
 
       {error && <p className="errorMessag">{error}</p>}

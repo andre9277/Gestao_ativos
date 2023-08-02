@@ -114,6 +114,19 @@ All the changes made to enable the implementation of the desired development too
     margin-left: 14rem;
 }
 
+.addConfig-cat-br {
+    display: inherit;
+
+    background-color: #00a762;
+    padding: 0.8rem 0.75rem;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    color: white;
+    overflow: hidden;
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
 .configSelect {
     width: 100%;
     padding: 0.1em;
@@ -198,7 +211,7 @@ All the changes made to enable the implementation of the desired development too
     font-size: 1.2rem;
     margin-top: 1rem;
     border-radius: 4px;
-    margin-left: 14rem;
+    margin-left: 1rem;
 }
 
 #btnRemove {
@@ -520,6 +533,11 @@ button:hover {
 }
 
 .brd-cat-delete {
+    display: flex;
+    align-items: baseline;
+}
+
+.brd-cat-add {
     display: flex;
     align-items: baseline;
 }
