@@ -57,13 +57,18 @@ const options = [
 ];
 
 const Config = () => {
-  //for the new category add:
+  //For the category´s
+  const [cats, setCats] = useState([]);
   const [newCategory, setNewCategory] = useState("");
 
-  //store data from the api call:
-  const [cats, setCats] = useState([]);
+  //For the brands
   const [brands, setBrands] = useState([]);
+  const [newBrand, setNewBrand] = useState("");
+
+  //for the entitys
   const [ents, setEnts] = useState([]);
+
+  //for the suppliers
   const [suppliers, setSuppliers] = useState([]);
 
   //For the models
@@ -102,6 +107,7 @@ const Config = () => {
     });
   }, []);
 
+  //Shows all the relations of categories and brands
   useEffect(() => {
     fetchRelationss();
   }, []);
@@ -132,8 +138,11 @@ const Config = () => {
   // New state variables to save user selections
   const [selectedFirstOption, setSelectedFirstOption] = useState("");
   const [selectedNextOption, setSelectedNextOption] = useState("");
+
+  //Options of the second options phase
   const additionalOptions = ["Adicionar", "Editar", "Apagar"];
 
+  //Text for each option of the configurations, displayed under every option
   const getOptionExplanation = (option) => {
     // Define explanations for each option here
     const explanations = {
@@ -155,8 +164,7 @@ const Config = () => {
     ) : null;
   };
 
-  //-----------------------Keep track of edited relation of Brand/Categ
-
+  //-----------Keep track of edited relation of Brand/Categ---------
   const [selectedRelationId, setSelectedRelationId] = useState(null);
 
   const [selectedRelationForEdit, setSelectedRelationForEdit] = useState(null);
@@ -207,7 +215,7 @@ const Config = () => {
     }
   };
 
-  //-------------------------------------------------
+  //------------------Options of Configuration-------------------------------
   const handleOptionToggle = (option) => {
     if (selectedOption === option) {
       setSelectedOption("");
@@ -429,9 +437,8 @@ const Config = () => {
   };
 
   //--------------Brand---------------------------------
-  const [newBrand, setNewBrand] = useState("");
 
-  //Add a new brand
+  //---------Add a new brand---------
   const handleAddBrand = async () => {
     setError(null); // Clear any previous errors
 
@@ -475,7 +482,7 @@ const Config = () => {
     }
   };
 
-  //Remove a brand
+  //---------Remove a brand---------
   const handleRemoveBrand = async () => {
     const selectElement = document.getElementById("brand");
 
@@ -508,7 +515,6 @@ const Config = () => {
     }
   };
 
-  //Edit a brand
   //-----------Edit a brand-------------------------
   const [selectedBrData, setSelectedBrData] = useState(null);
   const [editedBrValue, setEditedBrValue] = useState("");
@@ -567,10 +573,10 @@ const Config = () => {
     }
   };
 
-  //--------------Entity---------------------------------
+  //--------------Entity-----------------------
   const [newEntity, setNewEntity] = useState("");
 
-  //Add Entity-------------------------
+  //---------Add Entity-------------------------
   const handleAddEntity = async () => {
     setError(null);
 
@@ -612,7 +618,7 @@ const Config = () => {
     }
   };
 
-  //Delete Entity-------------------------
+  //---------Delete Entity-------------------------
   const handleRemoveEntity = async () => {
     setError(null);
 
@@ -643,7 +649,7 @@ const Config = () => {
     }
   };
 
-  //Edit entity
+  //---------Edit entity---------
   const [selectedEntData, setSelectedEntData] = useState(null);
   const [editedEntValue, setEditedEntValue] = useState("");
 
@@ -702,7 +708,7 @@ const Config = () => {
   //--------------Supplier---------------------------------
   const [newSupplier, setNewSupplier] = useState("");
 
-  //Add Supplier
+  //---------Add Supplier---------
   const handleAddSupplier = async () => {
     setError(null);
 
@@ -745,7 +751,7 @@ const Config = () => {
     }
   };
 
-  //Delete Supplier
+  //---------Delete Supplier---------
   const handleRemoveSupplier = async () => {
     setError(null);
     const selectElement = document.getElementById("sup");
@@ -775,7 +781,7 @@ const Config = () => {
     }
   };
 
-  //Edit Supplier
+  //---------Edit Supplier---------
   const [selectedSupData, setSelectedSupData] = useState(null);
   const [editedSupValue, setEditedSupValue] = useState("");
 
@@ -916,7 +922,7 @@ const Config = () => {
     }
   };
 
-  //---------Edit Model
+  //---------Edit Model---------
   const [selectedMdlData, setSelectedMdlData] = useState(null);
   const [editedMdlValue, setEditedMdlValue] = useState("");
 
@@ -971,7 +977,7 @@ const Config = () => {
   };
 
   //-------------------Units-------------------
-  //--------------------------Add Unit-------------------------
+  //--------------------------Add Unit---------
   const handleAddUnit = async () => {
     setError(null);
 
@@ -1049,7 +1055,7 @@ const Config = () => {
     }
   };
 
-  //Edit Unit
+  //---------------Edit Unit------------
   const [selectedUntData, setSelectedUntData] = useState(null);
   const [editedUntValue, setEditedUntValue] = useState("");
 
@@ -1105,10 +1111,11 @@ const Config = () => {
     }
   };
 
+  //----------------For the category and brand---------------------
+
   const [relations, setRelations] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  //----------------For the category and brand---------------------
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -1161,7 +1168,7 @@ const Config = () => {
   return (
     <div className="form-brd-mdl">
       <h1 className="mn-config">Configurações</h1>
-      {/* Render the modal conditionally */}
+      {/* Render the modal conditionally - Show the erros Modals*/}
       <Modal
         show={showFirstSetMessage || showSecondSetMessage}
         onHide={handleClose}
@@ -1349,7 +1356,7 @@ const Config = () => {
                 successMessage={successMessage}
               />
             )}
-          {/* Entity delete */}
+          {/* Entity edit */}
           {selectedFirstOption === "Entidade" &&
             selectedNextOption === "Editar" && (
               <ConfigDropEdit
@@ -1508,7 +1515,7 @@ const Config = () => {
             )}
           {/* ------------Category/Brand------------------ */}
           {/*
-          -------------Adicionar Categoria/Marca-------------
+          -------------Add Category/Brand-------------
           */}
           <div>
             {selectedFirstOption === "Categoria/Marca" &&
@@ -1532,7 +1539,7 @@ const Config = () => {
               )}
 
             {/*
-            -------------Editar Categoria/Marca-------------
+            -------------Edit Category/Brand-------------
             */}
             {selectedFirstOption === "Categoria/Marca" &&
               selectedNextOption === "Editar" && (
@@ -1554,7 +1561,7 @@ const Config = () => {
               )}
 
             {/*
-            -------------Delete Categoria/Marca-------------
+            -------------Delete Category/Brand-------------
             */}
             {selectedFirstOption === "Categoria/Marca" &&
               selectedNextOption === "Apagar" && (
