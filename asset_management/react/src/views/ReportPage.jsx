@@ -80,14 +80,13 @@ const ReportPage = () => {
   const [filteredDataFrom, setFilteredDataFrom] = useState(false);
   const [filteredDataTo, setFilteredDataTo] = useState(false);
 
-  const [allAllocations, setAllAllocations] = useState([]);
-
   //For all the asset data:
   const [allDados, setAllDados] = useState([]); //All the data from an asset (not the user)
   const [allAssets, setAllAssets] = useState([]); //All the data from an asset (not the user)
 
   const [filteredAllocations, setFilteredAllocations] = useState([]);
 
+  //Displays errors messages
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -97,11 +96,13 @@ const ReportPage = () => {
   const startIndex = (currentPage - 1) * resultsPerPage;
   const endIndex = startIndex + resultsPerPage;
 
+  //Gets data with pagination and users
   useEffect(() => {
     getAssetsFilter();
     getUsers();
   }, []);
 
+  //Gets data from Allocations, units, entity and categories
   useEffect(() => {
     Promise.all([axiosClient.get("/reportAll")]).then((responses) => {
       setLoading(false);
@@ -129,6 +130,7 @@ const ReportPage = () => {
       });
   };
 
+  //Gets all the users
   const getUsers = (url) => {
     url = url || "/userAllo";
     setLoading(true);
@@ -151,14 +153,7 @@ const ReportPage = () => {
     });
   }, []);
 
-  useEffect((url) => {
-    url = url || "/allocationAll";
-    axiosClient.get(url).then(({ data }) => {
-      setAllAllocations(data.data);
-    });
-  }, []);
-  /* console.log(allAllocations); */
-
+  //Function that allows to create one array with an input of two arrays
   function joinArrays(array1, array2) {
     // Create an empty array to store the joined data
     const joinedArray = [];
@@ -191,10 +186,11 @@ const ReportPage = () => {
     return joinedArray;
   }
 
+  //Joins two arrays, the assets and allocations into one array
   const togJoin = joinArrays(assets, allocations);
   /*  console.log(togJoin); */
-  //-----------------------Category Filter-----------------------------------------
 
+  //-----------------------Category Filter-----------------------------------------
   useEffect(() => {
     let errorTimer;
 
@@ -210,6 +206,7 @@ const ReportPage = () => {
     return () => clearTimeout(errorTimer);
   }, [error]);
 
+  //Updates the values when the filter of Category, user, entity or data from/to changes
   useEffect(() => {
     const hasFilter = selectedCategory !== "";
     const hasFilterUser = selectedUser !== "";
@@ -247,7 +244,6 @@ const ReportPage = () => {
   ]);
 
   //-------Filters the category by user input
-
   const joinedArray = allDados.map((dados) => {
     const allocation = allocations.find(
       (alloc) => alloc.asset_id === dados.id && alloc.action_type === "Atualiza"
@@ -261,11 +257,14 @@ const ReportPage = () => {
   });
   /*  console.log("joinedArray", joinedArray);
    */
+
+  //Includes rows of the filter data
   const filterAllocations = () => {
     setIsButtonClicked(false);
     const updatedAllocations = joinedArray.filter((row) => {
       /* console.log(joinedArray); */
       const rowDate = row.allocation_date.split(" ")[0];
+      //Checks every option
       if (
         filtered &&
         filteredUser &&
@@ -318,22 +317,25 @@ const ReportPage = () => {
     setIsButtonClicked(true);
     setDropdownOpen(false);
   };
-  //----------Handles Category Change------------------------
+  //Handles Category Change on the filter menu
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
     setSelectedCategory(selectedCategory);
   };
 
+  //Function that saves the user chosen from the filter menu, by the user
   const handleUserChange = (event) => {
     const selectedUser = event.target.value;
     setSelectedUser(selectedUser);
   };
 
+  //Function that saves the entity chosen from the filter menu, by the user
   const handleLocalChange = (event) => {
     const selectedEnt = event.target.value;
     setSelectedEnt(selectedEnt);
   };
 
+  //Handles the initial data on the filter menu
   const handleDataChangeFrom = (event) => {
     const selectDateFrom = event.target.value;
 
@@ -349,6 +351,7 @@ const ReportPage = () => {
     setErrorMsg("");
   };
 
+  //Handles the final data on the filter menu
   const handleDataChangeTo = (event) => {
     const selectDataTo = event.target.value;
 
@@ -365,6 +368,7 @@ const ReportPage = () => {
     setErrorMsg("");
   };
   //----------------------------------------------------------
+  //For the pagination without filters chosen
   const onPageClick = (link) => {
     getAssetsFilter(link.url);
   };
@@ -488,21 +492,25 @@ const ReportPage = () => {
     setDropdownOpen(false);
   };
 
+  //Total results for the pagination with filters chosen
   const totalResults = filteredAllocations.length;
 
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedAsset, setSelectedAsset] = useState(null);
 
+  //Dropdown for the observation icon of every asset movement. (it only appears when there is one observation)
   const handleDropdownToggle = (assetId) => {
     setSelectedAsset(assetId === selectedAsset ? null : assetId);
     setShowDropdown(!showDropdown);
   };
 
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  //Dropdown for the filter button
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
+  //Redirects the user to the Add Asset Movement page
   const onAddClick = () => {
     const url = "/addAssetMovement";
     navigate(url);
@@ -542,24 +550,28 @@ const ReportPage = () => {
                   className={`dropdown-menuu ${dropdownOpen ? "show" : ""}`}
                   id="filterDropdown"
                 >
+                  {/* ------------Filter for the category------------ */}
                   <SelectFilter
                     handleFunc={handleCategoryChange}
                     selectedF={selectedCategory}
                     data={cats}
                     title={"Categoria:"}
                   />
+                  {/* ------------Filter for the user------------ */}
                   <SelectFilter
                     handleFunc={handleUserChange}
                     selectedF={selectedUser}
                     data={users}
-                    title={"Utilizadores:"}
+                    title={"Utilizador:"}
                   />
+                  {/* ------------Filter for the entity------------ */}
                   <SelectFilter
                     handleFunc={handleLocalChange}
                     selectedF={selectedEnt}
                     data={ents}
                     title={"Localização:"}
                   />
+                  {/* ------------Data layout------------ */}
                   <div className="data-filter-container">
                     <label className="titleFiltDataMov">Data:</label>
 
@@ -593,6 +605,7 @@ const ReportPage = () => {
                     </form>
                   </div>
                   {error && <p className="error-msg-rep">{errorMsg}</p>}
+                  {/* ------------Button for the filter------------ */}
                   {
                     <button
                       onClick={resetFilter}
@@ -655,10 +668,11 @@ const ReportPage = () => {
             </>
           )}
           {/* {console.log(assets)} */}
-          {console.log("Ativos", assets)}
+
           {!loading && (
             <tbody>
               {!isButtonClicked && filteredAllocations.length === 0 ? (
+                /*Asset Movements */
                 assets.map((asset, index) => {
                   const allocationData = getAllocationData(asset.id);
                   const filteredTogJoin = togJoin
@@ -673,10 +687,6 @@ const ReportPage = () => {
                       ? filteredTogJoin[0].other
                       : null;
 
-                  /*  const dateAsset =
-                    filteredTogJoin.length > 0
-                      ? filteredTogJoin[1].allocation_date
-                      : null; */
                   return (
                     <tr key={`${asset.id}-${index}`}>
                       <td>{asset.numb_inv}</td>
@@ -748,6 +758,7 @@ const ReportPage = () => {
                   </td>
                 </tr>
               ) : (
+                /*Filtered Asset Movements */
                 filteredAllocations
                   .slice(startIndex, endIndex)
                   .map((asset, index) => {
@@ -837,12 +848,14 @@ const ReportPage = () => {
         </table>
         <p> </p>
         <p> </p>
+        {/*Pagination without filters*/}
         {filtered === false && !loading ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
         ) : filteredAllocations.length === 0 ? (
           ""
         ) : (
           <>
+            {/*Pagination with filters*/}
             <PaginationFilter
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
