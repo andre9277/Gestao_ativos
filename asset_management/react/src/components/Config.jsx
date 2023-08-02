@@ -1172,7 +1172,7 @@ const Config = () => {
         <Modal.Body>
           {showFirstSetMessage && (
             <div className="message">
-              Não selecionou nenhuma opção.
+              Atenção! Não selecionou nenhuma opção.
               <p>Por favor, selecione uma opção!</p>
             </div>
           )}
