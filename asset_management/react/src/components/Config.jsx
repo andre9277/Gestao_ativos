@@ -135,24 +135,26 @@ const Config = () => {
   const [selectedNextOption, setSelectedNextOption] = useState("");
   const additionalOptions = ["Adicionar", "Editar", "Apagar"];
 
-const getOptionExplanation = (option) => {
-  // Define explanations for each option here
-  const explanations = {
-    "Categoria": "Esta opção permite configurar as categorias.",
-    "Marca": "Esta opção permite configurar as marcas.",
-    "Modelo": "Esta opção permite configurar as modelos.",
-    "Entidade": "Esta opção permite configurar as entidades.",
-    "Unidade": "Esta opção permite configurar as unidades.",
-    "Fornecedor": "Esta opção permite configurar os fornecedores.",
-    "Categoria/Marca": "Esta opção permite configurar as relações categoria/marca.",
-    "Adicionar": "Esta operação permite adicionar.",
-    "Editar": "Esta operação permite editar.",
-    "Apagar": "Esta operação permite apgar.",
+  const getOptionExplanation = (option) => {
+    // Define explanations for each option here
+    const explanations = {
+      Categoria: "Esta opção permite configurar as categorias.",
+      Marca: "Esta opção permite configurar as marcas.",
+      Modelo: "Esta opção permite configurar as modelos.",
+      Entidade: "Esta opção permite configurar as entidades.",
+      Unidade: "Esta opção permite configurar as unidades.",
+      Fornecedor: "Esta opção permite configurar os fornecedores.",
+      "Categoria/Marca":
+        "Esta opção permite configurar as relações categoria/marca.",
+      Adicionar: "Esta operação permite adicionar.",
+      Editar: "Esta operação permite editar.",
+      Apagar: "Esta operação permite apgar.",
+    };
+
+    return explanations[option] ? (
+      <i className="option-explanation">{explanations[option]}</i>
+    ) : null;
   };
-
-  return explanations[option] ? <p className="option-explanation">{explanations[option]}</p> : null;
-};
-
 
   //-----------------------Keep track of edited relation of Brand/Categ
 
@@ -1028,6 +1030,7 @@ const getOptionExplanation = (option) => {
     handleCloseModal();
   };
 
+  //Close of the message when option are null
   const handleClose = () => {
     setShowFirstSetMessage(false);
     setShowSecondSetMessage(false);
@@ -1036,22 +1039,26 @@ const getOptionExplanation = (option) => {
   return (
     <div className="form-brd-mdl">
       <h1 className="mn-config">Configurações</h1>
-     {/* Render the modal conditionally */}
-     <Modal show={showFirstSetMessage || showSecondSetMessage} onHide={handleClose}>
+      {/* Render the modal conditionally */}
+      <Modal
+        show={showFirstSetMessage || showSecondSetMessage}
+        onHide={handleClose}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Erro!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {showFirstSetMessage && (
             <div className="message">
-              Não selecionou nenhuma opção. 
+              Não selecionou nenhuma opção.
               <p>Por favor, selecione uma opção!</p>
             </div>
           )}
 
           {showSecondSetMessage && (
             <div className="message">
-              Não selecionou nenhuma operação. Por favor, selecione uma operação!
+              Não selecionou nenhuma operação. Por favor, selecione uma
+              operação!
             </div>
           )}
         </Modal.Body>
@@ -1062,48 +1069,46 @@ const getOptionExplanation = (option) => {
         </Modal.Footer>
       </Modal>
       {!showNextOptions && (
-  <div className="checkbox-dropdown-container">
-    <p className="fr-ini">
-      Selecione uma das opções para realizar a configuração.
-    </p>
-    {options.map((option, index) => (
-      <div key={index}>
-        <label className="checkbox-label">
-          <input
-            type="checkbox"
-            checked={selectedOption === option}
-            onChange={() => handleOptionToggle(option)}
-            className="chcb_inpt"
-          />
-          {option}
-          {getOptionExplanation(option)} {/* Render explanation for each option */}
-        </label>
-        
-      </div>
-    ))}
-  </div>
-)}
+        <div className="checkbox-dropdown-container">
+          <p className="fr-ini">
+            Selecione uma das opções para realizar a configuração.
+          </p>
+          {options.map((option, index) => (
+            <div className="cls-options">
+              <input
+                type="checkbox"
+                checked={selectedOption === option}
+                onChange={() => handleOptionToggle(option)}
+                className="chcb_inpt"
+              />
+              <label key={index} className="checkbox-label">
+                {option}
+                {getOptionExplanation(option)}{" "}
+              </label>
+            </div>
+          ))}
+        </div>
+      )}
 
-{showNextOptions && !showNextOptionsSecondSet && (
-  <div className="checkbox-dropdown-containerr">
-    <p className="fr-ini-op">Selecione uma das operações:</p>
-    {additionalOptions.map((option, index) => (
-      <div key={index}>
-        <label className="checkbox-label">
-          <input
-            type="checkbox"
-            checked={selectedOption === option}
-            onChange={() => handleOptionToggle(option)}
-            className="chcb_inpt"
-          />
-          {option}
-          {getOptionExplanation(option)} {/* Render explanation for each option */}
-        </label>
-        
-      </div>
-    ))}
-  </div>
-)}
+      {showNextOptions && !showNextOptionsSecondSet && (
+        <div className="checkbox-dropdown-containerr">
+          <p className="fr-ini-op">Selecione uma das operações:</p>
+          {additionalOptions.map((option, index) => (
+            <div className="cls-options">
+              <input
+                type="checkbox"
+                checked={selectedOption === option}
+                onChange={() => handleOptionToggle(option)}
+                className="chcb_inpt"
+              />
+              <label key={index} className="checkbox-label">
+                {option}
+                {getOptionExplanation(option)}{" "}
+              </label>
+            </div>
+          ))}
+        </div>
+      )}
 
       {showNextOptionsSecondSet && showNextOptions ? (
         <div>

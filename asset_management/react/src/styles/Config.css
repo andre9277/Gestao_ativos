@@ -337,12 +337,13 @@ button:hover {
 .checkbox-label {
     font-size: 1.6rem;
     width: 33%;
+    margin-bottom: 2rem;
 }
 
 .chcb_inpt {
     width: 40px;
-    height: 40px;
-    margin: 3rem;
+    height: 30px;
+    width: 12%;
 }
 
 .next-conf {
@@ -523,12 +524,16 @@ button:hover {
     align-items: baseline;
 }
 
-.inp-mdl{
+.inp-mdl {
     width: 100% !important;
 }
 
-.option-explanation{
-    font-size: 12px; /* You can adjust the font size */
+.option-explanation {
+    font-size: 16px; /* You can adjust the font size */
     color: #666; /* You can adjust the text color */
-    margin-top: 1px; /* Add some space between the option and the explanation */
+    display: table-cell !important;
+}
+
+.cls-options {
+    display: inline;
 }
