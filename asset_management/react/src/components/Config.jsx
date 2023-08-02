@@ -974,6 +974,16 @@ const Config = () => {
   //--------------------------Add Unit-------------------------
   const handleAddUnit = async () => {
     setError(null);
+
+    //Validate the category name:
+    const unitRegex = /^[A-Za-z]+$/;
+
+    if (!unitRegex.test(newUnit.trim())) {
+      setError("Atenção! A unidade só pode conter letras.");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
+      return;
+    }
+
     if (newUnit.trim() === "") {
       setError("Atenção! Introduza uma unidade.");
       clearErrorAfterTimeout(5000);
@@ -1053,6 +1063,17 @@ const Config = () => {
   };
 
   const handleDataUntUpdate = async () => {
+    setError(null);
+
+    // Define a regular expression to validate the category name
+    const unitRegex = /^[A-Za-z]+$/;
+
+    if (!unitRegex.test(editedUntValue.trim())) {
+      setError("Atenção! A unidade só pode conter letras.");
+      clearErrorAfterTimeout(5000);
+      return;
+    }
+
     if (editedUntValue.trim() === "") {
       setError("Atenção! Não pode guardar uma unidade com valor nulo.");
       clearErrorAfterTimeout(5000);
