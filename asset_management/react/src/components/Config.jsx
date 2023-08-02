@@ -44,16 +44,15 @@ import ConfigDropMdlDel from "./ConfigDropMdlDel";
 import AddRelationConfig from "./AddRelationConfig";
 import EditRelationConfig from "./EditRelationConfig";
 import DeleteRelationConfig from "./DeleteRelationConfig";
-import NoOptionMessage from "./NoOptionMessage";
 import { Modal, Button } from "react-bootstrap";
 
 const options = [
   "Categoria",
+  "Fornecedor",
   "Marca",
   "Modelo",
   "Entidade",
   "Unidade",
-  "Fornecedor",
   "Categoria/Marca",
 ];
 
