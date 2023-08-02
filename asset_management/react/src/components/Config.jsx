@@ -434,6 +434,16 @@ const Config = () => {
   //Add a new brand
   const handleAddBrand = async () => {
     setError(null); // Clear any previous errors
+
+    // Validate the brand name
+    const brandRegex = /^[A-Za-z0-9-]+$/;
+
+    if (!brandRegex.test(newBrand.trim())) {
+      setError("Atenção! A marca só pode conter letras, números e hífen.");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
+      return;
+    }
+
     if (newBrand.trim() === "") {
       setError("Atenção! Introduza uma marca.");
       clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
@@ -513,6 +523,17 @@ const Config = () => {
   };
 
   const handleDataBrUpdate = async () => {
+    setError(null);
+
+    // Validate the brand name
+    const brandRegex = /^[A-Za-z0-9-]+$/;
+
+    if (!brandRegex.test(editedBrValue.trim())) {
+      setError("Atenção! A marca só pode conter letras, números e hífen.");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
+      return;
+    }
+
     if (editedBrValue.trim() === "") {
       setError("Atenção! Não pode guardar uma marca com valor nulo.");
       clearErrorAfterTimeout(5000);
