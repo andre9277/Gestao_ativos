@@ -412,6 +412,7 @@ button:hover {
 
 .checkbox-dropdown-container {
     display: block;
+    margin-left: 1rem;
 }
 .checkbox-dropdown-containerr {
     display: grid;
@@ -509,6 +510,10 @@ button:hover {
 
 .message {
     font-size: 1.2rem;
+}
+
+.messagee {
+    color: red;
 }
 
 .mn-config {

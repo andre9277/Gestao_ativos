@@ -87,6 +87,10 @@ const Config = () => {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
 
+  // State to keep track of selected options
+  const [selectedOptionsHistory, setSelectedOptionsHistory] = useState([]);
+  const [selectedAdditionalOption, setSelectedAdditionalOption] = useState("");
+  const [selectedRegularOption, setSelectedRegularOption] = useState("");
   //-----------------------------------------------------
   //For the Category/Brand Modal
   const [showModal, setShowModal] = useState(false);
@@ -217,12 +221,21 @@ const Config = () => {
 
   //------------------Options of Configuration-------------------------------
   const handleOptionToggle = (option) => {
-    if (selectedOption === option) {
-      setSelectedOption("");
-      setHasSelectedOption(false);
-    } else {
-      setSelectedOption(option);
-      setHasSelectedOption(true);
+    // Check if the selected option is the same as the one currently selected
+    if (selectedRegularOption === option) {
+      // If it's the same, do nothing, as the user doesn't need to undo the selection.
+      return;
+    }
+
+    // Reset the selected option and history
+    setSelectedRegularOption(option);
+    setSelectedAdditionalOption("");
+    setHasSelectedOption(true);
+
+    // Check if the selected option is one of the additional options
+    if (additionalOptions.includes(option)) {
+      // If it's an additional option, update the selected additional option
+      setSelectedAdditionalOption(option);
     }
   };
 
@@ -1168,13 +1181,22 @@ const Config = () => {
   return (
     <div className="form-brd-mdl">
       <h1 className="mn-config">Configurações</h1>
+
+      {/* {console.log("selectedNextOption", selectedNextOption)} */}
+      <p>
+        {/* Breadcrumb Navigation */}
+        {selectedRegularOption}
+        {selectedAdditionalOption ? ` > ${selectedAdditionalOption}` : ""}
+      </p>
       {/* Render the modal conditionally - Show the erros Modals*/}
       <Modal
         show={showFirstSetMessage || showSecondSetMessage}
         onHide={handleClose}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Erro!</Modal.Title>
+          <Modal.Title>
+            <p className="messagee">Erro!</p>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {showFirstSetMessage && (
@@ -1585,7 +1607,7 @@ const Config = () => {
               )}
 
             <button onClick={handleBackButtonClick} className="vl-btn">
-              Voltar
+              Anterior
             </button>
             <p></p>
             <button onClick={handleCloseButtonClick} className="ini-btn">
@@ -1595,7 +1617,7 @@ const Config = () => {
         </div>
       ) : (
         <button onClick={handleNextButtonClick} className="next-conf">
-          Próximo
+          Seguinte
         </button>
       )}
     </div>
