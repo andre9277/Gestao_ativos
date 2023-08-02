@@ -314,14 +314,14 @@ const Config = () => {
     //Validate the category name:
     const categoryRegex = /^[A-Za-z]+$/;
 
-    if (!categoryRegex.test(newCategory.trim())) {
-      setError("Atenção! A categoria só pode conter letras.");
+    if (newCategory.trim() === "") {
+      setError("Atenção! Introduza uma categoria.");
       clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
       return;
     }
 
-    if (newCategory.trim() === "") {
-      setError("Atenção! Introduza uma categoria.");
+    if (!categoryRegex.test(newCategory.trim())) {
+      setError("Atenção! A categoria só pode conter letras.");
       clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
       return;
     }
@@ -383,7 +383,9 @@ const Config = () => {
         )
       );
     } catch (err) {
-      setError("Erro ao remover a categoria. Por favor tente outra vez.");
+      setError(
+        "Erro ao remover a categoria. Por favor tente outra vez. Verifique se existe alguma relação Categoria/Marca!"
+      );
       clearErrorAfterTimeout(5000);
     }
   };
@@ -453,14 +455,14 @@ const Config = () => {
     // Validate the brand name
     const brandRegex = /^[A-Za-z0-9-]+$/;
 
-    if (!brandRegex.test(newBrand.trim())) {
-      setError("Atenção! A marca só pode conter letras, números e hífen.");
+    if (newBrand.trim() === "") {
+      setError("Atenção! Introduza uma marca.");
       clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
       return;
     }
 
-    if (newBrand.trim() === "") {
-      setError("Atenção! Introduza uma marca.");
+    if (!brandRegex.test(newBrand.trim())) {
+      setError("Atenção! A marca só pode conter letras, números e hífen.");
       clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
       return;
     }
@@ -542,15 +544,15 @@ const Config = () => {
     // Validate the brand name
     const brandRegex = /^[A-Za-z0-9-]+$/;
 
-    if (!brandRegex.test(editedBrValue.trim())) {
-      setError("Atenção! A marca só pode conter letras, números e hífen.");
-      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
-      return;
-    }
-
     if (editedBrValue.trim() === "") {
       setError("Atenção! Não pode guardar uma marca com valor nulo.");
       clearErrorAfterTimeout(5000);
+      return;
+    }
+
+    if (!brandRegex.test(editedBrValue.trim())) {
+      setError("Atenção! A marca só pode conter letras, números e hífen.");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
       return;
     }
 
@@ -591,14 +593,14 @@ const Config = () => {
     //Validate the entity name:
     const entRegex = /^[A-Za-z]+$/;
 
-    if (!entRegex.test(newEntity.trim())) {
-      setError("Atenção! A entidade só pode conter letras.");
+    if (newEntity.trim() === "") {
+      setError("Atenção! Introduza uma entidade.");
       clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
       return;
     }
 
-    if (newEntity.trim() === "") {
-      setError("Atenção! Introduza uma entidade.");
+    if (!entRegex.test(newEntity.trim())) {
+      setError("Atenção! A entidade só pode conter letras.");
       clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
       return;
     }
@@ -723,15 +725,15 @@ const Config = () => {
     //Validate the supplier name:
     const suppRegex = /^[A-Za-z]+$/;
 
-    if (!suppRegex.test(newSupplier.trim())) {
-      setError("Atenção! O fornecedor só pode conter letras.");
-      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
-      return;
-    }
-
     if (newSupplier.trim() === "") {
       setError("Atenção! Introduza um fornecedor.");
       clearErrorAfterTimeout(5000);
+      return;
+    }
+
+    if (!suppRegex.test(newSupplier.trim())) {
+      setError("Atenção! O fornecedor só pode conter letras.");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
       return;
     }
 
@@ -808,14 +810,14 @@ const Config = () => {
     // Define a regular expression to validate the category name
     const suppRegex = /^[A-Za-z]+$/;
 
-    if (!suppRegex.test(editedSupValue.trim())) {
-      setError("Atenção! O fornecedor só pode conter letras.");
+    if (editedSupValue.trim() === "") {
+      setError("Atenção! Não pode guardar um fornecedor com valor nulo.");
       clearErrorAfterTimeout(5000);
       return;
     }
 
-    if (editedSupValue.trim() === "") {
-      setError("Atenção! Não pode guardar um fornecedor com valor nulo.");
+    if (!suppRegex.test(editedSupValue.trim())) {
+      setError("Atenção! O fornecedor só pode conter letras.");
       clearErrorAfterTimeout(5000);
       return;
     }
@@ -856,15 +858,15 @@ const Config = () => {
     //Validate the category name:
     const mdlRegex = /^[A-Za-z0-9-]+$/;
 
-    if (!mdlRegex.test(newModel.trim())) {
-      setError("Atenção! O modelo só pode conter letras, números e hífen.");
-      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
-      return;
-    }
-
     if (newModel.trim() === "") {
       setError("Atenção! Introduza um modelo.");
       clearErrorAfterTimeout(5000);
+      return;
+    }
+
+    if (!mdlRegex.test(newModel.trim())) {
+      setError("Atenção! O modelo só pode conter letras, números e hífen.");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
       return;
     }
 
@@ -947,15 +949,15 @@ const Config = () => {
     // Validate the model name
     const mdlRegex = /^[A-Za-z0-9-]+$/;
 
-    if (!mdlRegex.test(editedMdlValue.trim())) {
-      setError("Atenção! O modelo só pode conter letras, números e hífen.");
-      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
-      return;
-    }
-
     if (editedMdlValue.trim() === "") {
       setError("Atenção! Não pode guardar um modelo com valor nulo.");
       clearErrorAfterTimeout(5000);
+      return;
+    }
+
+    if (!mdlRegex.test(editedMdlValue.trim())) {
+      setError("Atenção! O modelo só pode conter letras, números e hífen.");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
       return;
     }
 
@@ -992,20 +994,21 @@ const Config = () => {
     //Validate the category name:
     const unitRegex = /^[A-Za-z]+$/;
 
-    if (!unitRegex.test(newUnit.trim())) {
-      setError("Atenção! A unidade só pode conter letras.");
-      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
-      return;
-    }
-
     if (newUnit.trim() === "") {
       setError("Atenção! Introduza uma unidade.");
       clearErrorAfterTimeout(5000);
       return;
     }
+
     if (selectedEnt === "") {
       setError("Atenção! Selecione uma entidade.");
       clearErrorAfterTimeout(5000);
+      return;
+    }
+
+    if (!unitRegex.test(newUnit.trim())) {
+      setError("Atenção! A unidade só pode conter letras.");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
       return;
     }
 
@@ -1082,14 +1085,14 @@ const Config = () => {
     // Define a regular expression to validate the category name
     const unitRegex = /^[A-Za-z]+$/;
 
-    if (!unitRegex.test(editedUntValue.trim())) {
-      setError("Atenção! A unidade só pode conter letras.");
+    if (editedUntValue.trim() === "") {
+      setError("Atenção! Não pode guardar uma unidade com valor nulo.");
       clearErrorAfterTimeout(5000);
       return;
     }
 
-    if (editedUntValue.trim() === "") {
-      setError("Atenção! Não pode guardar uma unidade com valor nulo.");
+    if (!unitRegex.test(editedUntValue.trim())) {
+      setError("Atenção! A unidade só pode conter letras.");
       clearErrorAfterTimeout(5000);
       return;
     }
