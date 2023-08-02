@@ -368,7 +368,7 @@ button:hover {
     color: white;
     overflow: hidden;
     margin-left: 6rem;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 }
 
 .fr-ini {
@@ -399,7 +399,7 @@ button:hover {
 }
 
 .ini-btn {
-    background-color: #e2c639;
+    background-color: #714b67;
     padding: 0.5rem 0.75rem;
     font-size: 1.6rem;
     border-radius: 4px;
@@ -515,6 +515,7 @@ button:hover {
 
 .messagee {
     color: red;
+    font-size: 2rem;
 }
 
 .mn-config {
@@ -569,4 +570,8 @@ button:hover {
     margin-left: 5rem;
     font-size: 1.6rem;
     color: #7e7979;
+}
+
+.attention-msg {
+    color: red;
 }

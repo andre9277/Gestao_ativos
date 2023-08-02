@@ -1139,7 +1139,7 @@ const Config = () => {
         clearErrorAfterTimeout(5000);
         return;
       }
-      console.log(selectedBrand);
+
       if (selectedBrand === "") {
         setError("Atenção! Selecione uma marca.");
         clearErrorAfterTimeout(5000);
@@ -1195,15 +1195,20 @@ const Config = () => {
         <Modal.Body>
           {showFirstSetMessage && (
             <div className="message">
-              Atenção! Não selecionou nenhuma opção.
-              <p>Por favor, selecione uma opção!</p>
+              <b className="attention-msg">Atenção!</b>
+              <p>
+                Não selecionou nenhuma opção. Por favor, selecione uma opção!
+              </p>
             </div>
           )}
 
           {showSecondSetMessage && (
             <div className="message">
-              Não selecionou nenhuma operação. Por favor, selecione uma
-              operação!
+              <b className="attention-msg">Atenção!</b>
+              <p>
+                Não selecionou nenhuma operação. Por favor, selecione uma
+                operação!
+              </p>
             </div>
           )}
         </Modal.Body>
@@ -1603,7 +1608,7 @@ const Config = () => {
             </button>
             <p></p>
             <button onClick={handleCloseButtonClick} className="ini-btn">
-              Início
+              Configurações
             </button>
           </div>
         </div>
@@ -1625,7 +1630,6 @@ const Config = () => {
           )}
         </>
       )}
-      {console.log(selectedFirstOption)};
     </div>
   );
 };
