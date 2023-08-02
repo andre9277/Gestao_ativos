@@ -121,7 +121,7 @@ function Dashboard() {
               Icon="fa-wrench"
               Cor="text-warning"
               Tipo="warning"
-              LinkCard="assets"
+              LinkCard="assetsRep"
             />
             <Card
               Titulo="Ativos obsoletos"
