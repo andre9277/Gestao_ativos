@@ -46,32 +46,50 @@ import { Modal, Button } from "react-bootstrap";
 
 export default function Assets() {
   const navigate = useNavigate();
-
+  //Array to save the assets
   const [assets, setAssets] = useState([]);
+  //To display loading option when waiting for the requested data from the server
   const [loading, setLoading] = useState(false);
-  //const [loadingAll, setLoadingAll] = useState(false);
+
+  //Array to save pagination status
   const [meta, setMeta] = useState({});
+
+  //Gets the data from the current logged in user and the activeOption for the sidebar
   const { user, setNotification, setActiveOption } = useStateContext();
 
+  //To manage state of the sidebar highlight
   useEffect(() => {
     setActiveOption("assets");
   }, []);
 
+  //Array to save categories for the filter select
   const [cats, setCats] = useState([]);
+
+  //Array to save brands for the filter select
   const [brands, setBrands] = useState([]);
+  //Array to save models for the filter select
   const [modelos, setModelos] = useState([]);
+
+  //Array to save floor for the filter select
   const [floor, setFloor] = useState([]);
+
+  //Array to save entity for the filter select
   const [ent, setEnt] = useState([]);
 
+  //State to keep track of the selected options from the filters
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedFloor, setSelectedFloor] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedEnt, setSelectedEnt] = useState("");
   const [originalModels, setOriginalModels] = useState([]);
+
+  //All data from Data
   const [allDados, setAllDados] = useState([]);
 
   const [isButtonClicked, setIsButtonClicked] = useState(false);
+
+  //Filtered Allocations
   const [filteredAllocations, setFilteredAllocations] = useState([]);
 
   //*For pagination with filters*
@@ -87,6 +105,7 @@ export default function Assets() {
 
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
 
+  //Gets all the assets to populate the table
   useEffect(() => {
     getAssets();
   }, []);
@@ -113,25 +132,19 @@ export default function Assets() {
         setLoading(false);
       });
   };
-  /*  useEffect(() => {
-    return () => {
-      if (abortControllerrRef.current) {
-        abortControllerrRef.current.abort();
-      }
-    };
-  }, []);
- */
+
+  //Gets the data to populate the filter selects
   useEffect(() => {
     abortControllerRef.current = new AbortController();
     const { signal } = abortControllerRef.current;
     Promise.all([axiosClient.get("/assetsDefault", { signal })])
       .then((responses) => {
         setLoading(false);
-        setCats(responses[0].data.cats);
-        setBrands(responses[0].data.brands);
-        setOriginalModels(responses[0].data.models);
-        setModelos(responses[0].data.models);
-        setFloor(responses[0].data.floor);
+        setCats(responses[0].data.cats); //Saves all categories in one array
+        setBrands(responses[0].data.brands); //Saves all brands in one array
+        setOriginalModels(responses[0].data.models); //Saves all models in one array
+        setModelos(responses[0].data.models); //Saves all models in one array
+        setFloor(responses[0].data.floor); //Saves all floor in one array
         setAllDados(responses[0].data.assets); //Gets all data from the assets
         setEnt(responses[0].data.localiz);
       })
@@ -155,6 +168,7 @@ export default function Assets() {
   const [allDataF, setAllDataF] = useState([]);
   const [orderFilter, setOrderFilter] = useState("ASC");
 
+  //When a filter is selected, updates every time the table
   useEffect(() => {
     const hasFilter =
       selectedCategory !== "" ||
@@ -205,6 +219,7 @@ export default function Assets() {
 
     const dbColumnName = columnMapping[col];
 
+    //When user desires to order by ascending order
     if (orderFilter === "ASC") {
       const sorted = [...allDataF].sort((a, b) => {
         const propA = getPropertyByPathFilter(a, dbColumnName);
@@ -219,6 +234,7 @@ export default function Assets() {
       setAllDataF(sorted);
       setOrderFilter("DSC");
     }
+    //When user desires to order by descending order
     if (orderFilter === "DSC") {
       const sorted = [...allDataF].sort((a, b) => {
         const propA = getPropertyByPathFilter(a, dbColumnName);
@@ -293,11 +309,13 @@ export default function Assets() {
     }
   };
 
+  //Saves the floor value that the user picks
   const handleFloorChange = (event) => {
     const selectedFloor = event.target.value;
     setSelectedFloor(selectedFloor);
   };
 
+  //Saves the brand value that the user picks
   const handleBrandChange = (event) => {
     const selectedBrandName = event.target.value;
 
@@ -320,11 +338,13 @@ export default function Assets() {
     }
   };
 
+  //Saves the model value that the user picks
   const handleModelChange = (event) => {
     const selectedModel = event.target.value;
     setSelectedModel(selectedModel);
   };
 
+  //Saves the entity value that the user picks
   const handleEntityChange = (event) => {
     const selectedEntity = event.target.value;
     setSelectedEnt(selectedEntity);
@@ -376,7 +396,9 @@ export default function Assets() {
   //----------Sorting of the asset table in every column---------- (with pagination)
   const [order, setOrder] = useState("ASC");
 
+  //Sorting method of the assets table depending of what the user wants.
   const sorting = (col) => {
+    //user can sort by category, brand, model, floor, serial number
     const columnMapping = {
       Categoria: "category.name",
       Marca: "brand.name",
@@ -387,6 +409,7 @@ export default function Assets() {
 
     const dbColumnName = columnMapping[col];
 
+    //if order asc
     if (order === "ASC") {
       const sorted = [...assets].sort((a, b) => {
         const propA = getPropertyByPath(a, dbColumnName);
@@ -401,6 +424,8 @@ export default function Assets() {
       setAssets(sorted);
       setOrder("DSC");
     }
+
+    //if order dsc
     if (order === "DSC") {
       const sorted = [...assets].sort((a, b) => {
         const propA = getPropertyByPath(a, dbColumnName);
@@ -425,10 +450,11 @@ export default function Assets() {
     }
     return value;
   };
-  /*  console.log("data filtered:", allDataF);
-  console.log("assets", assets); */
 
+  //State to keep track of the filter window
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  //Dropdown for the filter menu
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
@@ -438,11 +464,13 @@ export default function Assets() {
     setShow(true); // Show the modal
   };
 
+  //Modal created for the delete option
   const handleDeleteConfirm = () => {
     setDeleteConfirmed(true);
     setShow(false); // Close the modal
   };
 
+  //Cancel button of the modal
   const handleClose = () => {
     setShow(false);
   };
@@ -484,6 +512,7 @@ export default function Assets() {
 
   return (
     <div id="content">
+      {/*Modal to delete an asset*/}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Confirmação</Modal.Title>
@@ -537,8 +566,7 @@ export default function Assets() {
                     data={brands}
                     title={"Marca:"}
                   />
-                  {/* {console.log("brands", brands)}
-                  {console.log("selectedBrand", selectedBrand)} */}
+
                   <SelectFilter
                     handleFunc={handleModelChange}
                     selectedF={selectedModel}
@@ -557,6 +585,7 @@ export default function Assets() {
                     data={ent}
                     title={"Localização:"}
                   />
+                  {/* Button of the filter to clear the chosen filters */}
                   {
                     <button
                       onClick={resetFilter}
@@ -565,6 +594,7 @@ export default function Assets() {
                       Limpar
                     </button>
                   }
+                  {/* Button of the filter to Apply the chosen filters */}
                   {
                     <button
                       onClick={filterAsset}
@@ -747,6 +777,7 @@ export default function Assets() {
                   </td>
                 </tr>
               ) : (
+                //Assets with filters on:
                 filteredAllocations.slice(startIndex, endIndex).map((asset) => (
                   <tr key={asset.id}>
                     <td className="table-words-l">{asset.category.name}</td>
@@ -789,12 +820,14 @@ export default function Assets() {
         </table>
         <p> </p>
         <p> </p>
+        {/*Pagination without filters*/}
         {!loading && filtered == false ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
         ) : filteredAllocations.length === 0 ? (
           ""
         ) : (
           <>
+            {/*Pagination with filters*/}
             <PaginationFilter
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
