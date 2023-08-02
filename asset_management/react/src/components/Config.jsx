@@ -294,6 +294,16 @@ const Config = () => {
   //---------------Add new category------------------
   const handleAddCategory = async () => {
     setError(null); // Clear any previous errors
+
+    //Validate the category name:
+    const categoryRegex = /^[A-Za-z]+$/;
+
+    if (!categoryRegex.test(newCategory.trim())) {
+      setError("Atenção! A categoria só pode conter letras.");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
+      return;
+    }
+
     if (newCategory.trim() === "") {
       setError("Atenção! Introduza uma categoria.");
       clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
@@ -376,8 +386,19 @@ const Config = () => {
   };
 
   const handleDataUpdate = async () => {
+    setError(null);
+
+    // Define a regular expression to validate the category name
+    const categoryRegex = /^[A-Za-z]+$/;
+
     if (editedValue.trim() === "") {
       setError("Atenção! Não pode guardar uma categoria com valor nulo.");
+      clearErrorAfterTimeout(5000);
+      return;
+    }
+
+    if (!categoryRegex.test(editedValue.trim())) {
+      setError("Atenção! A categoria só pode conter letras.");
       clearErrorAfterTimeout(5000);
       return;
     }
@@ -1073,7 +1094,7 @@ const Config = () => {
             Selecione uma das opções para realizar a configuração.
           </p>
           {options.map((option, index) => (
-            <div className="cls-options">
+            <div key={index} className="cls-options">
               <input
                 type="checkbox"
                 checked={selectedOption === option}
@@ -1093,7 +1114,7 @@ const Config = () => {
         <div className="checkbox-dropdown-containerr">
           <p className="fr-ini-op">Selecione uma das operações:</p>
           {additionalOptions.map((option, index) => (
-            <div className="cls-options">
+            <div key={index} className="cls-options">
               <input
                 type="checkbox"
                 checked={selectedOption === option}

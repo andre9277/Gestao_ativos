@@ -53,6 +53,7 @@ const ConfigDropdown = ({
   const handleFormSubmit = (event) => {
     event.preventDefault(); // Prevent form submission and page refresh
     handleDel(); // Trigger the handleAdd function to save the data
+    setSelectedValue(""); // Clear the selectedValue after deleting
     handleCloseModal(); // Close the modal after saving data
   };
 

@@ -416,7 +416,8 @@ button:hover {
 .checkbox-dropdown-containerr {
     display: grid;
     /* margin-bottom: 18rem; */
-    margin-left: 35rem;
+    margin-left: 6rem;
+    margin-bottom: 2rem;
 }
 
 /* label {
