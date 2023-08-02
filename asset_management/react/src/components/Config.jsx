@@ -705,6 +705,16 @@ const Config = () => {
   //Add Supplier
   const handleAddSupplier = async () => {
     setError(null);
+
+    //Validate the supplier name:
+    const suppRegex = /^[A-Za-z]+$/;
+
+    if (!suppRegex.test(newSupplier.trim())) {
+      setError("Atenção! O fornecedor só pode conter letras.");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
+      return;
+    }
+
     if (newSupplier.trim() === "") {
       setError("Atenção! Introduza um fornecedor.");
       clearErrorAfterTimeout(5000);
@@ -779,6 +789,17 @@ const Config = () => {
   };
 
   const handleDataSupUpdate = async () => {
+    setError(null);
+
+    // Define a regular expression to validate the category name
+    const suppRegex = /^[A-Za-z]+$/;
+
+    if (!suppRegex.test(editedSupValue.trim())) {
+      setError("Atenção! O fornecedor só pode conter letras.");
+      clearErrorAfterTimeout(5000);
+      return;
+    }
+
     if (editedSupValue.trim() === "") {
       setError("Atenção! Não pode guardar um fornecedor com valor nulo.");
       clearErrorAfterTimeout(5000);
