@@ -562,3 +562,9 @@ button:hover {
 .cls-options {
     display: inline;
 }
+
+.brdc-options {
+    margin-top: 1rem;
+    margin-left: 5rem;
+    font-size: 1.6rem;
+}
