@@ -368,6 +368,7 @@ button:hover {
     color: white;
     overflow: hidden;
     margin-left: 6rem;
+    margin-top: 2rem;
 }
 
 .fr-ini {
@@ -392,7 +393,7 @@ button:hover {
     color: white;
     overflow: hidden;
     width: auto;
-    margin-top: 40px;
+    /* margin-top: 40px; */
     margin-left: 6rem;
     width: 88%;
 }

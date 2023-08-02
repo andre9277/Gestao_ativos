@@ -274,6 +274,11 @@ const Config = () => {
     setSelectedOption("");
     setSelectedNextOption("");
     setEditedValue("");
+    if (selectedNextOption === "") {
+      setSelectedFirstOption("");
+    }
+
+    setSelectedNextOption("");
   };
 
   const handleCloseButtonClick = () => {
@@ -283,6 +288,9 @@ const Config = () => {
 
     // Reset the hasSelectedOption state to false when closing the menu
     setHasSelectedOption(false);
+
+    setSelectedFirstOption("");
+    setSelectedNextOption("");
   };
 
   //for timing the erros
@@ -1168,8 +1176,6 @@ const Config = () => {
   return (
     <div className="form-brd-mdl">
       <h1 className="mn-config">Configurações</h1>
-
-      {console.log(selectedNextOption)}
       {
         <i className="brdc-options">
           {selectedFirstOption} {selectedNextOption === "" ? "" : ">"}{" "}
@@ -1228,7 +1234,6 @@ const Config = () => {
           ))}
         </div>
       )}
-
       {showNextOptions && !showNextOptionsSecondSet && (
         <div className="checkbox-dropdown-containerr">
           <p className="fr-ini-op">Selecione uma das operações:</p>
@@ -1248,7 +1253,6 @@ const Config = () => {
           ))}
         </div>
       )}
-
       {showNextOptionsSecondSet && showNextOptions ? (
         <div>
           {/* -----Categories----- */}
@@ -1604,10 +1608,24 @@ const Config = () => {
           </div>
         </div>
       ) : (
-        <button onClick={handleNextButtonClick} className="next-conf">
-          Seguinte
-        </button>
+        <>
+          {selectedFirstOption === "" ? (
+            <button onClick={handleNextButtonClick} className="next-conf">
+              Seguinte
+            </button>
+          ) : (
+            <>
+              <button onClick={handleBackButtonClick} className="vl-btn">
+                Anterior
+              </button>
+              <button onClick={handleNextButtonClick} className="next-conf">
+                Seguinte
+              </button>
+            </>
+          )}
+        </>
       )}
+      {console.log(selectedFirstOption)};
     </div>
   );
 };
