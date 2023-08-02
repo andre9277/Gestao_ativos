@@ -393,7 +393,7 @@ button:hover {
     color: white;
     overflow: hidden;
     width: auto;
-    /* margin-top: 40px; */
+    margin-top: 1rem;
     margin-left: 6rem;
     width: 88%;
 }
