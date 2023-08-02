@@ -838,6 +838,16 @@ const Config = () => {
   // Function to add a new model with the selected brand
   const handleAddModel = async () => {
     setError(null);
+
+    //Validate the category name:
+    const mdlRegex = /^[A-Za-z0-9-]+$/;
+
+    if (!mdlRegex.test(newModel.trim())) {
+      setError("Atenção! O modelo só pode conter letras, números e hífen.");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
+      return;
+    }
+
     if (newModel.trim() === "") {
       setError("Atenção! Introduza um modelo.");
       clearErrorAfterTimeout(5000);
@@ -920,6 +930,15 @@ const Config = () => {
   };
 
   const handleDataMdlUpdate = async () => {
+    // Validate the model name
+    const mdlRegex = /^[A-Za-z0-9-]+$/;
+
+    if (!mdlRegex.test(editedMdlValue.trim())) {
+      setError("Atenção! O modelo só pode conter letras, números e hífen.");
+      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
+      return;
+    }
+
     if (editedMdlValue.trim() === "") {
       setError("Atenção! Não pode guardar um modelo com valor nulo.");
       clearErrorAfterTimeout(5000);
