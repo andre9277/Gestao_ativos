@@ -65,7 +65,11 @@ const ConfigDropEdit = ({
     <div id="container-config">
       <form className="frm-cats-edit">
         <label htmlFor={tag} className="lb-cats">
-          Lista de {Title}:
+          {Title === "Fornecedor" ? (
+            <>Lista de {Title}es:</>
+          ) : (
+            <>Lista de {Title}s:</>
+          )}
         </label>
         <p></p>
         <label className="sub-title">

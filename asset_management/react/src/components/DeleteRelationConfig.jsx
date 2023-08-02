@@ -178,7 +178,7 @@ const DeleteRelationConfig = ({
           <Modal.Title> Confirmação</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p> Tem a certeza que pretende eliminar Categoria/Marca?</p>
+          <p> Tem a certeza que pretende eliminar a relação Categoria/Marca?</p>
         </Modal.Body>
         <Modal.Footer>
           <Button

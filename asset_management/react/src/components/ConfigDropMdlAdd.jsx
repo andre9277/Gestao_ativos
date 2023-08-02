@@ -63,9 +63,8 @@ const ConfigDropMdlAdd = ({
   return (
     <div id="container-config">
       <form className="frm-cats">
-
-         {/* Brand selection dropdown */}
-         <label htmlFor="brandSelect" className="lb-cats">
+        {/* Brand selection dropdown */}
+        <label htmlFor="brandSelect" className="lb-cats">
           Selecione {maintb}:
         </label>
 
@@ -92,22 +91,21 @@ const ConfigDropMdlAdd = ({
           Introduza o nome da(o) {Title} que deseja adicionar:
         </label>
         <div className="brd-cat-delete">
-        <input
-          type="text"
-          value={setData}
-          onChange={(e) => setNewData(e.target.value)}
-          autoComplete="off"
-          className="inp-mdl"
-        />
-       
+          <input
+            type="text"
+            value={setData}
+            onChange={(e) => setNewData(e.target.value)}
+            autoComplete="off"
+            className="inp-mdl"
+          />
 
-        <button type="button" id="btnAddd" onClick={handleShowModal}>
-          <i
-            className="fa fa-plus fa-lg"
-            aria-hidden="true"
-            title="Adicionar"
-          ></i>
-        </button>
+          <button type="button" id="btnAddd" onClick={handleShowModal}>
+            <i
+              className="fa fa-plus fa-lg"
+              aria-hidden="true"
+              title="Adicionar"
+            ></i>
+          </button>
         </div>
       </form>
       {error && <p className="errorMessag">{error}</p>}
@@ -121,7 +119,7 @@ const ConfigDropMdlAdd = ({
         <Modal.Body>
           {/* Add content inside the modal here */}
           {/* For example, you can display some information related to the Title */}
-          <p> Tem a certeza que pretende adicionar o/a {Title} ?</p>
+          <p> Tem a certeza que pretende adicionar a(o) {Title} ?</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={(e) => handleSubmit(e)}>

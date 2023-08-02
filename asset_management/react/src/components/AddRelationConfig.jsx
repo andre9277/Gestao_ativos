@@ -117,7 +117,7 @@ const AddRelationConfig = ({
         <Modal.Body>
           <p>
             {" "}
-            Tem a certeza que pretende adicionar {rel1}/{rel2}?
+            Tem a certeza que pretende adicionar a relação {rel1}/{rel2}?
           </p>
         </Modal.Body>
         <Modal.Footer>

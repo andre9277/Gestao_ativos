@@ -69,7 +69,11 @@ const ConfigDropdown = ({
     <div id="container-config">
       <form className="frm-cats">
         <label htmlFor={tag} className="lb-cats">
-          Lista de {Title}:
+          {Title === "Fornecedor" ? (
+            <>Lista de {Title}es:</>
+          ) : (
+            <>Lista de {Title}s:</>
+          )}
         </label>
         <select
           id={tag}
