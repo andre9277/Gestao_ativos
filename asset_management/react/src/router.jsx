@@ -54,6 +54,7 @@ import AddAssetMovementForm from "./components/AddAssetMovementForm.jsx";
 import PasswordResetForm from "./views/PasswordResetForm.jsx";
 import Config from "./components/Config.jsx";
 import AssetRep from "./components/AssetRep.jsx";
+import AssetObs from "./components/AssetObs.jsx";
 
 //The router object defines the routes and components that should be rendered when a user navigates to a specific path.
 
@@ -122,6 +123,10 @@ const router = createBrowserRouter([
       {
         path: "/assetsRep",
         element: <AssetRep />,
+      },
+      {
+        path: "/assetsObs",
+        element: <AssetObs />,
       },
     ],
   },

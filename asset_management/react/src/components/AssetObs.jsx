@@ -33,12 +33,11 @@ Department: Serviço de Sistema de Informação
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-
 import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import PaginationLinks from "../components/PaginationLinks.jsx";
 
-const AssetRep = () => {
+const AssetObs = () => {
   const [assets, setAssets] = useState([]);
   const [meta, setMeta] = useState({});
 
@@ -66,7 +65,7 @@ const AssetRep = () => {
 
   return (
     <div id="content">
-      <h1 className="title-page-all">Listagem de Ativos - Reparação</h1>
+      <h1 className="title-page-all">Listagem de Ativos - Obsoletos</h1>
       <div
         className="card animated fadeInDown"
         style={{
@@ -94,7 +93,7 @@ const AssetRep = () => {
 
           <tbody>
             {assets.map((a) =>
-              a.cond === "Reparação" ? (
+              a.cond === "Obsoleto" ? (
                 <tr key={a.id}>
                   <td className="table-words-l">{a.category.name}</td>
                   <td className="table-words-l">{a.brand.name}</td>
@@ -128,4 +127,4 @@ const AssetRep = () => {
   );
 };
 
-export default AssetRep;
+export default AssetObs;

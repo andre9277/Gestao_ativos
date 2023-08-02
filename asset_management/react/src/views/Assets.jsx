@@ -702,7 +702,6 @@ export default function Assets() {
 
           {!loading && (
             <tbody>
-              {console.log("Ativos", assets)}
               {!isButtonClicked && filteredAllocations.length === 0 ? (
                 assets.map((a) => (
                   <tr key={a.id}>

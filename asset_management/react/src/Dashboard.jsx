@@ -129,7 +129,7 @@ function Dashboard() {
               Icon="fa-warehouse"
               Cor="text-info"
               Tipo="info"
-              LinkCard="assets"
+              LinkCard="assetsObs"
             />
           </div>
 

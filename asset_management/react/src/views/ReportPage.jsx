@@ -655,6 +655,7 @@ const ReportPage = () => {
             </>
           )}
           {/* {console.log(assets)} */}
+          {console.log("Ativos", assets)}
           {!loading && (
             <tbody>
               {!isButtonClicked && filteredAllocations.length === 0 ? (
