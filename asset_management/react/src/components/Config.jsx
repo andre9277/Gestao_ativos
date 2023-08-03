@@ -281,7 +281,7 @@ const Config = () => {
     setSelectedNextOption("");
   };
 
-  const handleCloseButtonClick = () => {
+  /*  const handleCloseButtonClick = () => {
     setSelectedOption("");
     setShowNextOptions(false);
     setShowNextOptionsSecondSet(false);
@@ -291,7 +291,7 @@ const Config = () => {
 
     setSelectedFirstOption("");
     setSelectedNextOption("");
-  };
+  }; */
 
   //for timing the erros
   const clearErrorAfterTimeout = (timeout) => {
@@ -303,6 +303,10 @@ const Config = () => {
   const clearSuccessMessageAfterTimeout = (timeout) => {
     setTimeout(() => {
       setSuccessMessage(null);
+      setShowNextOptions(false);
+      setShowNextOptionsSecondSet(false);
+      setSelectedFirstOption("");
+      setSelectedNextOption("");
     }, timeout);
   };
 
@@ -1610,9 +1614,9 @@ const Config = () => {
               Anterior
             </button>
             <p></p>
-            <button onClick={handleCloseButtonClick} className="ini-btn">
+            {/*   <button onClick={handleCloseButtonClick} className="ini-btn">
               Configurações
-            </button>
+            </button> */}
           </div>
         </div>
       ) : (
