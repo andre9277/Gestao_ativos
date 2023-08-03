@@ -187,7 +187,7 @@ const Config = () => {
       // Make an API call to update the relation on the server
       await axiosClient.put(`/catgBrd/${editedRelation.id}`, editedRelation);
       setSuccessMessage("Relação Categoria/Marca atualizada com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
 
       // Fetch the updated relations data and update the list
       fetchRelationss();
@@ -316,7 +316,7 @@ const Config = () => {
     setError(null); // Clear any previous errors
 
     //Validate the category name:
-    const categoryRegex = /^[A-Za-z]+$/;
+    const categoryRegex = /^[A-Za-z ]+$/;
 
     if (newCategory.trim() === "") {
       setError("Atenção! Introduza uma categoria.");
@@ -347,7 +347,7 @@ const Config = () => {
       setCats((prevCategories) => [...prevCategories, response.data]);
       setNewCategory("");
       setSuccessMessage("Categoria adicionada com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
     } catch (err) {
       setError("Erro ao adicionar categoria. Por favor tente outra vez.");
       clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
@@ -379,7 +379,7 @@ const Config = () => {
       });
 
       setSuccessMessage("Categoria removida com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
       // Remove the deleted categories from the state
       setCats((prevCategories) =>
         prevCategories.filter(
@@ -411,7 +411,7 @@ const Config = () => {
     setError(null);
 
     // Define a regular expression to validate the category name
-    const categoryRegex = /^[A-Za-z]+$/;
+    const categoryRegex = /^[A-Za-z ]+$/;
 
     if (editedValue.trim() === "") {
       setError("Atenção! Não pode guardar uma categoria com valor nulo.");
@@ -431,7 +431,7 @@ const Config = () => {
         name: editedValue.trim(),
       });
       setSuccessMessage("Categoria editada com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
       // Update the data in the state
       setCats((prevData) =>
         prevData.map((data) =>
@@ -457,7 +457,7 @@ const Config = () => {
     setError(null); // Clear any previous errors
 
     // Validate the brand name
-    const brandRegex = /^[A-Za-z0-9-]+$/;
+    const brandRegex = /^[A-Za-z0-9- ]+$/;
 
     if (newBrand.trim() === "") {
       setError("Atenção! Introduza uma marca.");
@@ -489,7 +489,7 @@ const Config = () => {
       setNewBrand("");
 
       setSuccessMessage("Marca adicionada com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
     } catch (err) {
       setError("Erro ao adicionar marca. Por favor tente outra vez.");
       clearErrorAfterTimeout(5000);
@@ -522,7 +522,7 @@ const Config = () => {
       });
 
       setSuccessMessage("Marca removida com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
     } catch (err) {
       setError("Erro ao remover a marca. Por favor tente outra vez.");
       clearErrorAfterTimeout(5000);
@@ -546,7 +546,7 @@ const Config = () => {
     setError(null);
 
     // Validate the brand name
-    const brandRegex = /^[A-Za-z0-9-]+$/;
+    const brandRegex = /^[A-Za-z0-9- ]+$/;
 
     if (editedBrValue.trim() === "") {
       setError("Atenção! Não pode guardar uma marca com valor nulo.");
@@ -567,7 +567,7 @@ const Config = () => {
       });
 
       setSuccessMessage("Marca editada com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
 
       // Update the data in the state
       setBrands((prevData) =>
@@ -595,7 +595,7 @@ const Config = () => {
     setError(null);
 
     //Validate the entity name:
-    const entRegex = /^[A-Za-z]+$/;
+    const entRegex = /^[A-Za-z ]+$/;
 
     if (newEntity.trim() === "") {
       setError("Atenção! Introduza uma entidade.");
@@ -625,7 +625,7 @@ const Config = () => {
       setEnts((prevEnts) => [...prevEnts, response.data]);
       setNewEntity("");
       setSuccessMessage("Entidade adicionada com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
     } catch (err) {
       setError("Erro ao adicionar categoria. Por favor tente outra vez.");
       clearErrorAfterTimeout(5000);
@@ -656,7 +656,7 @@ const Config = () => {
         setEnts(response.data);
       });
       setSuccessMessage("Entidade removida com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
     } catch (err) {
       setError("Erro ao remover a entidade. Por favor tente outra vez.");
       clearErrorAfterTimeout(5000);
@@ -680,7 +680,7 @@ const Config = () => {
     setError(null);
 
     // Define a regular expression to validate the category name
-    const entRegex = /^[A-Za-z]+$/;
+    const entRegex = /^[A-Za-z ]+$/;
 
     if (editedEntValue.trim() === "") {
       setError("Atenção! Não pode guardar uma entidade com valor nulo.");
@@ -700,7 +700,7 @@ const Config = () => {
         name: editedEntValue.trim(),
       });
       setSuccessMessage("Entidade editada com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
       // Update the data in the state
       setEnts((prevData) =>
         prevData.map((data) =>
@@ -727,7 +727,7 @@ const Config = () => {
     setError(null);
 
     //Validate the supplier name:
-    const suppRegex = /^[A-Za-z]+$/;
+    const suppRegex = /^[A-Za-z ]+$/;
 
     if (newSupplier.trim() === "") {
       setError("Atenção! Introduza um fornecedor.");
@@ -758,7 +758,7 @@ const Config = () => {
       setSuppliers((prevSuppliers) => [...prevSuppliers, response.data]);
       setNewSupplier("");
       setSuccessMessage("Fornecedor adicionado com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
     } catch (err) {
       setError("Erro ao adicionar fornecedor. Por favor tente outra vez.");
       clearErrorAfterTimeout(5000);
@@ -788,7 +788,7 @@ const Config = () => {
         setSuppliers(response.data);
       });
       setSuccessMessage("Fornecedor removido com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
     } catch (err) {
       setError("Erro ao remover o fornecedor. Por favor tente outra vez.");
       clearErrorAfterTimeout(5000);
@@ -812,7 +812,7 @@ const Config = () => {
     setError(null);
 
     // Define a regular expression to validate the category name
-    const suppRegex = /^[A-Za-z]+$/;
+    const suppRegex = /^[A-Za-z ]+$/;
 
     if (editedSupValue.trim() === "") {
       setError("Atenção! Não pode guardar um fornecedor com valor nulo.");
@@ -833,7 +833,7 @@ const Config = () => {
       });
 
       setSuccessMessage("Fornecedor editado com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
 
       // Update the data in the state
       setSuppliers((prevData) =>
@@ -860,7 +860,7 @@ const Config = () => {
     setError(null);
 
     //Validate the category name:
-    const mdlRegex = /^[A-Za-z0-9-]+$/;
+    const mdlRegex = /^[A-Za-z0-9- ]+$/;
 
     if (newModel.trim() === "") {
       setError("Atenção! Introduza um modelo.");
@@ -899,7 +899,7 @@ const Config = () => {
       setNewModel("");
       setSelectedBrand(""); // Reset selectedBrand after adding the model
       setSuccessMessage("Modelo adicionado com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
     } catch (err) {
       setError("Erro ao adicionar modelo. Por favor tente outra vez.");
       clearErrorAfterTimeout(5000);
@@ -929,7 +929,7 @@ const Config = () => {
         setModels(response.data);
       });
       setSuccessMessage("Modelo removido com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
     } catch (err) {
       setError("Erro ao remover o modelo. Por favor tente outra vez.");
       clearErrorAfterTimeout(5000);
@@ -951,7 +951,7 @@ const Config = () => {
 
   const handleDataMdlUpdate = async () => {
     // Validate the model name
-    const mdlRegex = /^[A-Za-z0-9-]+$/;
+    const mdlRegex = /^[A-Za-z0-9- ]+$/;
 
     if (editedMdlValue.trim() === "") {
       setError("Atenção! Não pode guardar um modelo com valor nulo.");
@@ -971,7 +971,7 @@ const Config = () => {
         name: editedMdlValue.trim(),
       });
       setSuccessMessage("Modelo editado com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
       // Update the data in the state
       setModels((prevData) =>
         prevData.map((data) =>
@@ -996,7 +996,7 @@ const Config = () => {
     setError(null);
 
     //Validate the category name:
-    const unitRegex = /^[A-Za-z]+$/;
+    const unitRegex = /^[A-Za-z ]+$/;
 
     if (newUnit.trim() === "") {
       setError("Atenção! Introduza uma unidade.");
@@ -1035,7 +1035,7 @@ const Config = () => {
       setNewUnit("");
       setSelectedEnt("");
       setSuccessMessage("Unidade adicionada com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
     } catch (err) {
       setError("Erro ao adicionar unidade. Por favor tente outra vez.");
       clearErrorAfterTimeout(5000);
@@ -1063,7 +1063,7 @@ const Config = () => {
         setUnits(response.data);
       });
       setSuccessMessage("Unidade removida com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
     } catch (err) {
       setError("Erro ao remover a unidade. Por favor tente outra vez.");
       clearErrorAfterTimeout(5000);
@@ -1087,7 +1087,7 @@ const Config = () => {
     setError(null);
 
     // Define a regular expression to validate the category name
-    const unitRegex = /^[A-Za-z]+$/;
+    const unitRegex = /^[A-Za-z ]+$/;
 
     if (editedUntValue.trim() === "") {
       setError("Atenção! Não pode guardar uma unidade com valor nulo.");
@@ -1107,7 +1107,7 @@ const Config = () => {
         name: editedUntValue.trim(),
       });
       setSuccessMessage("Unidade editada com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
       // Update the data in the state
       setUnits((prevData) =>
         prevData.map((data) =>
@@ -1160,7 +1160,7 @@ const Config = () => {
       await axiosClient.post("/categoryBrands", categoryBrand);
 
       setSuccessMessage("Relação Categoria/Marca adicionada com sucesso!");
-      clearSuccessMessageAfterTimeout(5000);
+      clearSuccessMessageAfterTimeout(2000);
 
       fetchRelationss();
     } catch (err) {
