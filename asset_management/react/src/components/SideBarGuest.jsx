@@ -72,6 +72,7 @@ const SideBarGuest = () => {
     setActiveOption(option);
   };
 
+  //When clicking on the image it goes to dashboard
   const handleImageClick = () => {
     window.location.href = "/dashboard";
   };
@@ -151,26 +152,11 @@ const SideBarGuest = () => {
           activeOption={activeOption}
         />
 
-        {/*  <div className="text-center d-none d-md-inline">
-          <button
-            className="border-0"
-            id="sidebarToggle"
-            onClick={changeStyle}
-          ></button>
-        </div> */}
-
         {/*  <!-- Nav Item - Users --> */}
         {/*  <!-- Divider --> */}
         <hr className="sidebar-divider" />
 
         {/*   <!-- Sidebar Toggler (Sidebar) --> */}
-        {/* <div className="text-center d-none d-md-inline">
-          <button
-            className="rounded-circle border-0"
-            id="sidebarToggle"
-            onClick={changeStyle}
-          ></button>
-        </div> */}
 
         <li className="nav-item dropdown no-arrow d-sm-none">
           <a

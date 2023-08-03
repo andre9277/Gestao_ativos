@@ -41,16 +41,21 @@ const Pagination = ({
   resultsPerPage,
   totalResults,
 }) => {
+  //save the total pages of the filter assets
   const totalPages = Math.ceil(totalResults / resultsPerPage);
+  //start index of the pagination
   const startIndex = (currentPage - 1) * resultsPerPage;
+  //end index of the pagination
   const endIndex = Math.min(startIndex + resultsPerPage, totalResults);
 
+  //handles PreviousPage of the pagination with filters
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
 
+  //handles NextPage of the pagination with filters
   const handleNextPage = () => {
     if (endIndex < totalResults) {
       setCurrentPage(currentPage + 1);

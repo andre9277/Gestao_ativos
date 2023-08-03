@@ -100,12 +100,15 @@ const Search = () => {
     return null;
   };
 
+  //searchbar by inventory number
   const searchByNumbInv = (arr, target) => {
+    //first sort the array
     arr.sort((a, b) => (a.numb_inv || "").localeCompare(b.numb_inv || ""));
 
     let left = 0;
     let right = arr.length - 1;
 
+    //apply method to divide and only search on the left or right side
     while (left <= right) {
       const mid = Math.floor((left + right) / 2);
       const currentAsset = arr[mid];
@@ -124,6 +127,7 @@ const Search = () => {
     return null;
   };
 
+  //handle the serial and inventory number of the search bar
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -150,12 +154,15 @@ const Search = () => {
 
     let matchedAsset;
 
+    //if the number input by the user is bigger than 6, that means its a serial number
     if (assetNumber.length > 6) {
       matchedAsset = searchByNumbSer(sortedAssets, assetNumber);
     } else {
+      //else its a inventory number
       matchedAsset = searchByNumbInv(sortedAssets, assetNumber);
     }
 
+    //if there is a match go to the information page of the asset
     if (matchedAsset) {
       navigate(`/infoasset/${matchedAsset.id}`);
     } else {
@@ -185,13 +192,10 @@ const Search = () => {
             className="botaosearch fas fa-search fa-sm"
             title={"Procurar"}
           ></button>
-          {/*Icon bar code for users to scan */}
-          {/* <Link to="/scan">
-            <i className="fa fa-barcode fa-2x" aria-hidden="true"></i>
-          </Link> */}
         </div>
       </form>
       <div className="error-search">
+        {/* Displays the error message: */}
         {errorMessage && (
           <p className="err-search">
             <i className="fa fa-exclamation-triangle" aria-hidden="true"></i>

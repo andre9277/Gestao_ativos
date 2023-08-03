@@ -71,6 +71,7 @@ const SideBar = () => {
 
   /*  const [activeOption, setActiveOption] = useState("dashboard"); ------------------*/
 
+  //Handles the option clicked and sets to active:
   const handleOptionClick = (option) => {
     setActiveOption(option);
   };
@@ -161,13 +162,13 @@ const SideBar = () => {
           activeOption={activeOption}
         />
 
-        {/*  <!-- Nav Item - Users --> */}
         {/*  <!-- Divider --> */}
         <hr className="sidebar-divider" />
 
         {/* <!-- Heading --> */}
         <div className="sidebar-heading"> Área do Administrador</div>
 
+        {/*  <!-- Nav Item - Users --> */}
         <MenuItem
           titulo={"Utilizadores"}
           icon={"fa-users"}
@@ -175,7 +176,7 @@ const SideBar = () => {
           handleOptionClick={handleOptionClick}
           activeOption={activeOption}
         />
-
+        {/*  <!-- Nav Item - Configuration --> */}
         <MenuItem
           titulo={"Configurações"}
           icon={"fa-cog"}

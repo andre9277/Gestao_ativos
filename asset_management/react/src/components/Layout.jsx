@@ -47,14 +47,19 @@ const Layout = () => {
 
   return (
     <div id="wrapper">
+      {/*  Sidebar component always showing */}
       <SideBar />
       <div id="content-wrapper" className="d-flex flex-column">
         <div id="content">
+          {/*  Topbar component always showing */}
           <TopBar />
+          {/*  Outlet component always showing (data that always change) */}
           <Outlet />
         </div>
+        {/*  Footer component always showing */}
         <Footer />
       </div>
+
       <Logout />
     </div>
   );

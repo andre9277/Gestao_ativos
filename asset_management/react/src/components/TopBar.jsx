@@ -64,10 +64,6 @@ const TopBar = ({ user, onLogout }) => {
           {/*   <!-- Dropdown - Messages --> */}
         </li>
 
-        {/*  <!-- Nav Item - Alerts --> */}
-
-        {/*  <Alert /> */}
-
         <div className="topbar-divider d-none d-sm-block"></div>
 
         {/* <!-- Nav Item - User Information --> */}

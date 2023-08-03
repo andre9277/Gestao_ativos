@@ -33,8 +33,8 @@ Department: Serviço de Sistema de Informação
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import React, { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import React, { useState } from "react";
+import { Modal, Button } from "react-bootstrap";
 
 const ConfigDropMdlDel = ({
   Title,
@@ -51,6 +51,7 @@ const ConfigDropMdlDel = ({
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
 
+  //handles the submit of the configuration model
   const handleSubmit = (event) => {
     event.preventDefault();
     handleDel(selectedData); // Call the handleDel function with the selected data on form submission
@@ -59,7 +60,9 @@ const ConfigDropMdlDel = ({
   };
 
   // Find the name of the selected data based on its ID
-  const selectedDataName = datas.find((data) => data.id === parseInt(selectedData))?.name;
+  const selectedDataName = datas.find(
+    (data) => data.id === parseInt(selectedData)
+  )?.name;
   return (
     <div id="container-config">
       <form className="frm-cats">
@@ -84,13 +87,17 @@ const ConfigDropMdlDel = ({
           ))}
         </select>
         {selectedDataName && (
-          <div >
-            <label className="lb-cats-edit" >Opção selecionada:</label>
+          <div>
+            <label className="lb-cats-edit">Opção selecionada:</label>
             <div className="addLbBtn">
-            <p id="selected-value">{selectedDataName}</p>
-            <button id="btnRemove" type="button" onClick={handleShowModal}>
-              <i className="fa fa-trash fa-lg" aria-hidden="true" title="Apagar"></i>
-            </button>
+              <p id="selected-value">{selectedDataName}</p>
+              <button id="btnRemove" type="button" onClick={handleShowModal}>
+                <i
+                  className="fa fa-trash fa-lg"
+                  aria-hidden="true"
+                  title="Apagar"
+                ></i>
+              </button>
             </div>
           </div>
         )}
@@ -105,7 +112,11 @@ const ConfigDropMdlDel = ({
         </Modal.Header>
         <Modal.Body>
           {/* Add content inside the modal here */}
-          <p> Tem a certeza que pretende eliminar o/a {Title} "{selectedDataName}"?</p>
+          <p>
+            {" "}
+            Tem a certeza que pretende eliminar o/a {Title} "{selectedDataName}
+            "?
+          </p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={(e) => handleSubmit(e)}>
@@ -121,4 +132,3 @@ const ConfigDropMdlDel = ({
 };
 
 export default ConfigDropMdlDel;
-

@@ -45,16 +45,20 @@ import ManutLayout from "./ManutLayout";
 import SideBarSi from "./SideBarSi";
 
 export default function DefaultLayout() {
+  //data shared globally that handles the information about the user, token and notification
   const { user, token, setUser, setToken, notification } = useStateContext();
 
+  //If the token does not exist, redirect the user to the login page
   if (!token) {
     return <Navigate to="/login" />;
   }
 
+  //If he role of the user is 3, that means he is from "Manutenção", then a different component is present to the user
   if (user.role_id === 3) {
     return <ManutLayout />;
   }
 
+  //Allows the user to leave his account
   const onLogout = (ev) => {
     ev.preventDefault();
 
@@ -66,6 +70,7 @@ export default function DefaultLayout() {
     axiosClient.post("/log", { message: "Record created" });
   };
 
+  //Gets the data of all the users
   useEffect(() => {
     axiosClient.get("/user").then(({ data }) => {
       setUser(data);
@@ -74,6 +79,7 @@ export default function DefaultLayout() {
 
   return (
     <div id="defaultLayout">
+      {/*if the role of the user is 3, "Manutencao", then it displays different sidebar options */}
       {user.role_id === 3 ? (
         <SideBarGuest />
       ) : user.role_id === 2 ? (
@@ -81,6 +87,8 @@ export default function DefaultLayout() {
       ) : (
         <SideBar />
       )}
+      {/* The TopBar, footer and Outlet is always the same for every user with any role
+       */}{" "}
       <div className="content">
         <TopBar user={user} onLogout={onLogout} />
 

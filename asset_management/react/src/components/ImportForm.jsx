@@ -150,12 +150,15 @@ const ImportForm = () => {
     units: "",
   });
 
+  //state to control the modal confirmation
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
+  //Function to close the modal
   const handleCancelSave = () => {
     setShowConfirmModal(false); // Close the confirmation modal
   };
 
+  //Function to show the modal
   const handleSave = () => {
     setShowConfirmModal(true); // Open the confirmation modal
   };
@@ -165,6 +168,7 @@ const ImportForm = () => {
     setSelectedFile(event.target.files[0]);
   };
 
+  //Function to handle the visibility of the information icon
   const handleIconClick = () => {
     setIsPopupVisible(!isPopupVisible);
   };
@@ -349,7 +353,7 @@ const ImportForm = () => {
     return false;
   };
 
-  // Validation function for cond
+  // Validation function for condition of the asset
   const validateCond = (cond) => {
     if (
       cond === "Novo" ||
@@ -362,6 +366,7 @@ const ImportForm = () => {
     return false;
   };
 
+  //Validation for the floor of the asset
   const validateFloor = (floor) => {
     if (
       !floor ||
@@ -378,6 +383,7 @@ const ImportForm = () => {
     return false;
   };
 
+  //Validates serial number
   const validateNumbSer = (numb_ser) => {
     if (!numb_ser) {
       return true; // Accept null values
@@ -390,6 +396,7 @@ const ImportForm = () => {
   };
 
   //---------Function handlers-----------
+  //Handle the change of brand
   function handleBrandChange(event) {
     const selectedBrand = event.target.value;
     setAsset((prevState) => ({
@@ -401,6 +408,7 @@ const ImportForm = () => {
     setSelectedBrand(selectedBrand);
   }
 
+  //Handle the change of supplier
   const handleSupplierChange = (event) => {
     setSupplierId(event.target.value);
     const newAsset = {
@@ -410,6 +418,7 @@ const ImportForm = () => {
     setAsset(newAsset);
   };
 
+  //Handle the change of entity
   const handleEntityChange = (event) => {
     const selectedEntity = event.target.value;
     setAsset((prevState) => ({
@@ -420,6 +429,7 @@ const ImportForm = () => {
     setSelectedEntity(selectedEntity);
   };
 
+  //Handle the change of category
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
 
@@ -646,6 +656,7 @@ const ImportForm = () => {
                   >
                     Informação
                   </i>
+                  {/*  Information about the template file */}
                   {isPopupVisible && (
                     <div className="popup">
                       <h6 className="asset-import">
