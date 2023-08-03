@@ -30,7 +30,8 @@ class UpdateAssetRequest extends FormRequest
             'cat_id' => 'required',
             'brand_id' => 'required',
             'ci' => ['required', 'max:7'],
-            //'model_id' => 'required',
+            'date_purch' => 'required',
+            'model_id' => 'required',
             'ent_id' => 'required',
             'numb_inv' => [
                 'required',
@@ -38,6 +39,7 @@ class UpdateAssetRequest extends FormRequest
                 'digits:6',
                 'regex:/^0/',
             ],
+            'supplier_id' => 'required',
         ];
     }
 

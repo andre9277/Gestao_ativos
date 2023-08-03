@@ -316,6 +316,7 @@ class AssetController extends Controller
         return AssetResource::collection($assets);
     }
     
+    //Gets the assets that have a condition set to Reparação
     public function indexRep(){
         $assets = Asset::with('entity:id,name', 'brand:id,name', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
         ->where('cond', 'Reparação') // Add this line to filter by the "Reparação" condition
