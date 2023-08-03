@@ -1192,7 +1192,7 @@ const Config = () => {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            <p className="messagee">Erro!</p>
+            <div className="messagee">Erro!</div>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
