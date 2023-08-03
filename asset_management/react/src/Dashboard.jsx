@@ -71,14 +71,6 @@ function Dashboard() {
     });
   };
 
-  /*   const handleCardClick = () => {
-    // Handle any additional logic you want to perform before redirecting, if needed
-    // For example, you can execute some code or set state variables here
-
-    // Redirect to the desired page
-    window.location.href = "/assets"; // Replace '/other-page' with your desired route
-  }; */
-
   return (
     <div id="content-wrapper" className="d-flex flex-column">
       {/*  <!-- Main Content --> */}
