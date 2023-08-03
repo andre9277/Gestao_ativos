@@ -78,9 +78,9 @@ const AssetObs = () => {
       >
         <>
           {loading ? (
-            <p>A carregar...</p>
+            <p className="lgText-asset">A carregar...</p>
           ) : assets.filter((a) => a.cond === "Obsoleto").length === 0 ? (
-            <p>Não existem ativos obsoletos</p>
+            <p className="lgTextF-asset">Não existem ativos obsoletos</p>
           ) : (
             <>
               <table>

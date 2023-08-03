@@ -36,29 +36,45 @@ All the changes made to enable the implementation of the desired development too
 import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client";
 import { useNavigate } from "react-router-dom";
-import { useStateContext } from "../context/ContextProvider.jsx";
-import { Modal, Button } from "react-bootstrap";
+import { useStateContext } from "../context/ContextProvider.jsx"; //to get data shared across some components
+import { Modal, Button } from "react-bootstrap"; //for the confirmation window
 
 const AddAssetMovementForm = () => {
+  //Displays the errors
   const [errors, setErrors] = useState(null);
+
+  //saves the serial number field
   const [serNumber, setSerNumber] = useState("");
+
+  //saves the reason field
   const [reason, setReason] = useState("");
+
+  //saves the other field
   const [other, setOther] = useState("");
+  //saves the option of the selected input. Its a serial number or an inventoryNumber
   const [assetEve, setAssetEve] = useState([]);
+  //saves the new CI of the asset
   const [assetCi, setAssetCi] = useState("");
+  //saves the asset entity
   const [assetEnt, setAssetEnt] = useState("");
+  //saves the date of the asset movement
   const [assetDate, setAssetDate] = useState("");
   const { user, setNotification } = useStateContext();
+  //saves the entity data
   const [ents, setEnts] = useState([]);
+
+  //saves the inventory number field
   const [invNumber, setInvNumber] = useState("");
 
   const navigate = useNavigate();
 
   useEffect(() => {
     getTotalAssetsEve();
+    //Gets all the entities
     getEnts();
   }, []);
 
+  //Get entities of the url
   const getEnts = (url) => {
     url = url || "/entities";
     axiosClient.get(url).then(({ data }) => {
@@ -66,6 +82,7 @@ const AddAssetMovementForm = () => {
     });
   };
 
+  //Get total entities
   const getTotalAssetsEve = (url) => {
     url = url || "/allAssets";
     axiosClient.get(url).then(({ data }) => {
@@ -73,6 +90,7 @@ const AddAssetMovementForm = () => {
     });
   };
 
+  //Timer for the errors
   useEffect(() => {
     if (errors) {
       const timer = setTimeout(() => {
@@ -92,27 +110,33 @@ const AddAssetMovementForm = () => {
     const serNumberr = serNumber; // Replace with the user-inputted ser_number
     matchingAsset = assetEve.find((asset) => asset.numb_ser === serNumberr);
   }
+
   if (assetEve !== null) {
     const invNumberr = invNumber;
     matchingInv = assetEve.find((asset) => asset.numb_inv === invNumberr);
   }
 
+  //state to control the modal
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
+  //cancel save
   const handleCancelSave = () => {
     setShowConfirmModal(false); // Close the confirmation modal
   };
 
+  //handle the save of the modal
   const handleSave = () => {
     setShowConfirmModal(true); // Open the confirmation modal
   };
 
+  //handles the submit of the add asset movement
   const handleSubmit = (event) => {
     event.preventDefault();
     // Open the confirmation modal
     setShowConfirmModal(true);
   };
 
+  //Handle the save of the asset movement when the user clicks "Confirmar" on the modal
   const handleConfirmSave = () => {
     setShowConfirmModal(false); // Close the confirmation modal
     const data = {
@@ -132,7 +156,7 @@ const AddAssetMovementForm = () => {
       reason: reason,
     };
 
-    // Perform the POST request
+    // Perform the POST request to save one asset movement
     axiosClient
       .post("/assetMovement", data)
       .then(() => {
@@ -230,13 +254,6 @@ const AddAssetMovementForm = () => {
       </Modal>
 
       <h1 className="title-page-all">Movimento de Ativo</h1>
-      {/*  {errors && (
-        <div className="alert">
-          {Object.keys(errors).map((key) => (
-            <p key={key}>{errors[key][0]}</p>
-          ))}
-        </div>
-      )} */}
       <form onSubmit={handleSubmit} className="assetForm">
         <h1 className="title-page-all-sub">Dados Gerais: </h1>
         <p></p>
@@ -264,8 +281,6 @@ const AddAssetMovementForm = () => {
             <div className="error">{errors.allocation_date[0]}</div>
           )}
         </label>
-
-        {/*  {console.log(assetDate)} */}
         <p></p>
         {/* ---------- Num Inv ----------*/}
 
@@ -405,7 +420,6 @@ const AddAssetMovementForm = () => {
             <option value="Transferência">Transferência</option>
             <option value="Reparação">Reparação</option>
             <option value="Obsoleto">Obsoleto</option>
-            {/* <option value="Garantia">Garantia</option> */}
           </select>
           {errors && errors.reason && (
             <div className="error">{errors.reason[0]}</div>
