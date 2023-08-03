@@ -125,6 +125,21 @@ const ReportPage = () => {
     });
   }, []);
 
+  useEffect(() => {
+    // Monitor changes in selectedDateFrom and selectedDateTo to check for invalid date range
+    if (
+      selectedDateFrom &&
+      selectedDateTo &&
+      selectedDateFrom > selectedDateTo
+    ) {
+      setError(true);
+      setErrorMsg("Intervalo de Datas inválido!");
+    } else {
+      setError(false);
+      setErrorMsg("");
+    }
+  }, [selectedDateFrom, selectedDateTo]);
+
   //Gets assets data with pagination
   const getAssetsFilter = (url) => {
     url = url || "/filterVal";
@@ -349,15 +364,13 @@ const ReportPage = () => {
     const selectedEnt = event.target.value;
     setSelectedEnt(selectedEnt);
   };
-
-  //Handles the initial data on the filter menu
   const handleDataChangeFrom = (event) => {
     const selectDateFrom = event.target.value;
 
-    if (selectedDateFrom > selectedDateTo) {
+    if (selectedDateTo && selectDateFrom > selectedDateTo) {
       setError(true);
       setErrorMsg("Intervalo de Datas inválido!");
-      setSelectedDateFrom("");
+      /*    setSelectedDateFrom(""); */
       return;
     }
 
@@ -370,11 +383,10 @@ const ReportPage = () => {
   const handleDataChangeTo = (event) => {
     const selectDataTo = event.target.value;
 
-    if (selectDataTo < selectedDateFrom) {
+    if (selectedDateFrom && selectDataTo < selectedDateFrom) {
       setError(true);
       setErrorMsg("Intervalo de Datas Inválido!");
-      setSelectedDateTo("");
-
+      /* setSelectedDateTo(""); */
       return;
     }
 
@@ -602,6 +614,7 @@ const ReportPage = () => {
                         onChange={handleDataChangeFrom}
                         className="cal-filt"
                         required
+                        onKeyDown={(e) => e.preventDefault()}
                       />
 
                       <label htmlFor="to-date" className="dat-filt">
@@ -616,6 +629,7 @@ const ReportPage = () => {
                         /* className="cal-filt" */
                         onChange={handleDataChangeTo}
                         className="cal-filt"
+                        onKeyDown={(e) => e.preventDefault()}
                       />
                     </form>
                   </div>
