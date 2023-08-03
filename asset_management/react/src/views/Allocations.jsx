@@ -70,6 +70,17 @@ export default function Allocations() {
   const [errorMsg, setErrorMsg] = useState("");
   const [message, setMessage] = useState("");
 
+  useEffect(() => {
+    // Monitor changes in startDate and endDate to check for invalid date range
+    if (startDate && endDate && startDate > endDate) {
+      setError(true);
+      setErrorMsg("Intervalo de Datas inválido!");
+    } else {
+      setError(false);
+      setErrorMsg("");
+    }
+  }, [startDate, endDate]);
+
   //Performs a client access request
   const getAllocations = (signal, url) => {
     setLoading(true);
@@ -191,34 +202,27 @@ export default function Allocations() {
       endDate: endDate,
       key: "selection",
     };
-    /* 
-    if (startDate > endDate) {
-      setError(true);
-      setErrorMsg("Intervalo de Datas inválido!");
-      setAllocations([]);
-      setShowError(true);
 
+    if (startDate && endDate && startDate > endDate) {
+      setShowError(true);
       setTimeout(() => {
         setShowError(false);
       }, 5000);
-      return;
+    } else {
+      let filtered = allAllocations.filter((allocation) => {
+        const allocationDate = new Date(allocation.allocation_date);
+        allocationDate.setHours(0, 0, 0, 0);
+
+        return (
+          allocationDate >= selectionRange.startDate &&
+          allocationDate <= selectionRange.endDate
+        );
+      });
+
+      setAllocations(filtered);
+      setError(false);
+      setErrorMsg("");
     }
- */
-    let filtered = allAllocations.filter((allocation) => {
-      const allocationDate = new Date(allocation.allocation_date);
-      allocationDate.setHours(0, 0, 0, 0);
-
-      return (
-        allocationDate >= selectionRange.startDate &&
-        allocationDate <= selectionRange.endDate
-      );
-    });
-
-    setAllocations(filtered);
-    /*  console.log("startDate", selectionRange.startDate);
-    console.log("endDate", selectionRange.endDate); */
-    setError(false);
-    setErrorMsg("");
   };
 
   //--------------Filters---------------
