@@ -51,16 +51,27 @@ export default function Allocations() {
       abortController.abort();
     };
   }, []);
+
+  //to handle the error of Data input
   const [showError, setShowError] = useState(false);
+
+  //to handle loading of the table
   const [loading, setLoading] = useState(false);
+  //
   const [allocations, setAllocations] = useState([]);
-  const [meta, setMeta] = useState({});
+
+  //Input of the startDate and EndDate
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+
+  //All allocations
   const [allAllocations, setAllAllocations] = useState([]);
+
+  //All assets
   const [assets, setAssets] = useState([]);
+
+  //All users
   const [users, setUsers] = useState([]);
-  const [filteredAllocations, setFilteredAllocations] = useState([]);
 
   const [selectedSer, setSelectedSer] = useState("");
   const [selectedOp, setSelectedOp] = useState("");
@@ -91,9 +102,7 @@ export default function Allocations() {
       .then(({ data }) => {
         setAllocations(data.data);
         setAllAllocations(data.data);
-        setFilteredAllocations([]);
         /* console.log("Mov. data.:", data.data); */
-        setMeta(data.meta);
         setLoading(false);
       })
       .catch(() => {
@@ -129,7 +138,7 @@ export default function Allocations() {
       const allocationDate = new Date(allocation.allocation_date);
 
       const serFilter = selectedSer
-        ? allocation.assets?.numb_ser === selectedSer
+        ? allocation.assets?.numb_inv === selectedSer
         : true;
       const opFilter = selectedOp
         ? allocation.action_type === selectedOp
@@ -235,7 +244,7 @@ export default function Allocations() {
       const filteredAllocations = allAllocations.filter((allocation) => {
         return (
           allocation.assets !== null &&
-          allocation.assets.numb_ser === filterValue
+          allocation.assets.numb_inv === filterValue
         );
       });
 

@@ -74,9 +74,9 @@ const Filter = ({
       </div>
       <div className="filter-user">
         <label className="lb-info-allocation">Nº inventário:</label>
+
         <select value={selectedSer} onChange={filterSer} className="infoInp">
           <option value=""></option>
-
           {assets.map((asset) => (
             <option key={asset.id} value={asset.numb_inv}>
               {" "}
