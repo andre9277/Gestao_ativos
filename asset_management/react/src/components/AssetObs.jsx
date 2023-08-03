@@ -40,13 +40,14 @@ import PaginationLinks from "../components/PaginationLinks.jsx";
 const AssetObs = () => {
   const [assets, setAssets] = useState([]);
   const [meta, setMeta] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getAssets();
   }, []);
 
   const getAssets = (url) => {
-    url = url || "/assets";
+    url = url || "/assetsObso";
 
     axiosClient
       .get(url)
@@ -56,7 +57,10 @@ const AssetObs = () => {
         setAssets(data.data);
         setMeta(data.meta);
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => {
+        setLoading(false); // Set loading to false when the API call is completed, either success or failure
+      });
   };
 
   const onPageClick = (link) => {
@@ -72,56 +76,63 @@ const AssetObs = () => {
           alignItems: "center",
         }}
       >
-        <table>
-          <thead>
-            <tr>
-              <th className="header-tb">Categoria</th>
-              <th className="header-tb">Marca</th>
-              <th className="header-tb">Modelo</th>
-              <th className="header-tb">Nº Inventário</th>
-              <th className="header-tb">Nº Série</th>
-              <th className="header-tb">Localização</th>
-              <th className="header-tb">Unidade</th>
-              <th className="header-tb">Piso</th>
-              <th className="header-tb">Ala</th>
-              <th className="header-tb">CI</th>
-              <th className="header-tb">Estado</th>
-              <th className="header-tb">Adicionado em </th>
-              <th></th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {assets.map((a) =>
-              a.cond === "Obsoleto" ? (
-                <tr key={a.id}>
-                  <td className="table-words-l">{a.category.name}</td>
-                  <td className="table-words-l">{a.brand.name}</td>
-                  <td className="table-words-l">{a.modelo.name}</td>
-                  <td className="tb-normal">{a.numb_inv}</td>
-                  <td className="table-words-l">{a.numb_ser}</td>
-                  <td className="table-words-l">{a.entity.name}</td>
-                  <td className="table-words-l">
-                    {a.units === null ? "" : a.units.name}
-                  </td>
-                  <td>{a.floor}</td>
-                  <td>{a.ala}</td>
-                  <td className="table-words-l">{a.ci}</td>
-                  <td>
-                    {a.state === "Ativo" ? (
-                      <div className="circle active"></div>
-                    ) : (
-                      <div className="circle inactive"></div>
-                    )}
-                  </td>
-                  <td className="table-numb-r">{a.created_at}</td>
-                </tr>
-              ) : (
-                ""
-              )
-            )}
-          </tbody>
-        </table>
+        <>
+          {loading ? (
+            <p>A carregar...</p>
+          ) : assets.filter((a) => a.cond === "Obsoleto").length === 0 ? (
+            <p>Não existem ativos obsoletos</p>
+          ) : (
+            <>
+              <table>
+                <thead>
+                  <tr>
+                    <th className="header-tb">Categoria</th>
+                    <th className="header-tb">Marca</th>
+                    <th className="header-tb">Modelo</th>
+                    <th className="header-tb">Nº Inventário</th>
+                    <th className="header-tb">Nº Série</th>
+                    <th className="header-tb">Localização</th>
+                    <th className="header-tb">Unidade</th>
+                    <th className="header-tb">Piso</th>
+                    <th className="header-tb">Ala</th>
+                    <th className="header-tb">CI</th>
+                    <th className="header-tb">Estado</th>
+                    <th className="header-tb">Adicionado em </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {assets.map((a) =>
+                    a.cond === "Obsoleto" ? (
+                      <tr key={a.id}>
+                        <td className="table-words-l">{a.category.name}</td>
+                        <td className="table-words-l">{a.brand.name}</td>
+                        <td className="table-words-l">{a.modelo.name}</td>
+                        <td className="tb-normal">{a.numb_inv}</td>
+                        <td className="table-words-l">{a.numb_ser}</td>
+                        <td className="table-words-l">{a.entity.name}</td>
+                        <td className="table-words-l">
+                          {a.units === null ? "" : a.units.name}
+                        </td>
+                        <td>{a.floor}</td>
+                        <td>{a.ala}</td>
+                        <td className="table-words-l">{a.ci}</td>
+                        <td>
+                          {a.state === "Ativo" ? (
+                            <div className="circle active"></div>
+                          ) : (
+                            <div className="circle inactive"></div>
+                          )}
+                        </td>
+                        <td className="table-numb-r">{a.created_at}</td>
+                      </tr>
+                    ) : null
+                  )}
+                </tbody>
+              </table>
+              <PaginationLinks meta={meta} onPageClick={onPageClick} />
+            </>
+          )}
+        </>
       </div>
     </div>
   );

@@ -304,4 +304,16 @@ class AssetController extends Controller
 
         return response()->json($assets);
     }
+
+    //Gets the assets that have a condition set to Obsoleto
+    public function indexObso()
+    {
+        $assets = Asset::with('entity:id,name', 'brand:id,name', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
+            ->where('cond', 'Obsoleto') // Add this line to filter by the "Obsoleto" condition
+            ->orderBy('id', 'desc')
+            ->paginate(20);
+
+        return AssetResource::collection($assets);
+    }
+
 }
