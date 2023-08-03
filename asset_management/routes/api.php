@@ -69,6 +69,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/floorLevel', [AssetController::class, 'get_floor_levels']);
     Route::get('/getDashb', [AssetController::class, 'indexDashb']);
     Route::get('/assetsObso', [AssetController::class, 'indexObso']);
+    Route::get('/assetsRep', [AssetController::class, 'indexRep']);
 
     Route::resource('assets', AssetController::class);
     Route::apiResource('/assets', AssetController::class);
