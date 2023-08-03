@@ -50,6 +50,7 @@ const Filter = ({
   return (
     <div className="filter">
       <div className="filter-user">
+        {/* Filter by the user */}
         <label className="lb-info-allocation">Utilizador:</label>
         <select value={selectedUser} onChange={filterUser} className="infoInp">
           <option value=""></option>
@@ -62,6 +63,7 @@ const Filter = ({
         </select>
       </div>
       <div className="filter-user">
+        {/* Filter by the operation */}
         <label className="lb-info-allocation">Operação:</label>
         <select value={selectedOp} onChange={filterOp} className="infoInp">
           {" "}
@@ -73,6 +75,7 @@ const Filter = ({
         </select>
       </div>
       <div className="filter-user">
+        {/* Filter by the inventory number */}
         <label className="lb-info-allocation">Nº inventário:</label>
 
         <select value={selectedSer} onChange={filterSer} className="infoInp">
@@ -86,9 +89,11 @@ const Filter = ({
         </select>
       </div>
       <div className="alloca-icons">
+        {/* Download Button */}
         <button onClick={handleDwl} className="btn-dwl">
           Download
         </button>
+        {/*  Clear Button */}
         <button onClick={resetFilter} className="btn-filter">
           Limpar
         </button>

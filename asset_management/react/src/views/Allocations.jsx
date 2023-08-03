@@ -128,30 +128,45 @@ export default function Allocations() {
     });
   };
 
+  //Function to download CSV file according to filter selected by the user
   const downloadCSV = async () => {
+    //Loading close
     setLoading(true);
+
+    //array to store all data filtered
     const allData = [];
 
+    //Gets all allocation with no pagination
     const { data } = await axiosClient.get("/allocationAll");
     allData.push(...data.data);
+
+    //Filters the data by the filters selected by the user
     const filteredData = allData.filter((allocation) => {
       const allocationDate = new Date(allocation.allocation_date);
 
+      //Filter of inventory number
       const serFilter = selectedSer
         ? allocation.assets?.numb_inv === selectedSer
         : true;
+
+      //Filter of action/operation
       const opFilter = selectedOp
         ? allocation.action_type === selectedOp
         : true;
+
+      //Filter by the user name
       const userFilter = selectedUser
         ? allocation.users.name === selectedUser
         : true;
+
+      //Filter by the data (start and end)
       const dateFilter =
         allocationDate >= startDate && allocationDate <= endDate;
 
       return serFilter && opFilter && userFilter && dateFilter;
     });
 
+    //Message to display an error message, it must have the startDate and endDate
     if (!startDate || !endDate) {
       const message = "Atenção! Selecione uma data início e data fim!";
       setMessage(message);
@@ -159,6 +174,7 @@ export default function Allocations() {
       return;
     }
 
+    //Header and data of the download file
     const csvData = Papa.unparse({
       fields: [
         "Utilizador",
@@ -192,6 +208,7 @@ export default function Allocations() {
     setLoading(false);
   };
 
+  //Message to display the error message of the data select options
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
@@ -205,6 +222,7 @@ export default function Allocations() {
   }, [message]);
 
   //------------For the Calendar---------------
+  //handles the select of the start and end Date of the user
   const handleSelect = () => {
     const selectionRange = {
       startDate: startDate,
@@ -212,12 +230,14 @@ export default function Allocations() {
       key: "selection",
     };
 
+    //Checks if startDate is higher than the endDate
     if (startDate && endDate && startDate > endDate) {
       setShowError(true);
       setTimeout(() => {
         setShowError(false);
       }, 5000);
     } else {
+      //Filter allAllocations
       let filtered = allAllocations.filter((allocation) => {
         const allocationDate = new Date(allocation.allocation_date);
         allocationDate.setHours(0, 0, 0, 0);
@@ -229,12 +249,15 @@ export default function Allocations() {
       });
 
       setAllocations(filtered);
+
       setError(false);
+      //error message set to empty
       setErrorMsg("");
     }
   };
 
   //--------------Filters---------------
+  //Handles the filters the inventory number
   const filterSer = (event) => {
     const filterValue = event.target.value;
     setSelectedSer(filterValue);
@@ -253,6 +276,7 @@ export default function Allocations() {
   };
 
   /*---------------- Filter By operation ----------------*/
+  //Handles the filters the inventory number
   const filterOp = (event) => {
     const filterValue = event.target.value;
     setSelectedOp(filterValue);
@@ -294,6 +318,7 @@ export default function Allocations() {
     setErrorMsg("");
   };
 
+  //checks if the date values are of type date
   function isValidDate(date) {
     return date instanceof Date && !isNaN(date);
   }
