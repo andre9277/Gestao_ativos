@@ -53,7 +53,6 @@ const AssetObs = () => {
       .get(url)
       .then(({ data }) => {
         // When the request is successful, loading=false
-
         setAssets(data.data);
         setMeta(data.meta);
       })

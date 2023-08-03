@@ -101,16 +101,18 @@ function Dashboard() {
               Cor="text-primary"
               Tipo="primary"
               LinkCard="assets"
+              Space="mb-1-dash"
             />
 
             {/*  <!-- Assets Changed --> */}
             <Card
-              Titulo="Média mensal - Ativos movimentados"
+              Titulo="Média Mensal - Movimento Ativos"
               Descricao={assetTotal.countChanged}
               Icon="fa-arrows-alt"
               Cor="text-success"
               Tipo="success"
               LinkCard="report"
+              Space="mb-1"
             />
 
             {/*  <!-- Assets in Repair --> */}
@@ -122,6 +124,7 @@ function Dashboard() {
               Cor="text-warning"
               Tipo="warning"
               LinkCard="assetsRep"
+              Space="mb-1-dash"
             />
             <Card
               Titulo="Ativos obsoletos"
@@ -130,6 +133,7 @@ function Dashboard() {
               Cor="text-info"
               Tipo="info"
               LinkCard="assetsObs"
+              Space="mb-1-dash"
             />
           </div>
 
