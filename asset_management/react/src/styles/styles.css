@@ -324,7 +324,7 @@ sup {
 
 a {
     color: #61a60e;
-    text-decoration: underline;
+    /* text-decoration: underline; */
 }
 a:hover {
     color: #61a60e;
@@ -13933,11 +13933,6 @@ button {
     color: black;
     font-size: 1.2rem;
     position: relative;
-}
-
-.simb-tb {
-    /*  width: max-content;
-    display: inline-flex; */
 }
 
 .data-filter-container {
