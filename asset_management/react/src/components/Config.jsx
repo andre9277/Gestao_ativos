@@ -45,6 +45,7 @@ import AddRelationConfig from "./AddRelationConfig";
 import EditRelationConfig from "./EditRelationConfig";
 import DeleteRelationConfig from "./DeleteRelationConfig";
 import { Modal, Button } from "react-bootstrap";
+import ConfigBr from "./ConfigBr";
 
 const options = [
   "Categoria",
@@ -53,7 +54,6 @@ const options = [
   "Modelo",
   "Entidade",
   "Unidade",
-  "Categoria/Marca",
 ];
 
 const Config = () => {
@@ -181,23 +181,6 @@ const Config = () => {
     }
   };
 
-  const handleUpdateRelation = async (e) => {
-    e.preventDefault();
-    try {
-      // Make an API call to update the relation on the server
-      await axiosClient.put(`/catgBrd/${editedRelation.id}`, editedRelation);
-      setSuccessMessage("Relação Categoria/Marca atualizada com sucesso!");
-      clearSuccessMessageAfterTimeout(2000);
-
-      // Fetch the updated relations data and update the list
-      fetchRelationss();
-    } catch (err) {
-      setError("Atenção! Erro ao atualizar a relação.");
-      clearErrorAfterTimeout(5000);
-    }
-    handleCloseEditModal(); // Close the modal after updating the relation
-  };
-
   const handleCloseEditModal = () => {
     setShowEditModal(false);
     setSelectedRelationForEdit(null);
@@ -280,18 +263,6 @@ const Config = () => {
 
     setSelectedNextOption("");
   };
-
-  /*  const handleCloseButtonClick = () => {
-    setSelectedOption("");
-    setShowNextOptions(false);
-    setShowNextOptionsSecondSet(false);
-
-    // Reset the hasSelectedOption state to false when closing the menu
-    setHasSelectedOption(false);
-
-    setSelectedFirstOption("");
-    setSelectedNextOption("");
-  }; */
 
   //for timing the erros
   const clearErrorAfterTimeout = (timeout) => {
@@ -453,7 +424,7 @@ const Config = () => {
   //--------------Brand---------------------------------
 
   //---------Add a new brand---------
-  const handleAddBrand = async () => {
+  const handleAddBrand = async (selectedCategoryID) => {
     setError(null); // Clear any previous errors
 
     // Validate the brand name
@@ -484,6 +455,15 @@ const Config = () => {
         name: newBrand.trim(),
       });
 
+      const newBrandID = response.data.id;
+
+      // Make a POST request to add the category-brand relation
+      const categoryBrand = {
+        category_id: selectedCategoryID,
+        brand_id: newBrandID,
+      };
+      await axiosClient.post("/categoryBrands", categoryBrand);
+
       // Add the new brand to the state
       setBrands((prevBrands) => [...prevBrands, response.data]);
       setNewBrand("");
@@ -510,16 +490,30 @@ const Config = () => {
     }
 
     try {
-      // Make a DELETE request to your backend API for brand removal
+      // Find the relations associated with the brands to be removed
+      const relationsToRemove = relations.filter((relation) =>
+        brandToRemove.includes(relation.brand_id)
+      );
+
+      // Remove the relations
+      await Promise.all(
+        relationsToRemove.map((relation) =>
+          axiosClient.delete(`/category-brandsDel/${relation.id}`)
+        )
+      );
+
+      // Remove the brands
       await Promise.all(
         brandToRemove.map((brandId) =>
           axiosClient.delete(`/brandsDel/${brandId}`)
         )
       );
 
+      // Fetch the updated brands and relations data
       axiosClient.get("/brands").then((response) => {
         setBrands(response.data);
       });
+      fetchRelations();
 
       setSuccessMessage("Marca removida com sucesso!");
       clearSuccessMessageAfterTimeout(2000);
@@ -1131,49 +1125,6 @@ const Config = () => {
   const [relations, setRelations] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      // Check if a brand is selected from the dropdown or if a new brand name is provided
-      let brandId;
-      if (selectedBrand) {
-        brandId = selectedBrand;
-      } else {
-        setError(
-          "Atenção! Necessita de selecionar um valor da Categoria e/ou Marca."
-        );
-        clearErrorAfterTimeout(5000);
-        return;
-      }
-
-      if (selectedBrand === "") {
-        setError("Atenção! Selecione uma marca.");
-        clearErrorAfterTimeout(5000);
-      }
-
-      // Add the category-brand relation
-      const categoryBrand = {
-        category_id: selectedCategory,
-        brand_id: brandId,
-      };
-      await axiosClient.post("/categoryBrands", categoryBrand);
-
-      setSuccessMessage("Relação Categoria/Marca adicionada com sucesso!");
-      clearSuccessMessageAfterTimeout(2000);
-
-      fetchRelationss();
-    } catch (err) {
-      if (err.response && err.response.status === 422) {
-        setError(err.response.data.errors);
-      } else {
-        setError("Atenção! Necessita de selecionar alguns valores.");
-        clearErrorAfterTimeout(5000);
-      }
-    }
-    handleCloseModal();
-  };
-
   //Close of the message when option are null
   const handleClose = () => {
     setShowFirstSetMessage(false);
@@ -1315,7 +1266,7 @@ const Config = () => {
           {/* Brand add*/}
           {selectedFirstOption === "Marca" &&
             selectedNextOption === "Adicionar" && (
-              <ConfigDropAdd
+              <ConfigBr
                 Title={selectedFirstOption}
                 id="category"
                 setData={newBrand}
@@ -1323,6 +1274,10 @@ const Config = () => {
                 handleAdd={handleAddBrand}
                 error={error}
                 successMessage={successMessage}
+                rel1={"Categoria"}
+                selectedAttri={selectedCategory}
+                setSelectedAttri={setSelectedCategory}
+                array1={cats}
               />
             )}
           {/* Brand delete */}
@@ -1539,77 +1494,8 @@ const Config = () => {
                 successMessage={successMessage}
               />
             )}
-          {/* ------------Category/Brand------------------ */}
-          {/*
-          -------------Add Category/Brand-------------
-          */}
+
           <div>
-            {selectedFirstOption === "Categoria/Marca" &&
-              selectedNextOption === "Adicionar" && (
-                <AddRelationConfig
-                  rel1={"Categoria"}
-                  rel2={"Marca"}
-                  selectedAttri={selectedCategory}
-                  setSelectedAttri={setSelectedCategory}
-                  array1={cats}
-                  selectedAttriSec={selectedBrand}
-                  setSelectedAttriSec={setSelectedBrand}
-                  array2={brands}
-                  handleShowModal={handleShowModal}
-                  error={error}
-                  successMessage={successMessage}
-                  showModal={showModal}
-                  handleCloseModal={handleCloseModal}
-                  handleSubmit={handleSubmit}
-                />
-              )}
-
-            {/*
-            -------------Edit Category/Brand-------------
-            */}
-            {selectedFirstOption === "Categoria/Marca" &&
-              selectedNextOption === "Editar" && (
-                <EditRelationConfig
-                  rel1={"Categoria"}
-                  rel2={"Marca"}
-                  handleEditRelation={handleEditRelation}
-                  selectedRelationId={selectedRelationId}
-                  relations={relations}
-                  array1={cats}
-                  array2={brands}
-                  editedRelation={editedRelation}
-                  showModal={showModal}
-                  handleCloseModal={handleCloseModal}
-                  setEditedRelation={setEditedRelation}
-                  handleUpdateRelation={handleUpdateRelation}
-                  handleShowModal={handleShowModal}
-                />
-              )}
-
-            {/*
-            -------------Delete Category/Brand-------------
-            */}
-            {selectedFirstOption === "Categoria/Marca" &&
-              selectedNextOption === "Apagar" && (
-                <DeleteRelationConfig
-                  rel1={"Categoria"}
-                  rel2={"Marca"}
-                  handleShowModal={handleShowModal}
-                  array1={cats}
-                  array2={brands}
-                  error={error}
-                  successMessage={successMessage}
-                  showModal={showModal}
-                  handleCloseModal={handleCloseModal}
-                  setError={setError}
-                  clearErrorAfterTimeout={clearErrorAfterTimeout}
-                  setSuccessMessage={setSuccessMessage}
-                  clearSuccessMessageAfterTimeout={
-                    clearSuccessMessageAfterTimeout
-                  }
-                />
-              )}
-
             <button onClick={handleBackButtonClick} className="vl-btn">
               Anterior
             </button>
