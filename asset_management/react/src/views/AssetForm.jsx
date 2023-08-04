@@ -175,8 +175,8 @@ export default function AssetForm() {
     // Open the confirmation modal
     setShowConfirmModal(true);
   };
-  //When the user submits the request
 
+  //When the user submits the request
   const handleConfirmSave = () => {
     setShowConfirmModal(false); // Close the confirmation modal
     if (asset.id) {
@@ -362,13 +362,7 @@ export default function AssetForm() {
       {!asset.id && <h1 className="title-page-all">Novo Ativo</h1>}
       <div className="card animated fadeInDown">
         {loading && <div className="caprr-re">A carregar...</div>}
-        {/* {errors && (
-          <div className="alert">
-            {Object.keys(errors).map((key) => (
-              <p key={key}>{errors[key][0]}</p>
-            ))}
-          </div>
-        )} */}
+
         {!loading && (
           <form onSubmit={onSubmit} className="assetForm-assett">
             {/* ---------- Inventory Number ----------*/}

@@ -496,7 +496,7 @@ const Config = () => {
   const findRelationIdByBrandId = (brandId) => {
     const brandIdNumber = Number(brandId); // Convert brandId to a number
     const relation = relations.find((rel) => rel.brand_id === brandIdNumber);
-    console.log("relation", relation);
+
     return relation ? relation.id : null;
   };
 
@@ -1045,6 +1045,7 @@ const Config = () => {
   const [selectedUntData, setSelectedUntData] = useState(null);
   const [editedUntValue, setEditedUntValue] = useState("");
 
+  //Selection of the handle Data unit
   const handleDataUntSelection = () => {
     const selectedDataName = event.target.value;
     const selectedDataObject = units.find(
@@ -1054,6 +1055,7 @@ const Config = () => {
     setEditedUntValue(selectedDataObject.name);
   };
 
+  //Handle data  unit update
   const handleDataUntUpdate = async () => {
     setError(null);
 
@@ -1477,9 +1479,6 @@ const Config = () => {
               Anterior
             </button>
             <p></p>
-            {/*   <button onClick={handleCloseButtonClick} className="ini-btn">
-              Configurações
-            </button> */}
           </div>
         </div>
       ) : (
