@@ -41,9 +41,6 @@ import ConfigDropAdd from "./ConfigDropAdd";
 import ConfigDropEdit from "./ConfigDropEdit";
 import ConfigDropMdlAdd from "./ConfigDropMdlAdd";
 import ConfigDropMdlDel from "./ConfigDropMdlDel";
-import AddRelationConfig from "./AddRelationConfig";
-import EditRelationConfig from "./EditRelationConfig";
-import DeleteRelationConfig from "./DeleteRelationConfig";
 import { Modal, Button } from "react-bootstrap";
 import ConfigBr from "./ConfigBr";
 
@@ -87,12 +84,6 @@ const Config = () => {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
 
-  //-----------------------------------------------------
-  //For the Category/Brand Modal
-  const [showModal, setShowModal] = useState(false);
-
-  const handleCloseModal = () => setShowModal(false);
-  const handleShowModal = () => setShowModal(true);
   //-----------------------------------------------------
 
   //Gets all data from the entity,unit, brands and categories (also for unit and model)
@@ -165,27 +156,6 @@ const Config = () => {
   };
 
   //-----------Keep track of edited relation of Brand/Categ---------
-  const [selectedRelationId, setSelectedRelationId] = useState(null);
-
-  const [selectedRelationForEdit, setSelectedRelationForEdit] = useState(null);
-  const [editedRelation, setEditedRelation] = useState(null);
-  const [showEditModal, setShowEditModal] = useState(false);
-
-  const handleEditRelation = () => {
-    const selectedRelation = relations.find(
-      (relation) => relation.id === selectedRelationId
-    );
-    if (selectedRelation) {
-      setEditedRelation(selectedRelation);
-      handleShowModal();
-    }
-  };
-
-  const handleCloseEditModal = () => {
-    setShowEditModal(false);
-    setSelectedRelationForEdit(null);
-    setEditedRelation(null);
-  };
 
   // Fetch the relations between category and brand from the backend API
   const fetchRelationss = async () => {
@@ -464,10 +434,13 @@ const Config = () => {
       };
       await axiosClient.post("/categoryBrands", categoryBrand);
 
+      // Fetch the updated relations data and update the state
+      await fetchRelationss();
+
       // Add the new brand to the state
       setBrands((prevBrands) => [...prevBrands, response.data]);
       setNewBrand("");
-
+      setSelectedCategory("");
       setSuccessMessage("Marca adicionada com sucesso!");
       clearSuccessMessageAfterTimeout(2000);
     } catch (err) {
@@ -476,7 +449,7 @@ const Config = () => {
     }
   };
 
-  //---------Remove a brand---------
+  //Handle remove brand function
   const handleRemoveBrand = async () => {
     const selectElement = document.getElementById("brand");
 
@@ -490,30 +463,26 @@ const Config = () => {
     }
 
     try {
-      // Find the relations associated with the brands to be removed
-      const relationsToRemove = relations.filter((relation) =>
-        brandToRemove.includes(relation.brand_id)
-      );
-
-      // Remove the relations
+      // Find and delete the relations for the brands to be removed
       await Promise.all(
-        relationsToRemove.map((relation) =>
-          axiosClient.delete(`/category-brandsDel/${relation.id}`)
-        )
+        brandToRemove.map(async (brandId) => {
+          // Find the relation ID for the given brandId
+          const relationId = findRelationIdByBrandId(brandId);
+
+          if (relationId) {
+            // Delete the relation using the relation ID
+            await axiosClient.delete(`/category-brandsDel/${relationId}`);
+          }
+
+          // Delete the brand
+          await axiosClient.delete(`/brandsDel/${brandId}`);
+        })
       );
 
-      // Remove the brands
-      await Promise.all(
-        brandToRemove.map((brandId) =>
-          axiosClient.delete(`/brandsDel/${brandId}`)
-        )
-      );
-
-      // Fetch the updated brands and relations data
+      // Fetch the updated brands data and update the state
       axiosClient.get("/brands").then((response) => {
         setBrands(response.data);
       });
-      fetchRelations();
 
       setSuccessMessage("Marca removida com sucesso!");
       clearSuccessMessageAfterTimeout(2000);
@@ -521,6 +490,14 @@ const Config = () => {
       setError("Erro ao remover a marca. Por favor tente outra vez.");
       clearErrorAfterTimeout(5000);
     }
+  };
+
+  //Function that gets the  brandid of the relations of the category_brand table
+  const findRelationIdByBrandId = (brandId) => {
+    const brandIdNumber = Number(brandId); // Convert brandId to a number
+    const relation = relations.find((rel) => rel.brand_id === brandIdNumber);
+    console.log("relation", relation);
+    return relation ? relation.id : null;
   };
 
   //-----------Edit a brand-------------------------
