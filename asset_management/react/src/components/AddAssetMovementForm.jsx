@@ -150,15 +150,12 @@ const AddAssetMovementForm = () => {
     setShowConfirmModal(true);
   };
 
-  console.log("tam", assetDate.length);
-
   //Handle the save of the asset movement when the user clicks "Confirmar" on the modal
   const handleConfirmSave = () => {
     setShowConfirmModal(false); // Close the confirmation modal
 
     // Validate the date before saving
     if (validateDate(assetDate)) {
-      console.log("Data inválida");
       return;
     }
 
