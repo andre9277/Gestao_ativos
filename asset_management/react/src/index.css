@@ -189,6 +189,7 @@ table > tbody > tr > td {
     background-color: #00a762;
     color: white;
     border-radius: 0.5rem;
+    font-size: 1.2rem;
 }
 
 /* Login/Signup forms*/
