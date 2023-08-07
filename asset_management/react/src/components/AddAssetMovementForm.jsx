@@ -381,7 +381,9 @@ const AddAssetMovementForm = () => {
             ))}
           </select>
         </label>
-        {assetEnt === "2" || assetEnt === "3" ? (
+
+        {/* If the selected option corresponds to one entity with valid units, then we show the unit select*/}
+        {units.some((unt) => unt.ent_id === parseInt(assetEnt)) && (
           <>
             <label className="lb-info"></label>
             <label className="lb-info">
@@ -395,7 +397,7 @@ const AddAssetMovementForm = () => {
               >
                 <option value=""></option>
                 {units
-                  .filter((unt) => unt.ent_id === parseInt(assetEnt)) // Filter units based on selected entity
+                  .filter((unt) => unt.ent_id === parseInt(assetEnt))
                   .map((unt) => (
                     <option key={unt.id} value={unt.id}>
                       {unt.name}
@@ -404,7 +406,7 @@ const AddAssetMovementForm = () => {
               </select>
             </label>
           </>
-        ) : null}
+        )}
 
         {/* ----------CI----------*/}
         <label className="lb-info">
