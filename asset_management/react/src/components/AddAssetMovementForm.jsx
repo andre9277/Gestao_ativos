@@ -60,8 +60,12 @@ const AddAssetMovementForm = () => {
   //saves the date of the asset movement
   const [assetDate, setAssetDate] = useState("");
   const { user, setNotification } = useStateContext();
-  //saves the entity data
+  //saves all the entity data
   const [ents, setEnts] = useState([]);
+
+  //saves the asset unit data
+  const [assetUt, setAssetUt] = useState("");
+  const [units, setUnits] = useState([]);
 
   //saves the inventory number field
   const [invNumber, setInvNumber] = useState("");
@@ -70,8 +74,12 @@ const AddAssetMovementForm = () => {
 
   useEffect(() => {
     getTotalAssetsEve();
+
     //Gets all the entities
     getEnts();
+
+    //Gets all the units
+    getUnits();
   }, []);
 
   //Get entities of the url
@@ -82,6 +90,12 @@ const AddAssetMovementForm = () => {
     });
   };
 
+  const getUnits = (url) => {
+    url = url || "/units";
+    axiosClient.get(url).then(({ data }) => {
+      setUnits(data);
+    });
+  };
   //Get total entities
   const getTotalAssetsEve = (url) => {
     url = url || "/allAssets";
@@ -154,7 +168,10 @@ const AddAssetMovementForm = () => {
       entity: assetEnt,
       other: other,
       reason: reason,
+      unit: assetUt,
     };
+
+    console.log("data", data);
 
     // Perform the POST request to save one asset movement
     axiosClient
@@ -166,6 +183,7 @@ const AddAssetMovementForm = () => {
             ci: assetCi !== "" ? assetCi : matchingAsset.ci, // Update asset CI only if there is a new value
             ent_id: assetEnt !== "" ? assetEnt : matchingAsset.ent_id,
             cond: reason !== "" ? reason : matchingAsset.cond,
+            unit_id: assetUt !== "" ? assetUt : matchingAsset.unit_id,
           };
 
           axiosClient
@@ -184,12 +202,14 @@ const AddAssetMovementForm = () => {
             });
         }
 
+        console.log("matchingInv", matchingInv);
         if (matchingInv) {
           const updateAsset = {
             ...matchingInv,
             ci: assetCi !== "" ? assetCi : matchingInv.ci, // Update asset CI only if there is a new value
             ent_id: assetEnt !== "" ? assetEnt : matchingInv.ent_id,
             cond: reason !== "" ? reason : matchingAsset.cond,
+            unit_id: assetUt !== "" ? assetUt : matchingAsset.unit_id,
           };
 
           axiosClient
@@ -236,6 +256,7 @@ const AddAssetMovementForm = () => {
     setReason("");
     setOther("");
   };
+
   return (
     <>
       <Modal show={showConfirmModal} onHide={handleCancelSave}>
@@ -356,6 +377,25 @@ const AddAssetMovementForm = () => {
             {ents.map((ent) => (
               <option key={ent.id} value={ent.id}>
                 {ent.name}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        {/*--------------New Unit----------------*/}
+        <label className="lb-info">
+          <label className="labelofLabel"> Unidade destino: </label>
+          <select
+            className="infoInp-select"
+            name="unit"
+            id="unit"
+            value={assetUt}
+            onChange={(e) => setAssetUt(e.target.value)}
+          >
+            <option value=""></option>
+            {units.map((unt) => (
+              <option key={unt.id} value={unt.id}>
+                {unt.name}
               </option>
             ))}
           </select>
