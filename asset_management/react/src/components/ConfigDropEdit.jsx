@@ -88,12 +88,14 @@ const ConfigDropEdit = ({
             </option>
           ))}
         </select>
+        <p></p>
 
         {selectedData && (
           <div>
             <label htmlFor="editValue" className="lb-cats-edit">
               Editar valor:
             </label>
+            <p></p>
             <div className="addLbBtn">
               <input
                 type="text"

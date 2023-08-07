@@ -75,6 +75,10 @@ const ConfigDropdown = ({
             <>Lista de {Title}s:</>
           )}
         </label>
+        <p></p>
+        <label className="sub-title">
+          Selecione um(a) {Title} para apagar:
+        </label>
         <select
           id={tag}
           name={tag}
@@ -88,13 +92,14 @@ const ConfigDropdown = ({
             </option>
           ))}
         </select>
-
+        <p></p>
         {/* Display the selected value inside a label tag */}
         {selectedValue && (
           <div>
             <label htmlFor="selectedValue" className="lb-cats">
               Apagar valor:
             </label>
+            <p></p>
             <div className="brd-cat-delete">
               <p id="selected-value">{selectedValue}</p>
               <button type="button" id="btnRemove" onClick={handleShowModal}>

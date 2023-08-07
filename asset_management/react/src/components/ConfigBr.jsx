@@ -39,6 +39,8 @@ const ConfigBr = ({
       <form className="frm-cats">
         {/* Category*/}
         <label className="lb-cats">{rel1}:</label>
+        <p></p>
+        <label className="sub-title">Selecione um(a) {rel1}:</label>
         <select
           name="category"
           id="category"

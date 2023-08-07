@@ -67,12 +67,10 @@ const ConfigDropMdlDel = ({
     <div id="container-config">
       <form className="frm-cats">
         <label htmlFor={id} className="lb-cats">
-          {Title}
+          Lista de {Title}s:
         </label>
         <p></p>
-        <label htmlFor={tag} className="lb-cats">
-          Lista de {Title}:
-        </label>
+        <label className="sub-title">Selecione um(a) {Title}:</label>
         <select
           id={tag}
           name={tag}
@@ -86,9 +84,11 @@ const ConfigDropMdlDel = ({
             </option>
           ))}
         </select>
+        <p></p>
         {selectedDataName && (
           <div>
-            <label className="lb-cats-edit">Opção selecionada:</label>
+            <label className="lb-cats-edit">Apagar valor:</label>
+            <p></p>
             <div className="addLbBtn">
               <p id="selected-value">{selectedDataName}</p>
               <button id="btnRemove" type="button" onClick={handleShowModal}>

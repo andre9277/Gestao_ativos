@@ -65,9 +65,10 @@ const ConfigDropMdlAdd = ({
       <form className="frm-cats">
         {/* Brand selection dropdown */}
         <label htmlFor="brandSelect" className="lb-cats">
-          Selecione {maintb}:
+          {maintb}:
         </label>
-
+        <p></p>
+        <label className="sub-title">Selecione um(a) {maintb}:</label>
         <select
           id="brandSelect"
           name="brandSelect"
