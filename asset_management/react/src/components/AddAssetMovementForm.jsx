@@ -171,8 +171,6 @@ const AddAssetMovementForm = () => {
       unit: assetUt,
     };
 
-    console.log("data", data);
-
     // Perform the POST request to save one asset movement
     axiosClient
       .post("/assetMovement", data)
@@ -202,7 +200,6 @@ const AddAssetMovementForm = () => {
             });
         }
 
-        console.log("matchingInv", matchingInv);
         if (matchingInv) {
           const updateAsset = {
             ...matchingInv,
@@ -371,7 +368,10 @@ const AddAssetMovementForm = () => {
             name="entity"
             id="entity"
             value={assetEnt}
-            onChange={(e) => setAssetEnt(e.target.value)}
+            onChange={(e) => {
+              setAssetEnt(e.target.value);
+              setAssetUt(""); // Reset the selected unit when changing the entity
+            }}
           >
             <option value=""></option>
             {ents.map((ent) => (
@@ -381,25 +381,30 @@ const AddAssetMovementForm = () => {
             ))}
           </select>
         </label>
-
-        {/*--------------New Unit----------------*/}
-        <label className="lb-info">
-          <label className="labelofLabel"> Unidade destino: </label>
-          <select
-            className="infoInp-select"
-            name="unit"
-            id="unit"
-            value={assetUt}
-            onChange={(e) => setAssetUt(e.target.value)}
-          >
-            <option value=""></option>
-            {units.map((unt) => (
-              <option key={unt.id} value={unt.id}>
-                {unt.name}
-              </option>
-            ))}
-          </select>
-        </label>
+        {assetEnt === "2" || assetEnt === "3" ? (
+          <>
+            <label className="lb-info"></label>
+            <label className="lb-info">
+              <label className="labelofLabel"> Unidade: </label>
+              <select
+                className="infoInp-select"
+                name="unit"
+                id="unit"
+                value={assetUt}
+                onChange={(e) => setAssetUt(e.target.value)}
+              >
+                <option value=""></option>
+                {units
+                  .filter((unt) => unt.ent_id === parseInt(assetEnt)) // Filter units based on selected entity
+                  .map((unt) => (
+                    <option key={unt.id} value={unt.id}>
+                      {unt.name}
+                    </option>
+                  ))}
+              </select>
+            </label>
+          </>
+        ) : null}
 
         {/* ----------CI----------*/}
         <label className="lb-info">
