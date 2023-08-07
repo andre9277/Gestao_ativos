@@ -268,7 +268,7 @@ const AddAssetMovementForm = () => {
     const year = selectedDate.getFullYear();
 
     // Check if the year is less than 2005, greater than 2040, or has more than four digits
-    return year < 2005 || year > 2040 || assetDate > 16;
+    return year < 2005 || year > 2040 || assetDate.length > 16;
   };
 
   return (
