@@ -150,9 +150,18 @@ const AddAssetMovementForm = () => {
     setShowConfirmModal(true);
   };
 
+  console.log("tam", assetDate.length);
+
   //Handle the save of the asset movement when the user clicks "Confirmar" on the modal
   const handleConfirmSave = () => {
     setShowConfirmModal(false); // Close the confirmation modal
+
+    // Validate the date before saving
+    if (validateDate(assetDate)) {
+      console.log("Data inválida");
+      return;
+    }
+
     const data = {
       allocation_date: assetDate,
       ser_number: matchingInv ? matchingInv.numb_ser : serNumber,
@@ -237,7 +246,7 @@ const AddAssetMovementForm = () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         } else {
           /* console.log("Error Message:", response.data.message); */
-          setErrors(response.data.message);
+          /*     setErrors(response.data.errors); */
           // Scroll to the top of the page
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
@@ -252,6 +261,14 @@ const AddAssetMovementForm = () => {
     setAssetCi("");
     setReason("");
     setOther("");
+  };
+
+  const validateDate = (date) => {
+    const selectedDate = new Date(date);
+    const year = selectedDate.getFullYear();
+
+    // Check if the year is less than 2005, greater than 2040, or has more than four digits
+    return year < 2005 || year > 2040 || assetDate > 16;
   };
 
   return (
@@ -281,9 +298,7 @@ const AddAssetMovementForm = () => {
 
         {/* ---------- Allocation Date ----------*/}
         <label className="lb-info">
-          {" "}
           <label className="labelofLabel">
-            {" "}
             Data:<label className="cmp-obg">*</label>
           </label>
           <input
@@ -295,10 +310,14 @@ const AddAssetMovementForm = () => {
             onChange={(e) => setAssetDate(e.target.value)}
             placeholder="YYYY-MM-DD HH:MM"
           />
+          {validateDate(assetDate) && (
+            <div className="error">Data inválida.</div>
+          )}
           {errors && errors.allocation_date && (
             <div className="error">{errors.allocation_date[0]}</div>
           )}
         </label>
+
         <p></p>
         {/* ---------- Num Inv ----------*/}
 
