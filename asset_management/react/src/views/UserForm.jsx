@@ -188,19 +188,13 @@ export default function UserForm() {
       {!user.id && <h1 className="title-page-all">Novo Utilizador</h1>}
       <div className="card animated fadeInDown">
         {loading && <div className="caprr-re">A carregar...</div>}
-        {/*  {errors && (
-          <div className="alert">
-            {Object.keys(errors).map((key) => (
-              <p key={key}>{errors[key][0]}</p>
-            ))}
-          </div>
-        )}
- */}
+
         {!loading && (
           <form onSubmit={onSubmit} className="assetForm-assett">
             <h1 className="title-page-all-sub">Dados Gerais: </h1>
             <p></p>
             <p className="camp-obs">*Campo Obrigatório</p>
+            {/*---------Name-----------*/}
             <label className="lb-info">
               {" "}
               <label className="labelofLabel">
@@ -215,10 +209,10 @@ export default function UserForm() {
                 }`}
               />
               {errors && errors.name && (
-                <div className="error">{errors.name[0]}</div>
+                <div className="alert">{errors.name[0]}</div>
               )}
             </label>
-
+            {/*---------Email-----------*/}
             <label className="lb-info">
               <label className="labelofLabel">
                 Email:<label className="cmp-obg">*</label>{" "}
@@ -232,10 +226,10 @@ export default function UserForm() {
                 }`}
               />
               {errors && errors.email && (
-                <div className="error">{errors.email[0]}</div>
+                <div className="alert">{errors.email[0]}</div>
               )}
             </label>
-
+            {/*---------Mec Number-----------*/}
             <label className="lb-info">
               <label className="labelofLabel">
                 Nº Mec.:<label className="cmp-obg">*</label>{" "}
@@ -248,9 +242,10 @@ export default function UserForm() {
                 }`}
               />
               {errors && errors.mec && (
-                <div className="error">{errors.mec[0]}</div>
+                <div className="alert">{errors.mec[0]}</div>
               )}
             </label>
+            {/*---------Role-----------*/}
             <label htmlFor="role" className="lb-info">
               <label className="labelofLabel">
                 {" "}
@@ -273,10 +268,10 @@ export default function UserForm() {
                 <option value="3">Manutenção</option>
               </select>
               {errors && errors.name && (
-                <div className="error">{errors.name[0]}</div>
+                <div className="alert">{errors.name[0]}</div>
               )}
             </label>
-
+            {/*---------Password-----------*/}
             <label className="lb-info">
               <label className="labelofLabel">
                 {" "}
@@ -293,20 +288,10 @@ export default function UserForm() {
                 }`}
               />
               {errors && errors.password && (
-                <div className="error">{errors.password[0]}</div>
+                <div className="alert">{errors.password[0]}</div>
               )}
             </label>
-            {/* <label className="lb-info">
-              Valida Password:<label className="cmp-obg">*</label>
-              <input
-                value={user.password_confirmation}
-                type="password"
-                onChange={(ev) =>
-                  setUser({ ...user, password_confirmation: ev.target.value })
-                }
-                className="infoInp"
-              />
-            </label> */}
+            {/*---------PIN-----------*/}
 
             <label className="lb-info">
               PIN:
@@ -319,14 +304,16 @@ export default function UserForm() {
                 }`}
               />
               {errors && errors.pin && (
-                <div className="error">{errors.pin[0]}</div>
+                <div className="alert">{errors.pin[0]}</div>
               )}
             </label>
             <label className="lb-info"></label>
+            {/*---------Clean button-----------*/}
             <label className="lb-info-btn">
               <label onClick={resetFilter} className="btn-cleanfilter-asset">
                 Limpar
               </label>
+              {/*---------Save button-----------*/}
               <button className="btn-adicionar-userForm"> Guardar</button>
             </label>
           </form>

@@ -641,8 +641,8 @@ const ImportForm = () => {
               Importar
             </button>
           </div>
-          {successMessage && <p className="succMess">{successMessage}</p>}
-          {errorMessage && <p className="message_error">{errorMessage}</p>}
+          {successMessage && <p className="good">{successMessage}</p>}
+          {errorMessage && <p className="alert">{errorMessage}</p>}
 
           <div className="impt-temp">
             <p></p>

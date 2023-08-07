@@ -395,7 +395,7 @@ export default function AssetForm() {
                 }`}
               />
               {errors && errors.numb_inv && (
-                <div className="error">{errors.numb_inv[0]}</div>
+                <div className="alert">{errors.numb_inv[0]}</div>
               )}
             </label>
 
@@ -413,7 +413,7 @@ export default function AssetForm() {
                 }`}
               />
               {errors && errors.numb_ser && (
-                <div className="error">{errors.numb_ser[0]}</div>
+                <div className="alert">{errors.numb_ser[0]}</div>
               )}
             </label>
 
@@ -441,7 +441,7 @@ export default function AssetForm() {
                 ))}
               </select>
               {errors && errors.cat_id && (
-                <div className="error">{errors.cat_id[0]}</div>
+                <div className="alert">{errors.cat_id[0]}</div>
               )}
             </label>
             {/* ---------- Status ----------*/}
@@ -467,7 +467,7 @@ export default function AssetForm() {
               </select>
 
               {errors && errors.state && (
-                <div className="error">{errors.state[0]}</div>
+                <div className="alert">{errors.state[0]}</div>
               )}
             </label>
             {/* ---------- Brands ----------*/}
@@ -495,7 +495,7 @@ export default function AssetForm() {
                 )}
               </select>
               {errors && errors.brand_id && (
-                <div className="error">{errors.brand_id[0]}</div>
+                <div className="alert">{errors.brand_id[0]}</div>
               )}
             </label>
 
@@ -523,7 +523,7 @@ export default function AssetForm() {
                 ))}
               </select>
               {errors && errors.model_id && (
-                <div className="error">{errors.model_id[0]}</div>
+                <div className="alert">{errors.model_id[0]}</div>
               )}
             </label>
 
@@ -552,7 +552,7 @@ export default function AssetForm() {
                   <option value="Obsoleto">Obsoleto</option>
                 </select>
                 {errors && errors.cond && (
-                  <div className="error">{errors.cond[0]}</div>
+                  <div className="alert">{errors.cond[0]}</div>
                 )}
               </label>
 
@@ -573,7 +573,7 @@ export default function AssetForm() {
                 />
                 {errorMessage && <p className="alert">{errorMessage}</p>}
                 {errors && errors.date_purch && (
-                  <div className="error">{errors.date_purch[0]}</div>
+                  <div className="alert">{errors.date_purch[0]}</div>
                 )}
               </label>
               {/* ---------- Supplier ----------*/}
@@ -598,7 +598,7 @@ export default function AssetForm() {
                   ))}
                 </select>
                 {errors && errors.supplier_id && (
-                  <div className="error">{errors.supplier_id[0]}</div>
+                  <div className="alert">{errors.supplier_id[0]}</div>
                 )}
               </label>
             </div>
@@ -630,7 +630,7 @@ export default function AssetForm() {
                   ))}
                 </select>
                 {errors && errors.ent_id && (
-                  <div className="error">{errors.ent_id[0]}</div>
+                  <div className="alert">{errors.ent_id[0]}</div>
                 )}
               </label>
 
@@ -669,7 +669,7 @@ export default function AssetForm() {
                   }`}
                 />
                 {errors && errors.ci && (
-                  <div className="error">{errors.ci[0]}</div>
+                  <div className="alert">{errors.ci[0]}</div>
                 )}
               </label>
 

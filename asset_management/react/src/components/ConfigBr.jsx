@@ -78,7 +78,7 @@ const ConfigBr = ({
             ></i>
           </button>
         </div>
-        {error && <p className="errorMessag">{error}</p>}
+        {error && <p className="alert">{error}</p>}
         {successMessage && <p className="successMessag">{successMessage}</p>}
       </form>
       {/* The Modal */}

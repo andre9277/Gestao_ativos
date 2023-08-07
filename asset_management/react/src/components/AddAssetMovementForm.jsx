@@ -308,10 +308,10 @@ const AddAssetMovementForm = () => {
             placeholder="YYYY-MM-DD HH:MM"
           />
           {validateDate(assetDate) && (
-            <div className="error">Data inválida.</div>
+            <div className="alert">Data inválida.</div>
           )}
           {errors && errors.allocation_date && (
-            <div className="error">{errors.allocation_date[0]}</div>
+            <div className="alert">{errors.allocation_date[0]}</div>
           )}
         </label>
 
@@ -331,7 +331,7 @@ const AddAssetMovementForm = () => {
             }`}
           />
           {errors && errors.inv_number && (
-            <div className="error">{errors.inv_number[0]}</div>
+            <div className="alert">{errors.inv_number[0]}</div>
           )}
         </label>
 
@@ -485,7 +485,7 @@ const AddAssetMovementForm = () => {
             <option value="Obsoleto">Obsoleto</option>
           </select>
           {errors && errors.reason && (
-            <div className="error">{errors.reason[0]}</div>
+            <div className="alert">{errors.reason[0]}</div>
           )}
         </label>
         {/* ---------- Obs ----------*/}

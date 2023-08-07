@@ -113,7 +113,7 @@ const ConfigDropEdit = ({
           </div>
         )}
       </form>
-      {error && <p className="errorMessag">{error}</p>}
+      {error && <p className="alert">{error}</p>}
       {successMessage && <p className="successMessag">{successMessage}</p>}
       {/* The Modal */}
       <Modal show={showModal} onHide={handleCloseModal}>

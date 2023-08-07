@@ -339,7 +339,7 @@ export default function Allocations() {
 
       {!loading && (
         <div className="card animated fadeInDown">
-          {message && <div className="message_error">{message}</div>}
+          {message && <div className="alert">{message}</div>}
           <p></p>
           <p className="camp-obs">*Campo Obrigatório</p>
           <p></p>
@@ -394,7 +394,7 @@ export default function Allocations() {
               />
 
               {error && startDate > endDate && (
-                <p className="err-allo-dt">{errorMsg}</p>
+                <p className="alert">{errorMsg}</p>
               )}
             </div>
 

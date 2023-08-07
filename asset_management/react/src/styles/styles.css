@@ -144,7 +144,7 @@ body {
 
 .err-search {
     margin: 0.5rem;
-    background-color: red;
+    background-color: #ff4040;
     padding: 0.5rem;
     width: fit-content;
     font-size: 1rem;
@@ -13944,4 +13944,19 @@ button {
 
 .logo-whbg {
     width: inherit;
+}
+
+.good {
+    position: relative;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    width: fit-content;
+    font-size: 1.2rem;
+    margin-left: 34px;
+    font-weight: 700;
+    margin-top: 1rem;
+    background-color: #119200;
+    color: white;
 }

@@ -83,8 +83,8 @@ const ConfigDropAdd = ({
             ></i>
           </button>
         </div>
-        {error && <p className="errorMessag">{error}</p>}
-        {successMessage && <p className="successMessag">{successMessage}</p>}
+        {error && <p className="alert">{error}</p>}
+        {successMessage && <p className="good">{successMessage}</p>}
       </form>
       {/* The Modal */}
       <Modal show={showModal} onHide={handleCloseModal}>
