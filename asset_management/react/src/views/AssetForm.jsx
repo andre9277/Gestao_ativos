@@ -58,6 +58,46 @@ export default function AssetForm() {
   const [selectedEntity, setSelectedEntity] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
   const [supplierId, setSupplierId] = useState("");
+
+  //List of assets:
+  const [asset, setAsset] = useState({
+    id: null,
+    numb_inv: "",
+    numb_ser: "",
+    cond: "",
+    ala: "",
+    ci: "",
+    state: "",
+    floor: "",
+    category: {
+      id: "",
+      name: "",
+    },
+    cat_id: "",
+    supplier_id: "",
+    brand: {
+      id: "",
+      name: "",
+      sig: "",
+    },
+    brand_id: "",
+    ent_id: "",
+    date_purch: "",
+    model_id: "",
+    modelo: {
+      id: "",
+      model_name: "",
+    },
+    unit_id: "",
+    entity: {
+      id: "",
+      ent_name: "",
+      ent_type: "",
+    },
+    units: "",
+    import_type: "",
+  });
+
   //Allows the navigation of the assets to other page
   const navigate = useNavigate();
 
@@ -130,44 +170,6 @@ export default function AssetForm() {
       };
     }
   }, [errors]);
-  //List of assets:
-  const [asset, setAsset] = useState({
-    id: null,
-    numb_inv: "",
-    numb_ser: "",
-    cond: "",
-    ala: "",
-    ci: "",
-    state: "",
-    floor: "",
-    category: {
-      id: "",
-      name: "",
-    },
-    cat_id: "",
-    supplier_id: "",
-    brand: {
-      id: "",
-      name: "",
-      sig: "",
-    },
-    brand_id: "",
-    ent_id: "",
-    date_purch: "",
-    model_id: "",
-    modelo: {
-      id: "",
-      model_name: "",
-    },
-    unit_id: "",
-    entity: {
-      id: "",
-      ent_name: "",
-      ent_type: "",
-    },
-    units: "",
-    import_type: "",
-  });
 
   const onSubmit = (ev) => {
     ev.preventDefault();
@@ -228,6 +230,7 @@ export default function AssetForm() {
   const handleSave = () => {
     setShowConfirmModal(true); // Open the confirmation modal
   };
+
   //---------Functions that allow the change of some values-------------
   const handleEntityChange = (event) => {
     const selectedEntity = event.target.value;
@@ -239,6 +242,7 @@ export default function AssetForm() {
     setSelectedEntity(selectedEntity);
   };
 
+  //Handle Brand change on assetForm
   function handleBrandChange(event) {
     const selectedBrand = event.target.value;
     setAsset((prevState) => ({
@@ -250,6 +254,7 @@ export default function AssetForm() {
     setSelectedBrand(selectedBrand);
   }
 
+  //Handle Supplier change on assetForm
   function handleSupplierChange(event) {
     setSupplierId(event.target.value);
     const newAsset = {
@@ -259,6 +264,7 @@ export default function AssetForm() {
     setAsset(newAsset);
   }
 
+  //Handle Category change on assetForm
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
 
@@ -279,6 +285,7 @@ export default function AssetForm() {
       });
   };
 
+  //Reset Filter of the assets forms
   const resetFilter = () => {
     // Reset all the values to empty or default
 
@@ -301,6 +308,7 @@ export default function AssetForm() {
     });
   };
 
+  //handles data change of the filter from assetForm
   const handleDateChange = (ev) => {
     const enteredDate = ev.target.value;
 
@@ -321,6 +329,7 @@ export default function AssetForm() {
     }
   };
 
+  //Checks if date is valid of filter
   const isValidDate = (dateString) => {
     // Check if the input is in the format "YYYY-MM-DD"
     const regex = /^\d{4}-\d{2}-\d{2}$/;
@@ -507,19 +516,11 @@ export default function AssetForm() {
                 required
               >
                 <option value=""></option>
-                {id && asset.brand_id
-                  ? modelos
-                      .filter((modelo) => modelo.brand_id === asset.brand_id) // Filter models based on selected brand
-                      .map((modelo) => (
-                        <option key={modelo.id} value={modelo.id}>
-                          {modelo.name}
-                        </option>
-                      ))
-                  : modelos.map((modelo) => (
-                      <option key={modelo.id} value={modelo.id}>
-                        {modelo.name}
-                      </option>
-                    ))}
+                {modelos.map((modelo) => (
+                  <option key={modelo.id} value={modelo.id}>
+                    {modelo.name}
+                  </option>
+                ))}
               </select>
               {errors && errors.model_id && (
                 <div className="error">{errors.model_id[0]}</div>
@@ -671,7 +672,7 @@ export default function AssetForm() {
                   <div className="error">{errors.ci[0]}</div>
                 )}
               </label>
-              {/*  {console.log(errors)} */}
+
               {/* ---------- Floor ----------*/}
               <label htmlFor="floor" className="lb-info">
                 <label className="labelofLabel">Piso: </label>
