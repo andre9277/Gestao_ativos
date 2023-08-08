@@ -179,10 +179,6 @@ const AddAssetMovementForm = () => {
       unit: assetUt,
     };
 
-    console.log("assetUt", assetUt);
-    console.log("assetEnt", assetEnt);
-    console.log("matchingAsset.unit_id", matchingAsset);
-
     // Perform the POST request to save one asset movement
     axiosClient
       .post("/assetMovement", data)

@@ -35,7 +35,7 @@ class AllocationsController extends Controller
 
     public function indexAllocation()
     {
-       $this->authorize('allocations');
+      /*  $this->authorize('allocations'); */
 
         $allocations = Allocation::with('users:id,name', 'assets:id,numb_ser,numb_inv,unit_id,ci,previous_unit_id,previous_ent_id,previous_ci', 'assets.category:id,name')
             ->orderBy('allocations.allocation_date', 'desc')

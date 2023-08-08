@@ -54,6 +54,10 @@ const AddAssetMovementForm = () => {
   const [ents, setEnts] = useState([]);
   const [invNumber, setInvNumber] = useState("");
 
+  //saves the asset unit data
+  const [assetUt, setAssetUt] = useState("");
+  const [units, setUnits] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -71,12 +75,20 @@ const AddAssetMovementForm = () => {
   useEffect(() => {
     getTotalAssetsEve();
     getEnts();
+    getUnits();
   }, []);
 
   const getEnts = (url) => {
     url = url || "/entities";
     axiosClient.get(url).then(({ data }) => {
       setEnts(data);
+    });
+  };
+
+  const getUnits = (url) => {
+    url = url || "/units";
+    axiosClient.get(url).then(({ data }) => {
+      setUnits(data);
     });
   };
 
@@ -117,6 +129,12 @@ const AddAssetMovementForm = () => {
 
   const handleConfirmSave = () => {
     setShowConfirmModal(false); // Close the confirmation modal
+
+    // Validate the date before saving
+    if (validateDate(assetDate)) {
+      return;
+    }
+
     const data = {
       allocation_date: assetDate,
       ser_number: matchingInv ? matchingInv.numb_ser : serNumber,
@@ -132,6 +150,7 @@ const AddAssetMovementForm = () => {
       entity: assetEnt,
       other: other,
       reason: reason,
+      unit: assetUt,
     };
 
     // Perform the POST request
@@ -143,6 +162,8 @@ const AddAssetMovementForm = () => {
             ...matchingAsset,
             ci: assetCi !== "" ? assetCi : matchingAsset.ci, // Update asset CI only if there is a new value
             ent_id: assetEnt !== "" ? assetEnt : matchingAsset.ent_id,
+            cond: reason !== "" ? reason : matchingAsset.cond,
+            unit_id: assetUt !== "" ? assetUt : matchingAsset.unit_id,
           };
 
           axiosClient
@@ -166,6 +187,8 @@ const AddAssetMovementForm = () => {
             ...matchingInv,
             ci: assetCi !== "" ? assetCi : matchingInv.ci, // Update asset CI only if there is a new value
             ent_id: assetEnt !== "" ? assetEnt : matchingInv.ent_id,
+            cond: reason !== "" ? reason : matchingAsset.cond,
+            unit_id: assetUt !== "" ? assetUt : matchingInv.unit_id,
           };
 
           axiosClient
@@ -210,6 +233,15 @@ const AddAssetMovementForm = () => {
     setReason("");
     setOther("");
   };
+
+  const validateDate = (date) => {
+    const selectedDate = new Date(date);
+    const year = selectedDate.getFullYear();
+
+    // Check if the year is less than 2005, greater than 2040, or has more than four digits
+    return year < 2005 || year > 2040 || assetDate.length > 16;
+  };
+
   return (
     <div className="mn-cnt-mov">
       <Modal show={showConfirmModal} onHide={handleCancelSave}>
@@ -253,11 +285,14 @@ const AddAssetMovementForm = () => {
             className={`form-calendar-asset ${
               errors && errors.allocation_date ? "error" : ""
             }`}
-            type="date"
+            type="datetime-local"
             value={assetDate}
             onChange={(e) => setAssetDate(e.target.value)}
-            placeholder="YYYY-MM-DD"
+            placeholder="YYYY-MM-DD HH:MM"
           />
+          {validateDate(assetDate) && (
+            <div className="alert">Data inválida.</div>
+          )}
           {errors && errors.allocation_date && (
             <div className="error">{errors.allocation_date[0]}</div>
           )}
@@ -341,11 +376,38 @@ const AddAssetMovementForm = () => {
             <option value=""></option>
             {ents.map((ent) => (
               <option key={ent.id} value={ent.id}>
-                {ent.ent_name}
+                {ent.name}
               </option>
             ))}
           </select>
         </label>
+        <p></p>
+
+        {/* If the selected option corresponds to one entity with valid units, then we show the unit select*/}
+        {units.some((unt) => unt.ent_id === parseInt(assetEnt)) && (
+          <>
+            <label className="lb-info"></label>
+            <label className="lb-info">
+              <label className="labelofLabel"> Unidade: </label>
+              <select
+                className="infoInp-select"
+                name="unit"
+                id="unit"
+                value={assetUt}
+                onChange={(e) => setAssetUt(e.target.value)}
+              >
+                <option value=""></option>
+                {units
+                  .filter((unt) => unt.ent_id === parseInt(assetEnt))
+                  .map((unt) => (
+                    <option key={unt.id} value={unt.id}>
+                      {unt.name}
+                    </option>
+                  ))}
+              </select>
+            </label>
+          </>
+        )}
         <p></p>
         {/* ----------CI----------*/}
         <label className="lb-info">
