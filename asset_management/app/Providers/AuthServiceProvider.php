@@ -36,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
 
-        //Only the Admin and SI can create a new asset
+        //Only the Admin and SI user can create a new asset
         Gate::define('create-edit', function (User $user) {
             if ($user->role_id === 1 || $user->role_id === 2) {
                 return true;
@@ -44,19 +44,21 @@ class AuthServiceProvider extends ServiceProvider
         });
 
 
-        //Admin and SI can delete an asset
+        //Admin and SI user can delete an asset
         Gate::define('delete', function (User $user) {
             if ($user->role_id === 1 || $user->role_id === 2) {
                 return true;
             }
         });
 
+        //Only admin and SI user can allocate an asset 
         Gate::define('allocations', function (User $user) {
             if ($user->role_id === 1 || $user->role_id === 2) {
                 return true;
             }
         });
 
+        //Only admin can import
         Gate::define('import', function (User $user) {
             if ($user->role_id === 1) {
                 return true;

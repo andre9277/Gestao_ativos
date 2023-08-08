@@ -150,6 +150,8 @@ const AddAssetMovementForm = () => {
     setShowConfirmModal(true);
   };
 
+  console.log("matchingAsset", matchingAsset);
+
   //Handle the save of the asset movement when the user clicks "Confirmar" on the modal
   const handleConfirmSave = () => {
     setShowConfirmModal(false); // Close the confirmation modal
@@ -176,6 +178,10 @@ const AddAssetMovementForm = () => {
       reason: reason,
       unit: assetUt,
     };
+
+    console.log("assetUt", assetUt);
+    console.log("assetEnt", assetEnt);
+    console.log("matchingAsset.unit_id", matchingAsset);
 
     // Perform the POST request to save one asset movement
     axiosClient
@@ -212,7 +218,7 @@ const AddAssetMovementForm = () => {
             ci: assetCi !== "" ? assetCi : matchingInv.ci, // Update asset CI only if there is a new value
             ent_id: assetEnt !== "" ? assetEnt : matchingInv.ent_id,
             cond: reason !== "" ? reason : matchingAsset.cond,
-            unit_id: assetUt !== "" ? assetUt : matchingAsset.unit_id,
+            unit_id: assetUt !== "" ? assetUt : matchingInv.unit_id,
           };
 
           axiosClient
@@ -239,11 +245,6 @@ const AddAssetMovementForm = () => {
         if (response && response.status === 422) {
           /*  console.log("Validation Errors:", response.data.errors); */
           setErrors(response.data.errors);
-          // Scroll to the top of the page
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        } else {
-          /* console.log("Error Message:", response.data.message); */
-          /*     setErrors(response.data.errors); */
           // Scroll to the top of the page
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
