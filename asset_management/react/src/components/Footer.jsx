@@ -41,7 +41,7 @@ const Footer = () => {
       <footer className="py-4 bg-light">
         <div className="container-fluid px-4">
           <div className="d-flex align-items-center justify-content-between small">
-            <div className="text-muted">
+            <div className="footer-app">
               &copy; 2023 Todos os direitos reservados
             </div>
           </div>

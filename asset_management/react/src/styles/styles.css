@@ -13945,3 +13945,9 @@ button {
 .logo-whbg {
     width: inherit;
 }
+
+.footer-app {
+    --bs-text-opacity: 1;
+    font-size: 1.2rem;
+    color: #858796 !important;
+}
