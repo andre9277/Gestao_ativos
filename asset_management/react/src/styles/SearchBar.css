@@ -72,3 +72,7 @@ input:focus {
         font-size: 1rem; /* Decrease the font size for smaller screens */
     }
 }
+
+.message-srchBar {
+    font-size: 1.4rem;
+}

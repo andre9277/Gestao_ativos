@@ -37,6 +37,7 @@ import React, { useState, useEffect } from "react";
 import axiosClient from "../axios-client.js";
 import "../styles/SearchBar.css";
 import { useNavigate } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -45,6 +46,20 @@ const Search = () => {
   const [assets, setAssets] = useState([]);
 
   const [errorMessage, setErrorMessage] = useState("");
+
+  const [showModal, setShowModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
+
+  const displayModal = (title, message) => {
+    setModalTitle(title);
+    setModalMessage(message);
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+  };
 
   useEffect(() => {
     let timer;
@@ -132,7 +147,7 @@ const Search = () => {
     event.preventDefault();
 
     if (!assetNumber) {
-      setErrorMessage("Por favor, insira um valor!");
+      displayModal("Erro!", "Por favor, insira um valor!");
       return;
     }
 
@@ -166,7 +181,7 @@ const Search = () => {
     if (matchedAsset) {
       navigate(`/infoasset/${matchedAsset.id}`);
     } else {
-      setErrorMessage("Não encontrado, tente novamente!");
+      displayModal("Erro!", "Não encontrado, tente novamente!");
     }
 
     setAssetNumber("");
@@ -174,6 +189,22 @@ const Search = () => {
 
   return (
     <div className="serch-warng">
+      <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <div className="messagee">{modalTitle}</div>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p className="message-srchBar">{modalMessage}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <form
         onSubmit={handleSubmit}
         className="form-inline mr-auto w-100 navbar-search"
