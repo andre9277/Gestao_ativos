@@ -447,6 +447,7 @@ select {
 }
 select:disabled {
     opacity: 1;
+    background: #92989f;
 }
 
 [list]::-webkit-calendar-picker-indicator {
@@ -13956,4 +13957,12 @@ button {
     display: inline;
     float: right;
     margin-left: 12rem;
+}
+
+.disabled-label {
+    color: #5c636a;
+}
+
+.disabled-input {
+    background-color: #92989f; /* Gray background color */
 }

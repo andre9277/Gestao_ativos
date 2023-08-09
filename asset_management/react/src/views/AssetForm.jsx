@@ -103,6 +103,7 @@ export default function AssetForm() {
 
   //We take the id
   let { id } = useParams();
+  const isEditing = id !== undefined;
 
   useEffect(() => {
     Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
@@ -607,7 +608,7 @@ export default function AssetForm() {
               <h1 className="title-page-all-sub">Localização: </h1>
               <p></p>
 
-              {/* ---------- Entities ----------*/}
+              {/* ---------- Entities ---------- */}
               <label htmlFor="entity" className="lb-info">
                 <label className="labelofLabel">
                   Entidade:<label className="cmp-obg">*</label>
@@ -620,9 +621,9 @@ export default function AssetForm() {
                   id="entity"
                   value={asset.ent_id}
                   onChange={handleEntityChange}
+                  disabled={isEditing} // Disable when editing
                 >
                   <option value=""></option>
-
                   {ents.map((ent) => (
                     <option key={ent.id} value={ent.id}>
                       {ent.name}
@@ -634,7 +635,7 @@ export default function AssetForm() {
                 )}
               </label>
 
-              {/* ---------- Units ----------*/}
+              {/* ---------- Units ---------- */}
               <label htmlFor="unit" className="lb-info">
                 <label className="labelofLabel">Unidade: </label>
                 <select
@@ -645,6 +646,7 @@ export default function AssetForm() {
                   onChange={(event) =>
                     setAsset({ ...asset, unit_id: event.target.value })
                   }
+                  disabled={isEditing} // Disable when editing
                 >
                   <option value=""></option>
                   {units.map((unit) => (
@@ -656,8 +658,8 @@ export default function AssetForm() {
               </label>
 
               {/* ---------- CI ----------*/}
+
               <label className="lb-info">
-                {" "}
                 <label className="labelofLabel">
                   CI:<label className="cmp-obg">*</label>
                 </label>
@@ -666,7 +668,8 @@ export default function AssetForm() {
                   onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
                   className={`infoInp ${
                     errors && errors.ci ? "error-input" : ""
-                  }`}
+                  } ${isEditing ? "disabled-input" : ""}`}
+                  disabled={isEditing} // Disable the input field when editing
                 />
                 {errors && errors.ci && (
                   <div className="alert">{errors.ci[0]}</div>
