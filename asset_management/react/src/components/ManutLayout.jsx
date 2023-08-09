@@ -42,7 +42,8 @@ import Footer from "./Footer";
 import SideBarGuest from "./SideBarGuest";
 
 export default function DefaultLayout() {
-  const { user, token, setUser, setToken, notification } = useStateContext();
+  const { user, token, setUser, setToken, notification, setActiveOption } =
+    useStateContext();
 
   if (!token) {
     return <Navigate to="/login" />;
@@ -67,7 +68,11 @@ export default function DefaultLayout() {
     <div id="defaultLayout">
       <SideBarGuest />
       <div className="content">
-        <TopBar user={user} onLogout={onLogout} />
+        <TopBar
+          user={user}
+          onLogout={onLogout}
+          setActiveOption={setActiveOption}
+        />
         <main>
           <Outlet />
         </main>

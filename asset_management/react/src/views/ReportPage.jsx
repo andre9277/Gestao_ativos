@@ -290,7 +290,7 @@ const ReportPage = () => {
     setIsButtonClicked(false);
     const updatedAllocations = joinedArray.filter((row) => {
       /* console.log(joinedArray); */
-      const rowDate = row.allocation_date.split(" ")[0];
+      /* const rowDate = row.allocation_date.split(" ")[0]; */
       //Checks every option
       if (
         filtered &&

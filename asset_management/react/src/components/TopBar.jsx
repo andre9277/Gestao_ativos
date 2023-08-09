@@ -33,12 +33,17 @@ Department: Serviço de Sistema de Informação
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import React from "react";
+import React, { useEffect } from "react";
 import SearchBar from "./SearchBar";
 import UserInfo from "./UserInfo";
 
-const TopBar = ({ user, onLogout }) => {
+const TopBar = ({ user, onLogout, setActiveOption }) => {
   //const [results, setResults] = useState([]);
+
+  //To manage state of the sidebar highlight
+  useEffect(() => {
+    setActiveOption("dashboard");
+  }, []);
 
   return (
     <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">

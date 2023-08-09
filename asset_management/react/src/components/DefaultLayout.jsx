@@ -46,7 +46,8 @@ import SideBarSi from "./SideBarSi";
 
 export default function DefaultLayout() {
   //data shared globally that handles the information about the user, token and notification
-  const { user, token, setUser, setToken, notification } = useStateContext();
+  const { user, token, setUser, setToken, notification, setActiveOption } =
+    useStateContext();
 
   //If the token does not exist, redirect the user to the login page
   if (!token) {
@@ -90,7 +91,11 @@ export default function DefaultLayout() {
       {/* The TopBar, footer and Outlet is always the same for every user with any role
        */}{" "}
       <div className="content">
-        <TopBar user={user} onLogout={onLogout} />
+        <TopBar
+          user={user}
+          onLogout={onLogout}
+          setActiveOption={setActiveOption}
+        />
 
         <Outlet />
 
