@@ -616,13 +616,7 @@ const ImportForm = () => {
               ))}
             </select>
           </label>
-          <p></p>
-          <p></p>
-          <div>
-            <button onClick={handleDownload} className="dwlTemp">
-              Download Template
-            </button>
-          </div>
+
           {/*------Ficheiro upload de ativos------*/}
           <h5 htmlFor="fileInput" className="impLab">
             <p></p>
@@ -640,6 +634,12 @@ const ImportForm = () => {
             <button onClick={handleSave} className="btn-dwl">
               Importar
             </button>
+
+            <div className="template-dwl">
+              <button onClick={handleDownload} className="dwlTemp">
+                Download Template
+              </button>
+            </div>
           </div>
           {successMessage && <p className="good">{successMessage}</p>}
           {errorMessage && <p className="alert">{errorMessage}</p>}

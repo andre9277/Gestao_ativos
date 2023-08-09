@@ -13951,3 +13951,9 @@ button {
     font-size: 1.2rem;
     color: #858796 !important;
 }
+
+.template-dwl {
+    display: inline;
+    float: right;
+    margin-left: 12rem;
+}
