@@ -12875,6 +12875,7 @@ select {
     color: white;
     text-align: center;
     display: flex;
+    font-size: 2.1rem;
 }
 
 .login-temp {
@@ -13611,6 +13612,7 @@ input::placeholder {
     width: 100%;
     height: 50px;
     color: white;
+    padding-right: 1rem;
 }
 
 .container-assetMov {
@@ -13944,7 +13946,8 @@ button {
 }
 
 .logo-whbg {
-    width: inherit;
+    width: 168px;
+    height: 200px;
 }
 
 .footer-app {

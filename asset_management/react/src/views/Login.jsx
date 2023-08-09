@@ -117,13 +117,14 @@ export default function Login() {
         <MDBContainer fluid>
           <div className="logo-div-hb">
             <MDBRow>
-              <MDBCol sm="4">
+              <MDBCol sm="3">
                 <img
                   src={img_logo}
                   alt="Login image logo"
                   className="logo-whbg"
+                  style={{ width: "100px", height: "100px" }}
                 />
-                <div className="d-flex flex-row ps-5 pt-5">
+                <div className="d-flex flex-row ps-3 pt-3">
                   <h1 className="title-lg">
                     Sistema Integrado de Gestão de Ativos
                   </h1>
@@ -137,14 +138,14 @@ export default function Login() {
                   )}
                   <div className="login-main-box">
                     <MDBInput
-                      wrapperClass="mb-4 mx-5 w-100"
+                      wrapperClass="mb-4 mx-5 w-200"
                       label="Endereço de email / número MEC"
                       id="formControlLg"
                       size="lg"
                       ref={emailRef}
                     />
                     <MDBInput
-                      wrapperClass="mb-4 mx-5 w-100"
+                      wrapperClass="mb-4 mx-5 w-200"
                       label="Password / Pin"
                       id="formControlLg"
                       type="password"
@@ -169,7 +170,7 @@ export default function Login() {
                 </div>
               </MDBCol>
 
-              <MDBCol sm="8" className="d-none d-sm-block px-0">
+              <MDBCol sm="9" className="d-none d-sm-block px-0">
                 <img
                   src={img_logo2}
                   alt="Login image"
