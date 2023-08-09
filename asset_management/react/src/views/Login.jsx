@@ -122,7 +122,7 @@ export default function Login() {
                   src={img_logo}
                   alt="Login image logo"
                   className="logo-whbg"
-                  style={{ width: "100px", height: "100px" }}
+                  style={{ width: "84px", height: "100px" }}
                 />
                 <div className="d-flex flex-row ps-3 pt-3">
                   <h1 className="title-lg">
