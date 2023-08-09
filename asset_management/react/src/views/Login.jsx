@@ -63,11 +63,14 @@ export default function Login() {
     }
   }, [message]);
 
+  //On login submit:
   const onSubmit = (ev) => {
     ev.preventDefault();
 
     const payload = {};
+    //Email that the user input
     const userInput = emailRef.current.value;
+    //password or pin input
     const password = passwordRef.current.value;
 
     // Check if userInput matches email format
