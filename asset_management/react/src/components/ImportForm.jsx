@@ -220,6 +220,14 @@ const ImportForm = () => {
         const fileContent = event.target.result;
         const rows = fileContent.split("\n");
 
+        // Check if the last line is empty
+        const lastRowIndex = rows.length - 1;
+        const lastRow = rows[lastRowIndex].trim(); // Remove leading/trailing whitespace
+
+        if (lastRow === "") {
+          rows.pop(); // Remove the last empty row
+        }
+
         for (let i = 1; i < rows.length; i++) {
           const row = rows[i].split(",");
           const [numb_inv, date_purch, state, numb_ser, cond, ala, floor, ci] =
