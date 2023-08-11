@@ -209,6 +209,7 @@ export default function AssetForm() {
         .then(() => {
           setNotification("Ativo adicionado com sucesso!");
           navigate("/assets");
+          window.location.reload(); // Refresh the page
         })
         .catch((err) => {
           const response = err.response;
