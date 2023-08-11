@@ -13969,3 +13969,21 @@ button {
 .disabled-input {
     background-color: #cdced2; /* Gray background color */
 }
+
+.asset-table {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 5rem;
+}
+
+.pagination-container {
+    /* Fixed position at the bottom of the container */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.asset-table-container {
+    position: relative;
+}

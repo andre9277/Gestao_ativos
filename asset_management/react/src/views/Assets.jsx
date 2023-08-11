@@ -650,192 +650,202 @@ export default function Assets() {
           alignItems: "center",
         }}
       >
-        <table>
-          <thead>
-            <tr>
-              <th className="header-tb">
-                <ColumnMenuFilter
-                  titulo={"Categoria"}
-                  tituloF={"Categoria"}
-                  sorting={sorting}
-                  order={order}
-                  sortingFilter={sortingFilter}
-                  orderFilter={orderFilter}
-                  filtered={filtered}
-                />
-              </th>
-              <th className="header-tb">
-                <ColumnMenuFilter
-                  titulo={"Marca"}
-                  tituloF={"Marca"}
-                  sorting={sorting}
-                  order={order}
-                  sortingFilter={sortingFilter}
-                  orderFilter={orderFilter}
-                  filtered={filtered}
-                />
-              </th>
-              <th className="header-tb">
-                <ColumnMenuFilter
-                  titulo={"Modelo"}
-                  tituloF={"Modelo"}
-                  sorting={sorting}
-                  order={order}
-                  sortingFilter={sortingFilter}
-                  orderFilter={orderFilter}
-                  filtered={filtered}
-                />
-              </th>
-              <th className="header-tb">
-                {" "}
-                <ColumnMenuFilter
-                  titulo={"NºInv"}
-                  tituloF={"NºInv"}
-                  sorting={sorting}
-                  order={order}
-                  sortingFilter={sortingFilter}
-                  orderFilter={orderFilter}
-                  filtered={filtered}
-                />
-              </th>
-              {/* <th>Nº Série</th> */}
-              <th className="header-tb">Nº Série</th>
-              <th className="header-tb">Localização</th>
-              <th className="header-tb">Unidade</th>
-              <th className="header-tb">
-                <ColumnMenuFilter
-                  titulo={"Piso"}
-                  tituloF={"Piso"}
-                  sorting={sorting}
-                  order={order}
-                  sortingFilter={sortingFilter}
-                  orderFilter={orderFilter}
-                  filtered={filtered}
-                />
-              </th>
-              <th className="header-tb">Ala</th>
-              <th className="header-tb">CI</th>
-              <th className="header-tb">Estado</th>
-              <th className="header-tb">Adicionado em </th>
-              <th></th>
-            </tr>
-          </thead>
-          {loading && (
-            <tbody>
-              <tr>
-                <td colSpan="5" className="lgText-asset">
-                  A carregar...
-                </td>
-              </tr>
-            </tbody>
-          )}
-
-          {!loading && (
-            <tbody>
-              {!isButtonClicked && filteredAllocations.length === 0 ? (
-                assets.map((a) => (
-                  <tr key={a.id}>
-                    <td className="table-words-l">{a.category.name}</td>
-                    <td className="table-words-l">{a.brand.name}</td>
-                    <td className="table-words-l">{a.modelo.name}</td>
-                    <td className="tb-normal">{a.numb_inv}</td>
-                    <td className="table-words-l">{a.numb_ser}</td>
-                    <td className="table-words-l">{a.entity.name}</td>
-                    <td className="table-words-l">
-                      {a.units === null ? "" : a.units.name}
-                    </td>
-                    <td>{a.floor}</td>
-                    <td>{a.ala}</td>
-                    <td className="table-words-l">{a.ci}</td>
-                    <td>
-                      {a.state === "Ativo" ? (
-                        <div className="circle active"></div>
-                      ) : (
-                        <div className="circle inactive"></div>
-                      )}
-                    </td>
-                    <td className="table-numb-r">{a.created_at}</td>
-
-                    {user.role_id === 3 ? null : (
-                      <td>
-                        <input
-                          type="checkbox"
-                          name=""
-                          id=""
-                          onChange={() => toggleCheck(a.id)}
-                          value={a.checked}
-                        />
-                      </td>
-                    )}
-                  </tr>
-                ))
-              ) : filteredAllocations.length === 0 ? (
+        <div className="asset-table">
+          <div className="asset-table-container">
+            <table>
+              <thead>
                 <tr>
-                  <td colSpan="5" className="lgTextF-asset">
-                    Atenção: Não existe(m) resultado(s) para o(s) filtro(s)
-                    selecionado(s)!
-                  </td>
+                  <th className="header-tb">
+                    <ColumnMenuFilter
+                      titulo={"Categoria"}
+                      tituloF={"Categoria"}
+                      sorting={sorting}
+                      order={order}
+                      sortingFilter={sortingFilter}
+                      orderFilter={orderFilter}
+                      filtered={filtered}
+                    />
+                  </th>
+                  <th className="header-tb">
+                    <ColumnMenuFilter
+                      titulo={"Marca"}
+                      tituloF={"Marca"}
+                      sorting={sorting}
+                      order={order}
+                      sortingFilter={sortingFilter}
+                      orderFilter={orderFilter}
+                      filtered={filtered}
+                    />
+                  </th>
+                  <th className="header-tb">
+                    <ColumnMenuFilter
+                      titulo={"Modelo"}
+                      tituloF={"Modelo"}
+                      sorting={sorting}
+                      order={order}
+                      sortingFilter={sortingFilter}
+                      orderFilter={orderFilter}
+                      filtered={filtered}
+                    />
+                  </th>
+                  <th className="header-tb">
+                    {" "}
+                    <ColumnMenuFilter
+                      titulo={"NºInv"}
+                      tituloF={"NºInv"}
+                      sorting={sorting}
+                      order={order}
+                      sortingFilter={sortingFilter}
+                      orderFilter={orderFilter}
+                      filtered={filtered}
+                    />
+                  </th>
+                  {/* <th>Nº Série</th> */}
+                  <th className="header-tb">Nº Série</th>
+                  <th className="header-tb">Localização</th>
+                  <th className="header-tb">Unidade</th>
+                  <th className="header-tb">
+                    <ColumnMenuFilter
+                      titulo={"Piso"}
+                      tituloF={"Piso"}
+                      sorting={sorting}
+                      order={order}
+                      sortingFilter={sortingFilter}
+                      orderFilter={orderFilter}
+                      filtered={filtered}
+                    />
+                  </th>
+                  <th className="header-tb">Ala</th>
+                  <th className="header-tb">CI</th>
+                  <th className="header-tb">Estado</th>
+                  <th className="header-tb">Adicionado em </th>
+                  <th></th>
                 </tr>
-              ) : (
-                //Assets with filters on:
-                filteredAllocations.slice(startIndex, endIndex).map((asset) => (
-                  <tr key={asset.id}>
-                    <td className="table-words-l">{asset.category.name}</td>
-                    <td className="table-words-l">{asset.brand.name}</td>
-                    <td className="table-words-l">{asset.modelo.name}</td>
-                    <td>{asset.numb_inv}</td>
-                    <td className="table-words-l">{asset.numb_ser}</td>
-                    <td className="table-words-l">{asset.entity.name}</td>
-                    <td className="table-words-l">
-                      {asset.units === null ? "" : asset.units.name}
+              </thead>
+              {loading && (
+                <tbody>
+                  <tr>
+                    <td colSpan="5" className="lgText-asset">
+                      A carregar...
                     </td>
-                    <td>{asset.floor}</td>
-                    <td>{asset.ala}</td>
-                    <td className="table-words-l">{asset.ci}</td>
-                    <td>
-                      {asset.state === "Ativo" ? (
-                        <div className="circle active"></div>
-                      ) : (
-                        <div className="circle inactive"></div>
-                      )}
-                    </td>
-                    <td className="table-numb-r">{asset.created_at}</td>
-
-                    {user.role_id === 3 ? null : (
-                      <td>
-                        <input
-                          type="checkbox"
-                          name=""
-                          id=""
-                          onChange={() => toggleCheck(asset.id)}
-                          value={asset.checked}
-                        />
-                      </td>
-                    )}
                   </tr>
-                ))
+                </tbody>
               )}
-            </tbody>
-          )}
-        </table>
-        <p> </p>
-        <p> </p>
-        {/*Pagination without filters*/}
-        {!loading && filtered === false ? (
-          <PaginationLinks meta={meta} onPageClick={onPageClick} />
-        ) : filteredAllocations.length === 0 ? (
-          ""
-        ) : (
-          <>
-            {/*Pagination with filters*/}
-            <PaginationFilter
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              resultsPerPage={resultsPerPage}
-              totalResults={totalResults}
-            />
-          </>
-        )}
+
+              {!loading && (
+                <tbody>
+                  {!isButtonClicked && filteredAllocations.length === 0 ? (
+                    assets.map((a) => (
+                      <tr key={a.id}>
+                        <td className="table-words-l">{a.category.name}</td>
+                        <td className="table-words-l">{a.brand.name}</td>
+                        <td className="table-words-l">{a.modelo.name}</td>
+                        <td className="tb-normal">{a.numb_inv}</td>
+                        <td className="table-words-l">{a.numb_ser}</td>
+                        <td className="table-words-l">{a.entity.name}</td>
+                        <td className="table-words-l">
+                          {a.units === null ? "" : a.units.name}
+                        </td>
+                        <td>{a.floor}</td>
+                        <td>{a.ala}</td>
+                        <td className="table-words-l">{a.ci}</td>
+                        <td>
+                          {a.state === "Ativo" ? (
+                            <div className="circle active"></div>
+                          ) : (
+                            <div className="circle inactive"></div>
+                          )}
+                        </td>
+                        <td className="table-numb-r">{a.created_at}</td>
+
+                        {user.role_id === 3 ? null : (
+                          <td>
+                            <input
+                              type="checkbox"
+                              name=""
+                              id=""
+                              onChange={() => toggleCheck(a.id)}
+                              value={a.checked}
+                            />
+                          </td>
+                        )}
+                      </tr>
+                    ))
+                  ) : filteredAllocations.length === 0 ? (
+                    <tr>
+                      <td colSpan="5" className="lgTextF-asset">
+                        Atenção: Não existe(m) resultado(s) para o(s) filtro(s)
+                        selecionado(s)!
+                      </td>
+                    </tr>
+                  ) : (
+                    //Assets with filters on:
+                    filteredAllocations
+                      .slice(startIndex, endIndex)
+                      .map((asset) => (
+                        <tr key={asset.id}>
+                          <td className="table-words-l">
+                            {asset.category.name}
+                          </td>
+                          <td className="table-words-l">{asset.brand.name}</td>
+                          <td className="table-words-l">{asset.modelo.name}</td>
+                          <td>{asset.numb_inv}</td>
+                          <td className="table-words-l">{asset.numb_ser}</td>
+                          <td className="table-words-l">{asset.entity.name}</td>
+                          <td className="table-words-l">
+                            {asset.units === null ? "" : asset.units.name}
+                          </td>
+                          <td>{asset.floor}</td>
+                          <td>{asset.ala}</td>
+                          <td className="table-words-l">{asset.ci}</td>
+                          <td>
+                            {asset.state === "Ativo" ? (
+                              <div className="circle active"></div>
+                            ) : (
+                              <div className="circle inactive"></div>
+                            )}
+                          </td>
+                          <td className="table-numb-r">{asset.created_at}</td>
+
+                          {user.role_id === 3 ? null : (
+                            <td>
+                              <input
+                                type="checkbox"
+                                name=""
+                                id={asset.id}
+                                onChange={() => toggleCheck(asset.id)}
+                                value={asset.checked}
+                              />
+                            </td>
+                          )}
+                        </tr>
+                      ))
+                  )}
+                </tbody>
+              )}
+            </table>
+          </div>
+          <p> </p>
+          <p> </p>
+          {/*Pagination without filters*/}
+          <div className="pagination-container">
+            {!loading && filtered === false ? (
+              <PaginationLinks meta={meta} onPageClick={onPageClick} />
+            ) : filteredAllocations.length === 0 ? (
+              ""
+            ) : (
+              <>
+                {/*Pagination with filters*/}
+                <PaginationFilter
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  resultsPerPage={resultsPerPage}
+                  totalResults={totalResults}
+                />
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
