@@ -13971,9 +13971,9 @@ button {
 }
 
 .asset-table {
-    max-height: 400px;
+    max-height: 34rem;
     overflow-y: auto;
-    margin-bottom: 5rem;
+    margin-bottom: 1rem;
     width: 100%;
 }
 
@@ -13984,6 +13984,7 @@ button {
     left: 0;
     width: 100%;
 }
+
 
 .asset-table-container {
     position: relative;
