@@ -13200,10 +13200,10 @@ input::placeholder {
 .lgTextF-asset-mov {
     text-align: center;
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     padding: 15px;
     position: absolute;
-    top: 86%;
+    top: 154%;
     left: 50%;
     -ms-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translate(-50%, -50%);
@@ -13984,7 +13984,6 @@ button {
     left: 0;
     width: 100%;
 }
-
 
 .asset-table-container {
     position: relative;

@@ -672,244 +672,279 @@ const ReportPage = () => {
         </div>
       </div>
       <div className="card animated fadeInDown">
-        <table>
-          <thead>
-            <tr>
-              <th className="header-tb">Nº Inventário</th>
-              <th className="header-tb">Nº Série</th>
-              <th className="header-tb">Categoria</th>
-              <th className="header-tb">Local (Anterior)</th>
-              <th className="header-tb">Local (Atual)</th>
-              <th className="header-tb">CI (Anterior)</th>
-              <th className="header-tb">CI (Atual)</th>
-              <th className="header-tb">Utilizador</th>
-              <th className="header-tb">Movido em</th>
-              <th></th>
-            </tr>
-          </thead>
-          {loading && (
-            <>
-              <tbody></tbody>
-              <tbody></tbody>
+        <div className="asset-table">
+          <div className="asset-table-container">
+            <div className="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th className="header-tb">Nº Inventário</th>
+                    <th className="header-tb">Nº Série</th>
+                    <th className="header-tb">Categoria</th>
+                    <th className="header-tb">Local (Anterior)</th>
+                    <th className="header-tb">Local (Atual)</th>
+                    <th className="header-tb">CI (Anterior)</th>
+                    <th className="header-tb">CI (Atual)</th>
+                    <th className="header-tb">Utilizador</th>
+                    <th className="header-tb">Movido em</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                {loading && (
+                  <>
+                    <tbody></tbody>
+                    <tbody></tbody>
 
-              <tbody>
-                <tr>
-                  <td colSpan="5" className="lgText">
-                    A carregar...
-                  </td>
-                </tr>
-              </tbody>
-            </>
-          )}
-          {/* {console.log(assets)} */}
-
-          {!loading && (
-            <tbody>
-              {!isButtonClicked && filteredAllocations.length === 0 ? (
-                /*Asset Movements */
-                assets
-                  .sort((a, b) => {
-                    const dateA = getAllocationData(a.id).date;
-                    const dateB = getAllocationData(b.id).date;
-                    return new Date(dateB) - new Date(dateA);
-                  })
-                  .map((asset, index) => {
-                    const allocationData = getAllocationData(asset.id);
-                    const filteredTogJoin = togJoin
-                      .filter((assetJoin) => assetJoin.asset_id === asset.id)
-                      .sort(
-                        (a, b) =>
-                          new Date(b.created_at) - new Date(a.created_at)
-                      );
-                    /* console.log(filteredTogJoin); */
-
-                    const firstOtherInfo =
-                      filteredTogJoin.length > 0
-                        ? filteredTogJoin[0].other
-                        : null;
-
-                    return (
-                      <tr key={`${asset.id}-${index}`}>
-                        <td>{asset.numb_inv}</td>
-                        <td className="table-words-l">{asset.numb_ser}</td>
-                        <td className="table-words-l">{asset.category.name}</td>
-
-                        <td className="table-words-l">
-                          {asset.previous_unit_id === null
-                            ? filtered_entities(asset.previous_ent_id)
-                            : filtered_units(asset.previous_unit_id)}
-                        </td>
-
-                        <td className="table-words-l">
-                          {asset.units === null
-                            ? asset.entity.name
-                            : asset.units.name}
-                        </td>
-                        <td className="table-words-l">{asset.previous_ci}</td>
-                        <td className="table-words-l">{asset.ci}</td>
-
-                        <td className="table-words-l">
-                          {asset.user === undefined
-                            ? allocationData.user
-                            : asset.user}
-                        </td>
-                        <td className="table-numb-r">
-                          {asset.allocation_date === undefined
-                            ? allocationData.date
-                            : asset.allocation_date}
-                        </td>
-
-                        <td>
-                          {firstOtherInfo === null ? (
-                            ""
-                          ) : (
-                            <>
-                              <i
-                                className="fa fa-info-circle"
-                                aria-hidden="true"
-                                onClick={() => handleDropdownToggle(asset.id)}
-                                title="Observação"
-                              ></i>
-                              {selectedAsset === asset.id && showDropdown && (
-                                <div
-                                  className={`dropdown-info-mov ${
-                                    showDropdown ? "show" : ""
-                                  }`}
-                                >
-                                  {/* Dropdown content */}
-                                  {/* This will be shown when the user clicks the icon */}
-                                  <h6 className="titl-obs-mov">Observações</h6>
-                                  <p className="obs-mov-asset">
-                                    {" "}
-                                    {firstOtherInfo}
-                                  </p>
-                                </div>
-                              )}
-                            </>
-                          )}
+                    <tbody>
+                      <tr>
+                        <td colSpan="5" className="lgText">
+                          A carregar...
                         </td>
                       </tr>
-                    );
-                  })
-              ) : filteredAllocations.length === 0 ? (
-                <tr>
-                  <td colSpan="5" className="lgTextF-asset-mov">
-                    Não existe(m) resultado(s) para o(s) filtro(s)
-                    selecionado(s)!
-                  </td>
-                </tr>
-              ) : (
-                /*Filtered Asset Movements */
-                filteredAllocations
-                  .sort((a, b) => {
-                    const dateA = getAllocationData(a.id).date;
-                    const dateB = getAllocationData(b.id).date;
-                    return new Date(dateB) - new Date(dateA);
-                  })
-                  .map((asset, index) => {
-                    if (
-                      !asset.previous_ci &&
-                      !asset.previous_ent_id &&
-                      !asset.previous_unit_id
-                    ) {
-                      return null; // skip rendering if previous_ci is null
-                    }
-                    const filteredTogJoin = togJoin.filter(
-                      (assetJoin) => assetJoin.asset_id === asset.id
-                    );
-                    /* .sort((a, b) => {
+                    </tbody>
+                  </>
+                )}
+                {/* {console.log(assets)} */}
+
+                {!loading && (
+                  <tbody>
+                    {!isButtonClicked && filteredAllocations.length === 0 ? (
+                      /*Asset Movements */
+                      assets
+                        .sort((a, b) => {
+                          const dateA = getAllocationData(a.id).date;
+                          const dateB = getAllocationData(b.id).date;
+                          return new Date(dateB) - new Date(dateA);
+                        })
+                        .map((asset, index) => {
+                          const allocationData = getAllocationData(asset.id);
+                          const filteredTogJoin = togJoin
+                            .filter(
+                              (assetJoin) => assetJoin.asset_id === asset.id
+                            )
+                            .sort(
+                              (a, b) =>
+                                new Date(b.created_at) - new Date(a.created_at)
+                            );
+                          /* console.log(filteredTogJoin); */
+
+                          const firstOtherInfo =
+                            filteredTogJoin.length > 0
+                              ? filteredTogJoin[0].other
+                              : null;
+
+                          return (
+                            <tr key={`${asset.id}-${index}`}>
+                              <td>{asset.numb_inv}</td>
+                              <td className="table-words-l">
+                                {asset.numb_ser}
+                              </td>
+                              <td className="table-words-l">
+                                {asset.category.name}
+                              </td>
+
+                              <td className="table-words-l">
+                                {asset.previous_unit_id === null
+                                  ? filtered_entities(asset.previous_ent_id)
+                                  : filtered_units(asset.previous_unit_id)}
+                              </td>
+
+                              <td className="table-words-l">
+                                {asset.units === null
+                                  ? asset.entity.name
+                                  : asset.units.name}
+                              </td>
+                              <td className="table-words-l">
+                                {asset.previous_ci}
+                              </td>
+                              <td className="table-words-l">{asset.ci}</td>
+
+                              <td className="table-words-l">
+                                {asset.user === undefined
+                                  ? allocationData.user
+                                  : asset.user}
+                              </td>
+                              <td className="table-numb-r">
+                                {asset.allocation_date === undefined
+                                  ? allocationData.date
+                                  : asset.allocation_date}
+                              </td>
+
+                              <td>
+                                {firstOtherInfo === null ? (
+                                  ""
+                                ) : (
+                                  <>
+                                    <i
+                                      className="fa fa-info-circle"
+                                      aria-hidden="true"
+                                      onClick={() =>
+                                        handleDropdownToggle(asset.id)
+                                      }
+                                      title="Observação"
+                                    ></i>
+                                    {selectedAsset === asset.id &&
+                                      showDropdown && (
+                                        <div
+                                          className={`dropdown-info-mov ${
+                                            showDropdown ? "show" : ""
+                                          }`}
+                                        >
+                                          {/* Dropdown content */}
+                                          {/* This will be shown when the user clicks the icon */}
+                                          <h6 className="titl-obs-mov">
+                                            Observações
+                                          </h6>
+                                          <p className="obs-mov-asset">
+                                            {" "}
+                                            {firstOtherInfo}
+                                          </p>
+                                        </div>
+                                      )}
+                                  </>
+                                )}
+                              </td>
+                            </tr>
+                          );
+                        })
+                    ) : filteredAllocations.length === 0 ? (
+                      <tr>
+                        <td colSpan="5" className="lgTextF-asset-mov">
+                          Não existe(m) resultado(s) para o(s) filtro(s)
+                          selecionado(s)!
+                        </td>
+                      </tr>
+                    ) : (
+                      /*Filtered Asset Movements */
+                      filteredAllocations
+                        .sort((a, b) => {
+                          const dateA = getAllocationData(a.id).date;
+                          const dateB = getAllocationData(b.id).date;
+                          return new Date(dateB) - new Date(dateA);
+                        })
+                        .map((asset, index) => {
+                          if (
+                            !asset.previous_ci &&
+                            !asset.previous_ent_id &&
+                            !asset.previous_unit_id
+                          ) {
+                            return null; // skip rendering if previous_ci is null
+                          }
+                          const filteredTogJoin = togJoin.filter(
+                            (assetJoin) => assetJoin.asset_id === asset.id
+                          );
+                          /* .sort((a, b) => {
                         new Date(b.created_at) - new Date(a.created_at);
                       }); */
 
-                    const firstOtherInfo =
-                      filteredTogJoin.length > 0
-                        ? filteredTogJoin[0].other
-                        : null;
+                          const firstOtherInfo =
+                            filteredTogJoin.length > 0
+                              ? filteredTogJoin[0].other
+                              : null;
 
-                    const allocationData = getAllocationData(asset.id);
-                    return (
-                      <tr key={`${asset.id}-${index}`}>
-                        <td>{asset.numb_inv}</td>
+                          const allocationData = getAllocationData(asset.id);
+                          return (
+                            <tr key={`${asset.id}-${index}`}>
+                              <td>{asset.numb_inv}</td>
 
-                        <td className="table-words-l">{asset.numb_ser}</td>
-                        <td className="table-words-l">{asset.category.name}</td>
+                              <td className="table-words-l">
+                                {asset.numb_ser}
+                              </td>
+                              <td className="table-words-l">
+                                {asset.category.name}
+                              </td>
 
-                        <td className="table-words-l">
-                          {asset.previous_unit_id === null
-                            ? filtered_entities(asset.previous_ent_id)
-                            : filtered_units(asset.previous_unit_id)}
-                        </td>
+                              <td className="table-words-l">
+                                {asset.previous_unit_id === null
+                                  ? filtered_entities(asset.previous_ent_id)
+                                  : filtered_units(asset.previous_unit_id)}
+                              </td>
 
-                        <td className="table-words-l">
-                          {asset.units === null
-                            ? asset.entity.name
-                            : asset.units.name}
-                        </td>
-                        <td className="table-words-l">{asset.previous_ci}</td>
-                        <td className="table-words-l">{asset.ci}</td>
+                              <td className="table-words-l">
+                                {asset.units === null
+                                  ? asset.entity.name
+                                  : asset.units.name}
+                              </td>
+                              <td className="table-words-l">
+                                {asset.previous_ci}
+                              </td>
+                              <td className="table-words-l">{asset.ci}</td>
 
-                        <td className="table-words-l">
-                          {asset.user === null
-                            ? allocationData.user
-                            : asset.user}
-                        </td>
-                        <td className="table-numb-r">{allocationData.date}</td>
+                              <td className="table-words-l">
+                                {asset.user === null
+                                  ? allocationData.user
+                                  : asset.user}
+                              </td>
+                              <td className="table-numb-r">
+                                {allocationData.date}
+                              </td>
 
-                        <td>
-                          {firstOtherInfo === null ? (
-                            ""
-                          ) : (
-                            <>
-                              <i
-                                className="fa fa-info-circle"
-                                aria-hidden="true"
-                                onClick={() => handleDropdownToggle(asset.id)}
-                                title="Observação"
-                              ></i>
-                              {selectedAsset === asset.id && showDropdown && (
-                                <div
-                                  className={`dropdown-info-mov ${
-                                    showDropdown ? "show" : ""
-                                  }`}
-                                >
-                                  {/* Dropdown content */}
-                                  {/* This will be shown when the user clicks the icon */}
-                                  <h6 className="titl-obs-mov">Observações</h6>
-                                  <p className="obs-mov-asset">
-                                    {" "}
-                                    {firstOtherInfo}
-                                  </p>
-                                </div>
-                              )}
-                            </>
-                          )}
-                        </td>
-                        {/*  <td>{console.log(asset)}</td> */}
-                      </tr>
-                    );
-                  })
-              )}
-            </tbody>
-          )}
-        </table>
-        <p> </p>
-        <p> </p>
-        {/*Pagination without filters*/}
-        {filtered === false && !loading ? (
-          <PaginationLinks meta={meta} onPageClick={onPageClick} />
-        ) : filteredAllocations.length === 0 ? (
-          ""
-        ) : (
-          <>
-            {/*Pagination with filters*/}
-            <PaginationFilter
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              resultsPerPage={resultsPerPage}
-              totalResults={totalResults}
-            />
-          </>
-        )}
+                              <td>
+                                {firstOtherInfo === null ? (
+                                  ""
+                                ) : (
+                                  <>
+                                    <i
+                                      className="fa fa-info-circle"
+                                      aria-hidden="true"
+                                      onClick={() =>
+                                        handleDropdownToggle(asset.id)
+                                      }
+                                      title="Observação"
+                                    ></i>
+                                    {selectedAsset === asset.id &&
+                                      showDropdown && (
+                                        <div
+                                          className={`dropdown-info-mov ${
+                                            showDropdown ? "show" : ""
+                                          }`}
+                                        >
+                                          {/* Dropdown content */}
+                                          {/* This will be shown when the user clicks the icon */}
+                                          <h6 className="titl-obs-mov">
+                                            Observações
+                                          </h6>
+                                          <p className="obs-mov-asset">
+                                            {" "}
+                                            {firstOtherInfo}
+                                          </p>
+                                        </div>
+                                      )}
+                                  </>
+                                )}
+                              </td>
+                              {/* <td>{console.log(asset)}</td> */}
+                            </tr>
+                          );
+                        })
+                    )}
+                  </tbody>
+                )}
+              </table>
+            </div>
+          </div>
+          <p> </p>
+          <p> </p>
+          <div className="space-mov"></div>
+          {/*Pagination without filters*/}
+          <div className="pagination-container">
+            {filtered === false && !loading ? (
+              <PaginationLinks meta={meta} onPageClick={onPageClick} />
+            ) : filteredAllocations.length === 0 ? (
+              ""
+            ) : (
+              <>
+                {/*Pagination with filters*/}
+                <PaginationFilter
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  resultsPerPage={resultsPerPage}
+                  totalResults={totalResults}
+                />
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
