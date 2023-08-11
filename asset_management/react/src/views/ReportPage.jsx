@@ -877,6 +877,7 @@ const ReportPage = () => {
         </table>
         <p> </p>
         <p> </p>
+        {console.log("filteredAllocations.length", filteredAllocations.length)}
         {/*Pagination without filters*/}
         {filtered === false && !loading ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
