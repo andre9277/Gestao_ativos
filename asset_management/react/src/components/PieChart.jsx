@@ -97,11 +97,19 @@ const PieChart = ({ assets }) => {
   };
   var options = {
     maintainAspectRatio: false,
-
-    legend: {
-      fontSize: 56,
+    plugins: {
+      legend: {
+        display: true,
+        position: "top", // Change this to your desired position
+        labels: {
+          font: {
+            size: 16, // Adjust the font size as needed
+          },
+        },
+      },
     },
   };
+
   return (
     <div className="col-xl-4 col-lg-7">
       <div className="card shadow mb-2">

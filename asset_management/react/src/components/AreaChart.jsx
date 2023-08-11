@@ -104,10 +104,21 @@ const AreaChart = ({ assets }) => {
       },
     },
     scales: {
+      x: {
+        ticks: {
+          font: {
+            size: 15, // Adjust the font size as needed
+          },
+        },
+      },
+
       y: {
         beginAtZero: true,
         ticks: {
           precision: 0,
+          font: {
+            size: 15,
+          },
         },
       },
     },

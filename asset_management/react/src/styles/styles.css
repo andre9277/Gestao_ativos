@@ -13187,7 +13187,7 @@ input::placeholder {
     font-size: 1.5rem;
     padding: 15px;
     position: absolute;
-    top: 127%;
+    top: 167%;
     left: 50%;
     -ms-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translate(-50%, -50%);
