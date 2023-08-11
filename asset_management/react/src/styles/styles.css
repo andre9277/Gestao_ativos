@@ -13187,7 +13187,7 @@ input::placeholder {
     font-size: 1.1rem;
     padding: 15px;
     position: absolute;
-    top: 90%;
+    top: 121%;
     left: 50%;
     -ms-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translate(-50%, -50%);
@@ -13986,4 +13986,11 @@ button {
 
 .asset-table-container {
     position: relative;
+}
+
+.table-container thead {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1;
 }
