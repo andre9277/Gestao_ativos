@@ -647,7 +647,7 @@ export default function AssetForm() {
                   onChange={(event) =>
                     setAsset({ ...asset, unit_id: event.target.value })
                   }
-                  disabled={isEditing} // Disable when editing
+                  disabled={isEditing || !units.length || !asset.ent_id} // Disable when editing
                 >
                   <option value=""></option>
                   {units.map((unit) => (
