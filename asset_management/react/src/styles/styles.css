@@ -13157,7 +13157,7 @@ input::placeholder {
     font-size: 1.5rem;
     padding: 15px;
     position: absolute;
-    top: 50%;
+    top: 70%;
     left: 50%;
     -ms-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translate(-50%, -50%);
@@ -13184,10 +13184,10 @@ input::placeholder {
 .lgTextF-asset {
     text-align: center;
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     padding: 15px;
     position: absolute;
-    top: 121%;
+    top: 127%;
     left: 50%;
     -ms-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translate(-50%, -50%);
@@ -13974,6 +13974,7 @@ button {
     max-height: 400px;
     overflow-y: auto;
     margin-bottom: 5rem;
+    width: 100%;
 }
 
 .pagination-container {

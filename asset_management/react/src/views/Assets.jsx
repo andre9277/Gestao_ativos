@@ -835,6 +835,7 @@ export default function Assets() {
           </div>
           <p> </p>
           <p> </p>
+          <div className="space-mov"></div>
           {/*Pagination without filters*/}
           <div className="pagination-container">
             {!loading && filtered === false ? (
