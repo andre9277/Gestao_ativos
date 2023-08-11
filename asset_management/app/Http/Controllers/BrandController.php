@@ -46,6 +46,8 @@ class BrandController extends Controller
 
     public function store(Request $request)
     {
+       
+        $this->authorize('create-delete-users');
         $data = $request->validate([
             'name' => 'required|string',
         ]);
@@ -57,6 +59,7 @@ class BrandController extends Controller
 
     public function destroy(Brand $brd)
     {
+        $this->authorize('create-delete-users');
         $brd->delete();
 
         return response()->json(['message' => 'Marca eliminada com sucesso!']);
@@ -66,6 +69,8 @@ class BrandController extends Controller
     //Update brand
     public function update(Request $request, Brand $brand)
     {
+        $this->authorize('create-delete-users');
+
         $request->validate([
             'name' => 'required|string|max:255|unique:categories,name,' . $brand->id,
         ]);

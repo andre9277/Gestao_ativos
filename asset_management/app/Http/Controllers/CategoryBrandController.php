@@ -17,6 +17,8 @@ class CategoryBrandController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create-delete-users');
+
         $data = $request->validate([
             'category_id' => 'required|integer',
             'brand_id' => 'required|integer',
@@ -29,6 +31,7 @@ class CategoryBrandController extends Controller
 
     public function destroy($id)
     {
+        $this->authorize('create-delete-users');
         try {
             // Find the categoryBrand relation by ID
             $categoryBrand = CategoryBrand::findOrFail($id);
@@ -47,6 +50,7 @@ class CategoryBrandController extends Controller
      //Update Function
      public function update(Request $request, $id)
      {
+        $this->authorize('create-delete-users');
          $data = $request->validate([
              'category_id' => 'required|integer',
              'brand_id' => 'required|integer',

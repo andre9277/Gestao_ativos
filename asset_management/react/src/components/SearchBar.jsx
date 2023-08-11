@@ -147,7 +147,10 @@ const Search = () => {
     event.preventDefault();
 
     if (!assetNumber) {
-      displayModal("Erro!", "Por favor, insira um valor!");
+      displayModal(
+        "Erro!",
+        "Por favor, insira um número de inventário ou número de série!"
+      );
       return;
     }
 
