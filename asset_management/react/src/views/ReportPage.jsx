@@ -235,7 +235,12 @@ const ReportPage = () => {
 
   //Updates the values when the filter of Category, user, entity or data from/to changes
   useEffect(() => {
-    const hasFilter = selectedCategory !== "";
+    const hasFilter =
+      selectedCategory !== "" ||
+      selectedUser !== "" ||
+      selectedEnt !== "" ||
+      selectedDateFrom !== "" ||
+      selectedDateTo !== "";
     const hasFilterUser = selectedUser !== "";
     const hasFilterEnt = selectedEnt !== "";
     const hasFilterDateFrom = selectedDateFrom !== "";
@@ -878,6 +883,7 @@ const ReportPage = () => {
         <p> </p>
         <p> </p>
         {console.log("filteredAllocations.length", filteredAllocations.length)}
+        {console.log("filtered", filtered)}
         {/*Pagination without filters*/}
         {filtered === false && !loading ? (
           <PaginationLinks meta={meta} onPageClick={onPageClick} />
