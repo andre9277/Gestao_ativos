@@ -13971,10 +13971,18 @@ button {
 }
 
 .asset-table {
-    max-height: 34rem;
+    min-height: 20vh; /* Minimum height to ensure visibility */
+    max-height: 65vh; /* Maximum height for the table */
     overflow-y: auto;
     margin-bottom: 1rem;
     width: 100%;
+}
+
+/* Adjust styles for smaller screens */
+@media (max-height: 950px) {
+    .asset-table {
+        max-height: 50vh; /* Adjust this value based on your needs */
+    }
 }
 
 .pagination-container {
