@@ -36,14 +36,19 @@ All the changes made to enable the implementation of the desired development too
 import React, { useEffect, useState } from "react";
 import axiosClient from "../axios-client.js";
 import PaginationLinks from "../components/PaginationLinks.jsx";
+import { useStateContext } from "../context/ContextProvider.jsx";
 
 const AssetObs = () => {
   const [assets, setAssets] = useState([]);
   const [meta, setMeta] = useState({});
   const [loading, setLoading] = useState(true);
 
+  //Gets the data from the current logged in user and the activeOption for the sidebar
+  const { setActiveOption } = useStateContext();
+
   useEffect(() => {
     getAssets();
+    setActiveOption("assets"); //To manage state of the sidebar highlight
   }, []);
 
   const getAssets = (url) => {
