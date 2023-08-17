@@ -345,6 +345,8 @@ export default function Allocations() {
           <p></p>
           <div className="headerFilter">
             <div className="data-allocations">
+              <h2 className="subTit">Data:</h2>
+              <p></p>
               <label className="lb-allo-dt">
                 Data início:<label className="cmp-obg">*</label>
               </label>

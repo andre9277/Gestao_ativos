@@ -49,6 +49,8 @@ const Filter = ({
 }) => {
   return (
     <div className="filter">
+      <h2 className="subTit-filter">Filtro:</h2>
+      <p></p>
       <div className="filter-user">
         {/* Filter by the user */}
         <label className="lb-info-allocation">Utilizador:</label>
