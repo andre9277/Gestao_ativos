@@ -36,7 +36,7 @@ const ConfigBr = ({
 
   return (
     <div id="container-config">
-      <form className="frm-cats">
+      <form className="frm-cats-br">
         {/* Category*/}
         <label className="lb-cats">{rel1}:</label>
         <p></p>

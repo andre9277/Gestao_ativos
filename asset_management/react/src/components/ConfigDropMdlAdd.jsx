@@ -62,7 +62,7 @@ const ConfigDropMdlAdd = ({
 
   return (
     <div id="container-config">
-      <form className="frm-cats">
+      <form className="frm-cats-mdl">
         {/* Brand selection dropdown */}
         <label htmlFor="brandSelect" className="lb-cats">
           {maintb}:

@@ -183,6 +183,7 @@ All the changes made to enable the implementation of the desired development too
     font-size: 1.2rem;
     /* display: table-cell; */
     margin-left: 4rem;
+    margin-bottom: 3rem;
 }
 
 #btnAdd {
@@ -257,7 +258,33 @@ button:hover {
     padding: 1%;
     color: #555;
     font-size: 1.6rem;
-    margin-bottom: 2rem;
+    margin-bottom: 15rem;
+}
+
+.frm-cats-br input[type="text"] {
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    margin-bottom: 2%;
+    border: 1px solid #ccc;
+    padding: 1%;
+    color: #555;
+    font-size: 1.6rem;
+    margin-bottom: 6rem;
+}
+
+.frm-cats-mdl input[type="text"] {
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    margin-bottom: 2%;
+    border: 1px solid #ccc;
+    padding: 1%;
+    color: #555;
+    font-size: 1.6rem;
+    margin-bottom: 5rem;
 }
 
 .frm-cats-edit input[type="text"] {
