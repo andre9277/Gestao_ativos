@@ -2856,6 +2856,7 @@ textarea.form-control-lg {
 .tb-btn-user {
     align-items: right;
     margin: 1px;
+    margin-right: 12px;
 }
 
 .btn,

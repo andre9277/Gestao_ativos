@@ -184,7 +184,7 @@ const Search = () => {
     if (matchedAsset) {
       navigate(`/infoasset/${matchedAsset.id}`);
     } else {
-      displayModal("Erro!", "Não encontrado, tente novamente!");
+      displayModal("Erro!", "Ativo não encontrado, tente novamente!");
     }
 
     setAssetNumber("");

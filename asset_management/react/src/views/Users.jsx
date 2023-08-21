@@ -213,59 +213,67 @@ export default function Users() {
         </div>
       </div>
       <div className="card animated fadeInDown">
-        <table>
-          <thead>
-            <tr>
-              <th className="header-tb">Nº Mecanográfico</th>
-              <th className="header-tb">Nome</th>
-              <th className="header-tb">Email</th>
-              <th className="header-tb">Função</th>
-              <th className="header-tb">Criado em</th>
-              <th></th>
-            </tr>
-          </thead>
-          {loading && (
-            <tbody>
-              <tr>
-                <td colSpan="5" className="caprr-re">
-                  A carregar...
-                </td>
-              </tr>
-            </tbody>
-          )}
+        <div className="asset-table">
+          <div className="asset-table-container">
+            <div className="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th className="header-tb">Nº Mecanográfico</th>
+                    <th className="header-tb">Nome</th>
+                    <th className="header-tb">Email</th>
+                    <th className="header-tb">Função</th>
+                    <th className="header-tb">Criado em</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                {loading && (
+                  <tbody>
+                    <tr>
+                      <td colSpan="5" className="caprr-re">
+                        A carregar...
+                      </td>
+                    </tr>
+                  </tbody>
+                )}
 
-          {!loading && (
-            <tbody>
-              {/* Iteration through all the users */}
-              {users.map((u) => (
-                <tr key={u.id}>
-                  <td>{u.mec}</td>
-                  <td>{u.name}</td>
-                  <td>{u.email}</td>
-                  <td>{u.roles.name}</td>
+                {!loading && (
+                  <tbody>
+                    {/* Iteration through all the users */}
+                    {users.map((u) => (
+                      <tr key={u.id}>
+                        <td>{u.mec}</td>
+                        <td>{u.name}</td>
+                        <td>{u.email}</td>
+                        <td>{u.roles.name}</td>
 
-                  <td>{u.created_at}</td>
-                  {user.role_id === 3 ? null : (
-                    <td>
-                      <input
-                        type="checkbox"
-                        name=""
-                        id=""
-                        onChange={() => toggleCheck(u.id)}
-                        value={u.checked}
-                      />
-                    </td>
-                  )}
-                </tr>
-              ))}
-            </tbody>
-          )}
-        </table>
-        {!loading ? (
-          <PaginationLinks meta={meta} onPageClick={onPageClick} />
-        ) : (
-          ""
-        )}
+                        <td>{u.created_at}</td>
+                        {user.role_id === 3 ? null : (
+                          <td>
+                            <input
+                              type="checkbox"
+                              name=""
+                              id=""
+                              onChange={() => toggleCheck(u.id)}
+                              value={u.checked}
+                            />
+                          </td>
+                        )}
+                      </tr>
+                    ))}
+                  </tbody>
+                )}
+              </table>
+            </div>
+          </div>
+          <div className="pagination-container">
+            {!loading ? (
+              <PaginationLinks meta={meta} onPageClick={onPageClick} />
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
