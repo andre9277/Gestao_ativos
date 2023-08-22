@@ -26,24 +26,16 @@ class AllocationsController extends Controller
             ->paginate(20);
 
         return AllocationResource::collection($alloc);
-
-        /*  $allocations = Allocation::with('users:id,name', 'assets:id,numb_ser,unit_id,numb_inv')
-            ->orderBy('id', 'desc')
-            ->paginate(20);
-        return $allocations; */
     }
 
     public function indexAllocation()
     {
-      /*  $this->authorize('allocations'); */
-
         $allocations = Allocation::with('users:id,name', 'assets:id,numb_ser,numb_inv,unit_id,ci,previous_unit_id,previous_ent_id,previous_ci', 'assets.category:id,name')
             ->orderBy('allocations.allocation_date', 'desc')
             ->get();
 
         return AllocationResource::collection($allocations);
     }
-
 
     /**
      * Display the specified resource.
@@ -54,7 +46,7 @@ class AllocationsController extends Controller
     public function show(Allocation $allocation)
     {
         $this->authorize('allocations');
-        //
+        
         return new AllocationResource($allocation);
     }
 
@@ -68,7 +60,6 @@ class AllocationsController extends Controller
         $invNumber = $request->input('inv_number');
         $userId = $request->input('user_id');
         $assetId = $request->input('asset_id');
-
 
         $move = new Allocation();
         $move->allocation_date = $allocationDate;

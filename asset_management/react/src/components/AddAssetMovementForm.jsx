@@ -150,8 +150,6 @@ const AddAssetMovementForm = () => {
     setShowConfirmModal(true);
   };
 
-  console.log("matchingAsset", matchingAsset);
-
   //Handle the save of the asset movement when the user clicks "Confirmar" on the modal
   const handleConfirmSave = () => {
     setShowConfirmModal(false); // Close the confirmation modal

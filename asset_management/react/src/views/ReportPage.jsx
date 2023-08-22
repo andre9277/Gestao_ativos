@@ -769,7 +769,8 @@ const ReportPage = () => {
                                   ? allocationData.date
                                   : asset.allocation_date}
                               </td>
-
+                              {console.log("asset", asset)}
+                              {console.log("allocation", allocationData)}
                               <td>
                                 {firstOtherInfo === null ? (
                                   ""
