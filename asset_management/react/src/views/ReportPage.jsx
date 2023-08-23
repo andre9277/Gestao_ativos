@@ -424,9 +424,10 @@ const ReportPage = () => {
     }
 
     const latestAllocation = sortedAllocations[0];
+
     /*  console.log("allocation", latestAllocation); */
     return {
-      user: latestAllocation.users.name,
+      user: latestAllocation.user_id,
       date: latestAllocation.allocation_date,
     };
   };
@@ -769,8 +770,7 @@ const ReportPage = () => {
                                   ? allocationData.date
                                   : asset.allocation_date}
                               </td>
-                              {console.log("asset", asset)}
-                              {console.log("allocation", allocationData)}
+
                               <td>
                                 {firstOtherInfo === null ? (
                                   ""
