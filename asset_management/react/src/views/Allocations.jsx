@@ -154,9 +154,9 @@ export default function Allocations() {
         ? allocation.action_type === selectedOp
         : true;
 
-      //Filter by the user name
+      // Filter by the user name
       const userFilter = selectedUser
-        ? allocation.users.name === selectedUser
+        ? allocation.users && allocation.users.name === selectedUser
         : true;
 
       //Filter by the data (start and end)
@@ -301,7 +301,9 @@ export default function Allocations() {
       setAllocations(allAllocations);
     } else {
       const filteredAllocations = allAllocations.filter((allocation) => {
-        return allocation.users.name === filterValue;
+        return allocation.users === null
+          ? ""
+          : allocation.users.name === filterValue;
       });
 
       setAllocations(filteredAllocations);
