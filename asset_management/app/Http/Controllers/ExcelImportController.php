@@ -116,7 +116,7 @@ class ExcelImportController extends Controller
             // Create a new allocation record
             $allocation = new Allocation([
                 'asset_id' => $assetId,
-                'user_id' => Auth::id(),
+                'user_id' => auth()->user()->name,
                 'allocation_date' => now(),
                 'action_type' => 'Adiciona',
                 'inv_number' => $column1,
