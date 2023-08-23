@@ -113,7 +113,7 @@ class AssetController extends Controller
             'allocation_date' => now(),
             'action_type' => 'Adiciona',
             'inv_number' => $asset->numb_inv,
-            'user_id' => auth()->user()->id,
+            'user_id' => auth()->user()->name,
             'reason' => "",
         ]);
 
@@ -161,7 +161,7 @@ class AssetController extends Controller
         // Create a new asset update record for the action_type 'show'
         $update = new Allocation([
             'asset_id' => $asset->id,
-            'user_id' => Auth::id(),
+            'user_id' => auth()->user()->name,
             'allocation_date' => now(),
             'action_type' => 'Pesquisa',
             'inv_number' => $asset->numb_inv,
@@ -250,7 +250,7 @@ class AssetController extends Controller
             $allocation = new Allocation([
                 'inv_number' => $asset->numb_inv,
                 'action_type' => 'Apaga',
-                'user_id' => Auth::id(),
+                'user_id' => auth()->user()->name,
                 'allocation_date' => now(),
                 'reason' => "",
             ]);

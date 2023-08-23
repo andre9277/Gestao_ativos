@@ -24,7 +24,7 @@ return new class extends Migration
 
             $table->text('other')->nullable();
 
-            $table->string('user_id')->unsigned()->nullable();
+            $table->string('user_id');
 
             $table->foreignId('asset_id')->nullable()->constrained("assets")->cascadeOnUpdate()->nullOnDelete();
         });

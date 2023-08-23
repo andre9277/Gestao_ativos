@@ -185,9 +185,10 @@ export default function Allocations() {
       ],
 
       data: filteredData.map((allocation) => {
-        console.log("allocationn:", allocation);
         return [
-          allocation.user_id,
+          allocation.users === null
+            ? allocation.user_id
+            : allocation.users.name,
           allocation.action_type,
           allocation.assets === null
             ? allocation.inv_number

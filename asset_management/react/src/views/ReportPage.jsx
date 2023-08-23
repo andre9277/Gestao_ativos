@@ -425,9 +425,11 @@ const ReportPage = () => {
 
     const latestAllocation = sortedAllocations[0];
 
-    /*  console.log("allocation", latestAllocation); */
     return {
-      user: latestAllocation.user_id,
+      user:
+        latestAllocation.users === null
+          ? latestAllocation.user_id
+          : latestAllocation.users.name,
       date: latestAllocation.allocation_date,
     };
   };
