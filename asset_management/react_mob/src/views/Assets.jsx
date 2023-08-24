@@ -39,6 +39,7 @@ import "../styles/assets.css";
 import barcode from "../assets/barcode.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
 
 export default function Assets() {
   const navigate = useNavigate();
@@ -47,6 +48,10 @@ export default function Assets() {
   const [assets, setAssets] = useState([]);
 
   const [errorMessage, setErrorMessage] = useState("");
+
+  const [showModal, setShowModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
 
   //display the error message for 5 seconds
   useEffect(() => {
@@ -62,6 +67,16 @@ export default function Assets() {
   useEffect(() => {
     getAssets();
   }, []);
+
+  const displayModal = (title, message) => {
+    setModalTitle(title);
+    setModalMessage(message);
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+  };
 
   //Performs a client access request
   useEffect(() => {
@@ -135,7 +150,10 @@ export default function Assets() {
     event.preventDefault();
 
     if (!assetNumber) {
-      setErrorMessage("Por favor insira algum valor!");
+      displayModal(
+        "Erro!",
+        "Por favor, insira um número de inventário ou número de série!"
+      );
       return;
     }
 
@@ -163,7 +181,7 @@ export default function Assets() {
     if (matchedAsset) {
       navigate(`/infoasset/${matchedAsset.id}`);
     } else {
-      setErrorMessage("Não encontrado, tente novamente!");
+      displayModal("Erro!", "Ativo não encontrado, tente novamente!");
     }
 
     setAssetNumber("");
@@ -172,6 +190,21 @@ export default function Assets() {
   return (
     <div className="mn-cnt">
       <form onSubmit={handleSubmit}>
+        <Modal show={showModal} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>
+              <div className="messagee">{modalTitle}</div>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p className="message-srchBar">{modalMessage}</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleClose}>
+              Ok
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <h1 className="search-tit">Procurar</h1>
         <div className="space-mov"></div>
         <div className="icon-search">

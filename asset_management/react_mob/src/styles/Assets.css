@@ -156,3 +156,8 @@ All the changes made to enable the implementation of the desired development too
 .sidebar-divider {
     border-bottom: 4px solid #006a3c;
 }
+
+.messagee {
+    color: red;
+    font-size: 2rem;
+}
