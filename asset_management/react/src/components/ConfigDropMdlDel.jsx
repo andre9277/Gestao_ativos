@@ -111,7 +111,6 @@ const ConfigDropMdlDel = ({
           <Modal.Title> Confirmação</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Add content inside the modal here */}
           <p>
             {" "}
             Tem a certeza que pretende eliminar o/a {Title} "{selectedDataName}

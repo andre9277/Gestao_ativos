@@ -137,12 +137,6 @@ const SideBarGuest = () => {
           activeOption={activeOption}
         />
 
-        {/* <!-- Nav Item - Utilities Collapse Menu --> */}
-        {/* <MenuItem Name="Utilities-teste" MenuId="collapseUtilities" /> */}
-
-        {/*  <!-- Nav Item - Pages Collapse Menu --> */}
-        {/* <MenuItem Name="Pages" MenuId="collapsePages" /> */}
-
         {/* <!-- Nav Item - Reports --> */}
         <MenuItem
           titulo={"Movimentos"}

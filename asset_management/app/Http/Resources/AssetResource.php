@@ -72,10 +72,6 @@ class AssetResource extends JsonResource
                 'phone' => $this->suppliers->phone,
                 'address' => $this->suppliers->address,
             ] : null,
-            /* 'allocations' => $this->allocations ? [
-                'reason' => $this->allocations->reason,
-                'other' => $this->allocations->other,
-            ] : null, */
         ];
     }
 }

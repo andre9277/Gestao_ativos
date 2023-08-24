@@ -68,12 +68,6 @@ class AssetController extends Controller
 
     public function indexAll()
     {
-        /* $assets = Asset::select(['id', 'numb_inv', 'floor'])
-            ->with('category: id, name', 'brand:id,sig', 'modelo:id,model_name')
-            ->orderBy('id', 'desc')
-            ->get();
-
-        return response()->json($assets); */
         $assets = $assets = Asset::with('entity:id,name', 'brand:id,name', 'modelo:id,name', 'category:id,name', 'units:id,unit_contact,unit_address,name', 'suppliers:id,name,email,phone,address')
             ->select('id', 'numb_inv', 'created_at', 'cat_id', 'model_id', 'brand_id', 'floor', 'ent_id', 'unit_id', 'numb_ser', 'ci', 'previous_ci', 'date_purch', 'state', 'cond', 'ala', 'floor', 'previous_unit_id', 'previous_ent_id', 'supplier_id', 'obs')
             ->orderBy('id', 'desc')
@@ -209,19 +203,6 @@ class AssetController extends Controller
         $asset->import_type = null;
         $asset->save();
 
-
-        // create a new asset update record
-        /*  $update = new Allocation([
-            'asset_id' => $asset->id,
-            'user_id' => Auth::id(),
-            'allocation_date' => now(),
-            'action_type' => 'Atualiza',
-            'ser_number' => $asset->numb_ser,
-            'other' => $other,
-            'reason' => $reason,
-        ]); */
-
-        /* $update->save(); */
         return $asset;
     }
 

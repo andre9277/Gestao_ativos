@@ -118,8 +118,6 @@ const ConfigDropMdlAdd = ({
           <Modal.Title> Confirmação</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Add content inside the modal here */}
-          {/* For example, you can display some information related to the Title */}
           <p> Tem a certeza que pretende adicionar a(o) {Title} ?</p>
         </Modal.Body>
         <Modal.Footer>

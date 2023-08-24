@@ -97,16 +97,6 @@ class AuthController extends Controller
 
         $token = $user->createToken('main')->plainTextToken;
 
-        // Create a new allocation record for the user
-        /*  $allocation = new Allocation([
-            'allocation_date' => now(),
-            'inv_number' => " ",
-            'action_type' => 'Log in',
-            'user_id' => $user->id,
-            'reason' => "",
-        ]);
-        $allocation->save(); */
-
         // Log the CRUD operation
         Log::channel('custom')->info('Record created: ' . $user->id);
 
@@ -130,15 +120,7 @@ class AuthController extends Controller
 
         /** @var \App\Models\User $user */
         $user = $request->user();
-        // Create a new allocation record for the user
-        /*   $allocation = new Allocation([
-            'allocation_date' => now(),
-            'inv_number' => " ",
-            'action_type' => 'Log out',
-            'user_id' => $user->id,
-            'reason' => "",
-        ]);
-        $allocation->save(); */
+  
         $user->currentAccessToken()->delete();
 
         // Log the CRUD operation

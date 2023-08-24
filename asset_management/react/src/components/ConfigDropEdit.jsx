@@ -123,8 +123,6 @@ const ConfigDropEdit = ({
           <Modal.Title> Confirmação</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Add content inside the modal here */}
-          {/* For example, you can display some information related to the Title */}
           <p> Pretende guardar todas as alterações?</p>
         </Modal.Body>
         <Modal.Footer>

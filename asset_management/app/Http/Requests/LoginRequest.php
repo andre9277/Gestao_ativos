@@ -31,13 +31,4 @@ class LoginRequest extends FormRequest
             'remember' => 'boolean'
         ];
     }
-
-    /* public function messages()
-    {
-        return [
-
-            'email.required' => 'Atenção! É necessário indicar um endereço de email!',
-            'password.required' => 'Atenção! É necessário indicar uma password!.',
-        ];
-    } */
 }

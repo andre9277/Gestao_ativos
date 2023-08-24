@@ -49,8 +49,6 @@ class EntityController extends Controller
     public function destroy(Entity $ent)
     {
         $this->authorize('create-delete-users');
-        // Implement logic to delete the supplier
-        // Don't forget to handle any related dependencies, if any
         $ent->delete();
 
         return response()->json(null, 204);

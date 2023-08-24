@@ -137,7 +137,7 @@ const AssetInfo = () => {
                 <div className="container">
                   <h2 className="headerInfoAsset">Dados gerais: </h2>
                   <p></p>
-                  {/* ---Categoria--- */}
+                  {/* ---Category--- */}
                   <ul className="lb-infoAsset-informat">
                     <p></p>
                     <label className="lb-infoAsset2-informat">
@@ -147,28 +147,28 @@ const AssetInfo = () => {
                       </h6>
                     </label>{" "}
                   </ul>
-                  {/* ---Nº de inventário--- */}
+                  {/* ---Inventory Number--- */}
                   <ul className="lb-infoAsset-informat">
                     <label className="lb-infoAsset2-informat">
                       Nº de Inventário:{" "}
                       <h6 className="attrAsset-informat"> {asset.numb_inv}</h6>
                     </label>{" "}
                   </ul>
-                  {/* ---Nº de série--- */}
+                  {/* ---Serial Number--- */}
                   <ul className="lb-infoAsset-informat">
                     <label className="lb-infoAsset2-informat">
                       Nº de Série:{" "}
                       <h6 className="attrAsset-informat">{asset.numb_ser}</h6>
                     </label>{" "}
                   </ul>
-                  {/* ---Marca--- */}
+                  {/* ---Brand--- */}
                   <ul className="lb-infoAsset-informat">
                     <label className="lb-infoAsset2-informat">
                       Marca:
                       <h6 className="attrAsset-informat">{asset.brand.name}</h6>
                     </label>{" "}
                   </ul>
-                  {/* ---Modelo--- */}
+                  {/* ---Model--- */}
                   <ul className="lb-infoAsset-informat">
                     <label className="lb-infoAsset2-informat">
                       Modelo:{" "}
@@ -177,21 +177,21 @@ const AssetInfo = () => {
                       </h6>
                     </label>{" "}
                   </ul>
-                  {/* ---Data de compra--- */}
+                  {/* ---Purchased Date--- */}
                   <ul className="lb-infoAsset-informat">
                     <label className="lb-infoAsset2-informat">
                       Data de Compra:{" "}
                       <h6 className="attrAsset-informat">{asset.date_purch}</h6>
                     </label>{" "}
                   </ul>
-                  {/* ---Condição--- */}
+                  {/* ---Condition--- */}
                   <ul className="lb-infoAsset-informat">
                     <label className="lb-infoAsset2-informat">
                       Condição:{" "}
                       <h6 className="attrAsset-informat"> {asset.cond}</h6>
                     </label>
                   </ul>
-                  {/* ---Estado--- */}
+                  {/* ---State--- */}
                   <ul className="lb-infoAsset-informat">
                     <label className="lb-infoAsset2-informat">
                       Estado:
@@ -200,12 +200,12 @@ const AssetInfo = () => {
                   </ul>
 
                   <div className="space-mov"></div>
-                  {/* -------------Informação ativo - localização------------- */}
+                  {/* -------------Asset Information - local------------- */}
                   <div className="containerr">
                     <h2 className="headerInfoAsset">Localização: </h2>
                     <p></p>
                     <ul>
-                      {/* ---Entidade--- */}
+                      {/* ---Entity--- */}
                       <ol className="lb-infoAsset-informat">
                         <label className="lb-infoAsset2-informat">
                           Entidade:{" "}
@@ -215,7 +215,7 @@ const AssetInfo = () => {
                           </h6>
                         </label>{" "}
                       </ol>
-                      {/* ---Unidade--- */}
+                      {/* ---Unit--- */}
                       <ol className="lb-infoAsset-informat">
                         <label className="lb-infoAsset2-informat">
                           Unidade:{" "}
@@ -224,7 +224,7 @@ const AssetInfo = () => {
                           </h6>
                         </label>{" "}
                       </ol>
-                      {/* ---Contato--- */}
+                      {/* ---Contact--- */}
                       <ol className="lb-infoAsset-informat">
                         <label className="lb-infoAsset2-informat">
                           Contato:
@@ -235,7 +235,7 @@ const AssetInfo = () => {
                           </h6>
                         </label>
                       </ol>
-                      {/* ---Morada--- */}
+                      {/* ---Address--- */}
                       <ol className="lb-infoAsset-informat">
                         <label className="lb-infoAsset2-informat">
                           Morada:{" "}
@@ -246,7 +246,7 @@ const AssetInfo = () => {
                           </h6>
                         </label>
                       </ol>
-                      {/* ---Piso--- */}
+                      {/* ---Floor--- */}
                       <ol className="lb-infoAsset-informat">
                         <label className="lb-infoAsset2-informat">
                           Piso:{" "}
@@ -269,12 +269,12 @@ const AssetInfo = () => {
                       </ol>
                     </ul>
                     <div className="space-mov"></div>
-                    {/* -------------Informação ativo - fornecedor------------- */}
+                    {/* -------------Asset Information - Supplier------------- */}
 
                     <h2 className="headerInfoAsset">Fornecedor: </h2>
                     <p></p>
                     <ul>
-                      {/* ---Nome fornecedor--- */}
+                      {/* ---Name Supplier--- */}
                       <ol className="lb-infoAsset-informat">
                         <label className="lb-infoAsset2-informat">
                           Nome:{" "}
@@ -283,7 +283,7 @@ const AssetInfo = () => {
                           </h6>
                         </label>{" "}
                       </ol>
-                      {/* ---Emal fornecedor--- */}
+                      {/* ---Email Supplier--- */}
                       <ol className="lb-infoAsset-informat">
                         <label className="lb-infoAsset2-informat">
                           Email:
@@ -292,7 +292,7 @@ const AssetInfo = () => {
                           </h6>
                         </label>{" "}
                       </ol>
-                      {/* ---Contato fornecedor--- */}
+                      {/* ---Contact Supplier--- */}
                       <ol className="lb-infoAsset-informat">
                         <label className="lb-infoAsset2-informat">
                           Contato:{" "}
@@ -301,7 +301,7 @@ const AssetInfo = () => {
                           </h6>
                         </label>{" "}
                       </ol>
-                      {/* ---Morada fornecedor--- */}
+                      {/* ---Address Supplier--- */}
                       <ol className="lb-infoAsset-informat">
                         <label className="lb-infoAsset2-informat">
                           Morada:{" "}
@@ -312,7 +312,7 @@ const AssetInfo = () => {
                         <div></div>
                       </ol>
                     </ul>
-                    {/* ---Oservações--- */}
+                    {/* ---Observations--- */}
                     <div className="space-mov"></div>
                     <h2 className="headerInfoAsset">Observações:</h2>
                     <p></p>
