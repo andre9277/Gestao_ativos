@@ -109,28 +109,35 @@ const Sidebar = ({ user, onLogout }) => {
               <label className="lb-sd">&nbsp;&nbsp; Procurar</label>
             </li>
           </Link>
-          <Link to={"/assets/new"}>
-            <li
-              className={`opt-sidebar-r ${
-                selectedOption === "registar" ? "selected" : ""
-              }`}
-              onClick={() => handleOptionClick("registar")}
-            >
-              <i className="fa fa-pencil-alt" aria-hidden="true"></i>
-              <label className="lb-sd">&nbsp;&nbsp; Registar</label>
-            </li>
-          </Link>
-          <Link to={"/addAssetMovement"}>
-            <li
-              className={`opt-sidebar-m ${
-                selectedOption === "movimento" ? "selected" : ""
-              }`}
-              onClick={() => handleOptionClick("movimento")}
-            >
-              <i className="fa fa-exchange-alt" aria-hidden="true"></i>
-              <label className="lb-sd">&nbsp;&nbsp; Movimento</label>
-            </li>
-          </Link>
+          {user.name === "manutenção" ? (
+            ""
+          ) : (
+            <>
+              <Link to={"/assets/new"}>
+                <li
+                  className={`opt-sidebar-r ${
+                    selectedOption === "registar" ? "selected" : ""
+                  }`}
+                  onClick={() => handleOptionClick("registar")}
+                >
+                  <i className="fa fa-pencil-alt" aria-hidden="true"></i>
+                  <label className="lb-sd">&nbsp;&nbsp; Registar</label>
+                </li>
+              </Link>
+              <Link to={"/addAssetMovement"}>
+                <li
+                  className={`opt-sidebar-m ${
+                    selectedOption === "movimento" ? "selected" : ""
+                  }`}
+                  onClick={() => handleOptionClick("movimento")}
+                >
+                  <i className="fa fa-exchange-alt" aria-hidden="true"></i>
+                  <label className="lb-sd">&nbsp;&nbsp; Movimento</label>
+                </li>
+              </Link>
+            </>
+          )}
+
           <a onClick={onLogout}>
             <li className="opt-sidebar-leave">
               <i className="fa fa-sign-out-alt" aria-hidden="true"></i>

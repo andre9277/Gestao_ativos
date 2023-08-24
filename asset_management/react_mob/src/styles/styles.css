@@ -4494,6 +4494,13 @@ body {
 .dataTable-pagination .active a:hover {
     background-color: #0d6efd;
 }
+.d-grid {
+    display: grid !important;
+}
+
+.mb-3 {
+    margin-bottom: 1rem !important;
+}
 
 .dataTable-pagination .ellipsis a,
 .dataTable-pagination .disabled a,
