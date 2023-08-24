@@ -131,17 +131,6 @@ const Sidebar = ({ user, onLogout }) => {
               <label className="lb-sd">&nbsp;&nbsp; Movimento</label>
             </li>
           </Link>
-          <Link to={"/users"}>
-            <li
-              className={`opt-sidebar-p ${
-                selectedOption === "perfil" ? "selected" : ""
-              }`}
-              onClick={() => handleOptionClick("perfil")}
-            >
-              <i className="fa fa-cog" aria-hidden="true"></i>
-              <label className="lb-sd">&nbsp;&nbsp; Perfil</label>
-            </li>
-          </Link>
           <a onClick={onLogout}>
             <li className="opt-sidebar-leave">
               <i className="fa fa-sign-out-alt" aria-hidden="true"></i>
