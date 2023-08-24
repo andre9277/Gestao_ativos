@@ -260,13 +260,6 @@ const AddAssetMovementForm = () => {
         </Modal.Footer>
       </Modal>
       <h1 className="tlt-assetInfo">Movimento de Ativo</h1>
-      {/*   {errors && (
-        <div className="alert">
-          {Object.keys(errors).map((key) => (
-            <p key={key}>{errors[key][0]}</p>
-          ))}
-        </div>
-      )} */}
       <div className="space-mov-add"></div>
       <form onSubmit={handleSubmit} className="assetForm">
         <h1 className="headerInfoAsset">Dados Gerais: </h1>
@@ -299,27 +292,27 @@ const AddAssetMovementForm = () => {
           )}
           <p></p>
         </label>
-
-        {/*  {console.log(assetDate)} */}
         <p></p>
         {/* ---------- Num Inv ----------*/}
 
         <label className="lb-info">
-          <label className="labelofLabel">Nº de Inventário:</label>
+          <label className="labelofLabel">
+            Nº de Inventário:<label className="cmp-obg">*</label>
+          </label>
           <input
             type="text"
             value={matchingAsset ? matchingAsset.numb_inv : invNumber}
             onChange={(e) => setInvNumber(e.target.value)}
             className="infoInp"
           />
+          {errors && errors.reason && (
+            <div className="error">{errors.inv_number[0]}</div>
+          )}
         </label>
         <p></p>
         {/* ---------- Num Serial ----------*/}
         <label className="lb-info">
-          <label className="labelofLabel">
-            {" "}
-            Nº de Série:<label className="cmp-obg">*</label>
-          </label>
+          <label className="labelofLabel"> Nº de Série:</label>
           <input
             type="text"
             value={matchingInv ? matchingInv.numb_ser : serNumber}
