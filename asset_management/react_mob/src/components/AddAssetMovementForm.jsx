@@ -134,13 +134,14 @@ const AddAssetMovementForm = () => {
     if (validateDate(assetDate)) {
       return;
     }
+    const userId = user.name;
 
     const data = {
       allocation_date: assetDate,
       ser_number: matchingInv ? matchingInv.numb_ser : serNumber,
       inv_number: matchingAsset ? matchingAsset.numb_inv : invNumber,
       action_type: "Atualiza",
-      user_id: user.id,
+      user_id: userId, // Use the stored user name
       asset_id: matchingAsset
         ? matchingAsset.id
         : null || matchingInv
