@@ -280,9 +280,13 @@ const ReportPage = () => {
     const allocation = allocations.find(
       (alloc) => alloc.asset_id === dados.id && alloc.action_type === "Atualiza"
     );
+
     const user = allocation
-      ? users.find((usr) => usr.id === allocation.user_id)
+      ? users.find((usr) => {
+          return usr.name === allocation.user_id;
+        })
       : null;
+
     const userName = user ? user.name : null;
     const allocationDate = allocation ? allocation.allocation_date : null;
     return { ...dados, user: userName, allocation_date: allocationDate };
@@ -297,6 +301,8 @@ const ReportPage = () => {
       /* console.log(joinedArray); */
       const rowDate = row.allocation_date.split(" ")[0];
       //Checks every option
+      /*    console.log("row", row); */
+      /*console.log("selectedUser", typeof selectedUser); */
       if (
         filtered &&
         filteredUser &&
