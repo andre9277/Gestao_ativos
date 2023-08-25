@@ -1114,10 +1114,10 @@ const Config = () => {
     <div className="form-brd-mdl">
       <h1 className="mn-config">Configurações</h1>
       {
-        <i className="brdc-options">
+        <h6 className="brdc-options">
           {selectedFirstOption} {selectedNextOption === "" ? "" : ">"}{" "}
           {selectedNextOption}
-        </i>
+        </h6>
       }
       {/* Render the modal conditionally - Show the erros Modals*/}
       <Modal

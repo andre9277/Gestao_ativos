@@ -546,7 +546,12 @@ button:hover {
 }
 
 .mn-config {
-    margin-left: 4rem;
+    padding: 15px;
+    color: #007840;
+    font-size: 2.75rem;
+    margin-right: auto;
+    margin-left: 1rem;
+    margin-top: 1rem;
 }
 
 .relations-container {
@@ -595,8 +600,9 @@ button:hover {
 .brdc-options {
     margin-top: 1rem;
     margin-left: 5rem;
-    font-size: 3.5rem;
+    font-size: 2rem;
     color: #7e7979;
+    font-weight: 400;
 }
 
 .attention-msg {
