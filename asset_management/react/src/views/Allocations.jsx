@@ -154,9 +154,11 @@ export default function Allocations() {
         ? allocation.action_type === selectedOp
         : true;
 
-      // Filter by the user name
+      // Inside your code where you're filtering allocations
       const userFilter = selectedUser
-        ? allocation.users && allocation.users.name === selectedUser
+        ? allocation.users === null
+          ? allocation.user_id === selectedUser
+          : allocation.users.name === selectedUser
         : true;
 
       //Filter by the data (start and end)
@@ -297,13 +299,16 @@ export default function Allocations() {
   const filterUser = (event) => {
     const filterValue = event.target.value;
     setSelectedUser(filterValue);
+
     if (!filterValue) {
       setAllocations(allAllocations);
     } else {
       const filteredAllocations = allAllocations.filter((allocation) => {
-        return allocation.users === null
-          ? ""
-          : allocation.users.name === filterValue;
+        const userName =
+          allocation.users === null
+            ? allocation.user_id
+            : allocation.users.name;
+        return userName === filterValue;
       });
 
       setAllocations(filteredAllocations);

@@ -213,7 +213,6 @@ const AssetInfo = () => {
                         <label className="lb-infoAsset2-informat">
                           Entidade:{" "}
                           <h6 className="attrAsset-informat">
-                            {console.log("asset", asset)}
                             {asset.entity.name}
                           </h6>
                         </label>{" "}
