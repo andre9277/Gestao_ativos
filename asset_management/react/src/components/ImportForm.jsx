@@ -279,6 +279,7 @@ const ImportForm = () => {
             })
             .then((response) => {
               if (response.status === 200) {
+                /*   window.location.reload(); //Refresh the page */
                 setSuccessMessage("Ficheiro importado com sucesso!");
               } else {
                 throw new Error("Erro inesperado do servidor!");

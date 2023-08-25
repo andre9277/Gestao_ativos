@@ -105,11 +105,6 @@ export default function Login() {
       });
   };
 
-  const handleResetPassword = (e) => {
-    e.preventDefault();
-    // Implement reset password logic here
-  };
-
   return (
     <form className="form-login" onSubmit={handleSubmit}>
       <img

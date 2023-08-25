@@ -279,6 +279,7 @@ export default function AssetForm() {
       });
   };
 
+  //Reset the filter to empty values
   const resetFilter = () => {
     // Reset all the values to empty or default
     setAsset({
@@ -324,13 +325,6 @@ export default function AssetForm() {
       {!loading && <h1 className="tlt-assetInfo">Novo Ativo</h1>}
       <div className="space-mov-add"></div>
       {loading && <div className="lgText-assetInfo">A carregar...</div>}
-      {/*  {errors && (
-        <div className="alert">
-          {Object.keys(errors).map((key) => (
-            <p key={key}>{errors[key][0]}</p>
-          ))}
-        </div>
-      )} */}
       {!loading && (
         <form onSubmit={onSubmit} className="assetForm-assett">
           {/* ---------- Inventory Number ----------*/}
@@ -693,7 +687,7 @@ export default function AssetForm() {
                 type="button"
                 onClick={resetFilter}
                 value="Limpar"
-                className="btn-cleanfilter-assett"
+                className="btn-cleanfilter-movAsset"
               />
               <button className="btn-adicionar-assetFormm" onClick={handleSave}>
                 Guardar

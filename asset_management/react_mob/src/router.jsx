@@ -44,13 +44,11 @@ import ForgotPass from "./views/ForgotPass.jsx";
 import Scan from "./views/Scan.jsx";
 import Assets from "./views/Assets.jsx";
 import AssetForm from "./views/AssetForm.jsx";
-/* import ManutLayout from "./components/ManutLayout.jsx"; */
 import AssetInfo from "./views/AssetInfo.jsx";
 import AddAssetMovementForm from "./components/AddAssetMovementForm.jsx";
 import PasswordResetForm from "./views/PasswordResetForm.jsx";
 
 //The router object defines the routes and components that should be rendered when a user navigates to a specific path.
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -114,24 +112,6 @@ const router = createBrowserRouter([
     path: "/forgotPasswordForm/:token",
     element: <PasswordResetForm />,
   },
-  /*   {
-    path: "/",
-    element: <ManutLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Navigate to="/dashboard" />,
-      },
-      {
-        path: "/dashboard",
-        element: <Dashboard />,
-      },
-      {
-        path: "/forgotPassword",
-        element: <ForgotPass />,
-      },
-    ],
-  }, */
 ]);
 
 export default router;

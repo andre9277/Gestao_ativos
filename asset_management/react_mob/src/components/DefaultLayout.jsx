@@ -47,10 +47,6 @@ export default function DefaultLayout() {
     return <Navigate to="/login" />;
   }
 
-  /*   if (user.role_id === 3) {
-    return <ManutLayout />;
-  } */
-
   const onLogout = (ev) => {
     ev.preventDefault();
 
@@ -71,8 +67,6 @@ export default function DefaultLayout() {
       <SideBar user={user} onLogout={onLogout} />
 
       <div className="content-container">
-        {/* <TopBar user={user} onLogout={onLogout} /> */}
-
         <Outlet />
 
         {/* Notification when a user is created/updated or deleted */}
