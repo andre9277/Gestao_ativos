@@ -495,7 +495,7 @@ export default function AssetForm() {
                 }`}
                 name="condicao"
                 id="condicao"
-                value={asset.cond}
+                value={asset.cond === "Transferência" ? "Usado" : asset.cond}
                 onChange={(event) =>
                   setAsset({ ...asset, cond: event.target.value })
                 }

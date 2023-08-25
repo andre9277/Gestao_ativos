@@ -140,7 +140,11 @@ const AssetInfo = () => {
             </ul>
             <ul className="lb-infoAsset-informat">
               <label className="lb-infoAsset2-informat">
-                Condição: <h6 className="attrAsset-informat"> {asset.cond}</h6>
+                Condição:{" "}
+                <h6 className="attrAsset-informat">
+                  {" "}
+                  {asset.cond === "Transferência" ? "Usado" : asset.cond}
+                </h6>
               </label>
             </ul>
             <ul className="lb-infoAsset-informat">
