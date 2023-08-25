@@ -152,7 +152,6 @@ body {
 }
 
 hr {
-    margin: 1rem 0;
     color: inherit;
     background-color: currentColor;
     border: 0;
@@ -160,7 +159,7 @@ hr {
 }
 
 hr:not([size]) {
-    height: 1px;
+    height: 3px;
 }
 
 h6,
@@ -13086,7 +13085,7 @@ select {
 }
 
 .importAsset {
-    margin-left: 3%;
+    margin-left: 1%;
     margin-right: auto;
     margin-bottom: 100px;
 }
@@ -14012,4 +14011,20 @@ button {
 
 .subTit {
     margin-left: -5%;
+}
+
+.custom-hr {
+    color: green; /* Change to your desired color */
+    background-color: green; /* Change to your desired color */
+    height: 3px; /* Change to your desired height */
+    border: none;
+    width: 76%;
+}
+
+.custom-hr-one {
+    color: green;
+    background-color: green;
+    height: 3px;
+    border: none;
+    width: 34%;
 }

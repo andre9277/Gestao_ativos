@@ -285,6 +285,7 @@ const AddAssetMovementForm = () => {
       <h1 className="title-page-all">Movimento de Ativo</h1>
       <form onSubmit={handleSubmit} className="assetForm">
         <h1 className="title-page-all-sub">Dados Gerais: </h1>
+        <hr className="custom-hr" />
         <p></p>
         <p></p>
         <p className="camp-obs-mov">*Campo Obrigatório</p>
@@ -344,6 +345,7 @@ const AddAssetMovementForm = () => {
         </label>
         <div className="space-mov"></div>
         <h1 className="title-page-all-sub">Localização: </h1>
+        <hr className="custom-hr" />
         <p></p>
         {/* ---------- Local Now ----------*/}
         <label className="lb-info">
@@ -461,6 +463,7 @@ const AddAssetMovementForm = () => {
 
         <div className="space-mov"></div>
         <h1 className="title-page-all-sub">Outros: </h1>
+        <hr className="custom-hr" />
         <p></p>
         {/* ---------- Reason ----------*/}
         <label className="lb-info">

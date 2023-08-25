@@ -378,6 +378,7 @@ export default function AssetForm() {
           <form onSubmit={onSubmit} className="assetForm-assett">
             {/* ---------- Inventory Number ----------*/}
             <h1 className="title-page-all-sub">Dados Gerais: </h1>
+            <hr className="custom-hr" />
             <p></p>
             <p className="camp-obs">*Campo Obrigatório</p>
             <p></p>
@@ -607,6 +608,7 @@ export default function AssetForm() {
             <div className="space-mov"></div>
             <div className="localAsset-local">
               <h1 className="title-page-all-sub">Localização: </h1>
+              <hr className="custom-hr" />
               <p></p>
 
               {/* ---------- Entities ---------- */}
@@ -720,6 +722,7 @@ export default function AssetForm() {
               </label>
               <div className="space-mov"></div>
               <h1 className="title-page-all-sub">Outros: </h1>
+              <hr className="custom-hr-one" />
               <p></p>
               {/* ---------- Observações ----------*/}
               <label className="lb-info">
