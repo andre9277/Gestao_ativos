@@ -1155,6 +1155,7 @@ const Config = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+
       {!showNextOptions && (
         <div className="checkbox-dropdown-container">
           <p className="fr-ini">

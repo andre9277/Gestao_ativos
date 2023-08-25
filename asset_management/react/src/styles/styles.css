@@ -2850,6 +2850,13 @@ textarea.form-control-lg {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-left: 1rem;
+}
+
+.tb-user-mov {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .tb-btn-user {

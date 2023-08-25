@@ -560,7 +560,7 @@ const ReportPage = () => {
   return (
     <div id="content">
       <div className="container-fluid">
-        <div className="tb-user">
+        <div className="tb-user-mov">
           <h1 className="title-page-all">Movimentos de ativos</h1>
           <div>
             <>

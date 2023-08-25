@@ -485,230 +485,235 @@ const ImportForm = () => {
   };
 
   return (
-    <div className="importAsset">
-      <Modal show={showConfirmModal} onHide={handleCancelSave}>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmação</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{"Deseja importar o ficheiro selecionado?"}</Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleImport}>
-            Confirmar
-          </Button>
-          <Button variant="secondary" onClick={handleCancelSave}>
-            Cancelar
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      <h1 className="title-page-all">Importar Ativos</h1>
+    <div id="content">
+      <div className="importAsset">
+        <Modal show={showConfirmModal} onHide={handleCancelSave}>
+          <Modal.Header closeButton>
+            <Modal.Title>Confirmação</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{"Deseja importar o ficheiro selecionado?"}</Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleImport}>
+              Confirmar
+            </Button>
+            <Button variant="secondary" onClick={handleCancelSave}>
+              Cancelar
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
-      {loading && <div className="caprr-re">A carregar...</div>}
-      {!loading && (
-        <div>
-          <p></p>
-          <p></p>
-          <label htmlFor="fileInput" className="impLab">
+        <h1 className="title-page-all">Importar Ativos</h1>
+
+        {loading && <div className="caprr-re">A carregar...</div>}
+        {!loading && (
+          <div>
             <p></p>
-            <h2>Dados dos ativos:</h2>
-          </label>
-          <p className="camp-obs-mov">*Campo Obrigatório</p>
-          <p></p>
-
-          {/* ---------- Category ----------*/}
-          <label htmlFor="category" className="lb-info">
-            Categoria:<label className="cmp-obg">*</label>
-            <select
-              className="infoInpp"
-              name="category"
-              id="category"
-              value={asset.cat_id}
-              onChange={handleCategoryChange}
-            >
-              <option value=""></option>
-              {cats.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          {/* ---------- Supplier ----------*/}
-          <label className="lb-info">
-            {" "}
-            Fornecedor:<label className="cmp-obg">*</label>
-            <select
-              className="infoInpp"
-              value={asset.supplier_id}
-              onChange={handleSupplierChange}
-            >
-              <option value=""></option>
-              {supplier.map((sup) => (
-                <option key={sup.id} value={sup.id}>
-                  {sup.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          {/* --------------Brands--------- */}
-          <label className="lb-info">
-            {" "}
-            Marca:<label className="cmp-obg">*</label>
-            <select
-              value={asset.brand_id}
-              onChange={handleBrandChange}
-              className="infoInpp"
-            >
-              <option value=""></option>
-              {brands.map((brand, index) => (
-                <option key={brand.id} value={brand.id}>
-                  {brand.name}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          {/* ---------- Models ----------*/}
-          <label className="lb-info">
-            {" "}
-            Modelo:<label className="cmp-obg">*</label>
-            <select
-              value={asset.model_id}
-              className="infoInpp"
-              onChange={(event) =>
-                setAsset({ ...asset, model_id: event.target.value })
-              }
-            >
-              <option value=""></option>
-              {modelos.map((modelo) => (
-                <option key={modelo.id} value={modelo.id}>
-                  {modelo.name}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          {/* ---------- Entities ----------*/}
-          <label htmlFor="entity" className="lb-info">
-            Entidade:<label className="cmp-obg">*</label>
-            <select
-              className="infoInpp"
-              name="entity"
-              id="entity"
-              value={asset.ent_id}
-              onChange={handleEntityChange}
-            >
-              <option value=""></option>
-              {ents.map((ent) => (
-                <option key={ent.id} value={ent.id}>
-                  {ent.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          {/* ---------- Units ----------*/}
-          <label htmlFor="unit" className="lb-info">
-            Unidade:
-            <select
-              className="infoInpp"
-              name="unit"
-              id="unit"
-              value={asset.unit_id === null ? "" : asset.unit_id}
-              onChange={(event) =>
-                setAsset({ ...asset, unit_id: event.target.value })
-              }
-            >
-              <option value=""></option>
-              {units.map((unit) => (
-                <option key={unit.id} value={unit.id}>
-                  {unit.name}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          {/*------Ficheiro upload de ativos------*/}
-          <h5 htmlFor="fileInput" className="impLab">
             <p></p>
-            Selecione o Ficheiro para Upload: (Ficheiros .CSV)
-          </h5>
-          <p></p>
-          <div className="importing-file">
-            <input
-              type="file"
-              id="fileInput"
-              className="inpImport"
-              onChange={handleFileSelect}
-            />
+            <label htmlFor="fileInput" className="impLab">
+              <p></p>
+              <h2>Dados dos ativos:</h2>
+            </label>
+            <p className="camp-obs-mov">*Campo Obrigatório</p>
+            <p></p>
 
-            <button onClick={handleSave} className="btn-dwl">
-              Importar
-            </button>
+            {/* ---------- Category ----------*/}
+            <label htmlFor="category" className="lb-info">
+              Categoria:<label className="cmp-obg">*</label>
+              <select
+                className="infoInpp"
+                name="category"
+                id="category"
+                value={asset.cat_id}
+                onChange={handleCategoryChange}
+              >
+                <option value=""></option>
+                {cats.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            {/* ---------- Supplier ----------*/}
+            <label className="lb-info">
+              {" "}
+              Fornecedor:<label className="cmp-obg">*</label>
+              <select
+                className="infoInpp"
+                value={asset.supplier_id}
+                onChange={handleSupplierChange}
+              >
+                <option value=""></option>
+                {supplier.map((sup) => (
+                  <option key={sup.id} value={sup.id}>
+                    {sup.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            {/* --------------Brands--------- */}
+            <label className="lb-info">
+              {" "}
+              Marca:<label className="cmp-obg">*</label>
+              <select
+                value={asset.brand_id}
+                onChange={handleBrandChange}
+                className="infoInpp"
+              >
+                <option value=""></option>
+                {brands.map((brand, index) => (
+                  <option key={brand.id} value={brand.id}>
+                    {brand.name}
+                  </option>
+                ))}
+              </select>
+            </label>
 
-            <div className="template-dwl">
-              <button onClick={handleDownload} className="dwlTemp">
-                Download Template
+            {/* ---------- Models ----------*/}
+            <label className="lb-info">
+              {" "}
+              Modelo:<label className="cmp-obg">*</label>
+              <select
+                value={asset.model_id}
+                className="infoInpp"
+                onChange={(event) =>
+                  setAsset({ ...asset, model_id: event.target.value })
+                }
+              >
+                <option value=""></option>
+                {modelos.map((modelo) => (
+                  <option key={modelo.id} value={modelo.id}>
+                    {modelo.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            {/* ---------- Entities ----------*/}
+            <label htmlFor="entity" className="lb-info">
+              Entidade:<label className="cmp-obg">*</label>
+              <select
+                className="infoInpp"
+                name="entity"
+                id="entity"
+                value={asset.ent_id}
+                onChange={handleEntityChange}
+              >
+                <option value=""></option>
+                {ents.map((ent) => (
+                  <option key={ent.id} value={ent.id}>
+                    {ent.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            {/* ---------- Units ----------*/}
+            <label htmlFor="unit" className="lb-info">
+              Unidade:
+              <select
+                className="infoInpp"
+                name="unit"
+                id="unit"
+                value={asset.unit_id === null ? "" : asset.unit_id}
+                onChange={(event) =>
+                  setAsset({ ...asset, unit_id: event.target.value })
+                }
+              >
+                <option value=""></option>
+                {units.map((unit) => (
+                  <option key={unit.id} value={unit.id}>
+                    {unit.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            {/*------Ficheiro upload de ativos------*/}
+            <h5 htmlFor="fileInput" className="impLab">
+              <p></p>
+              Selecione o Ficheiro para Upload: (Ficheiros .CSV)
+            </h5>
+            <p></p>
+            <div className="importing-file">
+              <input
+                type="file"
+                id="fileInput"
+                className="inpImport"
+                onChange={handleFileSelect}
+              />
+
+              <button onClick={handleSave} className="btn-dwl">
+                Importar
               </button>
-            </div>
-          </div>
-          {successMessage && <p className="good">{successMessage}</p>}
-          {errorMessage && <p className="alert">{errorMessage}</p>}
 
-          <div className="impt-temp">
-            <p></p>
-            <div className="asset-importt">
-              <ul>
-                <div>
-                  <i
-                    className="fa fa-info-circle"
-                    aria-hidden="true"
-                    onClick={handleIconClick}
-                  >
-                    Informação
-                  </i>
-                  {/*  Information about the template file */}
-                  {isPopupVisible && (
-                    <div className="popup">
-                      <h6 className="asset-import">
-                        Atenção! Critérios para ficheiro "Template":
-                      </h6>
-                      <li className="info-import-tx">
-                        Campo <b>"numb_inv"</b>: Iniciar com algarismo <u>0</u>.
-                      </li>
-                      <li className="info-import-tx">
-                        Campo <b>"date_purch"</b>: Inserir um formato de data
-                        Ano-Mês-Dia.
-                      </li>
-                      <li className="info-import-tx">
-                        Campo <b>"state"</b>: Com valores de <u>Ativo</u> ou{" "}
-                        <u>Inativo</u>.
-                      </li>
-                      <li className="info-import-tx">
-                        Campo <b>"numb_ser"</b>: Insira um número de série que
-                        não exista na base de dados.
-                      </li>
-                      <li className="info-import-tx">
-                        Campo <b>"cond"</b>: Com valores de <u>Novo</u>,{" "}
-                        <u>Usado</u>, <u>Reparação</u> e <u>Obsoleto</u>.
-                      </li>
-                      <li className="info-import-tx">
-                        Campo <b>"ala"</b>: Com valores de <u>B</u>, <u>C</u>,{" "}
-                        <u>D</u>, <u>E</u>.
-                      </li>
-                      <li className="info-import-tx">
-                        Campo <b>"floor"</b>: Com valores de <u>-1</u>, <u>0</u>
-                        , <u>1</u>, <u>2</u>, <u>3</u>, <u>4</u>, <u>5</u>.
-                      </li>
-                      <li className="info-import-tx">
-                        Campo <b>"ci"</b>: Inserir CI válido ou "Armazém".
-                      </li>
-                    </div>
-                  )}
-                </div>
-              </ul>
+              <div className="template-dwl">
+                <button onClick={handleDownload} className="dwlTemp">
+                  Download Template
+                </button>
+              </div>
+            </div>
+            {successMessage && <p className="good">{successMessage}</p>}
+            {errorMessage && <p className="alert">{errorMessage}</p>}
+
+            <div className="impt-temp">
+              <p></p>
+              <div className="asset-importt">
+                <ul>
+                  <div>
+                    <i
+                      className="fa fa-info-circle"
+                      aria-hidden="true"
+                      onClick={handleIconClick}
+                    >
+                      Informação
+                    </i>
+                    {/*  Information about the template file */}
+                    {isPopupVisible && (
+                      <div className="popup">
+                        <h6 className="asset-import">
+                          Atenção! Critérios para ficheiro "Template":
+                        </h6>
+                        <li className="info-import-tx">
+                          Campo <b>"numb_inv"</b>: Iniciar com algarismo{" "}
+                          <u>0</u>.
+                        </li>
+                        <li className="info-import-tx">
+                          Campo <b>"date_purch"</b>: Inserir um formato de data
+                          Ano-Mês-Dia.
+                        </li>
+                        <li className="info-import-tx">
+                          Campo <b>"state"</b>: Com valores de <u>Ativo</u> ou{" "}
+                          <u>Inativo</u>.
+                        </li>
+                        <li className="info-import-tx">
+                          Campo <b>"numb_ser"</b>: Insira um número de série que
+                          não exista na base de dados.
+                        </li>
+                        <li className="info-import-tx">
+                          Campo <b>"cond"</b>: Com valores de <u>Novo</u>,{" "}
+                          <u>Usado</u>, <u>Reparação</u> e <u>Obsoleto</u>.
+                        </li>
+                        <li className="info-import-tx">
+                          Campo <b>"ala"</b>: Com valores de <u>B</u>, <u>C</u>,{" "}
+                          <u>D</u>, <u>E</u>.
+                        </li>
+                        <li className="info-import-tx">
+                          Campo <b>"floor"</b>: Com valores de <u>-1</u>,{" "}
+                          <u>0</u>, <u>1</u>, <u>2</u>, <u>3</u>, <u>4</u>,{" "}
+                          <u>5</u>.
+                        </li>
+                        <li className="info-import-tx">
+                          Campo <b>"ci"</b>: Inserir CI válido ou "Armazém".
+                        </li>
+                      </div>
+                    )}
+                  </div>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
