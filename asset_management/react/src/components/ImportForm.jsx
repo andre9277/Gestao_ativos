@@ -503,11 +503,10 @@ const ImportForm = () => {
         </Modal>
 
         <h1 className="title-page-all">Importar Ativos</h1>
-
+        <p></p>
         {loading && <div className="caprr-re">A carregar...</div>}
         {!loading && (
           <div>
-            <p></p>
             <p></p>
             <label htmlFor="fileInput" className="impLab">
               <p></p>

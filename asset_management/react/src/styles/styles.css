@@ -12922,11 +12922,8 @@ select {
 .assetForm-assett {
     padding: 1em;
     background: white;
-    /*  border: 1px solid #c1c1c1; */
     margin-top: 2rem;
-    /* margin-left: 140px; */
     margin-right: auto;
-    padding: 2em;
     font-size: larger;
     padding-left: 115px;
 }

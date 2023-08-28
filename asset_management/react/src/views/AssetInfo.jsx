@@ -135,7 +135,8 @@ const AssetInfo = () => {
             <div className="row-info-asset">
               {asset.id ? (
                 <div className="container">
-                  <h2 className="headerInfoAsset">Dados gerais: </h2>
+                  <h2 className="headerInfoAsset">Dados gerais</h2>
+                  <hr className="custom-hr" />
                   <p></p>
                   {/* ---Category--- */}
                   <ul className="lb-infoAsset-informat">
@@ -205,7 +206,8 @@ const AssetInfo = () => {
                   <div className="space-mov"></div>
                   {/* -------------Asset Information - local------------- */}
                   <div className="containerr">
-                    <h2 className="headerInfoAsset">Localização: </h2>
+                    <h2 className="headerInfoAsset">Localização</h2>
+                    <hr className="custom-hr" />
                     <p></p>
                     <ul>
                       {/* ---Entity--- */}
@@ -273,7 +275,8 @@ const AssetInfo = () => {
                     <div className="space-mov"></div>
                     {/* -------------Asset Information - Supplier------------- */}
 
-                    <h2 className="headerInfoAsset">Fornecedor: </h2>
+                    <h2 className="headerInfoAsset">Fornecedor</h2>
+                    <hr className="custom-hr" />
                     <p></p>
                     <ul>
                       {/* ---Name Supplier--- */}
@@ -316,7 +319,8 @@ const AssetInfo = () => {
                     </ul>
                     {/* ---Observations--- */}
                     <div className="space-mov"></div>
-                    <h2 className="headerInfoAsset">Observações:</h2>
+                    <h2 className="headerInfoAsset">Observações</h2>
+                    <hr className="custom-hr" />
                     <p></p>
                     <ol className="lb-infoAsset-informat">
                       <label className="lb-infoAsset2-informat">
