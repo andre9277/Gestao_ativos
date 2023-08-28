@@ -350,16 +350,17 @@ export default function Allocations() {
       {!loading && (
         <div className="card animated fadeInDown">
           {message && <div className="alert">{message}</div>}
-          <p></p>
-          <p className="camp-obs">*Campo Obrigatório</p>
-          <p></p>
+
           <div className="headerFilter">
             <div className="data-allocations">
               <h2 className="subTit">Data:</h2>
+
+              <p className="camp-obs">*Campo Obrigatório</p>
               <p></p>
               <label className="lb-allo-dt">
                 Data início:<label className="cmp-obg">*</label>
               </label>
+
               <input
                 type="date"
                 value={startDate ? startDate.toISOString().split("T")[0] : ""}

@@ -667,7 +667,7 @@ const ImportForm = () => {
                       onClick={handleIconClick}
                       title="Informação"
                     >
-                      <span class="icon-text">Informação</span>
+                      <span className="icon-text">Informação</span>
                     </i>
                     {/*  Information about the template file */}
                     {isPopupVisible && (
