@@ -2323,6 +2323,7 @@
 .fa-info-circle:before {
     content: "\f05a";
     font-size: x-large;
+    cursor: pointer;
 }
 .fa-innosoft:before {
     content: "\e080";

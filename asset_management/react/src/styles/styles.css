@@ -14035,3 +14035,7 @@ button {
     border: none;
     width: 34%;
 }
+
+.icon-text {
+    cursor: pointer;
+}

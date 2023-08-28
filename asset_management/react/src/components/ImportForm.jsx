@@ -513,6 +513,7 @@ const ImportForm = () => {
               <p></p>
               <h2>Dados dos ativos:</h2>
             </label>
+            <hr className="custom-hr" />
             <p className="camp-obs-mov">*Campo Obrigatório</p>
             <p></p>
 
@@ -664,8 +665,9 @@ const ImportForm = () => {
                       className="fa fa-info-circle"
                       aria-hidden="true"
                       onClick={handleIconClick}
+                      title="Informação"
                     >
-                      Informação
+                      <span class="icon-text">Informação</span>
                     </i>
                     {/*  Information about the template file */}
                     {isPopupVisible && (
