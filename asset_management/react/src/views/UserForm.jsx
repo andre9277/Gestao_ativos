@@ -191,10 +191,11 @@ export default function UserForm() {
 
         {!loading && (
           <form onSubmit={onSubmit} className="assetForm-assett">
+            <p className="camp-obs">*Campo Obrigatório</p>
             <h1 className="title-page-all-sub">Dados Gerais: </h1>
             <hr className="custom-hr" />
             <p></p>
-            <p className="camp-obs">*Campo Obrigatório</p>
+
             {/*---------Name-----------*/}
             <label className="lb-info">
               {" "}
