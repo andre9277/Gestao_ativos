@@ -80,6 +80,7 @@ export default function UserForm() {
     }, []);
   }
 
+  //Timer for the message:
   useEffect(() => {
     let timer;
 
@@ -95,14 +96,12 @@ export default function UserForm() {
   }, [errors]);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
+  //Cancel Save
   const handleCancelSave = () => {
     setShowConfirmModal(false); // Close the confirmation modal
   };
 
-  const handleSave = () => {
-    setShowConfirmModal(true); // Open the confirmation modal
-  };
-
+  //handle confirmSave of the userForm
   const handleConfirmSave = () => {
     setShowConfirmModal(false); // Close the confirmation modal
 

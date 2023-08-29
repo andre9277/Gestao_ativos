@@ -46,6 +46,7 @@ export default function Signup() {
   const { setUser, setToken } = useStateContext();
   const [errors, setErrors] = useState(null);
 
+  //Does the request of the signup user
   const onSubmit = (ev) => {
     ev.preventDefault();
 
@@ -73,7 +74,7 @@ export default function Signup() {
     <div className="login-signup-form animated fadeInDown">
       <div className="form">
         <form onSubmit={onSubmit}>
-          <h1 className="title">Signup for Free</h1>
+          <h1 className="title">Signup</h1>
           {errors && (
             <div className="alert">
               {Object.keys(errors).map((key) => (
@@ -91,7 +92,7 @@ export default function Signup() {
           />
           <button className="btn btn-block">Signup</button>
           <p className="message">
-            Already registered? <Link to="/login">Sign In</Link>
+            Já registado?<Link to="/login">Login</Link>
           </p>
         </form>
       </div>

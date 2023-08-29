@@ -35,6 +35,7 @@ All the changes made to enable the implementation of the desired development too
 */
 import React from "react";
 
+//Component that allows the filter by column
 const ColumnMenuFilter = ({
   titulo,
   tituloF,

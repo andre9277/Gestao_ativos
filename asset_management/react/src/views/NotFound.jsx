@@ -36,6 +36,7 @@ All the changes made to enable the implementation of the desired development too
 import React from "react";
 import { Link } from "react-router-dom";
 
+//Default Layout for no path created in the router:
 export default function NotFound() {
   return (
     <div id="layoutError">
@@ -51,6 +52,7 @@ export default function NotFound() {
                     alt="Not Found"
                   />
                   <p className="lead">Página não encontrada!</p>
+                  {/* Link that navigates the user back to the dashboard */}
                   <Link to="/dashboard">
                     <i className="fas fa-arrow-left me-1"></i>
                     Voltar para Login/Dashboard

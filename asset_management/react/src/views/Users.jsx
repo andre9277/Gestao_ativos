@@ -141,6 +141,7 @@ export default function Users() {
       });
   };
 
+  //Keeps track of the input check of the checkbox in the table page
   const toggleCheck = (id) => {
     const checkedIdx = users.findIndex((u) => u.id === id);
     if (checkedIdx === -1) return;
@@ -149,6 +150,7 @@ export default function Users() {
     setUsers(updatedUsers);
   };
 
+  //After the user clicks on the checkbox of the user desired, it adds
   const onAddClick = () => {
     const url = "/users/new";
     navigate(url);

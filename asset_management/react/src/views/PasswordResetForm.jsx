@@ -45,13 +45,15 @@ const PasswordResetForm = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
+  //handles the submit function
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setMessage("Passwords do not match.");
+      setMessage("Passwords não coincidem.");
       return;
     }
 
+    //If passwords are the same rest the password:
     try {
       const response = await axiosClient.post("/reset-password", {
         email,

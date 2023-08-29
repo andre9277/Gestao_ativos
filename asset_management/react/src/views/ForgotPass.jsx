@@ -42,6 +42,7 @@ const ForgotPass = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
+  //HandleSubmit of the forgot-password:
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -53,6 +54,7 @@ const ForgotPass = () => {
     }
   };
 
+  //Timer to show the message (5 seconds)
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {

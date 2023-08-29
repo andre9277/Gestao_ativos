@@ -64,9 +64,9 @@ const ConfigBr = ({
   };
 
   const handleFormSubmit = (event) => {
-    event.preventDefault(); // Prevent form submission and page refresh
-    handleAdd(selectedAttri); // Trigger the handleAdd function with the selected category ID
-    handleCloseModal(); // Close the modal after saving data
+    event.preventDefault(); //Prevent form submission and page refresh
+    handleAdd(selectedAttri); //Trigger the handleAdd function with the selected category ID
+    handleCloseModal(); //Close the modal after saving data
   };
 
   return (
@@ -124,8 +124,6 @@ const ConfigBr = ({
           <Modal.Title> Confirmação</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Add content inside the modal here */}
-          {/* For example, you can display some information related to the Title */}
           <p> Tem a certeza que pretende adicionar a(o) {Title} ?</p>
         </Modal.Body>
         <Modal.Footer>

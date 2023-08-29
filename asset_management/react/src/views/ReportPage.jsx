@@ -640,7 +640,6 @@ const ReportPage = () => {
                         name="to-date"
                         required
                         value={selectedDateTo}
-                        /* className="cal-filt" */
                         onChange={handleDataChangeTo}
                         className="cal-filt"
                         onKeyDown={(e) => e.preventDefault()}
@@ -713,8 +712,6 @@ const ReportPage = () => {
                     </tbody>
                   </>
                 )}
-                {/* {console.log(assets)} */}
-
                 {!loading && (
                   <tbody>
                     {!isButtonClicked && filteredAllocations.length === 0 ? (
@@ -735,7 +732,6 @@ const ReportPage = () => {
                               (a, b) =>
                                 new Date(b.created_at) - new Date(a.created_at)
                             );
-                          /* console.log(filteredTogJoin); */
 
                           const firstOtherInfo =
                             filteredTogJoin.length > 0
@@ -778,7 +774,6 @@ const ReportPage = () => {
                                   ? allocationData.date
                                   : asset.allocation_date}
                               </td>
-
                               <td>
                                 {firstOtherInfo === null ? (
                                   ""
@@ -842,9 +837,6 @@ const ReportPage = () => {
                           const filteredTogJoin = togJoin.filter(
                             (assetJoin) => assetJoin.asset_id === asset.id
                           );
-                          /* .sort((a, b) => {
-                        new Date(b.created_at) - new Date(a.created_at);
-                      }); */
 
                           const firstOtherInfo =
                             filteredTogJoin.length > 0
@@ -864,6 +856,8 @@ const ReportPage = () => {
                               </td>
 
                               <td className="table-words-l">
+                                {/*  if the unit_id is null the filtered_entities are
+                                shown or then the units are shown */}
                                 {asset.previous_unit_id === null
                                   ? filtered_entities(asset.previous_ent_id)
                                   : filtered_units(asset.previous_unit_id)}
@@ -922,7 +916,6 @@ const ReportPage = () => {
                                   </>
                                 )}
                               </td>
-                              {/* <td>{console.log(asset)}</td> */}
                             </tr>
                           );
                         })

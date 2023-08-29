@@ -58,6 +58,7 @@ const DeleteRelationConfig = ({
     fetchRelations();
   }, []);
 
+  //Gets the relations data of the category/brands
   const fetchRelations = async () => {
     try {
       const response = await axiosClient.get("/category-brands");
@@ -68,6 +69,7 @@ const DeleteRelationConfig = ({
     }
   };
 
+  //Removes the selected relation
   const handleRemoveSelectedRelation = async (event) => {
     event.preventDefault();
     try {
@@ -110,6 +112,7 @@ const DeleteRelationConfig = ({
 
     return selectedRelation ? selectedRelation.id : null;
   };
+  //handle Select option
   const handleSelect = (e) => {
     const selectedOption = e.target.value;
     setSelectedValue(selectedOption); // Store the selected text directly
@@ -173,6 +176,7 @@ const DeleteRelationConfig = ({
       {error && <p className="errorMessag">{error}</p>}
       {successMessage && <p className="successMessag">{successMessage}</p>}
 
+      {/* Modal to delete the Category/Brand */}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title> Confirmação</Modal.Title>

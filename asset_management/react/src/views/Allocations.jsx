@@ -102,7 +102,6 @@ export default function Allocations() {
       .then(({ data }) => {
         setAllocations(data.data);
         setAllAllocations(data.data);
-        /* console.log("Mov. data.:", data.data); */
         setLoading(false);
       })
       .catch(() => {

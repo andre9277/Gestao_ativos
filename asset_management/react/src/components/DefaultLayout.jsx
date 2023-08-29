@@ -82,25 +82,31 @@ export default function DefaultLayout() {
     <div id="defaultLayout">
       {/*if the role of the user is 3, "Manutencao", then it displays different sidebar options */}
       {user.role_id === 3 ? (
+        //SidaBar for the user guest (User = "Manutenção")
         <SideBarGuest />
       ) : user.role_id === 2 ? (
+        //Sidabar for the SI user
         <SideBarSi />
       ) : (
+        //For the admin, every options of the sidebar is displayed
         <SideBar />
       )}
       {/* The TopBar, footer and Outlet is always the same for every user with any role
        */}{" "}
       <div className="content">
+        {/* TopBar always displayed */}
         <TopBar
           user={user}
           onLogout={onLogout}
           setActiveOption={setActiveOption}
         />
-
+        {/* Recieves the default data  */}
         <Outlet />
 
         {/* Notification when a user is created/updated or deleted */}
         {notification && <div className="notification">{notification}</div>}
+
+        {/* Footer always displayed */}
         <Footer />
       </div>
     </div>

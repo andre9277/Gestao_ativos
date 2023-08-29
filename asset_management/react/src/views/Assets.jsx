@@ -701,7 +701,7 @@ export default function Assets() {
                         filtered={filtered}
                       />
                     </th>
-                    {/* <th>Nº Série</th> */}
+
                     <th className="header-tb">Nº Série</th>
                     <th className="header-tb">Localização</th>
                     <th className="header-tb">Unidade</th>

@@ -38,8 +38,6 @@ import axiosClient from "../axios-client.js";
 import { createRef } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { useState, useEffect } from "react";
-
-/* import img_logo2 from "../assets/logo_new_hb.png"; */
 import img_logo2 from "../assets/hbb_braga.jpg";
 import img_logo from "../assets/logo_wh-rebg.png";
 
@@ -51,6 +49,7 @@ export default function Login() {
   const { setUser, setToken } = useStateContext();
   const [message, setMessage] = useState(null);
 
+  //Displays the message for 5 seconds:
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
@@ -97,6 +96,7 @@ export default function Login() {
       return;
     }
 
+    //Request for the Login
     axiosClient
       .post("/login", payload)
       .then(({ data }) => {
@@ -110,8 +110,6 @@ export default function Login() {
           setMessage("Atenção! Verifique se introduziu os dados corretamente!");
         }
       });
-
-    axiosClient.post("/log", { message: "Record created" });
   };
 
   return (

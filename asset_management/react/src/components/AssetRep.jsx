@@ -59,7 +59,6 @@ const AssetRep = () => {
       .get(url)
       .then(({ data }) => {
         // When the request is successful, loading=false
-
         setAssets(data.data);
         setMeta(data.meta);
       })
@@ -69,6 +68,7 @@ const AssetRep = () => {
       });
   };
 
+  //Gets the page by the url
   const onPageClick = (link) => {
     getAssets(link.url);
   };
