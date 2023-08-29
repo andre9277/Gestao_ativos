@@ -165,7 +165,6 @@ All the changes made to enable the implementation of the desired development too
 
 .deleteConfig-cat {
     display: inherit;
-
     background-color: red;
     padding: 0.5rem 0.75rem;
     font-size: 1.2rem;
@@ -182,7 +181,6 @@ All the changes made to enable the implementation of the desired development too
     border-radius: 5px;
     width: 35%;
     font-size: 1.2rem;
-    /* display: table-cell; */
     margin-left: 4rem;
     margin-bottom: 3rem;
 }
@@ -196,9 +194,6 @@ All the changes made to enable the implementation of the desired development too
     border-right-style: none;
     border-left-style: none;
     color: #fff;
-    /* font-size: 1.8rem; */
-    /*  margin-top: 1rem; */
-    /* bottom: -95px; */
     position: relative;
     border-radius: 4px;
     margin-left: 2rem;
@@ -342,7 +337,6 @@ button:hover {
 #container-config-rel {
     background-color: #fff;
     border-radius: 5px;
-    /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); */
     font-size: 1.6rem;
     display: table-cell;
 }
@@ -364,7 +358,6 @@ button:hover {
     border-radius: 4px;
     color: #fff;
     font-size: 1.6rem;
-    /*  margin-left: 192%; */
 }
 
 .config-ss {
@@ -410,7 +403,6 @@ button:hover {
     font-size: 1.5rem;
     margin: 1rem;
     margin-bottom: 4rem;
-    /* margin-left: 5rem; */
 }
 
 .vl-btn {
@@ -421,7 +413,6 @@ button:hover {
     color: white;
     overflow: hidden;
     width: auto;
-    /*     margin-top: 1rem; */
     margin-left: 6rem;
     width: 88%;
 }
@@ -445,14 +436,9 @@ button:hover {
 }
 .checkbox-dropdown-containerr {
     display: grid;
-    /* margin-bottom: 18rem; */
     margin-left: 2rem;
     margin-bottom: 2rem;
 }
-
-/* label {
-    width: 33% !important;
-} */
 
 .addLbBtn {
     display: flex;

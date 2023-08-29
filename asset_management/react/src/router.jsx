@@ -57,121 +57,147 @@ import AssetRep from "./components/AssetRep.jsx";
 import AssetObs from "./components/AssetObs.jsx";
 
 //The router object defines the routes and components that should be rendered when a user navigates to a specific path.
-
 const router = createBrowserRouter([
   {
     path: "/",
     element: <DefaultLayout />,
     children: [
+      //Default path to the dashboard:
       {
         path: "/",
         element: <Navigate to="/dashboard" />,
       },
+      //Path access to the dashboard
       {
         path: "/dashboard",
         element: <Dashboard />,
       },
+      //Path access to the users
       {
         path: "/users",
         element: <Users />,
       },
+      //Path access to the configurations
       {
         path: "/config",
         element: <Config />,
       },
+      //Path access to the user form Create
       {
         path: "/users/new",
         element: <UserForm key="userCreate" />,
       },
+      //Path access to the user form Update
       {
         path: "/users/:id",
         element: <UserForm key="userUpdate" />,
       },
-
+      //Path access to the assets page
       {
         path: "/assets",
         element: <Assets />,
       },
+      //Path access to the assetsForm update
       {
         path: "/assets/:id",
         element: <AssetForm key="assetUpdate" />,
       },
+      //Path access to the assetsForm create
       {
         path: "/assets/new",
         element: <AssetForm key="assetCreate" />,
       },
+      //Path access to the allocations page
       {
         path: "/allocations",
         element: <Allocations />,
       },
+      //Path to the report page
       {
         path: "/report",
         element: <ReportPage />,
       },
+      //Path to the asset information
       {
         path: "/infoasset/:id",
         element: <AssetInfo />,
       },
+      //Path to the import page
       {
         path: "/import",
         element: <Import />,
       },
+      //Path to the page Asset Movement Forms
       {
         path: "/addAssetMovement",
         element: <AddAssetMovementForm />,
       },
+      //Path to the asset Report table page
       {
         path: "/assetsRep",
         element: <AssetRep />,
       },
+      //Path to the asset "obsoleto" table page
       {
         path: "/assetsObs",
         element: <AssetObs />,
       },
     ],
   },
+  //path for users with no permissions:
   {
     path: "/",
     element: <GuestLayout />,
     children: [
+      //path to login page
       {
         path: "/login",
         element: <Login />,
       },
+      //path to signup page
       {
         path: "/signup",
         element: <Signup />,
       },
     ],
   },
+  //any path that is not listed here, it goes to NotFound page
   {
     path: "*",
     element: <NotFound />,
   },
+  //path to ForgotPassword
   {
     path: "/forgotpass",
     element: <ForgotPass />,
   },
+  //Path to ForgotPassword
   {
     path: "/forgotPassword",
     element: <ForgotPass />,
   },
+  //path to forgotPasswordForms
   {
     path: "/forgotPasswordForm/:token",
     element: <PasswordResetForm />,
   },
+
+  //Layout for the user "Manutenção"
   {
     path: "/",
     element: <ManutLayout />,
     children: [
+      //By default it goes to the dashboard
       {
         path: "/",
         element: <Navigate to="/dashboard" />,
       },
+      //path to the dashboard
       {
         path: "/dashboard",
         element: <Dashboard />,
       },
+      //Path to ForgotPassword
       {
         path: "/forgotPassword",
         element: <ForgotPass />,

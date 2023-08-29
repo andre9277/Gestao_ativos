@@ -114,8 +114,6 @@ export default function Users() {
         })
         .catch((error) => {
           console.error("Erro ao apagar utilizador:", error);
-
-          // Handle error if necessary...
         });
 
       // Reset deleteConfirmed to false

@@ -51,63 +51,75 @@ import PasswordResetForm from "./views/PasswordResetForm.jsx";
 //The router object defines the routes and components that should be rendered when a user navigates to a specific path.
 const router = createBrowserRouter([
   {
+    //Profile  of the DefaultLayout:
     path: "/",
     element: <DefaultLayout />,
     children: [
+      //path of default goes for the dashboard
       {
         path: "/",
         element: <Navigate to="/dashboard" />,
       },
+      //path to dashboard
       {
         path: "/dashboard",
         element: <Dashboard />,
       },
+      //path to the users
       {
         path: "/users",
         element: <Users />,
       },
-
+      //path to the scan page
       {
         path: "/scan",
         element: <Scan />,
       },
+      //path to the assets page
       {
         path: "/assets",
         element: <Assets />,
       },
+      //path to add a new Asset
       {
         path: "/assets/new",
         element: <AssetForm key="assetCreate" />,
       },
-
+      //path to AssetInformation
       {
         path: "/infoasset/:id",
         element: <AssetInfo />,
       },
+      //path to AssetMovement
       {
         path: "/addAssetMovement",
         element: <AddAssetMovementForm />,
       },
     ],
   },
+  //Profile of the GuestLayout, onlycan try to login
   {
     path: "/",
     element: <GuestLayout />,
     children: [
+      //path to login
       {
         path: "/login",
         element: <Login />,
       },
     ],
   },
+  //When user types one path with nothing expected it goes to the NotFound page
   {
     path: "*",
     element: <NotFound />,
   },
+  //Path to forgotPassword
   {
     path: "/forgotPassword",
     element: <ForgotPass />,
   },
+  //Path to ResetPassword
   {
     path: "/forgotPasswordForm/:token",
     element: <PasswordResetForm />,
