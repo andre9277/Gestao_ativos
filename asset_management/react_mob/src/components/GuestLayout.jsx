@@ -39,12 +39,14 @@ import { useStateContext } from "../context/ContextProvider";
 export default function GuestLayout() {
   const { token } = useStateContext();
 
+  //If there is a token, navigate to the default path
   if (token) {
     return <Navigate to="/" />;
   }
 
   return (
     <div id="guestLayout">
+      {/* Presents all the information that is not the Sidebar, etc */}
       <Outlet />
     </div>
   );

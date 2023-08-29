@@ -70,12 +70,15 @@ const Sidebar = ({ user, onLogout }) => {
   return (
     <div style={{ width: "100%", height: "100vh" }}>
       <nav>
+        {/* SideBar toggles beetween the X and the --- */}
         <div className="burger-menu" onClick={updateMenu}>
           <div className={burger_class}></div>
           <div className={burger_class}></div>
           <div className={burger_class}></div>
         </div>
         <div>
+          {/* 
+          Title of the Application Project, goes back to the first page*/}
           <Link to={"/dashboard"}>
             <h1 className="title-topbar">SIGA</h1>
           </Link>
@@ -83,6 +86,7 @@ const Sidebar = ({ user, onLogout }) => {
 
         <div className="logout-div">
           <div className="scan-asset">
+            {/* Scan of the asset activity */}
             <Link to="/scan">
               <i
                 className="fa fa-barcode fa-2x"
@@ -91,7 +95,7 @@ const Sidebar = ({ user, onLogout }) => {
               ></i>
             </Link>
           </div>
-
+          {/* Log out of the user session */}
           <UserInfo user={user} onLogout={onLogout} />
         </div>
       </nav>
@@ -124,6 +128,7 @@ const Sidebar = ({ user, onLogout }) => {
                   <label className="lb-sd">&nbsp;&nbsp; Registar</label>
                 </li>
               </Link>
+
               <Link to={"/addAssetMovement"}>
                 <li
                   className={`opt-sidebar-m ${
@@ -137,7 +142,7 @@ const Sidebar = ({ user, onLogout }) => {
               </Link>
             </>
           )}
-
+          {/* Logout of the user  */}
           <a onClick={onLogout}>
             <li className="opt-sidebar-leave">
               <i className="fa fa-sign-out-alt" aria-hidden="true"></i>

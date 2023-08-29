@@ -396,6 +396,7 @@ export default function AssetForm() {
                   errors && errors.numb_inv ? "error-input" : ""
                 }`}
               />
+              {/* Error message for the inventory number label */}
               {errors && errors.numb_inv && (
                 <div className="alert">{errors.numb_inv[0]}</div>
               )}
@@ -414,6 +415,7 @@ export default function AssetForm() {
                   errors && errors.numb_ser ? "error-input" : ""
                 }`}
               />
+              {/* Error message for the serial number label */}
               {errors && errors.numb_ser && (
                 <div className="alert">{errors.numb_ser[0]}</div>
               )}
@@ -442,6 +444,7 @@ export default function AssetForm() {
                   </option>
                 ))}
               </select>
+              {/* Error message for the category label */}
               {errors && errors.cat_id && (
                 <div className="alert">{errors.cat_id[0]}</div>
               )}
@@ -463,11 +466,12 @@ export default function AssetForm() {
                 }
                 required
               >
+                {/* State of the asset can be "Ativo" or "Inativo" */}
                 <option value=""></option>
                 <option value="Ativo">Ativo</option>
                 <option value="Inativo">Inativo</option>
               </select>
-
+              {/* Error message for the status label */}
               {errors && errors.state && (
                 <div className="alert">{errors.state[0]}</div>
               )}
@@ -489,13 +493,18 @@ export default function AssetForm() {
                 {brands.length === 0 ? (
                   <option>{asset.brand && asset.brand.name}</option> // Add null check for asset.brand
                 ) : (
-                  brands.map((brand) => (
-                    <option key={brand.id} value={brand.id}>
-                      {brand.name}
-                    </option>
-                  ))
+                  {
+                    /* Iteration between all brands */
+                  }(
+                    brands.map((brand) => (
+                      <option key={brand.id} value={brand.id}>
+                        {brand.name}
+                      </option>
+                    ))
+                  )
                 )}
               </select>
+              {/* Error message for the brand label */}
               {errors && errors.brand_id && (
                 <div className="alert">{errors.brand_id[0]}</div>
               )}
@@ -518,12 +527,14 @@ export default function AssetForm() {
                 required
               >
                 <option value=""></option>
+                {/* Iteration between all models */}
                 {modelos.map((modelo) => (
                   <option key={modelo.id} value={modelo.id}>
                     {modelo.name}
                   </option>
                 ))}
               </select>
+              {/* Error message for the model label */}
               {errors && errors.model_id && (
                 <div className="alert">{errors.model_id[0]}</div>
               )}
@@ -547,12 +558,15 @@ export default function AssetForm() {
                   }
                   required
                 >
+                  {/*    The condition of the asset can be: "Novo", "Usado",
+                  "Reparação", "Obsoleto" */}
                   <option value=""></option>
                   <option value="Novo">Novo</option>
                   <option value="Usado">Usado</option>
                   <option value="Reparação">Reparação</option>
                   <option value="Obsoleto">Obsoleto</option>
                 </select>
+                {/* Error message for the condition label */}
                 {errors && errors.cond && (
                   <div className="alert">{errors.cond[0]}</div>
                 )}
@@ -564,6 +578,7 @@ export default function AssetForm() {
                 <label className="labelofLabel">
                   Data de Compra:<label className="cmp-obg">*</label>
                 </label>
+                {/* Input of the data that accepts values in Date format */}
                 <input
                   className={`form-calendar-asset ${
                     errors && errors.date_purch ? "error" : ""
@@ -574,6 +589,7 @@ export default function AssetForm() {
                   placeholder="YYYY-MM-DD"
                 />
                 {errorMessage && <p className="alert">{errorMessage}</p>}
+                {/* Error message for the date of purchase label */}
                 {errors && errors.date_purch && (
                   <div className="alert">{errors.date_purch[0]}</div>
                 )}
@@ -593,12 +609,14 @@ export default function AssetForm() {
                   onChange={handleSupplierChange}
                 >
                   <option value=""></option>
+                  {/*Iteration between my supplier */}
                   {supplier.map((sup) => (
                     <option key={sup.id} value={sup.id}>
                       {sup.name}
                     </option>
                   ))}
                 </select>
+                {/* Error message for the supplier label */}
                 {errors && errors.supplier_id && (
                   <div className="alert">{errors.supplier_id[0]}</div>
                 )}
@@ -632,6 +650,7 @@ export default function AssetForm() {
                     </option>
                   ))}
                 </select>
+                {/* Error message for the entities label */}
                 {errors && errors.ent_id && (
                   <div className="alert">{errors.ent_id[0]}</div>
                 )}
@@ -651,6 +670,7 @@ export default function AssetForm() {
                   disabled={isEditing || !units.length || !asset.ent_id} // Disable when editing
                 >
                   <option value=""></option>
+                  {/* Iteration on all units of the database */}
                   {units.map((unit) => (
                     <option key={unit.id} value={unit.id}>
                       {unit.name}
@@ -673,6 +693,7 @@ export default function AssetForm() {
                   } ${isEditing ? "disabled-input" : ""}`}
                   disabled={isEditing} // Disable the input field when editing
                 />
+                {/* Error message for the CI label */}
                 {errors && errors.ci && (
                   <div className="alert">{errors.ci[0]}</div>
                 )}

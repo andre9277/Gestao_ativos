@@ -39,9 +39,9 @@ import PaginationLinks from "../components/PaginationLinks.jsx";
 import { useStateContext } from "../context/ContextProvider.jsx";
 
 const AssetObs = () => {
-  const [assets, setAssets] = useState([]);
-  const [meta, setMeta] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [assets, setAssets] = useState([]); //Saves all the assets data
+  const [meta, setMeta] = useState({}); //keeps track of the pagination
+  const [loading, setLoading] = useState(true); //Keeps track of the loading
 
   //Gets the data from the current logged in user and the activeOption for the sidebar
   const { setActiveOption } = useStateContext();
@@ -67,6 +67,7 @@ const AssetObs = () => {
       });
   };
 
+  //Goes to the page desired by the user when clicked
   const onPageClick = (link) => {
     getAssets(link.url);
   };
@@ -107,6 +108,7 @@ const AssetObs = () => {
                       </tr>
                     </thead>
                     <tbody>
+                      {/* Iterates trough all the assets */}
                       {assets.map((a) =>
                         a.cond === "Obsoleto" ? (
                           <tr key={a.id}>
@@ -137,6 +139,7 @@ const AssetObs = () => {
                   </table>
                 </div>
               </div>
+              {/* Pagination Links */}
               <div className="pagination-container">
                 <PaginationLinks meta={meta} onPageClick={onPageClick} />
               </div>

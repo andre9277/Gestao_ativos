@@ -86,6 +86,7 @@ const AssetInfo = () => {
     units: "",
   });
 
+  //Funtion that handles the print method of the asset information attibutes
   const handlePrint = () => {
     const printWindow = window.open("", "_blank");
     const contentToPrint = document.getElementById("print-content").innerHTML;

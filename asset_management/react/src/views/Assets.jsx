@@ -537,6 +537,7 @@ export default function Assets() {
       >
         <h1 className="title-page-all">Listagem de Ativos</h1>
         <div>
+          {/* If the role of the user is 3 = "Manutencao" user */}
           {user.role_id === 3 ? null : (
             <>
               <div className="dropdown">
@@ -736,6 +737,7 @@ export default function Assets() {
                 {!loading && (
                   <tbody>
                     {!isButtonClicked && filteredAllocations.length === 0 ? (
+                      /* Iteration trough all the assets on a table */
                       assets.map((a) => (
                         <tr key={a.id}>
                           <td className="table-words-l">{a.category.name}</td>

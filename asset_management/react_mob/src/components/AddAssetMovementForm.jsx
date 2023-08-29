@@ -60,6 +60,7 @@ const AddAssetMovementForm = () => {
 
   const navigate = useNavigate();
 
+  //Meessage that displays the error
   useEffect(() => {
     if (errors) {
       const timer = setTimeout(() => {
@@ -78,6 +79,7 @@ const AddAssetMovementForm = () => {
     getUnits();
   }, []);
 
+  //Function to get all the entities from the database
   const getEnts = (url) => {
     url = url || "/entities";
     axiosClient.get(url).then(({ data }) => {
@@ -85,6 +87,7 @@ const AddAssetMovementForm = () => {
     });
   };
 
+  //Function to get all the units from the database
   const getUnits = (url) => {
     url = url || "/units";
     axiosClient.get(url).then(({ data }) => {
@@ -182,7 +185,7 @@ const AddAssetMovementForm = () => {
               }
             });
         }
-
+        //if there is a matching inventory number, update the asset:
         if (matchingInv) {
           const updateAsset = {
             ...matchingInv,

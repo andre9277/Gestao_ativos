@@ -120,6 +120,7 @@ export default function AssetForm() {
     }
   }, [selectedEntity]);
 
+  //Function of the error message
   useEffect(() => {
     if (errors) {
       const timer = setTimeout(() => {
@@ -221,12 +222,14 @@ export default function AssetForm() {
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
+  //Close the confirmation modal
   const handleCancelSave = () => {
-    setShowConfirmModal(false); // Close the confirmation modal
+    setShowConfirmModal(false);
   };
 
+  // Open the confirmation modal
   const handleSave = () => {
-    setShowConfirmModal(true); // Open the confirmation modal
+    setShowConfirmModal(true);
   };
   //---------Functions that allow the change of some values-------------
   const handleEntityChange = (event) => {
@@ -239,6 +242,7 @@ export default function AssetForm() {
     setSelectedEntity(selectedEntity);
   };
 
+  /* Function that handle the Brand Change  */
   function handleBrandChange(event) {
     const selectedBrand = event.target.value;
     setAsset((prevState) => ({
@@ -250,6 +254,7 @@ export default function AssetForm() {
     setSelectedBrand(selectedBrand);
   }
 
+  /* Function that handle the supplier Change  */
   function handleSupplierChange(event) {
     setSupplierId(event.target.value);
     const newAsset = {
@@ -259,6 +264,7 @@ export default function AssetForm() {
     setAsset(newAsset);
   }
 
+  /* Function that handle the Category Change  */
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
 
@@ -436,6 +442,7 @@ export default function AssetForm() {
               {brands.length === 0 ? (
                 <option>{asset.brand.name}</option>
               ) : (
+                /* Iterates in all brands data */
                 brands.map((brand) => (
                   <option key={brand.id} value={brand.id}>
                     {brand.name}
@@ -443,6 +450,7 @@ export default function AssetForm() {
                 ))
               )}
             </select>
+            {/* Displays the error message if there is no brand */}
             {errors && errors.brand_id && (
               <div className="error">{errors.brand_id[0]}</div>
             )}
@@ -466,12 +474,14 @@ export default function AssetForm() {
               required
             >
               <option value=""></option>
+              {/* Iterates in all models from the database */}
               {modelos.map((modelo) => (
                 <option key={modelo.id} value={modelo.id}>
                   {modelo.name}
                 </option>
               ))}
             </select>
+            {/*Shows the error lf the model*/}
             {errors && errors.model_id && (
               <div className="error">{errors.model_id[0]}</div>
             )}
@@ -501,6 +511,7 @@ export default function AssetForm() {
                 <option value="Reparação">Reparação</option>
                 <option value="Obsoleto">Obsoleto</option>
               </select>
+              {/* Shows the error of the condition  */}
               {errors && errors.cond && (
                 <div className="error">{errors.cond[0]}</div>
               )}
@@ -523,6 +534,7 @@ export default function AssetForm() {
                 }
                 placeholder="YYYY-MM-DD"
               />
+              {/* Shows the error of the date purchase */}
               {errors && errors.date_purch && (
                 <div className="error">{errors.date_purch[0]}</div>
               )}
@@ -549,6 +561,7 @@ export default function AssetForm() {
                   </option>
                 ))}
               </select>
+              {/* Shows all the error of the supplier */}
               {errors && errors.supplier_id && (
                 <div className="error">{errors.supplier_id[0]}</div>
               )}
@@ -582,6 +595,7 @@ export default function AssetForm() {
                   </option>
                 ))}
               </select>
+              {/* Shows errors of the entity */}
               {errors && errors.ent_id && (
                 <div className="error">{errors.ent_id[0]}</div>
               )}
@@ -600,6 +614,7 @@ export default function AssetForm() {
                 }
               >
                 <option value=""></option>
+                {/* Iterates on all units available */}
                 {units.map((unit) => (
                   <option key={unit.id} value={unit.id}>
                     {unit.name}
@@ -621,6 +636,7 @@ export default function AssetForm() {
                   errors && errors.ci ? "error-input" : ""
                 }`}
               />
+              {/* Displays the error about the CI */}
               {errors && errors.ci && (
                 <div className="error">{errors.ci[0]}</div>
               )}

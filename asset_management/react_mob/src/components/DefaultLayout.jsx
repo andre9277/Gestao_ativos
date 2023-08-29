@@ -43,6 +43,7 @@ import SideBar from "./SideBar";
 export default function DefaultLayout() {
   const { user, token, setUser, setToken, notification } = useStateContext();
 
+  //If the token exists
   if (!token) {
     return <Navigate to="/login" />;
   }
@@ -64,6 +65,7 @@ export default function DefaultLayout() {
 
   return (
     <div id="defaultLayout">
+      {/* Sidebar for the Default Layout user */}
       <SideBar user={user} onLogout={onLogout} />
 
       <div className="content-container">

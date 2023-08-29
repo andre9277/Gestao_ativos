@@ -705,6 +705,7 @@ const ReportPage = () => {
 
                     <tbody>
                       <tr>
+                        {/* Message while the table is loading */}
                         <td colSpan="5" className="lgText">
                           A carregar...
                         </td>

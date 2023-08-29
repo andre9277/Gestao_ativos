@@ -48,6 +48,7 @@ const UserInfo = ({ user, onLogout }) => {
         aria-expanded="false"
       >
         <span className="mr-2 d-none d-lg-inline text-gray-600 small">
+          {/* User name of the current user logged in */}
           <h5>{user.name}</h5>
         </span>
         <img
@@ -64,8 +65,9 @@ const UserInfo = ({ user, onLogout }) => {
           className="dropdown-item"
           data-toggle="modal"
           data-target="#logoutModal"
-          onClick={onLogout}
+          onClick={onLogout} //onLogout Function
         >
+          {/* Logout button displayed for the user to logout */}
           <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
           Logout
         </a>
