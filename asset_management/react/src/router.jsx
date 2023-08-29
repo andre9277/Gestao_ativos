@@ -39,7 +39,6 @@ import DefaultLayout from "./components/DefaultLayout";
 import GuestLayout from "./components/GuestLayout";
 import Login from "./views/Login";
 import NotFound from "./views/NotFound";
-import Signup from "./views/Signup";
 import Users from "./views/Users";
 import UserForm from "./views/UserForm";
 import ForgotPass from "./views/ForgotPass.jsx";
@@ -153,11 +152,6 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
-      },
-      //path to signup page
-      {
-        path: "/signup",
-        element: <Signup />,
       },
     ],
   },
