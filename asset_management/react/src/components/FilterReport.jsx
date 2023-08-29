@@ -42,10 +42,11 @@ const FilterReport = ({ data, handleFunc, selectedAtt }) => {
       <span>Categoria</span>
       <select
         className="filtAsset-tab"
-        onChange={handleFunc}
-        value={selectedAtt}
+        onChange={handleFunc} //OnChange handles the function
+        value={selectedAtt} //The selected atribute
       >
         <option value="">Selecione</option>
+        {/* Iterates all the data */}
         {data.map((dat) => (
           <option key={dat.id} value={dat.name}>
             {dat.name}

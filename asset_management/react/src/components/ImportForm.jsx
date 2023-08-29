@@ -39,38 +39,41 @@ import { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 
 const ImportForm = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); //saves the loading state
 
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null); //variable for the selectedFile
+  const [successMessage, setSuccessMessage] = useState(null); // success message
+  const [errorMessage, setErrorMessage] = useState(null); //error message
 
-  const [brands, setBrands] = useState([]);
-  const [modelos, setModelos] = useState([]);
-  const [cats, setCats] = useState([]);
-  const [ents, setEnts] = useState([]);
-  const [supplier, setSupplier] = useState([]);
-  const [units, setUnits] = useState([]);
-  const [supplierId, setSupplierId] = useState("");
-  const [selectedEntity, setSelectedEntity] = useState("");
-  const [selectedBrand, setSelectedBrand] = useState("");
+  const [brands, setBrands] = useState([]); //saves the brands data
+  const [modelos, setModelos] = useState([]); //saves the models data
+  const [cats, setCats] = useState([]); //saves the category data
+  const [ents, setEnts] = useState([]); //saves the entity data
+  const [supplier, setSupplier] = useState([]); //saves the supplier data
+  const [units, setUnits] = useState([]); // saves the units data
+  const [supplierId, setSupplierId] = useState(""); // saves the state of the supplierId
+  const [selectedEntity, setSelectedEntity] = useState(""); //saves the selected entity
+  const [selectedBrand, setSelectedBrand] = useState(""); //saves the selected brand
 
+  //message of the error
   const [showMessage, setShowMessage] = useState(false);
 
+  //Saves the state of the popUp visible
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
-  //returns all objects (called x2times)
+  //returns all objects (called x2times), saves all data of the requests
   useEffect(() => {
     Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
       setLoading(false);
-      setCats(responses[0].data.cats);
-      setEnts(responses[0].data.ents);
-      setUnits(responses[0].data.units);
-      setSupplier(responses[0].data.suppliers);
-      setModelos(responses[0].data.models);
+      setCats(responses[0].data.cats); //saves all category from the database
+      setEnts(responses[0].data.ents); //saves all the entity from the database
+      setUnits(responses[0].data.units); //saves all the units from the database
+      setSupplier(responses[0].data.suppliers); //saves all suppliers from the database
+      setModelos(responses[0].data.models); //saves all models from the database
     });
   }, []);
 
+  //Gets the brand_id of a certain model
   useEffect(() => {
     if (selectedBrand) {
       setLoading(true);
@@ -98,6 +101,7 @@ const ImportForm = () => {
     }
   }, [selectedEntity]);
 
+  //Timer for the success and error Message
   useEffect(() => {
     if (successMessage || errorMessage) {
       setShowMessage(true);
@@ -113,6 +117,7 @@ const ImportForm = () => {
     }
   }, [successMessage, errorMessage]);
 
+  //Asset object template with the parameters by default
   const [asset, setAsset] = useState({
     id: null,
     numb_inv: "",
@@ -333,6 +338,7 @@ const ImportForm = () => {
 
   // Validation function for date_purch
   const validateDatePurch = (date_purch) => {
+    //Regular expression to check if the data format is valid
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
     if (date_purch && dateRegex.test(date_purch)) {
@@ -527,6 +533,7 @@ const ImportForm = () => {
                 onChange={handleCategoryChange}
               >
                 <option value=""></option>
+                {/* Iterates on all category registered */}
                 {cats.map((category) => (
                   <option key={category.id} value={category.id}>
                     {category.name}
@@ -544,6 +551,7 @@ const ImportForm = () => {
                 onChange={handleSupplierChange}
               >
                 <option value=""></option>
+                {/* Iterates on all suppliers registered */}
                 {supplier.map((sup) => (
                   <option key={sup.id} value={sup.id}>
                     {sup.name}
@@ -561,6 +569,7 @@ const ImportForm = () => {
                 className="infoInpp"
               >
                 <option value=""></option>
+                {/* Iterates on all brands registered */}
                 {brands.map((brand, index) => (
                   <option key={brand.id} value={brand.id}>
                     {brand.name}
@@ -581,6 +590,7 @@ const ImportForm = () => {
                 }
               >
                 <option value=""></option>
+                {/* Iterates on all models registered */}
                 {modelos.map((modelo) => (
                   <option key={modelo.id} value={modelo.id}>
                     {modelo.name}
@@ -600,6 +610,7 @@ const ImportForm = () => {
                 onChange={handleEntityChange}
               >
                 <option value=""></option>
+                {/* Iterates on all entitys registered */}
                 {ents.map((ent) => (
                   <option key={ent.id} value={ent.id}>
                     {ent.name}
@@ -620,6 +631,7 @@ const ImportForm = () => {
                 }
               >
                 <option value=""></option>
+                {/* Iterates on all units registered */}
                 {units.map((unit) => (
                   <option key={unit.id} value={unit.id}>
                     {unit.name}
@@ -647,6 +659,7 @@ const ImportForm = () => {
               </button>
 
               <div className="template-dwl">
+                {/* Display the link to download the template for the import */}
                 <button onClick={handleDownload} className="dwlTemp">
                   Download Template
                 </button>

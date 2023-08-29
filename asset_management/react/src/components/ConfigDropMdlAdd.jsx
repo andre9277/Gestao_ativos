@@ -51,9 +51,13 @@ const ConfigDropMdlAdd = ({
 }) => {
   const [showModal, setShowModal] = useState(false);
 
+  //Function that handle the close modal
   const handleCloseModal = () => setShowModal(false);
+
+  //Funtion that handle the show modal
   const handleShowModal = () => setShowModal(true);
 
+  //Handles the submit function
   const handleSubmit = (event) => {
     event.preventDefault();
     handleAdd(); // Call the handleDataUpdate function on form submission
@@ -77,6 +81,7 @@ const ConfigDropMdlAdd = ({
           className="configSelect"
         >
           <option value=""></option>
+          {/* Iterates trough all the brands */}
           {brands.map((brand) => (
             <option key={brand.id} value={brand.id}>
               {brand.name}
@@ -109,7 +114,9 @@ const ConfigDropMdlAdd = ({
           </button>
         </div>
       </form>
+      {/* Show the error message */}
       {error && <p className="alert">{error}</p>}
+      {/* Show the success message */}
       {successMessage && <p className="good">{successMessage}</p>}
 
       {/* The Modal */}

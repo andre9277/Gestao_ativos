@@ -45,22 +45,26 @@ const ColumnMenuFilter = ({
   orderFilter,
   filtered,
 }) => {
+  //handleSort by the title withput filter
   const handleSort = () => {
     sorting(titulo);
   };
 
+  //Sorting of the filter via the title of each column with filter On
   const handleSortFilter = () => {
     sortingFilter(tituloF);
   };
 
   return (
     <div>
+      {/* if the filter is true handle the sortfilter function */}
       {filtered === true ? (
         <span onClick={handleSortFilter} className="simb-tb">
           {tituloF}
           {orderFilter === "ASC" ? " ▲" : " ▼"}{" "}
         </span>
       ) : (
+        /* if there is no filter, use the handleSort*/
         <span onClick={handleSort} className="simb-tb">
           {titulo}
           {order === "ASC" ? " ▲" : " ▼"}{" "}

@@ -39,6 +39,7 @@ import { useStateContext } from "../context/ContextProvider";
 export default function GuestLayout() {
   const { token } = useStateContext();
 
+  //If the token exists navigate to the path: /
   if (token) {
     return <Navigate to="/" />;
   }

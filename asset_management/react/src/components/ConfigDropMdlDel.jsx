@@ -48,7 +48,9 @@ const ConfigDropMdlDel = ({
   const [selectedData, setSelectedData] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  //Function to handle the close modal
   const handleCloseModal = () => setShowModal(false);
+  //Function to handle the show modal
   const handleShowModal = () => setShowModal(true);
 
   //handles the submit of the configuration model

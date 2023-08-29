@@ -46,8 +46,10 @@ const ConfigDropAdd = ({
   successMessage,
 }) => {
   const [showModal, setShowModal] = useState(false);
-
+  //function to close the modal
   const handleCloseModal = () => setShowModal(false);
+
+  //function to show the modal
   const handleShowModal = () => setShowModal(true);
 
   const handleFormSubmit = (event) => {
@@ -92,8 +94,6 @@ const ConfigDropAdd = ({
           <Modal.Title> Confirmação</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Add content inside the modal here */}
-          {/* For example, you can display some information related to the Title */}
           <p> Tem a certeza que pretende adicionar a(o) {Title} ?</p>
         </Modal.Body>
         <Modal.Footer>

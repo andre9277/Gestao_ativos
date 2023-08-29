@@ -73,6 +73,7 @@ const AddAssetMovementForm = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    //Gets the total assets
     getTotalAssetsEve();
 
     //Gets all the entities
@@ -82,17 +83,20 @@ const AddAssetMovementForm = () => {
     getUnits();
   }, []);
 
-  //Get entities of the url
+  //Get all the entities available on the database
   const getEnts = (url) => {
     url = url || "/entities";
     axiosClient.get(url).then(({ data }) => {
+      //saves the entitys in the Ents array
       setEnts(data);
     });
   };
 
+  //Get all the units  available on the database
   const getUnits = (url) => {
     url = url || "/units";
     axiosClient.get(url).then(({ data }) => {
+      //saves the units in the units array
       setUnits(data);
     });
   };
@@ -100,6 +104,7 @@ const AddAssetMovementForm = () => {
   const getTotalAssetsEve = (url) => {
     url = url || "/allAssets";
     axiosClient.get(url).then(({ data }) => {
+      //saves all the assets data
       setAssetEve(data.data);
     });
   };
@@ -117,7 +122,9 @@ const AddAssetMovementForm = () => {
     }
   }, [errors]);
 
+  //To keep track of the mathingAsset
   let matchingAsset = null;
+  //Keeps track of the inventory number
   let matchingInv = null;
 
   if (assetEve !== null) {
@@ -161,6 +168,7 @@ const AddAssetMovementForm = () => {
 
     const userId = user.name;
 
+    //Data attibutes
     const data = {
       allocation_date: assetDate,
       ser_number: matchingInv ? matchingInv.numb_ser : serNumber,
@@ -186,10 +194,10 @@ const AddAssetMovementForm = () => {
         if (matchingAsset) {
           const updateAsset = {
             ...matchingAsset,
-            ci: assetCi !== "" ? assetCi : matchingAsset.ci, // Update asset CI only if there is a new value
-            ent_id: assetEnt !== "" ? assetEnt : matchingAsset.ent_id,
-            cond: reason !== "" ? reason : matchingAsset.cond,
-            unit_id: assetUt !== "" ? assetUt : matchingAsset.unit_id,
+            ci: assetCi !== "" ? assetCi : matchingAsset.ci, //Update asset CI only if there is a new value
+            ent_id: assetEnt !== "" ? assetEnt : matchingAsset.ent_id, // Update asset entity only if there is a new value
+            cond: reason !== "" ? reason : matchingAsset.cond, // Update asset movement reason only if there is a new value
+            unit_id: assetUt !== "" ? assetUt : matchingAsset.unit_id, // Update asset unit only if there is a new value
           };
 
           axiosClient
@@ -208,6 +216,7 @@ const AddAssetMovementForm = () => {
             });
         }
 
+        //If there is mathing inventory number
         if (matchingInv) {
           const updateAsset = {
             ...matchingInv,
@@ -390,6 +399,7 @@ const AddAssetMovementForm = () => {
             }}
           >
             <option value=""></option>
+            {/* Iterates all entities  */}
             {ents.map((ent) => (
               <option key={ent.id} value={ent.id}>
                 {ent.name}

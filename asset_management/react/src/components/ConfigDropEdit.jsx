@@ -49,11 +49,15 @@ const ConfigDropEdit = ({
   error,
   successMessage,
 }) => {
+  //keeps track of the show modal variable
   const [showModal, setShowModal] = useState(false);
 
+  //Function that handles the close modal
   const handleCloseModal = () => setShowModal(false);
+  //function that handles the show modal
   const handleShowModal = () => setShowModal(true);
 
+  //Function that allows the data submit
   const handleSubmit = (event) => {
     event.preventDefault();
     handleDataUpdate(); // Call the handleDataUpdate function on form submission
@@ -82,6 +86,7 @@ const ConfigDropEdit = ({
           className="slc-cat"
           onChange={handleDataSelection}
         >
+          {/* Iterates trough all the data */}
           {datas.map((data) => (
             <option key={data.id} value={data.name}>
               {data.name}

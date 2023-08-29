@@ -35,6 +35,7 @@ All the changes made to enable the implementation of the desired development too
 */
 import React from "react";
 
+//Gets the pagination links
 const PaginationLinks = ({ meta, onPageClick }) => {
   function onClick(ev, link) {
     ev.preventDefault();

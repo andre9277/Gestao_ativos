@@ -51,16 +51,19 @@ const Search = () => {
   const [modalTitle, setModalTitle] = useState("");
   const [modalMessage, setModalMessage] = useState("");
 
+  //Display the Modal
   const displayModal = (title, message) => {
     setModalTitle(title);
     setModalMessage(message);
     setShowModal(true);
   };
 
+  //Function to handleClose
   const handleClose = () => {
     setShowModal(false);
   };
 
+  //Error Message Timeout
   useEffect(() => {
     let timer;
     if (errorMessage) {
@@ -71,6 +74,7 @@ const Search = () => {
     return () => clearTimeout(timer); // Clear the timer if component unmounts or if the error message changes
   }, [errorMessage]);
 
+  //Gets all the assets
   useEffect(() => {
     getAssets();
   }, []);

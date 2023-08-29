@@ -45,32 +45,6 @@ const SideBar = () => {
   const [style, setStyle] = useState(
     "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
   );
-
-  const changeStyle = () => {
-    if (
-      style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-    ) {
-      setStyle(
-        "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"
-      );
-    } else {
-      setStyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
-    }
-  };
-  const changeStyle1 = () => {
-    if (
-      style == "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-    ) {
-      setStyle(
-        "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled1"
-      );
-    } else {
-      setStyle("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
-    }
-  };
-
-  /*  const [activeOption, setActiveOption] = useState("dashboard"); ------------------*/
-
   //Handles the option clicked and sets to active:
   const handleOptionClick = (option) => {
     setActiveOption(option);
@@ -206,20 +180,6 @@ const SideBar = () => {
       <a className="scroll-to-top rounded" href="#top">
         <i className="fas fa-angle-up"></i>
       </a>
-      <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-        <div id="content-wrapper" className="d-flex flex-column">
-          <div id="content">
-            {/*  <!-- Sidebar Toggle (Topbar) --> */}
-            <button
-              id="sidebarToggleTop"
-              className="btn btn-link d-md-none rounded-circle mr-3"
-              onClick={changeStyle1}
-            >
-              <i className="fa fa-bars"></i>
-            </button>
-          </div>
-        </div>
-      </nav>
     </>
   );
 };

@@ -36,6 +36,7 @@ All the changes made to enable the implementation of the desired development too
 import React from "react";
 
 const SelectFilter = ({ data, handleFunc, selectedF, title }) => {
+  //variable to keep track of the key number:
   let i = 0;
   return (
     <div className="dropdown-ind">
@@ -43,7 +44,7 @@ const SelectFilter = ({ data, handleFunc, selectedF, title }) => {
       <label className="titleFiltAsset">{title}</label>
       <select className="filtAsset-tab" onChange={handleFunc} value={selectedF}>
         <option value=""></option>
-
+        {/* Iterates on all the data */}
         {data.map((dat) => (
           <option key={`${dat}+${i++}`} value={dat.name}>
             {dat.name}

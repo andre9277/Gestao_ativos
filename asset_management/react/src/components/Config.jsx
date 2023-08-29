@@ -1484,6 +1484,7 @@ const Config = () => {
         </div>
       ) : (
         <>
+          {/* Only show the "Seguinte" button if there is only 1 option displayed */}
           {selectedFirstOption === "" ? (
             <button onClick={handleNextButtonClick} className="next-conf">
               Seguinte

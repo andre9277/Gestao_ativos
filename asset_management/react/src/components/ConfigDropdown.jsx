@@ -47,7 +47,9 @@ const ConfigDropdown = ({
   const [showModal, setShowModal] = useState(false);
   const [selectedValue, setSelectedValue] = useState(""); // New state to store the selected value
 
+  //function that handles the modal close
   const handleCloseModal = () => setShowModal(false);
+  //function that handles to show the modal
   const handleShowModal = () => setShowModal(true);
 
   const handleFormSubmit = (event) => {
@@ -57,6 +59,7 @@ const ConfigDropdown = ({
     handleCloseModal(); // Close the modal after saving data
   };
 
+  //handles the select from the data
   const handleSelectChange = (event) => {
     const selectedId = event.target.value;
     const selectedData = datas.find(
@@ -86,6 +89,7 @@ const ConfigDropdown = ({
           className="slc-cat"
           onChange={handleSelectChange} // Call handleSelectChange when the selection changes
         >
+          {/* Iterates trough all the datas */}
           {datas.map((data) => (
             <option key={data.id} value={data.id}>
               {data.name}
@@ -113,9 +117,11 @@ const ConfigDropdown = ({
           </div>
         )}
       </form>
+      {/* Displays the error message */}
       {error && <p className="alert">{error}</p>}
+      {/* Displays the success message*/}
       {successMessage && <p className="good">{successMessage}</p>}
-
+      {/* Modal to confirm the action */}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Confirmação</Modal.Title>

@@ -42,9 +42,11 @@ import Footer from "./Footer";
 import SideBarGuest from "./SideBarGuest";
 
 export default function DefaultLayout() {
+  //StateContext gets the values of user, token, setUser, setToken, notification, setActiveOption
   const { user, token, setUser, setToken, notification, setActiveOption } =
     useStateContext();
 
+  // if token does not exist: redirect the user to the login page
   if (!token) {
     return <Navigate to="/login" />;
   }
@@ -58,6 +60,7 @@ export default function DefaultLayout() {
     });
   };
 
+  //Gets the user data
   useEffect(() => {
     axiosClient.get("/user").then(({ data }) => {
       setUser(data);
@@ -66,8 +69,10 @@ export default function DefaultLayout() {
 
   return (
     <div id="defaultLayout">
+      {/* Guest Sidebar  */}
       <SideBarGuest />
       <div className="content">
+        {/* Shows the TopBar for the User "Manutencao" */}
         <TopBar
           user={user}
           onLogout={onLogout}

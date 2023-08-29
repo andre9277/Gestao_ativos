@@ -136,6 +136,7 @@ const DeleteRelationConfig = ({
             value={selectedValue}
             multiple
           >
+            {/* Iterates on all relations */}
             {relations.map((relation) => (
               <option key={relation.id}>
                 {" "}
@@ -173,7 +174,9 @@ const DeleteRelationConfig = ({
           )}
         </div>
       </form>
+      {/* Shows the error message */}
       {error && <p className="errorMessag">{error}</p>}
+      {/* Shows the success message */}
       {successMessage && <p className="successMessag">{successMessage}</p>}
 
       {/* Modal to delete the Category/Brand */}
