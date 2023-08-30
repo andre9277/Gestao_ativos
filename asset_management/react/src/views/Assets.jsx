@@ -738,9 +738,11 @@ export default function Assets() {
                   <tbody>
                     {!isButtonClicked && filteredAllocations.length === 0 ? (
                       assets.length === 0 ? (
-                        <span className="lgTextF-asset">
-                          Atenção! De momento ainda não existem ativos.
-                        </span>
+                        <tr>
+                          <td className="lgTextF-asset">
+                            Atenção! De momento ainda não existem ativos.
+                          </td>
+                        </tr>
                       ) : (
                         /* Iteration trough all the assets on a table */
                         assets.map((a) => (
@@ -846,21 +848,22 @@ export default function Assets() {
           <div className="space-mov"></div>
           {/*Pagination without filters*/}
           <div className="pagination-container">
-            {!loading && filtered === false ? (
-              <PaginationLinks meta={meta} onPageClick={onPageClick} />
-            ) : filteredAllocations.length === 0 ? (
-              ""
-            ) : (
-              <>
-                {/*Pagination with filters*/}
-                <PaginationFilter
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
-                  resultsPerPage={resultsPerPage}
-                  totalResults={totalResults}
-                />
-              </>
-            )}
+            {assets.length !== 0 &&
+              (!loading && filtered === false ? (
+                <PaginationLinks meta={meta} onPageClick={onPageClick} />
+              ) : filteredAllocations.length === 0 ? (
+                ""
+              ) : (
+                <>
+                  {/* Pagination with filters */}
+                  <PaginationFilter
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    resultsPerPage={resultsPerPage}
+                    totalResults={totalResults}
+                  />
+                </>
+              ))}
           </div>
         </div>
       </div>

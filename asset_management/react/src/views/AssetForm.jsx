@@ -493,15 +493,11 @@ export default function AssetForm() {
                 {brands.length === 0 ? (
                   <option>{asset.brand && asset.brand.name}</option> // Add null check for asset.brand
                 ) : (
-                  {
-                    /* Iteration between all brands */
-                  }(
-                    brands.map((brand) => (
-                      <option key={brand.id} value={brand.id}>
-                        {brand.name}
-                      </option>
-                    ))
-                  )
+                  brands.map((brand) => (
+                    <option key={brand.id} value={brand.id}>
+                      {brand.name}
+                    </option>
+                  ))
                 )}
               </select>
               {/* Error message for the brand label */}

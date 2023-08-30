@@ -715,7 +715,6 @@ const ReportPage = () => {
                 )}
                 {!loading && (
                   <tbody>
-                    {console.log("aa", assets.length)}
                     {!isButtonClicked && filteredAllocations.length === 0 ? (
                       /*Asset Movements */
                       assets.length === 0 ? (
