@@ -737,43 +737,49 @@ export default function Assets() {
                 {!loading && (
                   <tbody>
                     {!isButtonClicked && filteredAllocations.length === 0 ? (
-                      /* Iteration trough all the assets on a table */
-                      assets.map((a) => (
-                        <tr key={a.id}>
-                          <td className="table-words-l">{a.category.name}</td>
-                          <td className="table-words-l">{a.brand.name}</td>
-                          <td className="table-words-l">{a.modelo.name}</td>
-                          <td className="tb-normal">{a.numb_inv}</td>
-                          <td className="table-words-l">{a.numb_ser}</td>
-                          <td className="table-words-l">{a.entity.name}</td>
-                          <td className="table-words-l">
-                            {a.units === null ? "" : a.units.name}
-                          </td>
-                          <td>{a.floor}</td>
-                          <td>{a.ala}</td>
-                          <td className="table-words-l">{a.ci}</td>
-                          <td>
-                            {a.state === "Ativo" ? (
-                              <div className="circle active"></div>
-                            ) : (
-                              <div className="circle inactive"></div>
-                            )}
-                          </td>
-                          <td className="table-numb-r">{a.created_at}</td>
-
-                          {user.role_id === 3 ? null : (
-                            <td>
-                              <input
-                                type="checkbox"
-                                name=""
-                                id=""
-                                onChange={() => toggleCheck(a.id)}
-                                value={a.checked}
-                              />
+                      assets.length === 0 ? (
+                        <span className="lgTextF-asset">
+                          Atenção! De momento ainda não existem ativos.
+                        </span>
+                      ) : (
+                        /* Iteration trough all the assets on a table */
+                        assets.map((a) => (
+                          <tr key={a.id}>
+                            <td className="table-words-l">{a.category.name}</td>
+                            <td className="table-words-l">{a.brand.name}</td>
+                            <td className="table-words-l">{a.modelo.name}</td>
+                            <td className="tb-normal">{a.numb_inv}</td>
+                            <td className="table-words-l">{a.numb_ser}</td>
+                            <td className="table-words-l">{a.entity.name}</td>
+                            <td className="table-words-l">
+                              {a.units === null ? "" : a.units.name}
                             </td>
-                          )}
-                        </tr>
-                      ))
+                            <td>{a.floor}</td>
+                            <td>{a.ala}</td>
+                            <td className="table-words-l">{a.ci}</td>
+                            <td>
+                              {a.state === "Ativo" ? (
+                                <div className="circle active"></div>
+                              ) : (
+                                <div className="circle inactive"></div>
+                              )}
+                            </td>
+                            <td className="table-numb-r">{a.created_at}</td>
+
+                            {user.role_id === 3 ? null : (
+                              <td>
+                                <input
+                                  type="checkbox"
+                                  name=""
+                                  id=""
+                                  onChange={() => toggleCheck(a.id)}
+                                  value={a.checked}
+                                />
+                              </td>
+                            )}
+                          </tr>
+                        ))
+                      )
                     ) : filteredAllocations.length === 0 ? (
                       <tr>
                         <td colSpan="5" className="lgTextF-asset">

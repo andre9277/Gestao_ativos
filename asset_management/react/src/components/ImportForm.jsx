@@ -271,7 +271,6 @@ const ImportForm = () => {
             break; // Stop processing remaining rows
           }
         }
-
         if (isValidFile) {
           // Continue with the API call using the validated rows
           formData.append("rows", JSON.stringify(validRows));
@@ -459,8 +458,6 @@ const ImportForm = () => {
       .then((response) => {
         setLoading(false);
         setBrands(response.data);
-        /*       console.log(selectedCategory);
-        console.log(brands); */
       })
       .catch((error) => {
         setLoading(false);

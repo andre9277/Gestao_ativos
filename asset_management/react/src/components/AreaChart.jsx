@@ -49,7 +49,7 @@ ChartJS.register(CategoryScale, BarElement, LinearScale);
 const AreaChart = ({ assets }) => {
   //initialize all assets and entities (mount hook is called 2x)
   useEffect(() => {
-    getEntities();
+    getEntities(); //Gets all the entity data
   }, []);
 
   const [charts, setCharts] = useState([]);
@@ -65,6 +65,7 @@ const AreaChart = ({ assets }) => {
 
   //Chart (bar):
   var data = {
+    //Iterates trough all the name of charts
     labels: charts.map((x) => x.name),
     datasets: [
       {

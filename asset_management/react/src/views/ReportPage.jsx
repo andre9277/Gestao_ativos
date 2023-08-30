@@ -715,103 +715,111 @@ const ReportPage = () => {
                 )}
                 {!loading && (
                   <tbody>
+                    {console.log("aa", assets.length)}
                     {!isButtonClicked && filteredAllocations.length === 0 ? (
                       /*Asset Movements */
-                      assets
-                        .sort((a, b) => {
-                          const dateA = getAllocationData(a.id).date;
-                          const dateB = getAllocationData(b.id).date;
-                          return new Date(dateB) - new Date(dateA);
-                        })
-                        .map((asset, index) => {
-                          const allocationData = getAllocationData(asset.id);
-                          const filteredTogJoin = togJoin
-                            .filter(
-                              (assetJoin) => assetJoin.asset_id === asset.id
-                            )
-                            .sort(
-                              (a, b) =>
-                                new Date(b.created_at) - new Date(a.created_at)
+                      assets.length === 0 ? (
+                        <span className="lgTextF-asset">
+                          Atenção! Não existem Movimentos de ativos.
+                        </span>
+                      ) : (
+                        assets
+                          .sort((a, b) => {
+                            const dateA = getAllocationData(a.id).date;
+                            const dateB = getAllocationData(b.id).date;
+                            return new Date(dateB) - new Date(dateA);
+                          })
+                          .map((asset, index) => {
+                            const allocationData = getAllocationData(asset.id);
+                            const filteredTogJoin = togJoin
+                              .filter(
+                                (assetJoin) => assetJoin.asset_id === asset.id
+                              )
+                              .sort(
+                                (a, b) =>
+                                  new Date(b.created_at) -
+                                  new Date(a.created_at)
+                              );
+
+                            const firstOtherInfo =
+                              filteredTogJoin.length > 0
+                                ? filteredTogJoin[0].other
+                                : null;
+
+                            return (
+                              <tr key={`${asset.id}-${index}`}>
+                                <td>{asset.numb_inv}</td>
+                                <td className="table-words-l">
+                                  {asset.numb_ser}
+                                </td>
+                                <td className="table-words-l">
+                                  {asset.category.name}
+                                </td>
+
+                                <td className="table-words-l">
+                                  {asset.previous_unit_id === null
+                                    ? filtered_entities(asset.previous_ent_id)
+                                    : filtered_units(asset.previous_unit_id)}
+                                </td>
+
+                                <td className="table-words-l">
+                                  {asset.units === null
+                                    ? asset.entity.name
+                                    : asset.units.name}
+                                </td>
+                                <td className="table-words-l">
+                                  {asset.previous_ci}
+                                </td>
+                                <td className="table-words-l">{asset.ci}</td>
+
+                                <td className="table-words-l">
+                                  {asset.user === undefined
+                                    ? allocationData.user
+                                    : asset.user}
+                                </td>
+                                <td className="table-numb-r">
+                                  {asset.allocation_date === undefined
+                                    ? allocationData.date
+                                    : asset.allocation_date}
+                                </td>
+                                <td>
+                                  {firstOtherInfo === null ? (
+                                    ""
+                                  ) : (
+                                    <>
+                                      <i
+                                        className="fa fa-info-circle"
+                                        aria-hidden="true"
+                                        onClick={() =>
+                                          handleDropdownToggle(asset.id)
+                                        }
+                                        title="Observação"
+                                      ></i>
+                                      {selectedAsset === asset.id &&
+                                        showDropdown && (
+                                          <div
+                                            className={`dropdown-info-mov ${
+                                              showDropdown ? "show" : ""
+                                            }`}
+                                          >
+                                            {/* Dropdown content */}
+                                            {/* This will be shown when the user clicks the icon */}
+                                            <h6 className="titl-obs-mov">
+                                              Observações
+                                            </h6>
+                                            <p className="obs-mov-asset">
+                                              {" "}
+                                              {firstOtherInfo}
+                                            </p>
+                                          </div>
+                                        )}
+                                    </>
+                                  )}
+                                </td>
+                              </tr>
                             );
-
-                          const firstOtherInfo =
-                            filteredTogJoin.length > 0
-                              ? filteredTogJoin[0].other
-                              : null;
-
-                          return (
-                            <tr key={`${asset.id}-${index}`}>
-                              <td>{asset.numb_inv}</td>
-                              <td className="table-words-l">
-                                {asset.numb_ser}
-                              </td>
-                              <td className="table-words-l">
-                                {asset.category.name}
-                              </td>
-
-                              <td className="table-words-l">
-                                {asset.previous_unit_id === null
-                                  ? filtered_entities(asset.previous_ent_id)
-                                  : filtered_units(asset.previous_unit_id)}
-                              </td>
-
-                              <td className="table-words-l">
-                                {asset.units === null
-                                  ? asset.entity.name
-                                  : asset.units.name}
-                              </td>
-                              <td className="table-words-l">
-                                {asset.previous_ci}
-                              </td>
-                              <td className="table-words-l">{asset.ci}</td>
-
-                              <td className="table-words-l">
-                                {asset.user === undefined
-                                  ? allocationData.user
-                                  : asset.user}
-                              </td>
-                              <td className="table-numb-r">
-                                {asset.allocation_date === undefined
-                                  ? allocationData.date
-                                  : asset.allocation_date}
-                              </td>
-                              <td>
-                                {firstOtherInfo === null ? (
-                                  ""
-                                ) : (
-                                  <>
-                                    <i
-                                      className="fa fa-info-circle"
-                                      aria-hidden="true"
-                                      onClick={() =>
-                                        handleDropdownToggle(asset.id)
-                                      }
-                                      title="Observação"
-                                    ></i>
-                                    {selectedAsset === asset.id &&
-                                      showDropdown && (
-                                        <div
-                                          className={`dropdown-info-mov ${
-                                            showDropdown ? "show" : ""
-                                          }`}
-                                        >
-                                          {/* Dropdown content */}
-                                          {/* This will be shown when the user clicks the icon */}
-                                          <h6 className="titl-obs-mov">
-                                            Observações
-                                          </h6>
-                                          <p className="obs-mov-asset">
-                                            {" "}
-                                            {firstOtherInfo}
-                                          </p>
-                                        </div>
-                                      )}
-                                  </>
-                                )}
-                              </td>
-                            </tr>
-                          );
-                        })
+                          })
+                      )
                     ) : filteredAllocations.length === 0 ? (
                       <tr>
                         <td colSpan="5" className="lgTextF-asset-mov">
