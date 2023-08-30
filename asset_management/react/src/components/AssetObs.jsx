@@ -108,7 +108,7 @@ const AssetObs = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {/* Iterates trough all the assets */}
+                      {/* Iterates trough all the assets with condition equal to Obsoleto*/}
                       {assets.map((a) =>
                         a.cond === "Obsoleto" ? (
                           <tr key={a.id}>

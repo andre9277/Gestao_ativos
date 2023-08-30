@@ -284,8 +284,11 @@ const ImportForm = () => {
             })
             .then((response) => {
               if (response.status === 200) {
-                /*   window.location.reload(); //Refresh the page */
                 setSuccessMessage("Ficheiro importado com sucesso!");
+                // Display the message for a time and then reload the page
+                setTimeout(function () {
+                  window.location.reload();
+                }, 2000); // 2000 milliseconds = 2 seconds
               } else {
                 throw new Error("Erro inesperado do servidor!");
               }
@@ -516,10 +519,10 @@ const ImportForm = () => {
             <p></p>
             <label htmlFor="fileInput" className="impLab">
               <p></p>
+              <p className="camp-obs-mov">*Campo Obrigatório</p>
               <h2>Dados dos ativos:</h2>
             </label>
             <hr className="custom-hr" />
-            <p className="camp-obs-mov">*Campo Obrigatório</p>
             <p></p>
 
             {/* ---------- Category ----------*/}
