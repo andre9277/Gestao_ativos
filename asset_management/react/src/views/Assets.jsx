@@ -739,7 +739,7 @@ export default function Assets() {
                     {!isButtonClicked && filteredAllocations.length === 0 ? (
                       assets.length === 0 ? (
                         <tr>
-                          <td className="lgTextF-asset">
+                          <td className="lgTextF-asset-mov">
                             Atenção! De momento ainda não existem ativos.
                           </td>
                         </tr>
@@ -784,7 +784,7 @@ export default function Assets() {
                       )
                     ) : filteredAllocations.length === 0 ? (
                       <tr>
-                        <td colSpan="5" className="lgTextF-asset">
+                        <td colSpan="5" className="lgTextF-asset-mov">
                           Atenção: Não existe(m) resultado(s) para o(s)
                           filtro(s) selecionado(s)!
                         </td>

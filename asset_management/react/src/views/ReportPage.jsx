@@ -718,9 +718,12 @@ const ReportPage = () => {
                     {!isButtonClicked && filteredAllocations.length === 0 ? (
                       /*Asset Movements */
                       assets.length === 0 ? (
-                        <span className="lgTextF-asset">
-                          Atenção! Não existem Movimentos de ativos.
-                        </span>
+                        <tr>
+                          <td className="lgTextF-asset-mov">
+                            Atenção! De momento não existem movimentos de
+                            ativos.
+                          </td>
+                        </tr>
                       ) : (
                         assets
                           .sort((a, b) => {
@@ -822,8 +825,8 @@ const ReportPage = () => {
                     ) : filteredAllocations.length === 0 ? (
                       <tr>
                         <td colSpan="5" className="lgTextF-asset-mov">
-                          Não existe(m) resultado(s) para o(s) filtro(s)
-                          selecionado(s)!
+                          Atenção: Não existe(m) resultado(s) para o(s)
+                          filtro(s) selecionado(s)!
                         </td>
                       </tr>
                     ) : (
@@ -938,21 +941,22 @@ const ReportPage = () => {
           <div className="space-mov"></div>
           {/*Pagination without filters*/}
           <div className="pagination-container">
-            {filtered === false && !loading ? (
-              <PaginationLinks meta={meta} onPageClick={onPageClick} />
-            ) : filteredAllocations.length === 0 ? (
-              ""
-            ) : (
-              <>
-                {/*Pagination with filters*/}
-                <PaginationFilter
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
-                  resultsPerPage={resultsPerPage}
-                  totalResults={totalResults}
-                />
-              </>
-            )}
+            {assets.length !== 0 &&
+              (!loading && filtered === false ? (
+                <PaginationLinks meta={meta} onPageClick={onPageClick} />
+              ) : filteredAllocations.length === 0 ? (
+                ""
+              ) : (
+                <>
+                  {/* Pagination with filters */}
+                  <PaginationFilter
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    resultsPerPage={resultsPerPage}
+                    totalResults={totalResults}
+                  />
+                </>
+              ))}
           </div>
         </div>
       </div>
