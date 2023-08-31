@@ -144,13 +144,13 @@ function Dashboard() {
           {/*  <!-- Content Row --> */}
 
           <div className="row-dash">
-            {/*   <!-- Area Chart --> */}
+            {/*   <!-- Area Chart Assets/Entity --> */}
             <AreaChart assets={assets} />
-
-            {/*  <!-- Pie Chart --> */}
-
+            {/*  <!-- Pie Chart Asset/Category --> */}
             <PieChart assets={assets} />
+            {/*  <!-- Pie Chart Active --> */}
             <PieChartActive assets={assetsState} />
+            {/*  <!-- Area Chart Total Movement/User --> */}
             <AreaChartUser />
           </div>
         </div>

@@ -40,13 +40,17 @@ import { Chart as ChartJS, Tooltip, Legend, ArcElement } from "chart.js";
 ChartJS.register(Tooltip, Legend, ArcElement);
 
 const PieChartActive = ({ assets }) => {
+  //Count of Asset with "Active"
   let activeAssetsCount = 0;
+  //Count of Asset with "Inactive"
   let inactiveAssetsCount = 0;
 
   assets.forEach((asset) => {
     if (asset.state === "Ativo") {
+      //Keeps track of the values of the asset with value equal to "Ativo"
       activeAssetsCount++;
     } else if (asset.state === "Inativo") {
+      //Keeps track of the values of the asset with value equal to "Inativo"
       inactiveAssetsCount++;
     }
   });
@@ -57,8 +61,8 @@ const PieChartActive = ({ assets }) => {
       {
         data: [activeAssetsCount, inactiveAssetsCount],
         borderWidth: 1,
-        backgroundColor: ["rgba(54,162,235,0.2)", "rgba(255,99,132,0.2)"],
-        borderColor: ["rgba(54,162,235,1)", "rgba(255,99,132,1)"],
+        backgroundColor: ["rgba(0, 120, 64, 0.2)", "rgba(255,0,0,0.2)"],
+        borderColor: ["rgba(0, 120, 64, 1)", "rgba(255,0,0,1)"],
       },
     ],
   };
@@ -87,6 +91,7 @@ const PieChartActive = ({ assets }) => {
           </h5>
         </div>
         <div>
+          {/* Values to build the pie chart graph: 400, and with all the data/options */}
           <Pie height={400} data={data} options={options} />
         </div>
       </div>
