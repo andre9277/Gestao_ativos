@@ -86,7 +86,9 @@ const AssetRep = () => {
           {loading ? (
             <p className="lgText-asset">A carregar...</p>
           ) : assets.filter((a) => a.cond === "Reparação").length === 0 ? (
-            <p className="lgTextF-asset">Não existem ativos em reparação</p>
+            <p className="lgTextF-asset-mov">
+              Atenção: Não existem ativos em reparação.
+            </p>
           ) : (
             <div className="asset-table">
               <div className="asset-table-container">

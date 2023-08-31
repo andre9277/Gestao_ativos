@@ -83,7 +83,7 @@ const PieChartActive = ({ assets }) => {
       <div className="card shadow mb-2">
         <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
           <h5 className="m-0 font-weight-bold graf-dash-gr">
-            Estado dos Ativos
+            Proporção de Ativos e Inativos
           </h5>
         </div>
         <div>
