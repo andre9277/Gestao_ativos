@@ -33,38 +33,65 @@ Department: Serviço de Sistema de Informação
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
-import axios from "axios";
+import React from "react";
+import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, Tooltip, Legend, ArcElement } from "chart.js";
 
-//Using the Axios library to perform HTTP requests
+ChartJS.register(Tooltip, Legend, ArcElement);
 
-const axiosClient = axios.create({
-  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
-}); //created an instance of axios with a baseURL which is obtained by the .env variable
+const PieChartActive = ({ assets }) => {
+  let activeAssetsCount = 0;
+  let inactiveAssetsCount = 0;
 
-//Two interceptors (one for the request and one for the response)
-
-//Add authorization with a JWT access token taken from localStorage
-axiosClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem("ACCESS_TOKEN");
-  config.headers.Authorization = `Bearer ${token}`;
-  return config;
-});
-
-//Checks the status of the response and performs the action according to the code it receives
-axiosClient.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
-    const { response } = error;
-    if (response.status === 401) {
-      localStorage.removeItem("ACCESS_TOKEN");
-    } else if (response.status === 404) {
+  assets.forEach((asset) => {
+    if (asset.state === "Ativo") {
+      activeAssetsCount++;
+    } else if (asset.state === "Inativo") {
+      inactiveAssetsCount++;
     }
+  });
 
-    throw error;
-  }
-);
+  const data = {
+    labels: ["Ativo", "Inativo"],
+    datasets: [
+      {
+        data: [activeAssetsCount, inactiveAssetsCount],
+        borderWidth: 1,
+        backgroundColor: ["rgba(54,162,235,0.2)", "rgba(255,99,132,0.2)"],
+        borderColor: ["rgba(54,162,235,1)", "rgba(255,99,132,1)"],
+      },
+    ],
+  };
 
-export default axiosClient;
-//export to be able to make HTTP requests and getting the responses
+  const options = {
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: "top",
+        labels: {
+          font: {
+            size: 16,
+          },
+        },
+      },
+    },
+  };
+
+  return (
+    <div className="col-xl-4 col-lg-7">
+      <div className="card shadow mb-2">
+        <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h5 className="m-0 font-weight-bold graf-dash-gr">
+            Estado dos Ativos
+          </h5>
+        </div>
+        <div>
+          <Pie height={400} data={data} options={options} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PieChartActive;

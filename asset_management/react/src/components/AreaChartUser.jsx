@@ -33,71 +33,80 @@ Department: Serviço de Sistema de Informação
 
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
+
+//Imports react librarys:
 import React from "react";
+//Imports elements about chart building
 import {
   Chart as ChartJS,
   BarElement,
   LinearScale,
   CategoryScale,
 } from "chart.js";
+//For the Bar Graph
 import { Bar } from "react-chartjs-2";
 import { useEffect, useState } from "react";
+//For the API call to the users:
 import axiosClient from "../axios-client.js";
 
 ChartJS.register(CategoryScale, BarElement, LinearScale);
 
-const AreaChart = ({ assets }) => {
-  //initialize all assets and entities (mount hook is called 2x)
-  useEffect(() => {
-    getEntities(); //Gets all the entity data
-  }, []);
-
+const AreaChartUser = () => {
   const [charts, setCharts] = useState([]);
 
+  useEffect(() => {
+    getAllocations();
+  }, []);
+
   //Performs a client access request to entities
-  const getEntities = (url) => {
-    url = url || "/entities";
+  const getAllocations = (url) => {
+    url = url || "/allocationAll";
 
     axiosClient.get(url).then(({ data }) => {
-      setCharts(data);
+      setCharts(data.data);
     });
   };
+  /*  console.log("typeof", charts); */
+  // Calculate total allocations per user
+  const allocationsPerUser = {};
+  charts.forEach((entry) => {
+    const userId = entry.user_id;
+    allocationsPerUser[userId] = (allocationsPerUser[userId] || 0) + 1;
+  });
 
-  //Chart (bar):
-  var data = {
-    //Iterates trough all the name of charts
-    labels: charts.map((x) => x.name),
+  // Format data for chart
+  const labels = Object.keys(allocationsPerUser);
+  const dataValues = Object.values(allocationsPerUser);
+
+  // Create the chart data object
+  const chartData = {
+    labels: labels,
     datasets: [
       {
-        label: "Total de ativos",
-        data: charts.map((x) => {
-          let count = 0;
-          assets.forEach((y) => {
-            if (y.ent_id === x.id) {
-              count++;
-            }
-          });
-          return count;
-        }),
+        label: "Total Allocations",
+        data: dataValues,
         borderWidth: 1,
         backgroundColor: [
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255,159,64,0.2)",
-          "rgba(153,102,255,0.2)",
-          "rgba(255,206,86,0.2)",
-          "rgba(75,192,192,0.2)",
+          "rgba(14, 100, 35, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
+
+          "rgba(255, 206, 86, 0.2)",
         ],
         borderColor: [
-          "rgba(54, 162, 235, 1)",
-          "rgba(255,159,64,1)",
-          "rgba(153,102,255,1)",
-          "rgba(255,206,86,1)",
-          "rgba(75,192,192,1)",
+          "rgba(14, 100, 35, 1)",
+          "rgba(153, 102, 255, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(255, 159, 64, 1)",
+
+          "rgba(255, 206, 86, 1)",
         ],
       },
     ],
   };
-  var options = {
+
+  const options = {
     maintainAspectRatio: false,
     plugins: {
       legend: {
@@ -112,7 +121,6 @@ const AreaChart = ({ assets }) => {
           },
         },
       },
-
       y: {
         beginAtZero: true,
         ticks: {
@@ -124,22 +132,21 @@ const AreaChart = ({ assets }) => {
       },
     },
   };
+
   return (
     <div className="col-xl-8 col-lg-7">
       <div className="card shadow mb-4">
-        {/*  <!-- Card Header - Dropdown --> */}
         <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
           <h5 className="m-0 font-weight-bold graf-dash-gr">
-            Total de Ativos/Entidade
+            Total de Movimentos/Utilizador
           </h5>
         </div>
-        {/*  <!-- Card Body --> */}
         <div>
-          <Bar height={400} data={data} options={options} />
+          <Bar height={400} data={chartData} options={options} />
         </div>
       </div>
     </div>
   );
 };
 
-export default AreaChart;
+export default AreaChartUser;

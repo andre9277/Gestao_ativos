@@ -463,7 +463,10 @@ const AddAssetMovementForm = () => {
 
         {/* ---------- CI Now ----------*/}
         <label className="lb-info">
-          <label className="labelofLabel"> CI destino: </label>
+          <label className="labelofLabel">
+            {" "}
+            CI destino:<label className="cmp-obg">*</label>
+          </label>
           <input
             value={assetCi}
             onChange={(e) => setAssetCi(e.target.value)}

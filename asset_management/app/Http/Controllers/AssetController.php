@@ -35,6 +35,14 @@ class AssetController extends Controller
         return response()->json($dashb);
     }
 
+    //For the dashboard grafics
+    public function indexState()
+    {
+        $dashb = Asset::select(['state'])->get();
+        return response()->json($dashb);
+    }
+
+
 
     //Filter values for the ci, ent_id or unit_id atributes
     public function filterValues()

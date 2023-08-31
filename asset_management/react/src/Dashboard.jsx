@@ -40,15 +40,19 @@ import AreaChart from "./components/AreaChart";
 import PieChart from "./components/PieChart";
 import { useState, useEffect } from "react";
 import axiosClient from "./axios-client.js";
+import AreaChartUser from "./components/AreaChartUser";
+import PieChartActive from "./components/PieChartActive";
 
 function Dashboard() {
   const [assetTotal, setAssetTotal] = useState("");
   const [assets, setAssets] = useState([]);
+  const [assetsState, setAssetsState] = useState([]);
 
   useEffect(() => {
     const abortController = new AbortController();
     getTotalAssets(abortController.signal);
     getAssets(abortController.signal);
+    getAssetsState(abortController.signal);
 
     return () => {
       abortController.abort();
@@ -68,6 +72,14 @@ function Dashboard() {
     axiosClient.get(url, { signal }).then(({ data }) => {
       // update the state with all the assets
       setAssets(data);
+    });
+  };
+
+  const getAssetsState = (signal, url) => {
+    url = url || "/indexState";
+    axiosClient.get(url, { signal }).then(({ data }) => {
+      // update the state with all the assets
+      setAssetsState(data);
     });
   };
 
@@ -138,6 +150,8 @@ function Dashboard() {
             {/*  <!-- Pie Chart --> */}
 
             <PieChart assets={assets} />
+            <PieChartActive assets={assetsState} />
+            <AreaChartUser />
           </div>
         </div>
         {/*   <!-- /.container-fluid --> */}
