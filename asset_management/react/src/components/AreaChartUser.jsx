@@ -87,7 +87,7 @@ const AreaChartUser = () => {
         data: dataValues,
         borderWidth: 1,
         backgroundColor: [
-          "rgba(14, 142, 35, 0.2)",
+          "rgba(8, 500, 35, 0.2)",
           "rgba(153, 102, 255, 0.2)",
           "rgba(75, 192, 192, 0.2)",
           "rgba(255, 159, 64, 0.2)",
@@ -95,7 +95,7 @@ const AreaChartUser = () => {
           "rgba(255, 206, 86, 0.2)",
         ],
         borderColor: [
-          "rgba(14, 142, 35, 1)",
+          "rgba(8, 500, 35, 1)",
           "rgba(153, 102, 255, 1)",
           "rgba(75, 192, 192, 1)",
           "rgba(255, 159, 64, 1)",
