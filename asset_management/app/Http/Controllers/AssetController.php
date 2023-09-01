@@ -104,13 +104,18 @@ class AssetController extends Controller
     public function store(StoreAssetRequest $request)
     {
         $this->authorize('create-edit');
-
+    
         $data = $request->all();
         $data['import_type'] = 'bulk'; // Set the import_type field to "bulk"
-
+    
         $asset = Asset::create($data);
-
-        // Create a new allocation record for the asset with action type "create"
+    
+        // Check if the condition is "Obsoleto" and update the Ci attribute if true
+        if ($asset->cond === "Obsoleto") {
+            $asset->update(['ci' => 'Armazém']);
+        }
+    
+        // Create a new allocation record for the asset with action type "Adiciona"
         $allocation = new Allocation([
             'allocation_date' => now(),
             'action_type' => 'Adiciona',
@@ -118,13 +123,13 @@ class AssetController extends Controller
             'user_id' => auth()->user()->name,
             'reason' => "",
         ]);
-
+    
         // Associate the new allocation record with the asset
         $asset->allocations()->save($allocation);
-
+    
         return $asset;
     }
-
+    
 
     //For the dashboard statistics
     public function count(Asset $asset)
@@ -193,26 +198,31 @@ class AssetController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateAssetRequest $request, Asset $asset)
-    {
-        $this->authorize('create-edit');
+{
+    $this->authorize('create-edit');
 
+    $data = $request->all();
 
-        //$asset = Asset::find($id);
-        $asset->update($request->all());
-
-        // Get the last allocation
-        $lastAllocation = Allocation::latest()->first();
-        // Extract the fields if the allocation exists
-        $other = $lastAllocation ? $lastAllocation->other : null;
-        $reason = $lastAllocation ? $lastAllocation->reason : null;
-
-
-        // Set the "import_type" column to null
-        $asset->import_type = null;
-        $asset->save();
-
-        return $asset;
+    // Check if the condition is "Obsoleto" and update the Ci attribute if true
+    if ($data['cond'] === "Obsoleto") {
+        $data['ci'] = 'Armazém';
     }
+
+    $asset->update($data);
+
+    // Get the last allocation
+    $lastAllocation = Allocation::latest()->first();
+    // Extract the fields if the allocation exists
+    $other = $lastAllocation ? $lastAllocation->other : null;
+    $reason = $lastAllocation ? $lastAllocation->reason : null;
+
+    // Set the "import_type" column to null
+    $asset->import_type = null;
+    $asset->save();
+
+    return $asset;
+}
+
 
     /**
      * Remove the specified resource from storage.

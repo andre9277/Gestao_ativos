@@ -138,7 +138,7 @@ const AssetInfo = () => {
                 <div className="container">
                   <h2 className="headerInfoAsset">Dados gerais</h2>
                   <hr className="custom-hr" />
-                  <p></p>
+
                   {/* ---Category--- */}
                   <ul className="lb-infoAsset-informat">
                     <p></p>
@@ -280,7 +280,7 @@ const AssetInfo = () => {
                     <hr className="custom-hr" />
                     <p></p>
                     <ul>
-                      {/* ---Name Supplier--- */}
+                      {/* ---Supplier Name--- */}
                       <ol className="lb-infoAsset-informat">
                         <label className="lb-infoAsset2-informat">
                           Nome:{" "}
@@ -289,7 +289,7 @@ const AssetInfo = () => {
                           </h6>
                         </label>{" "}
                       </ol>
-                      {/* ---Email Supplier--- */}
+                      {/* ---Supplier Email--- */}
                       <ol className="lb-infoAsset-informat">
                         <label className="lb-infoAsset2-informat">
                           Email:
@@ -307,7 +307,7 @@ const AssetInfo = () => {
                           </h6>
                         </label>{" "}
                       </ol>
-                      {/* ---Address Supplier--- */}
+                      {/* ---Supplier Address--- */}
                       <ol className="lb-infoAsset-informat">
                         <label className="lb-infoAsset2-informat">
                           Morada:{" "}
@@ -322,7 +322,6 @@ const AssetInfo = () => {
                     <div className="space-mov"></div>
                     <h2 className="headerInfoAsset">Observações</h2>
                     <hr className="custom-hr" />
-                    <p></p>
                     <ol className="lb-infoAsset-informat">
                       <label className="lb-infoAsset2-informat">
                         <h6 className="attrAsset-informat">

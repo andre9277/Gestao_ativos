@@ -676,14 +676,17 @@ export default function AssetForm() {
               </label>
 
               {/* ---------- CI ----------*/}
-
               <label className="lb-info">
                 <label className="labelofLabel">
                   CI:<label className="cmp-obg">*</label>
                 </label>
                 <input
                   value={asset.ci === null ? "" : asset.ci}
-                  onChange={(ev) => setAsset({ ...asset, ci: ev.target.value })}
+                  onChange={(ev) => {
+                    const newCiValue =
+                      asset.cond === "Obsoleto" ? "Armazém" : ev.target.value;
+                    setAsset({ ...asset, ci: newCiValue });
+                  }}
                   className={`infoInp ${
                     errors && errors.ci ? "error-input" : ""
                   } ${isEditing ? "disabled-input" : ""}`}
@@ -694,7 +697,6 @@ export default function AssetForm() {
                   <div className="alert">{errors.ci[0]}</div>
                 )}
               </label>
-
               {/* ---------- Floor ----------*/}
               <label htmlFor="floor" className="lb-info">
                 <label className="labelofLabel">Piso: </label>

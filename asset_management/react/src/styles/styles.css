@@ -13046,7 +13046,7 @@ select {
 .importAsset {
     margin-left: 1%;
     margin-right: auto;
-    margin-bottom: 100px;
+    margin-bottom: 80px;
 }
 
 .impLab {
@@ -13660,7 +13660,7 @@ input::placeholder {
 
 .impt-temp {
     display: flex;
-    margin-top: 30px;
+    margin-top: 15px;
 }
 
 .serch-warng {

@@ -100,10 +100,10 @@ const PieChart = ({ assets }) => {
     plugins: {
       legend: {
         display: true,
-        position: "top", // Change this to your desired position
+        position: "top",
         labels: {
           font: {
-            size: 16, // Adjust the font size as needed
+            size: 16,
           },
         },
       },
