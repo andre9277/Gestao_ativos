@@ -105,6 +105,7 @@ export default function AssetForm() {
   let { id } = useParams();
   const isEditing = id !== undefined;
 
+  //Gets the combinedData for the forms of the asset
   useEffect(() => {
     Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
       setLoading(false);
@@ -133,6 +134,7 @@ export default function AssetForm() {
     }, []);
   }
 
+  //Updates the brand of the selected brand
   useEffect(() => {
     if (selectedBrand) {
       setLoading(true);
@@ -223,8 +225,10 @@ export default function AssetForm() {
     }
   };
 
+  //Shows the confirmation Modal
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
+  //Cancel Save
   const handleCancelSave = () => {
     setShowConfirmModal(false); // Close the confirmation modal
   };
@@ -278,8 +282,6 @@ export default function AssetForm() {
       .then((response) => {
         setLoading(false);
         setBrands(response.data);
-        /*  console.log(selectedCategory);
-        console.log(brands); */
       })
       .catch((error) => {
         setLoading(false);
