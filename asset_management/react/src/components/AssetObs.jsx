@@ -51,6 +51,7 @@ const AssetObs = () => {
     setActiveOption("assets"); //To manage state of the sidebar highlight
   }, []);
 
+  //Get assets of the endpoint that have parameter equal to "Obsoleto"
   const getAssets = (url) => {
     url = url || "/assetsObso";
 
@@ -83,6 +84,7 @@ const AssetObs = () => {
       >
         <>
           {loading ? (
+            //Display a message to display the loading while the data is loading
             <p className="lgText-asset">A carregar...</p>
           ) : assets.filter((a) => a.cond === "Obsoleto").length === 0 ? (
             <p className="lgTextF-asset-mov">

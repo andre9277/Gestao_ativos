@@ -195,6 +195,8 @@ class AssetController extends Controller
         if ($data['cond'] === "Obsoleto" || $data['cond'] === "Reparação" ) {
             $data['ci'] = 'Armazém';
             $data['state'] = 'Inativo';
+            $data['ala'] = null;
+            $data['floor'] = null;
         }
         else{
             $data['state'] = 'Ativo';
