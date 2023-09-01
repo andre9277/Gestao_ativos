@@ -110,14 +110,14 @@ class AssetController extends Controller
     
         $asset = Asset::create($data);
     
-        // Check if the condition is "Obsoleto" and update the Ci attribute if true
+    /*     // Check if the condition is "Obsoleto" and update the Ci attribute if true
         if ($asset->cond === "Obsoleto" || $asset->cond !== "Reparação" ) {
             $asset->update(['ci' => 'Armazém']);
             $data->update(['state' => 'Inativo']);
         }
         else{
             $data->update(['state' => 'Ativo']);
-        }
+        } */
 
         // Create a new allocation record for the asset with action type "Adiciona"
         $allocation = new Allocation([
