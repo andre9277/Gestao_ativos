@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AssetController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -41,8 +40,6 @@ class AssetController extends Controller
         $dashb = Asset::select(['state'])->get();
         return response()->json($dashb);
     }
-
-
 
     //Filter values for the ci, ent_id or unit_id atributes
     public function filterValues()
@@ -160,7 +157,6 @@ class AssetController extends Controller
         ];
     }
 
-
     /**
      * Display the specified resource.
      *
@@ -182,18 +178,6 @@ class AssetController extends Controller
         return new AssetResource($asset);
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Asset  $asset
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Asset $asset)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -202,22 +186,22 @@ class AssetController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateAssetRequest $request, Asset $asset)
-{
-    $this->authorize('create-edit');
+    {
+        $this->authorize('create-edit');
 
-    $data = $request->all();
+        $data = $request->all();
 
-    // Check if the condition is "Obsoleto" and update the Ci attribute if true
-    if ($data['cond'] === "Obsoleto" || $data['cond'] === "Reparação" ) {
-        $data['ci'] = 'Armazém';
-        $data['state'] = 'Inativo';
+        // Check if the condition is "Obsoleto" and update the Ci attribute if true
+        if ($data['cond'] === "Obsoleto" || $data['cond'] === "Reparação" ) {
+            $data['ci'] = 'Armazém';
+            $data['state'] = 'Inativo';
+        }
+        else{
+            $data['state'] = 'Ativo';
     }
-    else{
-        $data['state'] = 'Ativo';
-    }
 
 
-    $asset->update($data);
+        $asset->update($data);
 
     // Get the last allocation
     $lastAllocation = Allocation::latest()->first();
