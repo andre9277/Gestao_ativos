@@ -39,6 +39,7 @@ import "../styles/UserInfo.css";
 const UserInfo = ({ user, onLogout }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  //Keeps track of the state of the dropdown (open or closed)
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -53,11 +54,13 @@ const UserInfo = ({ user, onLogout }) => {
       />
       {isOpen && (
         <div className="dropdown-content">
+          {/*  Displays the name of the user */}
           <span>{user.name}</span>
           <hr className="sidebar-divider" />
 
           <a onClick={onLogout}>
             <b>
+              {/* Displays a logout layout for the user to leave the account */}
               <span className="logout">Logout &nbsp;&nbsp;&nbsp;</span>
             </b>
           </a>

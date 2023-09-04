@@ -47,6 +47,7 @@ export default function Login() {
   const { setUser, setToken } = useStateContext();
   const [message, setMessage] = useState(null);
 
+  //Time displated of the error message
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
@@ -63,8 +64,8 @@ export default function Login() {
     e.preventDefault();
 
     const payload = {};
-    const userInput = emailRef.current.value;
-    const password = passwordRef.current.value;
+    const userInput = emailRef.current.value; //email of the user
+    const password = passwordRef.current.value; //password of the user
 
     // Check if userInput matches email format
     if (/^\S+@\S+\.\S+$/.test(userInput)) {
@@ -79,17 +80,19 @@ export default function Login() {
     } else {
       payload.password = password;
     }
-
+    //Checks if there is one email and mec number
     if (!payload.email && !payload.mec) {
       setMessage("Por favor, insira o email ou número MEC");
       return;
     }
 
+    //Checks if the is a pin and password
     if (!payload.pin && !payload.password) {
       setMessage("Por favor, insira a password ou PIN");
       return;
     }
 
+    //does the login of the user
     axiosClient
       .post("/login", payload)
       .then(({ data }) => {
@@ -115,20 +118,23 @@ export default function Login() {
       />
       <h1 className="title-lg">Sistema Integrado de Gestão de Ativos</h1>
       <div className="space-mov-login"></div>
+      {/* Email and mec. number Label */}
       <div className="mb-3">
         <label className="lb-lg">Endereço de email / Nº mec</label>
         <input className="form-control" ref={emailRef} />
       </div>
+      {/* Pin label */}
       <div className="mb-3">
         <label className="lb-lg">Pin</label>
         <input type="password" className="form-control" ref={passwordRef} />
       </div>
-
+      {/* Login Button */}
       <div className="d-grid">
         <button type="submit" className="btn-login">
           Log in
         </button>
       </div>
+      {/* Forgot password link label */}
       <p className="lb-lg text-right">
         Esqueceu a sua{" "}
         <a href="/forgotPassword" className="link-pages">
@@ -140,6 +146,7 @@ export default function Login() {
           <p>{message}</p>
         </div>
       )}
+      {/* Footer */}
       <div className="footer-copyR">
         V1.0.0 © 2023. Hospital de Braga
         <p>Serviço de Sistemas de Informação</p>

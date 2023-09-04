@@ -40,9 +40,12 @@ import axiosClient from "../axios-client.js";
 import "../styles/ForgotPass.css";
 
 const ForgotPass = () => {
+  /* Keeps track of the email state */
   const [email, setEmail] = useState("");
+  /* Keeps track of the message data */
   const [message, setMessage] = useState("");
 
+  //Function that handles the submit of the forgot-password page
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -54,6 +57,7 @@ const ForgotPass = () => {
     }
   };
 
+  //Function that handles the time of the displatey message
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
@@ -88,6 +92,7 @@ const ForgotPass = () => {
                       </p>
                     </div>
                     <form onSubmit={handleSubmit} className="reset-pass-forms">
+                      {/* Email adress label */}
                       <div className=" mb-3">
                         <label className="rec-pass">Endereço de email:</label>
                       </div>
@@ -98,7 +103,7 @@ const ForgotPass = () => {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                         />
-
+                        {/* Button to reset password */}
                         <button type="submit" className="btn-rec-pass">
                           Recuperar Password
                         </button>
@@ -109,6 +114,7 @@ const ForgotPass = () => {
                         </Link>
                       </div>
                     </form>
+                    {/* Message that outputs the error or success output */}
                     {message && (
                       <div>
                         {message === "Verifique o seu email" ? (

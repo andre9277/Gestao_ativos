@@ -40,18 +40,22 @@ import axiosClient from "../axios-client.js";
 import "../styles/Scan.css";
 
 const Scan = () => {
+  /* State that keeps track of the barcode */
   const [barcode, setBarcode] = useState("");
+  /* State that saves the assets */
   const [assets, setAssets] = useState([]);
 
   const navigate = useNavigate();
 
+  //Gets all the assets
   const getAssets = async () => {
     const response = await axiosClient.get("/allAssets");
-    console.log(response.data.data);
+    /*console.log(response.data.data);*/
     setAssets(response.data.data);
     initializeBarcodeScanner();
   };
 
+  //
   useEffect(() => {
     getAssets();
 
@@ -59,6 +63,8 @@ const Scan = () => {
       stopBarcodeScanner();
     };
   }, []);
+
+  /* Barcode starts at the beggining of the barcode*/
   useEffect(() => {
     Quagga.onDetected((result) => {
       console.log("Barcode detected:", result.codeResult.code);

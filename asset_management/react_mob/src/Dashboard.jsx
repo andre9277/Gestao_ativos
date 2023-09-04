@@ -37,6 +37,7 @@ import React from "react";
 import "./styles/Dashboard.css";
 import img_logo from "./assets/hb_dc.jpg";
 
+//Dashboard page
 function Dashboard() {
   return (
     <div className="mn-cnt">

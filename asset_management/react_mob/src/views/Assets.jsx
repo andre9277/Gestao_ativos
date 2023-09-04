@@ -64,16 +64,19 @@ export default function Assets() {
     return () => clearTimeout(timer); // Clear the timer if component unmounts or if the error message changes
   }, [errorMessage]);
 
+  //Gets the assets at the start of the page load
   useEffect(() => {
     getAssets();
   }, []);
 
+  //Displays the modal
   const displayModal = (title, message) => {
     setModalTitle(title);
     setModalMessage(message);
     setShowModal(true);
   };
 
+  //Handle the close of the modal
   const handleClose = () => {
     setShowModal(false);
   };
@@ -82,6 +85,8 @@ export default function Assets() {
   useEffect(() => {
     getAssets();
   }, []);
+
+  //Gets all the assets and saves them in assets array
   const getAssets = (url) => {
     url = url || "/allAssets";
 
@@ -95,54 +100,77 @@ export default function Assets() {
     setAssetNumber(event.target.value);
   };
 
-  //Binary Search to improve performance in search by serial number
+  //Takes an array (arr) and a target value (target) as input.
   const searchByNumbSer = (arr, target) => {
+    // Check if the target value matches the numb_ser property of the first element in the array.
     if (arr[0].numb_ser === target) {
+      // If it matches, return the first element of the array.
       return arr[0];
     }
 
+    // Initialize variables for binary search.
     let left = 1;
     let right = arr.length - 1;
 
+    // Start a binary search loop.
     while (left <= right) {
+      // Calculate the middle index of the current search range.
       const mid = Math.floor((left + right) / 2);
+      // Get the asset at the middle index.
       const currentAsset = arr[mid];
 
+      // Check if the numb_ser property of the current asset matches the target.
       if (currentAsset.numb_ser === target) {
+        // If it matches, return the current asset.
         return currentAsset;
       }
 
+      // If the current asset's numb_ser is less than the target, update the left boundary.
       if (currentAsset.numb_ser < target) {
         left = mid + 1;
       } else {
+        // If the current asset's numb_ser is greater than the target, update the right boundary.
         right = mid - 1;
       }
     }
 
+    // If the target value is not found in the array, return null.
     return null;
   };
-  //Binary Search to improve performance in search by inventory number
+
+  // Define a function called searchByNumbInv that takes an array (arr) and a target value (target) as input.
   const searchByNumbInv = (arr, target) => {
+    // Sort the array of objects based on the "numb_inv" property in a case-insensitive manner.
     arr.sort((a, b) => (a.numb_inv || "").localeCompare(b.numb_inv || ""));
 
+    // Initialize variables for binary search.
     let left = 0;
     let right = arr.length - 1;
 
+    // Start a binary search loop.
     while (left <= right) {
+      // Calculate the middle index of the current search range.
       const mid = Math.floor((left + right) / 2);
+      // Get the asset at the middle index.
       const currentAsset = arr[mid];
 
+      // Check if the "numb_inv" property of the current asset matches the target.
       if (currentAsset.numb_inv === target) {
+        // If it matches, return the current asset.
         return currentAsset;
       }
 
+      // Use localeCompare to compare the "numb_inv" property to the target in a case-insensitive manner.
       if ((currentAsset.numb_inv || "").localeCompare(target) < 0) {
+        // If the current asset's "numb_inv" is less than the target, update the left boundary.
         left = mid + 1;
       } else {
+        // If the current asset's "numb_inv" is greater than the target, update the right boundary.
         right = mid - 1;
       }
     }
 
+    // If the target value is not found in the sorted array, return null.
     return null;
   };
 
@@ -172,18 +200,22 @@ export default function Assets() {
 
     let matchedAsset;
 
+    //If the asset number inputed by the user is bigger then 6 then its a serial number
     if (assetNumber.length > 6) {
       matchedAsset = searchByNumbSer(sortedAssets, assetNumber);
-    } else {
+    }
+    //If its not bigger then 6, then its a inventory number
+    else {
       matchedAsset = searchByNumbInv(sortedAssets, assetNumber);
     }
 
+    //If the matching asset exists then navigate to the information page
     if (matchedAsset) {
       navigate(`/infoasset/${matchedAsset.id}`);
     } else {
       displayModal("Erro!", "Ativo não encontrado, tente novamente!");
     }
-
+    //clean the search box
     setAssetNumber("");
   };
 
@@ -207,6 +239,7 @@ export default function Assets() {
         </Modal>
         <h1 className="search-tit">Procurar</h1>
         <div className="space-mov"></div>
+        {/* Search box for Inventory/Serial number */}
         <div className="icon-search">
           <label className="lb-sch">Nº inventário/série:</label>
           <input
@@ -215,10 +248,12 @@ export default function Assets() {
             onChange={handleChange}
           ></input>
         </div>
+        {/* Search Button */}
         <div className="search-sch">
           <button className="btn-sch-mb">Procurar</button>
         </div>
         <div className="error-search">
+          {/* Displays an error message */}
           {errorMessage && (
             <p className="err-search">
               <i className="fa fa-exclamation-triangle" aria-hidden="true"></i>
@@ -227,6 +262,7 @@ export default function Assets() {
           )}
         </div>
         <div className="barcode-search">
+          {/* Barcode label */}
           <label className="lb-sch-bc">Código de barras:</label>
           <center>
             <Link to="/scan">

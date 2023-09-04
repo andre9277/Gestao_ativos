@@ -73,6 +73,7 @@ const AddAssetMovementForm = () => {
     }
   }, [errors]);
 
+  //Calls this endpoints at the beginning of the call
   useEffect(() => {
     getTotalAssetsEve();
     getEnts();
@@ -95,6 +96,7 @@ const AddAssetMovementForm = () => {
     });
   };
 
+  //Function that retrieves all the assets
   const getTotalAssetsEve = (url) => {
     url = url || "/allAssets";
     axiosClient.get(url).then(({ data }) => {
@@ -105,10 +107,12 @@ const AddAssetMovementForm = () => {
   let matchingAsset = null;
   let matchingInv = null;
 
+  //Checks if the asset inputed is a valid serial number
   if (assetEve !== null) {
     const serNumberr = serNumber; // Replace with the user-inputted ser_number
     matchingAsset = assetEve.find((asset) => asset.numb_ser === serNumberr);
   }
+  //Or if its a inventory number
   if (assetEve !== null) {
     const invNumberr = invNumber;
     matchingInv = assetEve.find((asset) => asset.numb_inv === invNumberr);
@@ -116,10 +120,12 @@ const AddAssetMovementForm = () => {
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
+  //Modal that closes the modal
   const handleCancelSave = () => {
     setShowConfirmModal(false); // Close the confirmation modal
   };
 
+  //Modal that confirms the save
   const handleSave = () => {
     setShowConfirmModal(true); // Open the confirmation modal
   };
@@ -144,7 +150,7 @@ const AddAssetMovementForm = () => {
       ser_number: matchingInv ? matchingInv.numb_ser : serNumber,
       inv_number: matchingAsset ? matchingAsset.numb_inv : invNumber,
       action_type: "Atualiza",
-      user_id: userId, // Use the stored user name
+      user_id: userId, // Use the stored user name (userId is the user name!!)
       asset_id: matchingAsset
         ? matchingAsset.id
         : null || matchingInv
@@ -290,6 +296,7 @@ const AddAssetMovementForm = () => {
           {validateDate(assetDate) && (
             <div className="alert">Data inválida.</div>
           )}
+          {/* Shows the error of the allocation_date */}
           {errors && errors.allocation_date && (
             <div className="error">{errors.allocation_date[0]}</div>
           )}
@@ -308,6 +315,7 @@ const AddAssetMovementForm = () => {
             onChange={(e) => setInvNumber(e.target.value)}
             className="infoInp"
           />
+          {/* Shows the error of the inventory number */}
           {errors && errors.reason && (
             <div className="error">{errors.inv_number[0]}</div>
           )}
@@ -324,6 +332,7 @@ const AddAssetMovementForm = () => {
               errors && errors.ser_number ? "error-input" : ""
             }`}
           />
+          {/* Shows the error of the serial number */}
           {errors && errors.ser_number && (
             <div className="error">{errors.ser_number[0]}</div>
           )}

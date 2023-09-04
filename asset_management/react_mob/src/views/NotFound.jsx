@@ -45,12 +45,14 @@ export default function NotFound() {
             <div className="justify-content-center">
               <div className="col-lg-6">
                 <div className="text-center mt-4">
+                  {/* Image of NotFound page */}
                   <img
                     className="mb-4 img-error"
                     src="img/error-404-monochrome.svg"
                     alt="Not Found"
                   />
                   <p className="lead">Página não encontrada!</p>
+                  {/* Link displayed to go back to the dashboard page */}
                   <Link to="/dashboard">
                     <i className="fas fa-arrow-left me-1"></i>
                     Voltar para Login/Dashboard

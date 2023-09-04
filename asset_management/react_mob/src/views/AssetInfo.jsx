@@ -35,7 +35,7 @@ All the changes made to enable the implementation of the desired development too
 */
 import React from "react";
 import { useEffect, useState } from "react";
-import axiosClient from "../axios-client.js";
+import axiosClient from "../axios-client.js"; // to develop the api calls
 import { useParams } from "react-router-dom";
 import "../styles/AssetInfo.css";
 import "../index.css";
@@ -100,6 +100,7 @@ const AssetInfo = () => {
             <div className="space-mov-info"></div>
             <h2 className="headerInfoAsset">Dados gerais: </h2>
             <p></p>
+            {/* Category label */}
             <ul className="lb-infoAsset-informat">
               <p></p>
               <label className="lb-infoAsset2-informat">
@@ -107,37 +108,42 @@ const AssetInfo = () => {
                 <h6 className="attrAsset-informat">{asset.category.name}</h6>
               </label>{" "}
             </ul>
+            {/* Inventory number label */}
             <ul className="lb-infoAsset-informat">
               <label className="lb-infoAsset2-informat">
                 Nº de Inventário:{" "}
                 <h6 className="attrAsset-informat"> {asset.numb_inv}</h6>
               </label>{" "}
             </ul>
+            {/* Serial Number label */}
             <ul className="lb-infoAsset-informat">
               <label className="lb-infoAsset2-informat">
                 Nº de Série:{" "}
                 <h6 className="attrAsset-informat">{asset.numb_ser}</h6>
               </label>{" "}
             </ul>
+            {/* Brand label */}
             <ul className="lb-infoAsset-informat">
               <label className="lb-infoAsset2-informat">
                 Marca:
                 <h6 className="attrAsset-informat">{asset.brand.name}</h6>
               </label>{" "}
             </ul>
+            {/* Model label */}
             <ul className="lb-infoAsset-informat">
               <label className="lb-infoAsset2-informat">
                 Modelo:{" "}
                 <h6 className="attrAsset-informat">{asset.modelo.name}</h6>
               </label>{" "}
             </ul>
-
+            {/* Purchase data label */}
             <ul className="lb-infoAsset-informat">
               <label className="lb-infoAsset2-informat">
                 Data de Compra:{" "}
                 <h6 className="attrAsset-informat">{asset.date_purch}</h6>
               </label>{" "}
             </ul>
+            {/* Condition label */}
             <ul className="lb-infoAsset-informat">
               <label className="lb-infoAsset2-informat">
                 Condição:{" "}
@@ -147,6 +153,7 @@ const AssetInfo = () => {
                 </h6>
               </label>
             </ul>
+            {/* State label */}
             <ul className="lb-infoAsset-informat">
               <label className="lb-infoAsset2-informat">
                 Estado:
@@ -160,6 +167,7 @@ const AssetInfo = () => {
             <div className="containerr">
               <h2 className="headerInfoAsset">Localização: </h2>
               <p></p>
+              {/* Entity label */}
               <ul className="lb-infoAsset-informat">
                 <label className="lb-infoAsset2-informat">
                   Entidade:{" "}
@@ -168,6 +176,7 @@ const AssetInfo = () => {
                   </h6>
                 </label>{" "}
               </ul>
+              {/* Unit Label */}
               <ul className="lb-infoAsset-informat">
                 <label className="lb-infoAsset2-informat">
                   Unidade:{" "}
@@ -176,6 +185,7 @@ const AssetInfo = () => {
                   </h6>
                 </label>{" "}
               </ul>
+              {/* Contact label */}
               <ul className="lb-infoAsset-informat">
                 <label className="lb-infoAsset2-informat">
                   Contato:
@@ -184,6 +194,7 @@ const AssetInfo = () => {
                   </h6>
                 </label>
               </ul>
+              {/* Adress label */}
               <ul className="lb-infoAsset-informat">
                 <label className="lb-infoAsset2-informat">
                   Morada:{" "}
@@ -192,16 +203,19 @@ const AssetInfo = () => {
                   </h6>
                 </label>
               </ul>
+              {/* Floor label */}
               <ul className="lb-infoAsset-informat">
                 <label className="lb-infoAsset2-informat">
                   Piso: <h6 className="attrAsset-informat">{asset.floor}</h6>
                 </label>{" "}
               </ul>
+              {/* Ala label */}
               <ul className="lb-infoAsset-informat">
                 <label className="lb-infoAsset2-informat">
                   Ala: <h6 className="attrAsset-informat">{asset.ala}</h6>{" "}
                 </label>{" "}
               </ul>
+              {/* CI label */}
               <ul className="lb-infoAsset-informat">
                 <label className="lb-infoAsset2-informat">
                   CI: <h6 className="attrAsset-informat"> {asset.ci}</h6>
@@ -209,10 +223,11 @@ const AssetInfo = () => {
               </ul>
               <div className="space-mov-info"></div>
               <hr className="sidebar-divider" />
-              {/* -------------Informação ativo - fornecedor------------- */}
 
+              {/* -------------Informação ativo - fornecedor------------- */}
               <h2 className="headerInfoAsset">Fornecedor: </h2>
               <p></p>
+              {/* Supplier Name label */}
               <ul className="lb-infoAsset-informat">
                 <label className="lb-infoAsset2-informat">
                   Nome:{" "}
@@ -221,6 +236,7 @@ const AssetInfo = () => {
                   </h6>
                 </label>{" "}
               </ul>
+              {/* Supplier email label */}
               <ul className="lb-infoAsset-informat">
                 <label className="lb-infoAsset2-informat">
                   Email:
@@ -229,6 +245,7 @@ const AssetInfo = () => {
                   </h6>
                 </label>{" "}
               </ul>
+              {/* Contact Supplier label */}
               <ul className="lb-infoAsset-informat">
                 <label className="lb-infoAsset2-informat">
                   Contato:{" "}
@@ -237,6 +254,7 @@ const AssetInfo = () => {
                   </h6>
                 </label>{" "}
               </ul>
+              {/* Adress Supplier label */}
               <ul className="lb-infoAsset-informat">
                 <label className="lb-infoAsset2-informat">
                   Morada:{" "}
@@ -249,6 +267,7 @@ const AssetInfo = () => {
 
               <div className="space-mov-info"></div>
               <hr className="sidebar-divider" />
+              {/* Observation label */}
               <h2 className="headerInfoAsset">Observações:</h2>
               <p></p>
               <ul className="lb-infoAsset-informat">
@@ -261,6 +280,7 @@ const AssetInfo = () => {
             </div>
           </div>
         ) : (
+          /* While the data of the table is not loaded, display the following message */
           <div className="lgText-assetInfo">A carregar...</div>
         )}
       </div>

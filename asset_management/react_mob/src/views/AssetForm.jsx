@@ -49,22 +49,26 @@ export default function AssetForm() {
   const { user, setNotification } = useStateContext();
 
   //States to get the list of selected options
-  const [cats, setCats] = useState([]);
-  const [ents, setEnts] = useState([]);
-  const [units, setUnits] = useState([]);
-  const [brands, setBrands] = useState([]);
-  const [modelos, setModelos] = useState([]);
-  const [supplier, setSupplier] = useState([]);
+  const [cats, setCats] = useState([]); //categorys of the assets
+  const [ents, setEnts] = useState([]); //entitys of the assets
+  const [units, setUnits] = useState([]); // units of the assets
+  const [brands, setBrands] = useState([]); //brands of the assets
+  const [modelos, setModelos] = useState([]); //models of the assets
+  const [supplier, setSupplier] = useState([]); //suppliers of the assets
 
+  //Keeps track of the selected entity
   const [selectedEntity, setSelectedEntity] = useState("");
+  //Keeps track of the selected brand
   const [selectedBrand, setSelectedBrand] = useState("");
   const [supplierId, setSupplierId] = useState("");
+
   //Allows the navigation of the assets to other page
   const navigate = useNavigate();
 
-  //We take the id
+  //We take the id of the asset
   let { id } = useParams();
 
+  //Saves all the data into the apropriate arrays
   useEffect(() => {
     Promise.all([axiosClient.get("/combinedData")]).then((responses) => {
       setLoading(false);
@@ -93,9 +97,11 @@ export default function AssetForm() {
     }, []);
   }
 
+  //Keeps track of the changes in the selectedBrand
   useEffect(() => {
     if (selectedBrand) {
       setLoading(true);
+      //Gets all the models related to this brand
       axiosClient
         .get(`/modelsHb?brand_id=${selectedBrand}`)
         .then((response) => {
@@ -365,6 +371,7 @@ export default function AssetForm() {
                 errors && errors.numb_ser ? "error-input" : ""
               }`}
             />
+            {/* Error message that displays for the user to input a serial number */}
             {errors && errors.numb_ser && (
               <div className="error">{errors.numb_ser[0]}</div>
             )}
@@ -393,6 +400,7 @@ export default function AssetForm() {
                 </option>
               ))}
             </select>
+            {/* Error message that displays for the user to input the category */}
             {errors && errors.cat_id && (
               <div className="error">{errors.cat_id[0]}</div>
             )}
@@ -419,6 +427,7 @@ export default function AssetForm() {
               <option value="Ativo">Ativo</option>
               <option value="Inativo">Inativo</option>
             </select>
+            {/* Error message that displays for the user to input a state */}
             {errors && errors.state && (
               <div className="error">{errors.state[0]}</div>
             )}

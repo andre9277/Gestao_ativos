@@ -13878,7 +13878,7 @@ input::placeholder {
     min-height: 20vh; /* Minimum height to ensure visibility */
     max-height: 65vh; /* Maximum height for the table */
     overflow-y: auto;
-    margin-bottom: 1rem;
+    /*     margin-bottom: 1rem; */
     width: 100%;
 }
 
