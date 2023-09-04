@@ -197,7 +197,20 @@ class AssetController extends Controller
             $data['state'] = 'Inativo';
             $data['ala'] = null;
             $data['floor'] = null;
+
+             // Create an Allocation record with action_type 'Atualiza'
+        $updateAllocation = new Allocation([
+            'asset_id' => $asset->id,
+            'user_id' => auth()->user()->name,
+            'allocation_date' => now(),
+            'action_type' => 'Atualiza',
+            'inv_number' => $asset->numb_inv,
+            'reason' => "",
+        ]);
+
+        $updateAllocation->save();
         }
+
         else{
             $data['state'] = 'Ativo';
     }
