@@ -142,6 +142,7 @@ const AreaChartUser = () => {
           </h5>
         </div>
         <div>
+          {/*  Prints the Bar with height of 400 and with the chartData and options array */}
           <Bar height={400} data={chartData} options={options} />
         </div>
       </div>

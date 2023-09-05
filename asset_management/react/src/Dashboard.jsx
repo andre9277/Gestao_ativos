@@ -44,10 +44,14 @@ import AreaChartUser from "./components/AreaChartUser";
 import PieChartActive from "./components/PieChartActive";
 
 function Dashboard() {
+  //Gets the total assets
   const [assetTotal, setAssetTotal] = useState("");
+  //Data to store all the assets
   const [assets, setAssets] = useState([]);
+  //Saves the assets State
   const [assetsState, setAssetsState] = useState([]);
 
+  //if the user change the page it aborts
   useEffect(() => {
     const abortController = new AbortController();
     getTotalAssets(abortController.signal);
@@ -67,14 +71,17 @@ function Dashboard() {
     });
   };
 
+  //Gets the assets to set the get dashboard data
   const getAssets = (signal, url) => {
     url = url || "/getDashb";
+    //Uses the axiosClient
     axiosClient.get(url, { signal }).then(({ data }) => {
       // update the state with all the assets
       setAssets(data);
     });
   };
 
+  //Gets the asset state
   const getAssetsState = (signal, url) => {
     url = url || "/indexState";
     axiosClient.get(url, { signal }).then(({ data }) => {
@@ -97,7 +104,6 @@ function Dashboard() {
           {/*  <!-- Content Row --> */}
           <div className="row-dash">
             {/*  <!-- Total of Assets --> */}
-
             <Card
               Titulo="Total de Ativos"
               Descricao={assetTotal.total}
@@ -119,8 +125,7 @@ function Dashboard() {
               Space="mb-1"
             />
 
-            {/*  <!-- Assets in Repair --> */}
-
+            {/*  <!-- Assets in the reparation --> */}
             <Card
               Titulo="Ativos em reparação"
               Descricao={assetTotal.totalRep}
@@ -130,6 +135,7 @@ function Dashboard() {
               LinkCard="assetsRep"
               Space="mb-1-dash"
             />
+            {/*  <!-- Assets that are "Obsoletos" --> */}
             <Card
               Titulo="Ativos obsoletos"
               Descricao={assetTotal.allocationCounts}

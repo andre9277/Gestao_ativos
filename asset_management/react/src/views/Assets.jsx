@@ -76,12 +76,16 @@ export default function Assets() {
   //Array to save entity for the filter select
   const [ent, setEnt] = useState([]);
 
+  const state = ["Ativo", "Inativo"];
+
   //State to keep track of the selected options from the filters
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedFloor, setSelectedFloor] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedEnt, setSelectedEnt] = useState("");
+  const [selectedState, setSelectedState] = useState("");
+
   const [originalModels, setOriginalModels] = useState([]);
 
   //All data from Data
@@ -175,7 +179,8 @@ export default function Assets() {
       selectedFloor !== "" ||
       selectedBrand !== "" ||
       selectedModel !== "" ||
-      selectedEnt !== "";
+      selectedEnt !== "" ||
+      selectedState !== "";
     setFiltered(hasFilter);
     //if hasFilter = true then it gets all the assets from all the pages:
     if (hasFilter) {
@@ -187,6 +192,7 @@ export default function Assets() {
     selectedBrand,
     selectedModel,
     selectedEnt,
+    selectedState,
   ]);
 
   //use allData when filtered = true and when its false its equal to the assets object
@@ -197,7 +203,8 @@ export default function Assets() {
         (selectedFloor === "" || row.floor === selectedFloor) &&
         (selectedBrand === "" || row.brand.name === selectedBrand) &&
         (selectedModel === "" || row.modelo.name === selectedModel) &&
-        (selectedEnt === "" || row.entity.name === selectedEnt)
+        (selectedEnt === "" || row.entity.name === selectedEnt) &&
+        (selectedState === "" || row.entity.state === selectedState)
     );
 
     setFilteredAllocations(filtered ? filteredData : assets);
@@ -350,6 +357,11 @@ export default function Assets() {
     setSelectedEnt(selectedEntity);
   };
 
+  const handleStateChange = (event) => {
+    const selectedState = event.target.value;
+    setSelectedState(selectedState);
+  };
+
   //Reset of the filters implemented
   const resetFilter = () => {
     setSelectedBrand("");
@@ -366,6 +378,7 @@ export default function Assets() {
     setIsButtonClicked(false);
     setDropdownOpen(false);
     setModelos(originalModels); // gets back all the models in the modelos array
+    setSelectedState("");
   };
 
   //For the checkbox, if the value of the filter is empty, then uses the assets array of the current page.
@@ -376,7 +389,8 @@ export default function Assets() {
       selectedCategory === "" &&
       selectedFloor === "" &&
       selectedModel === "" &&
-      selectedEnt === ""
+      selectedEnt === "" &&
+      selectedState === ""
     ) {
       const checkedIdx = assets.findIndex((a) => a.id === id);
 
@@ -405,6 +419,7 @@ export default function Assets() {
       Modelo: "modelo.name",
       Piso: "floor",
       NºInv: "numb_inv",
+      Estado: "state",
     };
 
     const dbColumnName = columnMapping[col];
@@ -585,6 +600,12 @@ export default function Assets() {
                     selectedF={selectedEnt}
                     data={ent}
                     title={"Localização:"}
+                  />
+                  <SelectFilter
+                    handleFunc={handleStateChange}
+                    selectedF={selectedState}
+                    data={state}
+                    title={"Estado:"}
                   />
                   {/* Button of the filter to clear the chosen filters */}
                   {
