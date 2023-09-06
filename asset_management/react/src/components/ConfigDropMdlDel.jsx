@@ -104,7 +104,9 @@ const ConfigDropMdlDel = ({
           </div>
         )}
       </form>
+      {/* Error Message  */}
       {error && <p className="alert">{error}</p>}
+      {/* Success Message */}
       {successMessage && <p className="good">{successMessage}</p>}
 
       {/* The Modal */}

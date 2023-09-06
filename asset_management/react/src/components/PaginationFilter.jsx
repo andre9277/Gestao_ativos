@@ -35,6 +35,7 @@ All the changes made to enable the implementation of the desired development too
 */
 import React from "react";
 
+//This component creates a pagination for the pagination with filters:
 const Pagination = ({
   currentPage,
   setCurrentPage,
@@ -62,6 +63,7 @@ const Pagination = ({
     }
   };
 
+  //Renders the page numbers:
   const renderPageNumbers = () => {
     const pageNumbers = [];
 
@@ -172,6 +174,7 @@ const Pagination = ({
           </p>
         </div>
         <div className="filternopag">
+          {/* Before button */}
           <button
             onClick={handlePrevPage}
             disabled={currentPage === 1}
@@ -180,6 +183,7 @@ const Pagination = ({
             « Anterior&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </button>
           {renderPageNumbers()}
+          {/* Next button */}
           <button
             onClick={handleNextPage}
             disabled={endIndex >= totalResults}

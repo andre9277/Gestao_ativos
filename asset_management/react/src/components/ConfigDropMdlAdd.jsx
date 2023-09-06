@@ -36,6 +36,7 @@ All the changes made to enable the implementation of the desired development too
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 
+//Configurations Model Add
 const ConfigDropMdlAdd = ({
   Title,
   id,
@@ -104,7 +105,7 @@ const ConfigDropMdlAdd = ({
             autoComplete="off"
             className="inp-mdl"
           />
-
+          {/* Button to add */}
           <button type="button" id="btnAddd" onClick={handleShowModal}>
             <i
               className="fa fa-plus fa-lg"

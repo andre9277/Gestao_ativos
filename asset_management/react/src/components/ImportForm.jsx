@@ -201,6 +201,8 @@ const ImportForm = () => {
     }
 
     const formData = new FormData();
+
+    //Appends the data to the import file
     formData.append("brand_id", selectedBrand);
     formData.append("cat_id", asset.cat_id);
     formData.append("supplier_id", supplierId);
@@ -233,6 +235,7 @@ const ImportForm = () => {
           rows.pop(); // Remove the last empty row
         }
 
+        //Iterates on all rows
         for (let i = 1; i < rows.length; i++) {
           const row = rows[i].split(",");
           const [numb_inv, date_purch, state, numb_ser, cond, ala, floor, ci] =
