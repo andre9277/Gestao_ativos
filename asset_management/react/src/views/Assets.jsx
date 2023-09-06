@@ -204,7 +204,7 @@ export default function Assets() {
         (selectedBrand === "" || row.brand.name === selectedBrand) &&
         (selectedModel === "" || row.modelo.name === selectedModel) &&
         (selectedEnt === "" || row.entity.name === selectedEnt) &&
-        (selectedState === "" || row.entity.state === selectedState)
+        (selectedState === "" || row.state === selectedState)
     );
 
     setFilteredAllocations(filtered ? filteredData : assets);

@@ -44,12 +44,20 @@ const SelectFilter = ({ data, handleFunc, selectedF, title }) => {
       <label className="titleFiltAsset">{title}</label>
       <select className="filtAsset-tab" onChange={handleFunc} value={selectedF}>
         <option value=""></option>
-        {/* Iterates on all the data */}
-        {data.map((dat) => (
-          <option key={`${dat}+${i++}`} value={dat.name}>
-            {dat.name}
-          </option>
-        ))}
+        {/* Check if data is equal to state before rendering */}
+        {title === "Estado:"
+          ? // If data is equal to state, map the elements
+            data.map((dat) => (
+              <option key={`${dat}+${i++}`} value={dat}>
+                {dat}
+              </option>
+            ))
+          : // If data is not equal to state, map the elements
+            data.map((dat) => (
+              <option key={`${dat}+${i++}`} value={dat.name}>
+                {dat.name}
+              </option>
+            ))}
       </select>
     </div>
   );
