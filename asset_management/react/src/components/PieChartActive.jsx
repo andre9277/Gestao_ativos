@@ -68,6 +68,7 @@ const PieChartActive = ({ assets }) => {
     ],
   };
 
+  //Options of the Pie Chart
   const options = {
     maintainAspectRatio: false,
     plugins: {
@@ -82,7 +83,6 @@ const PieChartActive = ({ assets }) => {
       },
     },
   };
-
   return (
     <div className="col-xl-4 col-lg-7">
       <div className="card shadow mb-2">

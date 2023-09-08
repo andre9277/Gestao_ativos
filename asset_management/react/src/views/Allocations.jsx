@@ -78,7 +78,10 @@ export default function Allocations() {
   const [selectedUser, setSelectedUser] = useState("");
 
   const [error, setError] = useState(false);
+
+  //error Message
   const [errorMsg, setErrorMsg] = useState("");
+
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -184,7 +187,6 @@ export default function Allocations() {
         "Motivo",
         "Data de alteração",
       ],
-
       data: filteredData.map((allocation) => {
         return [
           allocation.users === null

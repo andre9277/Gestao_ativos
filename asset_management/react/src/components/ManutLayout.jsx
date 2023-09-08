@@ -51,6 +51,7 @@ export default function DefaultLayout() {
     return <Navigate to="/login" />;
   }
 
+  //Performs the logout of the current logged user
   const onLogout = (ev) => {
     ev.preventDefault();
 

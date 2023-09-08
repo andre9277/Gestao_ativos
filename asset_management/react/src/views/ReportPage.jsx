@@ -536,7 +536,10 @@ const ReportPage = () => {
   //Total results for the pagination with filters chosen
   const totalResults = filteredAllocations.length;
 
+  //State that shows the dropdown menu
   const [showDropdown, setShowDropdown] = useState(false);
+
+  //Keeps track of the selected asset
   const [selectedAsset, setSelectedAsset] = useState(null);
 
   //Dropdown for the observation icon of every asset movement. (it only appears when there is one observation)
