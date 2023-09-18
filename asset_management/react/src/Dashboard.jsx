@@ -127,7 +127,7 @@ function Dashboard() {
 
             {/*  <!-- Assets in the reparation --> */}
             <Card
-              Titulo="Ativos em reparação"
+              Titulo="Ativos em Reparação"
               Descricao={assetTotal.totalRep}
               Icon="fa-wrench"
               Cor="text-warning"
@@ -137,7 +137,7 @@ function Dashboard() {
             />
             {/*  <!-- Assets that are "Obsoletos" --> */}
             <Card
-              Titulo="Ativos obsoletos"
+              Titulo="Ativos Obsoletos"
               Descricao={assetTotal.allocationCounts}
               Icon="fa-warehouse"
               Cor="text-info"
