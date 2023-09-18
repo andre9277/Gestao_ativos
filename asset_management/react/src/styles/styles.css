@@ -12793,7 +12793,7 @@ select {
         width: 40%;
     }
     input {
-        width: 60%;
+        width: 58%;
         box-sizing: border-box;
         padding: 12px 20px;
         border-bottom: 2px;
@@ -13414,7 +13414,7 @@ input::placeholder {
 }
 
 .infoInp-select {
-    width: 60%;
+    width: 58%;
     padding: 0.1em;
     margin-bottom: 1rem;
     background: #fff;
@@ -13600,7 +13600,7 @@ input::placeholder {
 
 .obs-mov-ee {
     border: 1px solid #9c9c9c;
-    width: 60%;
+    width: 58%;
     margin-top: 10px;
     margin-bottom: -8px;
     padding: 1px;

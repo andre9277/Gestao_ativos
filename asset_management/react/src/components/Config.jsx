@@ -825,8 +825,7 @@ const Config = () => {
   };
 
   //----------------------Models-------------------
-  //--------------------------Add Model-------------------------
-  // Function to add a new model with the selected brand
+  //Add Model
   const handleAddModel = async () => {
     setError(null);
 
@@ -921,7 +920,7 @@ const Config = () => {
   };
 
   const handleDataMdlUpdate = async () => {
-    // Validate the model name
+    //Validate the model name
     const mdlRegex = /^[A-Za-z0-9- ]+$/;
 
     if (editedMdlValue.trim() === "") {
@@ -962,7 +961,7 @@ const Config = () => {
   };
 
   //-------------------Units-------------------
-  //--------------------------Add Unit---------
+  //Add Unit
   const handleAddUnit = async () => {
     setError(null);
 
@@ -1012,7 +1011,7 @@ const Config = () => {
       clearErrorAfterTimeout(5000);
     }
   };
-  //--------------------------Delete Unit-------------------------
+  //---------------------Delete Unit----------------------
   const handleRemoveUnit = async () => {
     const selectedOptions = document.getElementById("unit").selectedOptions;
     const unitToRemove = [...selectedOptions].map((option) => option.value);
@@ -1100,7 +1099,6 @@ const Config = () => {
   };
 
   //----------------For the category and brand---------------------
-
   const [relations, setRelations] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
 

@@ -36,7 +36,6 @@ All the changes made to enable the implementation of the desired development too
 import axios from "axios";
 
 //Using the Axios library to perform HTTP requests
-
 const axiosClient = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
 }); //created an instance of axios with a baseURL which is obtained by the .env variable
@@ -66,5 +65,5 @@ axiosClient.interceptors.response.use(
   }
 );
 
-export default axiosClient;
 //export to be able to make HTTP requests and getting the responses
+export default axiosClient;

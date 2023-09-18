@@ -34,9 +34,9 @@ Department: Serviço de Sistema de Informação
 All the changes made to enable the implementation of the desired development tools were made by André Ferreira.
 */
 import React, { useEffect, useState } from "react";
-import axiosClient from "../axios-client.js";
+import axiosClient from "../axios-client.js"; //imports the axiosClient javascript files
 import Papa from "papaparse"; //library to export in .csv
-import Filter from "../components/Filter.jsx";
+import Filter from "../components/Filter.jsx"; //Import the Filter component
 
 //SideBar:-------------Reports---------------
 export default function Allocations() {
@@ -73,15 +73,17 @@ export default function Allocations() {
   //All users
   const [users, setUsers] = useState([]);
 
+  //Selected options, serial number, operation e user
   const [selectedSer, setSelectedSer] = useState("");
   const [selectedOp, setSelectedOp] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
 
   const [error, setError] = useState(false);
 
-  //error Message
+  //error Message state
   const [errorMsg, setErrorMsg] = useState("");
 
+  //Message state
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -358,7 +360,7 @@ export default function Allocations() {
 
               <p></p>
               <label className="lb-allo-dt">
-                Data início:<label className="cmp-obg">*</label>
+                Data início:<label className="cmp-obg">* &nbsp;</label>
               </label>
 
               <input

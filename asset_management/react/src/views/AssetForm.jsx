@@ -112,7 +112,6 @@ export default function AssetForm() {
       setCats(responses[0].data.cats);
       setEnts(responses[0].data.ents);
       setUnits(responses[0].data.units);
-      //setBrands(responses[0].data.brands);
       setModelos(responses[0].data.models);
       setSupplier(responses[0].data.suppliers);
     });
@@ -162,6 +161,7 @@ export default function AssetForm() {
     }
   }, [selectedEntity]);
 
+  //Timer to show the error
   useEffect(() => {
     if (errors) {
       const timer = setTimeout(() => {

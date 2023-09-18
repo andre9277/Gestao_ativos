@@ -82,6 +82,7 @@ export default function Users() {
     setShow(false); // Close the modal
   };
 
+  //handle the close modal
   const handleClose = () => {
     setShow(false);
   };
