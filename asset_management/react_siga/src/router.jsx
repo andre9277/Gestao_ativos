@@ -35,12 +35,12 @@ All the changes made to enable the implementation of the desired development too
 */
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import Dashboard from "./Dashboard.jsx";
-import DefaultLayout from "./components/DefaultLayout";
-import GuestLayout from "./components/GuestLayout";
-import Login from "./views/Login";
-import NotFound from "./views/NotFound";
-import Users from "./views/Users";
-import UserForm from "./views/UserForm";
+import DefaultLayout from "./components/DefaultLayout.jsx";
+import GuestLayout from "./components/GuestLayout.jsx";
+import Login from "./views/Login.jsx";
+import NotFound from "./views/NotFound.jsx";
+import Users from "./views/Users.jsx";
+import UserForm from "./views/UserForm.jsx";
 import ForgotPass from "./views/ForgotPass.jsx";
 import Assets from "./views/Assets.jsx";
 import AssetForm from "./views/AssetForm.jsx";
