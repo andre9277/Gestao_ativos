@@ -288,9 +288,8 @@ const ImportForm = () => {
               if (response.status === 200) {
                 setSuccessMessage("Ficheiro importado com sucesso!");
                 // Display the message for a time and then reload the page
-                setTimeout(function () {
-                  window.location.reload();
-                }, 2000); // 2000 milliseconds = 2 seconds
+                axiosClient.get("/assets");
+                setTimeout(function () {}, 2000); // 2000 milliseconds = 2 seconds
               } else {
                 throw new Error("Erro inesperado do servidor!");
               }
