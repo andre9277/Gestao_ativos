@@ -13215,6 +13215,9 @@ input::placeholder {
     font-size: 1.2rem;
 }
 
+.pag-botbot {
+    display: flex;
+}
 .results-pag {
     width: 300px;
 }
