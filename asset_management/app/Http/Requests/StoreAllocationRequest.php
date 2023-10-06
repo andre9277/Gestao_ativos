@@ -40,6 +40,7 @@ class StoreAllocationRequest extends FormRequest
             'inv_number.required' => 'Atenção! É necessário indicar o número de inventário.',
             'reason.required' => 'Atenção! É necessário indicar o motivo.',
             'allocation_date.required' => 'Atenção! É necessário indicar a data.',
+            'asset_id' => 'Atenção! Verifique se o número de inventário existe.'
         ];
     }
 }

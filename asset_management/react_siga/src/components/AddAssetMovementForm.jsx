@@ -301,6 +301,10 @@ const AddAssetMovementForm = () => {
 
         <p></p>
 
+        {errors && errors.asset_id && (
+          <div className="alert">{errors.asset_id[0]}</div>
+        )}
+
         {/* ---------- Allocation Date ----------*/}
         <label className="lb-info">
           <label className="labelofLabel">
