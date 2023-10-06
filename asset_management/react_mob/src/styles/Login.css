@@ -64,7 +64,7 @@ All the changes made to enable the implementation of the desired development too
 
 .footer-copyR {
     color: white;
-    bottom: 0;
+    /* bottom: 0; */
     position: absolute;
 }
 
