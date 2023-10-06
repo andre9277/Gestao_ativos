@@ -276,7 +276,9 @@ const AddAssetMovementForm = () => {
         <p></p>
         <p className="camp-obs-mov">*Campo Obrigatório</p>
         <p></p>
-
+        {errors && errors.asset_id && (
+          <div className="alert">{errors.asset_id[0]}</div>
+        )}
         {/* ---------- Allocation Date ----------*/}
         <label className="lb-info">
           {" "}
@@ -444,7 +446,10 @@ const AddAssetMovementForm = () => {
         <p></p>
         {/* ---------- CI Now ----------*/}
         <label className="lb-info">
-          <label className="labelofLabel"> CI destino: </label>
+          <label className="labelofLabel">
+            {" "}
+            CI destino:<label className="cmp-obg">*</label>{" "}
+          </label>
           <input
             value={assetCi}
             onChange={(e) => setAssetCi(e.target.value)}
