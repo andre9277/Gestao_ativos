@@ -36,7 +36,7 @@ All the changes made to enable the implementation of the desired development too
 import { useEffect, useState, useRef } from "react";
 import axiosClient from "../axios-client.js";
 import "../styles/assets.css";
-import barcode from "../assets/barcode.png";
+import barcode from "../assets/barcode-icon.svg";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";

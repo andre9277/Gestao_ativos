@@ -39,7 +39,7 @@ import { useStateContext } from "../context/ContextProvider.jsx";
 import { useState, useEffect } from "react";
 import "../styles/Login.css";
 
-import img_logo from "../assets/hb_dc.jpg";
+import img_logo from "../assets/hb-logo.svg";
 
 export default function Login() {
   const emailRef = createRef();

@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //$this->authorize('create-delete-users');
+        $this->authorize('create-delete-users');
         $users = User::with('roles:id,name')
             ->orderBy('id', 'desc')
             ->paginate(20);
@@ -28,6 +28,8 @@ class UserController extends Controller
     //Displays all users fromthe current database
     public function indexAll()
     {
+        $this->authorize('create-delete-users');
+
         $users = User::with('roles:id,name')
             ->orderBy('id', 'desc')
             ->get();
@@ -37,6 +39,8 @@ class UserController extends Controller
 
     public function usersAllocations()
     {
+        $this->authorize('create-delete-users');
+        
         $users = User::select(['id', 'name'])->get();
 
         return response()->json($users);
