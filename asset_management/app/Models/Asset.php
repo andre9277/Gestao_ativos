@@ -40,6 +40,29 @@ class Asset extends Model
         'import_type',
     ];
 
+    protected $hidden = [
+        'id',
+        'numb_inv',
+        'date_purch',
+        'state',
+        'numb_ser',
+        'cond',
+        'floor',
+        'ala',
+        'ci',
+        'brand_id',
+        'cat_id',
+        'supplier_id',
+        'ent_id',
+        'unit_id',
+        'model_id',
+        'previous_unit_id',
+        'previous_ent_id',
+        'previous_ci',
+        'obs',
+        'import_type',
+    ];
+
     public static $rules = [
         'numb_inv' => [
             'required',

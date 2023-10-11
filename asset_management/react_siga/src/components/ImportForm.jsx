@@ -358,7 +358,7 @@ const ImportForm = () => {
 
   // Validation function for ala
   const validateAla = (ala) => {
-    if (!ala || ["B", "C", "D", "E"].includes(ala)) {
+    if (!ala || ["A", "B", "C", "D", "E", "F", "I", "GH"].includes(ala)) {
       return true;
     }
     return false;

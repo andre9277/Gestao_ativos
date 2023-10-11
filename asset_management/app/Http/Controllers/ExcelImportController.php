@@ -81,8 +81,8 @@ class ExcelImportController extends Controller
                 return response()->json(['error' => 'Campo Condição inválido: verifique os critérios!'], 400);
             }
 
-            if ($column6 !== 'B' && $column6 !== 'C' && $column6 !== 'D' && $column6 !== 'E' && $column6 !== null) {
-                return response()->json(['error' => 'Campo Ala inválido:'], 400);
+            if ($column6 !== 'A' && $column6 !== 'B' && $column6 !== 'C' && $column6 !== 'D' && $column6 !== 'E' && $column6 !== null && $column6 !== 'F' && $column6 !== 'I' && $column6 !== 'GH') {
+                return response()->json(['error' => 'Campo Bloco inválido:'], 400);
             }
 
             if ($column7 !== '-1' && $column7 !== '0' && $column7 !== '1' && $column7 !== '2' && $column7 !== '3' && $column7 !== '4' && $column7 !== '5' && $column7 !== null) {
