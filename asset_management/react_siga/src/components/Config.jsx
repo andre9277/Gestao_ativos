@@ -412,13 +412,6 @@ const Config = () => {
       return;
     }
 
-    // Check if the brand already exists in the list
-    if (brands.some((brand) => brand.name === newBrand.trim())) {
-      setError("Atenção! Marca já existe!");
-      clearErrorAfterTimeout(5000); // Clear the error after 5 seconds
-      return;
-    }
-
     try {
       // Make a POST request to your backend API to add a new brand
       const response = await axiosClient.post("/brandsAdd", {
@@ -851,11 +844,11 @@ const Config = () => {
     }
 
     // Check if the model already exists in the list
-    if (models.some((model) => model.name === newModel.trim())) {
+    /*  if (models.some((model) => model.name === newModel.trim())) {
       setError("Atenção! Modelo já existe!");
       clearErrorAfterTimeout(5000);
       return;
-    }
+    } */
 
     try {
       // Make a POST request to your backend API to add a new model
