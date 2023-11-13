@@ -1,5 +1,6 @@
 # Integrated Asset Management System
 A platform that allows the management of the assets of Hospital de Braga (SIGA: Sistema Integrado de Gestão de ativos).
+![Imagem2](https://github.com/andre9277/Gestao_ativos/assets/110822583/43b4e7df-e2bc-4ccd-9ebd-b025b0f1055c)
 
 # Table of Contents
 - [Project Overview ](#project-overview)
@@ -10,6 +11,7 @@ A platform that allows the management of the assets of Hospital de Braga (SIGA: 
   
 ## Project Overview 
 The project is a asset management plataform developed in React and Laravel. It incorporates two major features: asset management of all the informatic assets and reading the code bar with the smartphone. The project has one project for the web application and another one for mobile application.
+![Imagem3](https://github.com/andre9277/Gestao_ativos/assets/110822583/be8587a5-4f76-4a03-879b-e20c1bee409f)
 
 ## User Roles
 There are three distinct user roles within the system:
@@ -25,6 +27,7 @@ There are three distinct user roles within the system:
 - Asset Movement
 - Asset Report
 - Asset properties creation and management
+- Import Assets
 
 ## Technologies
 - React.js
@@ -34,6 +37,7 @@ There are three distinct user roles within the system:
 - CentOS
 
 ## Schema Diagram
+![db](https://github.com/andre9277/Gestao_ativos/assets/110822583/b854a6d9-ae53-4485-ab82-c49ca330269d)
 
 ## Getting Started
 -   Before starting the project, it is necessary to install some packages/libraries:
