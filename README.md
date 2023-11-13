@@ -1,5 +1,41 @@
-# Asset Management
+# Integrated Asset Management System
+A platform that allows the management of the assets of Hospital de Braga (SIGA: Sistema Integrado de Gestão de ativos).
 
+# Table of Contents
+- [Project Overview ](#project-overview)
+- [Features](#features)
+- [Technologies](#technologies)
+- [Schema Diagram](#schema-diagram)
+- [Getting Started](#getting-started)
+  
+## Project Overview 
+The project is a asset management plataform developed in React and Laravel. It incorporates two major features: asset management of all the informatic assets and reading the code bar with the smartphone. The project has one project for the web application and another one for mobile application.
+
+## User Roles
+There are three distinct user roles within the system:
+ 1. Admin: The admin role manages the overall system, including moderator management, asset management, user moderation, monitoring user activity, and more.
+ 2. Information system user: The information system user can asset management and read asset with the bar code scan.
+ 3. Maintenance user: Maintenance user can only search for the asset information and read with the bar code scan.
+
+## Features
+- User authentication and authorization
+- User profile creation and management
+- Asset creation and management
+- Bar code reading
+- Asset Movement
+- Asset Report
+- Asset properties creation and management
+
+## Technologies
+- React.js
+- Laravel
+- Tailwind CSS
+- MySQL
+- CentOS
+
+## Schema Diagram
+
+## Getting Started
 -   Before starting the project, it is necessary to install some packages/libraries:
 
     ### In the root Directory:
