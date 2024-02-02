@@ -1,5 +1,6 @@
 # Integrated Asset Management System
 A platform that allows the management of the assets of Hospital de Braga (SIGA: Sistema Integrado de Gestão de ativos).
+
 ![Imagem2](https://github.com/andre9277/Gestao_ativos/assets/110822583/43b4e7df-e2bc-4ccd-9ebd-b025b0f1055c)
 
 # Table of Contents
